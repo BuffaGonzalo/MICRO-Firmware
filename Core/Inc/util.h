@@ -51,4 +51,29 @@ typedef enum {
 	UNKNOWN = 0xFF
 } _eCmd;
 
+typedef enum{
+    BUTTON_DOWN,
+    BUTTON_UP,
+    BUTTON_RISING,
+    BUTTON_FALLING
+}_eButtonState;
+
+/**
+ * @brief Enumeracion de los estados de los diferentes estados de los botones, como tengo una configuracion PullDown los coloqué de tal forma que me quede el valor de NOT_PRESSED = 0  y PRESSED = 1
+*/
+typedef enum{
+    PRESSED,
+    NOT_PRESSED,
+    NO_EVENT
+}_eEvent;
+
+//ESTRUCTURAS
+typedef struct
+{
+    _eButtonState   currentState;
+    _eEvent         stateInput;
+    uint8_t        isPressed;
+    uint16_t        time;
+}_sButton;
+
 #endif /* INC_UTIL_H_ */

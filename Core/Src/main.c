@@ -64,6 +64,14 @@
 #define TIM3CP				9999
 
 
+#define DEBOUNCE             4
+#define NUMBUTTONS           1
+#define LIMIT                0x0F
+
+#define T100MS				100
+#define T1000MS				1000
+
+
 //banderas
 #define ALLFLAGS          	myFlags.bytes
 #define IS10MS				myFlags.bits.bit0
@@ -95,7 +103,7 @@ TIM_HandleTypeDef htim4;
 UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
-uint32_t heartBeatMask[] = {0x55555555, 0x1, 0x2010080, 0x5F, 0x5, 0x28140A00, 0x15F, 0x15, 0x2A150A08, 0x55F};
+uint32_t heartBeatMask[] = {0xFFFFFFFF, 0x00000000, 0x55555555, 0x1, 0x2010080, 0x5F, 0x5, 0x28140A00, 0x15F, 0x15, 0x2A150A08, 0x55F};
 
 const char firmware[] = "EX100923v01\n";
 
@@ -147,6 +155,8 @@ uint8_t timerUDP = 0;
 uint8_t byteUART_ESP01;
 _sESP01Handle esp01Handler;
 
+_sButton myButton;
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -183,6 +193,23 @@ void mpuMemWrite(uint8_t address, uint8_t *data, uint8_t size, uint8_t type);
 void mpuMemReadDMA(uint8_t address, uint8_t *data, uint8_t size, uint8_t type);
 //i2C
 void i2cTask();
+//boton
+/**
+ * @brief Función con la cual inicializamos los botones
+ * @param _sButton Estructura con los datos del boton
+ * @param buttonFunction Puntero a funcion
+*/
+void initButton(_sButton *button);
+
+/**
+ * @brief Función utilizada para actualizar la MEF de los botones
+ * @param _sButton Estructura con los datos
+*/
+uint8_t updateMefTask(_sButton *button);
+
+void buttonTask();
+
+void buttonTimeout10ms(_sButton *button);
 
 /* USER CODE END PFP */
 
@@ -351,6 +378,7 @@ void do10ms() {
 		tmo100ms--;
 		tmo20ms--;
 		ESP01_Timeout10ms();
+		buttonTimeout10ms(&myButton);
 
 		if (!tmo20ms) {
 			tmo20ms = 2;
@@ -401,8 +429,11 @@ void do100ms(){
 void heartBeatTask() {
 	static uint8_t times = 0;
 
-	if (~heartBeatMask[hbIndex] & (1 << times)) //Add index
-		HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin); // Blink LED
+	if (~heartBeatMask[hbIndex] & (1 << times)) {
+		HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, GPIO_PIN_SET);
+	} else {
+		HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, GPIO_PIN_RESET);
+	}
 
 	times++;
 	times &= 31;
@@ -624,6 +655,85 @@ void WiFi_Data_Callback(uint8_t byte)
     USBRx.indexW &= USBRx.mask;
 }
 
+//BOTONES
+void initButton(_sButton *button){
+    button->currentState = BUTTON_UP;
+    button->stateInput = NO_EVENT;
+    button->isPressed = FALSE;
+    button->time = 0;
+}
+
+uint8_t updateMefTask(_sButton *button){
+    uint8_t action=FALSE;
+
+    switch (button->currentState){
+        case BUTTON_UP:
+            if(button->stateInput==PRESSED)
+                button->currentState=BUTTON_FALLING;
+        break;
+        case BUTTON_FALLING:
+            if(button->stateInput==PRESSED){
+                button->currentState=BUTTON_DOWN;
+                button->isPressed=TRUE;
+            }else{
+                button->currentState=BUTTON_UP;
+            }
+        break;
+        case BUTTON_DOWN:
+            if(button->stateInput==NOT_PRESSED)
+                button->currentState=BUTTON_RISING;
+        break;
+        case BUTTON_RISING:
+            if(button->stateInput==NOT_PRESSED){
+                button->currentState=BUTTON_UP;
+                button->isPressed = FALSE;
+                action=TRUE;
+            }else{
+                button->currentState=BUTTON_DOWN;
+            }
+        break;
+        default:
+            button->currentState=BUTTON_UP;
+        break;
+    }
+    return action;
+}
+
+
+void buttonTimeout10ms(_sButton *button){
+    static uint8_t timeToDebounce= 0;
+
+    if(button->isPressed){
+        button->time += 10;
+    } else{
+    	button->time = 0;
+    }
+
+    // ACTUALIZAMOS EL ESTADO DE LOS PULSADORES
+    if(timeToDebounce > DEBOUNCE){
+        timeToDebounce = 0;
+
+		if(HAL_GPIO_ReadPin(SW0_GPIO_Port, SW0_Pin) == GPIO_PIN_RESET) {
+			myButton.stateInput = PRESSED;
+		} else {
+			myButton.stateInput = NOT_PRESSED;
+		}
+
+    } else {
+        timeToDebounce++;
+    }
+}
+
+void buttonTask(_sButton *button){
+	if((!button->isPressed) && (button->time > T100MS) && (button->time<T1000MS)){
+		hbIndex = 1;
+		button->time = 0; //limpiamos el valor para que no pueda volver a entrar en esta parte
+	}
+	if((!button->isPressed) && (button->time > T1000MS)){
+		hbIndex = 0;
+		button->time = 0;
+	}
+}
 
 /* USER CODE END 0 */
 
@@ -722,6 +832,8 @@ int main(void)
   	chnl_2=0;
   	chnl_4=0;
 
+    //INICIALIZAMOS BOTONES
+    initButton(&myButton);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -737,6 +849,9 @@ int main(void)
 
 	PWM_Control();
 	i2cTask();
+
+	buttonTask(&myButton);
+	updateMefTask(&myButton);
 
   }
   /* USER CODE END 3 */
