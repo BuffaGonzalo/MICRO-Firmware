@@ -647,7 +647,7 @@ static void ESP01DOConnection(){
 		ESP01StrToBufTX(ATCIPMUX);
 		if(ESP01DbgStr != NULL)
 			ESP01DbgStr("+&DBGESP01ATCIPMUX\n");
-		esp01ATSate = ESP01ATCWJAP;
+		esp01ATSate = ESP01CWJAPRESPONSE;
 		break;
 	case ESP01ATCWJAP:
 		if(esp01Flags.bit.WIFICONNECTED){

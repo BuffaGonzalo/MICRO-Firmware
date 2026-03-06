@@ -71,7 +71,6 @@
 #define T100MS				100
 #define T1000MS				1000
 
-
 //banderas
 #define ALLFLAGS          	myFlags.bytes
 #define IS10MS				myFlags.bits.bit0
@@ -154,7 +153,6 @@ uint8_t hbIndex = 0;
 uint8_t timerUDP = 0;
 uint8_t byteUART_ESP01;
 _sESP01Handle esp01Handler;
-
 _sButton myButton;
 
 /* USER CODE END PV */
@@ -266,21 +264,22 @@ void USBRxData(uint8_t *buf, uint32_t len) { //Recibimos datos -> Enviamos datos
 
 void USBTask() {
 
-	if(USBRx.indexR != USBRx.indexW){
+	if (USBRx.indexR != USBRx.indexW) {
 		uint8_t sendBuffer[TXBUFSIZE];
 
-		if (unerPrtcl_DecodeHeader(&USBRx)){
+		if (unerPrtcl_DecodeHeader(&USBRx)) {
+
 			decodeCommand(&USBRx, &USBTx);
 
-		for (uint8_t i = 0; i < USBTx.bytes; i++) { //Paso limpio, error ultima posición
-			sendBuffer[i] = USBTx.buff[USBTx.indexData++];
-			USBTx.indexData &= USBTx.mask;
-		}
+			for (uint8_t i = 0; i < USBTx.bytes; i++) { //Paso limpio, error ultima posición
+				sendBuffer[i] = USBTx.buff[USBTx.indexData++];
+				USBTx.indexData &= USBTx.mask;
+			}
 
-		if(ESP01_StateUDPTCP() == ESP01_UDPTCP_CONNECTED)
-			ESP01_Send(sendBuffer, 0, USBTx.bytes, TXBUFSIZE);
-		else
-			CDC_Transmit_FS(sendBuffer, USBTx.bytes);
+			if (ESP01_StateUDPTCP() == ESP01_UDPTCP_CONNECTED)
+				ESP01_Send(sendBuffer, 0, USBTx.bytes, TXBUFSIZE);
+			else
+				CDC_Transmit_FS(sendBuffer, USBTx.bytes);
 		}
 	}
 }
@@ -387,39 +386,17 @@ void do10ms() {
 		if (!tmo100ms) {
 			tmo100ms = 10;
 
-			timerUDP++;
-			if(timerUDP>=10){ //Entrar cada 1000ms o 1s
-				timerUDP=0;
-
-//				// Preparamos un paquete ALIVE (0xF0)
-//				_sTx paqueteAlive;
-//				uint8_t bufferTx[32];
-//
-//				// Armamos cabecera UNER
-//				unerPrtcl_PutHeaderOnTx(&paqueteAlive, ALIVE, 1);
-//				// Ponemos un dato dummy (ej. 0x00)
-//				unerPrtcl_PutByteOnTx(&paqueteAlive, 0x00);
-//				// Checksum
-//				unerPrtcl_PutByteOnTx(&paqueteAlive, paqueteAlive.chk);
-//
-//				// Pasamos el paquete a un buffer lineal
-//				for(int i=0; i<paqueteAlive.bytes; i++){
-//					bufferTx[i] = paqueteAlive.buff[paqueteAlive.indexData++];
-//					paqueteAlive.indexData &= paqueteAlive.mask;
-//				}
-
-				if(ESP01_StateUDPTCP() == ESP01_UDPTCP_CONNECTED){
-					// Trama UNER estática pre-calculada para ALIVE (9 bytes)
-					uint8_t bufferTx[9] = {'U', 'N', 'E', 'R', 0x02, ':', ALIVE, 0x00, 0xC4};
-
-					ESP01_Send(bufferTx, 0, 9, 64);
-				}
-
-			}
-
 			IS100MS = TRUE;
 			heartBeatTask();
 
+			timerUDP++;
+			if (timerUDP >= 10) { //Entrar cada 1000ms o 1s
+				timerUDP = 0;
+				//En la cantidad de datos a enviar se manda el cantidad de payload + checksum
+				static uint8_t bufferTx[9] = { 'U', 'N', 'E', 'R', 0x03, ':', ALIVE, ACK, 0xC8 };
+				ESP01_Send(bufferTx, 0, 9, TXBUFSIZE);
+
+			}
 		}
 	}
 }
@@ -820,9 +797,9 @@ int main(void)
   	HAL_UART_Receive_IT(&huart1, &byteUART_ESP01, 1); //non blocking
 
   	//ESP01_SetWIFI("FCAL","fcalconcordia.06-2019");
-  	//ESP01_SetWIFI("Buffa Family 2.4GHz", "-NixieBulb2022-");
-  	ESP01_SetWIFI("ARPAMOVILE","12345678");
-  	ESP01_StartUDP("192.168.154.68", 30010, 30001);
+  	ESP01_SetWIFI("ARPANET", "1969-Apolo_11-2022");
+  	//ESP01_SetWIFI("ARPAMOVILE","12345678");
+  	ESP01_StartUDP("192.168.0.13", 30010, 30001);
 
   	//Inicializacion de protocolo
   	unerPrtcl_Init(&USBRx, &USBTx, buffUSBRx, buffUSBTx);
