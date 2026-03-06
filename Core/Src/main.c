@@ -103,7 +103,7 @@ TIM_HandleTypeDef htim4;
 UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
-uint32_t heartBeatMask[] = {0xFFFFFFFF, 0x00000000, 0x55555555, 0x1, 0x2010080, 0x5F, 0x5, 0x28140A00, 0x15F, 0x15, 0x2A150A08, 0x55F};
+uint32_t heartBeatMask[] = {0x55555555, 0xFFFFFFFF, 0x00000000, 0x1, 0x2010080, 0x5F, 0x5, 0x28140A00, 0x15F, 0x15, 0x2A150A08, 0x55F};
 
 const char firmware[] = "EX100923v01\n";
 
@@ -388,28 +388,32 @@ void do10ms() {
 			tmo100ms = 10;
 
 			timerUDP++;
-			if(timerUDP>=10){
+			if(timerUDP>=10){ //Entrar cada 1000ms o 1s
 				timerUDP=0;
 
-				// Preparamos un paquete ALIVE (0xF0)
-				_sTx paqueteAlive;
-				uint8_t bufferTx[32];
+//				// Preparamos un paquete ALIVE (0xF0)
+//				_sTx paqueteAlive;
+//				uint8_t bufferTx[32];
+//
+//				// Armamos cabecera UNER
+//				unerPrtcl_PutHeaderOnTx(&paqueteAlive, ALIVE, 1);
+//				// Ponemos un dato dummy (ej. 0x00)
+//				unerPrtcl_PutByteOnTx(&paqueteAlive, 0x00);
+//				// Checksum
+//				unerPrtcl_PutByteOnTx(&paqueteAlive, paqueteAlive.chk);
+//
+//				// Pasamos el paquete a un buffer lineal
+//				for(int i=0; i<paqueteAlive.bytes; i++){
+//					bufferTx[i] = paqueteAlive.buff[paqueteAlive.indexData++];
+//					paqueteAlive.indexData &= paqueteAlive.mask;
+//				}
 
-				// Armamos cabecera UNER
-				unerPrtcl_PutHeaderOnTx(&paqueteAlive, ALIVE, 1);
-				// Ponemos un dato dummy (ej. 0x00)
-				unerPrtcl_PutByteOnTx(&paqueteAlive, 0x00);
-				// Checksum
-				unerPrtcl_PutByteOnTx(&paqueteAlive, paqueteAlive.chk);
+				if(ESP01_StateUDPTCP() == ESP01_UDPTCP_CONNECTED){
+					// Trama UNER estática pre-calculada para ALIVE (9 bytes)
+					uint8_t bufferTx[9] = {'U', 'N', 'E', 'R', 0x02, ':', ALIVE, 0x00, 0xC4};
 
-				// Pasamos el paquete a un buffer lineal
-				for(int i=0; i<paqueteAlive.bytes; i++){
-					bufferTx[i] = paqueteAlive.buff[paqueteAlive.indexData++];
-					paqueteAlive.indexData &= paqueteAlive.mask;
+					ESP01_Send(bufferTx, 0, 9, 64);
 				}
-
-				// Enviamos el saludo a la IP de la PC (Configurada en el Init)
-				ESP01_Send(bufferTx, 0, paqueteAlive.bytes, 100);
 
 			}
 
