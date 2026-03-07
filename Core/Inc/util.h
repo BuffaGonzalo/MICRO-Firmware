@@ -19,6 +19,10 @@ enum {
 	FALSE, TRUE
 };
 
+enum {
+	SERIE, WIFI
+};
+
 
 /**
  * @brief Mapa de bits para banderas

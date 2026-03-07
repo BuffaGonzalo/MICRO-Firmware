@@ -114,9 +114,12 @@ uint8_t tmo20ms = 2;
 uint16_t adcData[8], adcDataTx[8]; //ADC
 
 //Comunicación
-_sTx USBTx, USBRx;
+_sComm USBTx, USBRx;
+_sComm WiFiTx, WiFiRx;
 volatile uint8_t buffUSBTx[RXBUFSIZE];
 volatile uint8_t buffUSBRx[TXBUFSIZE];
+volatile uint8_t buffWiFiTx[RXBUFSIZE];
+volatile uint8_t buffWiFiRx[TXBUFSIZE];
 uint8_t nBytesTx = 0;
 _uWord myWord;
 //Control
@@ -173,7 +176,7 @@ static void MX_TIM4_Init(void);
 //USB-Serial Communication
 void USBTask();
 void USBRxData(uint8_t *buf, uint32_t len);
-void decodeCommand(_sTx *dataRx, _sTx *dataTx);
+void decodeCommand(_sComm *dataRx, _sComm *dataTx);
 //Time functions
 void do10ms();
 void do100ms();
@@ -262,29 +265,30 @@ void USBRxData(uint8_t *buf, uint32_t len) { //Recibimos datos -> Enviamos datos
 
 }
 
-void USBTask() {
+void COMMTask(_sComm *dataRx, _sComm *dataTx, uint8_t source) {
 
-	if (USBRx.indexR != USBRx.indexW) {
+	if (dataRx->indexR != dataRx->indexW) {
 		uint8_t sendBuffer[TXBUFSIZE];
 
-		if (unerPrtcl_DecodeHeader(&USBRx)) {
+		if (unerPrtcl_DecodeHeader(dataRx)) {
 
-			decodeCommand(&USBRx, &USBTx);
+			decodeCommand(dataRx, dataTx);
 
-			for (uint8_t i = 0; i < USBTx.bytes; i++) { //Paso limpio, error ultima posición
-				sendBuffer[i] = USBTx.buff[USBTx.indexData++];
-				USBTx.indexData &= USBTx.mask;
+			for (uint8_t i = 0; i < dataTx->bytes; i++) { //Paso limpio, error ultima posición
+				sendBuffer[i] = dataTx->buff[dataTx->indexData++];
+				dataTx->indexData &= dataTx->mask;
 			}
 
-			if (ESP01_StateUDPTCP() == ESP01_UDPTCP_CONNECTED)
-				ESP01_Send(sendBuffer, 0, USBTx.bytes, TXBUFSIZE);
+			//if (ESP01_StateUDPTCP() == ESP01_UDPTCP_CONNECTED)
+			if(source)
+				ESP01_Send(sendBuffer, 0, dataTx->bytes, TXBUFSIZE);
 			else
-				CDC_Transmit_FS(sendBuffer, USBTx.bytes);
+				CDC_Transmit_FS(sendBuffer, dataTx->bytes);
 		}
 	}
 }
 
-void decodeCommand(_sTx *dataRx, _sTx *dataTx) {
+void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 
 	switch (dataRx->buff[dataRx->indexData]) {
 	case ALIVE:
@@ -591,7 +595,6 @@ void PWM_Control(){
 
 }
 
-
 void CHPD_Control(uint8_t state)
 {
     /* Assuming CH_PD is on GPIOB Pin 0 */
@@ -632,8 +635,8 @@ void DebugESP01_To_USB(const char *msg) {
 void WiFi_Data_Callback(uint8_t byte)
 {
     // AQUÍ guardamos el dato en tu estructura de protocolo para que USBTask lo procese
-    USBRx.buff[USBRx.indexW++] = byte;
-    USBRx.indexW &= USBRx.mask;
+    WiFiRx.buff[WiFiRx.indexW++] = byte;
+    WiFiRx.indexW &= WiFiRx.mask;
 }
 
 //BOTONES
@@ -679,7 +682,6 @@ uint8_t updateMefTask(_sButton *button){
     }
     return action;
 }
-
 
 void buttonTimeout10ms(_sButton *button){
     static uint8_t timeToDebounce= 0;
@@ -803,7 +805,7 @@ int main(void)
 
   	//Inicializacion de protocolo
   	unerPrtcl_Init(&USBRx, &USBTx, buffUSBRx, buffUSBTx);
-
+  	unerPrtcl_Init(&WiFiRx, &WiFiTx, buffWiFiRx, buffWiFiTx);
   	//Variables
   	ALLFLAGS = RESET;
   	//reversa
@@ -826,7 +828,9 @@ int main(void)
     /* USER CODE BEGIN 3 */
 	do10ms();
 	ESP01_Task();
-	USBTask();
+
+	COMMTask(&USBRx, &USBTx, SERIE);
+	COMMTask(&WiFiRx, &WiFiTx, WIFI);
 
 	PWM_Control();
 	i2cTask();

@@ -39,21 +39,36 @@ typedef union {
  * @brief estructura para la recepción de datos por puerto serie
  *
  */
-typedef struct {
-	uint8_t *buff; /*!< Puntero para el buffer de recepción*/
-	uint8_t indexR; /*!< indice de lectura del buffer circular*/
-	uint8_t indexW; /*!< indice de escritura del buffer circular*/
-	uint8_t indexData; /*!< indice para identificar la posición del dato*/
-	uint8_t mask; /*!< máscara para controlar el tamaño del buffer*/
-	uint8_t chk; /*!< variable para calcular el checksum*/
-	uint8_t nBytes; /*!< variable para almacenar el número de bytes recibidos*/
-	uint8_t header; /*!< variable para mantener el estado dela MEF del protocolo*/
-	uint8_t timeOut; /*!< variable para resetear la MEF si no llegan más caracteres luego de cierto tiempo*/
-	uint8_t isComannd;
-} _sRx;
+//typedef struct {
+//	uint8_t *buff; /*!< Puntero para el buffer de recepción*/
+//	uint8_t indexR; /*!< indice de lectura del buffer circular*/
+//	uint8_t indexW; /*!< indice de escritura del buffer circular*/
+//	uint8_t indexData; /*!< indice para identificar la posición del dato*/
+//	uint8_t mask; /*!< máscara para controlar el tamaño del buffer*/
+//	uint8_t chk; /*!< variable para calcular el checksum*/
+//	uint8_t nBytes; /*!< variable para almacenar el número de bytes recibidos*/
+//	uint8_t header; /*!< variable para mantener el estado dela MEF del protocolo*/
+//	uint8_t timeOut; /*!< variable para resetear la MEF si no llegan más caracteres luego de cierto tiempo*/
+//	uint8_t isComannd;
+//} _sRx;
 
 /**
  * @brief Estructura para la transmisión de datos por el puerto serie
+ *
+ */
+//typedef struct {
+//	uint8_t *buff; /*!< Puntero para el buffer de transmisión*/
+//	uint8_t indexR; /*!<indice de lectura del buffer circular*/
+//	uint8_t indexW; /*!<indice de escritura del buffer circular*/
+//	uint8_t mask; /*!<máscara para controlar el tamaño del buffer*/
+//	uint8_t bytes;
+//	uint8_t indexData;
+//	uint8_t chk; /*!< variable para calcular el checksum*/
+//} _sTx;
+
+
+/**
+ * @brief Estructura correspondiente a la comunicacion
  *
  */
 typedef struct {
@@ -64,7 +79,7 @@ typedef struct {
 	uint8_t bytes;
 	uint8_t indexData;
 	uint8_t chk; /*!< variable para calcular el checksum*/
-} _sTx;
+} _sComm;
 
 /**
  * @brief Enumeración para la maquina de estados
@@ -84,7 +99,7 @@ typedef enum {
  * @param frameLength Longitud de la trama del comando
  * @return uint8_t devuelve el Checksum de los datos agregados al buffer de trasnmisi?n
  */
-uint8_t unerPrtcl_PutHeaderOnTx(_sTx  *dataTx, uint8_t ID, uint8_t frameLength);
+uint8_t unerPrtcl_PutHeaderOnTx(_sComm  *dataTx, uint8_t ID, uint8_t frameLength);
 
 /**
  * @brief Agrega un byte al buffer de transmisi?n
@@ -93,7 +108,7 @@ uint8_t unerPrtcl_PutHeaderOnTx(_sTx  *dataTx, uint8_t ID, uint8_t frameLength);
  * @param byte El elemento que se quiere agregar
  * @return uint8_t devuelve el Checksum del dato agregado al buffer de trasnmisi?n
  */
-uint8_t unerPrtcl_PutByteOnTx(_sTx    *dataTx, uint8_t byte);
+uint8_t unerPrtcl_PutByteOnTx(_sComm    *dataTx, uint8_t byte);
 
 /**
  * @brief Agrega un String al buffer de transmisi?n
@@ -102,17 +117,17 @@ uint8_t unerPrtcl_PutByteOnTx(_sTx    *dataTx, uint8_t byte);
  * @param str String a agregar
  * @return uint8_t devuelve el Checksum del dato agregado al buffer de trasnmisi?n
  */
-uint8_t unerPrtcl_PutStrOntx(_sTx *dataTx, const char *str);
+uint8_t unerPrtcl_PutStrOntx(_sComm *dataTx, const char *str);
 
 /**
  * @brief Decodifica la trama recibida
  *
  * @param dataRx Estructura para la recepci?n de datos
  */
-uint8_t unerPrtcl_DecodeHeader(_sTx *dataRx);
+uint8_t unerPrtcl_DecodeHeader(_sComm *dataRx);
 
-uint8_t unerPrtcl_GetByteFromRx(_sTx *dataRx, uint8_t start, uint8_t end);
+uint8_t unerPrtcl_GetByteFromRx(_sComm *dataRx, uint8_t start, uint8_t end);
 
-void unerPrtcl_Init(_sTx *Rx, _sTx *Tx, volatile uint8_t *buffRx, volatile uint8_t *buffTx);
+void unerPrtcl_Init(_sComm *Rx, _sComm *Tx, volatile uint8_t *buffRx, volatile uint8_t *buffTx);
 
 #endif /* INC_UNERPRTCL_H_ */
