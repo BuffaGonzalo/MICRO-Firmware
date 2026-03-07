@@ -279,7 +279,6 @@ void COMMTask(_sComm *dataRx, _sComm *dataTx, uint8_t source) {
 				dataTx->indexData &= dataTx->mask;
 			}
 
-			//if (ESP01_StateUDPTCP() == ESP01_UDPTCP_CONNECTED)
 			if(source)
 				ESP01_Send(sendBuffer, 0, dataTx->nBytes, TXBUFSIZE);
 			else
