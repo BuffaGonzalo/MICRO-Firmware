@@ -45,7 +45,7 @@ uint8_t unerPrtcl_PutHeaderOnTx(_sComm  *dataTx, uint8_t ID, uint8_t frameLength
     dataTx->buff[dataTx->indexW++]=ID;
     dataTx->indexW &= dataTx->mask;
 
-    dataTx->bytes = TXBYTES;
+    dataTx->nBytes = TXBYTES;
     dataTx->chk ^= ('U' ^'N' ^'E' ^'R' ^frameLength ^':'^ID) ;
 
     return  dataTx->chk;
@@ -53,7 +53,7 @@ uint8_t unerPrtcl_PutHeaderOnTx(_sComm  *dataTx, uint8_t ID, uint8_t frameLength
 
 uint8_t unerPrtcl_PutByteOnTx(_sComm *dataTx, uint8_t byte)
 {
-	dataTx->bytes++;
+	dataTx->nBytes++;
     dataTx->buff[dataTx->indexW++]=byte;
     dataTx->indexW &= dataTx->mask;
     dataTx->chk ^= byte;
@@ -64,7 +64,7 @@ uint8_t unerPrtcl_PutStrOntx(_sComm *dataTx, const char *str)
 {
     volatile uint8_t globalIndex=0;
     while(str[globalIndex]){
-    	dataTx->bytes++;
+    	dataTx->nBytes++;
         dataTx->buff[dataTx->indexW++]=str[globalIndex];
         dataTx->indexW &= dataTx->mask;
         dataTx->chk ^= str[globalIndex++];
@@ -86,71 +86,76 @@ uint8_t unerPrtcl_GetByteFromRx(_sComm *dataRx, uint8_t start, uint8_t end) {
 
 uint8_t unerPrtcl_DecodeHeader(_sComm *dataRx)
 {
-	uint8_t nBytes = 0;
-	static uint8_t header = HEADER_U;
+	//nBytes y header se pueden comportar raro en caso de conexion serie y wifi al mismo tiempo debido a que comparten misma variable para conexion
+	//Solucion colocar nBytes y header como parte del tipo de dato _sComm
+	//uint8_t nBytes = 0;
+
+	//static uint8_t header = HEADER_U;
+
     uint8_t auxIndex=dataRx->indexW;
+
     while(dataRx->indexR != auxIndex){
-        switch(header)
+        switch(dataRx->header)
         {
             case HEADER_U:
                 if(dataRx->buff[dataRx->indexR] == 'U'){
-                   header = HEADER_N;
+                	dataRx->header = HEADER_N;
                 }
             break;
             case HEADER_N:
                 if(dataRx->buff[dataRx->indexR] == 'N'){
-                    header = HEADER_E;
+                	dataRx->header = HEADER_E;
                 }else{
                     if(dataRx->buff[dataRx->indexR] != 'U'){
-                    	header = HEADER_U;
+                    	dataRx->header = HEADER_U;
                         dataRx->indexR--;
                     }
                 }
             break;
             case HEADER_E:
                 if(dataRx->buff[dataRx->indexR] == 'E'){
-                    header = HEADER_R;
+                	dataRx->header = HEADER_R;
                 }else{
-                    header = HEADER_U;
+                	dataRx->header = HEADER_U;
                     dataRx->indexR--;
                 }
             break;
             case HEADER_R:
                 if(dataRx->buff[dataRx->indexR] == 'R'){
-                    header = NBYTES;
+                	dataRx->header = NBYTES;
                 }else{
-                    header = HEADER_U;
+                	dataRx->header = HEADER_U;
                     dataRx->indexR--;
                 }
             break;
             case NBYTES:
-                nBytes=dataRx->buff[dataRx->indexR];
-                header = TOKEN;
+                dataRx->nBytes=dataRx->buff[dataRx->indexR];
+                dataRx->header = TOKEN;
             break;
             case TOKEN:
                 if(dataRx->buff[dataRx->indexR] == ':'){
-                    header = PAYLOAD;
+                	dataRx->header = PAYLOAD;
                     dataRx->indexData = dataRx->indexR+1;
                     dataRx->indexData &= dataRx->mask;
                     dataRx->chk = 0;
-                    dataRx->chk ^= ('U' ^'N' ^'E' ^'R' ^nBytes ^':') ;
+                    dataRx->chk ^= ('U' ^'N' ^'E' ^'R' ^ dataRx->nBytes ^':') ;
                 }else{
-                    header = HEADER_U;
+                	dataRx->header = HEADER_U;
                     dataRx->indexR--;
                 }
             break;
             case PAYLOAD:
-                nBytes--;
-                if(nBytes>0){
+            	dataRx->nBytes--;
+                if(dataRx->nBytes>0){
                    dataRx->chk ^= dataRx->buff[dataRx->indexR];
                 }else{
-                    header = HEADER_U;
+                	dataRx->header = HEADER_U;
                     if(dataRx->buff[dataRx->indexR] == dataRx->chk)
                         return TRUE;
                 }
             break;
             default:
-                header = HEADER_U;
+            	dataRx->header = HEADER_U;
             break;
         }
         dataRx->indexR++;
@@ -164,7 +169,8 @@ void unerPrtcl_Init(_sComm *Rx, _sComm *Tx, volatile uint8_t *buffRx, volatile u
     Rx->indexR = 0;
     Rx->indexW = 0;
     Rx->indexData = 0;
-    Rx->bytes = 0;
+    Rx->nBytes = 0;
+    Rx->header = HEADER_U;
     Rx->mask = RXBUFSIZE - 1; //Control de buffer 2n-1
     Rx->chk = 0;
 
@@ -172,7 +178,8 @@ void unerPrtcl_Init(_sComm *Rx, _sComm *Tx, volatile uint8_t *buffRx, volatile u
     Tx->indexR = 0;
     Tx->indexW = 0;
     Tx->indexData = 0;
-    Tx->bytes = 0;
+    Tx->nBytes = 0;
+    Tx->header = HEADER_U;
     Tx->mask = TXBUFSIZE - 1;
     Tx->chk = 0;
 

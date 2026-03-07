@@ -75,10 +75,11 @@ typedef struct {
 	uint8_t *buff; /*!< Puntero para el buffer de transmisión*/
 	uint8_t indexR; /*!<indice de lectura del buffer circular*/
 	uint8_t indexW; /*!<indice de escritura del buffer circular*/
+	uint8_t indexData;/*!<Marcador de posicion de inicio de datos utiles*/
 	uint8_t mask; /*!<máscara para controlar el tamaño del buffer*/
-	uint8_t bytes;
-	uint8_t indexData;
 	uint8_t chk; /*!< variable para calcular el checksum*/
+	uint8_t nBytes; /*!< variable para almacenar el número de bytes recibidos*/
+	uint8_t header; /*!< variable para mantener el estado dela MEF del protocolo*/
 } _sComm;
 
 /**

@@ -274,16 +274,16 @@ void COMMTask(_sComm *dataRx, _sComm *dataTx, uint8_t source) {
 
 			decodeCommand(dataRx, dataTx);
 
-			for (uint8_t i = 0; i < dataTx->bytes; i++) { //Paso limpio, error ultima posición
+			for (uint8_t i = 0; i < dataTx->nBytes; i++) { //Paso limpio, error ultima posición
 				sendBuffer[i] = dataTx->buff[dataTx->indexData++];
 				dataTx->indexData &= dataTx->mask;
 			}
 
 			//if (ESP01_StateUDPTCP() == ESP01_UDPTCP_CONNECTED)
 			if(source)
-				ESP01_Send(sendBuffer, 0, dataTx->bytes, TXBUFSIZE);
+				ESP01_Send(sendBuffer, 0, dataTx->nBytes, TXBUFSIZE);
 			else
-				CDC_Transmit_FS(sendBuffer, dataTx->bytes);
+				CDC_Transmit_FS(sendBuffer, dataTx->nBytes);
 		}
 	}
 }
