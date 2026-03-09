@@ -63,6 +63,8 @@
 
 #define TIM3CP				9999
 
+//WebServer - solo necesitamos la primera linea del request HTTP (~80 bytes max)
+#define HTTP_BUF_SIZE   128
 
 #define DEBOUNCE             4
 #define NUMBUTTONS           1
@@ -158,6 +160,21 @@ uint8_t byteUART_ESP01;
 _sESP01Handle esp01Handler;
 _sButton myButton;
 
+/* ---- WEBSERVER ---- */
+static char    httpBuf[HTTP_BUF_SIZE];
+static uint8_t httpBufIdx = 0;          /* 0..N = acumulando | 0xFF = primera linea lista */
+static uint8_t isWebserverMode = 0;     /* 1 = modo webserver activo */
+
+/* Buffer unico compartido para todas las respuestas HTTP.
+ * Nunca se usan sendHTMLForm y sendHTTPOKPage al mismo tiempo,
+ * por lo que un solo buffer alcanza. Tamaño = respuesta mas grande (formulario). */
+static uint8_t httpTxBuf[340];
+
+/* ---- Destino UDP (guardado desde el formulario web) ---- */
+static char    udpTargetIP[16]   = "192.168.0.13";
+static uint16_t udpTargetPort    = 30010;
+static uint8_t  udpReadyToStart  = 0;
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -211,6 +228,14 @@ uint8_t updateMefTask(_sButton *button);
 void buttonTask();
 
 void buttonTimeout10ms(_sButton *button);
+
+/* ---- WEBSERVER ---- */
+void sendHTMLForm(uint8_t connID);
+void sendHTTPOKPage(uint8_t connID);
+void parseHTTPGetParams(const char *httpReq, char *ssid, char *pass, char *ip, uint16_t *port);
+void httpTask(void);
+void OnESP01ChangeState(_eESP01STATUS state);
+
 
 /* USER CODE END PFP */
 
@@ -280,7 +305,7 @@ void COMMTask(_sComm *dataRx, _sComm *dataTx, uint8_t source) {
 			}
 
 			if(source)
-				ESP01_Send(sendBuffer, 0, dataTx->nBytes, TXBUFSIZE);
+				ESP01_Send(ESP01_GetLastConnID(), sendBuffer, 0, dataTx->nBytes, TXBUFSIZE);
 			else
 				CDC_Transmit_FS(sendBuffer, dataTx->nBytes);
 		}
@@ -395,10 +420,11 @@ void do10ms() {
 			timerUDP++;
 			if (timerUDP >= 10) { //Entrar cada 1000ms o 1s
 				timerUDP = 0;
-				//En la cantidad de datos a enviar se manda el cantidad de payload + checksum
-				static uint8_t bufferTx[9] = { 'U', 'N', 'E', 'R', 0x03, ':', ALIVE, ACK, 0xC8 };
-				ESP01_Send(bufferTx, 0, 9, TXBUFSIZE);
-
+				/* Solo enviar ALIVE cuando el UDP esta conectado */
+				if(!isWebserverMode && ESP01_StateUDPTCP() == ESP01_UDPTCP_CONNECTED){
+					static uint8_t bufferTx[9] = { 'U', 'N', 'E', 'R', 0x03, ':', ALIVE, ACK, 0xC8 };
+					ESP01_Send(0, bufferTx, 0, 9, TXBUFSIZE);
+				}
 			}
 		}
 	}
@@ -630,13 +656,208 @@ void DebugESP01_To_USB(const char *msg) {
 }
 
 
-// Esta función la llama el driver cuando tiene un byte de datos UDP limpio
+// Esta función la llama el driver cuando tiene un byte de datos limpio
 void WiFi_Data_Callback(uint8_t byte)
 {
-    // AQUÍ guardamos el dato en tu estructura de protocolo para que USBTask lo procese
-    WiFiRx.buff[WiFiRx.indexW++] = byte;
-    WiFiRx.indexW &= WiFiRx.mask;
+    if(isWebserverMode){
+        /*
+         * Solo capturamos la PRIMERA linea del request HTTP (hasta \r\n).
+         * Ahi esta todo lo que necesitamos: "GET /set?ssid=X&pass=Y HTTP/1.1"
+         * El resto del header se descarta. Buffer: 128 bytes en lugar de ~512.
+         *
+         * httpBufIdx:
+         *   0..N  = acumulando la primera linea
+         *   0xFF  = primera linea completa, lista para que httpTask() la procese
+         */
+        if(httpBufIdx == 0xFF)
+            return; /* primera linea ya capturada, descartar el resto */
+
+        if(httpBufIdx < HTTP_BUF_SIZE - 1){
+            httpBuf[httpBufIdx++] = (char)byte;
+            httpBuf[httpBufIdx]   = '\0';
+
+            /* Detectar fin de primera linea: \r\n */
+            if(httpBufIdx >= 2 &&
+               httpBuf[httpBufIdx-2] == '\r' &&
+               httpBuf[httpBufIdx-1] == '\n'){
+                httpBufIdx = 0xFF; /* marcar como listo */
+            }
+        } else {
+            /* Buffer lleno sin \r\n: request corrupto, resetear */
+            httpBufIdx = 0;
+            httpBuf[0] = '\0';
+        }
+    } else {
+        /* Modo station UDP/TCP: protocolo UNER */
+        WiFiRx.buff[WiFiRx.indexW++] = byte;
+        WiFiRx.indexW &= WiFiRx.mask;
+    }
 }
+
+
+/* ============================================================
+ *  WEBSERVER - Funciones HTTP
+ * ============================================================ */
+
+/**
+ * @brief Envia el formulario HTML con campos SSID, PASS, IP y Puerto
+ */
+void sendHTMLForm(uint8_t connID)
+{
+    const char *header = "HTTP/1.0 200 OK\r\nContent-Type: text/html\r\nConnection: close\r\n\r\n";
+    const char *body   = "<!DOCTYPE html><html><body>"
+                         "<form action=/set method=GET>"
+                         "SSID:<input name=ssid><br>"
+                         "PASS:<input name=pass type=password><br>"
+                         "IP PC:<input name=ip value=192.168.0.13><br>"
+                         "Puerto:<input name=port value=30010><br>"
+                         "<input type=submit value=Conectar>"
+                         "</form></body></html>";
+
+    uint16_t len = (uint16_t)snprintf((char*)httpTxBuf, sizeof(httpTxBuf), "%s%s", header, body);
+    ESP01_Send(connID, httpTxBuf, 0, len, sizeof(httpTxBuf));
+}
+
+/**
+ * @brief Envia pagina de confirmacion al navegador
+ */
+void sendHTTPOKPage(uint8_t connID)
+{
+    const char *header = "HTTP/1.0 200 OK\r\nContent-Type: text/html\r\nConnection: close\r\n\r\n";
+    const char *body   = "<!DOCTYPE html><html><body>"
+                         "<h2>Conectando...</h2>"
+                         "<p>El dispositivo se conectara a la red indicada.</p>"
+                         "</body></html>";
+
+    uint16_t len = (uint16_t)snprintf((char*)httpTxBuf, sizeof(httpTxBuf), "%s%s", header, body);
+    ESP01_Send(connID, httpTxBuf, 0, len, sizeof(httpTxBuf));
+}
+
+/**
+ * @brief Extrae ssid, pass, ip y port del GET /set?ssid=X&pass=Y&ip=Z&port=W
+ *        Decodificacion basica: '+' → espacio
+ */
+void parseHTTPGetParams(const char *httpReq, char *ssid, char *pass, char *ip, uint16_t *port)
+{
+    const char *p;
+    uint8_t i;
+
+    ssid[0] = '\0';
+    pass[0] = '\0';
+    ip[0]   = '\0';
+    *port   = 30010; /* valor por defecto */
+
+    /* ---- SSID ---- */
+    p = strstr(httpReq, "ssid=");
+    if(p){ p += 5;
+        for(i=0; i<63 && *p && *p!='&' && *p!=' '; i++,p++)
+            ssid[i] = (*p=='+') ? ' ' : *p;
+        ssid[i] = '\0';
+    }
+
+    /* ---- PASS ---- */
+    p = strstr(httpReq, "pass=");
+    if(p){ p += 5;
+        for(i=0; i<63 && *p && *p!='&' && *p!=' '; i++,p++)
+            pass[i] = (*p=='+') ? ' ' : *p;
+        pass[i] = '\0';
+    }
+
+    /* ---- IP ---- */
+    p = strstr(httpReq, "&ip=");
+    if(p){ p += 4;
+        for(i=0; i<15 && *p && *p!='&' && *p!=' '; i++,p++)
+            ip[i] = *p;
+        ip[i] = '\0';
+    }
+
+    /* ---- PORT ---- */
+    p = strstr(httpReq, "&port=");
+    if(p){ p += 6;
+        uint16_t val = 0;
+        while(*p >= '0' && *p <= '9')
+            val = (uint16_t)(val * 10 + (*p++ - '0'));
+        if(val > 0) *port = val;
+    }
+}
+
+/**
+ * @brief Callback del driver ESP01: se llama cada vez que cambia el estado
+ *
+ * Cuando el WiFi se conecta (ESP01_WIFI_CONNECTED), arranca el UDP
+ * automaticamente usando la IP y puerto guardados desde el formulario.
+ */
+void OnESP01ChangeState(_eESP01STATUS state)
+{
+    if(state == ESP01_WIFI_CONNECTED){
+        udpReadyToStart = 1; /* Activar flag: httpTask o do10ms iniciara el UDP */
+    }
+}
+
+/**
+ * @brief Tarea principal del webserver: procesa la primera linea HTTP capturada
+ */
+
+/* Macro de seguridad: centraliza el reset del buffer HTTP */
+#define HTTP_BUF_RESET()  do { httpBufIdx = 0; httpBuf[0] = '\0'; } while(0)
+
+void httpTask(void)
+{
+    /* Iniciar UDP en cuanto el WiFi este listo (viene del callback) */
+    if(udpReadyToStart){
+        udpReadyToStart = 0;
+        ESP01_StartUDP(udpTargetIP, udpTargetPort, 30001);
+        return;
+    }
+
+    if(!isWebserverMode)
+        return;
+
+    /* 0xFF = primera linea completa y lista para procesar */
+    if(httpBufIdx != 0xFF)
+        return;
+
+    uint8_t connID = ESP01_GetLastConnID();
+
+    if(strstr(httpBuf, "GET /set?") != NULL){
+        char newSSID[64]  = {0};
+        char newPASS[64]  = {0};
+        char newIP[16]    = {0};
+        uint16_t newPort  = 30010;
+
+        parseHTTPGetParams(httpBuf, newSSID, newPASS, newIP, &newPort);
+
+        /* Guardar IP y puerto para usarlos cuando conecte el WiFi */
+        if(newIP[0] != '\0'){
+            strncpy(udpTargetIP, newIP, 15);
+            udpTargetIP[15] = '\0';
+        }
+        if(newPort > 0)
+            udpTargetPort = newPort;
+
+        /* Responder al navegador */
+        sendHTTPOKPage(connID);
+
+        /* Salir del modo webserver y conectar como Station */
+        isWebserverMode = 0;
+        HTTP_BUF_RESET();
+
+        /* ESP01_SetWIFI arranca el flujo Station; OnESP01ChangeState
+         * llamara a ESP01_StartUDP cuando el WiFi este listo */
+        ESP01_SetWIFI(newSSID, newPASS);
+
+    } else if(strstr(httpBuf, "GET /") != NULL){
+        sendHTMLForm(connID);
+        HTTP_BUF_RESET();
+
+    } else {
+        /* favicon.ico u otras peticiones: descartar */
+        HTTP_BUF_RESET();
+    }
+}
+
+
+
 
 //BOTONES
 void initButton(_sButton *button){
@@ -794,13 +1015,23 @@ int main(void)
   	ESP01_Init(&esp01Handler);
 
   	ESP01_AttachDebugStr(DebugESP01_To_USB);
+  	ESP01_AttachChangeState(OnESP01ChangeState); /* Inicia UDP automaticamente al conectar */
 
   	HAL_UART_Receive_IT(&huart1, &byteUART_ESP01, 1); //non blocking
 
+
+  	/* ---- MODO WEBSERVER: el dispositivo levanta un AP para recibir credenciales WiFi ----
+  	 * Conectarse con el telefono a la red "MiDispositivo" (pass: 12345678)
+  	 * y navegar a 192.168.4.1 para ingresar el SSID y contraseña del router.
+  	 * Una vez recibidas las credenciales, el driver llama automaticamente a ESP01_SetWIFI().
+  	 * ---- Para volver al modo UDP/TCP comentar esta linea y descomentar las de abajo ---- */
+  	isWebserverMode = 1;
+  	ESP01_SetWebServer("MiDispositivo", "12345678", 5, 3);
+
   	//ESP01_SetWIFI("FCAL","fcalconcordia.06-2019");
-  	ESP01_SetWIFI("ARPANET", "1969-Apolo_11-2022");
+  	//ESP01_SetWIFI("ARPANET", "1969-Apolo_11-2022");
   	//ESP01_SetWIFI("ARPAMOVILE","12345678");
-  	ESP01_StartUDP("192.168.0.13", 30010, 30001);
+  	//ESP01_StartUDP("192.168.0.13", 30010, 30001);
 
   	//Inicializacion de protocolo
   	unerPrtcl_Init(&USBRx, &USBTx, buffUSBRx, buffUSBTx);
@@ -827,6 +1058,7 @@ int main(void)
     /* USER CODE BEGIN 3 */
 	do10ms();
 	ESP01_Task();
+	httpTask();
 
 	COMMTask(&USBRx, &USBTx, SERIE);
 	COMMTask(&WiFiRx, &WiFiTx, WIFI);

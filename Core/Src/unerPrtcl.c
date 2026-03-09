@@ -86,12 +86,6 @@ uint8_t unerPrtcl_GetByteFromRx(_sComm *dataRx, uint8_t start, uint8_t end) {
 
 uint8_t unerPrtcl_DecodeHeader(_sComm *dataRx)
 {
-	//nBytes y header se pueden comportar raro en caso de conexion serie y wifi al mismo tiempo debido a que comparten misma variable para conexion
-	//Solucion colocar nBytes y header como parte del tipo de dato _sComm
-	//uint8_t nBytes = 0;
-
-	//static uint8_t header = HEADER_U;
-
     uint8_t auxIndex=dataRx->indexW;
 
     while(dataRx->indexR != auxIndex){

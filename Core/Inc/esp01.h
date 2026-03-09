@@ -51,7 +51,7 @@ typedef enum{
 
 
 #define ESP01RXBUFAT		128
-#define ESP01TXBUFAT		256
+#define ESP01TXBUFAT		512 //Aumentado debido a que por el tamano de 256 previo, se sobreescribia el buffer en softAP
 
 
 /**< Inicializa el driver ESP01 UDP */
@@ -144,14 +144,39 @@ _eESP01STATUS ESP01_StateUDPTCP();
  *
  * Envía los datos guardados en el buffer circular de transmisión.
  *
+ * @param [in] connID: ID de conexion (0 para CIPMUX=0 / station; valor de ESP01_GetLastConnID() para webserver)
  * @param [in] length: longitud del los datos a enviar.
  * @param [in] irRingBuf: indice de lectura del buffer circular.
  * @param [in] sizeRingBuf: tamaño en bytes del buffer circular.
  *
  * @retVal Si pudo transmitir devuelve ESP01_SEND_READY
  */
-_eESP01STATUS ESP01_Send(uint8_t *buf, uint16_t irRingBuf, uint16_t length, uint16_t sizeRingBuf);
+_eESP01STATUS ESP01_Send(uint8_t connID, uint8_t *buf, uint16_t irRingBuf, uint16_t length, uint16_t sizeRingBuf);
 
+/**
+ * @brief ESP01_SetWebServer Configura el ESP01 como SoftAP + servidor HTTP
+ *
+ * Inicia el ESP01 en modo Station+AP (CWMODE=3), configura el SoftAP con los
+ * datos indicados, habilita DHCP y levanta un servidor TCP en el puerto 80.
+ * El STM32 debe procesar las peticiones HTTP que llegan por WriteByteToBufRX
+ * y llamar a ESP01_SetWIFI() al recibir las credenciales del usuario.
+ *
+ * @param [in] apSSID:  SSID de la red que creará el ESP01
+ * @param [in] apPass:  Contraseña del AP (min 8 chars). NULL o "" = red abierta
+ * @param [in] ch:      Canal WiFi (1-13)
+ * @param [in] enc:     Encriptacion: 0=abierta, 2=WPA, 3=WPA2, 4=WPA/WPA2
+ */
+void ESP01_SetWebServer(const char *apSSID, const char *apPass, uint8_t ch, uint8_t enc);
+
+
+/**
+ * @brief ESP01_GetLastConnID devuelve el ID de la ultima conexion +IPD
+ *
+ * Usar este ID como primer argumento de ESP01_Send() en modo webserver.
+ *
+ * @retVal ID de conexion (0-4)
+ */
+uint8_t ESP01_GetLastConnID();
 
 /**
  * @brief ESP01_Init Inicializa el driver ESP01

@@ -36,38 +36,6 @@ typedef union {
 } _uWord;
 
 /**
- * @brief estructura para la recepción de datos por puerto serie
- *
- */
-//typedef struct {
-//	uint8_t *buff; /*!< Puntero para el buffer de recepción*/
-//	uint8_t indexR; /*!< indice de lectura del buffer circular*/
-//	uint8_t indexW; /*!< indice de escritura del buffer circular*/
-//	uint8_t indexData; /*!< indice para identificar la posición del dato*/
-//	uint8_t mask; /*!< máscara para controlar el tamaño del buffer*/
-//	uint8_t chk; /*!< variable para calcular el checksum*/
-//	uint8_t nBytes; /*!< variable para almacenar el número de bytes recibidos*/
-//	uint8_t header; /*!< variable para mantener el estado dela MEF del protocolo*/
-//	uint8_t timeOut; /*!< variable para resetear la MEF si no llegan más caracteres luego de cierto tiempo*/
-//	uint8_t isComannd;
-//} _sRx;
-
-/**
- * @brief Estructura para la transmisión de datos por el puerto serie
- *
- */
-//typedef struct {
-//	uint8_t *buff; /*!< Puntero para el buffer de transmisión*/
-//	uint8_t indexR; /*!<indice de lectura del buffer circular*/
-//	uint8_t indexW; /*!<indice de escritura del buffer circular*/
-//	uint8_t mask; /*!<máscara para controlar el tamaño del buffer*/
-//	uint8_t bytes;
-//	uint8_t indexData;
-//	uint8_t chk; /*!< variable para calcular el checksum*/
-//} _sTx;
-
-
-/**
  * @brief Estructura correspondiente a la comunicacion
  *
  */
