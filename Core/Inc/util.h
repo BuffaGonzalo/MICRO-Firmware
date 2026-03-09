@@ -56,6 +56,13 @@ typedef enum {
 } _eCmd;
 
 typedef enum{
+	IDLE = 0,
+	DATA_DISPLAY = 1,
+	UPD_DISPLAY = 2,
+	ONMPU = 3
+}_eDMA;
+
+typedef enum{
     BUTTON_DOWN,
     BUTTON_UP,
     BUTTON_RISING,

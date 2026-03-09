@@ -138,13 +138,6 @@ int16_t gx=0, gy=0, gz=0;
 uint8_t Pila[I2CSIZE] = {};
 uint8_t i2cIndex = 0;
 
-typedef enum{
-	IDLE = 0,
-	DATA_DISPLAY = 1,
-	UPD_DISPLAY = 2,
-	ONMPU = 3
-}_eDMA;
-
 _eDMA myDMA;
 
 uint8_t tmo100 = 5;
@@ -380,15 +373,13 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
         unerPrtcl_PutByteOnTx(dataTx, ACK );
         unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
         myWord.ui8[0]=unerPrtcl_GetByteFromRx(dataRx,1,0);
-        myWord.ui8[1]=unerPrtcl_GetByteFromRx(dataRx,1,0);
-        myWord.ui8[2]=unerPrtcl_GetByteFromRx(dataRx,1,0);
-        myWord.ui8[3]=unerPrtcl_GetByteFromRx(dataRx,1,0);
-        chnl_1 = myWord.i32;
+        chnl_1 = myWord.ui8[0];
         myWord.ui8[0]=unerPrtcl_GetByteFromRx(dataRx,1,0);
-        myWord.ui8[1]=unerPrtcl_GetByteFromRx(dataRx,1,0);
-        myWord.ui8[2]=unerPrtcl_GetByteFromRx(dataRx,1,0);
-        myWord.ui8[3]=unerPrtcl_GetByteFromRx(dataRx,1,0);
-        chnl_2 = myWord.i32;
+        chnl_2 = myWord.ui8[0];
+        myWord.ui8[0]=unerPrtcl_GetByteFromRx(dataRx,1,0);
+        chnl_3 = myWord.ui8[0];
+        myWord.ui8[0]=unerPrtcl_GetByteFromRx(dataRx,1,0);
+        chnl_4 = myWord.ui8[0];
 		break;
 	default:
 		unerPrtcl_PutHeaderOnTx(dataTx, (_eCmd) dataRx->buff[dataRx->indexData], 2);
@@ -856,9 +847,6 @@ void httpTask(void)
     }
 }
 
-
-
-
 //BOTONES
 void initButton(_sButton *button){
     button->currentState = BUTTON_UP;
@@ -1031,7 +1019,7 @@ int main(void)
   	//ESP01_SetWIFI("FCAL","fcalconcordia.06-2019");
   	//ESP01_SetWIFI("ARPANET", "1969-Apolo_11-2022");
   	//ESP01_SetWIFI("ARPAMOVILE","12345678");
-  	//ESP01_StartUDP("192.168.0.13", 30010, 30001);
+  	//ESP01_StartUDP(".0.13", 30010, 30001);
 
   	//Inicializacion de protocolo
   	unerPrtcl_Init(&USBRx, &USBTx, buffUSBRx, buffUSBTx);
