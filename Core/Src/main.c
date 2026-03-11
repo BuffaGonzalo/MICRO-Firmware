@@ -70,6 +70,22 @@
 #define NUMBUTTONS           1
 #define LIMIT                0x0F
 
+#define PID_SCALE_FACTOR	100 //factor de escala, evitar decimales o AFP (aritmetica de punto fijo)
+#define ANG50				50*PID_SCALE_FACTOR
+#define ANG45				45*PID_SCALE_FACTOR
+
+#define CTRLSPEED			10
+//Acelerometro
+#define RADTOGRAD			5730
+// Giroscopio
+#define GYRO_SENSITIVITY    131 // Para configuración de +/- 250 grados/s
+#define DT_MS               20
+// Filtro Complementario
+#define ALPHA_GYRO           98     // 98% de confianza al giroscopio
+#define ALPHA_ACC            2      // 2% de confianza al acelerómetro
+
+
+
 #define T100MS				100
 #define T1000MS				1000
 
@@ -80,6 +96,8 @@
 #define IS100MS				myFlags.bits.bit2
 
 #define HEARTBEAT			myFlags.bits.bit3
+
+#define RUN_PID             myFlags.bits.bit4
 
 /* USER CODE END PD */
 
@@ -168,6 +186,18 @@ static char    udpTargetIP[16]   = "192.168.0.13";
 static uint16_t udpTargetPort    = 30010;
 static uint8_t  udpReadyToStart  = 0;
 
+
+//PID
+/* ---- Variables para el PID (Punto Fijo x100) ---- */
+int32_t Kp = 15;
+int32_t Ki = 1;
+int32_t Kd = 50;
+int32_t setpoint = 0;      // 0 = totalmente vertical
+int32_t integral = 0;
+int32_t last_error = 0;
+int32_t current_angle = 0; // Escala x100 (ej: 150 = 1.5 grados)
+
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -229,6 +259,9 @@ void parseHTTPGetParams(const char *httpReq, char *ssid, char *pass, char *ip, u
 void httpTask(void);
 void OnESP01ChangeState(_eESP01STATUS state);
 
+
+//PID
+void PID_ControlTask(void);
 
 /* USER CODE END PFP */
 
@@ -567,6 +600,9 @@ void i2cTask() {
 
 				mpu6050_GetData(&ax, &ay, &az, &gx, &gy, &gz);
 				mpu6050_RxCplt = FALSE;
+
+				RUN_PID = TRUE;
+
 				i = IDLE;
 			}
 		}
@@ -926,6 +962,74 @@ void buttonTask(_sButton *button){
 	}
 }
 
+/* USER CODE BEGIN 0 */
+// ... tus otras funciones ...
+
+void PID_ControlTask(void) {
+
+	// 0. Control de ejecución (Encapsulamiento de Tarea)
+	if (RUN_PID == FALSE) {
+		return; // Salimos si no hay datos nuevos
+	}
+	RUN_PID = FALSE; // Bajamos la bandera al entrar
+
+	int32_t acc_angle = 0;
+
+    // 1. Acelerómetro: Aproximación de ángulo pequeño
+    if (az != 0) {
+        acc_angle = ((int32_t)ax * RADTOGRAD) / (int32_t)az; //cociente ay/az convertido de radianes a grados 5730
+    }
+
+    // 2. Giroscopio: Tasa de giro integrada en el tiempo
+    int32_t gyro_delta = ((int32_t)gy)*(DT_MS* 100)/(GYRO_SENSITIVITY*1000); //multiplicamos por numeros grandes para no perder info
+
+    //250 grados/segundo es el rango de la MPU6050, y si al comenzar parte con una presicion de 250 grados la cual se asigna a el valor tope de 32767, entonces tenemos que la sensibilidad es de:
+    //32767/250=131 -> valor scale factor o sensibilidad del fabricante.
+
+    // 3. Filtro Complementario
+    current_angle = (ALPHA_GYRO * (current_angle + gyro_delta) + ALPHA_ACC * acc_angle) / 100; //porcentajes de confiaza que se le da a cada sensor
+
+    // 4. Lazo PID
+    int32_t error = setpoint - current_angle;
+    integral += error;
+
+    // Anti-windup (Límite de la memoria integral a 50 grados = 5000)
+    if (integral > ANG50) integral = ANG50; //utilizado para evitar que la memoria del error se siga acumulando
+    if (integral < -ANG50) integral = -ANG50;
+
+    int32_t derivative = error - last_error;
+    last_error = error;
+
+    // Salida final. Dividimos por 100 para volver a la escala normal (0 a 100 de PWM)
+    int32_t output = (Kp * error + Ki * integral + Kd * derivative) / 100;
+
+    // 5. Saturación de seguridad para el PWM
+    if (output > CTRLSPEED) output = CTRLSPEED; //asignacion de valor de output
+    if (output < -CTRLSPEED) output = -CTRLSPEED;
+
+    // Apagado de motores si el robot se cae al piso (más de 45 grados)
+    if (current_angle > ANG45 || current_angle < -ANG45) {
+        output = 0; //apagamos los motores
+        integral = 0; // Borramos la memoria para cuando lo levantes a mano
+    }
+
+    // 6. Asignación a los motores L9110S
+    if (output > 0) {
+        // Corrección hacia un lado
+        chnl_2 = (uint8_t)output;
+        chnl_4 = (uint8_t)output;
+        chnl_1 = 0;
+        chnl_3 = 0;
+    } else {
+        // Corrección hacia el otro lado (invertimos el signo para que sea positivo)
+        chnl_2 = 0;
+        chnl_4 = 0;
+        chnl_1 = (uint8_t)(-output);
+        chnl_3 = (uint8_t)(-output);
+    }
+}
+/* USER CODE END 0 */
+
 /* USER CODE END 0 */
 
 /**
@@ -1026,9 +1130,10 @@ int main(void)
   	unerPrtcl_Init(&WiFiRx, &WiFiTx, buffWiFiRx, buffWiFiTx);
   	//Variables
   	ALLFLAGS = RESET;
+  	//apagamos los motores
   	//reversa
-  	chnl_1=5;
-  	chnl_3=5;
+  	chnl_1=0;
+  	chnl_3=0;
   	//adelante
   	chnl_2=0;
   	chnl_4=0;
@@ -1053,6 +1158,8 @@ int main(void)
 
 	PWM_Control();
 	i2cTask();
+
+	PID_ControlTask();
 
 	buttonTask(&myButton);
 	updateMefTask(&myButton);
