@@ -60,12 +60,16 @@ void mpu6050_Init(void)
     //HAL_I2C_Mem_Write(&hi2c1, MPU6050_ADDR, PWR_MGMT_1_REG, 1, &data, 1, HAL_MAX_DELAY);
     mpu6050_WriteData(&data, PWR_MGMT_1_REG);
 
+    // Habilitar el Digital Low Pass Filter (DLPF) a ~44Hz
+	data = 0x03;
+	mpu6050_WriteData(&data, CONFIG_REG);
+
     // Configurar acelerómetro con rango ±2g (registro ACCEL_CONFIG = 0x1C, valor 0x00)
-    //data = 0x00;
+    data = 0x00;
     //HAL_I2C_Mem_Write(&hi2c1, MPU6050_ADDR, ACCEL_CONFIG_REG, 1, &data, 1, HAL_MAX_DELAY);
     mpu6050_WriteData(&data, ACCEL_CONFIG_REG);
 
-    // Configurar giroscopio con rango ±250°/s (registro GYRO_CONFIG = 0x1B, valor 0x00)
+    //Configurar giroscopio con rango ±250°/s (registro GYRO_CONFIG = 0x1B, valor 0x00)
     //data = 0x00;
     //HAL_I2C_Mem_Write(&hi2c1, MPU6050_ADDR, GYRO_CONFIG_REG, 1, &data, 1, HAL_MAX_DELAY);
     mpu6050_WriteData(&data, GYRO_CONFIG_REG);

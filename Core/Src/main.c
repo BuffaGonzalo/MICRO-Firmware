@@ -983,9 +983,6 @@ void PID_ControlTask(void) {
     // 2. Giroscopio: Tasa de giro integrada en el tiempo
     int32_t gyro_delta = ((int32_t)gy)*(DT_MS* 100)/(GYRO_SENSITIVITY*1000); //multiplicamos por numeros grandes para no perder info
 
-    //250 grados/segundo es el rango de la MPU6050, y si al comenzar parte con una presicion de 250 grados la cual se asigna a el valor tope de 32767, entonces tenemos que la sensibilidad es de:
-    //32767/250=131 -> valor scale factor o sensibilidad del fabricante.
-
     // 3. Filtro Complementario
     current_angle = (ALPHA_GYRO * (current_angle + gyro_delta) + ALPHA_ACC * acc_angle) / 100; //porcentajes de confiaza que se le da a cada sensor
 

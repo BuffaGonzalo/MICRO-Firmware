@@ -20,6 +20,7 @@
 
 #define WHO_AM_I_REG         0x75  // Registro de identidad (debe devolver 0x68)
 #define PWR_MGMT_1_REG       0x6B  // Registro para salir del modo de bajo consumo
+#define CONFIG_REG           0x1A  // Registro de configuración (DLPF)
 #define GYRO_CONFIG_REG      0x1B  // Registro de configuración del giroscopio
 #define ACCEL_CONFIG_REG     0x1C  // Registro de configuración del acelerómetro
 #define ACCEL_XOUT_H_REG     0x3B  // Dirección base de lectura del acelerómetro
