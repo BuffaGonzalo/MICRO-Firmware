@@ -61,7 +61,7 @@
 #define ON					1
 #define OFF					0
 
-#define TIM3CP				9999
+#define TIM3CP				2500 // Anteriormente el valor era 9999, modificado para tener mas precision
 
 //WebServer - solo necesitamos la primera linea del request HTTP (~80 bytes max)
 #define HTTP_BUF_SIZE   128
@@ -84,7 +84,7 @@
 #define ALPHA_GYRO          98     // 98% de confianza al giroscopio
 #define ALPHA_ACC           2      // 2% de confianza al acelerómetro
 
-#define MIN_PWM 			6   // Mínimo para que la rueda empiece a girar
+#define MIN_PWM 			28  // Mínimo para que la rueda empiece a girar, valor de 6 para un TIM3CP de 9999
 //#define	MAX_PWM 			25  // Máximo permitido para correcciones
 
 #define T100MS				100
@@ -201,7 +201,7 @@ int32_t integral = 0;
 int32_t last_error = 0;
 int32_t current_angle = 0; // Escala x100 (ej: 150 = 1.5 grados)
 
-uint8_t maxPWM = 7;
+uint8_t maxPWM = 60;
 
 /* USER CODE END PV */
 
@@ -1059,32 +1059,7 @@ void PID_ControlTask(void) {
 		chnl_1 = (uint8_t) (-final_pwm);
 		chnl_3 = (uint8_t) (-final_pwm);
 	}
-/*
-    // 5. Saturación de seguridad para el PWM
-    if (output > CTRLSPEED) output = CTRLSPEED; //asignacion de valor de output
-    if (output < -CTRLSPEED) output = -CTRLSPEED;
 
-    // Apagado de motores si el robot se cae al piso (más de 45 grados)
-    if (current_angle > ANG45 || current_angle < -ANG45) {
-        output = 0; //apagamos los motores
-        integral = 0; // Borramos la memoria para cuando lo levantes a mano
-    }
-
-    // 6. Asignación a los motores L9110S
-    if (output > 0) {
-        // Corrección hacia un lado
-        chnl_2 = (uint8_t)output;
-        chnl_4 = (uint8_t)output;
-        chnl_1 = 0;
-        chnl_3 = 0;
-    } else {
-        // Corrección hacia el otro lado (invertimos el signo para que sea positivo)
-        chnl_2 = 0;
-        chnl_4 = 0;
-        chnl_1 = (uint8_t)(-output);
-        chnl_3 = (uint8_t)(-output);
-    }
-    */
 }
 /* USER CODE END 0 */
 
