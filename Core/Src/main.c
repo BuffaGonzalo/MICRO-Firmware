@@ -81,10 +81,11 @@
 #define GYRO_SENSITIVITY    131 // Para configuración de +/- 250 grados/s
 #define DT_MS               20
 // Filtro Complementario
-#define ALPHA_GYRO           98     // 98% de confianza al giroscopio
-#define ALPHA_ACC            2      // 2% de confianza al acelerómetro
+#define ALPHA_GYRO          98     // 98% de confianza al giroscopio
+#define ALPHA_ACC           2      // 2% de confianza al acelerómetro
 
-
+#define MIN_PWM 			6   // Mínimo para que la rueda empiece a girar
+//#define	MAX_PWM 			25  // Máximo permitido para correcciones
 
 #define T100MS				100
 #define T1000MS				1000
@@ -188,15 +189,19 @@ static uint8_t  udpReadyToStart  = 0;
 
 
 //PID
+
 /* ---- Variables para el PID (Punto Fijo x100) ---- */
-int32_t Kp = 15;
-int32_t Ki = 1;
-int32_t Kd = 50;
+//declaradas como int16_t para achicar la comunicacion y parcialmente le espacio de almacenamiento, empeora rendimiento
+int16_t Kp = 2;
+int16_t Ki = 0;
+int16_t Kd = 0;
+
 int32_t setpoint = 0;      // 0 = totalmente vertical
 int32_t integral = 0;
 int32_t last_error = 0;
 int32_t current_angle = 0; // Escala x100 (ej: 150 = 1.5 grados)
 
+uint8_t maxPWM = 7;
 
 /* USER CODE END PV */
 
@@ -413,6 +418,27 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
         chnl_3 = myWord.ui8[0];
         myWord.ui8[0]=unerPrtcl_GetByteFromRx(dataRx,1,0);
         chnl_4 = myWord.ui8[0];
+		break;
+	case SETPID:
+        unerPrtcl_PutHeaderOnTx(dataTx, SETPID, 2);
+        unerPrtcl_PutByteOnTx(dataTx, ACK );
+        unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
+        myWord.ui8[0]=unerPrtcl_GetByteFromRx(dataRx,1,0);
+        myWord.ui8[1]=unerPrtcl_GetByteFromRx(dataRx,1,0);
+        Kp = myWord.ui16[0];
+        myWord.ui8[0]=unerPrtcl_GetByteFromRx(dataRx,1,0);
+        myWord.ui8[1]=unerPrtcl_GetByteFromRx(dataRx,1,0);
+        Ki = myWord.ui16[0];
+        myWord.ui8[0]=unerPrtcl_GetByteFromRx(dataRx,1,0);
+        myWord.ui8[1]=unerPrtcl_GetByteFromRx(dataRx,1,0);
+        Kd = myWord.ui16[0];
+		break;
+	case SETPWMLIMIT:
+        unerPrtcl_PutHeaderOnTx(dataTx, SETPWMLIMIT, 2);
+        unerPrtcl_PutByteOnTx(dataTx, ACK );
+        unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
+        myWord.ui8[0]=unerPrtcl_GetByteFromRx(dataRx,1,0);
+        maxPWM = myWord.ui8[0];
 		break;
 	default:
 		unerPrtcl_PutHeaderOnTx(dataTx, (_eCmd) dataRx->buff[dataRx->indexData], 2);
@@ -966,6 +992,7 @@ void buttonTask(_sButton *button){
 // ... tus otras funciones ...
 
 void PID_ControlTask(void) {
+	int32_t final_pwm, output, derivative, acc_angle, gyro_delta, error;
 
 	// 0. Control de ejecución (Encapsulamiento de Tarea)
 	if (RUN_PID == FALSE) {
@@ -973,7 +1000,7 @@ void PID_ControlTask(void) {
 	}
 	RUN_PID = FALSE; // Bajamos la bandera al entrar
 
-	int32_t acc_angle = 0;
+	acc_angle = 0;
 
     // 1. Acelerómetro: Aproximación de ángulo pequeño
     if (az != 0) {
@@ -981,25 +1008,58 @@ void PID_ControlTask(void) {
     }
 
     // 2. Giroscopio: Tasa de giro integrada en el tiempo
-    int32_t gyro_delta = ((int32_t)gy)*(DT_MS* 100)/(GYRO_SENSITIVITY*1000); //multiplicamos por numeros grandes para no perder info
+    gyro_delta = (-(int32_t)gy)*(DT_MS* 100)/(GYRO_SENSITIVITY*1000); //multiplicamos por numeros grandes para no perder info
 
     // 3. Filtro Complementario
     current_angle = (ALPHA_GYRO * (current_angle + gyro_delta) + ALPHA_ACC * acc_angle) / 100; //porcentajes de confiaza que se le da a cada sensor
 
     // 4. Lazo PID
-    int32_t error = setpoint - current_angle;
+    error = setpoint - current_angle;
     integral += error;
 
     // Anti-windup (Límite de la memoria integral a 50 grados = 5000)
     if (integral > ANG50) integral = ANG50; //utilizado para evitar que la memoria del error se siga acumulando
     if (integral < -ANG50) integral = -ANG50;
 
-    int32_t derivative = error - last_error;
+    derivative = error - last_error;
     last_error = error;
 
     // Salida final. Dividimos por 100 para volver a la escala normal (0 a 100 de PWM)
-    int32_t output = (Kp * error + Ki * integral + Kd * derivative) / 100;
+    output = (Kp * error + Ki * integral + Kd * derivative) / 100;
 
+	if (output > 0) {
+		// Corrección hacia adelante
+		final_pwm = output + MIN_PWM;
+		if (final_pwm > maxPWM)
+			final_pwm = maxPWM; // Saturación al 20%
+	} else if (output < 0) {
+		// Corrección hacia atrás
+		final_pwm = output - MIN_PWM;
+		if (final_pwm < -(int32_t)maxPWM)
+			final_pwm = -(int32_t)maxPWM; // Saturación al -20%
+	} else {
+		final_pwm = 0; // Ángulo perfecto, motores apagados
+	}
+
+	// Apagado de seguridad si se cae (> 45 grados)
+	if (current_angle > ANG45 || current_angle < -4500) {
+		final_pwm = 0;
+		integral = 0;
+	}
+
+	// Asignación final a los canales L9110S
+	if (final_pwm > 0) {
+		chnl_2 = (uint8_t) final_pwm;
+		chnl_4 = (uint8_t) final_pwm;
+		chnl_1 = 0;
+		chnl_3 = 0;
+	} else {
+		chnl_2 = 0;
+		chnl_4 = 0;
+		chnl_1 = (uint8_t) (-final_pwm);
+		chnl_3 = (uint8_t) (-final_pwm);
+	}
+/*
     // 5. Saturación de seguridad para el PWM
     if (output > CTRLSPEED) output = CTRLSPEED; //asignacion de valor de output
     if (output < -CTRLSPEED) output = -CTRLSPEED;
@@ -1024,6 +1084,7 @@ void PID_ControlTask(void) {
         chnl_1 = (uint8_t)(-output);
         chnl_3 = (uint8_t)(-output);
     }
+    */
 }
 /* USER CODE END 0 */
 
@@ -1114,11 +1175,11 @@ int main(void)
   	 * y navegar a 192.168.4.1 para ingresar el SSID y contraseña del router.
   	 * Una vez recibidas las credenciales, el driver llama automaticamente a ESP01_SetWIFI().
   	 * ---- Para volver al modo UDP/TCP comentar esta linea y descomentar las de abajo ---- */
-  	isWebserverMode = 1;
-  	ESP01_SetWebServer("MiDispositivo", "12345678", 5, 3);
+  	isWebserverMode = FALSE;
+  	//ESP01_SetWebServer("MiDispositivo", "12345678", 5, 3);
 
   	//ESP01_SetWIFI("FCAL","fcalconcordia.06-2019");
-  	//ESP01_SetWIFI("ARPANET", "1969-Apolo_11-2022");
+  	ESP01_SetWIFI("ARPANET", "1969-Apolo_11-2022");
   	//ESP01_SetWIFI("ARPAMOVILE","12345678");
   	//ESP01_StartUDP(".0.13", 30010, 30001);
 

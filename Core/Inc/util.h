@@ -51,6 +51,8 @@ typedef enum {
 	GETMPU = 0xF2,
 	GETADC = 0xF3,
 	SETPWM = 0xF4,
+	SETPID = 0xF5,
+	SETPWMLIMIT = 0XF6,
 	ACK = 0x0D,
 	UNKNOWN = 0xFF
 } _eCmd;
