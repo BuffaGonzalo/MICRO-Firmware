@@ -84,7 +84,7 @@
 #define ALPHA_GYRO          98     // 98% de confianza al giroscopio
 #define ALPHA_ACC           2      // 2% de confianza al acelerómetro
 
-#define MIN_PWM 			28  // Mínimo para que la rueda empiece a girar, valor de 6 para un TIM3CP de 9999
+//#define MIN_PWM 			28  // Mínimo para que la rueda empiece a girar, valor de 6 para un TIM3CP de 9999
 //#define	MAX_PWM 			25  // Máximo permitido para correcciones
 
 #define T100MS				100
@@ -202,6 +202,7 @@ int32_t last_error = 0;
 int32_t current_angle = 0; // Escala x100 (ej: 150 = 1.5 grados)
 
 uint8_t maxPWM = 60;
+uint8_t minPWM = 28;
 
 /* USER CODE END PV */
 
@@ -439,6 +440,8 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
         unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
         myWord.ui8[0]=unerPrtcl_GetByteFromRx(dataRx,1,0);
         maxPWM = myWord.ui8[0];
+        myWord.ui8[0]=unerPrtcl_GetByteFromRx(dataRx,1,0);
+        minPWM = myWord.ui8[0];
 		break;
 	default:
 		unerPrtcl_PutHeaderOnTx(dataTx, (_eCmd) dataRx->buff[dataRx->indexData], 2);
@@ -1029,12 +1032,12 @@ void PID_ControlTask(void) {
 
 	if (output > 0) {
 		// Corrección hacia adelante
-		final_pwm = output + MIN_PWM;
+		final_pwm = output + minPWM;
 		if (final_pwm > maxPWM)
 			final_pwm = maxPWM; // Saturación al 20%
 	} else if (output < 0) {
 		// Corrección hacia atrás
-		final_pwm = output - MIN_PWM;
+		final_pwm = output - minPWM;
 		if (final_pwm < -(int32_t)maxPWM)
 			final_pwm = -(int32_t)maxPWM; // Saturación al -20%
 	} else {
