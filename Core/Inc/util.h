@@ -53,6 +53,7 @@ typedef enum {
 	SETPWM = 0xF4,
 	SETPID = 0xF5,
 	SETPWMLIMIT = 0XF6,
+	SETLINECTRL = 0xF7,
 	ACK = 0x0D,
 	UNKNOWN = 0xFF
 } _eCmd;

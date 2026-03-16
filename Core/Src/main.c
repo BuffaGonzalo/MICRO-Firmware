@@ -183,7 +183,8 @@ static uint8_t isWebserverMode = 0;     /* 1 = modo webserver activo */
 static uint8_t httpTxBuf[340];
 
 /* ---- Destino UDP (guardado desde el formulario web) ---- */
-static char    udpTargetIP[16]   = "192.168.0.13";
+//static char    udpTargetIP[16]   = "10.93.92.213";
+static char    udpTargetIP[16]   = "192.168.0.28";
 static uint16_t udpTargetPort    = 30010;
 static uint8_t  udpReadyToStart  = 0;
 
@@ -1157,9 +1158,10 @@ int main(void)
   	//ESP01_SetWebServer("MiDispositivo", "12345678", 5, 3);
 
   	//ESP01_SetWIFI("FCAL","fcalconcordia.06-2019");
-  	ESP01_SetWIFI("ARPANET", "1969-Apolo_11-2022");
-  	//ESP01_SetWIFI("ARPAMOVILE","12345678");
-  	//ESP01_StartUDP(".0.13", 30010, 30001);
+  	//ESP01_SetWIFI("ARPANET", "1969-Apolo_11-2022");
+  	//ESP01_SetWIFI("SA04", "12345678");
+  	ESP01_SetWIFI("BUFFA24","-NixieBulb2022-");
+  	//ESP01_StartUDP("192.168.0.28", 30010, 30001);
 
   	//Inicializacion de protocolo
   	unerPrtcl_Init(&USBRx, &USBTx, buffUSBRx, buffUSBTx);

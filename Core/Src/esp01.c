@@ -743,11 +743,16 @@ static void ESP01DOConnection(){
 		esp01ATSate = ESP01ATCIPMUX;
 		break;
 	case ESP01ATCIPMUX:
-		ESP01StrToBufTX(ATCIPMUX);
-		if(ESP01DbgStr != NULL)
+		/* Enviar CIPMUX=1 para WebServer y CIPMUX=0 para UDP normal */
+		if (esp01WebServerMode) {
+			ESP01StrToBufTX("AT+CIPMUX=1\r\n");
+		} else {
+			ESP01StrToBufTX("AT+CIPMUX=0\r\n");
+		}
+		if (ESP01DbgStr != NULL)
 			ESP01DbgStr("+&DBGESP01ATCIPMUX\n");
 		/* Bifurcar: webserver (AP+CIPSERVER) vs. station (CWJAP) */
-		esp01ATSate = (esp01WebServerMode) ? ESP01ATCWSAP : ESP01CWJAPRESPONSE;
+		esp01ATSate = (esp01WebServerMode) ? ESP01ATCWSAP : ESP01ATCWJAP;
 		break;
 
 	/* ---- NUEVOS ESTADOS: modo SoftAP + Webserver ---- */
