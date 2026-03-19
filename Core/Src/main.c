@@ -87,6 +87,9 @@
 //#define MIN_PWM 			28  // Mínimo para que la rueda empiece a girar, valor de 6 para un TIM3CP de 9999
 //#define	MAX_PWM 			25  // Máximo permitido para correcciones
 
+////seguidor de linea
+#define MAXTCRT				4095
+
 #define T100MS				100
 #define T1000MS				1000
 
@@ -184,7 +187,7 @@ static uint8_t httpTxBuf[340];
 
 /* ---- Destino UDP (guardado desde el formulario web) ---- */
 //static char    udpTargetIP[16]   = "10.93.92.213";
-static char    udpTargetIP[16]   = "192.168.0.28";
+static char    udpTargetIP[16]   = "192.168.0.1";
 static uint16_t udpTargetPort    = 30010;
 static uint8_t  udpReadyToStart  = 0;
 
@@ -204,6 +207,12 @@ int32_t current_angle = 0; // Escala x100 (ej: 150 = 1.5 grados)
 
 uint8_t maxPWM = 60;
 uint8_t minPWM = 28;
+
+//////Valores seguidor linea
+// --- Variables Seguidor de Línea ---
+int16_t Kp_line = 1;  // Constante Proporcional
+int16_t Kd_line = 0;  // Constante Derivativa
+int32_t last_line_error = 0;
 
 /* USER CODE END PV */
 
@@ -443,6 +452,26 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
         maxPWM = myWord.ui8[0];
         myWord.ui8[0]=unerPrtcl_GetByteFromRx(dataRx,1,0);
         minPWM = myWord.ui8[0];
+		break;
+	case SETLINECTRL:
+		unerPrtcl_PutHeaderOnTx(dataTx, SETLINECTRL, 2);
+		unerPrtcl_PutByteOnTx(dataTx, ACK);
+		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
+
+		// Atrapamos Kp_line
+		myWord.ui8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		myWord.ui8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		Kp_line = myWord.i16[0];
+
+		// Atrapamos Kd_line
+		myWord.ui8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		myWord.ui8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		Kd_line = myWord.i16[0];
+
+		// Atrapamos Setpoint
+		myWord.ui8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		myWord.ui8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		setpoint = (int32_t)myWord.i16[0];
 		break;
 	default:
 		unerPrtcl_PutHeaderOnTx(dataTx, (_eCmd) dataRx->buff[dataRx->indexData], 2);
@@ -766,7 +795,7 @@ void sendHTMLForm(uint8_t connID)
                          "<form action=/set method=GET>"
                          "SSID:<input name=ssid><br>"
                          "PASS:<input name=pass type=password><br>"
-                         "IP PC:<input name=ip value=192.168.0.13><br>"
+                         "IP PC:<input name=ip value=192.168.0.1><br>"
                          "Puerto:<input name=port value=30010><br>"
                          "<input type=submit value=Conectar>"
                          "</form></body></html>";
@@ -996,7 +1025,10 @@ void buttonTask(_sButton *button){
 // ... tus otras funciones ...
 
 void PID_ControlTask(void) {
+	//balancin
 	int32_t final_pwm, output, derivative, acc_angle, gyro_delta, error;
+	//seguidor linea
+	int32_t sum, line_error, left_ir, center_ir, right_ir, line_derivative, turn_pwm, pwm_left, pwm_right;
 
 	// 0. Control de ejecución (Encapsulamiento de Tarea)
 	if (RUN_PID == FALSE) {
@@ -1051,20 +1083,80 @@ void PID_ControlTask(void) {
 		integral = 0;
 	}
 
-	// Asignación final a los canales L9110S
-	if (final_pwm > 0) {
-		chnl_2 = (uint8_t) final_pwm;
-		chnl_4 = (uint8_t) final_pwm;
-		chnl_1 = 0;
-		chnl_3 = 0;
+	// ... [Tu código anterior de seguridad de > 45 grados] ...
+
+	// --- 1. NUEVO SISTEMA: PD SEGUIDOR DE LÍNEA (PROMEDIO PONDERADO) ---
+	// --- 1. LECTURA E INVERSIÓN DE SENSORES ---
+	// Blanco = 0, Negro = ~3295
+	left_ir = MAXTCRT - (adcDataTx[1] < MAXTCRT ? adcDataTx[1] : MAXTCRT - 1);
+	center_ir = MAXTCRT - (adcDataTx[3] < MAXTCRT ? adcDataTx[3] : MAXTCRT - 1);
+	right_ir = MAXTCRT - (adcDataTx[5] < MAXTCRT ? adcDataTx[5] : MAXTCRT - 1);
+
+	// Evitamos que algún ruido eléctrico nos dé números negativos
+	if (left_ir < 0) left_ir = 0;
+	if (center_ir < 0) center_ir = 0;
+	if (right_ir < 0) right_ir = 0;
+
+	// Suma total de reflectancia
+	sum = left_ir + center_ir + right_ir;
+	if (sum == 0) sum = 1; // Protección vital contra división por cero
+
+	// --- 2. UMBRAL DE PÉRDIDA DE LÍNEA ---
+	if (sum < 1500) {
+		// Los 3 sensores ven blanco. Activamos la memoria.
+		if (last_line_error > 0) {
+			line_error = 100;  // Forzamos giro brusco a la derecha
+		} else {
+			line_error = -100; // Forzamos giro brusco a la izquierda
+		}
 	} else {
-		chnl_2 = 0;
-		chnl_4 = 0;
-		chnl_1 = (uint8_t) (-final_pwm);
-		chnl_3 = (uint8_t) (-final_pwm);
+		// --- 3. PROMEDIO PONDERADO NORMAL ---
+		line_error = (((1000 * right_ir) - (1000 * left_ir)) / sum)/10; //Dividido 10 para aumentar la escala
 	}
 
+	line_derivative = line_error - last_line_error;
+	last_line_error = line_error;
+
+	// Calculamos la fuerza de giro. (Dividimos por 100 para la escala de tu PWM)
+	turn_pwm = (Kp_line * line_error + Kd_line * line_derivative) / 100;
+
+	// --- 2. EL MEZCLADOR (MIXER) ---
+	// Combinamos el equilibrio (final_pwm) con la dirección (turn_pwm)
+	pwm_left  = final_pwm + turn_pwm;
+	pwm_right = final_pwm - turn_pwm;
+
+	// --- 3. SATURACIÓN INDEPENDIENTE ---
+	if(pwm_left > maxPWM) pwm_left = maxPWM;
+	if(pwm_left < -(int32_t)maxPWM) pwm_left = -(int32_t)maxPWM;
+
+	if(pwm_right > maxPWM) pwm_right = maxPWM;
+	if(pwm_right < -(int32_t)maxPWM) pwm_right = -(int32_t)maxPWM;
+
+//	if (final_pwm == 0) {
+//		pwm_left = 0;
+//		pwm_right = 0;
+//	}
+
+	// --- 4. ASIGNACIÓN A LOS MOTORES L9110S ---
+	// Motor Izquierdo (Canales 1 y 2)
+	if (pwm_left > 0) {
+		chnl_2 = (uint8_t) pwm_left;
+		chnl_1 = 0;
+	} else {
+		chnl_2 = 0;
+		chnl_1 = (uint8_t) (-pwm_left);
+	}
+
+	// Motor Derecho (Canales 3 y 4)
+	if (pwm_right > 0) {
+		chnl_4 = (uint8_t) pwm_right;
+		chnl_3 = 0;
+	} else {
+		chnl_4 = 0;
+		chnl_3 = (uint8_t) (-pwm_right);
+	}
 }
+
 /* USER CODE END 0 */
 
 /* USER CODE END 0 */
@@ -1154,13 +1246,13 @@ int main(void)
   	 * y navegar a 192.168.4.1 para ingresar el SSID y contraseña del router.
   	 * Una vez recibidas las credenciales, el driver llama automaticamente a ESP01_SetWIFI().
   	 * ---- Para volver al modo UDP/TCP comentar esta linea y descomentar las de abajo ---- */
-  	isWebserverMode = FALSE;
-  	//ESP01_SetWebServer("MiDispositivo", "12345678", 5, 3);
+  	isWebserverMode = TRUE;
+  	ESP01_SetWebServer("MICRO", "12345678", 5, 3);
 
   	//ESP01_SetWIFI("FCAL","fcalconcordia.06-2019");
   	//ESP01_SetWIFI("ARPANET", "1969-Apolo_11-2022");
   	//ESP01_SetWIFI("SA04", "12345678");
-  	ESP01_SetWIFI("BUFFA24","-NixieBulb2022-");
+  	//ESP01_SetWIFI("BUFFA24","-NixieBulb2022-");
   	//ESP01_StartUDP("192.168.0.28", 30010, 30001);
 
   	//Inicializacion de protocolo
