@@ -89,6 +89,7 @@
 
 ////seguidor de linea
 #define MAXTCRT				4095
+#define LINE_THRESHOLD		1500  // Suma minima de reflectancia para considerar linea detectada
 
 #define T100MS				100
 #define T1000MS				1000
@@ -187,7 +188,7 @@ static uint8_t httpTxBuf[340];
 
 /* ---- Destino UDP (guardado desde el formulario web) ---- */
 //static char    udpTargetIP[16]   = "10.93.92.213";
-static char    udpTargetIP[16]   = "192.168.0.1";
+static char    udpTargetIP[16]   = "192.168.0.26";
 static uint16_t udpTargetPort    = 30010;
 static uint8_t  udpReadyToStart  = 0;
 
@@ -200,7 +201,7 @@ int16_t Kp = 2;
 int16_t Ki = 0;
 int16_t Kd = 0;
 
-int32_t setpoint = 0;      // 0 = totalmente vertical
+int32_t setpoint = 50; // Angulo unico de trabajo (x100 = 0.5°), ajustable por SETLINECTRL
 int32_t integral = 0;
 int32_t last_error = 0;
 int32_t current_angle = 0; // Escala x100 (ej: 150 = 1.5 grados)
@@ -210,9 +211,21 @@ uint8_t minPWM = 28;
 
 //////Valores seguidor linea
 // --- Variables Seguidor de Línea ---
-int16_t Kp_line = 1;  // Constante Proporcional
-int16_t Kd_line = 0;  // Constante Derivativa
+int16_t Kp_line = 1;        // Constante Proporcional
+int16_t Kd_line = 0;        // Constante Derivativa
 int32_t last_line_error = 0;
+
+int32_t sum = 0;
+int32_t line_error = 0;
+int32_t turn_pwm = 0;
+
+// --- Estado del seguidor de línea ---
+typedef enum {
+	LINE_SEARCHING,  // Buscando linea: avanza con setpoint_base, sin correccion de direccion
+	LINE_FOLLOWING   // Linea detectada: avanza con setpoint_base, PD activo
+} _eLineState;
+
+_eLineState lineState = LINE_SEARCHING;
 
 /* USER CODE END PV */
 
@@ -459,22 +472,56 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
 
 		// Atrapamos Kp_line
-		myWord.ui8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
-		myWord.ui8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		myWord.i8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		myWord.i8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
 		Kp_line = myWord.i16[0];
 
 		// Atrapamos Kd_line
-		myWord.ui8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
-		myWord.ui8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		myWord.i8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		myWord.i8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
 		Kd_line = myWord.i16[0];
 
-		// Atrapamos Setpoint
-		myWord.ui8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
-		myWord.ui8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		// Atrapamos setpoint_base (angulo unico de trabajo para busqueda y seguimiento)
+		myWord.i8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		myWord.i8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
 		setpoint = (int32_t)myWord.i16[0];
 		break;
+	case GETTELEMETRY:
+		unerPrtcl_PutHeaderOnTx(dataTx, GETTELEMETRY, 12);
+
+		// 1. Ángulo actual (16 bits)
+		myWord.i16[0] = (int16_t) current_angle;
+		unerPrtcl_PutByteOnTx(dataTx, myWord.ui8[0]);
+		unerPrtcl_PutByteOnTx(dataTx, myWord.ui8[1]);
+
+		// 2. Setpoint (16 bits)
+		myWord.i16[0] = (int16_t) setpoint;
+		unerPrtcl_PutByteOnTx(dataTx, myWord.ui8[0]);
+		unerPrtcl_PutByteOnTx(dataTx, myWord.ui8[1]);
+
+		// 3. Error de línea (16 bits)
+		myWord.i16[0] = (int16_t) line_error;
+		unerPrtcl_PutByteOnTx(dataTx, myWord.ui8[0]);
+		unerPrtcl_PutByteOnTx(dataTx, myWord.ui8[1]);
+
+		// 4. Esfuerzo de giro (16 bits)
+		myWord.i16[0] = (int16_t) turn_pwm;
+		unerPrtcl_PutByteOnTx(dataTx, myWord.ui8[0]);
+		unerPrtcl_PutByteOnTx(dataTx, myWord.ui8[1]);
+
+		// 5. Reflectancia total (16 bits)
+		myWord.i16[0] = (int16_t) sum;
+		unerPrtcl_PutByteOnTx(dataTx, myWord.ui8[0]);
+		unerPrtcl_PutByteOnTx(dataTx, myWord.ui8[1]);
+
+		// 6. Estado de la máquina (8 bits)
+		unerPrtcl_PutByteOnTx(dataTx, (uint8_t) lineState);
+
+		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
+		break;
 	default:
-		unerPrtcl_PutHeaderOnTx(dataTx, (_eCmd) dataRx->buff[dataRx->indexData], 2);
+		unerPrtcl_PutHeaderOnTx(dataTx, (_eCmd) dataRx->buff[dataRx->indexData],
+				2);
 		unerPrtcl_PutByteOnTx(dataTx, UNKNOWN);
 		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
 		break;
@@ -1026,9 +1073,9 @@ void buttonTask(_sButton *button){
 
 void PID_ControlTask(void) {
 	//balancin
-	int32_t final_pwm, output, derivative, acc_angle, gyro_delta, error;
+	int32_t final_pwm, output, derivative, error;
 	//seguidor linea
-	int32_t sum, line_error, left_ir, center_ir, right_ir, line_derivative, turn_pwm, pwm_left, pwm_right;
+	int32_t left_ir, center_ir, right_ir, line_derivative, pwm_left, pwm_right;
 
 	// 0. Control de ejecución (Encapsulamiento de Tarea)
 	if (RUN_PID == FALSE) {
@@ -1036,32 +1083,46 @@ void PID_ControlTask(void) {
 	}
 	RUN_PID = FALSE; // Bajamos la bandera al entrar
 
-	acc_angle = 0;
+	// --- CÁLCULO DE IMU CON ALTA RESOLUCIÓN (x10000) ---
 
-    // 1. Acelerómetro: Aproximación de ángulo pequeño
-    if (az != 0) {
-        acc_angle = ((int32_t)ax * RADTOGRAD) / (int32_t)az; //cociente ay/az convertido de radianes a grados 5730
-    }
+	// ¡VITAL! Variable estática para guardar la memoria del filtro
+	static int32_t current_angle_hr = 0;
+	int32_t acc_angle_hr = 0;
+	int32_t gyro_delta_hr = 0;
 
-    // 2. Giroscopio: Tasa de giro integrada en el tiempo
-    gyro_delta = (-(int32_t)gy)*(DT_MS* 100)/(GYRO_SENSITIVITY*1000); //multiplicamos por numeros grandes para no perder info
+	// 1. Acelerómetro: Escala x10000
+	if (az != 0) {
+		acc_angle_hr = (int32_t) (((int64_t) ax * 573000) / az);
+	}
 
-    // 3. Filtro Complementario
-    current_angle = (ALPHA_GYRO * (current_angle + gyro_delta) + ALPHA_ACC * acc_angle) / 100; //porcentajes de confiaza que se le da a cada sensor
+	// 2. Giroscopio: Escala x10000
+	// (gy * 20ms * 10000) / 131000 = (gy * 200) / 131
+	gyro_delta_hr = (-(int32_t) gy * 200) / 131;
 
-    // 4. Lazo PID
-    error = setpoint - current_angle;
-    integral += error;
+	// 3. Filtro Complementario (todo ocurre en la MISMA escala x10000)
+	current_angle_hr = (ALPHA_GYRO * (current_angle_hr + gyro_delta_hr)
+			+ ALPHA_ACC * acc_angle_hr) / 100;
 
-    // Anti-windup (Límite de la memoria integral a 50 grados = 5000)
-    if (integral > ANG50) integral = ANG50; //utilizado para evitar que la memoria del error se siga acumulando
-    if (integral < -ANG50) integral = -ANG50;
+	// 4. Transformar a tu escala original x100 para que el PID lo use
+	current_angle = current_angle_hr / 100;
 
-    derivative = error - last_error;
-    last_error = error;
+	// --- FIN CÁLCULO IMU ---
 
-    // Salida final. Dividimos por 100 para volver a la escala normal (0 a 100 de PWM)
-    output = (Kp * error + Ki * integral + Kd * derivative) / 100;
+	// 5. Lazo PID
+	error = setpoint - current_angle;
+
+	integral += error;
+	// Anti-windup (Límite de la memoria integral a 50 grados = 5000)
+	if (integral > ANG50)
+		integral = ANG50; //utilizado para evitar que la memoria del error se siga acumulando
+	if (integral < -ANG50)
+		integral = -ANG50;
+
+	derivative = error - last_error;
+	last_error = error;
+
+	// Salida final. Dividimos por 100 para volver a la escala normal (0 a 100 de PWM)
+	output = (Kp * error + Ki * integral + Kd * derivative) / 100;
 
 	if (output > 0) {
 		// Corrección hacia adelante
@@ -1071,8 +1132,8 @@ void PID_ControlTask(void) {
 	} else if (output < 0) {
 		// Corrección hacia atrás
 		final_pwm = output - minPWM;
-		if (final_pwm < -(int32_t)maxPWM)
-			final_pwm = -(int32_t)maxPWM; // Saturación al -20%
+		if (final_pwm < -(int32_t) maxPWM)
+			final_pwm = -(int32_t) maxPWM; // Saturación al -20%
 	} else {
 		final_pwm = 0; // Ángulo perfecto, motores apagados
 	}
@@ -1085,57 +1146,68 @@ void PID_ControlTask(void) {
 
 	// ... [Tu código anterior de seguridad de > 45 grados] ...
 
-	// --- 1. NUEVO SISTEMA: PD SEGUIDOR DE LÍNEA (PROMEDIO PONDERADO) ---
-	// --- 1. LECTURA E INVERSIÓN DE SENSORES ---
-	// Blanco = 0, Negro = ~3295
-	left_ir = MAXTCRT - (adcDataTx[1] < MAXTCRT ? adcDataTx[1] : MAXTCRT - 1);
-	center_ir = MAXTCRT - (adcDataTx[3] < MAXTCRT ? adcDataTx[3] : MAXTCRT - 1);
-	right_ir = MAXTCRT - (adcDataTx[5] < MAXTCRT ? adcDataTx[5] : MAXTCRT - 1);
+	// --- SEGUIDOR DE LÍNEA ---
+	// 1. LECTURA E INVERSIÓN DE SENSORES (Blanco = 0, Negro = ~4095)
+	left_ir = adcDataTx[1];
+	center_ir = adcDataTx[3];
+	right_ir = adcDataTx[5];
 
-	// Evitamos que algún ruido eléctrico nos dé números negativos
-	if (left_ir < 0) left_ir = 0;
-	if (center_ir < 0) center_ir = 0;
-	if (right_ir < 0) right_ir = 0;
+	if (left_ir < 0)
+		left_ir = 0;
+	if (center_ir < 0)
+		center_ir = 0;
+	if (right_ir < 0)
+		right_ir = 0;
 
 	// Suma total de reflectancia
 	sum = left_ir + center_ir + right_ir;
-	if (sum == 0) sum = 1; // Protección vital contra división por cero
+	if (sum == 0)
+		sum = 1; // Protección contra división por cero
 
-	// --- 2. UMBRAL DE PÉRDIDA DE LÍNEA ---
-	if (sum < 1500) {
-		// Los 3 sensores ven blanco. Activamos la memoria.
-		if (last_line_error > 0) {
-			line_error = 100;  // Forzamos giro brusco a la derecha
-		} else {
-			line_error = -100; // Forzamos giro brusco a la izquierda
+	// 3. MÁQUINA DE ESTADOS
+	switch (lineState) {
+
+	case LINE_SEARCHING:
+		turn_pwm = 0; // Sin corrección de dirección hasta encontrar la línea
+		if (sum >= LINE_THRESHOLD) {
+			lineState = LINE_FOLLOWING;
 		}
-	} else {
-		// --- 3. PROMEDIO PONDERADO NORMAL ---
-		line_error = (((1000 * right_ir) - (1000 * left_ir)) / sum)/10; //Dividido 10 para aumentar la escala
+		break;
+
+	case LINE_FOLLOWING:
+		if (sum < LINE_THRESHOLD) {
+			// Pérdida de línea: memoria del último error y volvemos a buscar
+			line_error = (last_line_error > 0) ? 100 : -100;
+			lineState = LINE_SEARCHING;
+			turn_pwm = 0;
+		} else {
+			// Promedio ponderado normalizado a [-100, +100]
+			line_error = (((1000 * right_ir) - (1000 * left_ir)) / sum) / 10;
+			line_derivative = line_error - last_line_error;
+			turn_pwm = (Kp_line * line_error + Kd_line * line_derivative) / 100;
+		}
+		last_line_error = line_error;
+		break;
+
+	default:
+		lineState = LINE_SEARCHING;
+		turn_pwm = 0;
+		break;
 	}
 
-	line_derivative = line_error - last_line_error;
-	last_line_error = line_error;
-
-	// Calculamos la fuerza de giro. (Dividimos por 100 para la escala de tu PWM)
-	turn_pwm = (Kp_line * line_error + Kd_line * line_derivative) / 100;
-
-	// --- 2. EL MEZCLADOR (MIXER) ---
-	// Combinamos el equilibrio (final_pwm) con la dirección (turn_pwm)
-	pwm_left  = final_pwm + turn_pwm;
+	// 4. MIXER: combinamos equilibrio + dirección
+	pwm_left = final_pwm + turn_pwm;
 	pwm_right = final_pwm - turn_pwm;
 
-	// --- 3. SATURACIÓN INDEPENDIENTE ---
-	if(pwm_left > maxPWM) pwm_left = maxPWM;
-	if(pwm_left < -(int32_t)maxPWM) pwm_left = -(int32_t)maxPWM;
-
-	if(pwm_right > maxPWM) pwm_right = maxPWM;
-	if(pwm_right < -(int32_t)maxPWM) pwm_right = -(int32_t)maxPWM;
-
-//	if (final_pwm == 0) {
-//		pwm_left = 0;
-//		pwm_right = 0;
-//	}
+	// 5. SATURACIÓN INDEPENDIENTE
+	if (pwm_left > (int32_t) maxPWM)
+		pwm_left = (int32_t) maxPWM;
+	if (pwm_left < -(int32_t) maxPWM)
+		pwm_left = -(int32_t) maxPWM;
+	if (pwm_right > (int32_t) maxPWM)
+		pwm_right = (int32_t) maxPWM;
+	if (pwm_right < -(int32_t) maxPWM)
+		pwm_right = -(int32_t) maxPWM;
 
 	// --- 4. ASIGNACIÓN A LOS MOTORES L9110S ---
 	// Motor Izquierdo (Canales 1 y 2)
@@ -1159,7 +1231,6 @@ void PID_ControlTask(void) {
 
 /* USER CODE END 0 */
 
-/* USER CODE END 0 */
 
 /**
   * @brief  The application entry point.
@@ -1246,13 +1317,13 @@ int main(void)
   	 * y navegar a 192.168.4.1 para ingresar el SSID y contraseña del router.
   	 * Una vez recibidas las credenciales, el driver llama automaticamente a ESP01_SetWIFI().
   	 * ---- Para volver al modo UDP/TCP comentar esta linea y descomentar las de abajo ---- */
-  	isWebserverMode = TRUE;
-  	ESP01_SetWebServer("MICRO", "12345678", 5, 3);
+  	isWebserverMode = FALSE;
+  	//ESP01_SetWebServer("MICRO", "12345678", 5, 3);
 
   	//ESP01_SetWIFI("FCAL","fcalconcordia.06-2019");
   	//ESP01_SetWIFI("ARPANET", "1969-Apolo_11-2022");
   	//ESP01_SetWIFI("SA04", "12345678");
-  	//ESP01_SetWIFI("BUFFA24","-NixieBulb2022-");
+  	ESP01_SetWIFI("BUFFA24","-NixieBulb2022-");
   	//ESP01_StartUDP("192.168.0.28", 30010, 30001);
 
   	//Inicializacion de protocolo
