@@ -188,7 +188,7 @@ static uint8_t httpTxBuf[340];
 
 /* ---- Destino UDP (guardado desde el formulario web) ---- */
 //static char    udpTargetIP[16]   = "10.93.92.213";
-static char    udpTargetIP[16]   = "192.168.0.26";
+static char    udpTargetIP[16]   = "192.168.0.102";
 static uint16_t udpTargetPort    = 30010;
 static uint8_t  udpReadyToStart  = 0;
 
@@ -197,7 +197,7 @@ static uint8_t  udpReadyToStart  = 0;
 
 /* ---- Variables para el PID (Punto Fijo x100) ---- */
 //declaradas como int16_t para achicar la comunicacion y parcialmente le espacio de almacenamiento, empeora rendimiento
-int16_t Kp = 2;
+int16_t Kp = 1;
 int16_t Ki = 0;
 int16_t Kd = 0;
 
@@ -1108,9 +1108,49 @@ void PID_ControlTask(void) {
 
 	// --- FIN CÁLCULO IMU ---
 
-	// 5. Lazo PID
-	error = setpoint - current_angle;
+	// ========================================================
+		// --- NUEVO: LAZO DE VELOCIDAD VIRTUAL (CONTROL PI) ---
+		// ========================================================
+		static int32_t velocidad_estimada = 0; // x100
+		static int32_t integral_vel = 0;
+		static int32_t last_final_pwm = 0;     // Memoria del motor
 
+		int32_t setpoint_dinamico = setpoint;  // Arranca en el centro de gravedad manual
+		int32_t velocidad_deseada = 0;         // Velocidad objetivo
+
+		// A. ¿Queremos avanzar hacia adelante?
+		if (lineState == LINE_FOLLOWING || lineState == LINE_SEARCHING) {
+			// Pedimos un esfuerzo promedio del PWM de 15 (1500 en escala x100)
+			velocidad_deseada = -1500;
+		}
+
+		// B. Estimar la velocidad real (Filtro pasa bajos del PWM anterior)
+		velocidad_estimada = (velocidad_estimada * 95 + (last_final_pwm * 100) * 5) / 100;
+
+		// C. Error de velocidad
+		int32_t error_vel = velocidad_deseada - velocidad_estimada;
+
+		// D. Ganancias del PI de Velocidad (Puedes ajustarlas luego)
+		int32_t Kp_vel = 1;
+		int32_t Ki_vel = 0;
+
+		integral_vel += error_vel;
+		// Anti-windup para que no se vuelva loco si lo levantas
+		if (integral_vel > 300000) integral_vel = 300000; //Para hasta un maximo de hasta 3 grados
+		if (integral_vel < -300000) integral_vel = -300000;
+
+		// E. Inclinamos el robot (calculamos el setpoint dinámico)
+		// Dividimos por 1000 para atenuar la suma a la escala de los grados
+		setpoint_dinamico = setpoint + ((Kp_vel * error_vel) + (Ki_vel * integral_vel)) / 1000;
+
+		// F. Seguridad: Límite de inclinación para que no caiga de cara (+/- 5 grados desde su centro)
+		if (setpoint_dinamico > setpoint + 500) setpoint_dinamico = setpoint + 500;
+		if (setpoint_dinamico < setpoint - 500) setpoint_dinamico = setpoint - 500;
+
+	// 5. Lazo PID
+	//error = setpoint - current_angle;
+
+	error = setpoint_dinamico - current_angle;
 	integral += error;
 	// Anti-windup (Límite de la memoria integral a 50 grados = 5000)
 	if (integral > ANG50)
@@ -1144,56 +1184,53 @@ void PID_ControlTask(void) {
 		integral = 0;
 	}
 
-	// ... [Tu código anterior de seguridad de > 45 grados] ...
-
+	last_final_pwm = final_pwm;
 	// --- SEGUIDOR DE LÍNEA ---
-	// 1. LECTURA E INVERSIÓN DE SENSORES (Blanco = 0, Negro = ~4095)
-	left_ir = adcDataTx[1];
-	center_ir = adcDataTx[3];
-	right_ir = adcDataTx[5];
+	// 1. LECTURA E INVERSIÓN (Blanco = ~395, Negro = ~3795)
+		left_ir   = 4095 - adcDataTx[1];
+		center_ir = 4095 - adcDataTx[3];
+		right_ir  = 4095 - adcDataTx[5];
 
-	if (left_ir < 0)
-		left_ir = 0;
-	if (center_ir < 0)
-		center_ir = 0;
-	if (right_ir < 0)
-		right_ir = 0;
+		if (left_ir   < 0) left_ir   = 0;
+		if (center_ir < 0) center_ir = 0;
+		if (right_ir  < 0) right_ir  = 0;
 
-	// Suma total de reflectancia
-	sum = left_ir + center_ir + right_ir;
-	if (sum == 0)
-		sum = 1; // Protección contra división por cero
+		// Suma total de reflectancia
+		sum = left_ir + center_ir + right_ir;
+		if (sum == 0) sum = 1;
 
-	// 3. MÁQUINA DE ESTADOS
-	switch (lineState) {
+		// 3. MÁQUINA DE ESTADOS
+		switch (lineState) {
 
-	case LINE_SEARCHING:
-		turn_pwm = 0; // Sin corrección de dirección hasta encontrar la línea
-		if (sum >= LINE_THRESHOLD) {
-			lineState = LINE_FOLLOWING;
+			case LINE_SEARCHING:
+				turn_pwm = 0;
+	            // Si la suma supera 1500, significa que al menos un sensor tocó la línea negra
+				if (sum >= 1500) {
+					lineState = LINE_FOLLOWING;
+				}
+				break;
+
+			case LINE_FOLLOWING:
+	            // Si la suma cae por debajo de 1500, volvió al piso blanco puro
+				if (sum < 1500) {
+					line_error = (last_line_error > 0) ? 100 : -100;
+					lineState  = LINE_SEARCHING;
+					turn_pwm   = 0;
+				} else {
+	                // ¡LA CORRECCIÓN MÁGICA!: right_ir - left_ir (para que gire hacia la línea)
+					line_error      = (((1000 * right_ir) - (1000 * left_ir)) / sum) / 10;
+
+	                line_derivative = line_error - last_line_error;
+					turn_pwm        = (Kp_line * line_error + Kd_line * line_derivative) / 100;
+				}
+				last_line_error = line_error;
+				break;
+
+			default:
+				lineState = LINE_SEARCHING;
+				turn_pwm  = 0;
+				break;
 		}
-		break;
-
-	case LINE_FOLLOWING:
-		if (sum < LINE_THRESHOLD) {
-			// Pérdida de línea: memoria del último error y volvemos a buscar
-			line_error = (last_line_error > 0) ? 100 : -100;
-			lineState = LINE_SEARCHING;
-			turn_pwm = 0;
-		} else {
-			// Promedio ponderado normalizado a [-100, +100]
-			line_error = (((1000 * right_ir) - (1000 * left_ir)) / sum) / 10;
-			line_derivative = line_error - last_line_error;
-			turn_pwm = (Kp_line * line_error + Kd_line * line_derivative) / 100;
-		}
-		last_line_error = line_error;
-		break;
-
-	default:
-		lineState = LINE_SEARCHING;
-		turn_pwm = 0;
-		break;
-	}
 
 	// 4. MIXER: combinamos equilibrio + dirección
 	pwm_left = final_pwm + turn_pwm;
