@@ -188,7 +188,7 @@ static uint8_t httpTxBuf[340];
 
 /* ---- Destino UDP (guardado desde el formulario web) ---- */
 //static char    udpTargetIP[16]   = "10.93.92.213";
-static char    udpTargetIP[16]   = "192.168.0.102";
+static char    udpTargetIP[16]   = "192.168.0.13";
 static uint16_t udpTargetPort    = 30010;
 static uint8_t  udpReadyToStart  = 0;
 
@@ -197,9 +197,9 @@ static uint8_t  udpReadyToStart  = 0;
 
 /* ---- Variables para el PID (Punto Fijo x100) ---- */
 //declaradas como int16_t para achicar la comunicacion y parcialmente le espacio de almacenamiento, empeora rendimiento
-int16_t Kp = 1;
-int16_t Ki = 0;
-int16_t Kd = 0;
+int16_t Kp_stable = 1;
+int16_t Ki_stable = 0;
+int16_t Kd_stable = 0;
 
 int32_t setpoint = 50; // Angulo unico de trabajo (x100 = 0.5°), ajustable por SETLINECTRL
 int32_t integral = 0;
@@ -214,6 +214,10 @@ uint8_t minPWM = 28;
 int16_t Kp_line = 1;        // Constante Proporcional
 int16_t Kd_line = 0;        // Constante Derivativa
 int32_t last_line_error = 0;
+
+// D. Ganancias del PI de Velocidad (Puedes ajustarlas luego)
+int16_t Kp_vel = 1;
+int16_t Ki_vel = 0;
 
 int32_t sum = 0;
 int32_t line_error = 0;
@@ -449,13 +453,13 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
         unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
         myWord.ui8[0]=unerPrtcl_GetByteFromRx(dataRx,1,0);
         myWord.ui8[1]=unerPrtcl_GetByteFromRx(dataRx,1,0);
-        Kp = myWord.ui16[0];
+        Kp_stable = myWord.ui16[0];
         myWord.ui8[0]=unerPrtcl_GetByteFromRx(dataRx,1,0);
         myWord.ui8[1]=unerPrtcl_GetByteFromRx(dataRx,1,0);
-        Ki = myWord.ui16[0];
+        Ki_stable = myWord.ui16[0];
         myWord.ui8[0]=unerPrtcl_GetByteFromRx(dataRx,1,0);
         myWord.ui8[1]=unerPrtcl_GetByteFromRx(dataRx,1,0);
-        Kd = myWord.ui16[0];
+        Kd_stable = myWord.ui16[0];
 		break;
 	case SETPWMLIMIT:
         unerPrtcl_PutHeaderOnTx(dataTx, SETPWMLIMIT, 2);
@@ -471,20 +475,26 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 		unerPrtcl_PutByteOnTx(dataTx, ACK);
 		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
 
-		// Atrapamos Kp_line
 		myWord.i8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
 		myWord.i8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
 		Kp_line = myWord.i16[0];
 
-		// Atrapamos Kd_line
 		myWord.i8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
 		myWord.i8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
 		Kd_line = myWord.i16[0];
 
-		// Atrapamos setpoint_base (angulo unico de trabajo para busqueda y seguimiento)
+		myWord.i8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		myWord.i8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		Kp_vel= myWord.i16[0];
+
+		myWord.i8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		myWord.i8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		Ki_vel = myWord.i16[0];
+
 		myWord.i8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
 		myWord.i8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
 		setpoint = (int32_t)myWord.i16[0];
+
 		break;
 	case GETTELEMETRY:
 		unerPrtcl_PutHeaderOnTx(dataTx, GETTELEMETRY, 12);
@@ -1090,13 +1100,10 @@ void PID_ControlTask(void) {
 	int32_t acc_angle_hr = 0;
 	int32_t gyro_delta_hr = 0;
 
-	// 1. Acelerómetro: Escala x10000
 	if (az != 0) {
 		acc_angle_hr = (int32_t) (((int64_t) ax * 573000) / az);
 	}
 
-	// 2. Giroscopio: Escala x10000
-	// (gy * 20ms * 10000) / 131000 = (gy * 200) / 131
 	gyro_delta_hr = (-(int32_t) gy * 200) / 131;
 
 	// 3. Filtro Complementario (todo ocurre en la MISMA escala x10000)
@@ -1109,43 +1116,45 @@ void PID_ControlTask(void) {
 	// --- FIN CÁLCULO IMU ---
 
 	// ========================================================
-		// --- NUEVO: LAZO DE VELOCIDAD VIRTUAL (CONTROL PI) ---
-		// ========================================================
-		static int32_t velocidad_estimada = 0; // x100
-		static int32_t integral_vel = 0;
-		static int32_t last_final_pwm = 0;     // Memoria del motor
+	// --- NUEVO: LAZO DE VELOCIDAD VIRTUAL (CONTROL PI) ---
+	// ========================================================
+	static int32_t velocidad_estimada = 0; // x100
+	static int32_t integral_vel = 0;
+	static int32_t last_final_pwm = 0;     // Memoria del motor
 
-		int32_t setpoint_dinamico = setpoint;  // Arranca en el centro de gravedad manual
-		int32_t velocidad_deseada = 0;         // Velocidad objetivo
+	int32_t setpoint_dinamico = setpoint; // Arranca en el centro de gravedad manual
+	int32_t velocidad_deseada = 0;         // Velocidad objetivo
 
-		// A. ¿Queremos avanzar hacia adelante?
-		if (lineState == LINE_FOLLOWING || lineState == LINE_SEARCHING) {
-			// Pedimos un esfuerzo promedio del PWM de 15 (1500 en escala x100)
-			velocidad_deseada = -1500;
-		}
+	// A. ¿Queremos avanzar hacia adelante?
+	if (lineState == LINE_FOLLOWING || lineState == LINE_SEARCHING) {
+		// Pedimos un esfuerzo promedio del PWM de 15 (1500 en escala x100)
+		velocidad_deseada = -3000;
+	}
 
-		// B. Estimar la velocidad real (Filtro pasa bajos del PWM anterior)
-		velocidad_estimada = (velocidad_estimada * 95 + (last_final_pwm * 100) * 5) / 100;
+	// B. Estimar la velocidad real (Filtro pasa bajos del PWM anterior)
+	velocidad_estimada = (velocidad_estimada * 95 + (last_final_pwm * 100) * 5)
+			/ 100;
 
-		// C. Error de velocidad
-		int32_t error_vel = velocidad_deseada - velocidad_estimada;
+	// C. Error de velocidad
+	int32_t error_vel = velocidad_deseada - velocidad_estimada;
 
-		// D. Ganancias del PI de Velocidad (Puedes ajustarlas luego)
-		int32_t Kp_vel = 1;
-		int32_t Ki_vel = 0;
+	integral_vel += error_vel;
+	// Anti-windup para que no se vuelva loco si lo levantas
+	if (integral_vel > 300000)
+		integral_vel = 300000; //Para hasta un maximo de hasta 3 grados
+	if (integral_vel < -300000)
+		integral_vel = -300000;
 
-		integral_vel += error_vel;
-		// Anti-windup para que no se vuelva loco si lo levantas
-		if (integral_vel > 300000) integral_vel = 300000; //Para hasta un maximo de hasta 3 grados
-		if (integral_vel < -300000) integral_vel = -300000;
+	// E. Inclinamos el robot (calculamos el setpoint dinámico)
+	// Dividimos por 1000 para atenuar la suma a la escala de los grados
+	setpoint_dinamico = setpoint
+			+ ((Kp_vel * error_vel) + (Ki_vel * integral_vel)) / 1000;
 
-		// E. Inclinamos el robot (calculamos el setpoint dinámico)
-		// Dividimos por 1000 para atenuar la suma a la escala de los grados
-		setpoint_dinamico = setpoint + ((Kp_vel * error_vel) + (Ki_vel * integral_vel)) / 1000;
-
-		// F. Seguridad: Límite de inclinación para que no caiga de cara (+/- 5 grados desde su centro)
-		if (setpoint_dinamico > setpoint + 500) setpoint_dinamico = setpoint + 500;
-		if (setpoint_dinamico < setpoint - 500) setpoint_dinamico = setpoint - 500;
+	// F. Seguridad: Límite de inclinación para que no caiga de cara (+/- 5 grados desde su centro)
+	if (setpoint_dinamico > setpoint + 500)
+		setpoint_dinamico = setpoint + 500;
+	if (setpoint_dinamico < setpoint - 500)
+		setpoint_dinamico = setpoint - 500;
 
 	// 5. Lazo PID
 	//error = setpoint - current_angle;
@@ -1162,7 +1171,8 @@ void PID_ControlTask(void) {
 	last_error = error;
 
 	// Salida final. Dividimos por 100 para volver a la escala normal (0 a 100 de PWM)
-	output = (Kp * error + Ki * integral + Kd * derivative) / 100;
+	output = (Kp_stable * error + Ki_stable * integral + Kd_stable * derivative)
+			/ 100;
 
 	if (output > 0) {
 		// Corrección hacia adelante
@@ -1187,50 +1197,54 @@ void PID_ControlTask(void) {
 	last_final_pwm = final_pwm;
 	// --- SEGUIDOR DE LÍNEA ---
 	// 1. LECTURA E INVERSIÓN (Blanco = ~395, Negro = ~3795)
-		left_ir   = 4095 - adcDataTx[1];
-		center_ir = 4095 - adcDataTx[3];
-		right_ir  = 4095 - adcDataTx[5];
+	left_ir = 4095 - adcDataTx[1];
+	center_ir = 4095 - adcDataTx[3];
+	right_ir = 4095 - adcDataTx[5];
 
-		if (left_ir   < 0) left_ir   = 0;
-		if (center_ir < 0) center_ir = 0;
-		if (right_ir  < 0) right_ir  = 0;
+	if (left_ir < 0)
+		left_ir = 0;
+	if (center_ir < 0)
+		center_ir = 0;
+	if (right_ir < 0)
+		right_ir = 0;
 
-		// Suma total de reflectancia
-		sum = left_ir + center_ir + right_ir;
-		if (sum == 0) sum = 1;
+	// Suma total de reflectancia
+	sum = left_ir + center_ir + right_ir;
+	if (sum == 0)
+		sum = 1;
 
-		// 3. MÁQUINA DE ESTADOS
-		switch (lineState) {
+	// 3. MÁQUINA DE ESTADOS
+	switch (lineState) {
 
-			case LINE_SEARCHING:
-				turn_pwm = 0;
-	            // Si la suma supera 1500, significa que al menos un sensor tocó la línea negra
-				if (sum >= 1500) {
-					lineState = LINE_FOLLOWING;
-				}
-				break;
-
-			case LINE_FOLLOWING:
-	            // Si la suma cae por debajo de 1500, volvió al piso blanco puro
-				if (sum < 1500) {
-					line_error = (last_line_error > 0) ? 100 : -100;
-					lineState  = LINE_SEARCHING;
-					turn_pwm   = 0;
-				} else {
-	                // ¡LA CORRECCIÓN MÁGICA!: right_ir - left_ir (para que gire hacia la línea)
-					line_error      = (((1000 * right_ir) - (1000 * left_ir)) / sum) / 10;
-
-	                line_derivative = line_error - last_line_error;
-					turn_pwm        = (Kp_line * line_error + Kd_line * line_derivative) / 100;
-				}
-				last_line_error = line_error;
-				break;
-
-			default:
-				lineState = LINE_SEARCHING;
-				turn_pwm  = 0;
-				break;
+	case LINE_SEARCHING:
+		turn_pwm = 0;
+		// Si la suma supera 1500, significa que al menos un sensor tocó la línea negra
+		if (sum >= 1500) {
+			lineState = LINE_FOLLOWING;
 		}
+		break;
+
+	case LINE_FOLLOWING:
+		// Si la suma cae por debajo de 1500, volvió al piso blanco puro
+		if (sum < 1500) {
+			line_error = (last_line_error > 0) ? 100 : -100;
+			lineState = LINE_SEARCHING;
+			turn_pwm = 0;
+		} else {
+			// ¡LA CORRECCIÓN MÁGICA!: right_ir - left_ir (para que gire hacia la línea)
+			line_error = (((1000 * right_ir) - (1000 * left_ir)) / sum) / 10;
+
+			line_derivative = line_error - last_line_error;
+			turn_pwm = (Kp_line * line_error + Kd_line * line_derivative) / 100;
+		}
+		last_line_error = line_error;
+		break;
+
+	default:
+		lineState = LINE_SEARCHING;
+		turn_pwm = 0;
+		break;
+	}
 
 	// 4. MIXER: combinamos equilibrio + dirección
 	pwm_left = final_pwm + turn_pwm;
@@ -1358,9 +1372,9 @@ int main(void)
   	//ESP01_SetWebServer("MICRO", "12345678", 5, 3);
 
   	//ESP01_SetWIFI("FCAL","fcalconcordia.06-2019");
-  	//ESP01_SetWIFI("ARPANET", "1969-Apolo_11-2022");
+  	ESP01_SetWIFI("ARPANET", "1969-Apolo_11-2022");
   	//ESP01_SetWIFI("SA04", "12345678");
-  	ESP01_SetWIFI("BUFFA24","-NixieBulb2022-");
+  	//ESP01_SetWIFI("BUFFA24","-NixieBulb2022-");
   	//ESP01_StartUDP("192.168.0.28", 30010, 30001);
 
   	//Inicializacion de protocolo
