@@ -208,7 +208,8 @@ int32_t error_vel = 0;
 int32_t error = 0;
 int32_t derivative = 0;
 int32_t output = 0;
-
+int32_t integral_vel = 0;
+int32_t salida_vel = 0;
 
 /* ---- Variables para el PID (Punto Fijo x100) ---- */
 //declaradas como int16_t para achicar la comunicacion y parcialmente le espacio de almacenamiento, empeora rendimiento
@@ -545,22 +546,40 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
 		break;
 	case GETPIDDATA:
-	        unerPrtcl_PutHeaderOnTx(dataTx, GETPIDDATA, 41); // 10 variables x 4 bytes = 40 bytes
+	        // Tamaño total: 1(cmd) + 13*4(32bits) + 7*2(16bits) + 2(8bits) = 69 bytes
+	        unerPrtcl_PutHeaderOnTx(dataTx, GETPIDDATA, 69);
 
-	        // Empaquetamos en un arreglo para iterar más limpio
-	        int32_t pid_data[10] = {
+	        // 1. Bloque de 32 bits (13 variables = 52 bytes)
+	        int32_t pid_data32[13] = {
 	            acc_angle_hr, gyro_delta_hr, current_angle_hr,
 	            setpoint_dinamico, error_vel, error,
-	            integral, derivative, last_error, output
+	            integral, derivative, last_error, output,
+	            integral_vel, salida_vel, setpoint
 	        };
 
-	        for(int i = 0; i < 10; i++) {
-	            unerPrtcl_PutByteOnTx(dataTx, (uint8_t)(pid_data[i] & 0xFF));
-	            unerPrtcl_PutByteOnTx(dataTx, (uint8_t)((pid_data[i] >> 8) & 0xFF));
-	            unerPrtcl_PutByteOnTx(dataTx, (uint8_t)((pid_data[i] >> 16) & 0xFF));
-	            unerPrtcl_PutByteOnTx(dataTx, (uint8_t)((pid_data[i] >> 24) & 0xFF));
+	        for(int i = 0; i < 13; i++) {
+	            unerPrtcl_PutByteOnTx(dataTx, (uint8_t)(pid_data32[i] & 0xFF));
+	            unerPrtcl_PutByteOnTx(dataTx, (uint8_t)((pid_data32[i] >> 8) & 0xFF));
+	            unerPrtcl_PutByteOnTx(dataTx, (uint8_t)((pid_data32[i] >> 16) & 0xFF));
+	            unerPrtcl_PutByteOnTx(dataTx, (uint8_t)((pid_data32[i] >> 24) & 0xFF));
+	        }
+	        // 2. Bloque de 16 bits (7 variables = 14 bytes)
+	        int16_t pid_data16[7] = {
+	            Kp_stable, Ki_stable, Kd_stable,
+	            Kp_line, Kd_line,
+	            Kp_vel, Ki_vel
+	        };
+
+	        for(int i = 0; i < 7; i++) {
+	            unerPrtcl_PutByteOnTx(dataTx, (uint8_t)(pid_data16[i] & 0xFF));
+	            unerPrtcl_PutByteOnTx(dataTx, (uint8_t)((pid_data16[i] >> 8) & 0xFF));
 	        }
 
+	        // 3. Bloque de 8 bits (2 variables = 2 bytes)
+	        unerPrtcl_PutByteOnTx(dataTx, maxPWM);
+	        unerPrtcl_PutByteOnTx(dataTx, minPWM);
+
+	        // Checksum final
 	        unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
 	        break;
 	default:
@@ -1146,8 +1165,6 @@ void PID_ControlTask(void) {
 	// ========================================================
 	// --- LAZO DE VELOCIDAD VIRTUAL (CONTROL PI) ---
 	// ========================================================
-	static int32_t integral_vel = 0;
-
 	// FIX: Kickstart - contador para impulso inicial de arranque
 	// Si el robot está quieto y con ángulo correcto pero sin avanzar,
 	// el kick fuerza el movimiento inicial igual que al empujarlo con el dedo.
@@ -1181,7 +1198,7 @@ void PID_ControlTask(void) {
 	// de este ciclo para que el integral no siga creciendo en dirección inútil.
 	// Esto es correcto porque considera la contribución REAL de Kp+Ki juntos,
 	// no solo la del integral por separado.
-	int32_t salida_vel = ((Kp_vel * error_vel) + (Ki_vel * integral_vel)) / 1000;
+	salida_vel = ((Kp_vel * error_vel) + (Ki_vel * integral_vel)) / 1000;
 	if (salida_vel >  500) { salida_vel =  500; integral_vel -= error_vel; }
 	if (salida_vel < -500) { salida_vel = -500; integral_vel -= error_vel; }
 
