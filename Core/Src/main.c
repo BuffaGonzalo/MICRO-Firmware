@@ -91,6 +91,11 @@
 #define MAXTCRT				4095
 #define LINE_THRESHOLD		1500  // Suma minima de reflectancia para considerar linea detectada
 
+//Inclinarse para moverse
+#define KICK_CYCLES  5
+#define KICK_PWM     50
+
+
 #define T100MS				100
 #define T1000MS				1000
 
@@ -197,17 +202,17 @@ static uint8_t  udpReadyToStart  = 0;
 
 /* ---- Variables para el PID (Punto Fijo x100) ---- */
 //declaradas como int16_t para achicar la comunicacion y parcialmente le espacio de almacenamiento, empeora rendimiento
-int16_t Kp_stable = 1;
+int16_t Kp_stable = 10;
 int16_t Ki_stable = 0;
 int16_t Kd_stable = 0;
 
-int32_t setpoint = 50; // Angulo unico de trabajo (x100 = 0.5°), ajustable por SETLINECTRL
+int32_t setpoint = -300; // Angulo unico de trabajo (x100 = 0.5°), ajustable por SETLINECTRL
 int32_t integral = 0;
 int32_t last_error = 0;
 int32_t current_angle = 0; // Escala x100 (ej: 150 = 1.5 grados)
 
-uint8_t maxPWM = 60;
-uint8_t minPWM = 28;
+uint8_t maxPWM = 90; //Previamente valor de 60
+uint8_t minPWM = 25; // Valor de 28 tambien funciona bien
 
 //////Valores seguidor linea
 // --- Variables Seguidor de Línea ---
@@ -456,10 +461,10 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
         Kp_stable = myWord.ui16[0];
         myWord.ui8[0]=unerPrtcl_GetByteFromRx(dataRx,1,0);
         myWord.ui8[1]=unerPrtcl_GetByteFromRx(dataRx,1,0);
-        Ki_stable = myWord.ui16[0];
+        Kd_stable = myWord.ui16[0];
         myWord.ui8[0]=unerPrtcl_GetByteFromRx(dataRx,1,0);
         myWord.ui8[1]=unerPrtcl_GetByteFromRx(dataRx,1,0);
-        Kd_stable = myWord.ui16[0];
+        Ki_stable = myWord.ui16[0];
 		break;
 	case SETPWMLIMIT:
         unerPrtcl_PutHeaderOnTx(dataTx, SETPWMLIMIT, 2);
@@ -1087,21 +1092,19 @@ void PID_ControlTask(void) {
 	//seguidor linea
 	int32_t left_ir, center_ir, right_ir, line_derivative, pwm_left, pwm_right;
 
-	// 0. Control de ejecución (Encapsulamiento de Tarea)
 	if (RUN_PID == FALSE) {
 		return; // Salimos si no hay datos nuevos
 	}
-	RUN_PID = FALSE; // Bajamos la bandera al entrar
+	RUN_PID = FALSE;
 
 	// --- CÁLCULO DE IMU CON ALTA RESOLUCIÓN (x10000) ---
-
-	// ¡VITAL! Variable estática para guardar la memoria del filtro
 	static int32_t current_angle_hr = 0;
+
 	int32_t acc_angle_hr = 0;
 	int32_t gyro_delta_hr = 0;
 
 	if (az != 0) {
-		acc_angle_hr = (int32_t) (((int64_t) ax * 573000) / az);
+		acc_angle_hr = (int32_t) (((int64_t) ax * 573000) / az); //5730000 --> pasaje de radianes a grados * 100
 	}
 
 	gyro_delta_hr = (-(int32_t) gy * 200) / 131;
@@ -1116,51 +1119,55 @@ void PID_ControlTask(void) {
 	// --- FIN CÁLCULO IMU ---
 
 	// ========================================================
-	// --- NUEVO: LAZO DE VELOCIDAD VIRTUAL (CONTROL PI) ---
+	// --- LAZO DE VELOCIDAD VIRTUAL (CONTROL PI) ---
 	// ========================================================
-	static int32_t velocidad_estimada = 0; // x100
 	static int32_t integral_vel = 0;
-	static int32_t last_final_pwm = 0;     // Memoria del motor
+
+	// FIX: Kickstart - contador para impulso inicial de arranque
+	// Si el robot está quieto y con ángulo correcto pero sin avanzar,
+	// el kick fuerza el movimiento inicial igual que al empujarlo con el dedo.
+	static uint16_t kick_counter = 0;
 
 	int32_t setpoint_dinamico = setpoint; // Arranca en el centro de gravedad manual
 	int32_t velocidad_deseada = 0;         // Velocidad objetivo
 
 	// A. ¿Queremos avanzar hacia adelante?
 	if (lineState == LINE_FOLLOWING || lineState == LINE_SEARCHING) {
-		// Pedimos un esfuerzo promedio del PWM de 15 (1500 en escala x100)
-		velocidad_deseada = -3000;
+		// FIX: signo positivo — avanzar corresponde a final_pwm positivo.
+		// Si el robot retrocede con este valor, invertir a -3000.
+		velocidad_deseada = 3000;
 	}
 
-	// B. Estimar la velocidad real (Filtro pasa bajos del PWM anterior)
-	velocidad_estimada = (velocidad_estimada * 95 + (last_final_pwm * 100) * 5)
-			/ 100;
+	// FIX: Estimador de velocidad basado en giroscopio en lugar de last_final_pwm.
+	// Cuando el robot está tilteado pero PARADO, gy ≈ 0 → velocidad_estimada ≈ 0
+	// → el integral sigue acumulando → el setpoint sigue moviéndose hasta arrancar.
+	// Con el estimador de PWM, el PID podía creer que ya estaba en velocidad deseada
+	// cuando en realidad solo estaba equilibrado en el lugar.
+	// Ajustar signo de gy: si avanzar hacia adelante produce gy negativo, usar +gy.
+	int32_t velocidad_estimada = (int32_t)(-gy);
 
 	// C. Error de velocidad
 	int32_t error_vel = velocidad_deseada - velocidad_estimada;
 
 	integral_vel += error_vel;
-	// Anti-windup para que no se vuelva loco si lo levantas
-	if (integral_vel > 300000)
-		integral_vel = 300000; //Para hasta un maximo de hasta 3 grados
-	if (integral_vel < -300000)
-		integral_vel = -300000;
 
 	// E. Inclinamos el robot (calculamos el setpoint dinámico)
-	// Dividimos por 1000 para atenuar la suma a la escala de los grados
-	setpoint_dinamico = setpoint
-			+ ((Kp_vel * error_vel) + (Ki_vel * integral_vel)) / 1000;
+	// La salida combinada Kp+Ki se capea a ±500 ANTES de aplicarla.
+	// Anti-windup por clamping: si la salida ya saturó, se deshace la integración
+	// de este ciclo para que el integral no siga creciendo en dirección inútil.
+	// Esto es correcto porque considera la contribución REAL de Kp+Ki juntos,
+	// no solo la del integral por separado.
+	int32_t salida_vel = ((Kp_vel * error_vel) + (Ki_vel * integral_vel)) / 1000;
+	if (salida_vel >  500) { salida_vel =  500; integral_vel -= error_vel; }
+	if (salida_vel < -500) { salida_vel = -500; integral_vel -= error_vel; }
 
-	// F. Seguridad: Límite de inclinación para que no caiga de cara (+/- 5 grados desde su centro)
-	if (setpoint_dinamico > setpoint + 500)
-		setpoint_dinamico = setpoint + 500;
-	if (setpoint_dinamico < setpoint - 500)
-		setpoint_dinamico = setpoint - 500;
+	setpoint_dinamico = setpoint - salida_vel;
 
 	// 5. Lazo PID
-	//error = setpoint - current_angle;
-
 	error = setpoint_dinamico - current_angle;
+
 	integral += error;
+
 	// Anti-windup (Límite de la memoria integral a 50 grados = 5000)
 	if (integral > ANG50)
 		integral = ANG50; //utilizado para evitar que la memoria del error se siga acumulando
@@ -1172,7 +1179,7 @@ void PID_ControlTask(void) {
 
 	// Salida final. Dividimos por 100 para volver a la escala normal (0 a 100 de PWM)
 	output = (Kp_stable * error + Ki_stable * integral + Kd_stable * derivative)
-			/ 100;
+			/ 1000;
 
 	if (output > 0) {
 		// Corrección hacia adelante
@@ -1192,9 +1199,18 @@ void PID_ControlTask(void) {
 	if (current_angle > ANG45 || current_angle < -4500) {
 		final_pwm = 0;
 		integral = 0;
+		// Resetear kick para que vuelva a aplicar impulso al recuperarse
+		kick_counter = 0;
 	}
 
-	last_final_pwm = final_pwm;
+	// FIX: Kick inicial - sobrescribe final_pwm los primeros KICK_CYCLES ciclos.
+	// Simula el empujón manual que comprobaste que hace avanzar al robot.
+	// KICK_PWM y KICK_CYCLES se ajustan en los #define al inicio de la función.
+	if (kick_counter < KICK_CYCLES) {
+		kick_counter++;
+		final_pwm = KICK_PWM;
+		integral_vel = 0;  // congelar integral durante el kick
+	}
 	// --- SEGUIDOR DE LÍNEA ---
 	// 1. LECTURA E INVERSIÓN (Blanco = ~395, Negro = ~3795)
 	left_ir = 4095 - adcDataTx[1];
@@ -1279,7 +1295,6 @@ void PID_ControlTask(void) {
 		chnl_3 = (uint8_t) (-pwm_right);
 	}
 }
-
 /* USER CODE END 0 */
 
 
