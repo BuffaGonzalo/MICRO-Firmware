@@ -200,6 +200,16 @@ static uint8_t  udpReadyToStart  = 0;
 
 //PID
 
+int32_t acc_angle_hr = 0;
+int32_t gyro_delta_hr = 0;
+int32_t current_angle_hr = 0;
+int32_t setpoint_dinamico = 0;
+int32_t error_vel = 0;
+int32_t error = 0;
+int32_t derivative = 0;
+int32_t output = 0;
+
+
 /* ---- Variables para el PID (Punto Fijo x100) ---- */
 //declaradas como int16_t para achicar la comunicacion y parcialmente le espacio de almacenamiento, empeora rendimiento
 int16_t Kp_stable = 10;
@@ -534,6 +544,25 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 
 		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
 		break;
+	case GETPIDDATA:
+	        unerPrtcl_PutHeaderOnTx(dataTx, GETPIDDATA, 41); // 10 variables x 4 bytes = 40 bytes
+
+	        // Empaquetamos en un arreglo para iterar más limpio
+	        int32_t pid_data[10] = {
+	            acc_angle_hr, gyro_delta_hr, current_angle_hr,
+	            setpoint_dinamico, error_vel, error,
+	            integral, derivative, last_error, output
+	        };
+
+	        for(int i = 0; i < 10; i++) {
+	            unerPrtcl_PutByteOnTx(dataTx, (uint8_t)(pid_data[i] & 0xFF));
+	            unerPrtcl_PutByteOnTx(dataTx, (uint8_t)((pid_data[i] >> 8) & 0xFF));
+	            unerPrtcl_PutByteOnTx(dataTx, (uint8_t)((pid_data[i] >> 16) & 0xFF));
+	            unerPrtcl_PutByteOnTx(dataTx, (uint8_t)((pid_data[i] >> 24) & 0xFF));
+	        }
+
+	        unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
+	        break;
 	default:
 		unerPrtcl_PutHeaderOnTx(dataTx, (_eCmd) dataRx->buff[dataRx->indexData],
 				2);
@@ -1088,20 +1117,16 @@ void buttonTask(_sButton *button){
 
 void PID_ControlTask(void) {
 	//balancin
-	int32_t final_pwm, output, derivative, error;
+	int32_t final_pwm;
 	//seguidor linea
 	int32_t left_ir, center_ir, right_ir, line_derivative, pwm_left, pwm_right;
+
+	int32_t velocidad_estimada;
 
 	if (RUN_PID == FALSE) {
 		return; // Salimos si no hay datos nuevos
 	}
 	RUN_PID = FALSE;
-
-	// --- CÁLCULO DE IMU CON ALTA RESOLUCIÓN (x10000) ---
-	static int32_t current_angle_hr = 0;
-
-	int32_t acc_angle_hr = 0;
-	int32_t gyro_delta_hr = 0;
 
 	if (az != 0) {
 		acc_angle_hr = (int32_t) (((int64_t) ax * 573000) / az); //5730000 --> pasaje de radianes a grados * 100
@@ -1128,7 +1153,6 @@ void PID_ControlTask(void) {
 	// el kick fuerza el movimiento inicial igual que al empujarlo con el dedo.
 	static uint16_t kick_counter = 0;
 
-	int32_t setpoint_dinamico = setpoint; // Arranca en el centro de gravedad manual
 	int32_t velocidad_deseada = 0;         // Velocidad objetivo
 
 	// A. ¿Queremos avanzar hacia adelante?
@@ -1144,10 +1168,10 @@ void PID_ControlTask(void) {
 	// Con el estimador de PWM, el PID podía creer que ya estaba en velocidad deseada
 	// cuando en realidad solo estaba equilibrado en el lugar.
 	// Ajustar signo de gy: si avanzar hacia adelante produce gy negativo, usar +gy.
-	int32_t velocidad_estimada = (int32_t)(-gy);
+	velocidad_estimada = (int32_t)(-gy);
 
 	// C. Error de velocidad
-	int32_t error_vel = velocidad_deseada - velocidad_estimada;
+	error_vel = velocidad_deseada - velocidad_estimada;
 
 	integral_vel += error_vel;
 
@@ -1278,19 +1302,19 @@ void PID_ControlTask(void) {
 
 	// --- 4. ASIGNACIÓN A LOS MOTORES L9110S ---
 	// Motor Izquierdo (Canales 1 y 2)
-	if (pwm_left > 0) {
-		chnl_2 = (uint8_t) pwm_left;
+	if (pwm_left > 0) { //adelante
+		chnl_2 = (uint8_t) pwm_left; //Los channels aceptan % de motor
 		chnl_1 = 0;
-	} else {
+	} else { //reversa
 		chnl_2 = 0;
 		chnl_1 = (uint8_t) (-pwm_left);
 	}
 
 	// Motor Derecho (Canales 3 y 4)
-	if (pwm_right > 0) {
+	if (pwm_right > 0) { //adelante
 		chnl_4 = (uint8_t) pwm_right;
 		chnl_3 = 0;
-	} else {
+	} else { //reversa
 		chnl_4 = 0;
 		chnl_3 = (uint8_t) (-pwm_right);
 	}

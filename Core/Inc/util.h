@@ -55,6 +55,7 @@ typedef enum {
 	SETPWMLIMIT = 0XF6,
 	SETLINECTRL = 0xF7,
 	GETTELEMETRY = 0xF8,
+	GETPIDDATA = 0xF9,
 	ACK = 0x0D,
 	UNKNOWN = 0xFF
 } _eCmd;
