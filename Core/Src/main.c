@@ -1190,7 +1190,11 @@ void PID_ControlTask(void) {
 	// C. Error de velocidad
 	error_vel = velocidad_deseada - velocidad_estimada;
 
-	integral_vel += error_vel;
+	if (Ki_vel == 0) {
+		integral_vel = 0;
+	} else {
+		integral_vel += error_vel; // Solo sumamos si el Ki está activo
+	}
 
 	// E. Inclinamos el robot (calculamos el setpoint dinámico)
 	// La salida combinada Kp+Ki se capea a ±500 ANTES de aplicarla.
