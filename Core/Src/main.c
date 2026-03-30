@@ -1141,233 +1141,130 @@ void buttonTask(_sButton *button){
 
 /* USER CODE BEGIN 0 */
 // ... tus otras funciones ...
-
 void PID_ControlTask(void) {
-	//balancin
-	int32_t final_pwm;
-	//seguidor linea
-	int32_t left_ir, center_ir, right_ir, line_derivative, pwm_left, pwm_right;
+    int32_t final_pwm;
+    int32_t pwm_left, pwm_right;
+    int32_t output;
 
-	int32_t velocidad_estimada;
+    if (RUN_PID == FALSE) {
+        return;
+    }
+    RUN_PID = FALSE;
 
-	if (RUN_PID == FALSE) {
-		return; // Salimos si no hay datos nuevos
-	}
-	RUN_PID = FALSE;
+    // --- 1. CALIBRACIÓN INICIAL DEL GIROSCOPIO (Primeros 4 segundos) ---
+    static uint8_t calib_count = 0;
+    static int32_t gy_sum = 0;
+    static int32_t gy_offset = 0;
 
-	// Umbral: az representativo parado vertical ≈ 16384 LSB (1g)
-	// Por debajo de 4000 el robot está inclinado >75° → acc no confiable
+    if (calib_count < 200) {
+        gy_sum += gy; // Sumamos la lectura RAW
+        calib_count++;
 
-	if (az > AZ_MIN_VALID || az < -AZ_MIN_VALID) {
-	    acc_angle_hr = (int32_t)(((int64_t)ax * 573000) / az);
-	}
+        if (calib_count == 200) {
+            gy_offset = gy_sum / 200; // Calculamos el promedio fijo
+        }
 
-	gyro_delta_hr = (-(int32_t) gy * 200) / 131;
+        // Mantenemos los motores apagados obligatoriamente mientras calibra
+        chnl_1 = 0; chnl_2 = 0; chnl_3 = 0; chnl_4 = 0;
+        return; // Salimos sin ejecutar el PID
+    }
 
-	// 3. Filtro Complementario (todo ocurre en la MISMA escala x10000)
-	current_angle_hr = (ALPHA_GYRO * (current_angle_hr + gyro_delta_hr)
-			+ ALPHA_ACC * acc_angle_hr) / 100;
-
-	// 4. Transformar a tu escala original x100 para que el PID lo use
-	current_angle = current_angle_hr / 100;
-
-	// --- FIN CÁLCULO IMU ---
-
-	// ========================================================
-	// --- LAZO DE VELOCIDAD VIRTUAL (CONTROL PI) ---
-	// ========================================================
-	// FIX: Kickstart - contador para impulso inicial de arranque
-	// Si el robot está quieto y con ángulo correcto pero sin avanzar,
-	// el kick fuerza el movimiento inicial igual que al empujarlo con el dedo.
-	static uint16_t kick_counter = 0;
-
-	int32_t velocidad_deseada = 0;         // Velocidad objetivo
-
-	// A. ¿Queremos avanzar hacia adelante?
-	if (lineState == LINE_FOLLOWING || lineState == LINE_SEARCHING) {
-		// FIX: signo positivo — avanzar corresponde a final_pwm positivo.
-		// Si el robot retrocede con este valor, invertir a -3000.
-		velocidad_deseada = customSpeed;
-	}
-
-	// FIX: Estimador de velocidad basado en giroscopio en lugar de last_final_pwm.
-	// Cuando el robot está tilteado pero PARADO, gy ≈ 0 → velocidad_estimada ≈ 0
-	// → el integral sigue acumulando → el setpoint sigue moviéndose hasta arrancar.
-	// Con el estimador de PWM, el PID podía creer que ya estaba en velocidad deseada
-	// cuando en realidad solo estaba equilibrado en el lugar.
-	// Ajustar signo de gy: si avanzar hacia adelante produce gy negativo, usar +gy.
-	velocidad_estimada = (int32_t)(gy);
-
-	// C. Error de velocidad
-	error_vel = velocidad_deseada - velocidad_estimada;
-
-	if (Ki_vel == 0) {
-		integral_vel = 0;
-	} else {
-		integral_vel += error_vel; // Solo sumamos si el Ki está activo
-	}
-
-	// E. Inclinamos el robot (calculamos el setpoint dinámico)
-	// La salida combinada Kp+Ki se capea a ±500 ANTES de aplicarla.
-	// Anti-windup por clamping: si la salida ya saturó, se deshace la integración
-	// de este ciclo para que el integral no siga creciendo en dirección inútil.
-	// Esto es correcto porque considera la contribución REAL de Kp+Ki juntos,
-	// no solo la del integral por separado.
-	salida_vel = ((Kp_vel * error_vel) + (Ki_vel * integral_vel)) / 1000;
-	if (salida_vel >  500) { salida_vel =  500; integral_vel -= error_vel; }
-	if (salida_vel < -500) { salida_vel = -500; integral_vel -= error_vel; }
-
-	setpoint_dinamico = setpoint - salida_vel;
-
-	// 5. Lazo PID
-	error = setpoint_dinamico - current_angle;
-
-	integral += error;
-
-	// Anti-windup (Límite de la memoria integral a 50 grados = 5000)
-	if (integral > ANG50)
-		integral = ANG50; //utilizado para evitar que la memoria del error se siga acumulando
-	if (integral < -ANG50)
-		integral = -ANG50;
-
-	//derivative = error - last_error;
-	//last_error = error;
+    // Le restamos el error de fábrica al giroscopio
+    int32_t gy_corregido = gy - gy_offset;
 
 
-	// Kd sobre gy directamente: sin lag de muestreo, sin derivative kick
-	// gy>0 = inclinándose adelante → si el error pide adelante, Kd frena
-	// El signo negativo amortigua: opone resistencia a la velocidad angular
-	output = (Kp_stable * error + Ki_stable * integral + Kd_stable * (int32_t)gy) / 1000;
+    // --- 2. CÁLCULO DE IMU CON ALTA RESOLUCIÓN (x10000) ---
+    static int32_t current_angle_hr = 0;
 
-	if (output > OUTPUT_DEADBAND) {
-		// Corrección hacia adelante
-		final_pwm = output + minPWM;
-		if (final_pwm > maxPWM)
-			final_pwm = maxPWM; // Saturación al 20%
-	} else if (output < -OUTPUT_DEADBAND) {
-		// Corrección hacia atrás
-		final_pwm = output - minPWM;
-		if (final_pwm < -(int32_t) maxPWM)
-			final_pwm = -(int32_t) maxPWM; // Saturación al -20%
-	} else {
-		final_pwm = 0; // Ángulo perfecto, motores apagados
-	}
+    // Como ahora llegan los datos RAW (1g = ~16384), 4000 es un límite seguro
+    if (az > AZ_MIN_VALID || az < -AZ_MIN_VALID) {
+        acc_angle_hr = (int32_t)(((int64_t)ax * 573000) / az);
+    }
 
-	// Apagado de seguridad si se cae (> 45 grados)
-	if (current_angle > ANG45 || current_angle < -ANG45) {
-		final_pwm = 0;
-		integral = 0;
-		// Resetear kick para que vuelva a aplicar impulso al recuperarse
-		kick_counter = 0;
-		current_angle_hr = 0;
-	}
+    // Usamos el giroscopio limpio
+    gyro_delta_hr = (-(int32_t)gy_corregido * 200) / 131;
 
-	// FIX: Kick inicial - sobrescribe final_pwm los primeros KICK_CYCLES ciclos.
-	// Simula el empujón manual que comprobaste que hace avanzar al robot.
-	// KICK_PWM y KICK_CYCLES se ajustan en los #define al inicio de la función.
-//	if (kick_counter < KICK_CYCLES) {
-//	    kick_counter++;
-//	    final_pwm = KICK_PWM;
-//	    // Congelar integrales DURANTE el kick (ya lo tenías para integral_vel)
-//	    integral_vel = 0;
-//	    integral     = 0;   // <-- AGREGAR ESTO: evitar que se cargue durante el kick
-//	    last_error   = 0;   // <-- AGREGAR: sin memoria de error
-//
-//	} else if (kick_counter == KICK_CYCLES) {
-//	    // Ciclo de transición: un solo ciclo donde el PID ya calcula
-//	    // pero arranca con integrales limpios desde el estado real
-//	    kick_counter++;     // pasar a KICK_CYCLES+1 para no volver a entrar acá
-//	    integral     = 0;   // reset limpio al soltar el kick
-//	    integral_vel = 0;
-//	    last_error   = 0;
-//	    // final_pwm calculado normalmente por el PID arriba
-//	}
-	// --- SEGUIDOR DE LÍNEA ---
-	// 1. LECTURA E INVERSIÓN (Blanco = ~395, Negro = ~3795)
-	left_ir = 4095 - adcDataTx[1];
-	center_ir = 4095 - adcDataTx[3];
-	right_ir = 4095 - adcDataTx[5];
+    current_angle_hr = (ALPHA_GYRO * (current_angle_hr + gyro_delta_hr) + ALPHA_ACC * acc_angle_hr) / 100;
+    current_angle = current_angle_hr / 100;
 
-	if (left_ir < 0)
-		left_ir = 0;
-	if (center_ir < 0)
-		center_ir = 0;
-	if (right_ir < 0)
-		right_ir = 0;
 
-	// Suma total de reflectancia
-	sum = left_ir + center_ir + right_ir;
-	if (sum == 0)
-		sum = 1;
+    // --- 3. AISLAMIENTO DEL LAZO DE EQUILIBRIO ---
+    // (Por ahora no calculamos la velocidad virtual, forzamos el setpoint fijo)
+    int32_t setpoint_dinamico = setpoint;
 
-	// 3. MÁQUINA DE ESTADOS
-	switch (lineState) {
+    // Lazo PID Principal
+    int32_t error = setpoint_dinamico - current_angle;
 
-	case LINE_SEARCHING:
-		turn_pwm = 0;
-		// Si la suma supera 1500, significa que al menos un sensor tocó la línea negra
-		if (sum >= 1500) {
-			lineState = LINE_FOLLOWING;
-		}
-		break;
+    integral += error;
+    if (integral > ANG50) integral = ANG50;
+    if (integral < -ANG50) integral = -ANG50;
 
-	case LINE_FOLLOWING:
-		// Si la suma cae por debajo de 1500, volvió al piso blanco puro
-		if (sum < 1500) {
-			line_error = (last_line_error > 0) ? 100 : -100;
-			lineState = LINE_SEARCHING;
-			turn_pwm = 0;
-		} else {
-			// ¡LA CORRECCIÓN MÁGICA!: right_ir - left_ir (para que gire hacia la línea)
-			line_error = (((1000 * right_ir) - (1000 * left_ir)) / sum) / 10;
+    // ¡EL CAMBIO CRÍTICO DE SIGNO! Sumamos el Kd por gy_corregido
+    output = (Kp_stable * error + Ki_stable * integral + Kd_stable * gy_corregido) / 1000;
 
-			line_derivative = line_error - last_line_error;
-			turn_pwm = (Kp_line * line_error + Kd_line * line_derivative) / 100;
-		}
-		last_line_error = line_error;
-		break;
 
-	default:
-		lineState = LINE_SEARCHING;
-		turn_pwm = 0;
-		break;
-	}
+    // --- 4. SUAVIZADO DEL PWM Y ZONA MUERTA ---
+    // (Sube tu macro OUTPUT_DEADBAND a 10 en los #define para que la rampa se note)
+    if (output > 0) {
+        if (output <= OUTPUT_DEADBAND) {
+            // Rampa suave en aritmética entera para que no arranque a los tirones
+            final_pwm = (output * minPWM) / OUTPUT_DEADBAND;
+        } else {
+            final_pwm = output + minPWM;
+        }
+        if (final_pwm > maxPWM) final_pwm = maxPWM;
+    }
+    else if (output < 0) {
+        if (output >= -OUTPUT_DEADBAND) {
+            // Rampa suave en reversa
+            final_pwm = (output * minPWM) / OUTPUT_DEADBAND;
+        } else {
+            final_pwm = output - minPWM;
+        }
+        if (final_pwm < -(int32_t)maxPWM) final_pwm = -(int32_t)maxPWM;
+    }
+    else {
+        final_pwm = 0;
+    }
 
-	turn_pwm=0; //solamente de testeo para el sistema de balanceo
-	// 4. MIXER: combinamos equilibrio + dirección
-	pwm_left = final_pwm + turn_pwm;
-	pwm_right = final_pwm - turn_pwm;
+    // Apagado de seguridad si se cae (> 45 grados)
+    if (current_angle > ANG45 || current_angle < -ANG45) {
+        final_pwm = 0;
+        integral = 0;
+        current_angle_hr = 0; // Resetear la memoria del filtro
+    }
 
-	// 5. SATURACIÓN INDEPENDIENTE
-	if (pwm_left > (int32_t) maxPWM)
-		pwm_left = (int32_t) maxPWM;
-	if (pwm_left < -(int32_t) maxPWM)
-		pwm_left = -(int32_t) maxPWM;
-	if (pwm_right > (int32_t) maxPWM)
-		pwm_right = (int32_t) maxPWM;
-	if (pwm_right < -(int32_t) maxPWM)
-		pwm_right = -(int32_t) maxPWM;
 
-	// --- 4. ASIGNACIÓN A LOS MOTORES L9110S ---
-	// Motor Izquierdo (Canales 1 y 2)
-	if (pwm_left > 0) { //adelante
-		chnl_2 = (uint8_t) pwm_left; //Los channels aceptan % de motor
-		chnl_1 = 0;
-	} else { //reversa
-		chnl_2 = 0;
-		chnl_1 = (uint8_t) (-pwm_left);
-	}
+    // --- 5. ANULAR SEGUIDOR DE LÍNEA (Temporalmente) ---
+    int32_t turn_pwm = 0; // Forzamos a cero para que no intente girar
 
-	// Motor Derecho (Canales 3 y 4)
-	if (pwm_right > 0) { //adelante
-		chnl_4 = (uint8_t) pwm_right;
-		chnl_3 = 0;
-	} else { //reversa
-		chnl_4 = 0;
-		chnl_3 = (uint8_t) (-pwm_right);
-	}
+    // MIXER
+    pwm_left = final_pwm + turn_pwm;
+    pwm_right = final_pwm - turn_pwm;
+
+    // SATURACIÓN INDEPENDIENTE
+    if (pwm_left > (int32_t) maxPWM) pwm_left = (int32_t) maxPWM;
+    if (pwm_left < -(int32_t) maxPWM) pwm_left = -(int32_t) maxPWM;
+    if (pwm_right > (int32_t) maxPWM) pwm_right = (int32_t) maxPWM;
+    if (pwm_right < -(int32_t) maxPWM) pwm_right = -(int32_t) maxPWM;
+
+    // ASIGNACIÓN A LOS MOTORES L9110S
+    if (pwm_left > 0) {
+        chnl_2 = (uint8_t) pwm_left;
+        chnl_1 = 0;
+    } else {
+        chnl_2 = 0;
+        chnl_1 = (uint8_t) (-pwm_left);
+    }
+
+    if (pwm_right > 0) {
+        chnl_4 = (uint8_t) pwm_right;
+        chnl_3 = 0;
+    } else {
+        chnl_4 = 0;
+        chnl_3 = (uint8_t) (-pwm_right);
+    }
 }
-
 
 /* USER CODE END 0 */
 
