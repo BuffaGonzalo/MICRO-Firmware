@@ -86,54 +86,22 @@ char mpu6050_Read(void)
 		switch (state) {
 		case 1:
 			state=2;
-			// Leer 6 bytes desde ACCEL_XOUT_H (registro 0x3B)
+			// Leer 14 bytes desde ACCEL_XOUT_H (registro 0x3B)
 			mpu6050_ReadDataDMA(Rec_Data, 14, ACCEL_XOUT_H_REG);
 			break;
 		case 2:
 			state=1;
 			// Combinar bytes altos y bajos en variables de 16 bits con signo
-			//Valores accelerometro
-			ax = (int16_t) (Rec_Data[0] << 8 | Rec_Data[1]); //primer byte  es la parte alta, segundo parte baja
+			// ¡Solo guardamos los RAW, sin ninguna división matemática!
+			ax = (int16_t) (Rec_Data[0] << 8 | Rec_Data[1]);
 			ay = (int16_t) (Rec_Data[2] << 8 | Rec_Data[3]);
 			az = (int16_t) (Rec_Data[4] << 8 | Rec_Data[5]);
-			//Medida temperatura
-			//t = (int16_t) (Rec_Data[6] << 8 | Rec_Data[7]);
-			//Valores del giroscopio
+
+			// t = (int16_t) (Rec_Data[6] << 8 | Rec_Data[7]); // Temperatura
+
 			gx = (int16_t) (Rec_Data[8] << 8 | Rec_Data[9]);
 			gy = (int16_t) (Rec_Data[10] << 8 | Rec_Data[11]);
 			gz = (int16_t) (Rec_Data[12] << 8 | Rec_Data[13]);
-
-
-			if (abs(ax) <= OFFSET_AX)
-				ax_real = 0;
-			else
-				ax_real = (ax / 16384.0f) * GRAVEDAD * MULTIPLICADORFLOAT;
-
-			if (abs(ay) <= OFFSET_AY)
-				ay_real = 0;
-			else
-				ay_real = (ay / 16384.0f) * GRAVEDAD * MULTIPLICADORFLOAT;
-
-			if (abs(az) <= OFFSET_AZ)
-				az_real = 0;//9.81 * MULTIPLICADORFLOAT; // en reposo debería medir ~1g hacia Z
-			else
-				az_real = (az / 16384.0f) * GRAVEDAD * MULTIPLICADORFLOAT;
-
-			// Aplicar offset y escalar a grados/segundo (centésimas)
-			if (abs(gx) <= OFFSET_GX)
-				gx_real = 0;
-			else
-				gx_real = (gx / 131.0f) * MULTIPLICADORFLOAT;
-
-			if (abs(gy) <= OFFSET_GY)
-				gy_real = 0;
-			else
-				gy_real = (gy / 131.0f) * MULTIPLICADORFLOAT;
-
-			if (abs(gz) <= OFFSET_GZ)
-				gz_real = 0;
-			else
-				gz_real = (gz / 131.0f) * MULTIPLICADORFLOAT;
 
 			return 1;
 			break;
@@ -142,13 +110,14 @@ char mpu6050_Read(void)
 	return 0;
 }
 
-void mpu6050_GetData(int16_t *ax, int16_t *ay, int16_t *az, int16_t *gx, int16_t *gy, int16_t *gz) {
-    if (ax) *ax = ax_real;
-    if (ay) *ay = ay_real;
-    if (az) *az = az_real;
+void mpu6050_GetData(int16_t *ax_out, int16_t *ay_out, int16_t *az_out, int16_t *gx_out, int16_t *gy_out, int16_t *gz_out) {
+    // Pasamos las variables RAW estáticas directamente al main
+    if (ax_out) *ax_out = ax;
+    if (ay_out) *ay_out = ay;
+    if (az_out) *az_out = az;
 
-    if (gx) *gx = gx_real;
-    if (gy) *gy = gy_real;
-    if (gz) *gz = gz_real;
+    if (gx_out) *gx_out = gx;
+    if (gy_out) *gy_out = gy;
+    if (gz_out) *gz_out = gz;
 }
 

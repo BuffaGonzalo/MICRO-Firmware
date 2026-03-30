@@ -84,6 +84,9 @@
 #define ALPHA_GYRO          98     // 98% de confianza al giroscopio
 #define ALPHA_ACC           2      // 2% de confianza al acelerómetro
 
+#define AZ_MIN_VALID  		4000
+#define OUTPUT_DEADBAND 	3  // outputs menores a esto → motores apagados
+
 //#define MIN_PWM 			28  // Mínimo para que la rueda empiece a girar, valor de 6 para un TIM3CP de 9999
 //#define	MAX_PWM 			25  // Máximo permitido para correcciones
 
@@ -213,31 +216,32 @@ int32_t salida_vel = 0;
 
 /* ---- Variables para el PID (Punto Fijo x100) ---- */
 //declaradas como int16_t para achicar la comunicacion y parcialmente le espacio de almacenamiento, empeora rendimiento
-int16_t Kp_stable = 10;
+int16_t Kp_stable = 0;
 int16_t Ki_stable = 0;
 int16_t Kd_stable = 0;
 
-int32_t setpoint = -300; // Angulo unico de trabajo (x100 = 0.5°), ajustable por SETLINECTRL
+int32_t setpoint = -150; // Angulo unico de trabajo (x100 = 0.5°), ajustable por SETLINECTRL
 int32_t integral = 0;
 int32_t last_error = 0;
 int32_t current_angle = 0; // Escala x100 (ej: 150 = 1.5 grados)
 
-uint8_t maxPWM = 90; //Previamente valor de 60
+uint8_t maxPWM = 60; //Previamente valor de 60
 uint8_t minPWM = 25; // Valor de 28 tambien funciona bien
 
 //////Valores seguidor linea
 // --- Variables Seguidor de Línea ---
-int16_t Kp_line = 1;        // Constante Proporcional
+int16_t Kp_line = 0;        // Constante Proporcional
 int16_t Kd_line = 0;        // Constante Derivativa
 int32_t last_line_error = 0;
 
 // D. Ganancias del PI de Velocidad (Puedes ajustarlas luego)
-int16_t Kp_vel = 1;
+int16_t Kp_vel = 0;
 int16_t Ki_vel = 0;
 
 int32_t sum = 0;
 int32_t line_error = 0;
 int32_t turn_pwm = 0;
+int16_t customSpeed = 0;
 
 // --- Estado del seguidor de línea ---
 typedef enum {
@@ -511,6 +515,10 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 		myWord.i8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
 		setpoint = (int32_t)myWord.i16[0];
 
+		myWord.i8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		myWord.i8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		customSpeed = myWord.i16[0];
+
 		break;
 	case GETTELEMETRY:
 		unerPrtcl_PutHeaderOnTx(dataTx, GETTELEMETRY, 12);
@@ -546,8 +554,8 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
 		break;
 	case GETPIDDATA:
-	        // Tamaño total: 1(cmd) + 13*4(32bits) + 7*2(16bits) + 2(8bits) = 69 bytes
-	        unerPrtcl_PutHeaderOnTx(dataTx, GETPIDDATA, 69);
+		// Tamaño total: 1(cmd) + 13*4(32bits) + 8*2(16bits) + 2(8bits) = 71 bytes
+	        unerPrtcl_PutHeaderOnTx(dataTx, GETPIDDATA, 71);
 
 	        // 1. Bloque de 32 bits (13 variables = 52 bytes)
 	        int32_t pid_data32[13] = {
@@ -563,17 +571,17 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 	            unerPrtcl_PutByteOnTx(dataTx, (uint8_t)((pid_data32[i] >> 16) & 0xFF));
 	            unerPrtcl_PutByteOnTx(dataTx, (uint8_t)((pid_data32[i] >> 24) & 0xFF));
 	        }
-	        // 2. Bloque de 16 bits (7 variables = 14 bytes)
-	        int16_t pid_data16[7] = {
-	            Kp_stable, Ki_stable, Kd_stable,
-	            Kp_line, Kd_line,
-	            Kp_vel, Ki_vel
-	        };
 
-	        for(int i = 0; i < 7; i++) {
-	            unerPrtcl_PutByteOnTx(dataTx, (uint8_t)(pid_data16[i] & 0xFF));
-	            unerPrtcl_PutByteOnTx(dataTx, (uint8_t)((pid_data16[i] >> 8) & 0xFF));
-	        }
+	        // 2. Bloque de 16 bits (7 variables = 14 bytes)
+			int16_t pid_data16[8] = { Kp_stable, Ki_stable, Kd_stable, Kp_line,
+					Kd_line, Kp_vel, Ki_vel, customSpeed // <-- Añadido customSpeed al final del arreglo
+					};
+
+			for (int i = 0; i < 8; i++) { // <-- Cambio límite del for de 7 a 8
+				unerPrtcl_PutByteOnTx(dataTx, (uint8_t) (pid_data16[i] & 0xFF));
+				unerPrtcl_PutByteOnTx(dataTx,
+						(uint8_t) ((pid_data16[i] >> 8) & 0xFF));
+			}
 
 	        // 3. Bloque de 8 bits (2 variables = 2 bytes)
 	        unerPrtcl_PutByteOnTx(dataTx, maxPWM);
@@ -1147,8 +1155,11 @@ void PID_ControlTask(void) {
 	}
 	RUN_PID = FALSE;
 
-	if (az != 0) {
-		acc_angle_hr = (int32_t) (((int64_t) ax * 573000) / az); //5730000 --> pasaje de radianes a grados * 100
+	// Umbral: az representativo parado vertical ≈ 16384 LSB (1g)
+	// Por debajo de 4000 el robot está inclinado >75° → acc no confiable
+
+	if (az > AZ_MIN_VALID || az < -AZ_MIN_VALID) {
+	    acc_angle_hr = (int32_t)(((int64_t)ax * 573000) / az);
 	}
 
 	gyro_delta_hr = (-(int32_t) gy * 200) / 131;
@@ -1176,7 +1187,7 @@ void PID_ControlTask(void) {
 	if (lineState == LINE_FOLLOWING || lineState == LINE_SEARCHING) {
 		// FIX: signo positivo — avanzar corresponde a final_pwm positivo.
 		// Si el robot retrocede con este valor, invertir a -3000.
-		velocidad_deseada = 3000;
+		velocidad_deseada = customSpeed;
 	}
 
 	// FIX: Estimador de velocidad basado en giroscopio en lugar de last_final_pwm.
@@ -1185,7 +1196,7 @@ void PID_ControlTask(void) {
 	// Con el estimador de PWM, el PID podía creer que ya estaba en velocidad deseada
 	// cuando en realidad solo estaba equilibrado en el lugar.
 	// Ajustar signo de gy: si avanzar hacia adelante produce gy negativo, usar +gy.
-	velocidad_estimada = (int32_t)(-gy);
+	velocidad_estimada = (int32_t)(gy);
 
 	// C. Error de velocidad
 	error_vel = velocidad_deseada - velocidad_estimada;
@@ -1219,19 +1230,21 @@ void PID_ControlTask(void) {
 	if (integral < -ANG50)
 		integral = -ANG50;
 
-	derivative = error - last_error;
-	last_error = error;
+	//derivative = error - last_error;
+	//last_error = error;
 
-	// Salida final. Dividimos por 100 para volver a la escala normal (0 a 100 de PWM)
-	output = (Kp_stable * error + Ki_stable * integral + Kd_stable * derivative)
-			/ 1000;
 
-	if (output > 0) {
+	// Kd sobre gy directamente: sin lag de muestreo, sin derivative kick
+	// gy>0 = inclinándose adelante → si el error pide adelante, Kd frena
+	// El signo negativo amortigua: opone resistencia a la velocidad angular
+	output = (Kp_stable * error + Ki_stable * integral + Kd_stable * (int32_t)gy) / 1000;
+
+	if (output > OUTPUT_DEADBAND) {
 		// Corrección hacia adelante
 		final_pwm = output + minPWM;
 		if (final_pwm > maxPWM)
 			final_pwm = maxPWM; // Saturación al 20%
-	} else if (output < 0) {
+	} else if (output < -OUTPUT_DEADBAND) {
 		// Corrección hacia atrás
 		final_pwm = output - minPWM;
 		if (final_pwm < -(int32_t) maxPWM)
@@ -1241,21 +1254,34 @@ void PID_ControlTask(void) {
 	}
 
 	// Apagado de seguridad si se cae (> 45 grados)
-	if (current_angle > ANG45 || current_angle < -4500) {
+	if (current_angle > ANG45 || current_angle < -ANG45) {
 		final_pwm = 0;
 		integral = 0;
 		// Resetear kick para que vuelva a aplicar impulso al recuperarse
 		kick_counter = 0;
+		current_angle_hr = 0;
 	}
 
 	// FIX: Kick inicial - sobrescribe final_pwm los primeros KICK_CYCLES ciclos.
 	// Simula el empujón manual que comprobaste que hace avanzar al robot.
 	// KICK_PWM y KICK_CYCLES se ajustan en los #define al inicio de la función.
-	if (kick_counter < KICK_CYCLES) {
-		kick_counter++;
-		final_pwm = KICK_PWM;
-		integral_vel = 0;  // congelar integral durante el kick
-	}
+//	if (kick_counter < KICK_CYCLES) {
+//	    kick_counter++;
+//	    final_pwm = KICK_PWM;
+//	    // Congelar integrales DURANTE el kick (ya lo tenías para integral_vel)
+//	    integral_vel = 0;
+//	    integral     = 0;   // <-- AGREGAR ESTO: evitar que se cargue durante el kick
+//	    last_error   = 0;   // <-- AGREGAR: sin memoria de error
+//
+//	} else if (kick_counter == KICK_CYCLES) {
+//	    // Ciclo de transición: un solo ciclo donde el PID ya calcula
+//	    // pero arranca con integrales limpios desde el estado real
+//	    kick_counter++;     // pasar a KICK_CYCLES+1 para no volver a entrar acá
+//	    integral     = 0;   // reset limpio al soltar el kick
+//	    integral_vel = 0;
+//	    last_error   = 0;
+//	    // final_pwm calculado normalmente por el PID arriba
+//	}
 	// --- SEGUIDOR DE LÍNEA ---
 	// 1. LECTURA E INVERSIÓN (Blanco = ~395, Negro = ~3795)
 	left_ir = 4095 - adcDataTx[1];
@@ -1307,6 +1333,7 @@ void PID_ControlTask(void) {
 		break;
 	}
 
+	turn_pwm=0; //solamente de testeo para el sistema de balanceo
 	// 4. MIXER: combinamos equilibrio + dirección
 	pwm_left = final_pwm + turn_pwm;
 	pwm_right = final_pwm - turn_pwm;
@@ -1340,6 +1367,8 @@ void PID_ControlTask(void) {
 		chnl_3 = (uint8_t) (-pwm_right);
 	}
 }
+
+
 /* USER CODE END 0 */
 
 
