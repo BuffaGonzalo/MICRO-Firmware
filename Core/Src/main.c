@@ -201,18 +201,29 @@ static uint16_t udpTargetPort    = 30010;
 static uint8_t  udpReadyToStart  = 0;
 
 
-//PID
-
+//////VARIABLES PID//////
 int32_t acc_angle_hr = 0;
 int32_t gyro_delta_hr = 0;
 int32_t current_angle_hr = 0;
+
 int32_t setpoint_dinamico = 0;
-int32_t error_vel = 0;
+int32_t setpoint_offset = 0;
+
 int32_t error = 0;
 int32_t derivative = 0;
 int32_t output = 0;
-int32_t integral_vel = 0;
-int32_t salida_vel = 0;
+
+int32_t integral = 0;
+int32_t current_angle = 0; // Escala x100 (ej: 150 = 1.5 grados)
+
+//filtros de gyro
+uint8_t calib_count = 0;
+int32_t gy_sum = 0;
+int32_t gy_offset = 0;
+
+//filtros de acc
+int32_t ax_filt = 0;
+int32_t az_filt = 0;
 
 /* ---- Variables para el PID (Punto Fijo x100) ---- */
 //declaradas como int16_t para achicar la comunicacion y parcialmente le espacio de almacenamiento, empeora rendimiento
@@ -220,31 +231,12 @@ int16_t Kp_stable = 20;
 int16_t Kd_stable = 1;
 int16_t Ki_stable = 0;
 
-int32_t setpoint = -150; // Angulo unico de trabajo (x100 = 0.5°), ajustable por SETLINECTRL
-int32_t integral = 0;
-int32_t last_error = 0;
-int32_t current_angle = 0; // Escala x100 (ej: 150 = 1.5 grados)
-
 uint8_t maxPWM = 60; //Previamente valor de 60
 uint8_t minPWM = 25; // Valor de 28 tambien funciona bien
 
-//Inclinarse para moverse
-int16_t kick_cycles = 15;
-int16_t kick_pwm = 50;
-
-//////Valores seguidor linea
-// --- Variables Seguidor de Línea ---
-int16_t Kp_line = 0;        // Constante Proporcional
-int16_t Kd_line = 0;        // Constante Derivativa
-int32_t last_line_error = 0;
-
-// D. Ganancias del PI de Velocidad (Puedes ajustarlas luego)
-int16_t Kp_vel = 0;
-int16_t Ki_vel = 0;
-
-int32_t sum = 0;
-int32_t line_error = 0;
-int32_t turn_pwm = 0;
+int32_t setpoint = -150; // Angulo unico de trabajo (x100 = 0.5°), ajustable por SETLINECTRL
+int32_t ramp_step = 4; // Velocidad de inclinación (4 = 0.04° por ciclo de 20ms -> 2.0° por segundo)
+int32_t max_offset = 250;// Inclinación extra máxima permitida (250 = 2.5°)
 int16_t customSpeed = 0;
 
 // --- Estado del seguidor de línea ---
@@ -499,71 +491,37 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 		unerPrtcl_PutByteOnTx(dataTx, ACK);
 		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
 
-		// 1. Kick PWM
+		// 1. Ramp Step (Nuevo)
 		myWord.i8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
 		myWord.i8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
-		kick_pwm = myWord.i16[0];
+		ramp_step = myWord.i16[0];
 
-		// 2. Kick Cycles
+		// 2. Max Offset (Nuevo - Límite de la rampa)
 		myWord.i8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
 		myWord.i8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
-		kick_cycles = myWord.i16[0];
+		max_offset = myWord.i16[0];
 
-		// 3. Setpoint
+		// 3. Setpoint Base
 		myWord.i8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
 		myWord.i8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
 		setpoint = (int32_t) myWord.i16[0];
 
-		// 4. Custom Speed
+		// 4. Custom Speed (Dirección del movimiento)
 		myWord.i8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
 		myWord.i8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
 		customSpeed = myWord.i16[0];
-
-		break;
-	case GETTELEMETRY:
-		unerPrtcl_PutHeaderOnTx(dataTx, GETTELEMETRY, 12);
-
-		// 1. Ángulo actual (16 bits)
-		myWord.i16[0] = (int16_t) current_angle;
-		unerPrtcl_PutByteOnTx(dataTx, myWord.ui8[0]);
-		unerPrtcl_PutByteOnTx(dataTx, myWord.ui8[1]);
-
-		// 2. Setpoint (16 bits)
-		myWord.i16[0] = (int16_t) setpoint;
-		unerPrtcl_PutByteOnTx(dataTx, myWord.ui8[0]);
-		unerPrtcl_PutByteOnTx(dataTx, myWord.ui8[1]);
-
-		// 3. Error de línea (16 bits)
-		myWord.i16[0] = (int16_t) line_error;
-		unerPrtcl_PutByteOnTx(dataTx, myWord.ui8[0]);
-		unerPrtcl_PutByteOnTx(dataTx, myWord.ui8[1]);
-
-		// 4. Esfuerzo de giro (16 bits)
-		myWord.i16[0] = (int16_t) turn_pwm;
-		unerPrtcl_PutByteOnTx(dataTx, myWord.ui8[0]);
-		unerPrtcl_PutByteOnTx(dataTx, myWord.ui8[1]);
-
-		// 5. Reflectancia total (16 bits)
-		myWord.i16[0] = (int16_t) sum;
-		unerPrtcl_PutByteOnTx(dataTx, myWord.ui8[0]);
-		unerPrtcl_PutByteOnTx(dataTx, myWord.ui8[1]);
-
-		// 6. Estado de la máquina (8 bits)
-		unerPrtcl_PutByteOnTx(dataTx, (uint8_t) lineState);
-
-		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
 		break;
 	case GETPIDDATA:
-		// Tamaño total: 1(cmd) + 13*4(32bits) + 10*2(16bits) + 2(8bits) = 75 bytes
-		unerPrtcl_PutHeaderOnTx(dataTx, GETPIDDATA, 75);
+		// Tamaño total: 1(cmd) + 9*4(32bits) + 5*2(16bits) + 2(8bits) = 49 bytes
+		unerPrtcl_PutHeaderOnTx(dataTx, GETPIDDATA, 49);
 
-		// 1. Bloque de 32 bits (13 variables = 52 bytes)
-		int32_t pid_data32[13] = { acc_angle_hr, gyro_delta_hr,
-				current_angle_hr, setpoint_dinamico, error_vel, error, integral,
-				derivative, last_error, output, integral_vel, salida_vel,
-				setpoint };
+		// 1. Bloque de 32 bits (9 variables = 36 bytes)
+		int32_t pid_data32[9] =
+				{ acc_angle_hr, gyro_delta_hr, current_angle_hr,
+						setpoint_dinamico, error, integral, derivative, output,
+						setpoint };
 
-		for (int i = 0; i < 13; i++) {
+		for (int i = 0; i < 9; i++) {
 			unerPrtcl_PutByteOnTx(dataTx, (uint8_t) (pid_data32[i] & 0xFF));
 			unerPrtcl_PutByteOnTx(dataTx,
 					(uint8_t) ((pid_data32[i] >> 8) & 0xFF));
@@ -573,11 +531,12 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 					(uint8_t) ((pid_data32[i] >> 24) & 0xFF));
 		}
 
-		// 2. Bloque de 16 bits (10 variables = 20 bytes)
-		int16_t pid_data16[10] = { Kp_stable, Ki_stable, Kd_stable, Kp_line,
-				Kd_line, Kp_vel, Ki_vel, kick_pwm, kick_cycles, customSpeed };
+		// 2. Bloque de 16 bits (5 variables = 10 bytes)
+		// AQUÍ AGREGAMOS ramp_step
+		int16_t pid_data16[5] = { Kp_stable, Ki_stable, Kd_stable, ramp_step,
+				max_offset };
 
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < 5; i++) {
 			unerPrtcl_PutByteOnTx(dataTx, (uint8_t) (pid_data16[i] & 0xFF));
 			unerPrtcl_PutByteOnTx(dataTx,
 					(uint8_t) ((pid_data16[i] >> 8) & 0xFF));
@@ -587,7 +546,7 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 		unerPrtcl_PutByteOnTx(dataTx, maxPWM);
 		unerPrtcl_PutByteOnTx(dataTx, minPWM);
 
-		// Checksum final
+		// Checksum
 		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
 		break;
 	default:
@@ -1151,9 +1110,6 @@ void PID_ControlTask(void) {
     // =========================================================
     // --- 1. CALIBRACIÓN INICIAL DEL GIROSCOPIO ---
     // =========================================================
-    static uint8_t calib_count = 0;
-    static int32_t gy_sum = 0;
-    static int32_t gy_offset = 0;
 
     if (calib_count < 200) {
         gy_sum += gy;
@@ -1169,8 +1125,6 @@ void PID_ControlTask(void) {
     // =========================================================
     // --- 2. FILTRO PASA-BAJOS ACELERÓMETRO ---
     // =========================================================
-    static int32_t ax_filt = 0;
-    static int32_t az_filt = 0;
 
     if (ax_filt == 0 && az_filt == 0) {
         ax_filt = ax;
@@ -1183,7 +1137,6 @@ void PID_ControlTask(void) {
     // =========================================================
     // --- 3. CÁLCULO DE IMU (Filtro Complementario) ---
     // =========================================================
-    static int32_t current_angle_hr = 0;
 
     if (az_filt > AZ_MIN_VALID || az_filt < -AZ_MIN_VALID) {
         acc_angle_hr = (int32_t) (((int64_t) ax_filt * 573000) / az_filt);
@@ -1196,12 +1149,8 @@ void PID_ControlTask(void) {
     // =========================================================
     // --- 4. SETPOINT SHIFTING (GENERADOR DE RAMPA) ---
     // =========================================================
-    static int32_t setpoint_offset = 0;
+    setpoint_offset = 0;
     int32_t target_offset = 0;
-
-    // Parámetros de movimiento (podrías pasarlos a variables globales luego para setearlos por Qt)
-    int32_t ramp_step = 4;      // Velocidad de inclinación (4 = 0.04° por ciclo de 20ms -> 2.0° por segundo)
-    int32_t max_offset = 250;   // Inclinación extra máxima permitida (250 = 2.5°)
 
     // Asignamos el objetivo según la orden de velocidad (Tu convención: <0 Avanzar, >0 Retroceder)
     if (customSpeed < 0) {
@@ -1223,12 +1172,12 @@ void PID_ControlTask(void) {
 
     // Calculamos el Setpoint Dinámico Final
     // La variable global 'setpoint' sigue siendo tu punto de equilibrio base (ej: -150)
-    int32_t setpoint_dinamico = setpoint + setpoint_offset;
+    setpoint_dinamico = setpoint + setpoint_offset;
 
     // =========================================================
     // --- 5. LAZO PID CLÁSICO ---
     // =========================================================
-    int32_t error = setpoint_dinamico - current_angle;
+    error = setpoint_dinamico - current_angle;
 
     // El PID funciona de manera continua y sin bloqueos
     // La rampa evita saltos bruscos, por lo que el error siempre es pequeño y manejable
