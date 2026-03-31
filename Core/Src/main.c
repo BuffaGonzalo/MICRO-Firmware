@@ -95,8 +95,8 @@
 #define LINE_THRESHOLD		1500  // Suma minima de reflectancia para considerar linea detectada
 
 //Inclinarse para moverse
-#define KICK_CYCLES  5
-#define KICK_PWM     50
+//#define KICK_CYCLES  5
+//#define KICK_PWM     35
 
 
 #define T100MS				100
@@ -216,9 +216,9 @@ int32_t salida_vel = 0;
 
 /* ---- Variables para el PID (Punto Fijo x100) ---- */
 //declaradas como int16_t para achicar la comunicacion y parcialmente le espacio de almacenamiento, empeora rendimiento
-int16_t Kp_stable = 0;
+int16_t Kp_stable = 20;
+int16_t Kd_stable = 1;
 int16_t Ki_stable = 0;
-int16_t Kd_stable = 0;
 
 int32_t setpoint = -150; // Angulo unico de trabajo (x100 = 0.5°), ajustable por SETLINECTRL
 int32_t integral = 0;
@@ -227,6 +227,10 @@ int32_t current_angle = 0; // Escala x100 (ej: 150 = 1.5 grados)
 
 uint8_t maxPWM = 60; //Previamente valor de 60
 uint8_t minPWM = 25; // Valor de 28 tambien funciona bien
+
+//Inclinarse para moverse
+int16_t kick_cycles = 15;
+int16_t kick_pwm = 50;
 
 //////Valores seguidor linea
 // --- Variables Seguidor de Línea ---
@@ -490,31 +494,27 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
         myWord.ui8[0]=unerPrtcl_GetByteFromRx(dataRx,1,0);
         minPWM = myWord.ui8[0];
 		break;
-	case SETLINECTRL:
-		unerPrtcl_PutHeaderOnTx(dataTx, SETLINECTRL, 2);
+	case SETSPEED:
+		unerPrtcl_PutHeaderOnTx(dataTx, SETSPEED, 2);
 		unerPrtcl_PutByteOnTx(dataTx, ACK);
 		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
 
+		// 1. Kick PWM
 		myWord.i8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
 		myWord.i8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
-		Kp_line = myWord.i16[0];
+		kick_pwm = myWord.i16[0];
 
+		// 2. Kick Cycles
 		myWord.i8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
 		myWord.i8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
-		Kd_line = myWord.i16[0];
+		kick_cycles = myWord.i16[0];
 
+		// 3. Setpoint
 		myWord.i8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
 		myWord.i8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
-		Kp_vel= myWord.i16[0];
+		setpoint = (int32_t) myWord.i16[0];
 
-		myWord.i8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
-		myWord.i8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
-		Ki_vel = myWord.i16[0];
-
-		myWord.i8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
-		myWord.i8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
-		setpoint = (int32_t)myWord.i16[0];
-
+		// 4. Custom Speed
 		myWord.i8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
 		myWord.i8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
 		customSpeed = myWord.i16[0];
@@ -554,42 +554,42 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
 		break;
 	case GETPIDDATA:
-		// Tamaño total: 1(cmd) + 13*4(32bits) + 8*2(16bits) + 2(8bits) = 71 bytes
-	        unerPrtcl_PutHeaderOnTx(dataTx, GETPIDDATA, 71);
+		// Tamaño total: 1(cmd) + 13*4(32bits) + 10*2(16bits) + 2(8bits) = 75 bytes
+		unerPrtcl_PutHeaderOnTx(dataTx, GETPIDDATA, 75);
 
-	        // 1. Bloque de 32 bits (13 variables = 52 bytes)
-	        int32_t pid_data32[13] = {
-	            acc_angle_hr, gyro_delta_hr, current_angle_hr,
-	            setpoint_dinamico, error_vel, error,
-	            integral, derivative, last_error, output,
-	            integral_vel, salida_vel, setpoint
-	        };
+		// 1. Bloque de 32 bits (13 variables = 52 bytes)
+		int32_t pid_data32[13] = { acc_angle_hr, gyro_delta_hr,
+				current_angle_hr, setpoint_dinamico, error_vel, error, integral,
+				derivative, last_error, output, integral_vel, salida_vel,
+				setpoint };
 
-	        for(int i = 0; i < 13; i++) {
-	            unerPrtcl_PutByteOnTx(dataTx, (uint8_t)(pid_data32[i] & 0xFF));
-	            unerPrtcl_PutByteOnTx(dataTx, (uint8_t)((pid_data32[i] >> 8) & 0xFF));
-	            unerPrtcl_PutByteOnTx(dataTx, (uint8_t)((pid_data32[i] >> 16) & 0xFF));
-	            unerPrtcl_PutByteOnTx(dataTx, (uint8_t)((pid_data32[i] >> 24) & 0xFF));
-	        }
+		for (int i = 0; i < 13; i++) {
+			unerPrtcl_PutByteOnTx(dataTx, (uint8_t) (pid_data32[i] & 0xFF));
+			unerPrtcl_PutByteOnTx(dataTx,
+					(uint8_t) ((pid_data32[i] >> 8) & 0xFF));
+			unerPrtcl_PutByteOnTx(dataTx,
+					(uint8_t) ((pid_data32[i] >> 16) & 0xFF));
+			unerPrtcl_PutByteOnTx(dataTx,
+					(uint8_t) ((pid_data32[i] >> 24) & 0xFF));
+		}
 
-	        // 2. Bloque de 16 bits (7 variables = 14 bytes)
-			int16_t pid_data16[8] = { Kp_stable, Ki_stable, Kd_stable, Kp_line,
-					Kd_line, Kp_vel, Ki_vel, customSpeed // <-- Añadido customSpeed al final del arreglo
-					};
+		// 2. Bloque de 16 bits (10 variables = 20 bytes)
+		int16_t pid_data16[10] = { Kp_stable, Ki_stable, Kd_stable, Kp_line,
+				Kd_line, Kp_vel, Ki_vel, kick_pwm, kick_cycles, customSpeed };
 
-			for (int i = 0; i < 8; i++) { // <-- Cambio límite del for de 7 a 8
-				unerPrtcl_PutByteOnTx(dataTx, (uint8_t) (pid_data16[i] & 0xFF));
-				unerPrtcl_PutByteOnTx(dataTx,
-						(uint8_t) ((pid_data16[i] >> 8) & 0xFF));
-			}
+		for (int i = 0; i < 10; i++) {
+			unerPrtcl_PutByteOnTx(dataTx, (uint8_t) (pid_data16[i] & 0xFF));
+			unerPrtcl_PutByteOnTx(dataTx,
+					(uint8_t) ((pid_data16[i] >> 8) & 0xFF));
+		}
 
-	        // 3. Bloque de 8 bits (2 variables = 2 bytes)
-	        unerPrtcl_PutByteOnTx(dataTx, maxPWM);
-	        unerPrtcl_PutByteOnTx(dataTx, minPWM);
+		// 3. Bloque de 8 bits (2 variables = 2 bytes)
+		unerPrtcl_PutByteOnTx(dataTx, maxPWM);
+		unerPrtcl_PutByteOnTx(dataTx, minPWM);
 
-	        // Checksum final
-	        unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
-	        break;
+		// Checksum final
+		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
+		break;
 	default:
 		unerPrtcl_PutHeaderOnTx(dataTx, (_eCmd) dataRx->buff[dataRx->indexData],
 				2);
@@ -1143,129 +1143,141 @@ void buttonTask(_sButton *button){
 // ... tus otras funciones ...
 void PID_ControlTask(void) {
     int32_t final_pwm;
-    int32_t pwm_left, pwm_right;
     int32_t output;
 
-    if (RUN_PID == FALSE) {
-        return;
-    }
+    if (RUN_PID == FALSE) return;
     RUN_PID = FALSE;
 
-    // --- 1. CALIBRACIÓN INICIAL DEL GIROSCOPIO (Primeros 4 segundos) ---
+    // =========================================================
+    // --- 1. CALIBRACIÓN INICIAL DEL GIROSCOPIO ---
+    // =========================================================
     static uint8_t calib_count = 0;
     static int32_t gy_sum = 0;
     static int32_t gy_offset = 0;
 
     if (calib_count < 200) {
-        gy_sum += gy; // Sumamos la lectura RAW
+        gy_sum += gy;
         calib_count++;
+        if (calib_count == 200) gy_offset = gy_sum / 200;
 
-        if (calib_count == 200) {
-            gy_offset = gy_sum / 200; // Calculamos el promedio fijo
-        }
-
-        // Mantenemos los motores apagados obligatoriamente mientras calibra
         chnl_1 = 0; chnl_2 = 0; chnl_3 = 0; chnl_4 = 0;
-        return; // Salimos sin ejecutar el PID
+        return;
     }
 
-    // Le restamos el error de fábrica al giroscopio
     int32_t gy_corregido = gy - gy_offset;
 
+    // =========================================================
+    // --- 2. FILTRO PASA-BAJOS ACELERÓMETRO ---
+    // =========================================================
+    static int32_t ax_filt = 0;
+    static int32_t az_filt = 0;
 
-    // --- 2. CÁLCULO DE IMU CON ALTA RESOLUCIÓN (x10000) ---
-    static int32_t current_angle_hr = 0;
-
-    // Como ahora llegan los datos RAW (1g = ~16384), 4000 es un límite seguro
-    if (az > AZ_MIN_VALID || az < -AZ_MIN_VALID) {
-        acc_angle_hr = (int32_t)(((int64_t)ax * 573000) / az);
+    if (ax_filt == 0 && az_filt == 0) {
+        ax_filt = ax;
+        az_filt = az;
+    } else {
+        ax_filt = (ax * 5 + ax_filt * 95) / 100;
+        az_filt = (az * 5 + az_filt * 95) / 100;
     }
 
-    // Usamos el giroscopio limpio
-    gyro_delta_hr = (-(int32_t)gy_corregido * 200) / 131;
+    // =========================================================
+    // --- 3. CÁLCULO DE IMU (Filtro Complementario) ---
+    // =========================================================
+    static int32_t current_angle_hr = 0;
 
+    if (az_filt > AZ_MIN_VALID || az_filt < -AZ_MIN_VALID) {
+        acc_angle_hr = (int32_t) (((int64_t) ax_filt * 573000) / az_filt);
+    }
+
+    gyro_delta_hr = (-(int32_t)gy_corregido * 200) / 131;
     current_angle_hr = (ALPHA_GYRO * (current_angle_hr + gyro_delta_hr) + ALPHA_ACC * acc_angle_hr) / 100;
     current_angle = current_angle_hr / 100;
 
+    // =========================================================
+    // --- 4. SETPOINT SHIFTING (GENERADOR DE RAMPA) ---
+    // =========================================================
+    static int32_t setpoint_offset = 0;
+    int32_t target_offset = 0;
 
-    // --- 3. AISLAMIENTO DEL LAZO DE EQUILIBRIO ---
-    // (Por ahora no calculamos la velocidad virtual, forzamos el setpoint fijo)
-    int32_t setpoint_dinamico = setpoint;
+    // Parámetros de movimiento (podrías pasarlos a variables globales luego para setearlos por Qt)
+    int32_t ramp_step = 4;      // Velocidad de inclinación (4 = 0.04° por ciclo de 20ms -> 2.0° por segundo)
+    int32_t max_offset = 250;   // Inclinación extra máxima permitida (250 = 2.5°)
 
-    // Lazo PID Principal
+    // Asignamos el objetivo según la orden de velocidad (Tu convención: <0 Avanzar, >0 Retroceder)
+    if (customSpeed < 0) {
+        target_offset = -max_offset;
+    } else if (customSpeed > 0) {
+        target_offset = max_offset;
+    } else {
+        target_offset = 0;
+    }
+
+    // Ejecutamos la rampa suavemente ciclo a ciclo
+    if (setpoint_offset < target_offset) {
+        setpoint_offset += ramp_step;
+        if (setpoint_offset > target_offset) setpoint_offset = target_offset;
+    } else if (setpoint_offset > target_offset) {
+        setpoint_offset -= ramp_step;
+        if (setpoint_offset < target_offset) setpoint_offset = target_offset;
+    }
+
+    // Calculamos el Setpoint Dinámico Final
+    // La variable global 'setpoint' sigue siendo tu punto de equilibrio base (ej: -150)
+    int32_t setpoint_dinamico = setpoint + setpoint_offset;
+
+    // =========================================================
+    // --- 5. LAZO PID CLÁSICO ---
+    // =========================================================
     int32_t error = setpoint_dinamico - current_angle;
 
+    // El PID funciona de manera continua y sin bloqueos
+    // La rampa evita saltos bruscos, por lo que el error siempre es pequeño y manejable
     integral += error;
     if (integral > ANG50) integral = ANG50;
     if (integral < -ANG50) integral = -ANG50;
 
-    // ¡EL CAMBIO CRÍTICO DE SIGNO! Sumamos el Kd por gy_corregido
     output = (Kp_stable * error + Ki_stable * integral + Kd_stable * gy_corregido) / 1000;
 
-
-    // --- 4. SUAVIZADO DEL PWM Y ZONA MUERTA ---
-    // (Sube tu macro OUTPUT_DEADBAND a 10 en los #define para que la rampa se note)
+    // =========================================================
+    // --- 6. SUAVIZADO Y ZONA MUERTA ---
+    // =========================================================
     if (output > 0) {
-        if (output <= OUTPUT_DEADBAND) {
-            // Rampa suave en aritmética entera para que no arranque a los tirones
-            final_pwm = (output * minPWM) / OUTPUT_DEADBAND;
-        } else {
-            final_pwm = output + minPWM;
-        }
-        if (final_pwm > maxPWM) final_pwm = maxPWM;
+        final_pwm = (output <= OUTPUT_DEADBAND) ? (output * minPWM) / OUTPUT_DEADBAND : output + minPWM;
     }
     else if (output < 0) {
-        if (output >= -OUTPUT_DEADBAND) {
-            // Rampa suave en reversa
-            final_pwm = (output * minPWM) / OUTPUT_DEADBAND;
-        } else {
-            final_pwm = output - minPWM;
-        }
-        if (final_pwm < -(int32_t)maxPWM) final_pwm = -(int32_t)maxPWM;
+        final_pwm = (output >= -OUTPUT_DEADBAND) ? (output * minPWM) / OUTPUT_DEADBAND : output - minPWM;
     }
     else {
         final_pwm = 0;
     }
 
-    // Apagado de seguridad si se cae (> 45 grados)
+    // Saturación final
+    if (final_pwm > (int32_t)maxPWM) final_pwm = (int32_t)maxPWM;
+    if (final_pwm < -(int32_t)maxPWM) final_pwm = -(int32_t)maxPWM;
+
+    // Apagado de seguridad por caída (> 45 grados)
     if (current_angle > ANG45 || current_angle < -ANG45) {
         final_pwm = 0;
         integral = 0;
-        current_angle_hr = 0; // Resetear la memoria del filtro
+        current_angle_hr = 0;
+        setpoint_offset = 0; // Reseteamos la rampa si se cae al piso
     }
 
-
-    // --- 5. ANULAR SEGUIDOR DE LÍNEA (Temporalmente) ---
-    int32_t turn_pwm = 0; // Forzamos a cero para que no intente girar
-
-    // MIXER
-    pwm_left = final_pwm + turn_pwm;
-    pwm_right = final_pwm - turn_pwm;
-
-    // SATURACIÓN INDEPENDIENTE
-    if (pwm_left > (int32_t) maxPWM) pwm_left = (int32_t) maxPWM;
-    if (pwm_left < -(int32_t) maxPWM) pwm_left = -(int32_t) maxPWM;
-    if (pwm_right > (int32_t) maxPWM) pwm_right = (int32_t) maxPWM;
-    if (pwm_right < -(int32_t) maxPWM) pwm_right = -(int32_t) maxPWM;
-
-    // ASIGNACIÓN A LOS MOTORES L9110S
-    if (pwm_left > 0) {
-        chnl_2 = (uint8_t) pwm_left;
+    // =========================================================
+    // --- 7. ASIGNACIÓN A MOTORES ---
+    // =========================================================
+    if (final_pwm > 0) {
+        chnl_2 = (uint8_t) final_pwm;
+        chnl_4 = (uint8_t) final_pwm;
         chnl_1 = 0;
-    } else {
-        chnl_2 = 0;
-        chnl_1 = (uint8_t) (-pwm_left);
-    }
-
-    if (pwm_right > 0) {
-        chnl_4 = (uint8_t) pwm_right;
         chnl_3 = 0;
     } else {
+        chnl_1 = (uint8_t) (-final_pwm);
+        chnl_3 = (uint8_t) (-final_pwm);
+        chnl_2 = 0;
         chnl_4 = 0;
-        chnl_3 = (uint8_t) (-pwm_right);
     }
 }
-
 /* USER CODE END 0 */
 
 
