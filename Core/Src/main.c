@@ -245,7 +245,7 @@ typedef enum {
 	LINE_FOLLOWING   // Linea detectada: avanza con setpoint_base, PD activo
 } _eLineState;
 
-_eLineState lineState = LINE_SEARCHING;
+//_eLineState lineState = LINE_SEARCHING;
 
 /* USER CODE END PV */
 
@@ -1138,8 +1138,9 @@ void PID_ControlTask(void) {
     // --- 3. CÁLCULO DE IMU (Filtro Complementario) ---
     // =========================================================
 
-    if (az_filt > AZ_MIN_VALID || az_filt < -AZ_MIN_VALID) {
-        acc_angle_hr = (int32_t) (((int64_t) ax_filt * 573000) / az_filt);
+    if (az_filt > AZ_MIN_VALID || az_filt < -AZ_MIN_VALID) { //Se trabaja de la siguiente forma para evitar el desbordamiento del int_32t
+        int32_t ratio = (ax_filt * 1000) / az_filt;
+        acc_angle_hr = (ratio * (int32_t)RADTOGRAD) / 10;
     }
 
     gyro_delta_hr = (-(int32_t)gy_corregido * 200) / 131;
@@ -1149,26 +1150,25 @@ void PID_ControlTask(void) {
     // =========================================================
     // --- 4. SETPOINT SHIFTING (GENERADOR DE RAMPA) ---
     // =========================================================
-    setpoint_offset = 0;
-    int32_t target_offset = 0;
-
-    // Asignamos el objetivo según la orden de velocidad (Tu convención: <0 Avanzar, >0 Retroceder)
-    if (customSpeed < 0) {
-        target_offset = -max_offset;
-    } else if (customSpeed > 0) {
-        target_offset = max_offset;
-    } else {
-        target_offset = 0;
-    }
-
-    // Ejecutamos la rampa suavemente ciclo a ciclo
-    if (setpoint_offset < target_offset) {
-        setpoint_offset += ramp_step;
-        if (setpoint_offset > target_offset) setpoint_offset = target_offset;
-    } else if (setpoint_offset > target_offset) {
-        setpoint_offset -= ramp_step;
-        if (setpoint_offset < target_offset) setpoint_offset = target_offset;
-    }
+//    int32_t target_offset = 0;
+//
+//    // Asignamos el objetivo según la orden de velocidad (Tu convención: <0 Avanzar, >0 Retroceder)
+//    if (customSpeed < 0) {
+//        target_offset = -max_offset;
+//    } else if (customSpeed > 0) {
+//        target_offset = max_offset;
+//    } else {
+//        target_offset = 0;
+//    }
+//
+//    // Ejecutamos la rampa suavemente ciclo a ciclo
+//    if (setpoint_offset < target_offset) {
+//        setpoint_offset += ramp_step;
+//        if (setpoint_offset > target_offset) setpoint_offset = target_offset;
+//    } else if (setpoint_offset > target_offset) {
+//        setpoint_offset -= ramp_step;
+//        if (setpoint_offset < target_offset) setpoint_offset = target_offset;
+//    }
 
     // Calculamos el Setpoint Dinámico Final
     // La variable global 'setpoint' sigue siendo tu punto de equilibrio base (ej: -150)
