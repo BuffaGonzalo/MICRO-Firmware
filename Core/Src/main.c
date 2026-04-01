@@ -1145,10 +1145,40 @@ void PID_ControlTask(void) {
     current_angle = current_angle_hr / 100;
 
     // =========================================================
-    // --- 4. LAZO PID CLÁSICO (Sin Rampa) ---
+    // --- 4. SETPOINT SHIFTING (GENERADOR DE RAMPA) ---
     // =========================================================
-    // El error se calcula directamente contra el setpoint base
-    error = setpoint - current_angle;
+    int32_t target_offset = 0;
+
+    // Asignamos el objetivo según la orden de velocidad (<0 Avanzar, >0 Retroceder)
+    if (customSpeed < 0) {
+        target_offset = -max_offset;
+    } else if (customSpeed > 0) {
+        target_offset = max_offset;
+    } else {
+        target_offset = 0;
+    }
+
+    // Aseguramos que el paso sea siempre positivo (protección anti-errores desde Qt)
+    int32_t step = ramp_step;
+    if (step < 0) step = -step;
+
+    // Ejecutamos la rampa suavemente ciclo a ciclo (cada 20ms)
+    if (setpoint_offset < target_offset) {
+        setpoint_offset += step;
+        if (setpoint_offset > target_offset) setpoint_offset = target_offset;
+    } else if (setpoint_offset > target_offset) {
+        setpoint_offset -= step;
+        if (setpoint_offset < target_offset) setpoint_offset = target_offset;
+    }
+
+    // Calculamos el Setpoint Dinámico Final
+    setpoint_dinamico = setpoint + setpoint_offset;
+
+    // =========================================================
+    // --- 5. LAZO PID CLÁSICO ---
+    // =========================================================
+    // ¡CLAVE! El error ahora se calcula usando el setpoint_dinamico
+    error = setpoint_dinamico - current_angle;
 
     integral += error;
     if (integral > ANG50) integral = ANG50;
@@ -1157,7 +1187,7 @@ void PID_ControlTask(void) {
     output = (Kp_stable * error + Ki_stable * integral + Kd_stable * gy_corregido) / 1000;
 
     // =========================================================
-    // --- 5. SUAVIZADO Y ZONA MUERTA ---
+    // --- 6. SUAVIZADO Y ZONA MUERTA ---
     // =========================================================
     if (output > 0) {
         final_pwm = (output <= OUTPUT_DEADBAND) ? (output * minPWM) / OUTPUT_DEADBAND : output + minPWM;
@@ -1178,10 +1208,11 @@ void PID_ControlTask(void) {
         final_pwm = 0;
         integral = 0;
         current_angle_hr = 0;
+        setpoint_offset = 0; // ¡IMPORTANTE! Si se cae, reiniciamos la rampa a 0
     }
 
     // =========================================================
-    // --- 6. ASIGNACIÓN A MOTORES ---
+    // --- 7. ASIGNACIÓN A MOTORES ---
     // =========================================================
     if (final_pwm > 0) {
         chnl_2 = (uint8_t) final_pwm;
