@@ -234,7 +234,7 @@ int16_t Ki_stable = 0;
 uint8_t maxPWM = 60; //Previamente valor de 60
 uint8_t minPWM = 25; // Valor de 28 tambien funciona bien
 
-int32_t setpoint = -150; // Angulo unico de trabajo (x100 = 0.5°), ajustable por SETLINECTRL
+int32_t setpoint = 0; // Angulo unico de trabajo (x100 = 0.5°), ajustable por SETLINECTRL
 int32_t ramp_step = 4; // Velocidad de inclinación (4 = 0.04° por ciclo de 20ms -> 2.0° por segundo)
 int32_t max_offset = 250;// Inclinación extra máxima permitida (250 = 2.5°)
 int16_t customSpeed = 0;
@@ -1110,7 +1110,6 @@ void PID_ControlTask(void) {
     // =========================================================
     // --- 1. CALIBRACIÓN INICIAL DEL GIROSCOPIO ---
     // =========================================================
-
     if (calib_count < 200) {
         gy_sum += gy;
         calib_count++;
@@ -1125,7 +1124,6 @@ void PID_ControlTask(void) {
     // =========================================================
     // --- 2. FILTRO PASA-BAJOS ACELERÓMETRO ---
     // =========================================================
-
     if (ax_filt == 0 && az_filt == 0) {
         ax_filt = ax;
         az_filt = az;
@@ -1137,8 +1135,7 @@ void PID_ControlTask(void) {
     // =========================================================
     // --- 3. CÁLCULO DE IMU (Filtro Complementario) ---
     // =========================================================
-
-    if (az_filt > AZ_MIN_VALID || az_filt < -AZ_MIN_VALID) { //Se trabaja de la siguiente forma para evitar el desbordamiento del int_32t
+    if (az_filt > AZ_MIN_VALID || az_filt < -AZ_MIN_VALID) {
         int32_t ratio = (ax_filt * 1000) / az_filt;
         acc_angle_hr = (ratio * (int32_t)RADTOGRAD) / 10;
     }
@@ -1148,39 +1145,11 @@ void PID_ControlTask(void) {
     current_angle = current_angle_hr / 100;
 
     // =========================================================
-    // --- 4. SETPOINT SHIFTING (GENERADOR DE RAMPA) ---
+    // --- 4. LAZO PID CLÁSICO (Sin Rampa) ---
     // =========================================================
-//    int32_t target_offset = 0;
-//
-//    // Asignamos el objetivo según la orden de velocidad (Tu convención: <0 Avanzar, >0 Retroceder)
-//    if (customSpeed < 0) {
-//        target_offset = -max_offset;
-//    } else if (customSpeed > 0) {
-//        target_offset = max_offset;
-//    } else {
-//        target_offset = 0;
-//    }
-//
-//    // Ejecutamos la rampa suavemente ciclo a ciclo
-//    if (setpoint_offset < target_offset) {
-//        setpoint_offset += ramp_step;
-//        if (setpoint_offset > target_offset) setpoint_offset = target_offset;
-//    } else if (setpoint_offset > target_offset) {
-//        setpoint_offset -= ramp_step;
-//        if (setpoint_offset < target_offset) setpoint_offset = target_offset;
-//    }
+    // El error se calcula directamente contra el setpoint base
+    error = setpoint - current_angle;
 
-    // Calculamos el Setpoint Dinámico Final
-    // La variable global 'setpoint' sigue siendo tu punto de equilibrio base (ej: -150)
-    setpoint_dinamico = setpoint + setpoint_offset;
-
-    // =========================================================
-    // --- 5. LAZO PID CLÁSICO ---
-    // =========================================================
-    error = setpoint_dinamico - current_angle;
-
-    // El PID funciona de manera continua y sin bloqueos
-    // La rampa evita saltos bruscos, por lo que el error siempre es pequeño y manejable
     integral += error;
     if (integral > ANG50) integral = ANG50;
     if (integral < -ANG50) integral = -ANG50;
@@ -1188,7 +1157,7 @@ void PID_ControlTask(void) {
     output = (Kp_stable * error + Ki_stable * integral + Kd_stable * gy_corregido) / 1000;
 
     // =========================================================
-    // --- 6. SUAVIZADO Y ZONA MUERTA ---
+    // --- 5. SUAVIZADO Y ZONA MUERTA ---
     // =========================================================
     if (output > 0) {
         final_pwm = (output <= OUTPUT_DEADBAND) ? (output * minPWM) / OUTPUT_DEADBAND : output + minPWM;
@@ -1209,11 +1178,10 @@ void PID_ControlTask(void) {
         final_pwm = 0;
         integral = 0;
         current_angle_hr = 0;
-        setpoint_offset = 0; // Reseteamos la rampa si se cae al piso
     }
 
     // =========================================================
-    // --- 7. ASIGNACIÓN A MOTORES ---
+    // --- 6. ASIGNACIÓN A MOTORES ---
     // =========================================================
     if (final_pwm > 0) {
         chnl_2 = (uint8_t) final_pwm;
