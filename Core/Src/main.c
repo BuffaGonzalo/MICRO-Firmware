@@ -1110,16 +1110,16 @@ void PID_ControlTask(void) {
     // =========================================================
     // --- 1. CALIBRACIÓN INICIAL DEL GIROSCOPIO ---
     // =========================================================
-    if (calib_count < 200) {
-        gy_sum += gy;
-        calib_count++;
-        if (calib_count == 200) gy_offset = gy_sum / 200;
+//    if (calib_count < 200) {
+//        gy_sum += gy;
+//        calib_count++;
+//        if (calib_count == 200) gy_offset = gy_sum / 200;
+//
+//        chnl_1 = 0; chnl_2 = 0; chnl_3 = 0; chnl_4 = 0;
+//        return;
+//    }
 
-        chnl_1 = 0; chnl_2 = 0; chnl_3 = 0; chnl_4 = 0;
-        return;
-    }
-
-    int32_t gy_corregido = gy - gy_offset;
+    int32_t gy_corregido = gy; //- gy_offset;
 
     // =========================================================
     // --- 2. FILTRO PASA-BAJOS ACELERÓMETRO ---
@@ -1145,24 +1145,24 @@ void PID_ControlTask(void) {
     current_angle = current_angle_hr / 100;
 
     // =========================================================
-    // --- 4. SETPOINT SHIFTING (GENERADOR DE RAMPA) ---
+    // --- 4. SETPOINT SHIFTING (LA RAMPA VARIABLE) ---
     // =========================================================
     int32_t target_offset = 0;
 
-    // Asignamos el objetivo según la orden de velocidad (<0 Avanzar, >0 Retroceder)
+    // Asignamos el objetivo de crucero
     if (customSpeed < 0) {
-        target_offset = -max_offset;
+        target_offset = -max_offset; // Avanzar
     } else if (customSpeed > 0) {
-        target_offset = max_offset;
+        target_offset = max_offset;  // Retroceder
     } else {
         target_offset = 0;
     }
 
-    // Aseguramos que el paso sea siempre positivo (protección anti-errores desde Qt)
+    // Paso siempre positivo
     int32_t step = ramp_step;
     if (step < 0) step = -step;
 
-    // Ejecutamos la rampa suavemente ciclo a ciclo (cada 20ms)
+    // La rampa sube o baja suavemente cada 20ms
     if (setpoint_offset < target_offset) {
         setpoint_offset += step;
         if (setpoint_offset > target_offset) setpoint_offset = target_offset;
@@ -1177,7 +1177,7 @@ void PID_ControlTask(void) {
     // =========================================================
     // --- 5. LAZO PID CLÁSICO ---
     // =========================================================
-    // ¡CLAVE! El error ahora se calcula usando el setpoint_dinamico
+    // El error persigue a la rampa variable
     error = setpoint_dinamico - current_angle;
 
     integral += error;
@@ -1208,7 +1208,29 @@ void PID_ControlTask(void) {
         final_pwm = 0;
         integral = 0;
         current_angle_hr = 0;
-        setpoint_offset = 0; // ¡IMPORTANTE! Si se cae, reiniciamos la rampa a 0
+        setpoint_offset = 0; // REINICIAMOS LA RAMPA AL CAER
+    }
+
+    // =========================================================
+    // --- EL "DEDO DIGITAL" (KICK PARA ROMPER INERCIA) ---
+    // =========================================================
+    static int16_t last_customSpeed = 0;
+    static uint8_t timer_dedo = 0;
+
+    // Si estábamos quietos y llega la orden de movernos
+    if (customSpeed != 0 && last_customSpeed == 0) {
+        timer_dedo = 4; // 80 milisegundos de patada inicial (Ajustable)
+    }
+    last_customSpeed = customSpeed;
+
+    // Mientras dure la patada, ignoramos el PID y mandamos fuerza bruta
+    if (timer_dedo > 0) {
+        if (customSpeed < 0) {
+            final_pwm = 100; // Latigazo atrás para desestabilizar hacia adelante
+        } else if (customSpeed > 0) {
+            final_pwm = -100;
+        }
+        timer_dedo--;
     }
 
     // =========================================================
@@ -1226,6 +1248,7 @@ void PID_ControlTask(void) {
         chnl_4 = 0;
     }
 }
+
 /* USER CODE END 0 */
 
 
