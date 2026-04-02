@@ -234,11 +234,11 @@ int16_t Ki_stable = 0;
 uint8_t maxPWM = 60; //Previamente valor de 60
 uint8_t minPWM = 25; // Valor de 28 tambien funciona bien
 
-int32_t setpoint = 0; // Angulo unico de trabajo (x100 = 0.5°), ajustable por SETLINECTRL
-int32_t ramp_step = 4; // Velocidad de inclinación (4 = 0.04° por ciclo de 20ms -> 2.0° por segundo)
-int32_t max_offset = 250;// Inclinación extra máxima permitida (250 = 2.5°)
+int32_t setpoint = -150; // Angulo unico de trabajo (x100 = 0.5°), ajustable por SETLINECTRL
+int32_t ramp_step = 10; // Velocidad de inclinación (4 = 0.04° por ciclo de 20ms -> 2.0° por segundo)
+int32_t max_offset = 200;// Inclinación extra máxima permitida (250 = 2.5°)
 int16_t customSpeed = 0;
-
+uint8_t impulseLenght = 6; // Valor por defecto de 6 ciclos
 // --- Estado del seguidor de línea ---
 typedef enum {
 	LINE_SEARCHING,  // Buscando linea: avanza con setpoint_base, sin correccion de direccion
@@ -510,10 +510,15 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 		myWord.i8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
 		myWord.i8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
 		customSpeed = myWord.i16[0];
+
+		// 5. Duración del Pulso (NUEVO PARAMETRO)
+		myWord.i8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		impulseLenght = myWord.i8[0];
+
 		break;
 	case GETPIDDATA:
-		// Tamaño total: 1(cmd) + 9*4(32bits) + 5*2(16bits) + 2(8bits) = 49 bytes
-		unerPrtcl_PutHeaderOnTx(dataTx, GETPIDDATA, 49);
+		// Tamaño total: 1(cmd) + 9*4(32bits) + 5*2(16bits) + 3(8bits) = 50 bytes
+		unerPrtcl_PutHeaderOnTx(dataTx, GETPIDDATA, 50);
 
 		// 1. Bloque de 32 bits (9 variables = 36 bytes)
 		int32_t pid_data32[9] =
@@ -532,7 +537,6 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 		}
 
 		// 2. Bloque de 16 bits (5 variables = 10 bytes)
-		// AQUÍ AGREGAMOS ramp_step
 		int16_t pid_data16[5] = { Kp_stable, Ki_stable, Kd_stable, ramp_step,
 				max_offset };
 
@@ -542,9 +546,10 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 					(uint8_t) ((pid_data16[i] >> 8) & 0xFF));
 		}
 
-		// 3. Bloque de 8 bits (2 variables = 2 bytes)
+		// 3. Bloque de 8 bits (¡AHORA SON 3 VARIABLES = 3 BYTES!)
 		unerPrtcl_PutByteOnTx(dataTx, maxPWM);
 		unerPrtcl_PutByteOnTx(dataTx, minPWM);
+		unerPrtcl_PutByteOnTx(dataTx, impulseLenght);
 
 		// Checksum
 		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
@@ -1102,7 +1107,6 @@ void buttonTask(_sButton *button){
 // ... tus otras funciones ...
 void PID_ControlTask(void) {
     int32_t final_pwm;
-    int32_t output;
 
     if (RUN_PID == FALSE) return;
     RUN_PID = FALSE;
@@ -1174,79 +1178,106 @@ void PID_ControlTask(void) {
     // Calculamos el Setpoint Dinámico Final
     setpoint_dinamico = setpoint + setpoint_offset;
 
-    // =========================================================
-    // --- 5. LAZO PID CLÁSICO ---
-    // =========================================================
-    // El error persigue a la rampa variable
-    error = setpoint_dinamico - current_angle;
+	// =========================================================
+	// --- 5. LAZO PID CLÁSICO (Esfuerzo de Balanceo) ---
+	// =========================================================
+	error = setpoint_dinamico - current_angle;
 
-    integral += error;
-    if (integral > ANG50) integral = ANG50;
-    if (integral < -ANG50) integral = -ANG50;
+	integral += error;
+	if (integral > ANG50)
+		integral = ANG50;
+	if (integral < -ANG50)
+		integral = -ANG50;
 
-    output = (Kp_stable * error + Ki_stable * integral + Kd_stable * gy_corregido) / 1000;
+	// Calculamos el esfuerzo puro de balanceo
+	int32_t output_balance = (Kp_stable * error + Ki_stable * integral
+			+ Kd_stable * gy_corregido) / 1000;
 
-    // =========================================================
-    // --- 6. SUAVIZADO Y ZONA MUERTA ---
-    // =========================================================
-    if (output > 0) {
-        final_pwm = (output <= OUTPUT_DEADBAND) ? (output * minPWM) / OUTPUT_DEADBAND : output + minPWM;
-    }
-    else if (output < 0) {
-        final_pwm = (output >= -OUTPUT_DEADBAND) ? (output * minPWM) / OUTPUT_DEADBAND : output - minPWM;
-    }
-    else {
-        final_pwm = 0;
-    }
+	// =========================================================
+	// --- 5.5 INYECCIÓN DE MOVIMIENTO (Feedforward) ---
+	// =========================================================
+	int32_t pwm_movimiento = 0;
 
-    // Saturación final
-    if (final_pwm > (int32_t)maxPWM) final_pwm = (int32_t)maxPWM;
-    if (final_pwm < -(int32_t)maxPWM) final_pwm = -(int32_t)maxPWM;
+	// Esta es tu idea: la "fuerza extra" para que las ruedas no se mueran
+	int32_t asistencia_extra = 25; // Ajustable: Es el plus de potencia base para moverlo
 
-    // Apagado de seguridad por caída (> 45 grados)
-    if (current_angle > ANG45 || current_angle < -ANG45) {
-        final_pwm = 0;
-        integral = 0;
-        current_angle_hr = 0;
-        setpoint_offset = 0; // REINICIAMOS LA RAMPA AL CAER
-    }
+	if (customSpeed < 0) {
+		// Para avanzar (PWM negativo en tu hardware), inyectamos ayuda negativa
+		pwm_movimiento = -asistencia_extra;
+	} else if (customSpeed > 0) {
+		// Para retroceder, inyectamos ayuda positiva
+		pwm_movimiento = asistencia_extra;
+	}
 
-    // =========================================================
-    // --- EL "DEDO DIGITAL" (KICK PARA ROMPER INERCIA) ---
-    // =========================================================
-    static int16_t last_customSpeed = 0;
-    static uint8_t timer_dedo = 0;
+	// Sumamos el trabajo fino del PID + la fuerza bruta de tu orden de movimiento
+	int32_t output_total = output_balance + pwm_movimiento;
 
-    // Si estábamos quietos y llega la orden de movernos
-    if (customSpeed != 0 && last_customSpeed == 0) {
-        timer_dedo = 4; // 80 milisegundos de patada inicial (Ajustable)
-    }
-    last_customSpeed = customSpeed;
+	// =========================================================
+	// --- 6. SUAVIZADO Y ZONA MUERTA ---
+	// =========================================================
+	if (output_total > 0) {
+		final_pwm =
+				(output_total <= OUTPUT_DEADBAND) ?
+						(output_total * minPWM) / OUTPUT_DEADBAND :
+						output_total + minPWM;
+	} else if (output_total < 0) {
+		final_pwm =
+				(output_total >= -OUTPUT_DEADBAND) ?
+						(output_total * minPWM) / OUTPUT_DEADBAND :
+						output_total - minPWM;
+	} else {
+		final_pwm = 0;
+	}
 
-    // Mientras dure la patada, ignoramos el PID y mandamos fuerza bruta
-    if (timer_dedo > 0) {
-        if (customSpeed < 0) {
-            final_pwm = 100; // Latigazo atrás para desestabilizar hacia adelante
-        } else if (customSpeed > 0) {
-            final_pwm = -100;
-        }
-        timer_dedo--;
-    }
+	// Saturación final (El tope máximo absoluto, ej. 100)
+	if (final_pwm > (int32_t) maxPWM)
+		final_pwm = (int32_t) maxPWM;
+	if (final_pwm < -(int32_t) maxPWM)
+		final_pwm = -(int32_t) maxPWM;
 
-    // =========================================================
-    // --- 7. ASIGNACIÓN A MOTORES ---
-    // =========================================================
-    if (final_pwm > 0) {
-        chnl_2 = (uint8_t) final_pwm;
-        chnl_4 = (uint8_t) final_pwm;
-        chnl_1 = 0;
-        chnl_3 = 0;
-    } else {
-        chnl_1 = (uint8_t) (-final_pwm);
-        chnl_3 = (uint8_t) (-final_pwm);
-        chnl_2 = 0;
-        chnl_4 = 0;
-    }
+	// Apagado de seguridad por caída (> 45 grados)
+	if (current_angle > ANG45 || current_angle < -ANG45) {
+		final_pwm = 0;
+		integral = 0;
+		current_angle_hr = 0;
+		setpoint_offset = 0;
+	}
+
+	// =========================================================
+	// --- EL "DEDO DIGITAL" (ROMPE-INERCIA INICIAL) ---
+	// =========================================================
+	static int16_t last_customSpeed = 0;
+	static uint8_t timer_dedo = 0;
+
+	if (customSpeed != 0 && last_customSpeed == 0) {
+		timer_dedo = impulseLenght; // 80 milisegundos de latigazo para arrancar
+	}
+	last_customSpeed = customSpeed;
+
+	if (timer_dedo > 0) {
+		// Recuerda: Signos invertidos para que el chasis caiga hacia donde queremos ir
+		if (customSpeed < 0) {
+			final_pwm = maxPWM;  // Latigazo ATRÁS para caer ADELANTE
+		} else if (customSpeed > 0) {
+			final_pwm = -maxPWM; // Latigazo ADELANTE para caer ATRÁS
+		}
+		timer_dedo--;
+	}
+
+	// =========================================================
+	// --- 7. ASIGNACIÓN A MOTORES ---
+	// =========================================================
+	if (final_pwm > 0) {
+		chnl_2 = (uint8_t) final_pwm;
+		chnl_4 = (uint8_t) final_pwm;
+		chnl_1 = 0;
+		chnl_3 = 0;
+	} else {
+		chnl_1 = (uint8_t) (-final_pwm);
+		chnl_3 = (uint8_t) (-final_pwm);
+		chnl_2 = 0;
+		chnl_4 = 0;
+	}
 }
 
 /* USER CODE END 0 */
