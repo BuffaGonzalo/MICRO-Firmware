@@ -497,10 +497,11 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 		setpoint = (int32_t) myWord.i16[0];
 
 		break;
-	case GETPIDDATA:
+	case GETINTERNALDATA:
 		// Tamaño total: 1(cmd) + 9*4(32bits) + 5*2(16bits) + 2(8bits) = 49 bytes
-		unerPrtcl_PutHeaderOnTx(dataTx, GETPIDDATA, 49);
+		unerPrtcl_PutHeaderOnTx(dataTx, GETINTERNALDATA, 77);
 
+		//VARIABLES DE BALANCIN
 		// 1. Bloque de 32 bits (9 variables = 36 bytes)
 		int32_t pid_data32[9] =
 				{ acc_angle_hr, gyro_delta_hr, current_angle_hr, error, integral, derivative, output,
@@ -526,13 +527,46 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 					(uint8_t) ((pid_data16[i] >> 8) & 0xFF));
 		}
 
+		//VARIABLES DEL MOTOR
 		// 3. Bloque de 8 bits (2 variables = 2 bytes)
 		unerPrtcl_PutByteOnTx(dataTx, maxPWM);
 		unerPrtcl_PutByteOnTx(dataTx, minPWM);
 
-		// Checksum
+		//VARIABLES SEGUIDOR LINEA
+		// 1. Variables de 32 bits (6 variables = 24 bytes)
+		int32_t line_data32[6] = {sum_sensors, error_linea, abs_error, linear_term, quad_term, turn_offset};
+
+		for (int i = 0; i < 6; i++) {
+			unerPrtcl_PutByteOnTx(dataTx, (uint8_t) (line_data32[i] & 0xFF));
+			unerPrtcl_PutByteOnTx(dataTx, (uint8_t) ((line_data32[i] >> 8) & 0xFF));
+			unerPrtcl_PutByteOnTx(dataTx, (uint8_t) ((line_data32[i] >> 16) & 0xFF));
+			unerPrtcl_PutByteOnTx(dataTx, (uint8_t) ((line_data32[i] >> 24) & 0xFF));
+		}
+
+		// 2. Variables de 16 bits (2 variables = 4 bytes)
+		int16_t line_data16[2] = {Kp_line, Kq_line};
+
+		for (int i = 0; i < 2; i++) {
+			unerPrtcl_PutByteOnTx(dataTx, (uint8_t) (line_data16[i] & 0xFF));
+			unerPrtcl_PutByteOnTx(dataTx, (uint8_t) ((line_data16[i] >> 8) & 0xFF));
+		}
+
+		// Checksum final
 		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
 		break;
+	case SETPIDLINE: // SETPIDLINE
+	        unerPrtcl_PutHeaderOnTx(dataTx, 0xFA, 2);
+	        unerPrtcl_PutByteOnTx(dataTx, ACK);
+	        unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
+
+	        myWord.ui8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+	        myWord.ui8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+	        Kp_line = myWord.ui16[0];
+
+	        myWord.ui8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+	        myWord.ui8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+	        Kq_line = myWord.ui16[0];
+	        break;
 	default:
 		unerPrtcl_PutHeaderOnTx(dataTx, (_eCmd) dataRx->buff[dataRx->indexData],
 				2);
