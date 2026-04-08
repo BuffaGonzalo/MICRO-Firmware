@@ -64,7 +64,7 @@
 #define TIM3CP				2500 // Anteriormente el valor era 9999, modificado para tener mas precision
 
 //WebServer - solo necesitamos la primera linea del request HTTP (~80 bytes max)
-#define HTTP_BUF_SIZE   128
+#define HTTP_BUF_SIZE   	128
 
 #define DEBOUNCE             4
 #define NUMBUTTONS           1
@@ -91,10 +91,10 @@
 //#define	MAX_PWM 			25  // Máximo permitido para correcciones
 
 ////seguidor de linea
-#define MAXTCRT				4095
-#define LINE_THRESHOLD		1500  // Suma minima de reflectancia para considerar linea detectada
+#define SCALE_LINE			1000
+#define LINE_THRESHOLD		1500
 
-
+//control de la variacion de potencia del motor.
 #define MOTOR_OFFSET		5
 
 //Inclinarse para moverse
@@ -205,43 +205,39 @@ static uint16_t udpTargetPort    = 30010;
 static uint8_t  udpReadyToStart  = 0;
 
 
-//////VARIABLES PID//////
+//////VARIABLES DE LOS SISTEMAS DE CONTROL//////
+//variables internas
 int32_t acc_angle_hr = 0;
 int32_t gyro_delta_hr = 0;
 int32_t current_angle_hr = 0;
-
-int32_t setpoint_dinamico = 0;
-int32_t setpoint_offset = 0;
-
 int32_t error = 0;
 int32_t derivative = 0;
-int32_t output = 0;
-
 int32_t integral = 0;
+int32_t output = 0;
 int32_t current_angle = 0; // Escala x100 (ej: 150 = 1.5 grados)
-
-//filtros de gyro
-uint8_t calib_count = 0;
-int32_t gy_sum = 0;
-int32_t gy_offset = 0;
-
 //filtros de acc
 int32_t ax_filt = 0;
 int32_t az_filt = 0;
 
-/* ---- Variables para el PID (Punto Fijo x100) ---- */
-//declaradas como int16_t para achicar la comunicacion y parcialmente le espacio de almacenamiento, empeora rendimiento
+//Variables externas PID
 int16_t Kp_stable = 20;
 int16_t Kd_stable = 1;
 int16_t Ki_stable = 0;
-
 uint8_t maxPWM = 60; //Previamente valor de 60
 uint8_t minPWM = 25; // Valor de 28 tambien funciona bien
-
 int32_t setpoint = 0; // Angulo unico de trabajo (x100 = 0.5°), ajustable por SETLINECTRL
-int32_t ramp_step = 4; // Velocidad de inclinación (4 = 0.04° por ciclo de 20ms -> 2.0° por segundo)
-int32_t max_offset = 250;// Inclinación extra máxima permitida (250 = 2.5°)
-int16_t customSpeed = 0;
+
+// Variables del Control de Línea
+int16_t Kp_line = 15;
+int16_t Kq_line = 8;
+int32_t sum_sensors = 0;
+int32_t error_linea = 0;
+int32_t abs_error = 0;
+int32_t linear_term = 0;
+int32_t quad_term = 0;
+int32_t turn_offset = 0;
+
+
 
 // --- Estado del seguidor de línea ---
 typedef enum {
@@ -495,25 +491,11 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 		unerPrtcl_PutByteOnTx(dataTx, ACK);
 		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
 
-		// 1. Ramp Step (Nuevo)
-		myWord.i8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
-		myWord.i8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
-		ramp_step = myWord.i16[0];
-
-		// 2. Max Offset (Nuevo - Límite de la rampa)
-		myWord.i8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
-		myWord.i8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
-		max_offset = myWord.i16[0];
-
 		// 3. Setpoint Base
 		myWord.i8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
 		myWord.i8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
 		setpoint = (int32_t) myWord.i16[0];
 
-		// 4. Custom Speed (Dirección del movimiento)
-		myWord.i8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
-		myWord.i8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
-		customSpeed = myWord.i16[0];
 		break;
 	case GETPIDDATA:
 		// Tamaño total: 1(cmd) + 9*4(32bits) + 5*2(16bits) + 2(8bits) = 49 bytes
@@ -521,8 +503,7 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 
 		// 1. Bloque de 32 bits (9 variables = 36 bytes)
 		int32_t pid_data32[9] =
-				{ acc_angle_hr, gyro_delta_hr, current_angle_hr,
-						setpoint_dinamico, error, integral, derivative, output,
+				{ acc_angle_hr, gyro_delta_hr, current_angle_hr, error, integral, derivative, output,
 						setpoint };
 
 		for (int i = 0; i < 9; i++) {
@@ -537,8 +518,7 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 
 		// 2. Bloque de 16 bits (5 variables = 10 bytes)
 		// AQUÍ AGREGAMOS ramp_step
-		int16_t pid_data16[5] = { Kp_stable, Ki_stable, Kd_stable, ramp_step,
-				max_offset };
+		int16_t pid_data16[5] = { Kp_stable, Ki_stable, Kd_stable};
 
 		for (int i = 0; i < 5; i++) {
 			unerPrtcl_PutByteOnTx(dataTx, (uint8_t) (pid_data16[i] & 0xFF));
@@ -1110,18 +1090,6 @@ void PID_ControlTask(void) {
     if (RUN_PID == FALSE) return;
     RUN_PID = FALSE;
 
-    // =========================================================
-    // --- 1. CALIBRACIÓN INICIAL DEL GIROSCOPIO ---
-    // =========================================================
-//    if (calib_count < 200) {
-//        gy_sum += gy;
-//        calib_count++;
-//        if (calib_count == 200) gy_offset = gy_sum / 200;
-//
-//        chnl_1 = 0; chnl_2 = 0; chnl_3 = 0; chnl_4 = 0;
-//        return;
-//    }
-
     int32_t gy_corregido = gy;
 
     // =========================================================
@@ -1176,26 +1144,55 @@ void PID_ControlTask(void) {
     if (current_angle > ANG45 || current_angle < -ANG45) {
         final_pwm = 0;
         integral = 0;
-        //current_angle_hr = 0;
     }
 
     // =========================================================
-	// --- 6. ASIGNACIÓN A MOTORES (Con compensación de hardware) ---
+	// --- 6. ASIGNACIÓN A MOTORES Y SEGUIMIENTO DE LÍNEA ---
 	// =========================================================
-
+    // Variables de Control de Línea
 	int32_t pwm_left = final_pwm;
 	int32_t pwm_right = final_pwm;
 
-	// Solo aplicamos el offset si el motor debe estar encendido
-	if (final_pwm > 0) {
-		// Hacia adelante
-		//pwm_left  += MOTOR_OFFSET;  // Le damos un "empujoncito" extra de 5 a la izquierda
-		pwm_left -= MOTOR_OFFSET; // Opcional: podrías restarle a la derecha en su lugar
-	}
-	else if (final_pwm < 0) {
-		// Hacia atrás (los valores son negativos, así que restamos para dar más fuerza)
-		//pwm_left  -= MOTOR_OFFSET;  // Ej: si final_pwm es -25, pasa a -30
-		pwm_left += MOTOR_OFFSET; // Ej: si final_pwm es -30, pasa a -25
+	// Solo aplicamos giro si el robot está activo y en movimiento
+	if (final_pwm != 0) {
+
+		// Lectura de los 3 sensores IR (Izquierda, Centro, Derecha)
+		int32_t s_left   = adcData[1];
+		int32_t s_center = adcData[3];
+		int32_t s_right  = adcData[5];
+
+		sum_sensors = s_left + s_center + s_right;
+		turn_offset = 0;
+
+		// Verificamos si detectamos la línea
+		if (sum_sensors > LINE_THRESHOLD) {
+
+			// 1. Cálculo de Error Normalizado (Rango aprox: -1000 a +1000)
+			// Positivo = desviado hacia un lado, Negativo = desviado hacia el otro
+			error_linea = ((s_left - s_right) * SCALE_LINE) / sum_sensors;
+
+			// 2. Ley de Control Cuadrático
+			abs_error = (error_linea > 0) ? error_linea : -error_linea;
+
+			linear_term = error_linea * Kp_line;
+			// Dividimos entre SCALE_LINE antes de multiplicar Kq_line para evitar overflow en el int32_t
+			quad_term = ((error_linea * abs_error) / SCALE_LINE) * Kq_line;
+
+			// 3. Reducción de escala para acoplar al rango de PWM (0 a maxPWM)
+			// Ajusta el divisor '100' si el robot gira muy brusco o muy lento
+			turn_offset = (linear_term + quad_term) / 100;
+		}
+
+		// 4. Mezcla de Control (Steering Mix)
+		if (final_pwm > 0) {
+			// Movimiento hacia adelante
+			pwm_left  -= (MOTOR_OFFSET + turn_offset);
+			pwm_right += turn_offset;
+		} else {
+			// Movimiento hacia atrás (Invertimos la lógica de giro)
+			pwm_left  += (MOTOR_OFFSET - turn_offset);
+			pwm_right -= turn_offset;
+		}
 	}
 
 	// Saturación independiente (para evitar que el offset sobrepase el maxPWM)
