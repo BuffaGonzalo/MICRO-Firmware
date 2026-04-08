@@ -199,7 +199,8 @@ static uint8_t httpTxBuf[340];
 
 /* ---- Destino UDP (guardado desde el formulario web) ---- */
 //static char    udpTargetIP[16]   = "10.93.92.213";
-static char    udpTargetIP[16]   = "192.168.0.13";
+//static char    udpTargetIP[16]   = "192.168.0.13";
+static char    udpTargetIP[16]   = "172.23.190.89";
 static uint16_t udpTargetPort    = 30010;
 static uint8_t  udpReadyToStart  = 0;
 
@@ -1105,7 +1106,6 @@ void buttonTask(_sButton *button){
 // ... tus otras funciones ...
 void PID_ControlTask(void) {
     int32_t final_pwm;
-    int32_t output;
 
     if (RUN_PID == FALSE) return;
     RUN_PID = FALSE;
@@ -1157,7 +1157,7 @@ void PID_ControlTask(void) {
     if (integral > ANG50) integral = ANG50;
     if (integral < -ANG50) integral = -ANG50;
 
-    output = (Kp_stable * error + Ki_stable * integral + Kd_stable * gy_corregido) / 1000;
+    output = (Kp_stable * error + Ki_stable * integral + Kd_stable * gy_corregido) / 10000;
 
     // =========================================================
     // --- 5. SUAVIZADO Y ZONA MUERTA ---
@@ -1314,8 +1314,8 @@ int main(void)
   	isWebserverMode = FALSE;
   	//ESP01_SetWebServer("MICRO", "12345678", 5, 3);
 
-  	//ESP01_SetWIFI("FCAL","fcalconcordia.06-2019");
-  	ESP01_SetWIFI("ARPANET", "1969-Apolo_11-2022");
+  	ESP01_SetWIFI("FCAL","fcalconcordia.06-2019");
+  	//ESP01_SetWIFI("ARPANET", "1969-Apolo_11-2022");
   	//ESP01_SetWIFI("SA04", "12345678");
   	//ESP01_SetWIFI("BUFFA24","-NixieBulb2022-");
   	//ESP01_StartUDP("192.168.0.28", 30010, 30001);
