@@ -56,6 +56,7 @@ typedef enum {
 	SETSETPOINT = 0xF7,
 	SETPIDLINE = 0xF8,
 	GETINTERNALDATA = 0xF9,
+	SETOFFSET = 0xFA,
 	ACK = 0x0D,
 	UNKNOWN = 0xFF
 } _eCmd;

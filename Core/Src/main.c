@@ -94,9 +94,6 @@
 #define SCALE_LINE			1000
 #define LINE_THRESHOLD		1500
 
-//control de la variacion de potencia del motor.
-#define MOTOR_OFFSET		5
-
 //Inclinarse para moverse
 //#define KICK_CYCLES  5
 //#define KICK_PWM     35
@@ -237,7 +234,9 @@ int32_t linear_term = 0;
 int32_t quad_term = 0;
 int32_t turn_offset = 0;
 
-
+//VARIABLES CONTROL MOTORES
+int16_t offset_left = -5;
+int16_t offset_right = 0;
 
 // --- Estado del seguidor de línea ---
 typedef enum {
@@ -499,7 +498,7 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 		break;
 	case GETINTERNALDATA:
 		// Tamaño total: 1(cmd) + 9*4(32bits) + 5*2(16bits) + 2(8bits) = 49 bytes
-		unerPrtcl_PutHeaderOnTx(dataTx, GETINTERNALDATA, 77);
+		unerPrtcl_PutHeaderOnTx(dataTx, GETINTERNALDATA, 81);
 
 		//VARIABLES DE BALANCIN
 		// 1. Bloque de 32 bits (9 variables = 36 bytes)
@@ -543,12 +542,13 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 			unerPrtcl_PutByteOnTx(dataTx, (uint8_t) ((line_data32[i] >> 24) & 0xFF));
 		}
 
-		// 2. Variables de 16 bits (2 variables = 4 bytes)
-		int16_t line_data16[2] = {Kp_line, Kq_line};
+		// 2. Variables de 16 bits (Aumentamos a 4 variables = 8 bytes)
+		int16_t line_data16[4] = { Kp_line, Kq_line, offset_left, offset_right };
 
-		for (int i = 0; i < 2; i++) {
+		for (int i = 0; i < 4; i++) {
 			unerPrtcl_PutByteOnTx(dataTx, (uint8_t) (line_data16[i] & 0xFF));
-			unerPrtcl_PutByteOnTx(dataTx, (uint8_t) ((line_data16[i] >> 8) & 0xFF));
+			unerPrtcl_PutByteOnTx(dataTx,
+					(uint8_t) ((line_data16[i] >> 8) & 0xFF));
 		}
 
 		// Checksum final
@@ -567,6 +567,19 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 	        myWord.ui8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
 	        Kq_line = myWord.ui16[0];
 	        break;
+	case SETOFFSET:
+		unerPrtcl_PutHeaderOnTx(dataTx, 0xFA, 2);
+		unerPrtcl_PutByteOnTx(dataTx, ACK);
+		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
+
+		myWord.ui8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		myWord.ui8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		offset_left = myWord.i16[0];
+
+		myWord.ui8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		myWord.ui8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		offset_right = myWord.i16[0];
+		break;
 	default:
 		unerPrtcl_PutHeaderOnTx(dataTx, (_eCmd) dataRx->buff[dataRx->indexData],
 				2);
@@ -1124,8 +1137,6 @@ void PID_ControlTask(void) {
     if (RUN_PID == FALSE) return;
     RUN_PID = FALSE;
 
-    int32_t gy_corregido = gy;
-
     // =========================================================
     // --- 2. FILTRO PASA-BAJOS ACELERÓMETRO ---
     // =========================================================
@@ -1145,7 +1156,7 @@ void PID_ControlTask(void) {
         acc_angle_hr = (ratio * (int32_t)RADTOGRAD) / 10;
     }
 
-    gyro_delta_hr = (-(int32_t)gy_corregido * 200) / 131;
+    gyro_delta_hr = (-(int32_t)gy * 200) / 131;
     current_angle_hr = (ALPHA_GYRO * (current_angle_hr + gyro_delta_hr) + ALPHA_ACC * acc_angle_hr) / 100;
     current_angle = current_angle_hr / 100;
 
@@ -1159,7 +1170,7 @@ void PID_ControlTask(void) {
     if (integral > ANG50) integral = ANG50;
     if (integral < -ANG50) integral = -ANG50;
 
-    output = (Kp_stable * error + Ki_stable * integral + Kd_stable * gy_corregido) / 10000;
+    output = (Kp_stable * error + Ki_stable * integral + Kd_stable * gy) / 10000;
 
     // =========================================================
     // --- 5. SUAVIZADO Y ZONA MUERTA ---
@@ -1220,12 +1231,12 @@ void PID_ControlTask(void) {
 		// 4. Mezcla de Control (Steering Mix)
 		if (final_pwm > 0) {
 			// Movimiento hacia adelante
-			pwm_left  -= (MOTOR_OFFSET + turn_offset);
-			pwm_right += turn_offset;
+			pwm_left += (offset_left - turn_offset);
+			pwm_right += (offset_right + turn_offset);
 		} else {
-			// Movimiento hacia atrás (Invertimos la lógica de giro)
-			pwm_left  += (MOTOR_OFFSET - turn_offset);
-			pwm_right -= turn_offset;
+			// Movimiento hacia atrás (Invertimos lógica de offset y giro)
+			pwm_left -= (offset_left - turn_offset);
+			pwm_right -= (offset_right + turn_offset);
 		}
 	}
 
