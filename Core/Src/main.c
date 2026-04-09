@@ -233,6 +233,7 @@ int32_t abs_error = 0;
 int32_t linear_term = 0;
 int32_t quad_term = 0;
 int32_t turn_offset = 0;
+int16_t custom_turn = 20;
 
 //VARIABLES CONTROL MOTORES
 int16_t offset_left = -5;
@@ -498,7 +499,7 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 		break;
 	case GETINTERNALDATA:
 		// Tamaño total: 1(cmd) + 9*4(32bits) + 5*2(16bits) + 2(8bits) = 49 bytes
-		unerPrtcl_PutHeaderOnTx(dataTx, GETINTERNALDATA, 81);
+		unerPrtcl_PutHeaderOnTx(dataTx, GETINTERNALDATA, 83);
 
 		//VARIABLES DE BALANCIN
 		// 1. Bloque de 32 bits (9 variables = 36 bytes)
@@ -543,9 +544,10 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 		}
 
 		// 2. Variables de 16 bits (Aumentamos a 4 variables = 8 bytes)
-		int16_t line_data16[4] = { Kp_line, Kq_line, offset_left, offset_right };
+		int16_t line_data16[5] = { Kp_line, Kq_line, offset_left, offset_right,
+				custom_turn };
 
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 5; i++) {
 			unerPrtcl_PutByteOnTx(dataTx, (uint8_t) (line_data16[i] & 0xFF));
 			unerPrtcl_PutByteOnTx(dataTx,
 					(uint8_t) ((line_data16[i] >> 8) & 0xFF));
@@ -579,6 +581,15 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 		myWord.ui8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
 		myWord.ui8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
 		offset_right = myWord.i16[0];
+		break;
+	case SETCUSTOMTURN:
+		unerPrtcl_PutHeaderOnTx(dataTx, SETCUSTOMTURN, 2);
+		unerPrtcl_PutByteOnTx(dataTx, ACK);
+		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
+
+		myWord.ui8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		myWord.ui8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		custom_turn = myWord.i16[0];
 		break;
 	default:
 		unerPrtcl_PutHeaderOnTx(dataTx, (_eCmd) dataRx->buff[dataRx->indexData],
@@ -1226,6 +1237,12 @@ void PID_ControlTask(void) {
 			// 3. Reducción de escala para acoplar al rango de PWM (0 a maxPWM)
 			// Ajusta el divisor '100' si el robot gira muy brusco o muy lento
 			turn_offset = (linear_term + quad_term) / 100;
+
+			if (turn_offset > custom_turn) {
+				turn_offset = custom_turn;
+			} else if (turn_offset < -custom_turn) {
+				turn_offset = -custom_turn;
+			}
 		}
 
 		// 4. Mezcla de Control (Steering Mix)
