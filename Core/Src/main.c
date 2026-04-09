@@ -220,12 +220,12 @@ int32_t ax_filt = 0;
 int32_t az_filt = 0;
 
 //Variables externas PID
-int16_t Kp_stable = 20;
-int16_t Kd_stable = 1;
+int16_t Kp_stable = 330;
+int16_t Kd_stable = 12;
 int16_t Ki_stable = 0;
-uint8_t maxPWM = 60; //Previamente valor de 60
-uint8_t minPWM = 25; // Valor de 28 tambien funciona bien
-int32_t setpoint = 0; // Angulo unico de trabajo (x100 = 0.5°), ajustable por SETLINECTRL
+uint8_t maxPWM = 75; //Previamente valor de 60
+uint8_t minPWM = 28; // Valor de 28/25 tambien funciona bien
+int32_t setpoint = 150; // Angulo unico de trabajo (x100 = 0.5°), ajustable por SETLINECTRL
 
 // Variables del Control de Línea
 int16_t Kp_line = 15;

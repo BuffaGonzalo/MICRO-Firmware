@@ -9,45 +9,45 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
   2 .rodata       00001b0c  08009988  08009988  0000a988  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  3 .ARM.extab    00000000  0800b494  0800b494  0000d23c  2**0
+  3 .ARM.extab    00000000  0800b494  0800b494  0000d240  2**0
                   CONTENTS, READONLY
   4 .ARM          00000008  0800b494  0800b494  0000c494  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  5 .preinit_array 00000000  0800b49c  0800b49c  0000d23c  2**0
+  5 .preinit_array 00000000  0800b49c  0800b49c  0000d240  2**0
                   CONTENTS, ALLOC, LOAD, DATA
   6 .init_array   00000004  0800b49c  0800b49c  0000c49c  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
   7 .fini_array   00000004  0800b4a0  0800b4a0  0000c4a0  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  8 .data         0000023c  20000000  0800b4a4  0000d000  2**2
+  8 .data         00000240  20000000  0800b4a4  0000d000  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  9 .bss          0000246c  2000023c  0800b6e0  0000d23c  2**2
+  9 .bss          00002468  20000240  0800b6e4  0000d240  2**2
                   ALLOC
- 10 ._user_heap_stack 00000600  200026a8  0800b6e0  0000d6a8  2**0
+ 10 ._user_heap_stack 00000600  200026a8  0800b6e4  0000d6a8  2**0
                   ALLOC
- 11 .ARM.attributes 00000029  00000000  00000000  0000d23c  2**0
+ 11 .ARM.attributes 00000029  00000000  00000000  0000d240  2**0
                   CONTENTS, READONLY
- 12 .debug_info   00028749  00000000  00000000  0000d265  2**0
+ 12 .debug_info   00028749  00000000  00000000  0000d269  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 13 .debug_abbrev 000059c7  00000000  00000000  000359ae  2**0
+ 13 .debug_abbrev 000059c7  00000000  00000000  000359b2  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_loclists 00010f91  00000000  00000000  0003b375  2**0
+ 14 .debug_loclists 00010f91  00000000  00000000  0003b379  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_aranges 000018d0  00000000  00000000  0004c308  2**3
+ 15 .debug_aranges 000018d0  00000000  00000000  0004c310  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_rnglists 00001c0c  00000000  00000000  0004dbd8  2**0
+ 16 .debug_rnglists 00001c0c  00000000  00000000  0004dbe0  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_macro  0001cbad  00000000  00000000  0004f7e4  2**0
+ 17 .debug_macro  0001cbad  00000000  00000000  0004f7ec  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_line   00029d7c  00000000  00000000  0006c391  2**0
+ 18 .debug_line   00029d7c  00000000  00000000  0006c399  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .debug_str    000993cd  00000000  00000000  0009610d  2**0
+ 19 .debug_str    000993cd  00000000  00000000  00096115  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 20 .comment      00000043  00000000  00000000  0012f4da  2**0
+ 20 .comment      00000043  00000000  00000000  0012f4e2  2**0
                   CONTENTS, READONLY
- 21 .debug_frame  00004808  00000000  00000000  0012f520  2**2
+ 21 .debug_frame  00004808  00000000  00000000  0012f528  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 22 .debug_line_str 00000060  00000000  00000000  00133d28  2**0
+ 22 .debug_line_str 00000060  00000000  00000000  00133d30  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -64,7 +64,7 @@ Disassembly of section .text:
  800011e:	2301      	movs	r3, #1
  8000120:	7023      	strb	r3, [r4, #0]
  8000122:	bd10      	pop	{r4, pc}
- 8000124:	2000023c 	.word	0x2000023c
+ 8000124:	20000240 	.word	0x20000240
  8000128:	00000000 	.word	0x00000000
  800012c:	08009970 	.word	0x08009970
 
@@ -77,7 +77,7 @@ Disassembly of section .text:
  800013a:	f3af 8000 	nop.w
  800013e:	bd08      	pop	{r3, pc}
  8000140:	00000000 	.word	0x00000000
- 8000144:	20000240 	.word	0x20000240
+ 8000144:	20000244 	.word	0x20000244
  8000148:	08009970 	.word	0x08009970
 
 0800014c <strlen>:
@@ -126,8 +126,8 @@ static void ESP01StrToBufTX(const char *str){
  8000182:	2300      	moveq	r3, #0
  8000184:	2201      	movs	r2, #1
  8000186:	e7ef      	b.n	8000168 <ESP01StrToBufTX+0xc>
- 8000188:	2000026a 	.word	0x2000026a
- 800018c:	20000272 	.word	0x20000272
+ 8000188:	2000026e 	.word	0x2000026e
+ 800018c:	20000276 	.word	0x20000276
 
 08000190 <ESP01ByteToBufTX>:
 
@@ -156,8 +156,8 @@ static void ESP01ByteToBufTX(uint8_t value){
 }
  80001ac:	bd10      	pop	{r4, pc}
  80001ae:	bf00      	nop
- 80001b0:	2000026a 	.word	0x2000026a
- 80001b4:	20000272 	.word	0x20000272
+ 80001b0:	2000026e 	.word	0x2000026e
+ 80001b4:	20000276 	.word	0x20000276
 
 080001b8 <ESP01_SetWIFI>:
 void ESP01_SetWIFI(const char *ssid, const char *password){
@@ -209,13 +209,13 @@ void ESP01_SetWIFI(const char *ssid, const char *password){
 }
  80001f4:	bd38      	pop	{r3, r4, r5, pc}
  80001f6:	bf00      	nop
- 80001f8:	200005d8 	.word	0x200005d8
- 80001fc:	200004f6 	.word	0x200004f6
- 8000200:	20000583 	.word	0x20000583
- 8000204:	20000563 	.word	0x20000563
- 8000208:	200005d4 	.word	0x200005d4
- 800020c:	200005d9 	.word	0x200005d9
- 8000210:	20000268 	.word	0x20000268
+ 80001f8:	200005dc 	.word	0x200005dc
+ 80001fc:	200004fa 	.word	0x200004fa
+ 8000200:	20000587 	.word	0x20000587
+ 8000204:	20000567 	.word	0x20000567
+ 8000208:	200005d8 	.word	0x200005d8
+ 800020c:	200005dd 	.word	0x200005dd
+ 8000210:	2000026c 	.word	0x2000026c
 
 08000214 <ESP01_GetLastConnID>:
 }
@@ -223,7 +223,7 @@ void ESP01_SetWIFI(const char *ssid, const char *password){
  8000216:	7818      	ldrb	r0, [r3, #0]
  8000218:	4770      	bx	lr
  800021a:	bf00      	nop
- 800021c:	200004f5 	.word	0x200004f5
+ 800021c:	200004f9 	.word	0x200004f9
 
 08000220 <ESP01_StartUDP>:
 	if(esp01Handle.WriteUSARTByte == NULL)
@@ -294,15 +294,15 @@ _eESP01STATUS ESP01_StartUDP(const char *RemoteIP, uint16_t RemotePORT, uint16_t
 		return ESP01_WIFI_NOT_SETED;
  8000284:	2001      	movs	r0, #1
  8000286:	e7f9      	b.n	800027c <ESP01_StartUDP+0x5c>
- 8000288:	2000025c 	.word	0x2000025c
+ 8000288:	20000260 	.word	0x20000260
  800028c:	08009988 	.word	0x08009988
  8000290:	20000005 	.word	0x20000005
- 8000294:	20000553 	.word	0x20000553
- 8000298:	2000054d 	.word	0x2000054d
- 800029c:	20000537 	.word	0x20000537
- 80002a0:	20000583 	.word	0x20000583
- 80002a4:	200005d8 	.word	0x200005d8
- 80002a8:	200005d9 	.word	0x200005d9
+ 8000294:	20000557 	.word	0x20000557
+ 8000298:	20000551 	.word	0x20000551
+ 800029c:	2000053b 	.word	0x2000053b
+ 80002a0:	20000587 	.word	0x20000587
+ 80002a4:	200005dc 	.word	0x200005dc
+ 80002a8:	200005dd 	.word	0x200005dd
 
 080002ac <ESP01_StateUDPTCP>:
 	if(esp01Handle.WriteUSARTByte == NULL)
@@ -322,8 +322,8 @@ _eESP01STATUS ESP01_StartUDP(const char *RemoteIP, uint16_t RemotePORT, uint16_t
  80002c2:	f04f 30ff 	mov.w	r0, #4294967295
 }
  80002c6:	4770      	bx	lr
- 80002c8:	2000025c 	.word	0x2000025c
- 80002cc:	200005d8 	.word	0x200005d8
+ 80002c8:	20000260 	.word	0x20000260
+ 80002cc:	200005dc 	.word	0x200005dc
 
 080002d0 <ESP01_WriteRX>:
 	esp01RXATBuf[esp01iwRXAT++] = value;
@@ -349,8 +349,8 @@ void ESP01_WriteRX(uint8_t value){
  80002e8:	8013      	strheq	r3, [r2, #0]
 }
  80002ea:	bd10      	pop	{r4, pc}
- 80002ec:	20000270 	.word	0x20000270
- 80002f0:	20000472 	.word	0x20000472
+ 80002ec:	20000274 	.word	0x20000274
+ 80002f0:	20000476 	.word	0x20000476
 
 080002f4 <ESP01_Send>:
 _eESP01STATUS ESP01_Send(uint8_t connID, uint8_t *buf, uint16_t irRingBuf, uint16_t length, uint16_t sizeRingBuf){
@@ -497,14 +497,14 @@ _eESP01STATUS ESP01_Send(uint8_t connID, uint8_t *buf, uint16_t irRingBuf, uint1
 		return ESP01_UDPTCP_DISCONNECTED;
  80003ec:	2005      	movs	r0, #5
  80003ee:	e7d9      	b.n	80003a4 <ESP01_Send+0xb0>
- 80003f0:	2000025c 	.word	0x2000025c
- 80003f4:	200005d8 	.word	0x200005d8
- 80003f8:	200004f6 	.word	0x200004f6
+ 80003f0:	20000260 	.word	0x20000260
+ 80003f4:	200005dc 	.word	0x200005dc
+ 80003f8:	200004fa 	.word	0x200004fa
  80003fc:	08009f2b 	.word	0x08009f2b
  8000400:	0800998c 	.word	0x0800998c
- 8000404:	2000026a 	.word	0x2000026a
- 8000408:	20000272 	.word	0x20000272
- 800040c:	200005c4 	.word	0x200005c4
+ 8000404:	2000026e 	.word	0x2000026e
+ 8000408:	20000276 	.word	0x20000276
+ 800040c:	200005c8 	.word	0x200005c8
  8000410:	0800998f 	.word	0x0800998f
  8000414:	08009b4b 	.word	0x08009b4b
  8000418:	080099a2 	.word	0x080099a2
@@ -558,18 +558,18 @@ void ESP01_Init(_sESP01Handle *hESP01){
 }
  8000458:	4770      	bx	lr
  800045a:	bf00      	nop
- 800045c:	2000025c 	.word	0x2000025c
- 8000460:	200005d9 	.word	0x200005d9
- 8000464:	200004f4 	.word	0x200004f4
- 8000468:	2000026c 	.word	0x2000026c
- 800046c:	2000026a 	.word	0x2000026a
- 8000470:	2000026e 	.word	0x2000026e
- 8000474:	20000270 	.word	0x20000270
- 8000478:	200005d8 	.word	0x200005d8
- 800047c:	200004f6 	.word	0x200004f6
- 8000480:	200004f5 	.word	0x200004f5
- 8000484:	200005c8 	.word	0x200005c8
- 8000488:	200005c4 	.word	0x200005c4
+ 800045c:	20000260 	.word	0x20000260
+ 8000460:	200005dd 	.word	0x200005dd
+ 8000464:	200004f8 	.word	0x200004f8
+ 8000468:	20000270 	.word	0x20000270
+ 800046c:	2000026e 	.word	0x2000026e
+ 8000470:	20000272 	.word	0x20000272
+ 8000474:	20000274 	.word	0x20000274
+ 8000478:	200005dc 	.word	0x200005dc
+ 800047c:	200004fa 	.word	0x200004fa
+ 8000480:	200004f9 	.word	0x200004f9
+ 8000484:	200005cc 	.word	0x200005cc
+ 8000488:	200005c8 	.word	0x200005c8
 
 0800048c <ESP01_Timeout10ms>:
 	if(esp01TimeoutTask)
@@ -601,10 +601,10 @@ void ESP01_Init(_sESP01Handle *hESP01){
 }
  80004b0:	4770      	bx	lr
  80004b2:	bf00      	nop
- 80004b4:	200005d4 	.word	0x200005d4
- 80004b8:	200005d0 	.word	0x200005d0
- 80004bc:	200004f4 	.word	0x200004f4
- 80004c0:	200005cc 	.word	0x200005cc
+ 80004b4:	200005d8 	.word	0x200005d8
+ 80004b8:	200005d4 	.word	0x200005d4
+ 80004bc:	200004f8 	.word	0x200004f8
+ 80004c0:	200005d0 	.word	0x200005d0
 
 080004c4 <ESP01_Task>:
 void ESP01_Task(){
@@ -940,21 +940,21 @@ void ESP01_Task(){
  8000752:	801a      	strh	r2, [r3, #0]
  8000754:	e729      	b.n	80005aa <ESP01_Task+0xe6>
  8000756:	bf00      	nop
- 8000758:	20000270 	.word	0x20000270
- 800075c:	2000026e 	.word	0x2000026e
- 8000760:	200005d9 	.word	0x200005d9
- 8000764:	200005d4 	.word	0x200005d4
- 8000768:	200005d8 	.word	0x200005d8
- 800076c:	200005d0 	.word	0x200005d0
- 8000770:	200004f4 	.word	0x200004f4
- 8000774:	20000472 	.word	0x20000472
- 8000778:	20000259 	.word	0x20000259
- 800077c:	20000258 	.word	0x20000258
+ 8000758:	20000274 	.word	0x20000274
+ 800075c:	20000272 	.word	0x20000272
+ 8000760:	200005dd 	.word	0x200005dd
+ 8000764:	200005d8 	.word	0x200005d8
+ 8000768:	200005dc 	.word	0x200005dc
+ 800076c:	200005d4 	.word	0x200005d4
+ 8000770:	200004f8 	.word	0x200004f8
+ 8000774:	20000476 	.word	0x20000476
+ 8000778:	2000025d 	.word	0x2000025d
+ 800077c:	2000025c 	.word	0x2000025c
  8000780:	08009dac 	.word	0x08009dac
- 8000784:	200005cc 	.word	0x200005cc
- 8000788:	200004f2 	.word	0x200004f2
- 800078c:	2000026a 	.word	0x2000026a
- 8000790:	2000026c 	.word	0x2000026c
+ 8000784:	200005d0 	.word	0x200005d0
+ 8000788:	200004f6 	.word	0x200004f6
+ 800078c:	2000026e 	.word	0x2000026e
+ 8000790:	20000270 	.word	0x20000270
 					esp01TimeoutTask = 0;
  8000794:	4b9a      	ldr	r3, [pc, #616]	@ (8000a00 <ESP01_Task+0x53c>)
  8000796:	601a      	str	r2, [r3, #0]
@@ -1343,26 +1343,26 @@ void ESP01_Task(){
  80009fa:	2310      	movs	r3, #16
  80009fc:	e7c8      	b.n	8000990 <ESP01_Task+0x4cc>
  80009fe:	bf00      	nop
- 8000a00:	200005d4 	.word	0x200005d4
- 8000a04:	200005d8 	.word	0x200005d8
- 8000a08:	200005c8 	.word	0x200005c8
- 8000a0c:	200004f6 	.word	0x200004f6
- 8000a10:	200005c4 	.word	0x200005c4
+ 8000a00:	200005d8 	.word	0x200005d8
+ 8000a04:	200005dc 	.word	0x200005dc
+ 8000a08:	200005cc 	.word	0x200005cc
+ 8000a0c:	200004fa 	.word	0x200004fa
+ 8000a10:	200005c8 	.word	0x200005c8
  8000a14:	080099ba 	.word	0x080099ba
  8000a18:	080099cf 	.word	0x080099cf
- 8000a1c:	200004f2 	.word	0x200004f2
- 8000a20:	2000053d 	.word	0x2000053d
- 8000a24:	200004f5 	.word	0x200004f5
- 8000a28:	2000025c 	.word	0x2000025c
+ 8000a1c:	200004f6 	.word	0x200004f6
+ 8000a20:	20000541 	.word	0x20000541
+ 8000a24:	200004f9 	.word	0x200004f9
+ 8000a28:	20000260 	.word	0x20000260
  8000a2c:	080099e3 	.word	0x080099e3
- 8000a30:	200005d0 	.word	0x200005d0
+ 8000a30:	200005d4 	.word	0x200005d4
  8000a34:	080099f6 	.word	0x080099f6
- 8000a38:	200005cc 	.word	0x200005cc
- 8000a3c:	2000026a 	.word	0x2000026a
- 8000a40:	2000026c 	.word	0x2000026c
- 8000a44:	200005d9 	.word	0x200005d9
+ 8000a38:	200005d0 	.word	0x200005d0
+ 8000a3c:	2000026e 	.word	0x2000026e
+ 8000a40:	20000270 	.word	0x20000270
+ 8000a44:	200005dd 	.word	0x200005dd
  8000a48:	08009a0c 	.word	0x08009a0c
- 8000a4c:	20000268 	.word	0x20000268
+ 8000a4c:	2000026c 	.word	0x2000026c
 			esp01TriesAT = 4;
  8000a50:	2304      	movs	r3, #4
  8000a52:	7013      	strb	r3, [r2, #0]
@@ -1728,17 +1728,17 @@ void ESP01_Task(){
  8000cb0:	e7f7      	b.n	8000ca2 <ESP01_Task+0x7de>
  8000cb2:	bf00      	nop
  8000cb4:	08009f75 	.word	0x08009f75
- 8000cb8:	200005c4 	.word	0x200005c4
+ 8000cb8:	200005c8 	.word	0x200005c8
  8000cbc:	08009a22 	.word	0x08009a22
  8000cc0:	08009f67 	.word	0x08009f67
  8000cc4:	08009a30 	.word	0x08009a30
- 8000cc8:	200004f6 	.word	0x200004f6
+ 8000cc8:	200004fa 	.word	0x200004fa
  8000ccc:	08009a44 	.word	0x08009a44
  8000cd0:	08009a60 	.word	0x08009a60
  8000cd4:	08009a52 	.word	0x08009a52
  8000cd8:	08009f1d 	.word	0x08009f1d
- 8000cdc:	20000517 	.word	0x20000517
- 8000ce0:	200004f7 	.word	0x200004f7
+ 8000cdc:	2000051b 	.word	0x2000051b
+ 8000ce0:	200004fb 	.word	0x200004fb
  8000ce4:	20000002 	.word	0x20000002
  8000ce8:	20000000 	.word	0x20000000
  8000cec:	08009a74 	.word	0x08009a74
@@ -1746,21 +1746,21 @@ void ESP01_Task(){
  8000cf4:	08009a87 	.word	0x08009a87
  8000cf8:	08009ef5 	.word	0x08009ef5
  8000cfc:	08009a9b 	.word	0x08009a9b
- 8000d00:	20000583 	.word	0x20000583
+ 8000d00:	20000587 	.word	0x20000587
  8000d04:	08009f5d 	.word	0x08009f5d
- 8000d08:	20000563 	.word	0x20000563
+ 8000d08:	20000567 	.word	0x20000567
  8000d0c:	08009ab2 	.word	0x08009ab2
- 8000d10:	20000268 	.word	0x20000268
- 8000d14:	2000053d 	.word	0x2000053d
+ 8000d10:	2000026c 	.word	0x2000026c
+ 8000d14:	20000541 	.word	0x20000541
  8000d18:	08009f52 	.word	0x08009f52
  8000d1c:	08009ac5 	.word	0x08009ac5
- 8000d20:	20000553 	.word	0x20000553
+ 8000d20:	20000557 	.word	0x20000557
  8000d24:	08009f37 	.word	0x08009f37
  8000d28:	08009ad6 	.word	0x08009ad6
  8000d2c:	08009f45 	.word	0x08009f45
  8000d30:	20000005 	.word	0x20000005
- 8000d34:	2000054d 	.word	0x2000054d
- 8000d38:	20000537 	.word	0x20000537
+ 8000d34:	20000551 	.word	0x20000551
+ 8000d38:	2000053b 	.word	0x2000053b
  8000d3c:	08009aec 	.word	0x08009aec
 	if(esp01irTX != esp01iwTX){
  8000d40:	4c15      	ldr	r4, [pc, #84]	@ (8000d98 <ESP01_Task+0x8d4>)
@@ -1819,11 +1819,11 @@ void ESP01_Task(){
 }
  8000d94:	e613      	b.n	80009be <ESP01_Task+0x4fa>
  8000d96:	bf00      	nop
- 8000d98:	2000026c 	.word	0x2000026c
- 8000d9c:	2000026a 	.word	0x2000026a
- 8000da0:	20000272 	.word	0x20000272
- 8000da4:	2000025c 	.word	0x2000025c
- 8000da8:	200005cc 	.word	0x200005cc
+ 8000d98:	20000270 	.word	0x20000270
+ 8000d9c:	2000026e 	.word	0x2000026e
+ 8000da0:	20000276 	.word	0x20000276
+ 8000da4:	20000260 	.word	0x20000260
+ 8000da8:	200005d0 	.word	0x200005d0
 
 08000dac <ESP01_AttachChangeState>:
 	ESP01ChangeState = aESP01ChangeState;
@@ -1832,7 +1832,7 @@ void ESP01_Task(){
 }
  8000db0:	4770      	bx	lr
  8000db2:	bf00      	nop
- 8000db4:	200005c8 	.word	0x200005c8
+ 8000db4:	200005cc 	.word	0x200005cc
 
 08000db8 <ESP01_AttachDebugStr>:
 	ESP01DbgStr = aESP01DbgStr;
@@ -1841,7 +1841,7 @@ void ESP01_Task(){
 }
  8000dbc:	4770      	bx	lr
  8000dbe:	bf00      	nop
- 8000dc0:	200005c4 	.word	0x200005c4
+ 8000dc0:	200005c8 	.word	0x200005c8
 
 08000dc4 <USBRxData>:
 }
@@ -2186,7 +2186,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
  8000fc8:	20000f1c 	.word	0x20000f1c
  8000fcc:	2000083a 	.word	0x2000083a
  8000fd0:	2000081b 	.word	0x2000081b
- 8000fd4:	2000002e 	.word	0x2000002e
+ 8000fd4:	20000034 	.word	0x20000034
  8000fd8:	2000081c 	.word	0x2000081c
 
 08000fdc <decodeCommand>:
@@ -2655,12 +2655,12 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
  80012f0:	20000819 	.word	0x20000819
  80012f4:	20000818 	.word	0x20000818
  80012f8:	20000817 	.word	0x20000817
- 80012fc:	2000001a 	.word	0x2000001a
- 8001300:	20000018 	.word	0x20000018
+ 80012fc:	20000020 	.word	0x20000020
+ 8001300:	2000001e 	.word	0x2000001e
  8001304:	200005fc 	.word	0x200005fc
- 8001308:	20000017 	.word	0x20000017
- 800130c:	20000016 	.word	0x20000016
- 8001310:	200005f8 	.word	0x200005f8
+ 8001308:	2000001d 	.word	0x2000001d
+ 800130c:	2000001c 	.word	0x2000001c
+ 8001310:	20000018 	.word	0x20000018
 		unerPrtcl_PutHeaderOnTx(dataTx, GETINTERNALDATA, 77);
  8001314:	224d      	movs	r2, #77	@ 0x4d
  8001316:	21f9      	movs	r1, #249	@ 0xf9
@@ -2883,18 +2883,18 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
  80014c8:	20000610 	.word	0x20000610
  80014cc:	20000614 	.word	0x20000614
  80014d0:	2000060c 	.word	0x2000060c
- 80014d4:	200005f8 	.word	0x200005f8
- 80014d8:	2000001a 	.word	0x2000001a
+ 80014d4:	20000018 	.word	0x20000018
+ 80014d8:	20000020 	.word	0x20000020
  80014dc:	200005fc 	.word	0x200005fc
- 80014e0:	20000018 	.word	0x20000018
- 80014e4:	20000017 	.word	0x20000017
- 80014e8:	20000016 	.word	0x20000016
- 80014ec:	200005f4 	.word	0x200005f4
- 80014f0:	200005f0 	.word	0x200005f0
- 80014f4:	200005ec 	.word	0x200005ec
- 80014f8:	200005e8 	.word	0x200005e8
- 80014fc:	200005e4 	.word	0x200005e4
- 8001500:	200005e0 	.word	0x200005e0
+ 80014e0:	2000001e 	.word	0x2000001e
+ 80014e4:	2000001d 	.word	0x2000001d
+ 80014e8:	2000001c 	.word	0x2000001c
+ 80014ec:	200005f8 	.word	0x200005f8
+ 80014f0:	200005f4 	.word	0x200005f4
+ 80014f4:	200005f0 	.word	0x200005f0
+ 80014f8:	200005ec 	.word	0x200005ec
+ 80014fc:	200005e8 	.word	0x200005e8
+ 8001500:	200005e4 	.word	0x200005e4
  8001504:	20000014 	.word	0x20000014
  8001508:	20000012 	.word	0x20000012
  800150c:	2000083c 	.word	0x2000083c
@@ -2994,8 +2994,8 @@ void heartBeatTask() {
  80015a8:	bd10      	pop	{r4, pc}
  80015aa:	bf00      	nop
  80015ac:	20000816 	.word	0x20000816
- 80015b0:	200005dd 	.word	0x200005dd
- 80015b4:	20000034 	.word	0x20000034
+ 80015b0:	200005e1 	.word	0x200005e1
+ 80015b4:	20000038 	.word	0x20000038
  80015b8:	40011000 	.word	0x40011000
 
 080015bc <ssd1306Data>:
@@ -3394,8 +3394,8 @@ void i2cTask() {
  80018b6:	2300      	movs	r3, #0
  80018b8:	e7d1      	b.n	800185e <i2cTask+0x3e>
  80018ba:	bf00      	nop
- 80018bc:	200005dc 	.word	0x200005dc
- 80018c0:	200005db 	.word	0x200005db
+ 80018bc:	200005e0 	.word	0x200005e0
+ 80018c0:	200005df 	.word	0x200005df
  80018c4:	2000081b 	.word	0x2000081b
  80018c8:	2000081c 	.word	0x2000081c
  80018cc:	20000e84 	.word	0x20000e84
@@ -3793,8 +3793,8 @@ void httpTask(void)
  8001b8c:	7020      	strb	r0, [r4, #0]
  8001b8e:	e7ee      	b.n	8001b6e <httpTask+0xb6>
  8001b90:	20000628 	.word	0x20000628
- 8001b94:	2000001c 	.word	0x2000001c
- 8001b98:	2000001e 	.word	0x2000001e
+ 8001b94:	20000022 	.word	0x20000022
+ 8001b98:	20000024 	.word	0x20000024
  8001b9c:	2000077d 	.word	0x2000077d
  8001ba0:	2000077e 	.word	0x2000077e
  8001ba4:	2000077f 	.word	0x2000077f
@@ -3929,7 +3929,7 @@ void buttonTimeout10ms(_sButton *button){
  8001c2c:	7013      	strb	r3, [r2, #0]
 }
  8001c2e:	e7f8      	b.n	8001c22 <buttonTimeout10ms+0x2a>
- 8001c30:	200005da 	.word	0x200005da
+ 8001c30:	200005de 	.word	0x200005de
  8001c34:	40010c00 	.word	0x40010c00
  8001c38:	20000800 	.word	0x20000800
 
@@ -4021,8 +4021,8 @@ void do10ms() {
 }
  8001cc2:	e7ea      	b.n	8001c9a <do10ms+0x5e>
  8001cc4:	2000083a 	.word	0x2000083a
- 8001cc8:	20000030 	.word	0x20000030
- 8001ccc:	2000002f 	.word	0x2000002f
+ 8001cc8:	20000036 	.word	0x20000036
+ 8001ccc:	20000035 	.word	0x20000035
  8001cd0:	20000800 	.word	0x20000800
  8001cd4:	20000815 	.word	0x20000815
  8001cd8:	2000077d 	.word	0x2000077d
@@ -4461,14 +4461,14 @@ void PID_ControlTask(void) {
  8001f48:	ffffec78 	.word	0xffffec78
  8001f4c:	20000608 	.word	0x20000608
  8001f50:	20000610 	.word	0x20000610
- 8001f54:	200005f8 	.word	0x200005f8
+ 8001f54:	20000018 	.word	0x20000018
  8001f58:	20000618 	.word	0x20000618
  8001f5c:	200005fc 	.word	0x200005fc
- 8001f60:	2000001a 	.word	0x2000001a
- 8001f64:	20000018 	.word	0x20000018
+ 8001f60:	20000020 	.word	0x20000020
+ 8001f64:	2000001e 	.word	0x2000001e
  8001f68:	2000060c 	.word	0x2000060c
- 8001f6c:	20000016 	.word	0x20000016
- 8001f70:	20000017 	.word	0x20000017
+ 8001f6c:	2000001c 	.word	0x2000001c
+ 8001f70:	2000001d 	.word	0x2000001d
  8001f74:	20000819 	.word	0x20000819
  8001f78:	2000081a 	.word	0x2000081a
  8001f7c:	20000818 	.word	0x20000818
@@ -4476,14 +4476,14 @@ void PID_ControlTask(void) {
  8001f84:	ffffd8f1 	.word	0xffffd8f1
  8001f88:	ffff63c1 	.word	0xffff63c1
  8001f8c:	20000c80 	.word	0x20000c80
- 8001f90:	200005f4 	.word	0x200005f4
- 8001f94:	200005e0 	.word	0x200005e0
- 8001f98:	200005f0 	.word	0x200005f0
- 8001f9c:	200005ec 	.word	0x200005ec
+ 8001f90:	200005f8 	.word	0x200005f8
+ 8001f94:	200005e4 	.word	0x200005e4
+ 8001f98:	200005f4 	.word	0x200005f4
+ 8001f9c:	200005f0 	.word	0x200005f0
  8001fa0:	20000014 	.word	0x20000014
- 8001fa4:	200005e8 	.word	0x200005e8
+ 8001fa4:	200005ec 	.word	0x200005ec
  8001fa8:	20000012 	.word	0x20000012
- 8001fac:	200005e4 	.word	0x200005e4
+ 8001fac:	200005e8 	.word	0x200005e8
 
 08001fb0 <SystemClock_Config>:
 /**
@@ -5727,7 +5727,7 @@ char mpu6050_Read(void)
  8002784:	e7d3      	b.n	800272e <mpu6050_Read+0x12>
  8002786:	bf00      	nop
  8002788:	20000f7c 	.word	0x20000f7c
- 800278c:	20000064 	.word	0x20000064
+ 800278c:	20000068 	.word	0x20000068
  8002790:	20000f4c 	.word	0x20000f4c
  8002794:	20000f70 	.word	0x20000f70
  8002798:	20000f6c 	.word	0x20000f6c
@@ -6058,7 +6058,7 @@ char ssd1306_UpdateScreenDMA(void) {
 				return 1;
  800294e:	e7cf      	b.n	80028f0 <ssd1306_UpdateScreenDMA+0x14>
  8002950:	20001390 	.word	0x20001390
- 8002954:	20000065 	.word	0x20000065
+ 8002954:	20000069 	.word	0x20000069
  8002958:	20000f80 	.word	0x20000f80
  800295c:	20000f88 	.word	0x20000f88
 
@@ -8113,11 +8113,11 @@ LoopFillZerobss:
   ldr r0, =_sdata
  800331c:	20000000 	.word	0x20000000
   ldr r1, =_edata
- 8003320:	2000023c 	.word	0x2000023c
+ 8003320:	20000240 	.word	0x20000240
   ldr r2, =_sidata
  8003324:	0800b4a4 	.word	0x0800b4a4
   ldr r2, =_sbss
- 8003328:	2000023c 	.word	0x2000023c
+ 8003328:	20000240 	.word	0x20000240
   ldr r4, =_ebss
  800332c:	200026a8 	.word	0x200026a8
 
@@ -8182,9 +8182,9 @@ __weak HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
     return HAL_ERROR;
  800336c:	2001      	movs	r0, #1
  800336e:	e7fc      	b.n	800336a <HAL_InitTick+0x36>
- 8003370:	2000006c 	.word	0x2000006c
- 8003374:	20000068 	.word	0x20000068
- 8003378:	20000070 	.word	0x20000070
+ 8003370:	20000070 	.word	0x20000070
+ 8003374:	2000006c 	.word	0x2000006c
+ 8003378:	20000074 	.word	0x20000074
 
 0800337c <HAL_Init>:
   __HAL_FLASH_PREFETCH_BUFFER_ENABLE();
@@ -8227,7 +8227,7 @@ __weak void HAL_IncTick(void)
  80033ac:	4770      	bx	lr
  80033ae:	bf00      	nop
  80033b0:	20001398 	.word	0x20001398
- 80033b4:	2000006c 	.word	0x2000006c
+ 80033b4:	20000070 	.word	0x20000070
 
 080033b8 <HAL_GetTick>:
   *       implementations in user file.
@@ -8277,7 +8277,7 @@ __weak void HAL_Delay(uint32_t Delay)
   }
 }
  80033e2:	bd38      	pop	{r3, r4, r5, pc}
- 80033e4:	2000006c 	.word	0x2000006c
+ 80033e4:	20000070 	.word	0x20000070
 
 080033e8 <ADC_DMAConvCplt>:
   * @retval None
@@ -8697,7 +8697,7 @@ void ADC_DMAError(DMA_HandleTypeDef *hdma)
  8003630:	e7bb      	b.n	80035aa <HAL_ADC_ConfigChannel+0x66>
  8003632:	bf00      	nop
  8003634:	40012400 	.word	0x40012400
- 8003638:	20000068 	.word	0x20000068
+ 8003638:	2000006c 	.word	0x2000006c
  800363c:	000f4240 	.word	0x000f4240
 
 08003640 <ADC_Enable>:
@@ -8773,7 +8773,7 @@ void ADC_DMAError(DMA_HandleTypeDef *hdma)
  80036aa:	3b01      	subs	r3, #1
  80036ac:	e7dc      	b.n	8003668 <ADC_Enable+0x28>
  80036ae:	bf00      	nop
- 80036b0:	20000068 	.word	0x20000068
+ 80036b0:	2000006c 	.word	0x2000006c
  80036b4:	000f4240 	.word	0x000f4240
 
 080036b8 <HAL_ADC_Start_DMA>:
@@ -11259,7 +11259,7 @@ static HAL_StatusTypeDef I2C_IsAcknowledgeFailed(I2C_HandleTypeDef *hi2c)
       return HAL_ERROR;
  8004610:	e7d1      	b.n	80045b6 <HAL_I2C_Mem_Write_DMA+0x11e>
  8004612:	bf00      	nop
- 8004614:	20000068 	.word	0x20000068
+ 8004614:	2000006c 	.word	0x2000006c
  8004618:	ffff0000 	.word	0xffff0000
  800461c:	080048f1 	.word	0x080048f1
  8004620:	080048b7 	.word	0x080048b7
@@ -11538,7 +11538,7 @@ static HAL_StatusTypeDef I2C_IsAcknowledgeFailed(I2C_HandleTypeDef *hi2c)
  80047e2:	f884 303d 	strb.w	r3, [r4, #61]	@ 0x3d
       __HAL_UNLOCK(hi2c);
  80047e6:	e7d4      	b.n	8004792 <HAL_I2C_Mem_Read_DMA+0x16e>
- 80047e8:	20000068 	.word	0x20000068
+ 80047e8:	2000006c 	.word	0x2000006c
  80047ec:	ffff0000 	.word	0xffff0000
  80047f0:	080048f1 	.word	0x080048f1
  80047f4:	080048b7 	.word	0x080048b7
@@ -12029,7 +12029,7 @@ __weak void HAL_I2C_AbortCpltCallback(I2C_HandleTypeDef *hi2c)
  8004abc:	f880 303e 	strb.w	r3, [r0, #62]	@ 0x3e
  8004ac0:	e7f5      	b.n	8004aae <I2C_DMAAbort+0xa6>
  8004ac2:	bf00      	nop
- 8004ac4:	20000068 	.word	0x20000068
+ 8004ac4:	2000006c 	.word	0x2000006c
 
 08004ac8 <I2C_ITError>:
 {
@@ -13183,7 +13183,7 @@ static void I2C_ConvertOtherXferOptions(I2C_HandleTypeDef *hi2c)
  8005268:	9b0c      	ldr	r3, [sp, #48]	@ 0x30
     __HAL_UNLOCK(hi2c);
  800526a:	e4f1      	b.n	8004c50 <HAL_I2C_EV_IRQHandler+0x38>
- 800526c:	20000068 	.word	0x20000068
+ 800526c:	2000006c 	.word	0x2000006c
     else if ((I2C_CHECK_FLAG(sr1itflags, I2C_FLAG_STOPF) != RESET) && (I2C_CHECK_IT_SOURCE(itsources, I2C_IT_EVT) != RESET))
  8005270:	06c6      	lsls	r6, r0, #27
  8005272:	f140 80b1 	bpl.w	80053d8 <HAL_I2C_EV_IRQHandler+0x7c0>
@@ -15900,7 +15900,7 @@ static void RCC_Delay(uint32_t mdelay)
  8006576:	e706      	b.n	8006386 <HAL_RCC_OscConfig+0x82>
  8006578:	40021000 	.word	0x40021000
  800657c:	42420000 	.word	0x42420000
- 8006580:	20000068 	.word	0x20000068
+ 8006580:	2000006c 	.word	0x2000006c
  8006584:	40007000 	.word	0x40007000
     if (__HAL_RCC_GET_SYSCLK_SOURCE() != RCC_SYSCLKSOURCE_STATUS_PLLCLK)
  8006588:	4c2a      	ldr	r4, [pc, #168]	@ (8006634 <HAL_RCC_OscConfig+0x330>)
@@ -16205,8 +16205,8 @@ if (((RCC_ClkInitStruct->ClockType) & RCC_CLOCKTYPE_PCLK1) == RCC_CLOCKTYPE_PCLK
  80067ac:	40022000 	.word	0x40022000
  80067b0:	40021000 	.word	0x40021000
  80067b4:	0800b471 	.word	0x0800b471
- 80067b8:	20000068 	.word	0x20000068
- 80067bc:	20000070 	.word	0x20000070
+ 80067b8:	2000006c 	.word	0x2000006c
+ 80067bc:	20000074 	.word	0x20000074
 
 080067c0 <HAL_RCC_GetPCLK1Freq>:
   return (HAL_RCC_GetHCLKFreq() >> APBPrescTable[(RCC->CFGR & RCC_CFGR_PPRE1) >> RCC_CFGR_PPRE1_Pos]);
@@ -16222,7 +16222,7 @@ if (((RCC_ClkInitStruct->ClockType) & RCC_CLOCKTYPE_PCLK1) == RCC_CLOCKTYPE_PCLK
  80067d2:	4770      	bx	lr
  80067d4:	40021000 	.word	0x40021000
  80067d8:	0800b469 	.word	0x0800b469
- 80067dc:	20000068 	.word	0x20000068
+ 80067dc:	2000006c 	.word	0x2000006c
 
 080067e0 <HAL_RCC_GetPCLK2Freq>:
   return (HAL_RCC_GetHCLKFreq() >> APBPrescTable[(RCC->CFGR & RCC_CFGR_PPRE2) >> RCC_CFGR_PPRE2_Pos]);
@@ -16238,7 +16238,7 @@ if (((RCC_ClkInitStruct->ClockType) & RCC_CLOCKTYPE_PCLK1) == RCC_CLOCKTYPE_PCLK
  80067f2:	4770      	bx	lr
  80067f4:	40021000 	.word	0x40021000
  80067f8:	0800b469 	.word	0x0800b469
- 80067fc:	20000068 	.word	0x20000068
+ 80067fc:	2000006c 	.word	0x2000006c
 
 08006800 <HAL_RCCEx_PeriphCLKConfig>:
 
@@ -20219,7 +20219,7 @@ static uint8_t  *USBD_CDC_GetFSCfgDesc(uint16_t *length)
 }
  800809c:	4800      	ldr	r0, [pc, #0]	@ (80080a0 <USBD_CDC_GetFSCfgDesc+0x8>)
  800809e:	4770      	bx	lr
- 80080a0:	200000b8 	.word	0x200000b8
+ 80080a0:	200000bc 	.word	0x200000bc
 
 080080a4 <USBD_CDC_GetHSCfgDesc>:
   * @param  length : pointer data length
@@ -20234,7 +20234,7 @@ static uint8_t  *USBD_CDC_GetHSCfgDesc(uint16_t *length)
 }
  80080a8:	4800      	ldr	r0, [pc, #0]	@ (80080ac <USBD_CDC_GetHSCfgDesc+0x8>)
  80080aa:	4770      	bx	lr
- 80080ac:	200000fc 	.word	0x200000fc
+ 80080ac:	20000100 	.word	0x20000100
 
 080080b0 <USBD_CDC_GetOtherSpeedCfgDesc>:
   * @param  length : pointer data length
@@ -20249,7 +20249,7 @@ static uint8_t  *USBD_CDC_GetOtherSpeedCfgDesc(uint16_t *length)
 }
  80080b4:	4800      	ldr	r0, [pc, #0]	@ (80080b8 <USBD_CDC_GetOtherSpeedCfgDesc+0x8>)
  80080b6:	4770      	bx	lr
- 80080b8:	20000074 	.word	0x20000074
+ 80080b8:	20000078 	.word	0x20000078
 
 080080bc <USBD_CDC_GetDeviceQualifierDescriptor>:
 * @param  length : pointer data length
@@ -20264,7 +20264,7 @@ uint8_t  *USBD_CDC_GetDeviceQualifierDescriptor(uint16_t *length)
 }
  80080c0:	4800      	ldr	r0, [pc, #0]	@ (80080c4 <USBD_CDC_GetDeviceQualifierDescriptor+0x8>)
  80080c2:	4770      	bx	lr
- 80080c4:	20000178 	.word	0x20000178
+ 80080c4:	2000017c 	.word	0x2000017c
 
 080080c8 <USBD_CDC_DataOut>:
 {
@@ -22187,10 +22187,10 @@ void MX_USB_DEVICE_Init(void)
  8008aca:	f7f9 bddb 	b.w	8002684 <Error_Handler>
 }
  8008ace:	bd08      	pop	{r3, pc}
- 8008ad0:	200001d0 	.word	0x200001d0
+ 8008ad0:	200001d4 	.word	0x200001d4
  8008ad4:	200013a0 	.word	0x200013a0
- 8008ad8:	20000140 	.word	0x20000140
- 8008adc:	20000184 	.word	0x20000184
+ 8008ad8:	20000144 	.word	0x20000144
+ 8008adc:	20000188 	.word	0x20000188
 
 08008ae0 <CDC_DeInit_FS>:
 static int8_t CDC_DeInit_FS(void)
@@ -22262,7 +22262,7 @@ static int8_t CDC_Control_FS(uint8_t cmd, uint8_t* pbuf, uint16_t length)
     break;
  8008b24:	e7e2      	b.n	8008aec <CDC_Control_FS+0x8>
  8008b26:	bf00      	nop
- 8008b28:	20000194 	.word	0x20000194
+ 8008b28:	20000198 	.word	0x20000198
 
 08008b2c <CDC_Receive_FS>:
   */
@@ -22384,7 +22384,7 @@ uint8_t * USBD_FS_DeviceDescriptor(USBD_SpeedTypeDef speed, uint16_t *length)
  8008bb4:	800b      	strh	r3, [r1, #0]
 }
  8008bb6:	4770      	bx	lr
- 8008bb8:	200001bc 	.word	0x200001bc
+ 8008bb8:	200001c0 	.word	0x200001c0
 
 08008bbc <USBD_FS_LangIDStrDescriptor>:
   * @retval Pointer to descriptor buffer
@@ -22401,7 +22401,7 @@ uint8_t * USBD_FS_LangIDStrDescriptor(USBD_SpeedTypeDef speed, uint16_t *length)
  8008bc0:	800b      	strh	r3, [r1, #0]
 }
  8008bc2:	4770      	bx	lr
- 8008bc4:	200001b8 	.word	0x200001b8
+ 8008bc4:	200001bc 	.word	0x200001bc
 
 08008bc8 <IntToUnicode>:
   * @param  pbuf: pointer to the buffer
@@ -22477,8 +22477,8 @@ static void IntToUnicode(uint32_t value, uint8_t * pbuf, uint8_t len)
  8008c20:	bd10      	pop	{r4, pc}
  8008c22:	bf00      	nop
  8008c24:	1ffff000 	.word	0x1ffff000
- 8008c28:	2000019e 	.word	0x2000019e
- 8008c2c:	2000019c 	.word	0x2000019c
+ 8008c28:	200001a2 	.word	0x200001a2
+ 8008c2c:	200001a0 	.word	0x200001a0
 
 08008c30 <USBD_FS_ManufacturerStrDescriptor>:
 {
@@ -23011,7 +23011,7 @@ USBD_StatusTypeDef USBD_Get_USB_Status(HAL_StatusTypeDef hal_status)
  8008fd6:	9b02      	ldr	r3, [sp, #8]
  8008fd8:	701a      	strb	r2, [r3, #0]
  8008fda:	e7d6      	b.n	8008f8a <sniprintf+0x16>
- 8008fdc:	200001ec 	.word	0x200001ec
+ 8008fdc:	200001f0 	.word	0x200001f0
 
 08008fe0 <memset>:
  8008fe0:	4603      	mov	r3, r0
@@ -23068,7 +23068,7 @@ USBD_StatusTypeDef USBD_Get_USB_Status(HAL_StatusTypeDef hal_status)
  8009046:	6818      	ldr	r0, [r3, #0]
  8009048:	4770      	bx	lr
  800904a:	bf00      	nop
- 800904c:	200001ec 	.word	0x200001ec
+ 800904c:	200001f0 	.word	0x200001f0
 
 08009050 <__libc_init_array>:
  8009050:	b570      	push	{r4, r5, r6, lr}

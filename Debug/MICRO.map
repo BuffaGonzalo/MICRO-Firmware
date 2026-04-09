@@ -6436,7 +6436,7 @@ LOAD C:/ST/STM32CubeIDE_2.1.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.exte
 .rel.dyn        0x0800b4a4        0x0
  .rel.iplt      0x0800b4a4        0x0 C:/ST/STM32CubeIDE_2.1.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7-m/nofp/crtbegin.o
 
-.data           0x20000000      0x23c load address 0x0800b4a4
+.data           0x20000000      0x240 load address 0x0800b4a4
                 0x20000000                        . = ALIGN (0x4)
                 0x20000000                        _sdata = .
  *(.data)
@@ -6453,189 +6453,191 @@ LOAD C:/ST/STM32CubeIDE_2.1.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.exte
                 0x20000012                Kq_line
  .data.Kp_line  0x20000014        0x2 ./Core/Src/main.o
                 0x20000014                Kp_line
- .data.minPWM   0x20000016        0x1 ./Core/Src/main.o
-                0x20000016                minPWM
- .data.maxPWM   0x20000017        0x1 ./Core/Src/main.o
-                0x20000017                maxPWM
+ *fill*         0x20000016        0x2 
+ .data.setpoint
+                0x20000018        0x4 ./Core/Src/main.o
+                0x20000018                setpoint
+ .data.minPWM   0x2000001c        0x1 ./Core/Src/main.o
+                0x2000001c                minPWM
+ .data.maxPWM   0x2000001d        0x1 ./Core/Src/main.o
+                0x2000001d                maxPWM
  .data.Kd_stable
-                0x20000018        0x2 ./Core/Src/main.o
-                0x20000018                Kd_stable
+                0x2000001e        0x2 ./Core/Src/main.o
+                0x2000001e                Kd_stable
  .data.Kp_stable
-                0x2000001a        0x2 ./Core/Src/main.o
-                0x2000001a                Kp_stable
+                0x20000020        0x2 ./Core/Src/main.o
+                0x20000020                Kp_stable
  .data.udpTargetPort
-                0x2000001c        0x2 ./Core/Src/main.o
+                0x20000022        0x2 ./Core/Src/main.o
  .data.udpTargetIP
-                0x2000001e       0x10 ./Core/Src/main.o
- .data.tmo100   0x2000002e        0x1 ./Core/Src/main.o
-                0x2000002e                tmo100
- .data.tmo20ms  0x2000002f        0x1 ./Core/Src/main.o
-                0x2000002f                tmo20ms
+                0x20000024       0x10 ./Core/Src/main.o
+ .data.tmo100   0x20000034        0x1 ./Core/Src/main.o
+                0x20000034                tmo100
+ .data.tmo20ms  0x20000035        0x1 ./Core/Src/main.o
+                0x20000035                tmo20ms
  .data.tmo100ms
-                0x20000030        0x1 ./Core/Src/main.o
-                0x20000030                tmo100ms
- *fill*         0x20000031        0x3 
+                0x20000036        0x1 ./Core/Src/main.o
+                0x20000036                tmo100ms
+ *fill*         0x20000037        0x1 
  .data.heartBeatMask
-                0x20000034       0x30 ./Core/Src/main.o
-                0x20000034                heartBeatMask
- .data.state.1  0x20000064        0x1 ./Core/Src/mpu6050.o
- .data.state.1  0x20000065        0x1 ./Core/Src/ssd1306.o
- *fill*         0x20000066        0x2 
+                0x20000038       0x30 ./Core/Src/main.o
+                0x20000038                heartBeatMask
+ .data.state.1  0x20000068        0x1 ./Core/Src/mpu6050.o
+ .data.state.1  0x20000069        0x1 ./Core/Src/ssd1306.o
+ *fill*         0x2000006a        0x2 
  .data.SystemCoreClock
-                0x20000068        0x4 ./Core/Src/system_stm32f1xx.o
-                0x20000068                SystemCoreClock
+                0x2000006c        0x4 ./Core/Src/system_stm32f1xx.o
+                0x2000006c                SystemCoreClock
  .data.uwTickFreq
-                0x2000006c        0x1 ./Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.o
-                0x2000006c                uwTickFreq
- *fill*         0x2000006d        0x3 
+                0x20000070        0x1 ./Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.o
+                0x20000070                uwTickFreq
+ *fill*         0x20000071        0x3 
  .data.uwTickPrio
-                0x20000070        0x4 ./Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.o
-                0x20000070                uwTickPrio
+                0x20000074        0x4 ./Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.o
+                0x20000074                uwTickPrio
  .data.USBD_CDC_OtherSpeedCfgDesc
-                0x20000074       0x43 ./Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.o
-                0x20000074                USBD_CDC_OtherSpeedCfgDesc
- *fill*         0x200000b7        0x1 
+                0x20000078       0x43 ./Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.o
+                0x20000078                USBD_CDC_OtherSpeedCfgDesc
+ *fill*         0x200000bb        0x1 
  .data.USBD_CDC_CfgFSDesc
-                0x200000b8       0x43 ./Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.o
-                0x200000b8                USBD_CDC_CfgFSDesc
- *fill*         0x200000fb        0x1 
+                0x200000bc       0x43 ./Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.o
+                0x200000bc                USBD_CDC_CfgFSDesc
+ *fill*         0x200000ff        0x1 
  .data.USBD_CDC_CfgHSDesc
-                0x200000fc       0x43 ./Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.o
-                0x200000fc                USBD_CDC_CfgHSDesc
- *fill*         0x2000013f        0x1 
+                0x20000100       0x43 ./Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.o
+                0x20000100                USBD_CDC_CfgHSDesc
+ *fill*         0x20000143        0x1 
  .data.USBD_CDC
-                0x20000140       0x38 ./Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.o
-                0x20000140                USBD_CDC
+                0x20000144       0x38 ./Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.o
+                0x20000144                USBD_CDC
  .data.USBD_CDC_DeviceQualifierDesc
-                0x20000178        0xa ./Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.o
- *fill*         0x20000182        0x2 
+                0x2000017c        0xa ./Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.o
+ *fill*         0x20000186        0x2 
  .data.USBD_Interface_fops_FS
-                0x20000184       0x10 ./USB_DEVICE/App/usbd_cdc_if.o
-                0x20000184                USBD_Interface_fops_FS
+                0x20000188       0x10 ./USB_DEVICE/App/usbd_cdc_if.o
+                0x20000188                USBD_Interface_fops_FS
  .data.LineCoding
-                0x20000194        0x8 ./USB_DEVICE/App/usbd_cdc_if.o
-                0x20000194                LineCoding
+                0x20000198        0x8 ./USB_DEVICE/App/usbd_cdc_if.o
+                0x20000198                LineCoding
  .data.USBD_StringSerial
-                0x2000019c       0x1a ./USB_DEVICE/App/usbd_desc.o
-                0x2000019c                USBD_StringSerial
- *fill*         0x200001b6        0x2 
+                0x200001a0       0x1a ./USB_DEVICE/App/usbd_desc.o
+                0x200001a0                USBD_StringSerial
+ *fill*         0x200001ba        0x2 
  .data.USBD_LangIDDesc
-                0x200001b8        0x4 ./USB_DEVICE/App/usbd_desc.o
-                0x200001b8                USBD_LangIDDesc
+                0x200001bc        0x4 ./USB_DEVICE/App/usbd_desc.o
+                0x200001bc                USBD_LangIDDesc
  .data.USBD_FS_DeviceDesc
-                0x200001bc       0x12 ./USB_DEVICE/App/usbd_desc.o
-                0x200001bc                USBD_FS_DeviceDesc
- *fill*         0x200001ce        0x2 
- .data.FS_Desc  0x200001d0       0x1c ./USB_DEVICE/App/usbd_desc.o
-                0x200001d0                FS_Desc
+                0x200001c0       0x12 ./USB_DEVICE/App/usbd_desc.o
+                0x200001c0                USBD_FS_DeviceDesc
+ *fill*         0x200001d2        0x2 
+ .data.FS_Desc  0x200001d4       0x1c ./USB_DEVICE/App/usbd_desc.o
+                0x200001d4                FS_Desc
  .data._impure_ptr
-                0x200001ec        0x4 C:/ST/STM32CubeIDE_2.1.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(libc_a-impure.o)
-                0x200001ec                _impure_ptr
+                0x200001f0        0x4 C:/ST/STM32CubeIDE_2.1.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(libc_a-impure.o)
+                0x200001f0                _impure_ptr
  .data._impure_data
-                0x200001f0       0x4c C:/ST/STM32CubeIDE_2.1.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(libc_a-impure.o)
-                0x200001f0                _impure_data
+                0x200001f4       0x4c C:/ST/STM32CubeIDE_2.1.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(libc_a-impure.o)
+                0x200001f4                _impure_data
  *(.RamFunc)
  *(.RamFunc*)
-                0x2000023c                        . = ALIGN (0x4)
-                0x2000023c                        _edata = .
+                0x20000240                        . = ALIGN (0x4)
+                0x20000240                        _edata = .
 
-.igot.plt       0x2000023c        0x0 load address 0x0800b6e0
- .igot.plt      0x2000023c        0x0 C:/ST/STM32CubeIDE_2.1.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7-m/nofp/crtbegin.o
-                0x2000023c                        . = ALIGN (0x4)
+.igot.plt       0x20000240        0x0 load address 0x0800b6e4
+ .igot.plt      0x20000240        0x0 C:/ST/STM32CubeIDE_2.1.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7-m/nofp/crtbegin.o
+                0x20000240                        . = ALIGN (0x4)
 
-.bss            0x2000023c     0x246c load address 0x0800b6e0
-                0x2000023c                        _sbss = .
-                0x2000023c                        __bss_start__ = _sbss
+.bss            0x20000240     0x2468 load address 0x0800b6e4
+                0x20000240                        _sbss = .
+                0x20000240                        __bss_start__ = _sbss
  *(.bss)
- .bss           0x2000023c       0x1c C:/ST/STM32CubeIDE_2.1.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7-m/nofp/crtbegin.o
+ .bss           0x20000240       0x1c C:/ST/STM32CubeIDE_2.1.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7-m/nofp/crtbegin.o
  *(.bss*)
  .bss.indexResponseChar
-                0x20000258        0x1 ./Core/Src/esp01.o
+                0x2000025c        0x1 ./Core/Src/esp01.o
  .bss.indexResponse
-                0x20000259        0x1 ./Core/Src/esp01.o
- *fill*         0x2000025a        0x2 
+                0x2000025d        0x1 ./Core/Src/esp01.o
+ *fill*         0x2000025e        0x2 
  .bss.esp01Handle
-                0x2000025c        0xc ./Core/Src/esp01.o
+                0x20000260        0xc ./Core/Src/esp01.o
  .bss.esp01TriesAT
-                0x20000268        0x1 ./Core/Src/esp01.o
- *fill*         0x20000269        0x1 
+                0x2000026c        0x1 ./Core/Src/esp01.o
+ *fill*         0x2000026d        0x1 
  .bss.esp01iwTX
-                0x2000026a        0x2 ./Core/Src/esp01.o
- .bss.esp01irTX
-                0x2000026c        0x2 ./Core/Src/esp01.o
- .bss.esp01irRXAT
                 0x2000026e        0x2 ./Core/Src/esp01.o
- .bss.esp01iwRXAT
+ .bss.esp01irTX
                 0x20000270        0x2 ./Core/Src/esp01.o
+ .bss.esp01irRXAT
+                0x20000272        0x2 ./Core/Src/esp01.o
+ .bss.esp01iwRXAT
+                0x20000274        0x2 ./Core/Src/esp01.o
  .bss.esp01TXATBuf
-                0x20000272      0x200 ./Core/Src/esp01.o
+                0x20000276      0x200 ./Core/Src/esp01.o
  .bss.esp01RXATBuf
-                0x20000472       0x80 ./Core/Src/esp01.o
+                0x20000476       0x80 ./Core/Src/esp01.o
  .bss.esp01nBytes
-                0x200004f2        0x2 ./Core/Src/esp01.o
+                0x200004f6        0x2 ./Core/Src/esp01.o
  .bss.esp01HState
-                0x200004f4        0x1 ./Core/Src/esp01.o
+                0x200004f8        0x1 ./Core/Src/esp01.o
  .bss.esp01LastConnID
-                0x200004f5        0x1 ./Core/Src/esp01.o
+                0x200004f9        0x1 ./Core/Src/esp01.o
  .bss.esp01WebServerMode
-                0x200004f6        0x1 ./Core/Src/esp01.o
+                0x200004fa        0x1 ./Core/Src/esp01.o
  .bss.esp01AP_PASS
-                0x200004f7       0x20 ./Core/Src/esp01.o
+                0x200004fb       0x20 ./Core/Src/esp01.o
  .bss.esp01AP_SSID
-                0x20000517       0x20 ./Core/Src/esp01.o
+                0x2000051b       0x20 ./Core/Src/esp01.o
  .bss.esp01LocalPORT
-                0x20000537        0x6 ./Core/Src/esp01.o
+                0x2000053b        0x6 ./Core/Src/esp01.o
  .bss.esp01LocalIP
-                0x2000053d       0x10 ./Core/Src/esp01.o
+                0x20000541       0x10 ./Core/Src/esp01.o
  .bss.esp01RemotePORT
-                0x2000054d        0x6 ./Core/Src/esp01.o
+                0x20000551        0x6 ./Core/Src/esp01.o
  .bss.esp01RemoteIP
-                0x20000553       0x10 ./Core/Src/esp01.o
+                0x20000557       0x10 ./Core/Src/esp01.o
  .bss.esp01PASSWORD
-                0x20000563       0x20 ./Core/Src/esp01.o
+                0x20000567       0x20 ./Core/Src/esp01.o
  .bss.esp01SSID
-                0x20000583       0x40 ./Core/Src/esp01.o
- *fill*         0x200005c3        0x1 
+                0x20000587       0x40 ./Core/Src/esp01.o
+ *fill*         0x200005c7        0x1 
  .bss.ESP01DbgStr
-                0x200005c4        0x4 ./Core/Src/esp01.o
- .bss.ESP01ChangeState
                 0x200005c8        0x4 ./Core/Src/esp01.o
- .bss.esp01TimeoutTxSymbol
+ .bss.ESP01ChangeState
                 0x200005cc        0x4 ./Core/Src/esp01.o
- .bss.esp01TimeoutDataRx
+ .bss.esp01TimeoutTxSymbol
                 0x200005d0        0x4 ./Core/Src/esp01.o
- .bss.esp01TimeoutTask
+ .bss.esp01TimeoutDataRx
                 0x200005d4        0x4 ./Core/Src/esp01.o
+ .bss.esp01TimeoutTask
+                0x200005d8        0x4 ./Core/Src/esp01.o
  .bss.esp01Flags
-                0x200005d8        0x1 ./Core/Src/esp01.o
+                0x200005dc        0x1 ./Core/Src/esp01.o
  .bss.esp01ATSate
-                0x200005d9        0x1 ./Core/Src/esp01.o
+                0x200005dd        0x1 ./Core/Src/esp01.o
  .bss.timeToDebounce.0
-                0x200005da        0x1 ./Core/Src/main.o
- .bss.j.1       0x200005db        0x1 ./Core/Src/main.o
- .bss.i.2       0x200005dc        0x1 ./Core/Src/main.o
- .bss.times.3   0x200005dd        0x1 ./Core/Src/main.o
- *fill*         0x200005de        0x2 
+                0x200005de        0x1 ./Core/Src/main.o
+ .bss.j.1       0x200005df        0x1 ./Core/Src/main.o
+ .bss.i.2       0x200005e0        0x1 ./Core/Src/main.o
+ .bss.times.3   0x200005e1        0x1 ./Core/Src/main.o
+ *fill*         0x200005e2        0x2 
  .bss.turn_offset
-                0x200005e0        0x4 ./Core/Src/main.o
-                0x200005e0                turn_offset
- .bss.quad_term
                 0x200005e4        0x4 ./Core/Src/main.o
-                0x200005e4                quad_term
- .bss.linear_term
+                0x200005e4                turn_offset
+ .bss.quad_term
                 0x200005e8        0x4 ./Core/Src/main.o
-                0x200005e8                linear_term
- .bss.abs_error
+                0x200005e8                quad_term
+ .bss.linear_term
                 0x200005ec        0x4 ./Core/Src/main.o
-                0x200005ec                abs_error
- .bss.error_linea
+                0x200005ec                linear_term
+ .bss.abs_error
                 0x200005f0        0x4 ./Core/Src/main.o
-                0x200005f0                error_linea
- .bss.sum_sensors
+                0x200005f0                abs_error
+ .bss.error_linea
                 0x200005f4        0x4 ./Core/Src/main.o
-                0x200005f4                sum_sensors
- .bss.setpoint  0x200005f8        0x4 ./Core/Src/main.o
-                0x200005f8                setpoint
+                0x200005f4                error_linea
+ .bss.sum_sensors
+                0x200005f8        0x4 ./Core/Src/main.o
+                0x200005f8                sum_sensors
  .bss.Ki_stable
                 0x200005fc        0x2 ./Core/Src/main.o
                 0x200005fc                Ki_stable
@@ -6842,7 +6844,7 @@ LOAD C:/ST/STM32CubeIDE_2.1.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.exte
                 0x200026a8                        __bss_end__ = _ebss
 
 ._user_heap_stack
-                0x200026a8      0x600 load address 0x0800b6e0
+                0x200026a8      0x600 load address 0x0800b6e4
                 0x200026a8                        . = ALIGN (0x8)
                 [!provide]                        PROVIDE (end = .)
                 0x200026a8                        PROVIDE (_end = .)
