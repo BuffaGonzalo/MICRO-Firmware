@@ -61,7 +61,7 @@
 #define ON					1
 #define OFF					0
 
-#define TIM3CP				2500 // Anteriormente el valor era 9999, modificado para tener mas precision
+#define TIM3CP				9999//2500 // Anteriormente el valor era 9999, modificado para tener mas precision
 
 //WebServer - solo necesitamos la primera linea del request HTTP (~80 bytes max)
 #define HTTP_BUF_SIZE   	128
@@ -196,8 +196,8 @@ static uint8_t httpTxBuf[340];
 
 /* ---- Destino UDP (guardado desde el formulario web) ---- */
 //static char    udpTargetIP[16]   = "10.93.92.213";
-static char    udpTargetIP[16]   = "192.168.0.13";
-//static char    udpTargetIP[16]   = "172.23.190.89";
+//static char    udpTargetIP[16]   = "192.168.0.13";
+static char    udpTargetIP[16]   = "172.23.190.89";
 static uint16_t udpTargetPort    = 30010;
 static uint8_t  udpReadyToStart  = 0;
 
@@ -217,16 +217,16 @@ int32_t ax_filt = 0;
 int32_t az_filt = 0;
 
 //Variables externas PID
-int16_t Kp_stable = 330;
-int16_t Kd_stable = 12;
+int16_t Kp_stable = 125;//330;
+int16_t Kd_stable = 5;//12;
 int16_t Ki_stable = 0;
-uint8_t maxPWM = 75; //Previamente valor de 60
-uint8_t minPWM = 28; // Valor de 28/25 tambien funciona bien
-int32_t setpoint = 150; // Angulo unico de trabajo (x100 = 0.5°), ajustable por SETLINECTRL
+uint8_t maxPWM = 100; //Previamente valor de 60
+uint8_t minPWM = 8;//28; // Valor de 28/25 tambien funciona bien
+int32_t setpoint = -100; // Angulo unico de trabajo (x100 = 0.5°), ajustable por SETLINECTRL
 
 // Variables del Control de Línea
-int16_t Kp_line = 15;
-int16_t Kq_line = 8;
+int16_t Kp_line = 6;
+int16_t Kq_line = 2;
 int32_t sum_sensors = 0;
 int32_t error_linea = 0;
 int32_t abs_error = 0;
@@ -1174,8 +1174,18 @@ void PID_ControlTask(void) {
     // =========================================================
     // --- 4. LAZO PID CLÁSICO (Sin Rampa) ---
     // =========================================================
-    // El error se calcula directamente contra el setpoint base
-    error = setpoint - current_angle;
+
+	// 1. Tomamos el setpoint base (Ej: -500 o -600 para que avance en rectas)
+	int32_t current_setpoint = setpoint;
+
+	// 2. Le sumamos TODO EL TIEMPO la exigencia de la línea.
+	// En recta (error casi 0) no suma nada.
+	// A medida que la curva se cierra, empuja el pecho más hacia adelante.
+	current_setpoint -= (abs_error / 10);
+	// El error se calcula directamente contra el setpoint base
+
+	// 3. Calculamos el error contra el nuevo objetivo
+	error = current_setpoint - current_angle;
 
     integral += error;
     if (integral > ANG50) integral = ANG50;
@@ -1248,7 +1258,7 @@ void PID_ControlTask(void) {
 		// 4. Mezcla de Control (Steering Mix)
 		if (final_pwm > 0) {
 			// Movimiento hacia adelante
-			pwm_left += (offset_left - turn_offset);
+			pwm_left += (offset_left - turn_offset); //pwm_left = final_pwm + offset_left - turn_offset;
 			pwm_right += (offset_right + turn_offset);
 		} else {
 			// Movimiento hacia atrás (Invertimos lógica de offset y giro)
@@ -1373,8 +1383,8 @@ int main(void)
   	isWebserverMode = FALSE;
   	//ESP01_SetWebServer("MICRO", "12345678", 5, 3);
 
-  	//ESP01_SetWIFI("FCAL","fcalconcordia.06-2019");
-  	ESP01_SetWIFI("ARPANET", "1969-Apolo_11-2022");
+  	ESP01_SetWIFI("FCAL","fcalconcordia.06-2019");
+  	//ESP01_SetWIFI("ARPANET", "1969-Apolo_11-2022");
   	//ESP01_SetWIFI("SA04", "12345678");
   	//ESP01_SetWIFI("BUFFA24","-NixieBulb2022-");
   	//ESP01_StartUDP("192.168.0.28", 30010, 30001);
