@@ -41,9 +41,9 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  18 .debug_line   00029d7c  00000000  00000000  0006c399  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .debug_str    000993cd  00000000  00000000  00096115  2**0
+ 19 .debug_str    000993d0  00000000  00000000  00096115  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 20 .comment      00000043  00000000  00000000  0012f4e2  2**0
+ 20 .comment      00000043  00000000  00000000  0012f4e5  2**0
                   CONTENTS, READONLY
  21 .debug_frame  00004808  00000000  00000000  0012f528  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
@@ -2608,7 +2608,7 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
  8001286:	7020      	strb	r0, [r4, #0]
         minPWM = myWord.ui8[0];
  8001288:	e7a2      	b.n	80011d0 <decodeCommand+0x1f4>
-		unerPrtcl_PutHeaderOnTx(dataTx, SETSPEED, 2);
+		unerPrtcl_PutHeaderOnTx(dataTx, SETSETPOINT, 2);
  800128a:	2202      	movs	r2, #2
  800128c:	21f7      	movs	r1, #247	@ 0xf7
  800128e:	4620      	mov	r0, r4
@@ -2817,9 +2817,9 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 			unerPrtcl_PutByteOnTx(dataTx, (uint8_t) ((line_data16[i] >> 8) & 0xFF));
  800144e:	f3c5 2107 	ubfx	r1, r5, #8, #8
  8001452:	e5e1      	b.n	8001018 <decodeCommand+0x3c>
-	        unerPrtcl_PutHeaderOnTx(dataTx, 0xFA, 2);
+	        unerPrtcl_PutHeaderOnTx(dataTx, SETPIDLINE, 2);
  8001454:	2202      	movs	r2, #2
- 8001456:	21fa      	movs	r1, #250	@ 0xfa
+ 8001456:	21f8      	movs	r1, #248	@ 0xf8
  8001458:	4620      	mov	r0, r4
  800145a:	f001 fe4c 	bl	80030f6 <unerPrtcl_PutHeaderOnTx>
 	        unerPrtcl_PutByteOnTx(dataTx, ACK);
@@ -5350,12 +5350,12 @@ void Error_Handler(void)
  8002526:	f005 f85a 	bl	80075de <HAL_UART_Receive_IT>
   	isWebserverMode = FALSE;
  800252a:	4b39      	ldr	r3, [pc, #228]	@ (8002610 <main+0x5dc>)
-  	ESP01_SetWIFI("FCAL","fcalconcordia.06-2019");
+  	ESP01_SetWIFI("ARPANET", "1969-Apolo_11-2022");
  800252c:	4939      	ldr	r1, [pc, #228]	@ (8002614 <main+0x5e0>)
  800252e:	483a      	ldr	r0, [pc, #232]	@ (8002618 <main+0x5e4>)
   	isWebserverMode = FALSE;
  8002530:	701c      	strb	r4, [r3, #0]
-  	ESP01_SetWIFI("FCAL","fcalconcordia.06-2019");
+  	ESP01_SetWIFI("ARPANET", "1969-Apolo_11-2022");
  8002532:	f7fd fe41 	bl	80001b8 <ESP01_SetWIFI>
   	unerPrtcl_Init(&USBRx, &USBTx, buffUSBRx, buffUSBTx);
  8002536:	4b39      	ldr	r3, [pc, #228]	@ (800261c <main+0x5e8>)
@@ -5451,7 +5451,7 @@ void Error_Handler(void)
  800260c:	20000814 	.word	0x20000814
  8002610:	2000077d 	.word	0x2000077d
  8002614:	08009cf4 	.word	0x08009cf4
- 8002618:	08009d0a 	.word	0x08009d0a
+ 8002618:	08009d07 	.word	0x08009d07
  800261c:	20000b40 	.word	0x20000b40
  8002620:	20000a40 	.word	0x20000a40
  8002624:	20000c64 	.word	0x20000c64

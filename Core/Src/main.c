@@ -199,8 +199,8 @@ static uint8_t httpTxBuf[340];
 
 /* ---- Destino UDP (guardado desde el formulario web) ---- */
 //static char    udpTargetIP[16]   = "10.93.92.213";
-//static char    udpTargetIP[16]   = "192.168.0.13";
-static char    udpTargetIP[16]   = "172.23.190.89";
+static char    udpTargetIP[16]   = "192.168.0.13";
+//static char    udpTargetIP[16]   = "172.23.190.89";
 static uint16_t udpTargetPort    = 30010;
 static uint8_t  udpReadyToStart  = 0;
 
@@ -486,8 +486,8 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
         myWord.ui8[0]=unerPrtcl_GetByteFromRx(dataRx,1,0);
         minPWM = myWord.ui8[0];
 		break;
-	case SETSPEED:
-		unerPrtcl_PutHeaderOnTx(dataTx, SETSPEED, 2);
+	case SETSETPOINT:
+		unerPrtcl_PutHeaderOnTx(dataTx, SETSETPOINT, 2);
 		unerPrtcl_PutByteOnTx(dataTx, ACK);
 		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
 
@@ -555,7 +555,7 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
 		break;
 	case SETPIDLINE: // SETPIDLINE
-	        unerPrtcl_PutHeaderOnTx(dataTx, 0xFA, 2);
+	        unerPrtcl_PutHeaderOnTx(dataTx, SETPIDLINE, 2);
 	        unerPrtcl_PutByteOnTx(dataTx, ACK);
 	        unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
 
@@ -1345,8 +1345,8 @@ int main(void)
   	isWebserverMode = FALSE;
   	//ESP01_SetWebServer("MICRO", "12345678", 5, 3);
 
-  	ESP01_SetWIFI("FCAL","fcalconcordia.06-2019");
-  	//ESP01_SetWIFI("ARPANET", "1969-Apolo_11-2022");
+  	//ESP01_SetWIFI("FCAL","fcalconcordia.06-2019");
+  	ESP01_SetWIFI("ARPANET", "1969-Apolo_11-2022");
   	//ESP01_SetWIFI("SA04", "12345678");
   	//ESP01_SetWIFI("BUFFA24","-NixieBulb2022-");
   	//ESP01_StartUDP("192.168.0.28", 30010, 30001);
