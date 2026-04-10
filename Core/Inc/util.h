@@ -58,6 +58,7 @@ typedef enum {
 	GETINTERNALDATA = 0xF9,
 	SETOFFSET = 0xFA,
 	SETCUSTOMTURN = 0xFB,
+	SETSPEED = 0xFC,
 	ACK = 0x0D,
 	UNKNOWN = 0xFF
 } _eCmd;

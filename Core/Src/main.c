@@ -85,7 +85,7 @@
 #define ALPHA_ACC           2      // 2% de confianza al acelerómetro
 
 #define AZ_MIN_VALID  		4000
-#define OUTPUT_DEADBAND 	3  // outputs menores a esto → motores apagados
+#define OUTPUT_DEADBAND 	150 // outputs menores a esto → motores apagados
 
 //#define MIN_PWM 			28  // Mínimo para que la rueda empiece a girar, valor de 6 para un TIM3CP de 9999
 //#define	MAX_PWM 			25  // Máximo permitido para correcciones
@@ -176,6 +176,12 @@ uint8_t IS100 = 0;
 
 uint8_t chnl_1, chnl_2, chnl_3, chnl_4; ////REVISAR CAPAZ QUE SE PUEDE USAR uint8_t
 
+// Variables crudas de 16 bits para el PWM de cada motor (0 a 9999)
+uint16_t lPulse1 = 0;
+uint16_t rPulse2 = 0;
+uint16_t lPulse3 = 0;
+uint16_t rPulse4 = 0;
+
 uint8_t hbIndex = 0;
 
 //Wifi
@@ -196,8 +202,8 @@ static uint8_t httpTxBuf[340];
 
 /* ---- Destino UDP (guardado desde el formulario web) ---- */
 //static char    udpTargetIP[16]   = "10.93.92.213";
-static char    udpTargetIP[16]   = "192.168.0.13";
-//static char    udpTargetIP[16]   = "172.23.190.89";
+//static char    udpTargetIP[16]   = "192.168.0.13";
+static char    udpTargetIP[16]   = "172.23.190.89";
 static uint16_t udpTargetPort    = 30010;
 static uint8_t  udpReadyToStart  = 0;
 
@@ -220,24 +226,30 @@ int32_t az_filt = 0;
 int16_t Kp_stable = 125;//330;
 int16_t Kd_stable = 5;//12;
 int16_t Ki_stable = 0;
-uint8_t maxPWM = 100; //Previamente valor de 60
-uint8_t minPWM = 8;//28; // Valor de 28/25 tambien funciona bien
-int32_t setpoint = -100; // Angulo unico de trabajo (x100 = 0.5°), ajustable por SETLINECTRL
+// Pasan a ser de 16 bits. minPWM centrado en 735.
+uint16_t maxPWM = 9999;
+uint16_t minPWM = 735;
+
+// Offsets que garantizan exactamente los 70 puntos de diferencia
+int16_t offset_left = -35;
+int16_t offset_right = 35;
+
+int32_t setpoint = 0; // Angulo unico de trabajo (x100 = 0.5°), ajustable por SETLINECTRL
 
 // Variables del Control de Línea
-int16_t Kp_line = 6;
-int16_t Kq_line = 2;
+int16_t Kp_line = 0; //6
+int16_t Kq_line = 0; //2
 int32_t sum_sensors = 0;
 int32_t error_linea = 0;
 int32_t abs_error = 0;
 int32_t linear_term = 0;
 int32_t quad_term = 0;
 int32_t turn_offset = 0;
-int16_t custom_turn = 20;
+// Variables escaladas (custom_turn ahora maneja valores de PWM crudos)
+int16_t custom_turn = 2500;
+int16_t fwd_speed = 110;
 
-//VARIABLES CONTROL MOTORES
-int16_t offset_left = -5;
-int16_t offset_right = 0;
+
 
 // --- Estado del seguidor de línea ---
 typedef enum {
@@ -455,13 +467,17 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
         unerPrtcl_PutByteOnTx(dataTx, ACK );
         unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
         myWord.ui8[0]=unerPrtcl_GetByteFromRx(dataRx,1,0);
-        chnl_1 = myWord.ui8[0];
+        myWord.ui8[1]=unerPrtcl_GetByteFromRx(dataRx,1,0);
+        lPulse1 = myWord.ui16[0];
         myWord.ui8[0]=unerPrtcl_GetByteFromRx(dataRx,1,0);
-        chnl_2 = myWord.ui8[0];
+        myWord.ui8[1]=unerPrtcl_GetByteFromRx(dataRx,1,0);
+        rPulse2 = myWord.ui16[0];
         myWord.ui8[0]=unerPrtcl_GetByteFromRx(dataRx,1,0);
-        chnl_3 = myWord.ui8[0];
+        myWord.ui8[1]=unerPrtcl_GetByteFromRx(dataRx,1,0);
+        lPulse3 = myWord.ui16[0];
         myWord.ui8[0]=unerPrtcl_GetByteFromRx(dataRx,1,0);
-        chnl_4 = myWord.ui8[0];
+        myWord.ui8[1]=unerPrtcl_GetByteFromRx(dataRx,1,0);
+        rPulse4 = myWord.ui16[0];
 		break;
 	case SETPID:
         unerPrtcl_PutHeaderOnTx(dataTx, SETPID, 2);
@@ -478,14 +494,18 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
         Ki_stable = myWord.ui16[0];
 		break;
 	case SETPWMLIMIT:
-        unerPrtcl_PutHeaderOnTx(dataTx, SETPWMLIMIT, 2);
-        unerPrtcl_PutByteOnTx(dataTx, ACK );
-        unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
-        myWord.ui8[0]=unerPrtcl_GetByteFromRx(dataRx,1,0);
-        maxPWM = myWord.ui8[0];
-        myWord.ui8[0]=unerPrtcl_GetByteFromRx(dataRx,1,0);
-        minPWM = myWord.ui8[0];
-		break;
+	        unerPrtcl_PutHeaderOnTx(dataTx, SETPWMLIMIT, 2);
+	        unerPrtcl_PutByteOnTx(dataTx, ACK );
+	        unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
+
+	        myWord.ui8[0]=unerPrtcl_GetByteFromRx(dataRx,1,0);
+	        myWord.ui8[1]=unerPrtcl_GetByteFromRx(dataRx,1,0);
+	        maxPWM = myWord.ui16[0];
+
+	        myWord.ui8[0]=unerPrtcl_GetByteFromRx(dataRx,1,0);
+	        myWord.ui8[1]=unerPrtcl_GetByteFromRx(dataRx,1,0);
+	        minPWM = myWord.ui16[0];
+			break;
 	case SETSETPOINT:
 		unerPrtcl_PutHeaderOnTx(dataTx, SETSETPOINT, 2);
 		unerPrtcl_PutByteOnTx(dataTx, ACK);
@@ -519,18 +539,12 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 
 		// 2. Bloque de 16 bits (5 variables = 10 bytes)
 		// AQUÍ AGREGAMOS ramp_step
-		int16_t pid_data16[5] = { Kp_stable, Ki_stable, Kd_stable};
+		int16_t pid_data16[5] = { Kp_stable, Ki_stable, Kd_stable, (int16_t)maxPWM, (int16_t)minPWM };
 
-		for (int i = 0; i < 5; i++) {
-			unerPrtcl_PutByteOnTx(dataTx, (uint8_t) (pid_data16[i] & 0xFF));
-			unerPrtcl_PutByteOnTx(dataTx,
-					(uint8_t) ((pid_data16[i] >> 8) & 0xFF));
-		}
-
-		//VARIABLES DEL MOTOR
-		// 3. Bloque de 8 bits (2 variables = 2 bytes)
-		unerPrtcl_PutByteOnTx(dataTx, maxPWM);
-		unerPrtcl_PutByteOnTx(dataTx, minPWM);
+				for (int i = 0; i < 5; i++) {
+					unerPrtcl_PutByteOnTx(dataTx, (uint8_t) (pid_data16[i] & 0xFF));
+					unerPrtcl_PutByteOnTx(dataTx, (uint8_t) ((pid_data16[i] >> 8) & 0xFF));
+				}
 
 		//VARIABLES SEGUIDOR LINEA
 		// 1. Variables de 32 bits (6 variables = 24 bytes)
@@ -544,10 +558,10 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 		}
 
 		// 2. Variables de 16 bits (Aumentamos a 4 variables = 8 bytes)
-		int16_t line_data16[5] = { Kp_line, Kq_line, offset_left, offset_right,
-				custom_turn };
+		int16_t line_data16[6] = { Kp_line, Kq_line, offset_left, offset_right,
+				custom_turn, fwd_speed};
 
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < 6; i++) {
 			unerPrtcl_PutByteOnTx(dataTx, (uint8_t) (line_data16[i] & 0xFF));
 			unerPrtcl_PutByteOnTx(dataTx,
 					(uint8_t) ((line_data16[i] >> 8) & 0xFF));
@@ -590,6 +604,15 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 		myWord.ui8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
 		myWord.ui8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
 		custom_turn = myWord.i16[0];
+		break;
+	case SETSPEED:
+		unerPrtcl_PutHeaderOnTx(dataTx, SETSPEED, 2);
+		unerPrtcl_PutByteOnTx(dataTx, ACK);
+		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
+
+		myWord.ui8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		myWord.ui8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		fwd_speed = myWord.i16[0];
 		break;
 	default:
 		unerPrtcl_PutHeaderOnTx(dataTx, (_eCmd) dataRx->buff[dataRx->indexData],
@@ -808,11 +831,11 @@ void PWM_Control(){
 	// +-------------------------------------------------------+
 
 	  // Calcula CCRx = period * percent / 100
-	  uint16_t lPulse1  = TIM3CP * chnl_1 / 100UL;
-	  uint16_t lPulse3 = TIM3CP * chnl_3 / 100UL;
-
-	  uint16_t rPulse2 = TIM3CP * chnl_2 / 100UL;
-	  uint16_t rPulse4 = TIM3CP * chnl_4 / 100UL;
+//	  lPulse1  = TIM3CP * chnl_1 / 100UL;
+//	  lPulse3 = TIM3CP * chnl_3 / 100UL;
+//
+//	  rPulse2 = TIM3CP * chnl_2 / 100UL;
+//	  rPulse4 = TIM3CP * chnl_4 / 100UL;
 
 
 	//Rueda izquierda
@@ -1172,85 +1195,59 @@ void PID_ControlTask(void) {
     current_angle = current_angle_hr / 100;
 
     // =========================================================
-	// --- 4. LAZO PID CLÁSICO (Con Secuencia de Latigazo) ---
+	// --- 4. LAZO PID CLÁSICO (Setpoint para Avance Constante) ---
 	// =========================================================
-
 	static int32_t actual_setpoint = 0;
-	static uint8_t arranque_state = 0;
-	static uint16_t timer_arranque = 0;
 
-	// Detectamos si el usuario pide avanzar desde el reposo absoluto
-	// (Ej: Si estaba quieto en 0 y le mandas -80)
-	if (arranque_state == 0 && actual_setpoint == 0 && setpoint <= -50) {
-		arranque_state = 1;  // Disparar la secuencia
-		timer_arranque = 0;
-		integral = 0;        // Limpiamos la integral para no arrastrar basura
+	// Si vemos la línea, queremos avanzar (Ej: Target de -150)
+	int32_t target_setpoint = 0;
+	if (sum_sensors > LINE_THRESHOLD) {
+		// Mándale este target de avance desde Qt (ej: -150) usando el comando SETSPEED
+		target_setpoint = fwd_speed;
 	}
 
-	// --- MÁQUINA DE ESTADOS DEL ARRANQUE ---
-	if (arranque_state == 1) {
-		// FASE 1: "Tirar el cuerpo" -> Setpoint a la inclinación deseada (-80, por ej)
-		actual_setpoint = setpoint;
-		timer_arranque++;
+	// Rampa suave para no cabecear violentamente al arrancar/frenar
+	if (actual_setpoint > target_setpoint)
+		actual_setpoint -= 2;
+	if (actual_setpoint < target_setpoint)
+		actual_setpoint += 2;
 
-		// Mantenemos esta caída por 10 ciclos (200ms a 20ms por ciclo)
-		if (timer_arranque > 10) {
-			arranque_state = 2;
-			timer_arranque = 0;
-		}
-	} else if (arranque_state == 2) {
-		// FASE 2: "El Latigazo" -> Setpoint a 0
-		// Al estar cayendo y pedirle 0 de golpe, las ruedas aceleran furiosamente hacia adelante.
-		actual_setpoint = 0;
-		timer_arranque++;
-
-		// Mantenemos el latigazo por menos tiempo (ej: 6 ciclos = 120ms)
-		if (timer_arranque > 6) {
-			arranque_state = 3;
-			timer_arranque = 0;
-		}
-	} else if (arranque_state == 3) {
-		// FASE 3: "Crucero" -> Volvemos al setpoint inclinado original
-		actual_setpoint = setpoint;
-		arranque_state = 0; // Terminó la secuencia
-	} else {
-		// MODO NORMAL: Rampa suave para ajustes de velocidad una vez que ya está rodando
-		if (actual_setpoint > setpoint)
-			actual_setpoint -= 2;
-		if (actual_setpoint < setpoint)
-			actual_setpoint += 2;
-	}
-
-	// --- Setpoint Dinámico para Curvas (Suavizado) ---
+	// --- Compensación de curvas ---
 	int32_t setpoint_final = actual_setpoint - (abs_error / 30);
 
 	// --- ABRAZADERA ANTI-CHOQUE ---
-	// Respetamos estrictamente tu límite físico para no clavar los sensores
-	if (setpoint_final < -90) {
-		setpoint_final = -90;
-	}
+	// Ajusta esto al nuevo límite físico que logres al levantar los sensores (ej: -200)
+	if (setpoint_final < -150)
+		setpoint_final = -150;
 
-	// Calculamos el error usando el setpoint que dicta la secuencia
+	// Calculamos error (Asegúrate de tener Ki = 0 en tu interfaz)
 	error = setpoint_final - current_angle;
 
-    integral += error;
-    if (integral > ANG50) integral = ANG50;
-    if (integral < -ANG50) integral = -ANG50;
+	// La integral queda anulada porque Ki es 0, pero la mantenemos por seguridad
+	integral += error;
+	if (integral > ANG50)
+		integral = ANG50;
+	if (integral < -ANG50)
+		integral = -ANG50;
 
-    output = (Kp_stable * error + Ki_stable * integral + Kd_stable * gy) / 10000;
+	output = (Kp_stable * error + Ki_stable * integral + Kd_stable * gy)
+			/ 100;
 
-    // =========================================================
-    // --- 5. SUAVIZADO Y ZONA MUERTA ---
-    // =========================================================
-    if (output > 0) {
-        final_pwm = (output <= OUTPUT_DEADBAND) ? (output * minPWM) / OUTPUT_DEADBAND : output + minPWM;
-    }
-    else if (output < 0) {
-        final_pwm = (output >= -OUTPUT_DEADBAND) ? (output * minPWM) / OUTPUT_DEADBAND : output - minPWM;
-    }
-    else {
-        final_pwm = 0;
-    }
+
+        // =========================================================
+        // --- 5. SUAVIZADO Y ZONA MUERTA ---
+        // =========================================================
+        if (output > 0) {
+            final_pwm = (output <= OUTPUT_DEADBAND) ? (output * minPWM) / OUTPUT_DEADBAND : output + minPWM;
+        }
+        else if (output < 0) {
+                // MUY IMPORTANTE: La reacción para equilibrarse o ir hacia atrás
+                final_pwm = (output >= -OUTPUT_DEADBAND) ? (output * minPWM) / OUTPUT_DEADBAND : output - minPWM;
+            }
+            else {
+                // Cuando está en equilibrio perfecto o el PID no pide esfuerzo
+                final_pwm = 0;
+            }
 
     // Apagado de seguridad por caída (> 45 grados)
     if (current_angle > ANG45 || current_angle < -ANG45) {
@@ -1292,7 +1289,7 @@ void PID_ControlTask(void) {
 
 			// 3. Reducción de escala para acoplar al rango de PWM (0 a maxPWM)
 			// Ajusta el divisor '100' si el robot gira muy brusco o muy lento
-			turn_offset = (linear_term + quad_term) / 100;
+			turn_offset = (linear_term + quad_term);
 
 			if (turn_offset > custom_turn) {
 				turn_offset = custom_turn;
@@ -1320,23 +1317,22 @@ void PID_ControlTask(void) {
 	if (pwm_right > (int32_t)maxPWM) pwm_right = (int32_t)maxPWM;
 	if (pwm_right < -(int32_t)maxPWM) pwm_right = -(int32_t)maxPWM;
 
-	// Asignación Canal 1 y 2 (Rueda Izquierda)
-	if (pwm_left > 0) {
-		chnl_2 = (uint8_t) pwm_left;
-		chnl_1 = 0;
-	} else {
-		chnl_1 = (uint8_t) (-pwm_left);
-		chnl_2 = 0;
-	}
+	// ASIGNACIÓN DIRECTA 16 BITS (Bypass de los chnl de 8 bits)
+		if (pwm_left > 0) {
+			rPulse2 = (uint16_t) pwm_left;
+			lPulse1 = 0;
+		} else {
+			lPulse1 = (uint16_t) (-pwm_left);
+			rPulse2 = 0;
+		}
 
-	// Asignación Canal 3 y 4 (Rueda Derecha)
-	if (pwm_right > 0) {
-		chnl_4 = (uint8_t) pwm_right;
-		chnl_3 = 0;
-	} else {
-		chnl_3 = (uint8_t) (-pwm_right);
-		chnl_4 = 0;
-	}
+		if (pwm_right > 0) {
+			rPulse4 = (uint16_t) pwm_right;
+			lPulse3 = 0;
+		} else {
+			lPulse3 = (uint16_t) (-pwm_right);
+			rPulse4 = 0;
+		}
 }
 /* USER CODE END 0 */
 
@@ -1429,8 +1425,8 @@ int main(void)
   	isWebserverMode = FALSE;
   	//ESP01_SetWebServer("MICRO", "12345678", 5, 3);
 
-  	//ESP01_SetWIFI("FCAL","fcalconcordia.06-2019");
-  	ESP01_SetWIFI("ARPANET", "1969-Apolo_11-2022");
+  	ESP01_SetWIFI("FCAL","fcalconcordia.06-2019");
+  	//ESP01_SetWIFI("ARPANET", "1969-Apolo_11-2022");
   	//ESP01_SetWIFI("SA04", "12345678");
   	//ESP01_SetWIFI("BUFFA24","-NixieBulb2022-");
   	//ESP01_StartUDP("192.168.0.28", 30010, 30001);
@@ -1441,12 +1437,17 @@ int main(void)
   	//Variables
   	ALLFLAGS = RESET;
   	//apagamos los motores
-  	//reversa
-  	chnl_1=0;
-  	chnl_3=0;
-  	//adelante
-  	chnl_2=0;
-  	chnl_4=0;
+//  	//reversa
+//  	chnl_1=0;
+//  	chnl_3=0;
+//  	//adelante
+//  	chnl_2=0;
+//  	chnl_4=0;
+//
+  	lPulse1=0;
+  	lPulse3=0;
+  	rPulse2=0;
+  	rPulse4=0;
 
     //INICIALIZAMOS BOTONES
     initButton(&myButton);
