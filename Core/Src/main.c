@@ -196,8 +196,8 @@ static uint8_t httpTxBuf[340];
 
 /* ---- Destino UDP (guardado desde el formulario web) ---- */
 //static char    udpTargetIP[16]   = "10.93.92.213";
-//static char    udpTargetIP[16]   = "192.168.0.13";
-static char    udpTargetIP[16]   = "172.23.190.89";
+static char    udpTargetIP[16]   = "192.168.0.13";
+//static char    udpTargetIP[16]   = "172.23.190.89";
 static uint16_t udpTargetPort    = 30010;
 static uint8_t  udpReadyToStart  = 0;
 
@@ -1172,20 +1172,66 @@ void PID_ControlTask(void) {
     current_angle = current_angle_hr / 100;
 
     // =========================================================
-    // --- 4. LAZO PID CLÁSICO (Sin Rampa) ---
-    // =========================================================
+	// --- 4. LAZO PID CLÁSICO (Con Secuencia de Latigazo) ---
+	// =========================================================
 
-	// 1. Tomamos el setpoint base (Ej: -500 o -600 para que avance en rectas)
-	int32_t current_setpoint = setpoint;
+	static int32_t actual_setpoint = 0;
+	static uint8_t arranque_state = 0;
+	static uint16_t timer_arranque = 0;
 
-	// 2. Le sumamos TODO EL TIEMPO la exigencia de la línea.
-	// En recta (error casi 0) no suma nada.
-	// A medida que la curva se cierra, empuja el pecho más hacia adelante.
-	current_setpoint -= (abs_error / 10);
-	// El error se calcula directamente contra el setpoint base
+	// Detectamos si el usuario pide avanzar desde el reposo absoluto
+	// (Ej: Si estaba quieto en 0 y le mandas -80)
+	if (arranque_state == 0 && actual_setpoint == 0 && setpoint <= -50) {
+		arranque_state = 1;  // Disparar la secuencia
+		timer_arranque = 0;
+		integral = 0;        // Limpiamos la integral para no arrastrar basura
+	}
 
-	// 3. Calculamos el error contra el nuevo objetivo
-	error = current_setpoint - current_angle;
+	// --- MÁQUINA DE ESTADOS DEL ARRANQUE ---
+	if (arranque_state == 1) {
+		// FASE 1: "Tirar el cuerpo" -> Setpoint a la inclinación deseada (-80, por ej)
+		actual_setpoint = setpoint;
+		timer_arranque++;
+
+		// Mantenemos esta caída por 10 ciclos (200ms a 20ms por ciclo)
+		if (timer_arranque > 10) {
+			arranque_state = 2;
+			timer_arranque = 0;
+		}
+	} else if (arranque_state == 2) {
+		// FASE 2: "El Latigazo" -> Setpoint a 0
+		// Al estar cayendo y pedirle 0 de golpe, las ruedas aceleran furiosamente hacia adelante.
+		actual_setpoint = 0;
+		timer_arranque++;
+
+		// Mantenemos el latigazo por menos tiempo (ej: 6 ciclos = 120ms)
+		if (timer_arranque > 6) {
+			arranque_state = 3;
+			timer_arranque = 0;
+		}
+	} else if (arranque_state == 3) {
+		// FASE 3: "Crucero" -> Volvemos al setpoint inclinado original
+		actual_setpoint = setpoint;
+		arranque_state = 0; // Terminó la secuencia
+	} else {
+		// MODO NORMAL: Rampa suave para ajustes de velocidad una vez que ya está rodando
+		if (actual_setpoint > setpoint)
+			actual_setpoint -= 2;
+		if (actual_setpoint < setpoint)
+			actual_setpoint += 2;
+	}
+
+	// --- Setpoint Dinámico para Curvas (Suavizado) ---
+	int32_t setpoint_final = actual_setpoint - (abs_error / 30);
+
+	// --- ABRAZADERA ANTI-CHOQUE ---
+	// Respetamos estrictamente tu límite físico para no clavar los sensores
+	if (setpoint_final < -90) {
+		setpoint_final = -90;
+	}
+
+	// Calculamos el error usando el setpoint que dicta la secuencia
+	error = setpoint_final - current_angle;
 
     integral += error;
     if (integral > ANG50) integral = ANG50;
@@ -1383,8 +1429,8 @@ int main(void)
   	isWebserverMode = FALSE;
   	//ESP01_SetWebServer("MICRO", "12345678", 5, 3);
 
-  	ESP01_SetWIFI("FCAL","fcalconcordia.06-2019");
-  	//ESP01_SetWIFI("ARPANET", "1969-Apolo_11-2022");
+  	//ESP01_SetWIFI("FCAL","fcalconcordia.06-2019");
+  	ESP01_SetWIFI("ARPANET", "1969-Apolo_11-2022");
   	//ESP01_SetWIFI("SA04", "12345678");
   	//ESP01_SetWIFI("BUFFA24","-NixieBulb2022-");
   	//ESP01_StartUDP("192.168.0.28", 30010, 30001);
