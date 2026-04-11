@@ -202,8 +202,8 @@ static uint8_t httpTxBuf[340];
 
 /* ---- Destino UDP (guardado desde el formulario web) ---- */
 //static char    udpTargetIP[16]   = "10.93.92.213";
-//static char    udpTargetIP[16]   = "192.168.0.13";
-static char    udpTargetIP[16]   = "172.23.190.89";
+static char    udpTargetIP[16]   = "192.168.0.13";
+//static char    udpTargetIP[16]   = "172.23.190.89";
 static uint16_t udpTargetPort    = 30010;
 static uint8_t  udpReadyToStart  = 0;
 
@@ -223,8 +223,8 @@ int32_t ax_filt = 0;
 int32_t az_filt = 0;
 
 //Variables externas PID
-int16_t Kp_stable = 125;//330;
-int16_t Kd_stable = 5;//12;
+int16_t Kp_stable = 75;
+int16_t Kd_stable = 3;
 int16_t Ki_stable = 0;
 // Pasan a ser de 16 bits. minPWM centrado en 735.
 uint16_t maxPWM = 9999;
@@ -237,8 +237,8 @@ int16_t offset_right = 35;
 int32_t setpoint = 0; // Angulo unico de trabajo (x100 = 0.5°), ajustable por SETLINECTRL
 
 // Variables del Control de Línea
-int16_t Kp_line = 0; //6
-int16_t Kq_line = 0; //2
+int16_t Kp_line = 5;
+int16_t Kq_line = 2;
 int32_t sum_sensors = 0;
 int32_t error_linea = 0;
 int32_t abs_error = 0;
@@ -246,8 +246,8 @@ int32_t linear_term = 0;
 int32_t quad_term = 0;
 int32_t turn_offset = 0;
 // Variables escaladas (custom_turn ahora maneja valores de PWM crudos)
-int16_t custom_turn = 2500;
-int16_t fwd_speed = 110;
+int16_t custom_turn = 450;
+int16_t fwd_speed = 0;
 
 
 
@@ -1166,174 +1166,151 @@ void buttonTask(_sButton *button){
 /* USER CODE BEGIN 0 */
 // ... tus otras funciones ...
 void PID_ControlTask(void) {
-    int32_t final_pwm;
+	int32_t final_pwm;
 
-    if (RUN_PID == FALSE) return;
-    RUN_PID = FALSE;
+	if (RUN_PID == FALSE)
+		return;
+	RUN_PID = FALSE;
 
-    // =========================================================
-    // --- 2. FILTRO PASA-BAJOS ACELERÓMETRO ---
-    // =========================================================
-    if (ax_filt == 0 && az_filt == 0) {
-        ax_filt = ax;
-        az_filt = az;
-    } else {
-        ax_filt = (ax * 5 + ax_filt * 95) / 100;
-        az_filt = (az * 5 + az_filt * 95) / 100;
-    }
-
-    // =========================================================
-    // --- 3. CÁLCULO DE IMU (Filtro Complementario) ---
-    // =========================================================
-    if (az_filt > AZ_MIN_VALID || az_filt < -AZ_MIN_VALID) {
-        int32_t ratio = (ax_filt * 1000) / az_filt;
-        acc_angle_hr = (ratio * (int32_t)RADTOGRAD) / 10;
-    }
-
-    gyro_delta_hr = (-(int32_t)gy * 200) / 131;
-    current_angle_hr = (ALPHA_GYRO * (current_angle_hr + gyro_delta_hr) + ALPHA_ACC * acc_angle_hr) / 100;
-    current_angle = current_angle_hr / 100;
-
-    // =========================================================
-	// --- 4. LAZO PID CLÁSICO (Setpoint para Avance Constante) ---
 	// =========================================================
-	static int32_t actual_setpoint = 0;
-
-	// Si vemos la línea, queremos avanzar (Ej: Target de -150)
-	int32_t target_setpoint = 0;
-	if (sum_sensors > LINE_THRESHOLD) {
-		// Mándale este target de avance desde Qt (ej: -150) usando el comando SETSPEED
-		target_setpoint = fwd_speed;
+	// --- 1. FILTROS Y CÁLCULO DE ÁNGULO (IMU) ---
+	// =========================================================
+	if (ax_filt == 0 && az_filt == 0) {
+		ax_filt = ax;
+		az_filt = az;
+	} else {
+		ax_filt = (ax * 5 + ax_filt * 95) / 100;
+		az_filt = (az * 5 + az_filt * 95) / 100;
 	}
 
-	// Rampa suave para no cabecear violentamente al arrancar/frenar
-	if (actual_setpoint > target_setpoint)
-		actual_setpoint -= 2;
-	if (actual_setpoint < target_setpoint)
-		actual_setpoint += 2;
+	if (az_filt > AZ_MIN_VALID || az_filt < -AZ_MIN_VALID) {
+		int32_t ratio = (ax_filt * 1000) / az_filt;
+		acc_angle_hr = (ratio * (int32_t) RADTOGRAD) / 10;
+	}
 
-	// --- Compensación de curvas ---
-	int32_t setpoint_final = actual_setpoint - (abs_error / 30);
+	gyro_delta_hr = (-(int32_t) gy * 200) / 131;
+	current_angle_hr = (ALPHA_GYRO * (current_angle_hr + gyro_delta_hr)
+			+ ALPHA_ACC * acc_angle_hr) / 100;
+	current_angle = current_angle_hr / 100;
 
-	// --- ABRAZADERA ANTI-CHOQUE ---
-	// Ajusta esto al nuevo límite físico que logres al levantar los sensores (ej: -200)
-	if (setpoint_final < -150)
-		setpoint_final = -150;
+	// =========================================================
+	// --- 2. LAZO PID CLÁSICO (Control de Equilibrio Crudo) ---
+	// =========================================================
+	// El setpoint es EXACTAMENTE lo que le mandas por la interfaz de Qt.
+	// Sin rampas ni intermediarios.
+	error = setpoint - current_angle;
 
-	// Calculamos error (Asegúrate de tener Ki = 0 en tu interfaz)
-	error = setpoint_final - current_angle;
-
-	// La integral queda anulada porque Ki es 0, pero la mantenemos por seguridad
 	integral += error;
 	if (integral > ANG50)
 		integral = ANG50;
 	if (integral < -ANG50)
 		integral = -ANG50;
 
-	output = (Kp_stable * error + Ki_stable * integral + Kd_stable * gy)
-			/ 100;
+	output = (Kp_stable * error + Ki_stable * integral + Kd_stable * gy) / 100;
 
-
-        // =========================================================
-        // --- 5. SUAVIZADO Y ZONA MUERTA ---
-        // =========================================================
-        if (output > 0) {
-            final_pwm = (output <= OUTPUT_DEADBAND) ? (output * minPWM) / OUTPUT_DEADBAND : output + minPWM;
-        }
-        else if (output < 0) {
-                // MUY IMPORTANTE: La reacción para equilibrarse o ir hacia atrás
-                final_pwm = (output >= -OUTPUT_DEADBAND) ? (output * minPWM) / OUTPUT_DEADBAND : output - minPWM;
-            }
-            else {
-                // Cuando está en equilibrio perfecto o el PID no pide esfuerzo
-                final_pwm = 0;
-            }
-
-    // Apagado de seguridad por caída (> 45 grados)
-    if (current_angle > ANG45 || current_angle < -ANG45) {
-        final_pwm = 0;
-        integral = 0;
-    }
-
-    // =========================================================
-	// --- 6. ASIGNACIÓN A MOTORES Y SEGUIMIENTO DE LÍNEA ---
 	// =========================================================
-    // Variables de Control de Línea
+	// --- 3. INYECCIÓN INSTANTÁNEA DE FRICCIÓN ---
+	// =========================================================
+	// Eliminamos la matemática de división que te dejaba clavado.
+	// Ahora el salto es INMEDIATO a tu minPWM (735).
+	if (output > 0) {
+		final_pwm = output + minPWM;
+	} else if (output < 0) {
+		final_pwm = output - minPWM;
+	} else {
+		final_pwm = 0;
+	}
+
+	// Apagado de seguridad por caída (> 45 grados)
+	if (current_angle > ANG45 || current_angle < -ANG45) {
+		final_pwm = 0;
+		integral = 0;
+	}
+
+	// =========================================================
+	// --- 4. ASIGNACIÓN A MOTORES, VELOCIDAD CONSTANTE Y LÍNEA ---
+	// =========================================================
 	int32_t pwm_left = final_pwm;
 	int32_t pwm_right = final_pwm;
 
-	// Solo aplicamos giro si el robot está activo y en movimiento
 	if (final_pwm != 0) {
-
-		// Lectura de los 3 sensores IR (Izquierda, Centro, Derecha)
-		int32_t s_left   = adcData[1];
+		int32_t s_left = adcData[1];
 		int32_t s_center = adcData[3];
-		int32_t s_right  = adcData[5];
+		int32_t s_right = adcData[5];
 
 		sum_sensors = s_left + s_center + s_right;
 		turn_offset = 0;
 
-		// Verificamos si detectamos la línea
+		// Si estamos sobre la línea, aplicamos Velocidad y Giro
 		if (sum_sensors > LINE_THRESHOLD) {
 
-			// 1. Cálculo de Error Normalizado (Rango aprox: -1000 a +1000)
-			// Positivo = desviado hacia un lado, Negativo = desviado hacia el otro
+			// ---> INYECCIÓN DE VELOCIDAD PURA (Cruise Control) <---
+			// Aquí entra tu fwd_speed de Qt (ej: 105) como fuerza de avance constante
+			if (sum_sensors > LINE_THRESHOLD) {
+				if (final_pwm > 0) {
+					pwm_left += fwd_speed;
+					pwm_right += fwd_speed;
+				} else {
+					pwm_left -= fwd_speed;
+					pwm_right -= fwd_speed;
+				}
+			}
+			// Cálculo matemático del seguidor de línea
 			error_linea = ((s_left - s_right) * SCALE_LINE) / sum_sensors;
-
-			// 2. Ley de Control Cuadrático
 			abs_error = (error_linea > 0) ? error_linea : -error_linea;
 
 			linear_term = error_linea * Kp_line;
-			// Dividimos entre SCALE_LINE antes de multiplicar Kq_line para evitar overflow en el int32_t
 			quad_term = ((error_linea * abs_error) / SCALE_LINE) * Kq_line;
 
-			// 3. Reducción de escala para acoplar al rango de PWM (0 a maxPWM)
-			// Ajusta el divisor '100' si el robot gira muy brusco o muy lento
 			turn_offset = (linear_term + quad_term);
 
-			if (turn_offset > custom_turn) {
+			if (turn_offset > custom_turn)
 				turn_offset = custom_turn;
-			} else if (turn_offset < -custom_turn) {
+			else if (turn_offset < -custom_turn)
 				turn_offset = -custom_turn;
-			}
 		}
 
-		// 4. Mezcla de Control (Steering Mix)
+		// Mezcla de Control (Offsets mecánicos + Giro de línea)
 		if (final_pwm > 0) {
-			// Movimiento hacia adelante
-			pwm_left += (offset_left - turn_offset); //pwm_left = final_pwm + offset_left - turn_offset;
+			pwm_left += (offset_left - turn_offset);
 			pwm_right += (offset_right + turn_offset);
 		} else {
-			// Movimiento hacia atrás (Invertimos lógica de offset y giro)
 			pwm_left -= (offset_left - turn_offset);
 			pwm_right -= (offset_right + turn_offset);
 		}
 	}
 
-	// Saturación independiente (para evitar que el offset sobrepase el maxPWM)
-	if (pwm_left > (int32_t)maxPWM) pwm_left = (int32_t)maxPWM;
-	if (pwm_left < -(int32_t)maxPWM) pwm_left = -(int32_t)maxPWM;
+	// =========================================================
+	// --- 5. SATURACIÓN Y ENVÍO A TIMERS ---
+	// =========================================================
+	if (pwm_left > (int32_t) maxPWM)
+		pwm_left = (int32_t) maxPWM;
+	if (pwm_left < -(int32_t) maxPWM)
+		pwm_left = -(int32_t) maxPWM;
 
-	if (pwm_right > (int32_t)maxPWM) pwm_right = (int32_t)maxPWM;
-	if (pwm_right < -(int32_t)maxPWM) pwm_right = -(int32_t)maxPWM;
+	if (pwm_right > (int32_t) maxPWM)
+		pwm_right = (int32_t) maxPWM;
+	if (pwm_right < -(int32_t) maxPWM)
+		pwm_right = -(int32_t) maxPWM;
 
-	// ASIGNACIÓN DIRECTA 16 BITS (Bypass de los chnl de 8 bits)
-		if (pwm_left > 0) {
-			rPulse2 = (uint16_t) pwm_left;
-			lPulse1 = 0;
-		} else {
-			lPulse1 = (uint16_t) (-pwm_left);
-			rPulse2 = 0;
-		}
+	// Asignación directa de 16 bits
+	if (pwm_left > 0) {
+		rPulse2 = (uint16_t) pwm_left;
+		lPulse1 = 0;
+	} else {
+		lPulse1 = (uint16_t) (-pwm_left);
+		rPulse2 = 0;
+	}
 
-		if (pwm_right > 0) {
-			rPulse4 = (uint16_t) pwm_right;
-			lPulse3 = 0;
-		} else {
-			lPulse3 = (uint16_t) (-pwm_right);
-			rPulse4 = 0;
-		}
+	if (pwm_right > 0) {
+		rPulse4 = (uint16_t) pwm_right;
+		lPulse3 = 0;
+	} else {
+		lPulse3 = (uint16_t) (-pwm_right);
+		rPulse4 = 0;
+	}
 }
+
 /* USER CODE END 0 */
 
 
@@ -1425,8 +1402,8 @@ int main(void)
   	isWebserverMode = FALSE;
   	//ESP01_SetWebServer("MICRO", "12345678", 5, 3);
 
-  	ESP01_SetWIFI("FCAL","fcalconcordia.06-2019");
-  	//ESP01_SetWIFI("ARPANET", "1969-Apolo_11-2022");
+  	//ESP01_SetWIFI("FCAL","fcalconcordia.06-2019");
+  	ESP01_SetWIFI("ARPANET", "1969-Apolo_11-2022");
   	//ESP01_SetWIFI("SA04", "12345678");
   	//ESP01_SetWIFI("BUFFA24","-NixieBulb2022-");
   	//ESP01_StartUDP("192.168.0.28", 30010, 30001);
