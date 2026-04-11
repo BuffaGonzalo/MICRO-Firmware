@@ -1283,32 +1283,35 @@ void PID_ControlTask(void) {
 	// =========================================================
 	// --- 5. SATURACIÓN Y ENVÍO A TIMERS ---
 	// =========================================================
-	if (pwm_left > (int32_t) maxPWM)
-		pwm_left = (int32_t) maxPWM;
-	if (pwm_left < -(int32_t) maxPWM)
-		pwm_left = -(int32_t) maxPWM;
+		if (pwm_left > (int32_t) maxPWM)
+			pwm_left = (int32_t) maxPWM;
+		if (pwm_left < -(int32_t) maxPWM)
+			pwm_left = -(int32_t) maxPWM;
 
-	if (pwm_right > (int32_t) maxPWM)
-		pwm_right = (int32_t) maxPWM;
-	if (pwm_right < -(int32_t) maxPWM)
-		pwm_right = -(int32_t) maxPWM;
+		if (pwm_right > (int32_t) maxPWM)
+			pwm_right = (int32_t) maxPWM;
+		if (pwm_right < -(int32_t) maxPWM)
+			pwm_right = -(int32_t) maxPWM;
 
-	// Asignación directa de 16 bits
-	if (pwm_left > 0) {
-		rPulse2 = (uint16_t) pwm_left;
-		lPulse1 = 0;
-	} else {
-		lPulse1 = (uint16_t) (-pwm_left);
-		rPulse2 = 0;
-	}
+	// --- MAPEO DE HARDWARE CORREGIDO ---
 
-	if (pwm_right > 0) {
-		rPulse4 = (uint16_t) pwm_right;
-		lPulse3 = 0;
-	} else {
-		lPulse3 = (uint16_t) (-pwm_right);
-		rPulse4 = 0;
-	}
+	// Motor Izquierdo: CH4 (Adelante) = rPulse4, CH3 (Atrás) = lPulse3
+		if (pwm_left > 0) {
+			rPulse4 = (uint16_t) pwm_left;
+			lPulse3 = 0;
+		} else {
+			lPulse3 = (uint16_t) (-pwm_left);
+			rPulse4 = 0;
+		}
+
+	// Motor Derecho: CH2 (Adelante) = rPulse2, CH1 (Atrás) = lPulse1
+		if (pwm_right > 0) {
+			rPulse2 = (uint16_t) pwm_right;
+			lPulse1 = 0;
+		} else {
+			lPulse1 = (uint16_t) (-pwm_right);
+			rPulse2 = 0;
+		}
 }
 
 /* USER CODE END 0 */
