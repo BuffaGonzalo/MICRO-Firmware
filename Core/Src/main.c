@@ -234,11 +234,11 @@ uint16_t minPWM = 992; //735
 int16_t offset_left = -70;
 int16_t offset_right = +70;
 
-int32_t setpoint = 0; // Angulo unico de trabajo (x100 = 0.5°), ajustable por SETLINECTRL
+int32_t setpoint = -300; // Angulo unico de trabajo (x100 = 0.5°), ajustable por SETLINECTRL
 
 // Variables del Control de Línea
-int16_t Kp_line = 5;
-int16_t Kq_line = 2;
+int16_t Kp_line = 0; //5
+int16_t Kq_line = 0; //2
 int32_t sum_sensors = 0;
 int32_t error_linea = 0;
 int32_t abs_error = 0;
@@ -248,7 +248,7 @@ int32_t turn_offset = 0;
 int32_t last_line_error = 0;
 // Variables escaladas (custom_turn ahora maneja valores de PWM crudos)
 int16_t custom_turn = 450;
-int16_t fwd_speed = 0;
+int16_t fwd_speed = -1000;
 
 
 
@@ -1167,17 +1167,30 @@ void buttonTask(_sButton *button){
 /* USER CODE BEGIN 0 */
 // ... tus otras funciones ...
 void PID_ControlTask(void) {
-
 	int32_t final_pwm;
 
-	// 0. Control de ejecución
-	if (RUN_PID == FALSE) {
+	if (RUN_PID == FALSE)
 		return;
-	}
 	RUN_PID = FALSE;
 
 	// =========================================================
-	// --- 1. FILTROS Y CÁLCULO DE ÁNGULO (IMU) ---
+	// --- 1. LECTURA E INVERSIÓN DE LÍNEA (Como el código viejo) ---
+	// =========================================================
+	// Volvemos a invertir para que Negro sea un número Alto (~3700)
+	int32_t left_ir   = 4095 - adcData[1];
+	int32_t center_ir = 4095 - adcData[3];
+	int32_t right_ir  = 4095 - adcData[5];
+
+	if (left_ir   < 0) left_ir   = 0;
+	if (center_ir < 0) center_ir = 0;
+	if (right_ir  < 0) right_ir  = 0;
+
+	// Suma total de reflectancia
+	sum_sensors = left_ir + center_ir + right_ir;
+	if (sum_sensors == 0) sum_sensors = 1;
+
+	// =========================================================
+	// --- 2. FILTROS Y CÁLCULO DE ÁNGULO (IMU) ---
 	// =========================================================
 	if (ax_filt == 0 && az_filt == 0) {
 		ax_filt = ax;
@@ -1189,27 +1202,73 @@ void PID_ControlTask(void) {
 
 	if (az_filt > AZ_MIN_VALID || az_filt < -AZ_MIN_VALID) {
 		int32_t ratio = (ax_filt * 1000) / az_filt;
-		acc_angle_hr = (ratio * (int32_t)RADTOGRAD) / 10;
+		acc_angle_hr = (ratio * (int32_t) RADTOGRAD) / 10;
 	}
 
-	gyro_delta_hr = (-(int32_t)gy * 200) / 131;
+	gyro_delta_hr = (-(int32_t) gy * 200) / 131;
 	current_angle_hr = (ALPHA_GYRO * (current_angle_hr + gyro_delta_hr)
 			+ ALPHA_ACC * acc_angle_hr) / 100;
 	current_angle = current_angle_hr / 100;
 
 	// =========================================================
-	// --- 2. LAZO PID CLÁSICO ---
+	// --- 3. MÁQUINA DE ESTADOS Y ERROR DE LÍNEA ---
 	// =========================================================
-	error = setpoint - current_angle;
+	static int32_t actual_setpoint = 0;
+	int32_t target_setpoint = setpoint;
+	turn_offset = 0;
+
+	switch (lineState) {
+		case LINE_SEARCHING:
+			if (sum_sensors >= LINE_THRESHOLD) {
+				lineState = LINE_FOLLOWING;
+			}
+			break;
+
+		case LINE_FOLLOWING:
+			if (sum_sensors < LINE_THRESHOLD) {
+				// Perdió la línea (Buscador ciego)
+				error_linea = (last_line_error > 0) ? 100 : -100;
+				lineState  = LINE_SEARCHING;
+			} else {
+				// ¡CORRECCIÓN DE SIGNO!: left_ir - right_ir
+				// Si la línea está a la derecha, el error es positivo,
+				// la rueda izq acelera y la derecha frena.
+				error_linea = ((-(1000 * left_ir) + (1000 * right_ir)) / sum_sensors) / 10;
+				int32_t line_derivative = error_linea - last_line_error;
+
+				// ESCALA FÍSICA x25: Al dividir por 4 (en vez de 100 como el viejo),
+				// logramos que Kp_line y Kd_line generen el MISMO torque que antes
+				// adaptado a tu nueva resolución de 9999.
+				turn_offset = (Kp_line * error_linea + Kq_line * line_derivative) / 4;
+
+				// Avance autónomo adoptando la velocidad de caída
+				target_setpoint = fwd_speed;
+			}
+			last_line_error = error_linea;
+			break;
+
+		default:
+			lineState = LINE_SEARCHING;
+			break;
+	}
+
+	// Rampa suave de setpoint para no cabecear
+	if (actual_setpoint > target_setpoint) actual_setpoint -= 2;
+	if (actual_setpoint < target_setpoint) actual_setpoint += 2;
+
+	// =========================================================
+	// --- 4. LAZO PID CENTRAL (Equilibrio) ---
+	// =========================================================
+	error = actual_setpoint - current_angle;
 
 	integral += error;
-	if (integral >  ANG50) integral =  ANG50;
+	if (integral > ANG50) integral = ANG50;
 	if (integral < -ANG50) integral = -ANG50;
 
 	output = (Kp_stable * error + Ki_stable * integral + Kd_stable * gy) / 1000;
 
 	// =========================================================
-	// --- 3. INYECCIÓN DE FRICCIÓN (minPWM) ---
+	// --- 5. INYECCIÓN INSTANTÁNEA DE FRICCIÓN (minPWM) ---
 	// =========================================================
 	if (output > 0) {
 		final_pwm = output + minPWM;
@@ -1219,96 +1278,51 @@ void PID_ControlTask(void) {
 		final_pwm = 0;
 	}
 
-	// Apagado de seguridad por caída (> 45 grados)
 	if (current_angle > ANG45 || current_angle < -ANG45) {
 		final_pwm = 0;
-		integral  = 0;
+		integral = 0;
 	}
 
 	// =========================================================
-	// --- 4. SEGUIDOR DE LÍNEA ---
+	// --- 6. MIXER DIRECCIONAL Y SATURACIÓN ---
 	// =========================================================
-	int32_t left_ir, center_ir, right_ir;
-	int32_t pwm_left, pwm_right;
+	int32_t pwm_left = final_pwm;
+	int32_t pwm_right = final_pwm;
 
-	// Lectura e inversión: sensor TCRT sobre negro da valor alto,
-	// sobre blanco da valor bajo. Invertimos para que negro = valor alto.
-	left_ir   = 4095 - adcDataTx[1];
-	center_ir = 4095 - adcDataTx[3];
-	right_ir  = 4095 - adcDataTx[5];
-
-	if (left_ir   < 0) left_ir   = 0;
-	if (center_ir < 0) center_ir = 0;
-	if (right_ir  < 0) right_ir  = 0;
-
-	// Suma total de reflectancia (evitar división por cero)
-	sum_sensors = left_ir + center_ir + right_ir;
-	if (sum_sensors == 0) sum_sensors = 1;
-
-	// Máquina de estados
-	switch (lineState) {
-
-		case LINE_SEARCHING:
-			turn_offset = 0;
-			if (sum_sensors >= LINE_THRESHOLD) {
-				lineState = LINE_FOLLOWING;
-			}
-			break;
-
-		case LINE_FOLLOWING:
-			if (sum_sensors < LINE_THRESHOLD) {
-				// Perdimos la línea: conservamos el último sentido de giro
-				error_linea = (error_linea > 0) ? 100 : -100;
-				lineState   = LINE_SEARCHING;
-				turn_offset = 0;
-			} else {
-				// Error: positivo = línea a la derecha → corregir a la derecha
-				error_linea = (((int32_t)1000 * right_ir) - ((int32_t)1000 * left_ir)) / sum_sensors / 10;
-
-				int32_t line_derivative = error_linea - last_line_error;
-				turn_offset = (Kp_line * error_linea + Kq_line * line_derivative) / 100;
-			}
-			last_line_error = error_linea;
-			break;
-
-		default:
-			lineState   = LINE_SEARCHING;
-			turn_offset = 0;
-			break;
+	if (final_pwm != 0) {
+		if (final_pwm > 0) {
+			pwm_left += (offset_left + turn_offset);
+			pwm_right += (offset_right - turn_offset);
+		} else {
+			pwm_left -= (offset_left + turn_offset);
+			pwm_right -= (offset_right - turn_offset);
+		}
 	}
 
-	// =========================================================
-	// --- 5. MIXER: equilibrio + dirección ---
-	// =========================================================
-	pwm_left  = final_pwm + turn_offset;
-	pwm_right = final_pwm - turn_offset;
+	if (pwm_left > (int32_t) maxPWM) pwm_left = (int32_t) maxPWM;
+	if (pwm_left < -(int32_t) maxPWM) pwm_left = -(int32_t) maxPWM;
+
+	if (pwm_right > (int32_t) maxPWM) pwm_right = (int32_t) maxPWM;
+	if (pwm_right < -(int32_t) maxPWM) pwm_right = -(int32_t) maxPWM;
 
 	// =========================================================
-	// --- 6. SATURACIÓN INDEPENDIENTE ---
+	// --- 7. MAPEO AL HARDWARE CORREGIDO ---
 	// =========================================================
-	if (pwm_left  >  (int32_t)maxPWM) pwm_left  =  (int32_t)maxPWM;
-	if (pwm_left  < -(int32_t)maxPWM) pwm_left  = -(int32_t)maxPWM;
-	if (pwm_right >  (int32_t)maxPWM) pwm_right =  (int32_t)maxPWM;
-	if (pwm_right < -(int32_t)maxPWM) pwm_right = -(int32_t)maxPWM;
-
-	// =========================================================
-	// --- 7. ASIGNACIÓN A MOTORES (L9110S) ---
-	// =========================================================
-	// Motor Izquierdo: CH4 (Adelante) = rPulse4, CH3 (Atrás) = lPulse3
+	// Izquierda: CH4 (Adelante), CH3 (Atrás)
 	if (pwm_left > 0) {
-		rPulse4 = (uint16_t)pwm_left;
+		rPulse4 = (uint16_t) pwm_left;
 		lPulse3 = 0;
 	} else {
-		lPulse3 = (uint16_t)(-pwm_left);
+		lPulse3 = (uint16_t) (-pwm_left);
 		rPulse4 = 0;
 	}
 
-	// Motor Derecho: CH2 (Adelante) = rPulse2, CH1 (Atrás) = lPulse1
+	// Derecha: CH2 (Adelante), CH1 (Atrás)
 	if (pwm_right > 0) {
-		rPulse2 = (uint16_t)pwm_right;
+		rPulse2 = (uint16_t) pwm_right;
 		lPulse1 = 0;
 	} else {
-		lPulse1 = (uint16_t)(-pwm_right);
+		lPulse1 = (uint16_t) (-pwm_right);
 		rPulse2 = 0;
 	}
 }
