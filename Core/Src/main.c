@@ -202,8 +202,8 @@ static uint8_t httpTxBuf[340];
 
 /* ---- Destino UDP (guardado desde el formulario web) ---- */
 //static char    udpTargetIP[16]   = "10.93.92.213";
-static char    udpTargetIP[16]   = "192.168.0.13";
-//static char    udpTargetIP[16]   = "172.23.190.89";
+//static char    udpTargetIP[16]   = "192.168.0.13";
+static char    udpTargetIP[16]   = "172.23.190.89";
 static uint16_t udpTargetPort    = 30010;
 static uint8_t  udpReadyToStart  = 0;
 
@@ -228,11 +228,11 @@ int16_t Kd_stable = 3;
 int16_t Ki_stable = 0;
 // Pasan a ser de 16 bits. minPWM centrado en 735.
 uint16_t maxPWM = 9999;
-uint16_t minPWM = 735;
+uint16_t minPWM = 992; //735
 
 // Offsets que garantizan exactamente los 70 puntos de diferencia
-int16_t offset_left = -35;
-int16_t offset_right = 35;
+int16_t offset_left = -70;
+int16_t offset_right = +70;
 
 int32_t setpoint = 0; // Angulo unico de trabajo (x100 = 0.5°), ajustable por SETLINECTRL
 
@@ -245,6 +245,7 @@ int32_t abs_error = 0;
 int32_t linear_term = 0;
 int32_t quad_term = 0;
 int32_t turn_offset = 0;
+int32_t last_line_error = 0;
 // Variables escaladas (custom_turn ahora maneja valores de PWM crudos)
 int16_t custom_turn = 450;
 int16_t fwd_speed = 0;
@@ -257,7 +258,7 @@ typedef enum {
 	LINE_FOLLOWING   // Linea detectada: avanza con setpoint_base, PD activo
 } _eLineState;
 
-//_eLineState lineState = LINE_SEARCHING;
+_eLineState lineState = LINE_SEARCHING;
 
 /* USER CODE END PV */
 
@@ -1166,10 +1167,13 @@ void buttonTask(_sButton *button){
 /* USER CODE BEGIN 0 */
 // ... tus otras funciones ...
 void PID_ControlTask(void) {
+
 	int32_t final_pwm;
 
-	if (RUN_PID == FALSE)
+	// 0. Control de ejecución
+	if (RUN_PID == FALSE) {
 		return;
+	}
 	RUN_PID = FALSE;
 
 	// =========================================================
@@ -1185,34 +1189,28 @@ void PID_ControlTask(void) {
 
 	if (az_filt > AZ_MIN_VALID || az_filt < -AZ_MIN_VALID) {
 		int32_t ratio = (ax_filt * 1000) / az_filt;
-		acc_angle_hr = (ratio * (int32_t) RADTOGRAD) / 10;
+		acc_angle_hr = (ratio * (int32_t)RADTOGRAD) / 10;
 	}
 
-	gyro_delta_hr = (-(int32_t) gy * 200) / 131;
+	gyro_delta_hr = (-(int32_t)gy * 200) / 131;
 	current_angle_hr = (ALPHA_GYRO * (current_angle_hr + gyro_delta_hr)
 			+ ALPHA_ACC * acc_angle_hr) / 100;
 	current_angle = current_angle_hr / 100;
 
 	// =========================================================
-	// --- 2. LAZO PID CLÁSICO (Control de Equilibrio Crudo) ---
+	// --- 2. LAZO PID CLÁSICO ---
 	// =========================================================
-	// El setpoint es EXACTAMENTE lo que le mandas por la interfaz de Qt.
-	// Sin rampas ni intermediarios.
 	error = setpoint - current_angle;
 
 	integral += error;
-	if (integral > ANG50)
-		integral = ANG50;
-	if (integral < -ANG50)
-		integral = -ANG50;
+	if (integral >  ANG50) integral =  ANG50;
+	if (integral < -ANG50) integral = -ANG50;
 
-	output = (Kp_stable * error + Ki_stable * integral + Kd_stable * gy) / 100;
+	output = (Kp_stable * error + Ki_stable * integral + Kd_stable * gy) / 1000;
 
 	// =========================================================
-	// --- 3. INYECCIÓN INSTANTÁNEA DE FRICCIÓN ---
+	// --- 3. INYECCIÓN DE FRICCIÓN (minPWM) ---
 	// =========================================================
-	// Eliminamos la matemática de división que te dejaba clavado.
-	// Ahora el salto es INMEDIATO a tu minPWM (735).
 	if (output > 0) {
 		final_pwm = output + minPWM;
 	} else if (output < 0) {
@@ -1224,94 +1222,95 @@ void PID_ControlTask(void) {
 	// Apagado de seguridad por caída (> 45 grados)
 	if (current_angle > ANG45 || current_angle < -ANG45) {
 		final_pwm = 0;
-		integral = 0;
+		integral  = 0;
 	}
 
 	// =========================================================
-	// --- 4. ASIGNACIÓN A MOTORES, VELOCIDAD CONSTANTE Y LÍNEA ---
+	// --- 4. SEGUIDOR DE LÍNEA ---
 	// =========================================================
-	int32_t pwm_left = final_pwm;
-	int32_t pwm_right = final_pwm;
+	int32_t left_ir, center_ir, right_ir;
+	int32_t pwm_left, pwm_right;
 
-	if (final_pwm != 0) {
-		int32_t s_left = adcData[1];
-		int32_t s_center = adcData[3];
-		int32_t s_right = adcData[5];
+	// Lectura e inversión: sensor TCRT sobre negro da valor alto,
+	// sobre blanco da valor bajo. Invertimos para que negro = valor alto.
+	left_ir   = 4095 - adcDataTx[1];
+	center_ir = 4095 - adcDataTx[3];
+	right_ir  = 4095 - adcDataTx[5];
 
-		sum_sensors = s_left + s_center + s_right;
-		turn_offset = 0;
+	if (left_ir   < 0) left_ir   = 0;
+	if (center_ir < 0) center_ir = 0;
+	if (right_ir  < 0) right_ir  = 0;
 
-		// Si estamos sobre la línea, aplicamos Velocidad y Giro
-		if (sum_sensors > LINE_THRESHOLD) {
+	// Suma total de reflectancia (evitar división por cero)
+	sum_sensors = left_ir + center_ir + right_ir;
+	if (sum_sensors == 0) sum_sensors = 1;
 
-			// ---> INYECCIÓN DE VELOCIDAD PURA (Cruise Control) <---
-			// Aquí entra tu fwd_speed de Qt (ej: 105) como fuerza de avance constante
-			if (sum_sensors > LINE_THRESHOLD) {
-				if (final_pwm > 0) {
-					pwm_left += fwd_speed;
-					pwm_right += fwd_speed;
-				} else {
-					pwm_left -= fwd_speed;
-					pwm_right -= fwd_speed;
-				}
+	// Máquina de estados
+	switch (lineState) {
+
+		case LINE_SEARCHING:
+			turn_offset = 0;
+			if (sum_sensors >= LINE_THRESHOLD) {
+				lineState = LINE_FOLLOWING;
 			}
-			// Cálculo matemático del seguidor de línea
-			error_linea = ((s_left - s_right) * SCALE_LINE) / sum_sensors;
-			abs_error = (error_linea > 0) ? error_linea : -error_linea;
+			break;
 
-			linear_term = error_linea * Kp_line;
-			quad_term = ((error_linea * abs_error) / SCALE_LINE) * Kq_line;
+		case LINE_FOLLOWING:
+			if (sum_sensors < LINE_THRESHOLD) {
+				// Perdimos la línea: conservamos el último sentido de giro
+				error_linea = (error_linea > 0) ? 100 : -100;
+				lineState   = LINE_SEARCHING;
+				turn_offset = 0;
+			} else {
+				// Error: positivo = línea a la derecha → corregir a la derecha
+				error_linea = (((int32_t)1000 * right_ir) - ((int32_t)1000 * left_ir)) / sum_sensors / 10;
 
-			turn_offset = (linear_term + quad_term);
+				int32_t line_derivative = error_linea - last_line_error;
+				turn_offset = (Kp_line * error_linea + Kq_line * line_derivative) / 100;
+			}
+			last_line_error = error_linea;
+			break;
 
-			if (turn_offset > custom_turn)
-				turn_offset = custom_turn;
-			else if (turn_offset < -custom_turn)
-				turn_offset = -custom_turn;
-		}
-
-		// Mezcla de Control (Offsets mecánicos + Giro de línea)
-		if (final_pwm > 0) {
-			pwm_left += (offset_left - turn_offset);
-			pwm_right += (offset_right + turn_offset);
-		} else {
-			pwm_left -= (offset_left - turn_offset);
-			pwm_right -= (offset_right + turn_offset);
-		}
+		default:
+			lineState   = LINE_SEARCHING;
+			turn_offset = 0;
+			break;
 	}
 
 	// =========================================================
-	// --- 5. SATURACIÓN Y ENVÍO A TIMERS ---
+	// --- 5. MIXER: equilibrio + dirección ---
 	// =========================================================
-		if (pwm_left > (int32_t) maxPWM)
-			pwm_left = (int32_t) maxPWM;
-		if (pwm_left < -(int32_t) maxPWM)
-			pwm_left = -(int32_t) maxPWM;
+	pwm_left  = final_pwm + turn_offset;
+	pwm_right = final_pwm - turn_offset;
 
-		if (pwm_right > (int32_t) maxPWM)
-			pwm_right = (int32_t) maxPWM;
-		if (pwm_right < -(int32_t) maxPWM)
-			pwm_right = -(int32_t) maxPWM;
+	// =========================================================
+	// --- 6. SATURACIÓN INDEPENDIENTE ---
+	// =========================================================
+	if (pwm_left  >  (int32_t)maxPWM) pwm_left  =  (int32_t)maxPWM;
+	if (pwm_left  < -(int32_t)maxPWM) pwm_left  = -(int32_t)maxPWM;
+	if (pwm_right >  (int32_t)maxPWM) pwm_right =  (int32_t)maxPWM;
+	if (pwm_right < -(int32_t)maxPWM) pwm_right = -(int32_t)maxPWM;
 
-	// --- MAPEO DE HARDWARE CORREGIDO ---
-
+	// =========================================================
+	// --- 7. ASIGNACIÓN A MOTORES (L9110S) ---
+	// =========================================================
 	// Motor Izquierdo: CH4 (Adelante) = rPulse4, CH3 (Atrás) = lPulse3
-		if (pwm_left > 0) {
-			rPulse4 = (uint16_t) pwm_left;
-			lPulse3 = 0;
-		} else {
-			lPulse3 = (uint16_t) (-pwm_left);
-			rPulse4 = 0;
-		}
+	if (pwm_left > 0) {
+		rPulse4 = (uint16_t)pwm_left;
+		lPulse3 = 0;
+	} else {
+		lPulse3 = (uint16_t)(-pwm_left);
+		rPulse4 = 0;
+	}
 
 	// Motor Derecho: CH2 (Adelante) = rPulse2, CH1 (Atrás) = lPulse1
-		if (pwm_right > 0) {
-			rPulse2 = (uint16_t) pwm_right;
-			lPulse1 = 0;
-		} else {
-			lPulse1 = (uint16_t) (-pwm_right);
-			rPulse2 = 0;
-		}
+	if (pwm_right > 0) {
+		rPulse2 = (uint16_t)pwm_right;
+		lPulse1 = 0;
+	} else {
+		lPulse1 = (uint16_t)(-pwm_right);
+		rPulse2 = 0;
+	}
 }
 
 /* USER CODE END 0 */
@@ -1405,8 +1404,8 @@ int main(void)
   	isWebserverMode = FALSE;
   	//ESP01_SetWebServer("MICRO", "12345678", 5, 3);
 
-  	//ESP01_SetWIFI("FCAL","fcalconcordia.06-2019");
-  	ESP01_SetWIFI("ARPANET", "1969-Apolo_11-2022");
+  	ESP01_SetWIFI("FCAL","fcalconcordia.06-2019");
+  	//ESP01_SetWIFI("ARPANET", "1969-Apolo_11-2022");
   	//ESP01_SetWIFI("SA04", "12345678");
   	//ESP01_SetWIFI("BUFFA24","-NixieBulb2022-");
   	//ESP01_StartUDP("192.168.0.28", 30010, 30001);
