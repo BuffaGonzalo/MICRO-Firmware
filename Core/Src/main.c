@@ -203,8 +203,8 @@ static uint8_t httpTxBuf[340];
 
 /* ---- Destino UDP (guardado desde el formulario web) ---- */
 //static char    udpTargetIP[16]   = "10.93.92.213";
-//static char    udpTargetIP[16]   = "192.168.0.13";
-static char    udpTargetIP[16]   = "172.23.190.89";
+static char    udpTargetIP[16]   = "192.168.0.13";
+//static char    udpTargetIP[16]   = "172.23.190.89";
 static uint16_t udpTargetPort    = 30010;
 static uint8_t  udpReadyToStart  = 0;
 
@@ -539,56 +539,47 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 		brake_angle_div = myWord.i16[0];
 		break;
 	case GETINTERNALDATA:
-		// Tamaño total: 1(cmd) + 9*4(32bits) + 5*2(16bits) + 2(8bits) = 49 bytes
-		unerPrtcl_PutHeaderOnTx(dataTx, GETINTERNALDATA, 85);
+		// Estructura simplificada para sincronización de parámetros (28 bytes de datos + 1 chk)
+		unerPrtcl_PutHeaderOnTx(dataTx, GETINTERNALDATA, 29);
 
-		//VARIABLES DE BALANCIN
-		// 1. Bloque de 32 bits (9 variables = 36 bytes)
-		int32_t pid_data32[9] =
-				{ acc_angle_hr, gyro_delta_hr, current_angle_hr, error, integral, derivative, output,
-						setpoint };
-
-		for (int i = 0; i < 9; i++) {
-			unerPrtcl_PutByteOnTx(dataTx, (uint8_t) (pid_data32[i] & 0xFF));
-			unerPrtcl_PutByteOnTx(dataTx,
-					(uint8_t) ((pid_data32[i] >> 8) & 0xFF));
-			unerPrtcl_PutByteOnTx(dataTx,
-					(uint8_t) ((pid_data32[i] >> 16) & 0xFF));
-			unerPrtcl_PutByteOnTx(dataTx,
-					(uint8_t) ((pid_data32[i] >> 24) & 0xFF));
+		// 1. Bloque PID Balancín (10 bytes: Kp, Ki, Kd, Max, Min)
+		int16_t pid_bal[5] = { Kp_stable, Ki_stable, Kd_stable, (int16_t)maxPWM, (int16_t)minPWM };
+		for (int i = 0; i < 5; i++) {
+			unerPrtcl_PutByteOnTx(dataTx, (uint8_t) (pid_bal[i] & 0xFF));
+			unerPrtcl_PutByteOnTx(dataTx, (uint8_t) ((pid_bal[i] >> 8) & 0xFF));
 		}
 
-		// 2. Bloque de 16 bits (5 variables = 10 bytes)
-		// AQUÍ AGREGAMOS ramp_step
-		int16_t pid_data16[5] = { Kp_stable, Ki_stable, Kd_stable, (int16_t)maxPWM, (int16_t)minPWM };
+		// 2. Setpoint (4 bytes - int32)
+		unerPrtcl_PutByteOnTx(dataTx, (uint8_t) (setpoint & 0xFF));
+		unerPrtcl_PutByteOnTx(dataTx, (uint8_t) ((setpoint >> 8) & 0xFF));
+		unerPrtcl_PutByteOnTx(dataTx, (uint8_t) ((setpoint >> 16) & 0xFF));
+		unerPrtcl_PutByteOnTx(dataTx, (uint8_t) ((setpoint >> 24) & 0xFF));
 
-				for (int i = 0; i < 5; i++) {
-					unerPrtcl_PutByteOnTx(dataTx, (uint8_t) (pid_data16[i] & 0xFF));
-					unerPrtcl_PutByteOnTx(dataTx, (uint8_t) ((pid_data16[i] >> 8) & 0xFF));
-				}
-
-		//VARIABLES SEGUIDOR LINEA
-		// 1. Variables de 32 bits (6 variables = 24 bytes)
-		int32_t line_data32[6] = {sum_sensors, error_linea, abs_error, linear_term, quad_term, turn_offset};
-
-		for (int i = 0; i < 6; i++) {
-			unerPrtcl_PutByteOnTx(dataTx, (uint8_t) (line_data32[i] & 0xFF));
-			unerPrtcl_PutByteOnTx(dataTx, (uint8_t) ((line_data32[i] >> 8) & 0xFF));
-			unerPrtcl_PutByteOnTx(dataTx, (uint8_t) ((line_data32[i] >> 16) & 0xFF));
-			unerPrtcl_PutByteOnTx(dataTx, (uint8_t) ((line_data32[i] >> 24) & 0xFF));
-		}
-
-		// 2. Variables de 16 bits (Aumentamos a 7 variables = 14 bytes)
-		int16_t line_data16[7] = { Kp_line, Kq_line, offset_left, offset_right, custom_turn, attack_setpoint, brake_angle_div };
-
+		// 3. Bloque Seguimiento y Offsets (14 bytes: KpL, KdL, OffL, OffR, Turn, Attack, Brake)
+		int16_t params_ext[7] = { Kp_line, Kq_line, offset_left, offset_right, custom_turn, attack_setpoint, brake_angle_div };
 		for (int i = 0; i < 7; i++) {
-		    unerPrtcl_PutByteOnTx(dataTx, (uint8_t) (line_data16[i] & 0xFF));
-		    unerPrtcl_PutByteOnTx(dataTx, (uint8_t) ((line_data16[i] >> 8) & 0xFF));
+			unerPrtcl_PutByteOnTx(dataTx, (uint8_t) (params_ext[i] & 0xFF));
+			unerPrtcl_PutByteOnTx(dataTx, (uint8_t) ((params_ext[i] >> 8) & 0xFF));
 		}
 
 		// Checksum final
 		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
 		break;
+	case GETPIDBALANCE:
+			// Tamaño: 1(cmd) + 4 variables * 4 bytes = 17 bytes
+			unerPrtcl_PutHeaderOnTx(dataTx, GETPIDBALANCE, 17);
+
+			int32_t pid_telemetry[4] = { error, integral, derivative, output };
+
+			for (int i = 0; i < 4; i++) {
+				unerPrtcl_PutByteOnTx(dataTx, (uint8_t) (pid_telemetry[i] & 0xFF));
+				unerPrtcl_PutByteOnTx(dataTx, (uint8_t) ((pid_telemetry[i] >> 8) & 0xFF));
+				unerPrtcl_PutByteOnTx(dataTx, (uint8_t) ((pid_telemetry[i] >> 16) & 0xFF));
+				unerPrtcl_PutByteOnTx(dataTx, (uint8_t) ((pid_telemetry[i] >> 24) & 0xFF));
+			}
+
+			unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
+			break;
 	case SETLINEKP:
         unerPrtcl_PutHeaderOnTx(dataTx, SETLINEKP, 2);
         unerPrtcl_PutByteOnTx(dataTx, ACK);
@@ -1463,8 +1454,8 @@ int main(void)
   	isWebserverMode = FALSE;
   	//ESP01_SetWebServer("MICRO", "12345678", 5, 3);
 
-  	ESP01_SetWIFI("FCAL","fcalconcordia.06-2019");
-  	//ESP01_SetWIFI("ARPANET", "1969-Apolo_11-2022");
+  	//ESP01_SetWIFI("FCAL","fcalconcordia.06-2019");
+  	ESP01_SetWIFI("ARPANET", "1969-Apolo_11-2022");
   	//ESP01_SetWIFI("SA04", "12345678");
   	//ESP01_SetWIFI("BUFFA24","-NixieBulb2022-");
   	//ESP01_StartUDP("192.168.0.28", 30010, 30001);
