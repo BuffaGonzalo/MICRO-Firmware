@@ -466,70 +466,78 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 		unerPrtcl_PutByteOnTx(dataTx, myWord.ui8[1]);
 		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
 		break;
-	case SETPWM:
-        unerPrtcl_PutHeaderOnTx(dataTx, SETPWM, 2);
+	case SETPWML:
+        unerPrtcl_PutHeaderOnTx(dataTx, SETPWML, 2);
         unerPrtcl_PutByteOnTx(dataTx, ACK );
         unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
         myWord.ui8[0]=unerPrtcl_GetByteFromRx(dataRx,1,0);
         myWord.ui8[1]=unerPrtcl_GetByteFromRx(dataRx,1,0);
         lPulse1 = myWord.ui16[0];
-        myWord.ui8[0]=unerPrtcl_GetByteFromRx(dataRx,1,0);
-        myWord.ui8[1]=unerPrtcl_GetByteFromRx(dataRx,1,0);
-        rPulse2 = myWord.ui16[0];
-        myWord.ui8[0]=unerPrtcl_GetByteFromRx(dataRx,1,0);
-        myWord.ui8[1]=unerPrtcl_GetByteFromRx(dataRx,1,0);
-        lPulse3 = myWord.ui16[0];
-        myWord.ui8[0]=unerPrtcl_GetByteFromRx(dataRx,1,0);
-        myWord.ui8[1]=unerPrtcl_GetByteFromRx(dataRx,1,0);
-        rPulse4 = myWord.ui16[0];
 		break;
-	case SETPID:
-        unerPrtcl_PutHeaderOnTx(dataTx, SETPID, 2);
+	case SETPWMR:
+        unerPrtcl_PutHeaderOnTx(dataTx, SETPWMR, 2);
         unerPrtcl_PutByteOnTx(dataTx, ACK );
         unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
         myWord.ui8[0]=unerPrtcl_GetByteFromRx(dataRx,1,0);
         myWord.ui8[1]=unerPrtcl_GetByteFromRx(dataRx,1,0);
-        Kp_stable = myWord.ui16[0];
-        myWord.ui8[0]=unerPrtcl_GetByteFromRx(dataRx,1,0);
-        myWord.ui8[1]=unerPrtcl_GetByteFromRx(dataRx,1,0);
-        Kd_stable = myWord.ui16[0];
-        myWord.ui8[0]=unerPrtcl_GetByteFromRx(dataRx,1,0);
-        myWord.ui8[1]=unerPrtcl_GetByteFromRx(dataRx,1,0);
-        Ki_stable = myWord.ui16[0];
+        rPulse2 = myWord.ui16[0];
 		break;
-	case SETPWMLIMIT:
-	        unerPrtcl_PutHeaderOnTx(dataTx, SETPWMLIMIT, 2);
-	        unerPrtcl_PutByteOnTx(dataTx, ACK );
-	        unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
-
-	        myWord.ui8[0]=unerPrtcl_GetByteFromRx(dataRx,1,0);
-	        myWord.ui8[1]=unerPrtcl_GetByteFromRx(dataRx,1,0);
-	        maxPWM = myWord.ui16[0];
-
-	        myWord.ui8[0]=unerPrtcl_GetByteFromRx(dataRx,1,0);
-	        myWord.ui8[1]=unerPrtcl_GetByteFromRx(dataRx,1,0);
-	        minPWM = myWord.ui16[0];
-			break;
+	case SETBALANCEKP:
+        unerPrtcl_PutHeaderOnTx(dataTx, SETBALANCEKP, 2);
+        unerPrtcl_PutByteOnTx(dataTx, ACK );
+        unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
+        myWord.ui8[0]=unerPrtcl_GetByteFromRx(dataRx,1,0);
+        myWord.ui8[1]=unerPrtcl_GetByteFromRx(dataRx,1,0);
+        Kp_stable = myWord.i16[0];
+		break;
+	case SETBALANCEKD:
+        unerPrtcl_PutHeaderOnTx(dataTx, SETBALANCEKD, 2);
+        unerPrtcl_PutByteOnTx(dataTx, ACK );
+        unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
+        myWord.ui8[0]=unerPrtcl_GetByteFromRx(dataRx,1,0);
+        myWord.ui8[1]=unerPrtcl_GetByteFromRx(dataRx,1,0);
+        Kd_stable = myWord.i16[0];
+		break;
+	case SETBALANCEKI:
+        unerPrtcl_PutHeaderOnTx(dataTx, SETBALANCEKI, 2);
+        unerPrtcl_PutByteOnTx(dataTx, ACK );
+        unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
+        myWord.ui8[0]=unerPrtcl_GetByteFromRx(dataRx,1,0);
+        myWord.ui8[1]=unerPrtcl_GetByteFromRx(dataRx,1,0);
+        Ki_stable = myWord.i16[0];
+		break;
+	case SETPWMLIMMAX:
+        unerPrtcl_PutHeaderOnTx(dataTx, SETPWMLIMMAX, 2);
+        unerPrtcl_PutByteOnTx(dataTx, ACK );
+        unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
+        myWord.ui8[0]=unerPrtcl_GetByteFromRx(dataRx,1,0);
+        myWord.ui8[1]=unerPrtcl_GetByteFromRx(dataRx,1,0);
+        maxPWM = myWord.ui16[0];
+		break;
+	case SETPWMLIMMIN:
+        unerPrtcl_PutHeaderOnTx(dataTx, SETPWMLIMMIN, 2);
+        unerPrtcl_PutByteOnTx(dataTx, ACK );
+        unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
+        myWord.ui8[0]=unerPrtcl_GetByteFromRx(dataRx,1,0);
+        myWord.ui8[1]=unerPrtcl_GetByteFromRx(dataRx,1,0);
+        minPWM = myWord.ui16[0];
+		break;
 	case SETSETPOINT:
 		unerPrtcl_PutHeaderOnTx(dataTx, SETSETPOINT, 2);
 		unerPrtcl_PutByteOnTx(dataTx, ACK);
 		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
-
-		// 3. Setpoint Base
 		myWord.i8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
 		myWord.i8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
 		setpoint = (int32_t) myWord.i16[0];
-
 		break;
 	case SETBKANG:
-			unerPrtcl_PutHeaderOnTx(dataTx, SETBKANG, 2);
-			unerPrtcl_PutByteOnTx(dataTx, ACK);
-			unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
-
-			myWord.ui8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
-			myWord.ui8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
-			brake_angle_div = myWord.i16[0];
-			break;
+		unerPrtcl_PutHeaderOnTx(dataTx, SETBKANG, 2);
+		unerPrtcl_PutByteOnTx(dataTx, ACK);
+		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
+		myWord.ui8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		myWord.ui8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		brake_angle_div = myWord.i16[0];
+		break;
 	case GETINTERNALDATA:
 		// Tamaño total: 1(cmd) + 9*4(32bits) + 5*2(16bits) + 2(8bits) = 49 bytes
 		unerPrtcl_PutHeaderOnTx(dataTx, GETINTERNALDATA, 85);
@@ -581,28 +589,34 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 		// Checksum final
 		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
 		break;
-	case SETPIDLINE: // SETPIDLINE
-	        unerPrtcl_PutHeaderOnTx(dataTx, SETPIDLINE, 2);
-	        unerPrtcl_PutByteOnTx(dataTx, ACK);
-	        unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
-
-	        myWord.ui8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
-	        myWord.ui8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
-	        Kp_line = myWord.ui16[0];
-
-	        myWord.ui8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
-	        myWord.ui8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
-	        Kq_line = myWord.ui16[0];
-	        break;
-	case SETOFFSET:
-		unerPrtcl_PutHeaderOnTx(dataTx, 0xFA, 2);
+	case SETLINEKP:
+        unerPrtcl_PutHeaderOnTx(dataTx, SETLINEKP, 2);
+        unerPrtcl_PutByteOnTx(dataTx, ACK);
+        unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
+        myWord.ui8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+        myWord.ui8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+        Kp_line = myWord.i16[0];
+        break;
+	case SETLINEKD:
+        unerPrtcl_PutHeaderOnTx(dataTx, SETLINEKD, 2);
+        unerPrtcl_PutByteOnTx(dataTx, ACK);
+        unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
+        myWord.ui8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+        myWord.ui8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+        Kq_line = myWord.i16[0];
+        break;
+	case SETOFFSETL:
+		unerPrtcl_PutHeaderOnTx(dataTx, SETOFFSETL, 2);
 		unerPrtcl_PutByteOnTx(dataTx, ACK);
 		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
-
 		myWord.ui8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
 		myWord.ui8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
 		offset_left = myWord.i16[0];
-
+		break;
+	case SETOFFSETR:
+		unerPrtcl_PutHeaderOnTx(dataTx, SETOFFSETR, 2);
+		unerPrtcl_PutByteOnTx(dataTx, ACK);
+		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
 		myWord.ui8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
 		myWord.ui8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
 		offset_right = myWord.i16[0];
@@ -611,7 +625,6 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 		unerPrtcl_PutHeaderOnTx(dataTx, SETCUSTOMTURN, 2);
 		unerPrtcl_PutByteOnTx(dataTx, ACK);
 		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
-
 		myWord.ui8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
 		myWord.ui8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
 		custom_turn = myWord.i16[0];
@@ -620,7 +633,6 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 		unerPrtcl_PutHeaderOnTx(dataTx, SETSPEED, 2);
 		unerPrtcl_PutByteOnTx(dataTx, ACK);
 		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
-
 		myWord.ui8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
 		myWord.ui8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
 		attack_setpoint = myWord.i16[0];
@@ -656,9 +668,9 @@ void do10ms() {
 			timerUDP++;
 			if (timerUDP >= 10) { //Entrar cada 1000ms o 1s
 				timerUDP = 0;
-				/* Solo enviar ALIVE cuando el UDP esta conectado */
+				/* Solo enviar GETALIVE cuando el UDP esta conectado */
 				if(!isWebserverMode && ESP01_StateUDPTCP() == ESP01_UDPTCP_CONNECTED){
-					static uint8_t bufferTx[9] = { 'U', 'N', 'E', 'R', 0x03, ':', ALIVE, ACK, 0xC8 };
+					static uint8_t bufferTx[9] = { 'U', 'N', 'E', 'R', 0x03, ':', ALIVE, ACK, 0x98 };
 					ESP01_Send(0, bufferTx, 0, 9, TXBUFSIZE);
 				}
 			}
@@ -1242,37 +1254,18 @@ void PID_ControlTask(void) {
 					error_linea = ((-(1000 * left_ir) + (1000 * right_ir)) / sum_sensors) / 10;
 					int32_t line_derivative = error_linea - last_line_error;
 
-					// 1. FUERZA PURA
-					int32_t raw_turn = (Kp_line * error_linea + Kq_line * line_derivative) / 4;
-
-					// 2. FILTRO ANTI-LATIGAZO PASA-BAJOS
-					static int32_t smooth_turn = 0;
-					int32_t abs_derivative = line_derivative > 0 ? line_derivative : -line_derivative;
-					
-					if (abs_derivative > 50) { 
-					    // Respuesta ágil ante curvas repentinas
-					    smooth_turn = (raw_turn * 60 + smooth_turn * 40) / 100;
-					} else {
-					    // Respuesta suave en rectas (crucero)
-					    smooth_turn = (raw_turn * 30 + smooth_turn * 70) / 100;
-					}
-					turn_offset = smooth_turn;
-
-					// 3. MURO DE CONTENCIÓN FÍSICA
-					if (turn_offset > custom_turn) turn_offset = custom_turn;
-					if (turn_offset < -custom_turn) turn_offset = -custom_turn;
+					// Cálculo con Kq_line
+					turn_offset = (Kp_line * error_linea + Kq_line * line_derivative) / 4;
 
 					// ---------------------------------------------------------
 					// --- SISTEMA DE FRENADO EN CURVAS (Compensación Yaw) ---
 					// ---------------------------------------------------------
-					// Es preferible frenar basado en la magnitud del raw_turn proporcional 
-					// en lugar de la derivada para evitar sacudidas longitudinales.
-					int32_t base_freno = (Kp_line * (error_linea > 0 ? error_linea : -error_linea)) / 4;
+					int32_t abs_turn = (turn_offset > 0) ? turn_offset : -turn_offset;
 					int32_t curve_brake = 0;
 
 					// Protección de hardware: Evita división por cero
 					if (brake_angle_div != 0) {
-						curve_brake = base_freno / brake_angle_div;
+						curve_brake = abs_turn / brake_angle_div;
 					}
 
 					target_setpoint = attack_setpoint + curve_brake;
