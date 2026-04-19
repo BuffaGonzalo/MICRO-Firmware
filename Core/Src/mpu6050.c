@@ -61,7 +61,7 @@ void mpu6050_Init(void)
     mpu6050_WriteData(&data, PWR_MGMT_1_REG);
 
     // Habilitar el Digital Low Pass Filter (DLPF) a ~44Hz
-	data = 0x03;
+	data = 0x04;
 	mpu6050_WriteData(&data, CONFIG_REG);
 
     // Configurar acelerómetro con rango ±2g (registro ACCEL_CONFIG = 0x1C, valor 0x00)

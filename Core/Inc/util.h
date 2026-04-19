@@ -59,6 +59,7 @@ typedef enum {
 	SETOFFSET = 0xFA,
 	SETCUSTOMTURN = 0xFB,
 	SETSPEED = 0xFC,
+	SETBKANG = 0xFD,
 	ACK = 0x0D,
 	UNKNOWN = 0xFF
 } _eCmd;

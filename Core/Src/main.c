@@ -73,6 +73,7 @@
 #define PID_SCALE_FACTOR	100 //factor de escala, evitar decimales o AFP (aritmetica de punto fijo)
 #define ANG50				50*PID_SCALE_FACTOR
 #define ANG45				45*PID_SCALE_FACTOR
+#define ANG20				20*PID_SCALE_FACTOR
 
 #define CTRLSPEED			10
 //Acelerometro
@@ -214,6 +215,7 @@ int32_t acc_angle_hr = 0;
 int32_t gyro_delta_hr = 0;
 int32_t current_angle_hr = 0;
 int32_t error = 0;
+int32_t last_error = 0;
 int32_t derivative = 0;
 int32_t integral = 0;
 int32_t output = 0;
@@ -248,7 +250,8 @@ int32_t turn_offset = 0;
 int32_t last_line_error = 0;
 // Variables escaladas (custom_turn ahora maneja valores de PWM crudos)
 int16_t custom_turn = 450;
-int16_t fwd_speed = -1000;
+int16_t attack_setpoint = -1000;
+int16_t brake_angle_div = 3;
 
 
 
@@ -518,9 +521,18 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 		setpoint = (int32_t) myWord.i16[0];
 
 		break;
+	case SETBKANG:
+			unerPrtcl_PutHeaderOnTx(dataTx, SETBKANG, 2);
+			unerPrtcl_PutByteOnTx(dataTx, ACK);
+			unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
+
+			myWord.ui8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+			myWord.ui8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+			brake_angle_div = myWord.i16[0];
+			break;
 	case GETINTERNALDATA:
 		// Tamaño total: 1(cmd) + 9*4(32bits) + 5*2(16bits) + 2(8bits) = 49 bytes
-		unerPrtcl_PutHeaderOnTx(dataTx, GETINTERNALDATA, 83);
+		unerPrtcl_PutHeaderOnTx(dataTx, GETINTERNALDATA, 85);
 
 		//VARIABLES DE BALANCIN
 		// 1. Bloque de 32 bits (9 variables = 36 bytes)
@@ -558,14 +570,12 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 			unerPrtcl_PutByteOnTx(dataTx, (uint8_t) ((line_data32[i] >> 24) & 0xFF));
 		}
 
-		// 2. Variables de 16 bits (Aumentamos a 4 variables = 8 bytes)
-		int16_t line_data16[6] = { Kp_line, Kq_line, offset_left, offset_right,
-				custom_turn, fwd_speed};
+		// 2. Variables de 16 bits (Aumentamos a 7 variables = 14 bytes)
+		int16_t line_data16[7] = { Kp_line, Kq_line, offset_left, offset_right, custom_turn, attack_setpoint, brake_angle_div };
 
-		for (int i = 0; i < 6; i++) {
-			unerPrtcl_PutByteOnTx(dataTx, (uint8_t) (line_data16[i] & 0xFF));
-			unerPrtcl_PutByteOnTx(dataTx,
-					(uint8_t) ((line_data16[i] >> 8) & 0xFF));
+		for (int i = 0; i < 7; i++) {
+		    unerPrtcl_PutByteOnTx(dataTx, (uint8_t) (line_data16[i] & 0xFF));
+		    unerPrtcl_PutByteOnTx(dataTx, (uint8_t) ((line_data16[i] >> 8) & 0xFF));
 		}
 
 		// Checksum final
@@ -613,7 +623,7 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 
 		myWord.ui8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
 		myWord.ui8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
-		fwd_speed = myWord.i16[0];
+		attack_setpoint = myWord.i16[0];
 		break;
 	default:
 		unerPrtcl_PutHeaderOnTx(dataTx, (_eCmd) dataRx->buff[dataRx->indexData],
@@ -1211,62 +1221,104 @@ void PID_ControlTask(void) {
 	current_angle = current_angle_hr / 100;
 
 	// =========================================================
-	// --- 3. MÁQUINA DE ESTADOS Y ERROR DE LÍNEA ---
-	// =========================================================
-	static int32_t actual_setpoint = 0;
-	int32_t target_setpoint = setpoint;
-	turn_offset = 0;
+		// --- 3. MÁQUINA DE ESTADOS Y ERROR DE LÍNEA ---
+		// =========================================================
+		int32_t target_setpoint = setpoint;
+		turn_offset = 0;
 
-	switch (lineState) {
-		case LINE_SEARCHING:
-			if (sum_sensors >= LINE_THRESHOLD) {
-				lineState = LINE_FOLLOWING;
-			}
-			break;
+		switch (lineState) {
+			case LINE_SEARCHING:
+				if (sum_sensors >= LINE_THRESHOLD) {
+					lineState = LINE_FOLLOWING;
+				}
+				break;
 
-		case LINE_FOLLOWING:
-			if (sum_sensors < LINE_THRESHOLD) {
-				// Perdió la línea (Buscador ciego)
-				error_linea = (last_line_error > 0) ? 100 : -100;
-				lineState  = LINE_SEARCHING;
+			case LINE_FOLLOWING:
+				if (sum_sensors < LINE_THRESHOLD) {
+					// Perdió la línea
+					error_linea = (last_line_error > 0) ? 100 : -100;
+					lineState  = LINE_SEARCHING;
+				} else {
+					error_linea = ((-(1000 * left_ir) + (1000 * right_ir)) / sum_sensors) / 10;
+					int32_t line_derivative = error_linea - last_line_error;
+
+					// 1. FUERZA PURA
+					int32_t raw_turn = (Kp_line * error_linea + Kq_line * line_derivative) / 4;
+
+					// 2. FILTRO ANTI-LATIGAZO PASA-BAJOS
+					static int32_t smooth_turn = 0;
+					int32_t abs_derivative = line_derivative > 0 ? line_derivative : -line_derivative;
+					
+					if (abs_derivative > 50) { 
+					    // Respuesta ágil ante curvas repentinas
+					    smooth_turn = (raw_turn * 60 + smooth_turn * 40) / 100;
+					} else {
+					    // Respuesta suave en rectas (crucero)
+					    smooth_turn = (raw_turn * 30 + smooth_turn * 70) / 100;
+					}
+					turn_offset = smooth_turn;
+
+					// 3. MURO DE CONTENCIÓN FÍSICA
+					if (turn_offset > custom_turn) turn_offset = custom_turn;
+					if (turn_offset < -custom_turn) turn_offset = -custom_turn;
+
+					// ---------------------------------------------------------
+					// --- SISTEMA DE FRENADO EN CURVAS (Compensación Yaw) ---
+					// ---------------------------------------------------------
+					// Es preferible frenar basado en la magnitud del raw_turn proporcional 
+					// en lugar de la derivada para evitar sacudidas longitudinales.
+					int32_t base_freno = (Kp_line * (error_linea > 0 ? error_linea : -error_linea)) / 4;
+					int32_t curve_brake = 0;
+
+					// Protección de hardware: Evita división por cero
+					if (brake_angle_div != 0) {
+						curve_brake = base_freno / brake_angle_div;
+					}
+
+					target_setpoint = attack_setpoint + curve_brake;
+
+					if (target_setpoint > 50) {
+						target_setpoint = 50;
+					}
+					// ---------------------------------------------------------
+				}
+				last_line_error = error_linea;
+				break;
+
+			default:
+				lineState = LINE_SEARCHING;
+				break;
+		}
+			// --- 4. LAZO PID CENTRAL (Equilibrio Directo) ---
+			// =========================================================
+			// Reacción instantánea contra el setpoint objetivo
+			error = target_setpoint - current_angle;
+
+			// --- CÁLCULO DE LA DERIVADA ---
+			// Según solicitud: usar la diferencia de errores en lugar del giroscopio directo.
+			// de/dt = (error - last_error) / (DT_MS / 1000)
+			derivative = ((error - last_error) * 1000) / DT_MS;
+
+			// --- MEJORA DEL TÉRMINO INTEGRAL (ANTI-WINDUP) ---
+			// Según solicitud: añadir el 'dt' (DT_MS) en la acumulación de la integral.
+			// Esto permite que Ki_stable no tenga que ser un valor extremadamente bajo.
+			if (error > -150 && error < 150) {
+				integral += error * DT_MS;
+				// Límite escalado: ANG20 * DT_MS (Antes era ANG20 = 2000, ahora es 40000)
+				if (integral > (ANG20 * DT_MS)) integral = ANG20 * DT_MS;
+				if (integral < -(ANG20 * DT_MS)) integral = -(ANG20 * DT_MS);
 			} else {
-				// ¡CORRECCIÓN DE SIGNO!: left_ir - right_ir
-				// Si la línea está a la derecha, el error es positivo,
-				// la rueda izq acelera y la derecha frena.
-				error_linea = ((-(1000 * left_ir) + (1000 * right_ir)) / sum_sensors) / 10;
-				int32_t line_derivative = error_linea - last_line_error;
-
-				// ESCALA FÍSICA x25: Al dividir por 4 (en vez de 100 como el viejo),
-				// logramos que Kp_line y Kd_line generen el MISMO torque que antes
-				// adaptado a tu nueva resolución de 9999.
-				turn_offset = (Kp_line * error_linea + Kq_line * line_derivative) / 4;
-
-				// Avance autónomo adoptando la velocidad de caída
-				target_setpoint = fwd_speed;
+				// Si está muy inclinado, la integral "pierde memoria" rápidamente para no molestar
+				integral = (integral * 8) / 10;
 			}
-			last_line_error = error_linea;
-			break;
 
-		default:
-			lineState = LINE_SEARCHING;
-			break;
-	}
+			// --- CÁLCULO DE LA SALIDA PID ---
+			// El término integral ahora ya contiene el 'dt' acumulado.
+			// El término derivativo se calcula con la diferencia de errores.
+			output = (Kp_stable * error + (Ki_stable * integral) / 1000 + (Kd_stable * derivative)) / 1000;
 
-	// Rampa suave de setpoint para no cabecear
-	if (actual_setpoint > target_setpoint) actual_setpoint -= 2;
-	if (actual_setpoint < target_setpoint) actual_setpoint += 2;
-
-	// =========================================================
-	// --- 4. LAZO PID CENTRAL (Equilibrio) ---
-	// =========================================================
-	error = actual_setpoint - current_angle;
-
-	integral += error;
-	if (integral > ANG50) integral = ANG50;
-	if (integral < -ANG50) integral = -ANG50;
-
-	output = (Kp_stable * error + Ki_stable * integral + Kd_stable * gy) / 1000;
-
+			// Guardamos el error para el siguiente ciclo
+			last_error = error;
 	// =========================================================
 	// --- 5. INYECCIÓN INSTANTÁNEA DE FRICCIÓN (minPWM) ---
 	// =========================================================
