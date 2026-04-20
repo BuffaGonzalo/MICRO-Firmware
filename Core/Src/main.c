@@ -646,6 +646,15 @@ void do10ms() {
 		ESP01_Timeout10ms();
 		buttonTimeout10ms(&myButton);
 
+		if (huart1.RxState != HAL_UART_STATE_BUSY_RX) {
+			uint32_t er = huart1.Instance->SR;
+			uint32_t dr = huart1.Instance->DR;
+			(void) er;
+			(void) dr;
+			huart1.RxState = HAL_UART_STATE_READY;
+			HAL_UART_Receive_IT(&huart1, &byteUART_ESP01, 1);
+		}
+
 		if (!tmo20ms) {
 			tmo20ms = 2;
 			IS20MS = TRUE;
@@ -2041,6 +2050,22 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
         FeedRxBuf(byteUART_ESP01);
 
         // 2. Volvemos a activar la escucha para el siguiente byte
+        HAL_UART_Receive_IT(&huart1, &byteUART_ESP01, 1);
+    }
+}
+
+void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
+{
+    if (huart->Instance == USART1)
+    {
+        // En la familia STM32F1, leer el registro SR y luego el DR limpia el error ORE
+        uint32_t er = huart->Instance->SR;
+        uint32_t dr = huart->Instance->DR;
+        (void)er;
+        (void)dr;
+
+        // Forzamos el reinicio de la escucha
+        huart->RxState = HAL_UART_STATE_READY;
         HAL_UART_Receive_IT(&huart1, &byteUART_ESP01, 1);
     }
 }

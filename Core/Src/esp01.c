@@ -926,7 +926,7 @@ static void ESP01SENDData(){
 				if(esp01TXATBuf[esp01irTX] == '>'){
 					esp01Flags.bit.TXCIPSEND = 0;
 					esp01Flags.bit.WAITINGSYMBOL = 1;
-					esp01TimeoutTxSymbol = 5;
+					esp01TimeoutTxSymbol = 50;
 				}
 			}
 			esp01irTX++;

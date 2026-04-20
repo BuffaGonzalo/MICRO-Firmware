@@ -50,7 +50,7 @@ typedef enum{
 } _eESP01STATUS;
 
 
-#define ESP01RXBUFAT		128
+#define ESP01RXBUFAT		512
 #define ESP01TXBUFAT		512 //Aumentado debido a que por el tamano de 256 previo, se sobreescribia el buffer en softAP
 
 
