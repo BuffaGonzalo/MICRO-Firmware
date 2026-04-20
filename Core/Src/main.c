@@ -786,10 +786,11 @@ void ssd1306Data() {
 void i2cTask() {
 	static uint8_t i = IDLE;
 	static uint8_t j = 0;
+	static uint32_t mpu_timeout = 0; // NUEVO: Contador de paciencia
 
 	switch (i) {
 	case IDLE:
-		if (j == i2cIndex) { //Sale por que no hay nuevos elementos
+		if (j == i2cIndex) {
 			break;
 		}
 
@@ -812,23 +813,52 @@ void i2cTask() {
 	case UPD_DISPLAY:
 		if (HAL_I2C_GetState(&hi2c2) == HAL_I2C_STATE_READY) {
 			if (ssd1306_UpdateScreenDMA()) {
-
 				ssd1306_TxCplt = FALSE;
 				i = IDLE;
 			}
 		}
 		break;
 	case ONMPU:
+		// 1. Si el hardware I2C detecta un error eléctrico, forzamos un reinicio inmediato
+		if (HAL_I2C_GetError(&hi2c2) != HAL_I2C_ERROR_NONE) {
+			mpu_timeout = 1000;
+		}
+
+		// 2. Intentamos leer el sensor
 		if (HAL_I2C_GetState(&hi2c2) == HAL_I2C_STATE_READY) {
 			if (mpu6050_Read()) {
-
 				mpu6050_GetData(&ax, &ay, &az, &gx, &gy, &gz);
 				mpu6050_RxCplt = FALSE;
-
 				RUN_PID = TRUE;
-
+				mpu_timeout = 0; // Lectura exitosa: el sensor vive, reseteamos timeout
 				i = IDLE;
+			} else {
+				// Está esperando que el DMA conteste
+				mpu_timeout++;
 			}
+		} else {
+			// El bus I2C está BUSY (Ocupado/Trancado)
+			mpu_timeout++;
+		}
+
+		// 3. --- EL DESFIBRILADOR ---
+		// Si pasó mucho tiempo atascado esperando el DMA o en estado BUSY
+		if (mpu_timeout > 500) {
+			// Apagamos el hardware I2C para limpiar los registros corruptos
+			HAL_I2C_DeInit(&hi2c2);
+
+			// Le damos tiempo a los voltajes de los cables para estabilizarse
+			HAL_Delay(1);
+
+			// Lo volvemos a encender
+			HAL_I2C_Init(&hi2c2);
+
+			// Reconfiguramos los registros del MPU y reseteamos la máquina de estados
+			mpu6050_Init();
+			mpu6050_Reset_State();
+
+			mpu_timeout = 0;
+			i = IDLE; // Volvemos al bucle principal
 		}
 		break;
 	default:

@@ -72,6 +72,8 @@ void mpu6050_Attach_MemWrite(void(*PtrRx)(uint8_t address, uint8_t *data, uint8_
 
 void mpu6050_ADC_ConfCpltCallback(volatile uint8_t *PtrRx);
 
+void mpu6050_Reset_State(void);
+
 ///**
 // * @brief  Obtiene la última lectura de aceleración escalada.
 // * @param  ax Pointer al entero donde se copiará ax_real.

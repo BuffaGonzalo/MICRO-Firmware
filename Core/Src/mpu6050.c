@@ -24,6 +24,7 @@ int16_t gz_real;
 
 // Variables RAW leídas directamente del sensor (int16_t = complemento a dos)
 static int32_t ax, ay, az, gx, gy, gz;
+static uint8_t mpu_state = 1;
 
 void mpu6050_ADC_ConfCpltCallback(volatile uint8_t *PtrRx){
 	mpu6050_RxCplt = (uint8_t *)PtrRx;
@@ -76,28 +77,31 @@ void mpu6050_Init(void)
 
 }
 
+void mpu6050_Reset_State(void) {
+	mpu_state = 1;
+	if (mpu6050_RxCplt != NULL) {
+		*mpu6050_RxCplt = 0;
+	}
+}
+
 char mpu6050_Read(void)
 {
 	static uint8_t Rec_Data[14];
-	static uint8_t state = 1;
 
-	if (*mpu6050_RxCplt || state == 1) {
+	if (*mpu6050_RxCplt || mpu_state == 1) {
 		*mpu6050_RxCplt = 0;  // Reset completion flag
-		switch (state) {
+		switch (mpu_state) {
 		case 1:
-			state=2;
+			mpu_state = 2;
 			// Leer 14 bytes desde ACCEL_XOUT_H (registro 0x3B)
 			mpu6050_ReadDataDMA(Rec_Data, 14, ACCEL_XOUT_H_REG);
 			break;
 		case 2:
-			state=1;
-			// Combinar bytes altos y bajos en variables de 16 bits con signo
-			// ¡Solo guardamos los RAW, sin ninguna división matemática!
+			mpu_state = 1;
+			// Combinar bytes altos y bajos
 			ax = (int16_t) (Rec_Data[0] << 8 | Rec_Data[1]);
 			ay = (int16_t) (Rec_Data[2] << 8 | Rec_Data[3]);
 			az = (int16_t) (Rec_Data[4] << 8 | Rec_Data[5]);
-
-			// t = (int16_t) (Rec_Data[6] << 8 | Rec_Data[7]); // Temperatura
 
 			gx = (int16_t) (Rec_Data[8] << 8 | Rec_Data[9]);
 			gy = (int16_t) (Rec_Data[10] << 8 | Rec_Data[11]);
@@ -109,7 +113,6 @@ char mpu6050_Read(void)
 	}
 	return 0;
 }
-
 void mpu6050_GetData(int16_t *ax_out, int16_t *ay_out, int16_t *az_out, int16_t *gx_out, int16_t *gy_out, int16_t *gz_out) {
     // Pasamos las variables RAW estáticas directamente al main
     if (ax_out) *ax_out = ax;
