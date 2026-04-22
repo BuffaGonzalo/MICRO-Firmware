@@ -50,8 +50,8 @@ typedef enum{
 } _eESP01STATUS;
 
 
-#define ESP01RXBUFAT		512
-#define ESP01TXBUFAT		512 //Aumentado debido a que por el tamano de 256 previo, se sobreescribia el buffer en softAP
+#define ESP01RXBUFAT		1024//512
+#define ESP01TXBUFAT		1024//512 //Aumentado debido a que por el tamano de 256 previo, se sobreescribia el buffer en softAP
 
 
 /**< Inicializa el driver ESP01 UDP */

@@ -93,7 +93,8 @@
 
 ////seguidor de linea
 #define SCALE_LINE			1000
-#define LINE_THRESHOLD		1500
+#define LINE_THRESHOLD		300
+#define IR_THRESHOLD		1400
 
 //Inclinarse para moverse
 //#define KICK_CYCLES  5
@@ -187,6 +188,7 @@ uint8_t hbIndex = 0;
 
 //Wifi
 uint8_t timerUDP = 0;
+uint8_t udpSilenceCounter = 5; // Comienza en 5 para enviar ALIVEs desde el arranque. Se resetea al recibir comandos WiFi.
 uint8_t byteUART_ESP01;
 _sESP01Handle esp01Handler;
 _sButton myButton;
@@ -225,21 +227,21 @@ int32_t ax_filt = 0;
 int32_t az_filt = 0;
 
 //Variables externas PID
-int16_t Kp_stable = 450;
+int16_t Kp_stable = 75;
 int16_t Kd_stable = 8;
-int16_t Ki_stable = 2;
+int16_t Ki_stable = 0;
 // Pasan a ser de 16 bits. minPWM centrado en 735.
 uint16_t maxPWM = 9999;
 uint16_t minPWM = 992; //735
 
 // Offsets que garantizan exactamente los 70 puntos de diferencia
-int16_t offset_left = +58;
-int16_t offset_right = +58; //70
+int16_t offset_left = 58;
+int16_t offset_right = 58; //70
 
 int32_t setpoint = -225; // Angulo unico de trabajo (x100 = 0.5°), ajustable por SETLINECTRL
 
 // Variables del Control de Línea
-int16_t Kp_line = 0; //5
+int16_t Kp_line = 100; //5
 int16_t Kq_line = 0; //2
 int32_t sum_sensors = 0;
 int32_t error_linea = 0;
@@ -249,9 +251,9 @@ int32_t quad_term = 0;
 int32_t turn_offset = 0;
 int32_t last_line_error = 0;
 // Variables escaladas (custom_turn ahora maneja valores de PWM crudos)
-int16_t custom_turn = 450;
-int16_t attack_setpoint = -1000;
-int16_t brake_angle_div = 3;
+int16_t custom_turn = 380;
+int16_t attack_setpoint = 1000;
+int16_t brake_angle_div = 2;
 
 
 ////Dibujo de cubo 3D
@@ -339,7 +341,8 @@ const int8_t sin_LUT[256] = {
 // --- Estado del seguidor de línea ---
 typedef enum {
 	LINE_SEARCHING,  // Buscando linea: avanza con setpoint_base, sin correccion de direccion
-	LINE_FOLLOWING   // Linea detectada: avanza con setpoint_base, PD activo
+	LINE_FOLLOWING,  // Linea detectada: avanza con setpoint_base, PD activo
+	LINE_RESCUE
 } _eLineState;
 
 _eLineState lineState = LINE_SEARCHING;
@@ -472,6 +475,12 @@ void COMMTask(_sComm *dataRx, _sComm *dataTx, uint8_t source) {
 		uint8_t sendBuffer[TXBUFSIZE];
 
 		if (unerPrtcl_DecodeHeader(dataRx)) {
+
+			// Si recibimos un comando válido por WiFi, la PC está conectada.
+			// Resetear el contador de silencio para suprimir los ALIVEs autónomos.
+			if (source == WIFI) {
+				udpSilenceCounter = 0;
+			}
 
 			decodeCommand(dataRx, dataTx);
 
@@ -753,8 +762,19 @@ void do10ms() {
 			timerUDP++;
 			if (timerUDP >= 10) { //Entrar cada 1000ms o 1s
 				timerUDP = 0;
-				/* Solo enviar GETALIVE cuando el UDP esta conectado */
-				if(!isWebserverMode && ESP01_StateUDPTCP() == ESP01_UDPTCP_CONNECTED){
+
+				// Incrementar contador de silencio WiFi (saturar en 5)
+				if (udpSilenceCounter < 5)
+					udpSilenceCounter++;
+
+				/* Enviar ALIVE solo si:
+				 * 1. UDP conectado y no en modo webserver
+				 * 2. La PC NO está comunicándose activamente (silencio > 3s)
+				 * Cuando la PC envía GETMPU/GETADC, udpSilenceCounter se resetea
+				 * en COMMTask, suprimiendo los ALIVEs automáticamente.
+				 */
+				if(!isWebserverMode && ESP01_StateUDPTCP() == ESP01_UDPTCP_CONNECTED
+					&& udpSilenceCounter >= 5){
 					static uint8_t bufferTx[9] = { 'U', 'N', 'E', 'R', 0x03, ':', ALIVE, ACK, 0x98 };
 					ESP01_Send(0, bufferTx, 0, 9, TXBUFSIZE);
 				}
@@ -892,9 +912,9 @@ void i2cTask() {
 		}
 		break;
 	case DATA_DISPLAY:
-		//ssd1306Data();
+		ssd1306Data();
 		//ssd1306_DrawCube();
-		ssd1306_DrawTesseract();
+		//ssd1306_DrawTesseract();
 		i = UPD_DISPLAY;
 		break;
 	case UPD_DISPLAY:
@@ -1017,12 +1037,10 @@ void FeedRxBuf(uint8_t byte)
     ESP01_WriteRX(byte);
 }
 
-
 void DebugESP01_To_USB(const char *msg) {
     // strlen requiere #include <string.h>
     CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
 }
-
 
 // Esta función la llama el driver cuando tiene un byte de datos limpio
 void WiFi_Data_Callback(uint8_t byte)
@@ -1061,7 +1079,6 @@ void WiFi_Data_Callback(uint8_t byte)
         WiFiRx.indexW &= WiFiRx.mask;
     }
 }
-
 
 /* ============================================================
  *  WEBSERVER - Funciones HTTP
@@ -1314,17 +1331,19 @@ void PID_ControlTask(void) {
 	// --- 1. LECTURA E INVERSIÓN DE LÍNEA (Como el código viejo) ---
 	// =========================================================
 	// Volvemos a invertir para que Negro sea un número Alto (~3700)
-	int32_t left_ir   = 4095 - adcData[1];
-	int32_t center_ir = 4095 - adcData[3];
-	int32_t right_ir  = 4095 - adcData[5];
+	// Al restar (Corte - Crudo), el Negro (800) da positivo: 1600 - 800 = 800.
+	// El Blanco (2000+) da negativo: 1600 - 2000 = -400.
+	int32_t left_ir   = adcData[5] - IR_THRESHOLD;
+		int32_t center_ir = adcData[3] - IR_THRESHOLD;
+		int32_t right_ir  = adcData[1] - IR_THRESHOLD;
 
-	if (left_ir   < 0) left_ir   = 0;
-	if (center_ir < 0) center_ir = 0;
-	if (right_ir  < 0) right_ir  = 0;
+		if (left_ir   < 0) left_ir   = 0;
+		if (center_ir < 0) center_ir = 0;
+		if (right_ir  < 0) right_ir  = 0;
 
-	// Suma total de reflectancia
-	sum_sensors = left_ir + center_ir + right_ir;
-	if (sum_sensors == 0) sum_sensors = 1;
+		// Suma total de reflectancia
+		sum_sensors = left_ir + center_ir + right_ir;
+		if (sum_sensors == 0) sum_sensors = 1;
 
 	// =========================================================
 	// --- 2. FILTROS Y CÁLCULO DE ÁNGULO (IMU) ---
@@ -1348,51 +1367,91 @@ void PID_ControlTask(void) {
 	current_angle = current_angle_hr / 100;
 
 	// =========================================================
-		// --- 3. MÁQUINA DE ESTADOS Y ERROR DE LÍNEA ---
-		// =========================================================
-		int32_t target_setpoint = setpoint;
-		turn_offset = 0;
+			// --- 3. MÁQUINA DE ESTADOS Y ERROR DE LÍNEA ---
+			// =========================================================
+			int32_t target_setpoint = setpoint;
+			turn_offset = 0;
 
-		switch (lineState) {
+			switch (lineState) {
 			case LINE_SEARCHING:
-				if (sum_sensors >= LINE_THRESHOLD) {
-					lineState = LINE_FOLLOWING;
-				}
-				break;
+							if (sum_sensors >= LINE_THRESHOLD) {
+								// ¡Encontró la línea negra de nuevo!
+								lineState = LINE_FOLLOWING;
+							} else {
+								// --- ¡ESTO FALTABA! Búsqueda Activa ---
+								// Usamos la memoria de la última vez que vimos la línea
+								if (last_line_error > 0) {
+									turn_offset = 350;  // Gira sobre sí mismo hacia un lado
+								} else {
+									turn_offset = -350; // Gira sobre sí mismo hacia el otro
+								}
 
-			case LINE_FOLLOWING:
-				if (sum_sensors < LINE_THRESHOLD) {
-					// Perdió la línea
-					error_linea = (last_line_error > 0) ? 100 : -100;
-					lineState  = LINE_SEARCHING;
-				} else {
-					error_linea = ((-(1000 * left_ir) + (1000 * right_ir)) / sum_sensors) / 10;
-					int32_t line_derivative = error_linea - last_line_error;
+								// Inversión cinemática: Si íbamos en reversa, la búsqueda
+								// también tiene que ser invertida para usar la "cola" del robot
+								if (attack_setpoint > 0) {
+									turn_offset = -turn_offset;
+								}
 
-					// Cálculo con Kq_line
-					turn_offset = (Kp_line * error_linea + Kq_line * line_derivative) / 4;
+								// Nota: 'target_setpoint' ya arranca valiendo 'setpoint' (equilibrio estático)
+								// al principio del switch, así que al entrar aquí, el autito automáticamente
+								// deja de avanzar/retroceder y se concentra solo en girar.
+							}
+							break;
+				case LINE_FOLLOWING:
+					if (sum_sensors < LINE_THRESHOLD) {
+						// Perdió la línea
+						error_linea = (last_line_error > 0) ? 100 : -100;
+						lineState  = LINE_SEARCHING;
+					} else {
+						error_linea = ((-(1000 * left_ir) + (1000 * right_ir)) / sum_sensors) / 10;
+						int32_t line_derivative = error_linea - last_line_error;
 
-					// ---------------------------------------------------------
-					// --- SISTEMA DE FRENADO EN CURVAS (Compensación Yaw) ---
-					// ---------------------------------------------------------
-					int32_t abs_turn = (turn_offset > 0) ? turn_offset : -turn_offset;
-					int32_t curve_brake = 0;
+						// Cálculo con Kq_line
+						turn_offset = (Kp_line * error_linea + Kq_line * line_derivative) / 4;
 
-					// Protección de hardware: Evita división por cero
-					if (brake_angle_div != 0) {
-						curve_brake = abs_turn / brake_angle_div;
+						// ---------------------------------------------------------
+						// --- NUEVA LÓGICA: INVERSIÓN CINEMÁTICA ---
+						// Si el ataque es positivo (reversa), invertimos el volante
+						if (attack_setpoint > 0) {
+							turn_offset = -turn_offset;
+						}
+						// ---------------------------------------------------------
+
+						// ---------------------------------------------------------
+						// --- SISTEMA DE FRENADO EN CURVAS (Compensación Yaw) ---
+						// ---------------------------------------------------------
+						int32_t abs_turn = (turn_offset > 0) ? turn_offset : -turn_offset;
+						int32_t curve_brake = 0;
+
+						// Protección de hardware: Evita división por cero
+						if (brake_angle_div != 0) {
+							curve_brake = abs_turn / brake_angle_div;
+						}
+
+						// --- NUEVA LÓGICA: Freno Adaptativo (Adelante/Atrás) ---
+						if (attack_setpoint < 0) {
+							// Vamos hacia adelante (Ataque negativo):
+							// Le SUMAMOS el freno para que el ángulo se acerque a 0
+							target_setpoint = setpoint + attack_setpoint + curve_brake;
+						}
+						else if (attack_setpoint > 0) {
+							// Vamos en reversa (Ataque positivo):
+							// Le RESTAMOS el freno para que el ángulo se acerque a 0
+							target_setpoint = setpoint + attack_setpoint - curve_brake;
+						}
+						else {
+							// No hay ataque, se queda en el equilibrio estático
+							target_setpoint = setpoint;
+						}
+
+						// Protección de inclinación máxima (Evita caídas irrecuperables)
+						if (target_setpoint > 5000) { // Ajusta este límite según tu escala x100
+							target_setpoint = 5000;
+						}
+						// ---------------------------------------------------------
 					}
-
-					target_setpoint = attack_setpoint + curve_brake;
-
-					if (target_setpoint > 50) {
-						target_setpoint = 50;
-					}
-					// ---------------------------------------------------------
-				}
-				last_line_error = error_linea;
-				break;
-
+					last_line_error = error_linea;
+					break;
 			default:
 				lineState = LINE_SEARCHING;
 				break;
@@ -1423,7 +1482,7 @@ void PID_ControlTask(void) {
 			// --- CÁLCULO DE LA SALIDA PID ---
 			// El término integral ahora ya contiene el 'dt' acumulado.
 			// El término derivativo se calcula con la diferencia de errores.
-			output = (Kp_stable * error + (Ki_stable * integral) / 1000 + (Kd_stable * derivative)) / 10000;
+			output = (Kp_stable * error + (Ki_stable * integral) / 1000 + (Kd_stable * derivative)/10) / 10000;
 
 			// Guardamos el error para el siguiente ciclo
 			last_error = error;
@@ -1547,7 +1606,6 @@ void ssd1306_DrawCube(void) {
     angle_y += 1;
     angle_z += 3;
 }
-
 
 void ssd1306_DrawTesseract(void) {
     Point2D projected[16];

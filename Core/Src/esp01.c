@@ -61,6 +61,7 @@ static void ESP01ByteToBufTX(uint8_t value);
 static uint32_t esp01TimeoutTask = 0;
 static uint32_t esp01TimeoutDataRx = 0;
 static uint32_t esp01TimeoutTxSymbol = 0;
+static uint32_t esp01TimeoutSendOk = 0;
 static void (*ESP01ChangeState)(_eESP01STATUS esp01State);
 static void (*ESP01DbgStr)(const char *dbgStr);
 
@@ -391,6 +392,17 @@ void ESP01_Timeout10ms(){
 
 	if(esp01TimeoutTxSymbol)
 		esp01TimeoutTxSymbol--;
+
+	// --- NUEVO: WATCHDOG ANTI-CONGELAMIENTO ---
+	if(esp01TimeoutSendOk){
+		esp01TimeoutSendOk--;
+		if(!esp01TimeoutSendOk && esp01Flags.bit.SENDINGDATA){
+			// Destrabamos el envío descartando el paquete atascado.
+			// NO reiniciamos la máquina de estados, solo limpiamos el canal.
+			esp01Flags.bit.SENDINGDATA = 0;
+			esp01irTX = esp01iwTX;
+		}
+	}
 }
 
 void ESP01_Task(){
@@ -461,6 +473,7 @@ static void ESP01ATDecode(){
 					if(value == '>'){
 						esp01Flags.bit.WAITINGSYMBOL = 0;
 						esp01TimeoutTxSymbol = 0;
+						esp01TimeoutSendOk = 300;
 					}
 				}
 			}
@@ -516,8 +529,9 @@ static void ESP01ATDecode(){
 				case 3://ERROR
 					if(esp01Flags.bit.SENDINGDATA){
 						esp01Flags.bit.SENDINGDATA = 0;
-						esp01Flags.bit.UDPTCPCONNECTED = 0;
+						esp01Flags.bit.WAITINGSYMBOL = 0;
 						esp01irTX = esp01iwTX;
+						esp01TimeoutSendOk = 0;
 					}
 					break;
 				case 4://WIFI GOT IP
@@ -550,6 +564,7 @@ static void ESP01ATDecode(){
 					break;
 				case 9://SEND OK
 					esp01Flags.bit.SENDINGDATA = 0;
+					esp01TimeoutSendOk = 0;
 					if(ESP01ChangeState != NULL)
 						ESP01ChangeState(ESP01_SEND_OK);
 					break;
@@ -578,8 +593,12 @@ static void ESP01ATDecode(){
 					esp01ATSate = ESP01ATHARDRSTSTOP;
 					break;
 				case 16://busy p
-					break;
 				case 17://busy s
+					if(esp01Flags.bit.SENDINGDATA){
+						esp01Flags.bit.SENDINGDATA = 0;
+						esp01Flags.bit.WAITINGSYMBOL = 0;
+						esp01irTX = esp01iwTX;
+					}
 					break;
 				}
 			}
@@ -907,11 +926,8 @@ static void ESP01SENDData(){
 			esp01irTX = esp01iwTX;
 			esp01Flags.bit.WAITINGSYMBOL = 0;
 			esp01Flags.bit.SENDINGDATA   = 0;
-			/* En modo webserver NO reiniciamos el AT: el servidor sigue activo */
-			if(!esp01WebServerMode){
-				esp01ATSate = ESP01ATAT;
-				esp01TimeoutTask = 10;
-			}
+			/* En modo UDP / webserver no reiniciamos el AT por timeout de envío */
+			/* Simplemente abortamos la transmisión del paquete perdido */
 		}
 		return;
 	}
