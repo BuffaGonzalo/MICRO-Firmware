@@ -757,6 +757,7 @@ static void ESP01DOConnection(){
 		break;
 	case ESP01ATCWMODE:
 		ESP01StrToBufTX(ATCWMODE);
+		ESP01StrToBufTX("AT+CWAUTOCONN=0\r\n"); // Evitar la conexión automatica a la red
 		if(ESP01DbgStr != NULL)
 			ESP01DbgStr("+&DBGESP01ATCWMODE\n");
 		esp01ATSate = ESP01ATCIPMUX;
@@ -811,10 +812,12 @@ static void ESP01DOConnection(){
 		break;
 	/* ---- FIN NUEVOS ESTADOS ---- */
 	case ESP01ATCWJAP:
+		/*
 		if(esp01Flags.bit.WIFICONNECTED){
 			esp01ATSate = ESP01ATCIFSR;
 			break;
 		}
+		*/
 		if(esp01SSID[0] == '\0')
 			break;
 		ESP01StrToBufTX(ATCWJAP);

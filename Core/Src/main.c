@@ -93,8 +93,8 @@
 
 ////seguidor de linea
 #define SCALE_LINE			1000
-#define LINE_THRESHOLD		300
-#define IR_THRESHOLD		1400
+#define LINE_THRESHOLD		1800
+#define IR_WHITE			2400  // Lectura ADC base sobre superficie blanca (~1800-2000)
 
 //Inclinarse para moverse
 //#define KICK_CYCLES  5
@@ -103,6 +103,12 @@
 
 #define T100MS				100
 #define T1000MS				1000
+
+
+//WIFI
+#define NUM_KNOWN_NETWORKS  (sizeof(knownNetworks) / sizeof(knownNetworks[0]))
+#define NETWORK_MAX_RETRIES  2            /* Intentos por cada red antes de saltar */
+
 
 //banderas
 #define ALLFLAGS          	myFlags.bytes
@@ -204,12 +210,27 @@ static uint8_t isWebserverMode = 0;     /* 1 = modo webserver activo */
 static uint8_t httpTxBuf[340];
 
 /* ---- Destino UDP (guardado desde el formulario web) ---- */
-//static char    udpTargetIP[16]   = "10.93.92.213";
-//static char    udpTargetIP[16]   = "192.168.0.13";
 static char    udpTargetIP[16]   = "172.23.190.89";
 static uint16_t udpTargetPort    = 30010;
 static uint8_t  udpReadyToStart  = 0;
 
+/* ---- TABLA DE REDES CONOCIDAS ---- */
+typedef struct {
+	const char *ssid;
+	const char *password;
+	const char *targetIP;
+} _sWiFiNetwork;
+
+static const _sWiFiNetwork knownNetworks[] = {
+	{ "FCAL",    "fcalconcordia.06-2019",    "172.23.190.89"  },
+	{ "ARPANET", "1969-Apolo_11-2022",       "192.168.0.13"   },
+	{ "SA04",    "12345678",                "10.93.92.213"   },
+};
+
+static uint8_t  currentNetworkIdx  = 0;   /* Indice de la red que estamos intentando */
+static uint8_t  networkScanActive  = 0;   /* 1 = estamos escaneando redes */
+static uint8_t  networkRetryCount  = 0;   /* Reintentos por red antes de pasar a la siguiente */
+static uint16_t networkScanTimer = 0;
 
 //////VARIABLES DE LOS SISTEMAS DE CONTROL//////
 //variables internas
@@ -740,6 +761,25 @@ void do10ms() {
 		ESP01_Timeout10ms();
 		buttonTimeout10ms(&myButton);
 
+		/* Lógica de escaneo autónomo y cíclico de redes */
+		if (networkScanActive) {
+			if (networkScanTimer > 0) {
+				networkScanTimer--;
+			} else {
+				/* Se acabó el tiempo (15 segs). Pasamos a la siguiente red en la lista */
+				currentNetworkIdx++;
+				if (currentNetworkIdx >= NUM_KNOWN_NETWORKS) {
+					currentNetworkIdx = 0; /* Volvemos al inicio de la lista */
+				}
+
+				networkScanTimer = 1500; /* Reiniciamos la paciencia: 15 segundos */
+
+				/* Forzamos al ESP01 a probar la nueva red */
+				ESP01_SetWIFI(knownNetworks[currentNetworkIdx].ssid,
+						knownNetworks[currentNetworkIdx].password);
+			}
+		}
+
 		if (huart1.RxState != HAL_UART_STATE_BUSY_RX) {
 			uint32_t er = huart1.Instance->SR;
 			uint32_t dr = huart1.Instance->DR;
@@ -1175,7 +1215,21 @@ void parseHTTPGetParams(const char *httpReq, char *ssid, char *pass, char *ip, u
 void OnESP01ChangeState(_eESP01STATUS state)
 {
     if(state == ESP01_WIFI_CONNECTED){
-        udpReadyToStart = 1; /* Activar flag: httpTask o do10ms iniciara el UDP */
+        /* ¡Éxito! Se conectó a la red que estábamos evaluando */
+        strncpy(udpTargetIP, knownNetworks[currentNetworkIdx].targetIP, 15);
+        udpTargetIP[15] = '\0';
+
+        networkScanActive = 0; /* Detenemos el escaneo */
+        udpReadyToStart = 1;
+    }
+    else if(state == ESP01_WIFI_DISCONNECTED){
+        /* Si perdemos la conexión en pleno uso, reactivamos la búsqueda */
+        if(!isWebserverMode && !networkScanActive){
+            networkScanActive = 1;
+            networkScanTimer = 1500; /* Le damos 15 segs a la red actual para recuperarse */
+            ESP01_SetWIFI(knownNetworks[currentNetworkIdx].ssid,
+                          knownNetworks[currentNetworkIdx].password);
+        }
     }
 }
 
@@ -1328,18 +1382,18 @@ void PID_ControlTask(void) {
 	RUN_PID = FALSE;
 
 	// =========================================================
-	// --- 1. LECTURA E INVERSIÓN DE LÍNEA (Como el código viejo) ---
+	// --- 1. LECTURA E INVERSIÓN DE LÍNEA ---
 	// =========================================================
-	// Volvemos a invertir para que Negro sea un número Alto (~3700)
-	// Al restar (Corte - Crudo), el Negro (800) da positivo: 1600 - 800 = 800.
-	// El Blanco (2000+) da negativo: 1600 - 2000 = -400.
-	int32_t left_ir   = adcData[5] - IR_THRESHOLD;
-		int32_t center_ir = adcData[3] - IR_THRESHOLD;
-		int32_t right_ir  = adcData[1] - IR_THRESHOLD;
+	// Invertimos: restamos del blanco para que Negro (ADC bajo ~750) dé un valor Alto.
+	// Negro: 2000 - 750 = 1250 (fuerte detección)
+	// Blanco: 2000 - 1900 = 100 (sin detección, se clipea a ~0)
+	int32_t left_ir   = IR_WHITE - (int32_t)adcData[5];
+	int32_t center_ir = IR_WHITE - (int32_t)adcData[3];
+	int32_t right_ir  = IR_WHITE - (int32_t)adcData[1];
 
-		if (left_ir   < 0) left_ir   = 0;
-		if (center_ir < 0) center_ir = 0;
-		if (right_ir  < 0) right_ir  = 0;
+	if (left_ir   < 0) left_ir   = 0;
+	if (center_ir < 0) center_ir = 0;
+	if (right_ir  < 0) right_ir  = 0;
 
 		// Suma total de reflectancia
 		sum_sensors = left_ir + center_ir + right_ir;
@@ -1778,11 +1832,15 @@ int main(void)
   	isWebserverMode = FALSE;
   	//ESP01_SetWebServer("MICRO", "12345678", 5, 3);
 
-  	ESP01_SetWIFI("FCAL","fcalconcordia.06-2019");
-  	//ESP01_SetWIFI("ARPANET", "1969-Apolo_11-2022");
-  	//ESP01_SetWIFI("SA04", "12345678");
-  	//ESP01_SetWIFI("BUFFA24","-NixieBulb2022-");
-  	//ESP01_StartUDP("192.168.0.28", 30010, 30001);
+  	/* ---- AUTO-SCAN DE REDES ----
+  	 * Intenta conectar a cada red conocida en orden.
+  	 * Si falla, el callback OnESP01ChangeState pasa a la siguiente.
+  	 * Cuando conecta, carga la IP correspondiente automáticamente. */
+  	currentNetworkIdx = 0;
+  	networkRetryCount = 0;
+  	networkScanActive = 1;
+  	ESP01_SetWIFI(knownNetworks[currentNetworkIdx].ssid,
+  	              knownNetworks[currentNetworkIdx].password);
 
   	//Inicializacion de protocolo
   	unerPrtcl_Init(&USBRx, &USBTx, buffUSBRx, buffUSBTx);
