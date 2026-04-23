@@ -107,8 +107,8 @@
 
 //WIFI
 #define NUM_KNOWN_NETWORKS  (sizeof(knownNetworks) / sizeof(knownNetworks[0]))
-#define NETWORK_MAX_RETRIES  2            /* Intentos por cada red antes de saltar */
-
+#define NETWORK_MAX_RETRIES 2            /* Intentos por cada red antes de saltar */
+#define SCANTIME			1500
 
 //banderas
 #define ALLFLAGS          	myFlags.bytes
@@ -772,7 +772,7 @@ void do10ms() {
 					currentNetworkIdx = 0; /* Volvemos al inicio de la lista */
 				}
 
-				networkScanTimer = 1500; /* Reiniciamos la paciencia: 15 segundos */
+				networkScanTimer = SCANTIME; /* Reiniciamos la paciencia: 15 segundos */
 
 				/* Forzamos al ESP01 a probar la nueva red */
 				ESP01_SetWIFI(knownNetworks[currentNetworkIdx].ssid,
@@ -1226,7 +1226,7 @@ void OnESP01ChangeState(_eESP01STATUS state)
         /* Si perdemos la conexión en pleno uso, reactivamos la búsqueda */
         if(!isWebserverMode && !networkScanActive){
             networkScanActive = 1;
-            networkScanTimer = 1500; /* Le damos 15 segs a la red actual para recuperarse */
+            networkScanTimer = SCANTIME; /* Le damos 15 segs a la red actual para recuperarse */
             ESP01_SetWIFI(knownNetworks[currentNetworkIdx].ssid,
                           knownNetworks[currentNetworkIdx].password);
         }
@@ -1838,6 +1838,7 @@ int main(void)
   	 * Cuando conecta, carga la IP correspondiente automáticamente. */
   	currentNetworkIdx = 0;
   	networkRetryCount = 0;
+  	networkScanTimer = SCANTIME; /* Darle 15 segs a la primera red*/
   	networkScanActive = 1;
   	ESP01_SetWIFI(knownNetworks[currentNetworkIdx].ssid,
   	              knownNetworks[currentNetworkIdx].password);
