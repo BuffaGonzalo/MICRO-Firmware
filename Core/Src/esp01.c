@@ -21,7 +21,11 @@ static enum {
 	ESP01ATAT,
 	ESP01ATRESPONSE,
 	ESP01ATCWMODE,
+	ESP01CWMODERESPONSE,
+	ESP01ATCWAUTOCONN,
+	ESP01CWAUTOCONNRESPONSE,
 	ESP01ATCIPMUX,
+	ESP01CIPMUXRESPONSE,
 	ESP01ATCWSAP,        /* Nuevo: configura SoftAP */
 	ESP01ATCWDHCP,       /* Nuevo: habilita DHCP del AP */
 	ESP01ATCIPSERVER,    /* Nuevo: inicia servidor HTTP puerto 80 */
@@ -521,7 +525,10 @@ static void ESP01ATDecode(){
 				case 1:
 					break;
 				case 2://OK
-					if(esp01ATSate == ESP01ATRESPONSE){
+					if (esp01ATSate == ESP01ATRESPONSE
+							|| esp01ATSate == ESP01CWMODERESPONSE
+							|| esp01ATSate == ESP01CWAUTOCONNRESPONSE
+							|| esp01ATSate == ESP01CIPMUXRESPONSE) {
 						esp01TimeoutTask = 0;
 						esp01Flags.bit.ATRESPONSEOK = 1;
 					}
@@ -535,29 +542,36 @@ static void ESP01ATDecode(){
 					}
 					break;
 				case 4://WIFI GOT IP
-					esp01TimeoutTask = 0;
-					if(esp01ATSate == ESP01CWJAPRESPONSE)
+					/* SOLO aceptamos el éxito si estábamos esperando la respuesta de nuestro CWJAP */
+					if (esp01ATSate == ESP01CWJAPRESPONSE) {
+						esp01TimeoutTask = 0;
 						esp01Flags.bit.ATRESPONSEOK = 1;
-					esp01Flags.bit.WIFICONNECTED = 1;
-					if(ESP01ChangeState != NULL)
-						ESP01ChangeState(ESP01_WIFI_CONNECTED);
+						esp01Flags.bit.WIFICONNECTED = 1;
+						if (ESP01ChangeState != NULL)
+							ESP01ChangeState(ESP01_WIFI_CONNECTED);
+					}
 					break;
 				case 5://WIFI CONNECTED
 					break;
-				case 6://WIFI DISCONNECT
-				case 7://WIFI DISCONNECTED
+				case 6:			//WIFI DISCONNECT
+				case 7:			//WIFI DISCONNECTED
 					esp01Flags.bit.UDPTCPCONNECTED = 0;
-					if(ESP01ChangeState != NULL)
-						ESP01ChangeState(ESP01_WIFI_DISCONNECTED);
-					/* En modo webserver el WIFI DISCONNECT viene del cliente que se
-					 * desconecta del SoftAP, o de CWMODE=3 al arrancar.
-					 * NO debemos resetear: el servidor HTTP debe seguir activo. */
-					if(esp01WebServerMode)
-						break;
 					esp01Flags.bit.WIFICONNECTED = 0;
-					if(esp01ATSate == ESP01CWJAPRESPONSE)
+
+					/* Si el evento ocurre durante la configuración AT, lo ignoramos
+					 * por completo para evitar abortar el escaneo. */
+					if (esp01ATSate <= ESP01CWJAPRESPONSE
+							|| esp01ATSate >= ESP01ATHARDRST0) {
 						break;
-					esp01ATSate = ESP01ATHARDRSTSTOP;
+					}
+
+					/* Si estábamos verdaderamente conectados y se cayó la red, notificamos a main */
+					if (ESP01ChangeState != NULL)
+						ESP01ChangeState(ESP01_WIFI_DISCONNECTED);
+
+					if (!esp01WebServerMode) {
+						esp01ATSate = ESP01ATHARDRSTSTOP;
+					}
 					break;
 				case 8://DISCONNECTED
 					esp01Flags.bit.UDPTCPCONNECTED = 0;
@@ -592,12 +606,18 @@ static void ESP01ATDecode(){
 					esp01Flags.bit.WIFICONNECTED = 0;
 					esp01ATSate = ESP01ATHARDRSTSTOP;
 					break;
-				case 16://busy p
-				case 17://busy s
-					if(esp01Flags.bit.SENDINGDATA){
+				case 16:			//busy p
+				case 17:			//busy s
+					if (esp01Flags.bit.SENDINGDATA) {
 						esp01Flags.bit.SENDINGDATA = 0;
 						esp01Flags.bit.WAITINGSYMBOL = 0;
 						esp01irTX = esp01iwTX;
+					}
+					/* Si el ESP está "ocupado" internamente con una red vieja, abortamos la
+					 * espera de 15 segundos y forzamos a la librería a reintentar al instante. */
+					if (esp01ATSate > ESP01ATIDLE
+							&& esp01ATSate <= ESP01ATCIFSR) {
+						esp01TimeoutTask = 0;
 					}
 					break;
 				}
@@ -756,24 +776,49 @@ static void ESP01DOConnection(){
 			esp01ATSate = ESP01ATAT;
 		break;
 	case ESP01ATCWMODE:
-		ESP01StrToBufTX(ATCWMODE);
-		ESP01StrToBufTX("AT+CWAUTOCONN=0\r\n"); // Evitar la conexión automatica a la red
-		if(ESP01DbgStr != NULL)
-			ESP01DbgStr("+&DBGESP01ATCWMODE\n");
-		esp01ATSate = ESP01ATCIPMUX;
-		break;
-	case ESP01ATCIPMUX:
-		/* Enviar CIPMUX=1 para WebServer y CIPMUX=0 para UDP normal */
-		if (esp01WebServerMode) {
-			ESP01StrToBufTX("AT+CIPMUX=1\r\n");
-		} else {
-			ESP01StrToBufTX("AT+CIPMUX=0\r\n");
-		}
-		if (ESP01DbgStr != NULL)
-			ESP01DbgStr("+&DBGESP01ATCIPMUX\n");
-		/* Bifurcar: webserver (AP+CIPSERVER) vs. station (CWJAP) */
-		esp01ATSate = (esp01WebServerMode) ? ESP01ATCWSAP : ESP01ATCWJAP;
-		break;
+			ESP01StrToBufTX(ATCWMODE);
+			if(ESP01DbgStr != NULL)
+				ESP01DbgStr("+&DBGESP01ATCWMODE\n");
+			esp01Flags.bit.ATRESPONSEOK = 0;
+			esp01ATSate = ESP01CWMODERESPONSE;
+			break;
+		case ESP01CWMODERESPONSE:
+			if(esp01Flags.bit.ATRESPONSEOK)
+				esp01ATSate = ESP01ATCWAUTOCONN;
+			else
+				esp01ATSate = ESP01ATAT;
+			break;
+
+		case ESP01ATCWAUTOCONN:
+			ESP01StrToBufTX("AT+CWAUTOCONN=0\r\n"); // Evitar la conexión automatica
+			esp01Flags.bit.ATRESPONSEOK = 0;
+			esp01ATSate = ESP01CWAUTOCONNRESPONSE;
+			break;
+		case ESP01CWAUTOCONNRESPONSE:
+			if(esp01Flags.bit.ATRESPONSEOK)
+				esp01ATSate = ESP01ATCIPMUX;
+			else
+				esp01ATSate = ESP01ATAT;
+			break;
+
+		case ESP01ATCIPMUX:
+			/* Enviar CIPMUX=1 para WebServer y CIPMUX=0 para UDP normal */
+			if (esp01WebServerMode) {
+				ESP01StrToBufTX("AT+CIPMUX=1\r\n");
+			} else {
+				ESP01StrToBufTX("AT+CIPMUX=0\r\n");
+			}
+			if (ESP01DbgStr != NULL)
+				ESP01DbgStr("+&DBGESP01ATCIPMUX\n");
+			esp01Flags.bit.ATRESPONSEOK = 0;
+			esp01ATSate = ESP01CIPMUXRESPONSE;
+			break;
+		case ESP01CIPMUXRESPONSE:
+			if(esp01Flags.bit.ATRESPONSEOK)
+				esp01ATSate = (esp01WebServerMode) ? ESP01ATCWSAP : ESP01ATCWJAP;
+			else
+				esp01ATSate = ESP01ATAT;
+			break;
 
 	/* ---- NUEVOS ESTADOS: modo SoftAP + Webserver ---- */
 	case ESP01ATCWSAP:
