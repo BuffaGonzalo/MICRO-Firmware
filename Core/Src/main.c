@@ -93,7 +93,7 @@
 
 ////seguidor de linea
 #define SCALE_LINE			1000
-#define LINE_THRESHOLD		2500//1800
+#define LINE_THRESHOLD		1500//1800
 #define IR_WHITE			2400  // Lectura ADC base sobre superficie blanca (~1800-2000)
 
 //Inclinarse para moverse
@@ -252,8 +252,9 @@ int16_t Kp_stable = 75;
 int16_t Kd_stable = 8;
 int16_t Ki_stable = 0;
 // Pasan a ser de 16 bits. minPWM centrado en 735.
-uint16_t maxPWM = 9999;
-uint16_t minPWM = 992; //735
+uint16_t maxPWM    = 9999;
+uint16_t minPWM_left  = 1050;
+uint16_t minPWM_right = 935;
 
 // Offsets que garantizan exactamente los 70 puntos de diferencia
 int16_t offset_left = 58;
@@ -262,8 +263,8 @@ int16_t offset_right = 58; //70
 int32_t setpoint = -225; // Angulo unico de trabajo (x100 = 0.5°), ajustable por SETLINECTRL
 
 // Variables del Control de Línea
-int16_t Kp_line = 60; // Proporcional para reacción del volante (60 es un buen inicio)
-int16_t Kq_line = 15; // Derivativo para suavizar el giro y evitar oscilaciones
+int16_t Kp_line = 125; // Proporcional para reacción del volante (60 es un buen inicio)
+int16_t Kq_line = 25; // Derivativo para suavizar el giro y evitar oscilaciones
 int32_t sum_sensors = 0;
 int32_t error_linea = 0;
 int32_t abs_error = 0;
@@ -272,8 +273,8 @@ int32_t quad_term = 0;
 int32_t turn_offset = 0;
 int32_t last_line_error = 0;
 // Variables escaladas (custom_turn maneja valores escalados x100)
-int16_t custom_turn = 15000; // 15000 / 100 = 150 de PWM real para giro en búsqueda
-int16_t attack_setpoint = 200; // Inclinación de 2.0° para un avance muy sutil
+int16_t custom_turn = 20; // 15000 / 100 = 150 de PWM real para giro en búsqueda
+int16_t attack_setpoint = -1000; // Inclinación de 2.0° para un avance muy sutil
 int16_t brake_angle_div = 4;
 
 
@@ -621,21 +622,21 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
         myWord.ui8[1]=unerPrtcl_GetByteFromRx(dataRx,1,0);
         Ki_stable = myWord.i16[0];
 		break;
-	case SETPWMLIMMAX:
-        unerPrtcl_PutHeaderOnTx(dataTx, SETPWMLIMMAX, 2);
+	case SETPWMMINR:
+        unerPrtcl_PutHeaderOnTx(dataTx, SETPWMMINR, 2);
         unerPrtcl_PutByteOnTx(dataTx, ACK );
         unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
         myWord.ui8[0]=unerPrtcl_GetByteFromRx(dataRx,1,0);
         myWord.ui8[1]=unerPrtcl_GetByteFromRx(dataRx,1,0);
-        maxPWM = myWord.ui16[0];
+        minPWM_right = myWord.ui16[0];
 		break;
-	case SETPWMLIMMIN:
-        unerPrtcl_PutHeaderOnTx(dataTx, SETPWMLIMMIN, 2);
+	case SETPWMMINL:
+        unerPrtcl_PutHeaderOnTx(dataTx, SETPWMMINL, 2);
         unerPrtcl_PutByteOnTx(dataTx, ACK );
         unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
         myWord.ui8[0]=unerPrtcl_GetByteFromRx(dataRx,1,0);
         myWord.ui8[1]=unerPrtcl_GetByteFromRx(dataRx,1,0);
-        minPWM = myWord.ui16[0];
+        minPWM_left = myWord.ui16[0];
 		break;
 	case SETSETPOINT:
 		unerPrtcl_PutHeaderOnTx(dataTx, SETSETPOINT, 2);
@@ -658,7 +659,7 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 		unerPrtcl_PutHeaderOnTx(dataTx, GETINTERNALDATA, 29);
 
 		// 1. Bloque PID Balancín (10 bytes: Kp, Ki, Kd, Max, Min)
-		int16_t pid_bal[5] = { Kp_stable, Ki_stable, Kd_stable, (int16_t)maxPWM, (int16_t)minPWM };
+		int16_t pid_bal[5] = { Kp_stable, Ki_stable, Kd_stable, (int16_t)minPWM_right, (int16_t)minPWM_left};
 		for (int i = 0; i < 5; i++) {
 			unerPrtcl_PutByteOnTx(dataTx, (uint8_t) (pid_bal[i] & 0xFF));
 			unerPrtcl_PutByteOnTx(dataTx, (uint8_t) ((pid_bal[i] >> 8) & 0xFF));
@@ -1375,24 +1376,26 @@ void buttonTask(_sButton *button){
 }
 
 void PID_ControlTask(void) {
-	int32_t final_pwm;
+	int32_t final_pwm_left;
+	int32_t final_pwm_right;
 
 	if (RUN_PID == FALSE)
 		return;
 	RUN_PID = FALSE;
 
 	// =========================================================
-	// --- 1. LECTURA E INVERSIÓN DE LÍNEA (Basado en tu esquema) ---
+	// --- 1. LECTURA E INVERSIÓN DE LÍNEA (Como el código viejo) ---
 	// =========================================================
-	// IR5 = Izquierda, IR3 = Centro, IR1 = Derecha
-	int32_t left_ir   = IR_WHITE - (int32_t)adcData[5]; // IR5
-	int32_t center_ir = IR_WHITE - (int32_t)adcData[3]; // IR3
-	int32_t right_ir  = IR_WHITE - (int32_t)adcData[1]; // IR1
+	// Volvemos a invertir para que Negro sea un número Alto (~3700)
+	int32_t left_ir   = 4095 - adcData[1];
+	int32_t center_ir = 4095 - adcData[3];
+	int32_t right_ir  = 4095 - adcData[5];
 
 	if (left_ir   < 0) left_ir   = 0;
 	if (center_ir < 0) center_ir = 0;
 	if (right_ir  < 0) right_ir  = 0;
 
+	// Suma total de reflectancia
 	sum_sensors = left_ir + center_ir + right_ir;
 	if (sum_sensors == 0) sum_sensors = 1;
 
@@ -1427,134 +1430,149 @@ void PID_ControlTask(void) {
 		case LINE_SEARCHING:
 			if (sum_sensors >= LINE_THRESHOLD) {
 				lineState = LINE_FOLLOWING;
-			} else {
-				target_setpoint = setpoint + attack_setpoint;
-
-				// Rotación de rescate en el lugar (Escalado / 100)
-				int32_t real_turn = custom_turn / 100;
-				if (last_line_error > 0) {
-					turn_offset = real_turn;
-				} else {
-					turn_offset = -real_turn;
-				}
 			}
 			break;
+
 		case LINE_FOLLOWING:
 			if (sum_sensors < LINE_THRESHOLD) {
+				// Perdió la línea
 				error_linea = (last_line_error > 0) ? 100 : -100;
 				lineState  = LINE_SEARCHING;
 			} else {
-				// CÁLCULO DE ERROR:
-				// Si la línea está en IR1 (Derecha), el error es POSITIVO.
-				// Si la línea está en IR5 (Izquierda), el error es NEGATIVO.
 				error_linea = ((-(1000 * left_ir) + (1000 * right_ir)) / sum_sensors) / 10;
-				int32_t line_derivative = error_linea - last_line_error;
 
-				// Fuerza del volante (PD Puro)
-				turn_offset = (Kp_line * error_linea) + (Kq_line * line_derivative);
+				// ---------------------------------------------------------
+				// --- CONTROL CUADRÁTICO DE LÍNEA ---
+				// turn_offset = Kp_line * error  +  Kq_line * error * |error| / SCALE_LINE
+				//
+				// El término lineal (Kp) domina cerca del centro (error pequeño).
+				// El término cuadrático (Kq) crece con error² y toma el control
+				// en curvas cerradas, produciendo la corrección agresiva necesaria.
+				// SCALE_LINE (1000) evita desbordamiento en int32 sin FPU.
+				// ---------------------------------------------------------
+				abs_error = (error_linea > 0) ? error_linea : -error_linea;
 
+				linear_term = Kp_line * error_linea;
+				quad_term   = (Kq_line * error_linea * abs_error) / SCALE_LINE;
+
+				turn_offset = (linear_term + quad_term) / 4;
+
+				// ---------------------------------------------------------
+				// --- SISTEMA DE FRENADO EN CURVAS (Compensación Yaw) ---
+				// ---------------------------------------------------------
 				int32_t abs_turn = (turn_offset > 0) ? turn_offset : -turn_offset;
 				int32_t curve_brake = 0;
 
+				// Protección de hardware: Evita división por cero
 				if (brake_angle_div != 0) {
 					curve_brake = abs_turn / brake_angle_div;
 				}
 
-				if (attack_setpoint < 0) {
-					target_setpoint = setpoint + attack_setpoint + curve_brake;
-				}
-				else if (attack_setpoint > 0) {
-					target_setpoint = setpoint + attack_setpoint - curve_brake;
-				}
-				else {
-					target_setpoint = setpoint;
-				}
+				target_setpoint = attack_setpoint + curve_brake;
 
-				if (target_setpoint > 5000) {
-					target_setpoint = 5000;
+				if (target_setpoint > 50) {
+					target_setpoint = 50;
 				}
+				// ---------------------------------------------------------
 			}
 			last_line_error = error_linea;
 			break;
+
 		default:
 			lineState = LINE_SEARCHING;
 			break;
 	}
-
+	// --- 4. LAZO PID CENTRAL (Equilibrio Directo) ---
 	// =========================================================
-	// --- 4. LAZO PID CENTRAL (Equilibrio) ---
-	// =========================================================
+	// Reacción instantánea contra el setpoint objetivo
 	error = target_setpoint - current_angle;
+
+	// --- CÁLCULO DE LA DERIVADA ---
+	// Según solicitud: usar la diferencia de errores en lugar del giroscopio directo.
+	// de/dt = (error - last_error) / (DT_MS / 1000)
 	derivative = ((error - last_error) * 1000) / DT_MS;
 
+	// --- MEJORA DEL TÉRMINO INTEGRAL (ANTI-WINDUP) ---
+	// Según solicitud: añadir el 'dt' (DT_MS) en la acumulación de la integral.
+	// Esto permite que Ki_stable no tenga que ser un valor extremadamente bajo.
 	if (error > -150 && error < 150) {
 		integral += error * DT_MS;
+		// Límite escalado: ANG20 * DT_MS (Antes era ANG20 = 2000, ahora es 40000)
 		if (integral > (ANG20 * DT_MS)) integral = ANG20 * DT_MS;
 		if (integral < -(ANG20 * DT_MS)) integral = -(ANG20 * DT_MS);
 	} else {
+		// Si está muy inclinado, la integral "pierde memoria" rápidamente para no molestar
 		integral = (integral * 8) / 10;
 	}
 
-	output = (Kp_stable * error + (Ki_stable * integral) / 1000 + (Kd_stable * derivative)/10) / 10000;
+	// --- CÁLCULO DE LA SALIDA PID ---
+	// El término integral ahora ya contiene el 'dt' acumulado.
+	// El término derivativo se calcula con la diferencia de errores.
+	output = (Kp_stable * error + (Ki_stable * integral) / 1000 + (Kd_stable * derivative)) / 10000;
+
+	// Guardamos el error para el siguiente ciclo
 	last_error = error;
 
 	// =========================================================
-	// --- 5 & 6. MEZCLADOR INDEPENDIENTE Y DEAD-BAND ---
+	// --- 5. INYECCIÓN INSTANTÁNEA DE FRICCIÓN (minPWM) ---
 	// =========================================================
-	// Si el error es positivo (línea a la derecha / IR1), turn_offset es positivo.
-	// pwm_left aumenta (Va más hacia adelante), pwm_right disminuye (Va hacia atrás).
-	int32_t raw_left = output + turn_offset;
-	int32_t raw_right = output - turn_offset;
 
-	int32_t pwm_left = 0;
-	int32_t pwm_right = 0;
-
-	if (raw_left > 0) {
-		pwm_left = raw_left + minPWM + offset_left;
-	} else if (raw_left < 0) {
-		pwm_left = raw_left - minPWM - offset_left;
-	}
-
-	if (raw_right > 0) {
-		pwm_right = raw_right + minPWM + offset_right;
-	} else if (raw_right < 0) {
-		pwm_right = raw_right - minPWM - offset_right;
+	if (output > 0) {
+	    final_pwm_left  = output + minPWM_left;
+	    final_pwm_right = output + minPWM_right;
+	} else if (output < 0) {
+	    final_pwm_left  = output - minPWM_left;
+	    final_pwm_right = output - minPWM_right;
+	} else {
+	    final_pwm_left  = 0;
+	    final_pwm_right = 0;
 	}
 
 	if (current_angle > ANG45 || current_angle < -ANG45) {
-		pwm_left = 0;
-		pwm_right = 0;
-		integral = 0;
+	    final_pwm_left  = 0;
+	    final_pwm_right = 0;
+	    integral = 0;
 	}
 
-	if (pwm_left > (int32_t) maxPWM) pwm_left = (int32_t) maxPWM;
-	if (pwm_left < -(int32_t) maxPWM) pwm_left = -(int32_t) maxPWM;
+	// =========================================================
+	// --- 6. MIXER DIRECCIONAL Y SATURACIÓN ---
+	// =========================================================
+	int32_t pwm_left  = final_pwm_left;
+	int32_t pwm_right = final_pwm_right;
 
-	if (pwm_right > (int32_t) maxPWM) pwm_right = (int32_t) maxPWM;
-	if (pwm_right < -(int32_t) maxPWM) pwm_right = -(int32_t) maxPWM;
+	// Referencia de signo: usamos final_pwm_left que hereda el signo de output
+	if (final_pwm_left != 0) {
+	    if (final_pwm_left > 0) {
+	        pwm_left  += (offset_left  + turn_offset);
+	        pwm_right += (offset_right - turn_offset);
+	    } else {
+	        pwm_left  -= (offset_left  + turn_offset);
+	        pwm_right -= (offset_right - turn_offset);
+	    }
+	}
 
 	// =========================================================
-	// --- 7. MAPEO AL HARDWARE (Según tu instrucción exacta) ---
+	// --- 7. MAPEO AL HARDWARE CORREGIDO ---
 	// =========================================================
-
-	// MOTOR IZQUIERDO
+	// Izquierda: CH4 (Adelante), CH3 (Atrás)
 	if (pwm_left > 0) {
-		lPulse1 = (uint16_t) pwm_left;    // Adelante -> CH1 (Según lo pedido)
-		rPulse2 = 0;                      // Atrás -> CH2
+		rPulse4 = (uint16_t) pwm_left;
+		lPulse3 = 0;
 	} else {
-		rPulse2 = (uint16_t) (-pwm_left); // Atrás -> CH2
-		lPulse1 = 0;                      // Adelante -> CH1
+		lPulse3 = (uint16_t) (-pwm_left);
+		rPulse4 = 0;
 	}
 
-	// MOTOR DERECHO
+	// Derecha: CH2 (Adelante), CH1 (Atrás)
 	if (pwm_right > 0) {
-		lPulse3 = (uint16_t) pwm_right;   // Adelante -> CH3 (Según lo pedido)
-		rPulse4 = 0;                      // Atrás -> CH4
+		rPulse2 = (uint16_t) pwm_right;
+		lPulse1 = 0;
 	} else {
-		rPulse4 = (uint16_t) (-pwm_right);// Atrás -> CH4
-		lPulse3 = 0;                      // Adelante -> CH3
+		lPulse1 = (uint16_t) (-pwm_right);
+		rPulse2 = 0;
 	}
 }
+
 void ssd1306_DrawCube(void) {
     Point2D projected[8];
 
