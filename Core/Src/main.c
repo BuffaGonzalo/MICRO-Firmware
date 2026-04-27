@@ -253,12 +253,12 @@ int16_t Kd_stable = 8;
 int16_t Ki_stable = 0;
 // Pasan a ser de 16 bits. minPWM centrado en 735.
 uint16_t maxPWM    = 9999;
-uint16_t minPWM_left  = 1050;
-uint16_t minPWM_right = 935;
+uint16_t minPWM_left  = 1100;
+uint16_t minPWM_right = 1060;
 
 // Offsets que garantizan exactamente los 70 puntos de diferencia
-int16_t offset_left = 58;
-int16_t offset_right = 58; //70
+int16_t offset_left = 8;
+int16_t offset_right = 20; //70
 
 int32_t setpoint = -225; // Angulo unico de trabajo (x100 = 0.5°), ajustable por SETLINECTRL
 
@@ -275,7 +275,7 @@ int32_t last_line_error = 0;
 // Variables escaladas (custom_turn maneja valores escalados x100)
 int16_t custom_turn = 20; // 15000 / 100 = 150 de PWM real para giro en búsqueda
 int16_t attack_setpoint = -1000; // Inclinación de 2.0° para un avance muy sutil
-int16_t brake_angle_div = 4;
+int16_t brake_angle_div = 4; //Valor menor aumenta la velocidad en curvas
 
 
 ////Dibujo de cubo 3D
