@@ -94,7 +94,11 @@
 ////seguidor de linea
 #define SCALE_LINE			1000
 #define LINE_THRESHOLD		1500//1800
-#define IR_WHITE			2400  // Lectura ADC base sobre superficie blanca (~1800-2000)
+#define IR_WHITE			1500  // Lectura ADC base sobre superficie blanca (~1800-2000)
+#define LINE_LOST_PHASE0  	30
+#define LINE_LOST_PHASE1  	60
+#define TURNPWM_LEFT		900
+#define TURNPWM_RIGHT		830
 
 //Inclinarse para moverse
 //#define KICK_CYCLES  5
@@ -277,6 +281,10 @@ int16_t custom_turn = 20; // 15000 / 100 = 150 de PWM real para giro en búsqued
 int16_t attack_setpoint = -1000; // Inclinación de 2.0° para un avance muy sutil
 int16_t brake_angle_div = 4; //Valor menor aumenta la velocidad en curvas
 
+// Fases y tiempos de búsqueda activa en LINE_LOST.
+uint8_t line_lost_timer = 0;
+uint8_t line_lost_phase = 0;
+
 
 ////Dibujo de cubo 3D
 // --- ESTRUCTURAS Y VARIABLES PARA EL CUBO 3D (100% Enteros) ---
@@ -362,9 +370,10 @@ const int8_t sin_LUT[256] = {
 
 // --- Estado del seguidor de línea ---
 typedef enum {
-	LINE_SEARCHING,  // Buscando linea: avanza con setpoint_base, sin correccion de direccion
-	LINE_FOLLOWING,  // Linea detectada: avanza con setpoint_base, PD activo
-	LINE_RESCUE
+    LINE_SEARCHING,  // Todo blanco
+    LINE_FOLLOWING,  // Seguimiento normal
+	LINE_LOST,
+    LINE_CROSS       // Todo negro (Intersección en T)
 } _eLineState;
 
 _eLineState lineState = LINE_SEARCHING;
@@ -1376,26 +1385,22 @@ void buttonTask(_sButton *button){
 }
 
 void PID_ControlTask(void) {
-	int32_t final_pwm_left;
-	int32_t final_pwm_right;
-
 	if (RUN_PID == FALSE)
 		return;
 	RUN_PID = FALSE;
 
 	// =========================================================
-	// --- 1. LECTURA E INVERSIÓN DE LÍNEA (Como el código viejo) ---
+	// --- 1. LECTURA E INVERSIÓN DE LÍNEA ---
 	// =========================================================
-	// Volvemos a invertir para que Negro sea un número Alto (~3700)
-	int32_t left_ir   = 4095 - adcData[1];
+	// Sensor Izquierdo = IR5, Centro = IR3, Derecho = IR1
+	int32_t left_ir   = 4095 - adcData[5];
 	int32_t center_ir = 4095 - adcData[3];
-	int32_t right_ir  = 4095 - adcData[5];
+	int32_t right_ir  = 4095 - adcData[1];
 
 	if (left_ir   < 0) left_ir   = 0;
 	if (center_ir < 0) center_ir = 0;
 	if (right_ir  < 0) right_ir  = 0;
 
-	// Suma total de reflectancia
 	sum_sensors = left_ir + center_ir + right_ir;
 	if (sum_sensors == 0) sum_sensors = 1;
 
@@ -1426,44 +1431,57 @@ void PID_ControlTask(void) {
 	int32_t target_setpoint = setpoint;
 	turn_offset = 0;
 
+	uint8_t ir1_active   = (left_ir   > IR_WHITE);
+	uint8_t ir3_active   = (center_ir > IR_WHITE);
+	uint8_t ir5_active   = (right_ir  > IR_WHITE);
+	uint8_t active_count = ir1_active + ir3_active + ir5_active;
+
 	switch (lineState) {
+
+		// ---------------------------------------------------------
+		// LINE_SEARCHING
+		// Estado inicial y fallback general. Sin línea detectada.
+		// Espera pasiva hasta que el sensor central encuentre línea.
+		// ---------------------------------------------------------
 		case LINE_SEARCHING:
-			if (sum_sensors >= LINE_THRESHOLD) {
+			if (ir3_active) {
 				lineState = LINE_FOLLOWING;
 			}
 			break;
 
+		// ---------------------------------------------------------
+		// LINE_FOLLOWING
+		// Estado nominal. Control cuadrático activo con frenado
+		// en curvas. Si los 3 sensores quedan en blanco transiciona
+		// a LINE_LOST. Si los 3 están en negro es un cruce.
+		// ---------------------------------------------------------
 		case LINE_FOLLOWING:
-			if (sum_sensors < LINE_THRESHOLD) {
-				// Perdió la línea
-				error_linea = (last_line_error > 0) ? 100 : -100;
-				lineState  = LINE_SEARCHING;
-			} else {
-				error_linea = ((-(1000 * left_ir) + (1000 * right_ir)) / sum_sensors) / 10;
 
-				// ---------------------------------------------------------
-				// --- CONTROL CUADRÁTICO DE LÍNEA ---
-				// turn_offset = Kp_line * error  +  Kq_line * error * |error| / SCALE_LINE
-				//
-				// El término lineal (Kp) domina cerca del centro (error pequeño).
-				// El término cuadrático (Kq) crece con error² y toma el control
-				// en curvas cerradas, produciendo la corrección agresiva necesaria.
-				// SCALE_LINE (1000) evita desbordamiento en int32 sin FPU.
-				// ---------------------------------------------------------
-				abs_error = (error_linea > 0) ? error_linea : -error_linea;
+			if (active_count == 3 && ir1_active && ir3_active && ir5_active) {
+				lineState = LINE_CROSS;
+				break;
+			}
 
-				linear_term = Kp_line * error_linea;
-				quad_term   = (Kq_line * error_linea * abs_error) / SCALE_LINE;
+			if (active_count == 0) {
+				// Perdió la línea completamente → búsqueda activa.
+				line_lost_timer = 0;
+				line_lost_phase = 0;
+				lineState = LINE_LOST;
+				break;
+			}
 
-				turn_offset = (linear_term + quad_term) / 4;
+			// Caso normal: al menos 1 sensor activo.
+			error_linea = ((-(1000 * left_ir) + (1000 * right_ir)) / sum_sensors) / 10;
 
-				// ---------------------------------------------------------
-				// --- SISTEMA DE FRENADO EN CURVAS (Compensación Yaw) ---
-				// ---------------------------------------------------------
-				int32_t abs_turn = (turn_offset > 0) ? turn_offset : -turn_offset;
+			abs_error   = (error_linea > 0) ? error_linea : -error_linea;
+			linear_term = Kp_line * error_linea;
+			quad_term   = (Kq_line * error_linea * abs_error) / SCALE_LINE;
+			turn_offset = (linear_term + quad_term) / 4;
+
+			{
+				int32_t abs_turn    = (turn_offset > 0) ? turn_offset : -turn_offset;
 				int32_t curve_brake = 0;
 
-				// Protección de hardware: Evita división por cero
 				if (brake_angle_div != 0) {
 					curve_brake = abs_turn / brake_angle_div;
 				}
@@ -1473,104 +1491,182 @@ void PID_ControlTask(void) {
 				if (target_setpoint > 50) {
 					target_setpoint = 50;
 				}
-				// ---------------------------------------------------------
 			}
+
 			last_line_error = error_linea;
 			break;
 
+		// ---------------------------------------------------------
+		// LINE_LOST
+		// Los 3 sensores quedaron en blanco. Búsqueda en 3 fases:
+		//
+		// Fase 0: gira hacia el lado del último error conocido
+		//         durante LINE_LOST_PHASE0 ciclos.
+		// Fase 1: gira hacia el lado contrario durante
+		//         LINE_LOST_PHASE1 ciclos (barrido opuesto).
+		// Fase 2: rotación en el lugar indefinida hasta que el
+		//         sensor central encuentre la línea.
+		//
+		// En las 3 fases, la única condición de salida es que
+		// ir3_active (sensor central) detecte línea.
+		// El robot no avanza durante la búsqueda (setpoint = 0).
+		// ---------------------------------------------------------
+		case LINE_LOST:
+
+			if (ir3_active) {
+				// Sensor central encontró línea → retoma seguimiento.
+				lineState = LINE_FOLLOWING;
+				break;
+			}
+
+			if (line_lost_phase == 0) {
+				// --- FASE 0: gira hacia el lado del último error ---
+				// Si last_line_error > 0 la línea estaba a la derecha → gira derecha.
+				// Si last_line_error < 0 la línea estaba a la izquierda → gira izquierda.
+				turn_offset = (last_line_error > 0) ? custom_turn : -custom_turn;
+				target_setpoint = 0; // Sin avance, solo rotación suave.
+
+				line_lost_timer++;
+				if (line_lost_timer >= LINE_LOST_PHASE0) {
+					line_lost_timer = 0;
+					line_lost_phase = 1;
+				}
+
+			} else if (line_lost_phase == 1) {
+				// --- FASE 1: gira hacia el lado contrario ---
+				// Barrido opuesto al de la fase 0.
+				turn_offset = (last_line_error > 0) ? -custom_turn : custom_turn;
+				target_setpoint = 0;
+
+				line_lost_timer++;
+				if (line_lost_timer >= LINE_LOST_PHASE1) {
+					line_lost_timer = 0;
+					line_lost_phase = 2;
+				}
+
+			} else {
+				// --- FASE 2: rotación en el lugar indefinida ---
+				// Mantiene la dirección de la fase 1 (mismo lado contrario)
+				// hasta que el sensor central encuentre la línea.
+				turn_offset = (last_line_error > 0) ? -custom_turn : custom_turn;
+				target_setpoint = 0;
+			}
+			break;
+
+		// ---------------------------------------------------------
+		// LINE_CROSS
+		// Los 3 sensores en negro: cruce o intersección.
+		// Avanza recto hasta salir del cruce.
+		// ---------------------------------------------------------
+		case LINE_CROSS:
+
+			if (active_count < 3) {
+				lineState = LINE_FOLLOWING;
+				break;
+			}
+
+			target_setpoint = attack_setpoint;
+			break;
+
+		// ---------------------------------------------------------
+		// default: valor corrupto → estado inicial seguro.
+		// ---------------------------------------------------------
 		default:
 			lineState = LINE_SEARCHING;
 			break;
 	}
+
+	// =========================================================
 	// --- 4. LAZO PID CENTRAL (Equilibrio Directo) ---
 	// =========================================================
-	// Reacción instantánea contra el setpoint objetivo
 	error = target_setpoint - current_angle;
-
-	// --- CÁLCULO DE LA DERIVADA ---
-	// Según solicitud: usar la diferencia de errores en lugar del giroscopio directo.
-	// de/dt = (error - last_error) / (DT_MS / 1000)
 	derivative = ((error - last_error) * 1000) / DT_MS;
 
-	// --- MEJORA DEL TÉRMINO INTEGRAL (ANTI-WINDUP) ---
-	// Según solicitud: añadir el 'dt' (DT_MS) en la acumulación de la integral.
-	// Esto permite que Ki_stable no tenga que ser un valor extremadamente bajo.
 	if (error > -150 && error < 150) {
 		integral += error * DT_MS;
-		// Límite escalado: ANG20 * DT_MS (Antes era ANG20 = 2000, ahora es 40000)
 		if (integral > (ANG20 * DT_MS)) integral = ANG20 * DT_MS;
 		if (integral < -(ANG20 * DT_MS)) integral = -(ANG20 * DT_MS);
 	} else {
-		// Si está muy inclinado, la integral "pierde memoria" rápidamente para no molestar
 		integral = (integral * 8) / 10;
 	}
 
-	// --- CÁLCULO DE LA SALIDA PID ---
-	// El término integral ahora ya contiene el 'dt' acumulado.
-	// El término derivativo se calcula con la diferencia de errores.
 	output = (Kp_stable * error + (Ki_stable * integral) / 1000 + (Kd_stable * derivative)) / 10000;
-
-	// Guardamos el error para el siguiente ciclo
 	last_error = error;
 
 	// =========================================================
-	// --- 5. INYECCIÓN INSTANTÁNEA DE FRICCIÓN (minPWM) ---
-	// =========================================================
+		// --- 5. INYECCIÓN INSTANTÁNEA DE FRICCIÓN (minPWM) ---
+		// =========================================================
+		int32_t final_pwm_left;
+		int32_t final_pwm_right;
 
-	if (output > 0) {
-	    final_pwm_left  = output + minPWM_left;
-	    final_pwm_right = output + minPWM_right;
-	} else if (output < 0) {
-	    final_pwm_left  = output - minPWM_left;
-	    final_pwm_right = output - minPWM_right;
-	} else {
-	    final_pwm_left  = 0;
-	    final_pwm_right = 0;
-	}
+		if (output > 0) {
+			final_pwm_left  = output + minPWM_left;
+			final_pwm_right = output + minPWM_right;
+		} else if (output < 0) {
+			final_pwm_left  = output - minPWM_left;
+			final_pwm_right = output - minPWM_right;
+		} else {
+			final_pwm_left  = 0;
+			final_pwm_right = 0;
+		}
 
-	if (current_angle > ANG45 || current_angle < -ANG45) {
-	    final_pwm_left  = 0;
-	    final_pwm_right = 0;
-	    integral = 0;
-	}
+		if (current_angle > ANG45 || current_angle < -ANG45) {
+			final_pwm_left  = 0;
+			final_pwm_right = 0;
+			integral = 0;
+		}
 
-	// =========================================================
-	// --- 6. MIXER DIRECCIONAL Y SATURACIÓN ---
-	// =========================================================
-	int32_t pwm_left  = final_pwm_left;
-	int32_t pwm_right = final_pwm_right;
+		// =========================================================
+		// --- 6. MIXER DIRECCIONAL Y SATURACIÓN ---
+		// =========================================================
+		int32_t pwm_left  = final_pwm_left;
+		int32_t pwm_right = final_pwm_right;
 
-	// Referencia de signo: usamos final_pwm_left que hereda el signo de output
-	if (final_pwm_left != 0) {
-	    if (final_pwm_left > 0) {
-	        pwm_left  += (offset_left  + turn_offset);
-	        pwm_right += (offset_right - turn_offset);
-	    } else {
-	        pwm_left  -= (offset_left  + turn_offset);
-	        pwm_right -= (offset_right - turn_offset);
-	    }
-	}
+		if (lineState == LINE_LOST) {
+			if (turn_offset > 0) {
+				pwm_left  = -TURNPWM_LEFT;
+				pwm_right =  TURNPWM_RIGHT;
+			} else {
+				pwm_left  =  TURNPWM_LEFT;
+				pwm_right = -TURNPWM_RIGHT;
+			}
+		} else {
+			if (final_pwm_left != 0) {
+				if (final_pwm_left > 0) {
+					pwm_left  += (offset_left  - turn_offset);
+					pwm_right += (offset_right + turn_offset);
+				} else {
+					pwm_left  -= (offset_left  - turn_offset);
+					pwm_right -= (offset_right + turn_offset);
+				}
+			}
+		}
 
-	// =========================================================
-	// --- 7. MAPEO AL HARDWARE CORREGIDO ---
-	// =========================================================
-	// Izquierda: CH4 (Adelante), CH3 (Atrás)
-	if (pwm_left > 0) {
-		rPulse4 = (uint16_t) pwm_left;
-		lPulse3 = 0;
-	} else {
-		lPulse3 = (uint16_t) (-pwm_left);
-		rPulse4 = 0;
-	}
+		if (pwm_left  >  (int32_t) maxPWM) pwm_left  =  (int32_t) maxPWM;
+		if (pwm_left  < -(int32_t) maxPWM) pwm_left  = -(int32_t) maxPWM;
+		if (pwm_right >  (int32_t) maxPWM) pwm_right =  (int32_t) maxPWM;
+		if (pwm_right < -(int32_t) maxPWM) pwm_right = -(int32_t) maxPWM;
 
-	// Derecha: CH2 (Adelante), CH1 (Atrás)
-	if (pwm_right > 0) {
-		rPulse2 = (uint16_t) pwm_right;
-		lPulse1 = 0;
-	} else {
-		lPulse1 = (uint16_t) (-pwm_right);
-		rPulse2 = 0;
-	}
+		// =========================================================
+		// --- 7. MAPEO AL HARDWARE ---
+		// =========================================================
+		// Izquierda: CH4 (Adelante), CH3 (Atrás)
+		if (pwm_left > 0) {
+			rPulse4 = (uint16_t) pwm_left;
+			lPulse3 = 0;
+		} else {
+			lPulse3 = (uint16_t) (-pwm_left);
+			rPulse4 = 0;
+		}
+
+		// Derecha: CH2 (Adelante), CH1 (Atrás)
+		if (pwm_right > 0) {
+			rPulse2 = (uint16_t) pwm_right;
+			lPulse1 = 0;
+		} else {
+			lPulse1 = (uint16_t) (-pwm_right);
+			rPulse2 = 0;
+		}
 }
 
 void ssd1306_DrawCube(void) {
