@@ -38,5 +38,14 @@ void WIREGFX_Graphics_DrawCube(void);
  */
 void WIREGFX_Graphics_DrawTesseract(void);
 
+/**
+ * @brief Dibuja una pirámide rotando en la pantalla OLED.
+ */
+void WIREGFX_Graphics_DrawPyramid(void);
+
+/**
+ * @brief Dibuja una esfera rotando en la pantalla OLED.
+ */
+void WIREGFX_Graphics_DrawSphere(void);
 
 #endif /* INC_WIREGFX_H_ */

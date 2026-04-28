@@ -27,6 +27,7 @@
 #include "util.h"
 #include "img.h"
 #include "fonts.h"
+#include "wiregfx.h"
 
 #include "ssd1306.h"
 #include "mpu6050.h"
@@ -889,9 +890,11 @@ void i2cTask() {
 		}
 		break;
 	case DATA_DISPLAY:
-		ssd1306Data();
+		//ssd1306Data();
 		//WIREGFX_DrawCube();
 		//WIREGFX_DrawTesseract();
+		//WIREGFX_Graphics_DrawPyramid();
+		WIREGFX_Graphics_DrawSphere();
 		i = UPD_DISPLAY;
 		break;
 	case UPD_DISPLAY:

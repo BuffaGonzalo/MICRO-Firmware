@@ -58,6 +58,48 @@ static const int tesseract_edges[32][2] = {
     {0,8}, {1,9}, {2,10}, {3,11}, {4,12}, {5,13}, {6,14}, {7,15}
 };
 
+// --- Vértices y Aristas de la Pirámide ---
+static const Point3D pyramid_vertices[5] = {
+    {  0, -20,   0}, // 0: Punta (Apex) - Y negativo va hacia "arriba" en la pantalla
+    {-16,  16, -16}, // 1: Base Izquierda-Atrás
+    { 16,  16, -16}, // 2: Base Derecha-Atrás
+    { 16,  16,  16}, // 3: Base Derecha-Adelante
+    {-16,  16,  16}  // 4: Base Izquierda-Adelante
+};
+
+static const int pyramid_edges[8][2] = {
+    {0, 1}, {0, 2}, {0, 3}, {0, 4}, // Lineas de la punta a la base
+    {1, 2}, {2, 3}, {3, 4}, {4, 1}  // Lineas que forman el cuadrado de la base
+};
+
+// --- Vértices y Aristas de la Esfera (Low-Poly) ---
+// Tiene un Polo Norte, un Polo Sur, y dos anillos (Ecuador y zonas templadas)
+static const Point3D sphere_vertices[14] = {
+    {  0, -20,   0}, // 0: Polo Norte
+    {  0,  20,   0}, // 1: Polo Sur
+
+    // Anillo Superior (Y = -10)
+    { 14, -10,   0}, {  0, -10,  14}, {-14, -10,   0}, {  0, -10, -14},
+
+    // Anillo Central (Ecuador, Y = 0)
+    { 20,   0,   0}, {  0,   0,  20}, {-20,   0,   0}, {  0,   0, -20},
+
+    // Anillo Inferior (Y = 10)
+    { 14,  10,   0}, {  0,  10,  14}, {-14,  10,   0}, {  0,  10, -14}
+};
+
+static const int sphere_edges[24][2] = {
+    // Conexiones del Polo Norte al anillo superior
+    {0, 2}, {0, 3}, {0, 4}, {0, 5},
+    // Conexiones Anillo Sup -> Ecuador
+    {2, 6}, {3, 7}, {4, 8}, {5, 9},
+    {2, 7}, {3, 8}, {4, 9}, {5, 6}, // Diagonales para dar volumen
+    // Conexiones Ecuador -> Anillo Inf
+    {6, 10}, {7, 11}, {8, 12}, {9, 13},
+    {7, 10}, {8, 11}, {9, 12}, {6, 13}, // Diagonales
+    // Conexiones Anillo Inf -> Polo Sur
+    {10, 1}, {11, 1}, {12, 1}, {13, 1}
+};
 // --- Implementación de Funciones ---
 
 void WIREGFX_Graphics_DrawCube(void) {
@@ -144,4 +186,89 @@ void WIREGFX_Graphics_DrawTesseract(void) {
     }
 
     angle_xz += 1; angle_yz += 1; angle_xw += 2;
+}
+
+void WIREGFX_Graphics_DrawPyramid(void) {
+    Point2D projected[5];
+    int32_t sin_x = sin_LUT[angle_x];
+    int32_t cos_x = sin_LUT[(uint8_t)(angle_x + 64)];
+    int32_t sin_y = sin_LUT[angle_y];
+    int32_t cos_y = sin_LUT[(uint8_t)(angle_y + 64)];
+    int32_t sin_z = sin_LUT[angle_z];
+    int32_t cos_z = sin_LUT[(uint8_t)(angle_z + 64)];
+
+    ssd1306_Fill(Black);
+
+    // 1. Rotar y proyectar los 5 vértices
+    for (int i = 0; i < 5; i++) {
+        int32_t x = pyramid_vertices[i].x;
+        int32_t y = pyramid_vertices[i].y;
+        int32_t z = pyramid_vertices[i].z;
+
+        int32_t xy = (y * cos_x - z * sin_x) >> 7;
+        int32_t xz = (y * sin_x + z * cos_x) >> 7;
+        y = xy; z = xz;
+
+        int32_t yx = (x * cos_y + z * sin_y) >> 7;
+        int32_t yz = (-x * sin_y + z * cos_y) >> 7;
+        x = yx; z = yz;
+
+        int32_t zx = (x * cos_z - y * sin_z) >> 7;
+        int32_t zy = (x * sin_z + y * cos_z) >> 7;
+        x = zx; y = zy;
+
+        projected[i].x = x + CENTER_X;
+        projected[i].y = y + CENTER_Y;
+    }
+
+    // 2. Dibujar las 8 aristas
+    for (int i = 0; i < 8; i++) {
+        ssd1306_Line(projected[pyramid_edges[i][0]].x, projected[pyramid_edges[i][0]].y,
+                     projected[pyramid_edges[i][1]].x, projected[pyramid_edges[i][1]].y, White);
+    }
+
+    // Incremento de ángulos (puedes jugar con estos valores)
+    angle_x += 2; angle_y += 3; angle_z += 1;
+}
+
+void WIREGFX_Graphics_DrawSphere(void) {
+    Point2D projected[14]; // 14 vértices
+
+    int32_t sin_x = sin_LUT[angle_x];
+    int32_t cos_x = sin_LUT[(uint8_t)(angle_x + 64)];
+    int32_t sin_y = sin_LUT[angle_y];
+    int32_t cos_y = sin_LUT[(uint8_t)(angle_y + 64)];
+    int32_t sin_z = sin_LUT[angle_z];
+    int32_t cos_z = sin_LUT[(uint8_t)(angle_z + 64)];
+
+    ssd1306_Fill(Black);
+
+    for (int i = 0; i < 14; i++) {
+        int32_t x = sphere_vertices[i].x;
+        int32_t y = sphere_vertices[i].y;
+        int32_t z = sphere_vertices[i].z;
+
+        // Rotaciones matriciales
+        int32_t xy = (y * cos_x - z * sin_x) >> 7;
+        int32_t xz = (y * sin_x + z * cos_x) >> 7;
+        y = xy; z = xz;
+
+        int32_t yx = (x * cos_y + z * sin_y) >> 7;
+        int32_t yz = (-x * sin_y + z * cos_y) >> 7;
+        x = yx; z = yz;
+
+        int32_t zx = (x * cos_z - y * sin_z) >> 7;
+        int32_t zy = (x * sin_z + y * cos_z) >> 7;
+        x = zx; y = zy;
+
+        projected[i].x = x + CENTER_X;
+        projected[i].y = y + CENTER_Y;
+    }
+
+    for (int i = 0; i < 24; i++) { // 24 aristas
+        ssd1306_Line(projected[sphere_edges[i][0]].x, projected[sphere_edges[i][0]].y,
+                     projected[sphere_edges[i][1]].x, projected[sphere_edges[i][1]].y, White);
+    }
+
+    angle_x += 1; angle_y += 2; angle_z += 1; // Giro suave
 }
