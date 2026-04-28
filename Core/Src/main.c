@@ -95,8 +95,8 @@
 #define SCALE_LINE			1000
 #define LINE_THRESHOLD		1500//1800
 #define IR_WHITE			1500  // Lectura ADC base sobre superficie blanca (~1800-2000)
-#define LINE_LOST_PHASE0  	30
-#define LINE_LOST_PHASE1  	60
+#define LINE_LOST_PHASE0  	35
+#define LINE_LOST_PHASE1  	70
 #define TURNPWM_LEFT		900
 #define TURNPWM_RIGHT		830
 
@@ -285,54 +285,6 @@ int16_t brake_angle_div = 4; //Valor menor aumenta la velocidad en curvas
 uint8_t line_lost_timer = 0;
 uint8_t line_lost_phase = 0;
 
-
-////Dibujo de cubo 3D
-// --- ESTRUCTURAS Y VARIABLES PARA EL CUBO 3D (100% Enteros) ---
-typedef struct {
-    int16_t x, y, z;
-} Point3D;
-
-typedef struct {
-    int16_t x, y;
-} Point2D;
-
-typedef struct {
-    int16_t x, y, z, w;
-} Point4D;
-
-// Vértices del cubo pre-escalados a píxeles (Tamaño del cubo: 16x16x16)
-const Point3D cube_vertices[8] = {
-    {-16, -16, -16}, { 16, -16, -16},
-    { 16,  16, -16}, {-16,  16, -16},
-    {-16, -16,  16}, { 16, -16,  16},
-    { 16,  16,  16}, {-16,  16,  16}
-};
-
-// Aristas del cubo
-const int cube_edges[12][2] = {
-    {0, 1}, {1, 2}, {2, 3}, {3, 0},
-    {4, 5}, {5, 6}, {6, 7}, {7, 4},
-    {0, 4}, {1, 5}, {2, 6}, {3, 7}
-};
-
-// 16 Vértices del hipercubo (Tamaño base: 16)
-const Point4D tesseract_vertices[16] = {
-    {-16, -16, -16, -16}, { 16, -16, -16, -16}, { 16,  16, -16, -16}, {-16,  16, -16, -16},
-    {-16, -16,  16, -16}, { 16, -16,  16, -16}, { 16,  16,  16, -16}, {-16,  16,  16, -16},
-    {-16, -16, -16,  16}, { 16, -16, -16,  16}, { 16,  16, -16,  16}, {-16,  16, -16,  16},
-    {-16, -16,  16,  16}, { 16, -16,  16,  16}, { 16,  16,  16,  16}, {-16,  16,  16,  16}
-};
-
-// 32 Aristas del hipercubo
-const int tesseract_edges[32][2] = {
-    // Cubo "interno" (w = -16)
-    {0,1}, {1,2}, {2,3}, {3,0}, {4,5}, {5,6}, {6,7}, {7,4}, {0,4}, {1,5}, {2,6}, {3,7},
-    // Cubo "externo" (w = 16)
-    {8,9}, {9,10}, {10,11}, {11,8}, {12,13}, {13,14}, {14,15}, {15,12}, {8,12}, {9,13}, {10,14}, {11,15},
-    // Conexiones 4D entre ambos cubos
-    {0,8}, {1,9}, {2,10}, {3,11}, {4,12}, {5,13}, {6,14}, {7,15}
-};
-
 // Ángulos usando enteros de 8 bits (0 a 255 representa un giro completo)
 uint8_t angle_x = 0;
 uint8_t angle_y = 0;
@@ -342,31 +294,6 @@ uint8_t angle_z = 0;
 uint8_t angle_xz = 0; // Rotación 3D clásica
 uint8_t angle_yz = 0; // Rotación 3D clásica
 uint8_t angle_xw = 0; // Rotación 4D (La magia del hipercubo)
-
-// Centro de pantalla OLED
-#define CENTER_X 64
-#define CENTER_Y 32
-
-// Look-Up Table (LUT) de Seno. 256 valores precalculados.
-// Está escalada de -127 a 127. (1.0 = 127). Esto nos permite dividir rápido con ">> 7".
-const int8_t sin_LUT[256] = {
-    0, 3, 6, 9, 12, 15, 18, 21, 24, 28, 31, 34, 37, 40, 43, 46,
-    48, 51, 54, 57, 60, 63, 65, 68, 71, 73, 76, 78, 81, 83, 85, 88,
-    90, 92, 94, 96, 98, 100, 102, 104, 106, 108, 109, 111, 112, 114, 115, 117,
-    118, 119, 120, 121, 122, 123, 124, 124, 125, 126, 126, 126, 127, 127, 127, 127,
-    127, 127, 127, 127, 126, 126, 126, 125, 124, 124, 123, 122, 121, 120, 119, 118,
-    117, 115, 114, 112, 111, 109, 108, 106, 104, 102, 100, 98, 96, 94, 92, 90,
-    88, 85, 83, 81, 78, 76, 73, 71, 68, 65, 63, 60, 57, 54, 51, 48,
-    46, 43, 40, 37, 34, 31, 28, 24, 21, 18, 15, 12, 9, 6, 3, 0,
-    -3, -6, -9, -12, -15, -18, -21, -24, -28, -31, -34, -37, -40, -43, -46, -48,
-    -51, -54, -57, -60, -63, -65, -68, -71, -73, -76, -78, -81, -83, -85, -88, -90,
-    -92, -94, -96, -98, -100, -102, -104, -106, -108, -109, -111, -112, -114, -115, -117, -118,
-    -119, -120, -121, -122, -123, -124, -124, -125, -126, -126, -126, -127, -127, -127, -127, -127,
-    -127, -127, -127, -126, -126, -126, -125, -124, -124, -123, -122, -121, -120, -119, -118, -117,
-    -115, -114, -112, -111, -109, -108, -106, -104, -102, -100, -98, -96, -94, -92, -90, -88,
-    -85, -83, -81, -78, -76, -73, -71, -68, -65, -63, -60, -57, -54, -51, -48, -46,
-    -43, -40, -37, -34, -31, -28, -24, -21, -18, -15, -12, -9, -6, -3, 0
-};
 
 // --- Estado del seguidor de línea ---
 typedef enum {
@@ -963,8 +890,8 @@ void i2cTask() {
 		break;
 	case DATA_DISPLAY:
 		ssd1306Data();
-		//ssd1306_DrawCube();
-		//ssd1306_DrawTesseract();
+		//WIREGFX_DrawCube();
+		//WIREGFX_DrawTesseract();
 		i = UPD_DISPLAY;
 		break;
 	case UPD_DISPLAY:
@@ -1669,147 +1596,6 @@ void PID_ControlTask(void) {
 		}
 }
 
-void ssd1306_DrawCube(void) {
-    Point2D projected[8];
-
-    // Extraer Senos y Cosenos de la LUT
-    // El casteo a (uint8_t) garantiza el overflow correcto. El coseno está defasado 64 índices.
-    int32_t sin_x = sin_LUT[angle_x];
-    int32_t cos_x = sin_LUT[(uint8_t)(angle_x + 64)];
-
-    int32_t sin_y = sin_LUT[angle_y];
-    int32_t cos_y = sin_LUT[(uint8_t)(angle_y + 64)];
-
-    int32_t sin_z = sin_LUT[angle_z];
-    int32_t cos_z = sin_LUT[(uint8_t)(angle_z + 64)];
-
-    ssd1306_Fill(Black);
-
-    // Rotación y Proyección 3D con Punto Fijo
-    for (int i = 0; i < 8; i++) {
-        int32_t x = cube_vertices[i].x;
-        int32_t y = cube_vertices[i].y;
-        int32_t z = cube_vertices[i].z;
-
-        // Rotación Eje X
-        int32_t xy = (y * cos_x - z * sin_x) >> 7; // >> 7 equivale a dividir por 128
-        int32_t xz = (y * sin_x + z * cos_x) >> 7;
-        y = xy;
-        z = xz;
-
-        // Rotación Eje Y
-        int32_t yx = (x * cos_y + z * sin_y) >> 7;
-        int32_t yz = (-x * sin_y + z * cos_y) >> 7;
-        x = yx;
-        z = yz;
-
-        // Rotación Eje Z
-        int32_t zx = (x * cos_z - y * sin_z) >> 7;
-        int32_t zy = (x * sin_z + y * cos_z) >> 7;
-        x = zx;
-        y = zy;
-
-        // Guardar proyección 2D
-        projected[i].x = x + CENTER_X;
-        projected[i].y = y + CENTER_Y;
-    }
-
-    // Dibujar las aristas
-    for (int i = 0; i < 12; i++) {
-        int v1 = cube_edges[i][0];
-        int v2 = cube_edges[i][1];
-
-        ssd1306_Line(projected[v1].x, projected[v1].y,
-                     projected[v2].x, projected[v2].y, White);
-    }
-
-    // Incrementar ángulos para animar
-    // Al sumar, el uint8_t se reiniciará a 0 automáticamente al pasar de 255
-    angle_x += 2;
-    angle_y += 1;
-    angle_z += 3;
-}
-
-void ssd1306_DrawTesseract(void) {
-    Point2D projected[16];
-
-    // Extraer Senos y Cosenos (3D)
-    int32_t sin_xz = sin_LUT[angle_xz];
-    int32_t cos_xz = sin_LUT[(uint8_t)(angle_xz + 64)];
-    int32_t sin_yz = sin_LUT[angle_yz];
-    int32_t cos_yz = sin_LUT[(uint8_t)(angle_yz + 64)];
-
-    // Extraer Senos y Cosenos (4D - Plano XW)
-    int32_t sin_xw = sin_LUT[angle_xw];
-    int32_t cos_xw = sin_LUT[(uint8_t)(angle_xw + 64)];
-
-    ssd1306_Fill(Black);
-
-    // Rotación y Proyección
-    for (int i = 0; i < 16; i++) {
-        int32_t x = tesseract_vertices[i].x;
-        int32_t y = tesseract_vertices[i].y;
-        int32_t z = tesseract_vertices[i].z;
-        int32_t w = tesseract_vertices[i].w;
-
-        // 1. Rotación 4D en el plano XW (Esto genera el efecto "inside-out")
-        int32_t xw_x = (x * cos_xw - w * sin_xw) >> 7;
-        int32_t xw_w = (x * sin_xw + w * cos_xw) >> 7;
-        x = xw_x;
-        w = xw_w;
-
-        // 2. Rotación 3D en el plano XZ
-        int32_t xz_x = (x * cos_xz - z * sin_xz) >> 7;
-        int32_t xz_z = (x * sin_xz + z * cos_xz) >> 7;
-        x = xz_x;
-        z = xz_z;
-
-        // 3. Rotación 3D en el plano YZ
-        int32_t yz_y = (y * cos_yz - z * sin_yz) >> 7;
-        int32_t yz_z = (y * sin_yz + z * cos_yz) >> 7;
-        y = yz_y;
-        z = yz_z;
-
-        // 4. Proyección de Perspectiva 4D -> 3D (Ajuste de Tamaño)
-                // Acercamos la cámara a 48 y dividimos por 64 (>> 6)
-                // Esto duplica el tamaño del hipercubo llenando la pantalla de 64px
-                int32_t w_factor = 48 - w;
-
-                x = (x * w_factor) >> 6;
-                y = (y * w_factor) >> 6;
-
-                // Calcular posición 2D final
-                int16_t final_x = x + CENTER_X;
-                int16_t final_y = y + CENTER_Y;
-
-                // --- PROTECCIÓN DE DESBORDAMIENTO (CLIPPING) ---
-                // Lo mantenemos activo. Si algún vértice toca el borde, se frena
-                // limpiamente sin corromper la memoria RAM de video.
-                if (final_x < 0) final_x = 0;
-                if (final_x > 127) final_x = 127;
-                if (final_y < 0) final_y = 0;
-                if (final_y > 63) final_y = 63;
-
-                // Guardar proyección 2D
-                projected[i].x = final_x;
-                projected[i].y = final_y;
-    }
-
-    // Dibujar las 32 aristas
-    for (int i = 0; i < 32; i++) {
-        int v1 = tesseract_edges[i][0];
-        int v2 = tesseract_edges[i][1];
-
-        ssd1306_Line(projected[v1].x, projected[v1].y,
-                     projected[v2].x, projected[v2].y, White);
-    }
-
-    // Incrementar ángulos
-    angle_xz += 1;
-    angle_yz += 1;
-    angle_xw += 2; // El giro 4D es el más rápido para destacar el efecto
-}
-
 /* USER CODE END 0 */
 
 
@@ -1917,14 +1703,7 @@ int main(void)
   	unerPrtcl_Init(&WiFiRx, &WiFiTx, buffWiFiRx, buffWiFiTx);
   	//Variables
   	ALLFLAGS = RESET;
-  	//apagamos los motores
-//  	//reversa
-//  	chnl_1=0;
-//  	chnl_3=0;
-//  	//adelante
-//  	chnl_2=0;
-//  	chnl_4=0;
-//
+
   	lPulse1=0;
   	lPulse3=0;
   	rPulse2=0;
