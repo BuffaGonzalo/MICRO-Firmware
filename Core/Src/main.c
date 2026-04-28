@@ -102,11 +102,11 @@
 #define TURNPWM_RIGHT		830
 
 // Variables del esquivador
-#define OBS_DETECT_DIST     1000   // Distancia de detección frontal (ADC)
-#define OBS_LOST_DIST        400   // Distancia mínima lateral: objeto terminó
-#define OBS_SIDE_DIST       1000   // Distancia de referencia lateral a mantener
-#define OBS_STOP_CYCLES       10   // Ciclos de pausa antes de rotar (200ms)
-#define OBS_ROTATE_CYCLES     20   // Ciclos de rotación de 90° (~400ms, ajustable)
+uint16_t OBS_DETECT_DIST = 1000;   // Distancia de detección frontal (ADC)
+uint16_t OBS_LOST_DIST =  400;   // Distancia mínima lateral: objeto terminó
+uint16_t OBS_SIDE_DIST = 1000;   // Distancia de referencia lateral a mantener
+uint16_t OBS_STOP_CYCLES =  10;   // Ciclos de pausa antes de rotar (200ms)
+uint16_t OBS_ROTATE_CYCLES =  20;   // Ciclos de rotación de 90° (~400ms, ajustable)
 #define OBS_TURNPWM_LEFT    1050   // PWM de rotación izquierda
 #define OBS_TURNPWM_RIGHT   1000   // PWM de rotación derecha
 
@@ -617,8 +617,8 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 		brake_angle_div = myWord.i16[0];
 		break;
 	case GETINTERNALDATA:
-		// Estructura simplificada para sincronización de parámetros (28 bytes de datos + 1 chk)
-		unerPrtcl_PutHeaderOnTx(dataTx, GETINTERNALDATA, 29);
+		// Estructura simplificada para sincronización de parámetros (38 bytes de datos + 1 chk)
+		unerPrtcl_PutHeaderOnTx(dataTx, GETINTERNALDATA, 39);
 
 		// 1. Bloque PID Balancín (10 bytes: Kp, Ki, Kd, Max, Min)
 		int16_t pid_bal[5] = { Kp_stable, Ki_stable, Kd_stable, (int16_t)minPWM_right, (int16_t)minPWM_left};
@@ -638,6 +638,13 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 		for (int i = 0; i < 7; i++) {
 			unerPrtcl_PutByteOnTx(dataTx, (uint8_t) (params_ext[i] & 0xFF));
 			unerPrtcl_PutByteOnTx(dataTx, (uint8_t) ((params_ext[i] >> 8) & 0xFF));
+		}
+
+		// 4. Bloque Esquivador de Obstáculos (10 bytes: Front, Side, Lost, Stop, Rotate)
+		uint16_t params_obs[5] = { OBS_DETECT_DIST, OBS_SIDE_DIST, OBS_LOST_DIST, OBS_STOP_CYCLES, OBS_ROTATE_CYCLES };
+		for (int i = 0; i < 5; i++) {
+			unerPrtcl_PutByteOnTx(dataTx, (uint8_t) (params_obs[i] & 0xFF));
+			unerPrtcl_PutByteOnTx(dataTx, (uint8_t) ((params_obs[i] >> 8) & 0xFF));
 		}
 
 		// Checksum final
@@ -705,6 +712,46 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 		myWord.ui8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
 		myWord.ui8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
 		attack_setpoint = myWord.i16[0];
+		break;
+	case SETFRONTDIST:
+		unerPrtcl_PutHeaderOnTx(dataTx, SETFRONTDIST, 2);
+		unerPrtcl_PutByteOnTx(dataTx, ACK);
+		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
+		myWord.ui8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		myWord.ui8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		OBS_DETECT_DIST = myWord.ui16[0];
+		break;
+	case SETSIDEDIST:
+		unerPrtcl_PutHeaderOnTx(dataTx, SETSIDEDIST, 2);
+		unerPrtcl_PutByteOnTx(dataTx, ACK);
+		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
+		myWord.ui8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		myWord.ui8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		OBS_SIDE_DIST = myWord.ui16[0];
+		break;
+	case SETLOSTDIST:
+		unerPrtcl_PutHeaderOnTx(dataTx, SETLOSTDIST, 2);
+		unerPrtcl_PutByteOnTx(dataTx, ACK);
+		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
+		myWord.ui8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		myWord.ui8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		OBS_LOST_DIST = myWord.ui16[0];
+		break;
+	case SETSTOPCYCLES:
+		unerPrtcl_PutHeaderOnTx(dataTx, SETSTOPCYCLES, 2);
+		unerPrtcl_PutByteOnTx(dataTx, ACK);
+		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
+		myWord.ui8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		myWord.ui8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		OBS_STOP_CYCLES = myWord.ui16[0];
+		break;
+	case SETROTATECYCLES:
+		unerPrtcl_PutHeaderOnTx(dataTx, SETROTATECYCLES, 2);
+		unerPrtcl_PutByteOnTx(dataTx, ACK);
+		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
+		myWord.ui8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		myWord.ui8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		OBS_ROTATE_CYCLES = myWord.ui16[0];
 		break;
 	default:
 		unerPrtcl_PutHeaderOnTx(dataTx, (_eCmd) dataRx->buff[dataRx->indexData],
@@ -1763,6 +1810,13 @@ void PID_ControlTask(void) {
     if (pwm_right >  (int32_t) maxPWM) pwm_right =  (int32_t) maxPWM;
     if (pwm_right < -(int32_t) maxPWM) pwm_right = -(int32_t) maxPWM;
 
+    if (current_angle > ANG45 || current_angle < -ANG45) {
+		final_pwm_left = 0;
+		final_pwm_right = 0;
+		integral = 0;
+		pwm_left = 0;
+		pwm_right = 0;
+	}
     // =========================================================
     // --- 7. MAPEO AL HARDWARE ---
     // =========================================================
