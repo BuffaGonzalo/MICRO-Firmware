@@ -102,11 +102,6 @@
 #define TURNPWM_RIGHT		830
 
 // Variables del esquivador
-uint16_t OBS_DETECT_DIST = 1000;   // Distancia de detección frontal (ADC)
-uint16_t OBS_LOST_DIST =  400;   // Distancia mínima lateral: objeto terminó
-uint16_t OBS_SIDE_DIST = 1000;   // Distancia de referencia lateral a mantener
-uint16_t OBS_STOP_CYCLES =  10;   // Ciclos de pausa antes de rotar (200ms)
-uint16_t OBS_ROTATE_CYCLES =  20;   // Ciclos de rotación de 90° (~400ms, ajustable)
 #define OBS_TURNPWM_LEFT    1050   // PWM de rotación izquierda
 #define OBS_TURNPWM_RIGHT   1000   // PWM de rotación derecha
 
@@ -330,6 +325,11 @@ uint8_t  obs_timer       = 0;
 uint8_t  obs_turn_dir    = 0;   // 1 = gira derecha, 0 = gira izquierda
 int16_t  obs_side_sensor = 0;   // Sensor lateral activo durante el deslizamiento
 
+uint16_t obs_detect_dist = 1000;   // Distancia de detección frontal (ADC)
+uint16_t obs_lost_dist =  400;   // Distancia mínima lateral: objeto terminó
+uint16_t obs_side_dist = 1000;   // Distancia de referencia lateral a mantener
+uint16_t obs_stop_cycles =  10;   // Ciclos de pausa antes de rotar (200ms)
+uint16_t obs_rotate_cycles =  20;   // Ciclos de rotación de 90° (~400ms, ajustable)
 
 /* USER CODE END PV */
 
@@ -641,7 +641,7 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 		}
 
 		// 4. Bloque Esquivador de Obstáculos (10 bytes: Front, Side, Lost, Stop, Rotate)
-		uint16_t params_obs[5] = { OBS_DETECT_DIST, OBS_SIDE_DIST, OBS_LOST_DIST, OBS_STOP_CYCLES, OBS_ROTATE_CYCLES };
+		uint16_t params_obs[5] = { obs_detect_dist, obs_side_dist, obs_lost_dist, obs_stop_cycles, obs_rotate_cycles };
 		for (int i = 0; i < 5; i++) {
 			unerPrtcl_PutByteOnTx(dataTx, (uint8_t) (params_obs[i] & 0xFF));
 			unerPrtcl_PutByteOnTx(dataTx, (uint8_t) ((params_obs[i] >> 8) & 0xFF));
@@ -719,7 +719,7 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
 		myWord.ui8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
 		myWord.ui8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
-		OBS_DETECT_DIST = myWord.ui16[0];
+		obs_detect_dist = myWord.ui16[0];
 		break;
 	case SETSIDEDIST:
 		unerPrtcl_PutHeaderOnTx(dataTx, SETSIDEDIST, 2);
@@ -727,7 +727,7 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
 		myWord.ui8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
 		myWord.ui8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
-		OBS_SIDE_DIST = myWord.ui16[0];
+		obs_side_dist = myWord.ui16[0];
 		break;
 	case SETLOSTDIST:
 		unerPrtcl_PutHeaderOnTx(dataTx, SETLOSTDIST, 2);
@@ -735,7 +735,7 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
 		myWord.ui8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
 		myWord.ui8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
-		OBS_LOST_DIST = myWord.ui16[0];
+		obs_lost_dist = myWord.ui16[0];
 		break;
 	case SETSTOPCYCLES:
 		unerPrtcl_PutHeaderOnTx(dataTx, SETSTOPCYCLES, 2);
@@ -743,7 +743,7 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
 		myWord.ui8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
 		myWord.ui8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
-		OBS_STOP_CYCLES = myWord.ui16[0];
+		obs_stop_cycles = myWord.ui16[0];
 		break;
 	case SETROTATECYCLES:
 		unerPrtcl_PutHeaderOnTx(dataTx, SETROTATECYCLES, 2);
@@ -751,7 +751,7 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
 		myWord.ui8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
 		myWord.ui8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
-		OBS_ROTATE_CYCLES = myWord.ui16[0];
+		obs_rotate_cycles = myWord.ui16[0];
 		break;
 	default:
 		unerPrtcl_PutHeaderOnTx(dataTx, (_eCmd) dataRx->buff[dataRx->indexData],
@@ -1464,7 +1464,7 @@ void PID_ControlTask(void) {
                 turn_offset     = 0;
 
                 obs_timer++;
-                if (obs_timer >= OBS_STOP_CYCLES) {
+                if (obs_timer >= obs_stop_cycles) {
                     obs_timer = 0;
 
                     // Decide dirección: gira hacia el lado con más espacio
@@ -1491,15 +1491,13 @@ void PID_ControlTask(void) {
                 target_setpoint = 0;
 
                 if (obs_turn_dir == 1) {
-                    // Gira derecha: rueda izq adelante, rueda der atrás
                     turn_offset = custom_turn;
                 } else {
-                    // Gira izquierda: rueda der adelante, rueda izq atrás
                     turn_offset = -custom_turn;
                 }
 
                 obs_timer++;
-                if (obs_timer >= OBS_ROTATE_CYCLES) {
+                if (obs_timer >= obs_rotate_cycles) {
                     obs_timer = 0;
                     obsState  = OBS_SLIDE;
                 }
@@ -1508,39 +1506,36 @@ void PID_ControlTask(void) {
             // -------------------------------------------------
             // OBS_SLIDE
             // Avanza paralelo al objeto manteniendo la distancia
-            // lateral de referencia (OBS_SIDE_DIST).
+            // lateral de referencia (obs_side_dist).
             // Un control proporcional simple ajusta turn_offset
             // para mantener la distancia.
-            // Sale cuando el sensor lateral baja de OBS_LOST_DIST
+            // Sale cuando el sensor lateral baja de obs_lost_dist
             // indicando que el objeto terminó.
             // -------------------------------------------------
             case OBS_SLIDE: {
-                int32_t lateral = (obs_side_sensor == 0) ? ir_side_r : ir_side_l;
-                int32_t dist_error = lateral - OBS_SIDE_DIST;
+                        int32_t lateral = (obs_side_sensor == 0) ? ir_side_r : ir_side_l;
+                        int32_t dist_error = lateral - obs_side_dist;
+                        int32_t dist_correction = dist_error / 20;
 
-                // Control proporcional de distancia lateral
-                // Si lateral > OBS_SIDE_DIST el robot está muy cerca → aleja
-                // Si lateral < OBS_SIDE_DIST el robot está lejos → acerca
-                int32_t dist_correction = dist_error / 20;
+                        if (obs_turn_dir == 1) {
+                            turn_offset = -dist_correction;
+                        } else {
+                            turn_offset = dist_correction;
+                        }
 
-                if (obs_turn_dir == 1) {
-                    // Avanzando con objeto a la derecha
-                    turn_offset = -dist_correction;
-                } else {
-                    // Avanzando con objeto a la izquierda
-                    turn_offset = dist_correction;
-                }
+                        target_setpoint = attack_setpoint;
 
-                target_setpoint = attack_setpoint;
-
-                if (lateral < OBS_LOST_DIST) {
-                    // Objeto terminó → rota para quedar paralelo a la
-                    // dirección original del recorrido
-                    obs_timer = 0;
-                    obsState  = OBS_ROTATE_2;
-                }
-                break;
-            }
+                        if (lateral < obs_lost_dist) {
+                            obs_timer++;
+                            if (obs_timer >= obs_stop_cycles) {
+                                obs_timer = 0;
+                                obsState  = OBS_ROTATE_2;
+                            }
+                        } else {
+                            obs_timer = 0;
+                        }
+                        break;
+                    }
 
             // -------------------------------------------------
             // OBS_ROTATE_2
@@ -1548,46 +1543,57 @@ void PID_ControlTask(void) {
             // a mirar hacia el frente del recorrido.
             // -------------------------------------------------
             case OBS_ROTATE_2:
-                target_setpoint = 0;
 
-                if (obs_turn_dir == 1) {
-                    turn_offset = custom_turn;
-                } else {
-                    turn_offset = -custom_turn;
-                }
-
-                obs_timer++;
-                if (obs_timer >= OBS_ROTATE_CYCLES) {
-                    obs_timer = 0;
-                    obsState  = OBS_FORWARD;
-                }
-                break;
-
+                        if (obs_timer < obs_stop_cycles * 3) {
+                            // Fase de avance previo
+                            target_setpoint = attack_setpoint;
+                            turn_offset     = 0;
+                            obs_timer++;
+                        } else if (obs_timer < (obs_stop_cycles * 3 + obs_rotate_cycles)) {
+                            // Fase de rotación: cuenta desde obs_stop_cycles*3
+                            // hasta obs_stop_cycles*3 + obs_rotate_cycles
+                            // → exactamente obs_rotate_cycles ciclos, igual que ROTATE_1
+                            target_setpoint = 0;
+                            if (obs_turn_dir == 1) {
+                                turn_offset = -custom_turn;
+                            } else {
+                                turn_offset = custom_turn;
+                            }
+                            obs_timer++;
+                        } else {
+                            obs_timer = 0;
+                            obsState  = OBS_FORWARD;
+                        }
+                        break;
             // -------------------------------------------------
             // OBS_FORWARD
             // Avanza manteniendo la distancia lateral mientras
-            // busca el fin de la pared lateral (< OBS_LOST_DIST).
+            // busca el fin de la pared lateral (< obs_lost_dist).
             // Cuando el lateral cae sale a OBS_ROTATE_3.
             // -------------------------------------------------
-            case OBS_FORWARD: {
-                int32_t lateral = (obs_side_sensor == 0) ? ir_side_r : ir_side_l;
-                int32_t dist_error = lateral - OBS_SIDE_DIST;
-                int32_t dist_correction = dist_error / 20;
+        case OBS_FORWARD: {
+            int32_t lateral = (obs_side_sensor == 0) ? ir_side_r : ir_side_l;
+            int32_t dist_error = lateral - obs_side_dist;
+            int32_t dist_correction = dist_error / 20;
 
-                if (obs_turn_dir == 1) {
-                    turn_offset = -dist_correction;
-                } else {
-                    turn_offset = dist_correction;
-                }
-
-                target_setpoint = attack_setpoint;
-
-                if (lateral < OBS_LOST_DIST) {
-                    obs_timer = 0;
-                    obsState  = OBS_ROTATE_3;
-                }
-                break;
+            if (obs_turn_dir == 1) {
+                turn_offset = -dist_correction;
+            } else {
+                turn_offset = dist_correction;
             }
+
+            target_setpoint = attack_setpoint;
+
+            // Espera un mínimo de ciclos antes de empezar a evaluar
+            // el sensor lateral para evitar falsos positivos al entrar al estado
+            if (obs_timer < obs_stop_cycles * 2) {
+                obs_timer++;
+            } else if (lateral < obs_lost_dist) {
+                obs_timer = 0;
+                obsState  = OBS_ROTATE_3;
+            }
+            break;
+        }
 
             // -------------------------------------------------
             // OBS_ROTATE_3
@@ -1605,7 +1611,7 @@ void PID_ControlTask(void) {
                 }
 
                 obs_timer++;
-                if (obs_timer >= OBS_ROTATE_CYCLES) {
+                if (obs_timer >= obs_rotate_cycles) {
                     obs_timer = 0;
                     obsState  = OBS_REJOIN;
                 }
@@ -1635,10 +1641,10 @@ void PID_ControlTask(void) {
     } else {
         // ---------------------------------------------------------
         // obsState == OBS_IDLE: seguimiento de línea normal
-        // Detección de obstáculo: si el frontal supera OBS_DETECT_DIST
+        // Detección de obstáculo: si el frontal supera obs_detect_dist
         // se congela el seguidor y se activa el esquivador.
         // ---------------------------------------------------------
-        if (ir_front >= OBS_DETECT_DIST) {
+        if (ir_front >= obs_detect_dist) {
             obs_timer = 0;
             obsState  = OBS_STOP;
 
