@@ -281,10 +281,6 @@ int16_t custom_turn = 20; // 15000 / 100 = 150 de PWM real para giro en búsqued
 int16_t attack_setpoint = -1000; // Inclinación de 2.0° para un avance muy sutil
 int16_t brake_angle_div = 4; //Valor menor aumenta la velocidad en curvas
 
-// Fases y tiempos de búsqueda activa en LINE_LOST.
-uint8_t line_lost_timer = 0;
-uint8_t line_lost_phase = 0;
-
 // Ángulos usando enteros de 8 bits (0 a 255 representa un giro completo)
 uint8_t angle_x = 0;
 uint8_t angle_y = 0;
@@ -305,31 +301,30 @@ typedef enum {
 
 _eLineState lineState = LINE_SEARCHING;
 
-//Esquivar objeto
+
+uint8_t line_lost_timer = 0;
+uint8_t line_lost_phase = 0;
+
 // --- Estado del esquivador de objetos ---
 typedef enum {
-    OBS_IDLE,          // Seguimiento de línea normal, sin obstáculo
-    OBS_STOP,          // Obstáculo detectado: para en el lugar
-    OBS_ROTATE_1,      // Rota 90° hacia el lado libre
-    OBS_SLIDE,         // Avanza paralelo al objeto manteniendo distancia lateral
-    OBS_ROTATE_2,      // Rota 90° al terminar el objeto (sensor lateral < 400)
-    OBS_FORWARD,       // Avanza manteniendo distancia lateral buscando la línea
-    OBS_ROTATE_3,      // Rota -90° al encontrar fin de pared lateral
-    OBS_REJOIN         // Avanza buscando la línea con sensor central
+    OBS_IDLE,       // Sin obstáculo, seguimiento de línea normal
+    OBS_APPROACH,   // Obstáculo detectado frontalmente, para y decide lado
+    OBS_CORNER,     // Gestiona las esquinas: rota hasta que sensor 45° toma la pared
+    OBS_WALL        // Avanza siguiendo la pared con sensor lateral
 } _eObsState;
 
-_eObsState obsState = OBS_IDLE;
+_eObsState obsState    = OBS_IDLE;
+uint8_t obs_timer      = 0;
+uint8_t obs_turn_dir   = 0;    // 1 = objeto a la derecha, 0 = objeto a la izquierda
+uint8_t obs_stop_done  = 0;    // flag interno para subfase de parada en APPROACH
 
-
-uint8_t  obs_timer       = 0;
-uint8_t  obs_turn_dir    = 0;   // 1 = gira derecha, 0 = gira izquierda
-int16_t  obs_side_sensor = 0;   // Sensor lateral activo durante el deslizamiento
-
-uint16_t obs_detect_dist = 1000;   // Distancia de detección frontal (ADC)
-uint16_t obs_lost_dist =  400;   // Distancia mínima lateral: objeto terminó
-uint16_t obs_side_dist = 1000;   // Distancia de referencia lateral a mantener
-uint16_t obs_stop_cycles =  10;   // Ciclos de pausa antes de rotar (200ms)
-uint16_t obs_rotate_cycles =  20;   // Ciclos de rotación de 90° (~400ms, ajustable)
+uint16_t obs_detect_dist  = 1000;  // Distancia frontal de detección de obstáculo
+uint16_t obs_corner_dist  = 800;   // Valor que tiene que tomar el sensor 45° para confirmar esquina tomada
+uint16_t obs_lost_dist    = 400;   // Lateral por debajo de este valor = pared terminada
+uint16_t obs_side_dist    = 1000;  // Distancia lateral de referencia para seguir la pared
+uint16_t obs_stop_cycles  = 10;    // Ciclos de parada antes de rotar (200ms con DT=20ms)
+// NUEVA VARIABLE:
+uint16_t obs_align_dist   = 900;   // Valor 'x' deseado para el sensor lateral al rotar 90°
 
 /* USER CODE END PV */
 
@@ -617,8 +612,8 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 		brake_angle_div = myWord.i16[0];
 		break;
 	case GETINTERNALDATA:
-		// Estructura simplificada para sincronización de parámetros (38 bytes de datos + 1 chk)
-		unerPrtcl_PutHeaderOnTx(dataTx, GETINTERNALDATA, 39);
+		// Estructura simplificada para sincronización de parámetros (40 bytes de datos + 1 chk)
+		unerPrtcl_PutHeaderOnTx(dataTx, GETINTERNALDATA, 41);
 
 		// 1. Bloque PID Balancín (10 bytes: Kp, Ki, Kd, Max, Min)
 		int16_t pid_bal[5] = { Kp_stable, Ki_stable, Kd_stable, (int16_t)minPWM_right, (int16_t)minPWM_left};
@@ -640,9 +635,9 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 			unerPrtcl_PutByteOnTx(dataTx, (uint8_t) ((params_ext[i] >> 8) & 0xFF));
 		}
 
-		// 4. Bloque Esquivador de Obstáculos (10 bytes: Front, Side, Lost, Stop, Rotate)
-		uint16_t params_obs[5] = { obs_detect_dist, obs_side_dist, obs_lost_dist, obs_stop_cycles, obs_rotate_cycles };
-		for (int i = 0; i < 5; i++) {
+		// 4. Bloque Esquivador de Obstáculos (12 bytes: Front, Side, Lost, Stop, Corner, Align)
+		uint16_t params_obs[6] = { obs_detect_dist, obs_side_dist, obs_lost_dist, obs_stop_cycles, obs_corner_dist, obs_align_dist};
+		for (int i = 0; i < 6; i++) {
 			unerPrtcl_PutByteOnTx(dataTx, (uint8_t) (params_obs[i] & 0xFF));
 			unerPrtcl_PutByteOnTx(dataTx, (uint8_t) ((params_obs[i] >> 8) & 0xFF));
 		}
@@ -745,13 +740,21 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 		myWord.ui8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
 		obs_stop_cycles = myWord.ui16[0];
 		break;
-	case SETROTATECYCLES:
-		unerPrtcl_PutHeaderOnTx(dataTx, SETROTATECYCLES, 2);
+	case SETCORNERDIST:
+		unerPrtcl_PutHeaderOnTx(dataTx, SETCORNERDIST, 2);
 		unerPrtcl_PutByteOnTx(dataTx, ACK);
 		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
 		myWord.ui8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
 		myWord.ui8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
-		obs_rotate_cycles = myWord.ui16[0];
+		obs_corner_dist = myWord.ui16[0];
+		break;
+	case SETALIGNDIST:
+		unerPrtcl_PutHeaderOnTx(dataTx, SETALIGNDIST, 2);
+		unerPrtcl_PutByteOnTx(dataTx, ACK);
+		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
+		myWord.ui8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		myWord.ui8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		obs_align_dist = myWord.ui16[0];
 		break;
 	default:
 		unerPrtcl_PutHeaderOnTx(dataTx, (_eCmd) dataRx->buff[dataRx->indexData],
@@ -1394,7 +1397,6 @@ void PID_ControlTask(void) {
     // =========================================================
     // --- 1. LECTURA E INVERSIÓN DE SENSORES ---
     // =========================================================
-    // Sensores de línea (IR invertidos: negro = alto)
     int32_t left_ir   = 4095 - adcData[5];
     int32_t center_ir = 4095 - adcData[3];
     int32_t right_ir  = 4095 - adcData[1];
@@ -1406,12 +1408,12 @@ void PID_ControlTask(void) {
     sum_sensors = left_ir + center_ir + right_ir;
     if (sum_sensors == 0) sum_sensors = 1;
 
-    // Sensores de obstáculo (valores crudos ADC, mayor = más cerca)
-    int32_t ir_front       = adcData[6]; // Frontal centrado
-    int32_t ir_corner_r    = adcData[0]; // Esquina derecha 45°
-    int32_t ir_corner_l    = adcData[4]; // Esquina izquierda 45°
-    int32_t ir_side_r      = adcData[7]; // Lateral derecho 90°
-    int32_t ir_side_l      = adcData[2]; // Lateral izquierdo 90°
+    // Sensores de obstáculo (mayor valor = más cerca)
+    int32_t ir_front    = adcData[6]; // Frontal centrado
+    int32_t ir_corner_r = adcData[0]; // Esquina derecha 45°
+    int32_t ir_corner_l = adcData[4]; // Esquina izquierda 45°
+    int32_t ir_side_r   = adcData[7]; // Lateral derecho 90°
+    int32_t ir_side_l   = adcData[2]; // Lateral izquierdo 90°
 
     // =========================================================
     // --- 2. FILTROS Y CÁLCULO DE ÁNGULO (IMU) ---
@@ -1426,13 +1428,13 @@ void PID_ControlTask(void) {
 
     if (az_filt > AZ_MIN_VALID || az_filt < -AZ_MIN_VALID) {
         int32_t ratio = (ax_filt * 1000) / az_filt;
-        acc_angle_hr = (ratio * (int32_t) RADTOGRAD) / 10;
+        acc_angle_hr  = (ratio * (int32_t) RADTOGRAD) / 10;
     }
 
-    gyro_delta_hr = (-(int32_t) gy * 200) / 131;
+    gyro_delta_hr    = (-(int32_t) gy * 200) / 131;
     current_angle_hr = (ALPHA_GYRO * (current_angle_hr + gyro_delta_hr)
-            + ALPHA_ACC * acc_angle_hr) / 100;
-    current_angle = current_angle_hr / 100;
+                     +  ALPHA_ACC  * acc_angle_hr) / 100;
+    current_angle    = current_angle_hr / 100;
 
     // =========================================================
     // --- 3. MÁQUINA DE ESTADOS PRINCIPAL ---
@@ -1445,193 +1447,128 @@ void PID_ControlTask(void) {
     uint8_t ir5_active   = (right_ir  > IR_WHITE);
     uint8_t active_count = ir1_active + ir3_active + ir5_active;
 
-    // ---------------------------------------------------------
-    // MEF ESQUIVADOR — tiene prioridad sobre el seguidor de línea
-    // Cuando obsState != OBS_IDLE el seguidor de línea se congela.
-    // ---------------------------------------------------------
+    // Salida de emergencia del esquivador: si cualquier sensor de línea
+    // detecta la cinta en cualquier estado del esquivador, vuelve a seguir línea.
+    if (obsState != OBS_IDLE && (ir3_active || ir1_active || ir5_active)) {
+        obsState      = OBS_IDLE;
+        lineState     = LINE_FOLLOWING;
+        obs_timer     = 0;
+        obs_stop_done = 0;
+    }
+
     if (obsState != OBS_IDLE) {
 
         switch (obsState) {
 
-            // -------------------------------------------------
-            // OBS_STOP
-            // Obstáculo detectado. Para el robot durante
-            // OBS_STOP_CYCLES ciclos y decide hacia qué lado girar
-            // comparando los sensores de esquina 45°.
-            // -------------------------------------------------
-            case OBS_STOP:
-                target_setpoint = 0;
-                turn_offset     = 0;
+        // -------------------------------------------------
+                    // OBS_APPROACH
+                    // Obstáculo detectado frontalmente.
+                    // Subfase 0: para el robot obs_stop_cycles ciclos y
+                    //            decide hacia qué lado esquivar comparando
+                    //            los sensores de esquina 45°.
+                    // Subfase 1: rota HASTA QUE el sensor lateral alcance
+                    //            el valor de 'obs_align_dist' (alineación con la pared).
+                    // -------------------------------------------------
+                    case OBS_APPROACH:
 
-                obs_timer++;
-                if (obs_timer >= obs_stop_cycles) {
-                    obs_timer = 0;
-
-                    // Decide dirección: gira hacia el lado con más espacio
-                    // (sensor de esquina con menor lectura = más lejos del objeto)
-                    if (ir_corner_r <= ir_corner_l) {
-                        obs_turn_dir    = 1;       // gira derecha
-                        obs_side_sensor = 0;       // usará lateral derecho en SLIDE
-                    } else {
-                        obs_turn_dir    = 0;       // gira izquierda
-                        obs_side_sensor = 1;       // usará lateral izquierdo en SLIDE
-                    }
-                    obsState = OBS_ROTATE_1;
-                }
-                break;
-
-            // -------------------------------------------------
-            // OBS_ROTATE_1
-            // Rota 90° en el lugar hacia el lado decidido.
-            // Usa OBS_ROTATE_CYCLES como tiempo de rotación.
-            // Se puede refinar con los sensores de 45° si se
-            // desea una rotación más precisa en el futuro.
-            // -------------------------------------------------
-            case OBS_ROTATE_1:
-                target_setpoint = 0;
-
-                if (obs_turn_dir == 1) {
-                    turn_offset = custom_turn;
-                } else {
-                    turn_offset = -custom_turn;
-                }
-
-                obs_timer++;
-                if (obs_timer >= obs_rotate_cycles) {
-                    obs_timer = 0;
-                    obsState  = OBS_SLIDE;
-                }
-                break;
-
-            // -------------------------------------------------
-            // OBS_SLIDE
-            // Avanza paralelo al objeto manteniendo la distancia
-            // lateral de referencia (obs_side_dist).
-            // Un control proporcional simple ajusta turn_offset
-            // para mantener la distancia.
-            // Sale cuando el sensor lateral baja de obs_lost_dist
-            // indicando que el objeto terminó.
-            // -------------------------------------------------
-            case OBS_SLIDE: {
-                        int32_t lateral = (obs_side_sensor == 0) ? ir_side_r : ir_side_l;
-                        int32_t dist_error = lateral - obs_side_dist;
-                        int32_t dist_correction = dist_error / 20;
-
-                        if (obs_turn_dir == 1) {
-                            turn_offset = -dist_correction;
-                        } else {
-                            turn_offset = dist_correction;
-                        }
-
-                        target_setpoint = attack_setpoint;
-
-                        if (lateral < obs_lost_dist) {
-                            obs_timer++;
-                            if (obs_timer >= obs_stop_cycles) {
-                                obs_timer = 0;
-                                obsState  = OBS_ROTATE_2;
-                            }
-                        } else {
-                            obs_timer = 0;
-                        }
-                        break;
-                    }
-
-            // -------------------------------------------------
-            // OBS_ROTATE_2
-            // Rota en sentido contrario al inicial para volver
-            // a mirar hacia el frente del recorrido.
-            // -------------------------------------------------
-            case OBS_ROTATE_2:
-
-                        if (obs_timer < obs_stop_cycles * 3) {
-                            // Fase de avance previo
-                            target_setpoint = attack_setpoint;
+                        if (obs_stop_done == 0) {
+                            // Subfase de parada (Mantenemos tu lógica intacta)
+                            target_setpoint = 0;
                             turn_offset     = 0;
                             obs_timer++;
-                        } else if (obs_timer < (obs_stop_cycles * 3 + obs_rotate_cycles)) {
-                            // Fase de rotación: cuenta desde obs_stop_cycles*3
-                            // hasta obs_stop_cycles*3 + obs_rotate_cycles
-                            // → exactamente obs_rotate_cycles ciclos, igual que ROTATE_1
-                            target_setpoint = 0;
-                            if (obs_turn_dir == 1) {
-                                turn_offset = -custom_turn;
-                            } else {
-                                turn_offset = custom_turn;
+
+                            if (obs_timer >= obs_stop_cycles) {
+                                obs_timer = 0;
+
+                                // Decide el lado con más espacio
+                                if (ir_corner_r <= ir_corner_l) {
+                                    obs_turn_dir = 1; // gira derecha
+                                } else {
+                                    obs_turn_dir = 0; // gira izquierda
+                                }
+                                obs_stop_done = 1;
                             }
-                            obs_timer++;
+
                         } else {
-                            obs_timer = 0;
-                            obsState  = OBS_FORWARD;
+                            // Subfase de rotación dinámica basada en sensores IR
+                            target_setpoint = 0;
+                            turn_offset     = (obs_turn_dir == 1) ? custom_turn : -custom_turn;
+
+                            // Lógica fundamental: Si giramos a la derecha (1), la caja queda a nuestra izquierda.
+                            // Por lo tanto, escuchamos al sensor lateral izquierdo (ir_side_l) y viceversa.
+                            int32_t lateral_align_sensor = (obs_turn_dir == 1) ? ir_side_l : ir_side_r;
+
+                            // Si el sensor lateral detecta la caja con la fuerza que definimos en 'x'
+                            if (lateral_align_sensor >= obs_align_dist) {
+                                // Terminamos de rotar perfectamente alineados
+                                obs_stop_done = 0;
+                                obsState      = OBS_WALL;
+                            }
                         }
                         break;
             // -------------------------------------------------
-            // OBS_FORWARD
-            // Avanza manteniendo la distancia lateral mientras
-            // busca el fin de la pared lateral (< obs_lost_dist).
-            // Cuando el lateral cae sale a OBS_ROTATE_3.
+            // OBS_WALL
+            // Avanza siguiendo la pared lateral mediante control
+            // proporcional sobre el sensor lateral (90°).
+            // Cuando el lateral cae por debajo de obs_lost_dist
+            // el objeto terminó → entra a OBS_CORNER para doblar.
             // -------------------------------------------------
-        case OBS_FORWARD: {
-            int32_t lateral = (obs_side_sensor == 0) ? ir_side_r : ir_side_l;
-            int32_t dist_error = lateral - obs_side_dist;
-            int32_t dist_correction = dist_error / 20;
+            case OBS_WALL: {
+                int32_t lateral    = (obs_turn_dir == 1) ? ir_side_r : ir_side_l;
+                int32_t dist_error = lateral - obs_side_dist;
+                int32_t dist_corr  = dist_error / 20;
 
-            if (obs_turn_dir == 1) {
-                turn_offset = -dist_correction;
-            } else {
-                turn_offset = dist_correction;
-            }
-
-            target_setpoint = attack_setpoint;
-
-            // Espera un mínimo de ciclos antes de empezar a evaluar
-            // el sensor lateral para evitar falsos positivos al entrar al estado
-            if (obs_timer < obs_stop_cycles * 2) {
-                obs_timer++;
-            } else if (lateral < obs_lost_dist) {
-                obs_timer = 0;
-                obsState  = OBS_ROTATE_3;
-            }
-            break;
-        }
-
-            // -------------------------------------------------
-            // OBS_ROTATE_3
-            // Rota -90° (sentido contrario al inicial) para
-            // quedar orientado hacia la línea nuevamente.
-            // -------------------------------------------------
-            case OBS_ROTATE_3:
-                target_setpoint = 0;
-
-                // Gira en sentido opuesto al inicial
-                if (obs_turn_dir == 1) {
-                    turn_offset = -custom_turn;
-                } else {
-                    turn_offset = custom_turn;
-                }
-
-                obs_timer++;
-                if (obs_timer >= obs_rotate_cycles) {
-                    obs_timer = 0;
-                    obsState  = OBS_REJOIN;
-                }
-                break;
-
-            // -------------------------------------------------
-            // OBS_REJOIN
-            // Avanza buscando la línea con el sensor central.
-            // Cuando ir3_active detecta línea vuelve a OBS_IDLE
-            // y retoma el seguimiento normal.
-            // -------------------------------------------------
-            case OBS_REJOIN:
+                // Si objeto a la derecha: acercarse suma turn positivo (gira der)
+                // Si objeto a la izquierda: acercarse suma turn negativo (gira izq)
+                turn_offset     = (obs_turn_dir == 1) ? dist_corr : -dist_corr;
                 target_setpoint = attack_setpoint;
-                turn_offset     = 0;
 
-                if (ir3_active) {
-                    obsState  = OBS_IDLE;
-                    lineState = LINE_FOLLOWING;
+                if (lateral < obs_lost_dist) {
+                    obs_timer = 0;
+                    obsState  = OBS_CORNER;
                 }
                 break;
+            }
+
+            // -------------------------------------------------
+            // OBS_CORNER
+            // Gestiona la esquina cuando el sensor lateral pierde
+            // la pared. Rota activando solo la rueda contraria al
+            // lado del objeto hasta que el sensor a 45° del lado
+            // del objeto alcance obs_corner_dist (confirmando que
+            // tomó la nueva cara del objeto).
+            // Luego avanza obs_stop_cycles ciclos para separarse
+            // y vuelve a OBS_WALL para seguir la nueva cara.
+            // -------------------------------------------------
+            case OBS_CORNER: {
+                int32_t corner_sensor = (obs_turn_dir == 1) ? ir_corner_r : ir_corner_l;
+
+                if (obs_stop_done == 0) {
+                    // Fase de rotación: rueda contraria al objeto avanza,
+                    // rueda del lado del objeto retrocede → gira hacia el objeto
+                    target_setpoint = 0;
+                    turn_offset     = (obs_turn_dir == 1) ? custom_turn : -custom_turn;
+
+                    if (corner_sensor >= obs_corner_dist) {
+                        // Sensor 45° tomó la nueva cara → para y avanza un poco
+                        obs_timer     = 0;
+                        obs_stop_done = 1;
+                    }
+
+                } else {
+                    // Fase de avance post-esquina para separarse del vértice
+                    target_setpoint = attack_setpoint;
+                    turn_offset     = 0;
+                    obs_timer++;
+
+                    if (obs_timer >= obs_stop_cycles * 2) {
+                        obs_timer     = 0;
+                        obs_stop_done = 0;
+                        obsState      = OBS_WALL;
+                    }
+                }
+                break;
+            }
 
             default:
                 obsState = OBS_IDLE;
@@ -1639,20 +1576,15 @@ void PID_ControlTask(void) {
         }
 
     } else {
-        // ---------------------------------------------------------
-        // obsState == OBS_IDLE: seguimiento de línea normal
-        // Detección de obstáculo: si el frontal supera obs_detect_dist
-        // se congela el seguidor y se activa el esquivador.
-        // ---------------------------------------------------------
+        // obsState == OBS_IDLE: seguimiento de línea normal.
+        // Detección frontal activa solo cuando sigue línea.
         if (ir_front >= obs_detect_dist) {
-            obs_timer = 0;
-            obsState  = OBS_STOP;
+            obs_timer     = 0;
+            obs_stop_done = 0;
+            obsState      = OBS_APPROACH;
 
         } else {
 
-            // =====================================================
-            // MEF SEGUIDOR DE LÍNEA
-            // =====================================================
             switch (lineState) {
 
                 case LINE_SEARCHING:
@@ -1671,7 +1603,7 @@ void PID_ControlTask(void) {
                     if (active_count == 0) {
                         line_lost_timer = 0;
                         line_lost_phase = 0;
-                        lineState = LINE_LOST;
+                        lineState       = LINE_LOST;
                         break;
                     }
 
@@ -1785,10 +1717,15 @@ void PID_ControlTask(void) {
     int32_t pwm_left  = final_pwm_left;
     int32_t pwm_right = final_pwm_right;
 
-    if (obsState == OBS_ROTATE_1 || obsState == OBS_ROTATE_2 ||
-        obsState == OBS_ROTATE_3 || obsState == OBS_STOP     ||
-        lineState == LINE_LOST) {
-        // Rotación en el lugar: una rueda adelante, la otra atrás
+    // Rotación en el lugar para: parada en APPROACH, rotación en APPROACH,
+    // esquina en CORNER y búsqueda perdida en LINE_LOST
+    uint8_t is_rotating = (
+        (obsState == OBS_APPROACH) ||
+        (obsState == OBS_CORNER && obs_stop_done == 0) ||
+        (lineState == LINE_LOST && obsState == OBS_IDLE)
+    );
+
+    if (is_rotating) {
         if (turn_offset > 0) {
             pwm_left  = -(int32_t) minPWM_left;
             pwm_right =  (int32_t) minPWM_right;
@@ -1817,18 +1754,19 @@ void PID_ControlTask(void) {
     if (pwm_right < -(int32_t) maxPWM) pwm_right = -(int32_t) maxPWM;
 
     if (current_angle > ANG45 || current_angle < -ANG45) {
-		final_pwm_left = 0;
-		final_pwm_right = 0;
-		integral = 0;
-		pwm_left = 0;
-		pwm_right = 0;
-	}
+        final_pwm_left  = 0;
+        final_pwm_right = 0;
+        integral        = 0;
+        pwm_left        = 0;
+        pwm_right       = 0;
+    }
+
     // =========================================================
     // --- 7. MAPEO AL HARDWARE ---
     // =========================================================
     // Izquierda: CH4 (Adelante), CH3 (Atrás)
     if (pwm_left > 0) {
-        rPulse4 = (uint16_t) pwm_left;
+        rPulse4 = (uint16_t)  pwm_left;
         lPulse3 = 0;
     } else {
         lPulse3 = (uint16_t) (-pwm_left);
@@ -1837,14 +1775,13 @@ void PID_ControlTask(void) {
 
     // Derecha: CH2 (Adelante), CH1 (Atrás)
     if (pwm_right > 0) {
-        rPulse2 = (uint16_t) pwm_right;
+        rPulse2 = (uint16_t)  pwm_right;
         lPulse1 = 0;
     } else {
         lPulse1 = (uint16_t) (-pwm_right);
         rPulse2 = 0;
     }
 }
-
 /* USER CODE END 0 */
 
 
