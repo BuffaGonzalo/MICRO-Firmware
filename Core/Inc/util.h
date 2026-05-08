@@ -83,6 +83,9 @@ typedef enum {
 	SETCORNERDIST = 0xB7,
 	SETALIGNDIST = 0xB8,
 
+	SETPWMLROT = 0xB9,
+	SETPWMRROT = 0xC0,
+
 	ACK = 0x0D,
 	UNKNOWN = 0xFF
 } _eCmd;
