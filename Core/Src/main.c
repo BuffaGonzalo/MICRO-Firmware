@@ -1561,21 +1561,38 @@ void PID_ControlTask(void) {
 			// el objeto terminó → entra a OBS_CORNER para doblar.
 			// -------------------------------------------------
 		case OBS_WALL: {
-			int32_t lateral = (obs_turn_dir == 1) ? ir_side_r : ir_side_l;
-			int32_t dist_error = lateral - obs_side_dist;
-			int32_t dist_corr = dist_error / 20;
+					int32_t lateral     = (obs_turn_dir == 1) ? ir_side_r : ir_side_l;
+					int32_t corner_sens = (obs_turn_dir == 1) ? ir_corner_r : ir_corner_l;
+					int32_t dist_error  = lateral - obs_side_dist;
+					int32_t dist_corr   = dist_error / 20;
 
-			// Si objeto a la derecha: acercarse suma turn positivo (gira der)
-			// Si objeto a la izquierda: acercarse suma turn negativo (gira izq)
-			turn_offset = (obs_turn_dir == 1) ? dist_corr : -dist_corr;
-			target_setpoint = attack_setpoint;
+//					if (dist_corr >  15) dist_corr =  15;
+//					if (dist_corr < -15) dist_corr = -15;
 
-			if (lateral < obs_lost_dist) {
-				obs_timer = 0;
-				obsState = OBS_CORNER;
-			}
-			break;
-		}
+					if (lateral >= obs_lost_dist) {
+						// Sensor lateral ve la pared → sigue con proporcional normal
+						turn_offset     = (obs_turn_dir == 1) ? dist_corr : -dist_corr;
+						target_setpoint = attack_setpoint;
+
+						if (lateral < obs_lost_dist) {
+							obs_timer = 0;
+							obsState  = OBS_CORNER;
+						}
+
+					} else if (corner_sens >= obs_corner_dist) {
+						// Sensor 45° ve la pared pero el lateral no →
+						// llegó inclinado, rota en el lugar hacia la pared
+						// para alinear el sensor lateral
+						target_setpoint = 0;
+						turn_offset     = (obs_turn_dir == 1) ? -custom_turn : custom_turn;
+
+					} else {
+						// Ningún sensor ve la pared → esquina
+						obs_timer = 0;
+						obsState  = OBS_CORNER;
+					}
+					break;
+				}
 
 			// -------------------------------------------------
 			// OBS_CORNER
@@ -1775,8 +1792,11 @@ void PID_ControlTask(void) {
 	int32_t pwm_left = final_pwm_left;
 	int32_t pwm_right = final_pwm_right;
 
-	uint8_t is_rotating = ((obsState == OBS_APPROACH)
-			|| (lineState == LINE_LOST && obsState == OBS_IDLE));
+	uint8_t is_rotating = (
+			(obsState == OBS_APPROACH) ||
+			(obsState == OBS_WALL && turn_offset != 0 && target_setpoint == 0) ||
+			(lineState == LINE_LOST && obsState == OBS_IDLE)
+		);
 
 	if (obsState == OBS_CORNER && obs_stop_done == 0) {
 		if (obs_turn_dir == 1) {
@@ -1847,6 +1867,7 @@ void PID_ControlTask(void) {
 		rPulse2 = 0;
 	}
 }
+
 /* USER CODE END 0 */
 
 
