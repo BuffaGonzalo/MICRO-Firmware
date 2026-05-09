@@ -86,6 +86,9 @@ typedef enum {
 	SETPWMLROT = 0xB9,
 	SETPWMRROT = 0xC0,
 
+	SETSTATICOFF = 0xC1,
+	SETMOVINGOFF = 0xC2,
+
 	ACK = 0x0D,
 	UNKNOWN = 0xFF
 } _eCmd;

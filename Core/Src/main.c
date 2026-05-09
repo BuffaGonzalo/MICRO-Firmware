@@ -326,7 +326,10 @@ uint16_t obs_lost_dist    = 400;   // Lateral por debajo de este valor = pared t
 uint16_t obs_side_dist    = 1000;  // Distancia lateral de referencia para seguir la pared
 uint16_t obs_stop_cycles  = 10;    // Ciclos de parada antes de rotar (200ms con DT=20ms)
 // NUEVA VARIABLE:
-uint16_t obs_align_dist   = 3600;   // Valor 'x' deseado para el sensor lateral al rotar 90°
+uint16_t obs_align_dist   = 2500;   // Valor 'x' deseado para el sensor lateral al rotar 90°
+
+uint16_t staticOff = 400;
+uint16_t movingOff = 300;
 
 /* USER CODE END PV */
 
@@ -613,9 +616,25 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 		myWord.ui8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
 		brake_angle_div = myWord.i16[0];
 		break;
+	case SETSTATICOFF:
+		unerPrtcl_PutHeaderOnTx(dataTx, SETSTATICOFF, 2);
+		unerPrtcl_PutByteOnTx(dataTx, ACK);
+		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
+		myWord.ui8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		myWord.ui8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		staticOff = myWord.ui16[0];
+		break;
+	case SETMOVINGOFF:
+		unerPrtcl_PutHeaderOnTx(dataTx, SETMOVINGOFF, 2);
+		unerPrtcl_PutByteOnTx(dataTx, ACK);
+		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
+		myWord.ui8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		myWord.ui8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		movingOff = myWord.ui16[0];
+		break;
 	case GETINTERNALDATA:
-		// Estructura simplificada para sincronización de parámetros (44 bytes de datos + 1 chk)
-		unerPrtcl_PutHeaderOnTx(dataTx, GETINTERNALDATA, 45);
+		// Estructura simplificada para sincronización de parámetros (48 bytes de datos + 1 chk)
+		unerPrtcl_PutHeaderOnTx(dataTx, GETINTERNALDATA, 49);
 
 		// 1. Bloque PID Balancín (10 bytes: Kp, Ki, Kd, Max, Min)
 		int16_t pid_bal[5] = { Kp_stable, Ki_stable, Kd_stable, (int16_t)minPWM_Right, (int16_t)minPWM_Left};
@@ -645,8 +664,8 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 		}
 
 		// 5. Bloque Rotación PWM (4 bytes: PWM_LRot, PWM_RRot)
-		uint16_t params_rot[2] = { PWM_LRot, PWM_RRot };
-		for (int i = 0; i < 2; i++) {
+		uint16_t params_rot[4] = { PWM_LRot, PWM_RRot, staticOff, movingOff };
+		for (int i = 0; i < 4; i++) {
 			unerPrtcl_PutByteOnTx(dataTx, (uint8_t) (params_rot[i] & 0xFF));
 			unerPrtcl_PutByteOnTx(dataTx, (uint8_t) ((params_rot[i] >> 8) & 0xFF));
 		}
@@ -1576,7 +1595,7 @@ void PID_ControlTask(void) {
 				// Fase de rotación: rueda contraria al objeto avanza,
 				// rueda del lado del objeto retrocede → gira hacia el objeto
 				target_setpoint = 0;
-				turn_offset = (obs_turn_dir == 1) ? custom_turn : -custom_turn;
+				turn_offset = (obs_turn_dir == 1) ? -custom_turn : custom_turn;
 
 				if (corner_sensor >= obs_corner_dist) {
 					// Sensor 45° tomó la nueva cara → para y avanza un poco
@@ -1756,13 +1775,18 @@ void PID_ControlTask(void) {
 	int32_t pwm_left = final_pwm_left;
 	int32_t pwm_right = final_pwm_right;
 
-	// Rotación en el lugar para: parada en APPROACH, rotación en APPROACH,
-	// esquina en CORNER y búsqueda perdida en LINE_LOST
 	uint8_t is_rotating = ((obsState == OBS_APPROACH)
-			|| (obsState == OBS_CORNER && obs_stop_done == 0)
 			|| (lineState == LINE_LOST && obsState == OBS_IDLE));
 
-	if (is_rotating) {
+	if (obsState == OBS_CORNER && obs_stop_done == 0) {
+		if (obs_turn_dir == 1) {
+			pwm_left = (int32_t) minPWM_Left + movingOff;
+			pwm_right = (int32_t) minPWM_Right - staticOff;
+		} else {
+			pwm_left = (int32_t) minPWM_Left - staticOff;
+			pwm_right = (int32_t) minPWM_Right + movingOff;
+		}
+	} else if (is_rotating) {
 		if (turn_offset > 0) {
 			pwm_left = -(int32_t) PWM_LRot;
 			pwm_right = (int32_t) PWM_RRot;
