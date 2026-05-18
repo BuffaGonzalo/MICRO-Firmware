@@ -19,3 +19,7 @@ Firmware para un autito de tipo péndulo invertido basado en el microcontrolador
 ## Interfaz gráfica complementaria
 
 Para el monitoreo y control desde PC, este firmware se complementa con el proyecto [MICRO-Software](https://github.com/BuffaGonzalo/MICRO-Software), que provee la interfaz gráfica de usuario para visualización y ajuste remoto de parámetros.
+
+---
+
+Desarrollado por BuffaGonzalo.
