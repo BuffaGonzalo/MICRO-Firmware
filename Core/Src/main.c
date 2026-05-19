@@ -256,8 +256,8 @@ int32_t ax_filt = 0;
 int32_t az_filt = 0;
 
 //Variables externas PID
-int16_t Kp_stable = 125; //75
-int16_t Kd_stable = 5; //8
+int16_t Kp_stable = 75; //75
+int16_t Kd_stable = 8; //8
 int16_t Ki_stable = 0;
 // Pasan a ser de 16 bits. minPWM centrado en 735.
 uint16_t maxPWM    = 9999;
@@ -1499,7 +1499,25 @@ void PID_ControlTask(void) {
 	RUN_PID = FALSE;
 
 	// =========================================================
-	// --- 1. FILTROS Y CÁLCULO DE ÁNGULO (IMU) ---
+	// --- 1. LECTURA E INVERSIÓN DE SENSORES DE LÍNEA ---
+	// =========================================================
+	int32_t left_ir = 4095 - adcData[5];
+	int32_t center_ir = 4095 - adcData[3];
+	int32_t right_ir = 4095 - adcData[1];
+
+	if (left_ir < 0)
+		left_ir = 0;
+	if (center_ir < 0)
+		center_ir = 0;
+	if (right_ir < 0)
+		right_ir = 0;
+
+	sum_sensors = left_ir + center_ir + right_ir;
+	if (sum_sensors == 0)
+		sum_sensors = 1;
+
+	// =========================================================
+	// --- 2. FILTROS Y CÁLCULO DE ÁNGULO (IMU) ---
 	// =========================================================
 	if (ax_filt == 0 && az_filt == 0) {
 		ax_filt = ax;
@@ -1509,86 +1527,235 @@ void PID_ControlTask(void) {
 		az_filt = (az * 5 + az_filt * 95) / 100;
 	}
 
-	acc_angle_hr     = (int32_t)ax_filt * 35; // Simplificacion considerando az como 16500 simpre, induce error - Se evita el cociente que puede generar problemas.
-	gyro_delta_hr    = (-(int32_t) gy * 200) / 131;
-	current_angle_hr = (ALPHA_GYRO * (current_angle_hr + gyro_delta_hr)
-			         +  ALPHA_ACC  * acc_angle_hr) / 100;
-	current_angle = current_angle_hr / 100;
-
-
-	// =========================================================
-	// --- 2. LAZO PID CENTRAL (Equilibrio) ---
-	// =========================================================
-	int32_t target_setpoint = setpoint;
-
-	if (current_angle > ANG2) {
-		target_setpoint = save_min;
-		integral        = 0;
-	} else if (current_angle < -ANG10) {
-		target_setpoint = save_max;
-		integral        = 0;
-	} else if (current_angle > angle_limit) {
-		target_setpoint = angle_limit;
-		integral        = 0;
+	if (az_filt > AZ_MIN_VALID || az_filt < -AZ_MIN_VALID) {
+		acc_angle_hr = (int32_t) ax_filt * 35;
 	}
 
-	error      = target_setpoint - current_angle;
-	derivative = (int32_t) gy * 10 / 131;
+	gyro_delta_hr = (-(int32_t) gy * 200) / 131;
+	current_angle_hr = (ALPHA_GYRO * (current_angle_hr + gyro_delta_hr)
+			+ ALPHA_ACC * acc_angle_hr) / 100;
+
+	// Límites de seguridad de software extremos (+/- 90 grados)
+	if (current_angle_hr > 900000)
+		current_angle_hr = 900000;
+	if (current_angle_hr < -900000)
+		current_angle_hr = -900000;
+
+	current_angle = current_angle_hr / 100;
+
+	// =========================================================
+	// --- 3. MÁQUINA DE ESTADOS: SEGUIDOR DE LÍNEA ---
+	// =========================================================
+	int32_t target_setpoint = setpoint;
+	turn_offset = 0;
+
+	uint8_t ir1_active = (right_ir > IR_WHITE);
+	uint8_t ir3_active = (center_ir > IR_WHITE);
+	uint8_t ir5_active = (left_ir > IR_WHITE);
+	uint8_t active_count = ir1_active + ir3_active + ir5_active;
+
+	switch (lineState) {
+
+	case LINE_SEARCHING:
+		if (ir3_active) {
+			lineState = LINE_FOLLOWING;
+		} else {
+			target_setpoint = setpoint;
+			turn_offset = -custom_turn;
+		}
+		break;
+
+	case LINE_FOLLOWING:
+		if (active_count == 3 && ir1_active && ir3_active && ir5_active) {
+			lineState = LINE_CROSS;
+			break;
+		}
+
+		if (active_count == 0) {
+			line_lost_timer = 0;
+			line_lost_phase = 0;
+			lineState = LINE_LOST;
+			break;
+		}
+
+		error_linea = ((-(1000 * left_ir) + (1000 * right_ir)) / sum_sensors)
+				/ 10;
+		abs_error = (error_linea > 0) ? error_linea : -error_linea;
+
+		linear_term = Kp_line * error_linea;
+		quad_term = (Kq_line * error_linea * abs_error) / SCALE_LINE;
+
+		if (turn_divisor == 0) turn_divisor = 1; //Sistema de Seguridad para evitar divisiones por 0
+		turn_offset = (linear_term + quad_term) / turn_divisor;
+
+		{
+			int32_t abs_turn = (turn_offset > 0) ? turn_offset : -turn_offset;
+			int32_t curve_brake = 0;
+
+			if (brake_angle_div != 0) {
+				curve_brake = abs_turn / brake_angle_div;
+			}
+
+			target_setpoint = attack_setpoint + curve_brake;
+			if (target_setpoint > 5000)
+				target_setpoint = 5000;
+			if (target_setpoint < -5000)
+				target_setpoint = -5000;
+		}
+
+		last_line_error = error_linea;
+		break;
+
+	case LINE_LOST:
+		if (ir3_active) {
+			lineState = LINE_FOLLOWING;
+			break;
+		}
+
+		target_setpoint = 0; // Equilibrio vertical en ráfaga de búsqueda
+
+		if (line_lost_phase == 0) {
+			turn_offset = (last_line_error > 0) ? custom_turn : -custom_turn;
+			line_lost_timer++;
+			if (line_lost_timer >= LINE_LOST_PHASE0) {
+				line_lost_timer = 0;
+				line_lost_phase = 1;
+			}
+		} else if (line_lost_phase == 1) {
+			turn_offset = (last_line_error > 0) ? -custom_turn : custom_turn;
+			line_lost_timer++;
+			if (line_lost_timer >= LINE_LOST_PHASE1) {
+				line_lost_timer = 0;
+				line_lost_phase = 2;
+			}
+		} else {
+			turn_offset = (last_line_error > 0) ? -custom_turn : custom_turn;
+		}
+		break;
+
+	case LINE_CROSS:
+		if (active_count < 3) {
+			lineState = LINE_FOLLOWING;
+			break;
+		}
+		target_setpoint = attack_setpoint;
+		break;
+
+	default:
+		lineState = LINE_SEARCHING;
+		break;
+	}
+
+	// =========================================================
+	// --- 4. LAZO PID CENTRAL (Equilibrio) ---
+	// =========================================================
+
+	// --- UMBRAL DINÁMICO TRASERO ---
+	// Si está siguiendo línea usa ANG20, si no (búsqueda/perdido) usa ANG10
+	int32_t back_trigger = (lineState == LINE_FOLLOWING) ? ANG15 : ANG10;
+
+	// --- SISTEMA DE CONTRASETPOINT ---
+	// 1. Evaluamos primero el caso extremo positivo para que no quede bloqueado
+	if (current_angle > angle_limit) {
+		target_setpoint = angle_limit;
+		integral = 0;
+	}
+	// 2. Evaluamos el caso frontal normal (ANG2)
+	else if (current_angle > ANG2) {
+		target_setpoint = save_min;
+		integral = 0;
+	}
+	// 3. Evaluamos la caída trasera con el umbral dinámico
+	else if (current_angle < -back_trigger) {
+		target_setpoint = save_max;
+		integral = 0;
+	}
+
+	error = target_setpoint - current_angle;
+	derivative = ((error - last_error) * 1000) / DT_MS;
 
 	if (error > -150 && error < 150) {
 		integral += error * DT_MS;
-		if (integral >  (ANG20 * DT_MS)) integral =  (ANG20 * DT_MS);
-		if (integral < -(ANG20 * DT_MS)) integral = -(ANG20 * DT_MS);
+		if (integral > (ANG20 * DT_MS))
+			integral = (ANG20 * DT_MS);
+		if (integral < -(ANG20 * DT_MS))
+			integral = -(ANG20 * DT_MS);
 	} else {
 		integral = (integral * 8) / 10;
 	}
 
 	output = (Kp_stable * error + (Ki_stable * integral) / 1000
 			+ (Kd_stable * derivative)) / 10000;
+	last_error = error;
 
 	// =========================================================
-	// --- 3. INYECCIÓN INSTANTÁNEA DE FRICCIÓN (minPWM) ---
+	// --- 5 & 6. MIXER DIRECCIONAL Y SATURACIÓN ---
 	// =========================================================
-	int32_t final_pwm_left;
-	int32_t final_pwm_right;
+	int32_t pwm_left = 0;
+	int32_t pwm_right = 0;
 
-	if (output > 0) {
-		final_pwm_left  = output + minPWM_Left;
-		final_pwm_right = output + minPWM_Right;
-	} else if (output < 0) {
-		final_pwm_left  = output - minPWM_Left;
-		final_pwm_right = output - minPWM_Right;
+	uint8_t is_rotating =
+			(lineState == LINE_LOST || lineState == LINE_SEARCHING);
+
+	if (is_rotating) {
+		// --- MODO PIVOTE SEGURO ---
+		int32_t raw_L = output + turn_offset;
+		int32_t raw_R = output - turn_offset;
+
+		if (raw_L > 0)
+			pwm_left = raw_L + PWM_LRot + offset_left;
+		else if (raw_L < 0)
+			pwm_left = raw_L - PWM_LRot - offset_left;
+
+		if (raw_R > 0)
+			pwm_right = raw_R + PWM_RRot + offset_right;
+		else if (raw_R < 0)
+			pwm_right = raw_R - PWM_RRot - offset_right;
+
 	} else {
-		final_pwm_left  = 0;
-		final_pwm_right = 0;
+		// --- MODO AVANCE NORMAL ---
+		if (output > 0) {
+			pwm_left = output + minPWM_Left + offset_left;
+			pwm_right = output + minPWM_Right + offset_right;
+		} else if (output < 0) {
+			pwm_left = output - minPWM_Left - offset_left;
+			pwm_right = output - minPWM_Right - offset_right;
+		}
+
+		if (output != 0) {
+			if (output > 0) {
+				pwm_left -= turn_offset;
+				pwm_right += turn_offset;
+			} else {
+				pwm_left += turn_offset;
+				pwm_right -= turn_offset;
+			}
+		}
 	}
 
+	// Apagado de emergencia por caída estructural
 	if (current_angle > ANG45 || current_angle < -ANG45) {
-		final_pwm_left  = 0;
-		final_pwm_right = 0;
-		integral        = 0;
-	}
-
-	// =========================================================
-	// --- 4. SATURACIÓN Y MAPEO AL HARDWARE ---
-	// =========================================================
-	int32_t pwm_left  = final_pwm_left;
-	int32_t pwm_right = final_pwm_right;
-
-	if (pwm_left  >  (int32_t) maxPWM) pwm_left  =  (int32_t) maxPWM;
-	if (pwm_left  < -(int32_t) maxPWM) pwm_left  = -(int32_t) maxPWM;
-	if (pwm_right >  (int32_t) maxPWM) pwm_right =  (int32_t) maxPWM;
-	if (pwm_right < -(int32_t) maxPWM) pwm_right = -(int32_t) maxPWM;
-
-	if (current_angle > ANG45 || current_angle < -ANG45) {
-		integral  = 0;
-		pwm_left  = 0;
+		pwm_left = 0;
 		pwm_right = 0;
+		integral = 0;
 	}
 
+	// Saturación Final
+	if (pwm_left > (int32_t) maxPWM)
+		pwm_left = (int32_t) maxPWM;
+	if (pwm_left < -(int32_t) maxPWM)
+		pwm_left = -(int32_t) maxPWM;
+	if (pwm_right > (int32_t) maxPWM)
+		pwm_right = (int32_t) maxPWM;
+	if (pwm_right < -(int32_t) maxPWM)
+		pwm_right = -(int32_t) maxPWM;
+
+	// =========================================================
+	// --- 7. MAPEO AL HARDWARE ---
+	// =========================================================
 	// Izquierda: CH4 (Adelante), CH3 (Atrás)
 	if (pwm_left > 0) {
-		rPulse4 = (uint16_t)  pwm_left;
+		rPulse4 = (uint16_t) pwm_left;
 		lPulse3 = 0;
 	} else {
 		lPulse3 = (uint16_t) (-pwm_left);
@@ -1597,13 +1764,14 @@ void PID_ControlTask(void) {
 
 	// Derecha: CH2 (Adelante), CH1 (Atrás)
 	if (pwm_right > 0) {
-		rPulse2 = (uint16_t)  pwm_right;
+		rPulse2 = (uint16_t) pwm_right;
 		lPulse1 = 0;
 	} else {
 		lPulse1 = (uint16_t) (-pwm_right);
 		rPulse2 = 0;
 	}
 }
+
 
 /* USER CODE END 0 */
 
