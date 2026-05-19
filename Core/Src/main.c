@@ -75,6 +75,10 @@
 #define ANG50				50*PID_SCALE_FACTOR
 #define ANG45				45*PID_SCALE_FACTOR
 #define ANG20				20*PID_SCALE_FACTOR
+#define ANG15				15*PID_SCALE_FACTOR
+#define ANG10				10*PID_SCALE_FACTOR
+#define ANG5				5*PID_SCALE_FACTOR
+#define ANG2				2*PID_SCALE_FACTOR
 
 #define CTRLSPEED			10
 //Acelerometro
@@ -227,7 +231,7 @@ typedef struct {
 
 static const _sWiFiNetwork knownNetworks[] = {
 	{ "FCAL",    "fcalconcordia.06-2019",    "172.23.190.89"  },
-	{ "ARPANET", "1969-Apolo_11-2022",       "192.168.0.13"   },
+	{ "ARPANET", "1969-Apolo_11-2022",       "192.168.0.10"   },
 	{ "SA04",    "12345678",                "10.93.92.213"   },
 };
 
@@ -252,21 +256,21 @@ int32_t ax_filt = 0;
 int32_t az_filt = 0;
 
 //Variables externas PID
-int16_t Kp_stable = 75;
-int16_t Kd_stable = 8;
+int16_t Kp_stable = 125; //75
+int16_t Kd_stable = 5; //8
 int16_t Ki_stable = 0;
 // Pasan a ser de 16 bits. minPWM centrado en 735.
 uint16_t maxPWM    = 9999;
 uint16_t minPWM_Left  = 1100;
-uint16_t minPWM_Right = 1060;
+uint16_t minPWM_Right = 1500;
 uint16_t PWM_LRot = 880;
 uint16_t PWM_RRot = 800;
 
 // Offsets que garantizan exactamente los 70 puntos de diferencia
-int16_t offset_left = 8;
-int16_t offset_right = 20; //70
+int16_t offset_left = 0;
+int16_t offset_right = 250; //70
 
-int32_t setpoint = -225; // Angulo unico de trabajo (x100 = 0.5°), ajustable por SETLINECTRL
+int32_t setpoint = 50; // Setpoint estatico, angulo unico de trabajo (x100 = 0.5°), ajustable por SETLINECTRL
 
 // Variables del Control de Línea
 int16_t Kp_line = 125; // Proporcional para reacción del volante (60 es un buen inicio)
@@ -282,6 +286,10 @@ int32_t last_line_error = 0;
 int16_t custom_turn = 1; // 15000 / 100 = 150 de PWM real para giro en búsqueda
 int16_t attack_setpoint = -1000; // Inclinación de 2.0° para un avance muy sutil
 int16_t brake_angle_div = 4; //Valor menor aumenta la velocidad en curvas
+int32_t angle_limit = 2000;  // Límite de inclinación (x100 = 20.00°)
+int16_t turn_divisor = 8;    // Divisor para el cálculo de turn_offset
+int16_t save_min = -2000;        // Anti-collapse fallback setpoint (backward recovery)
+int16_t save_max = 2000;        // Anti-collapse fallback setpoint (forward recovery)
 
 // Ángulos usando enteros de 8 bits (0 a 255 representa un giro completo)
 uint8_t angle_x = 0;
@@ -633,8 +641,8 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 		movingOff = myWord.ui16[0];
 		break;
 	case GETINTERNALDATA:
-		// Estructura simplificada para sincronización de parámetros (48 bytes de datos + 1 chk)
-		unerPrtcl_PutHeaderOnTx(dataTx, GETINTERNALDATA, 49);
+		// Estructura simplificada para sincronización de parámetros (56 bytes de datos + 1 chk)
+		unerPrtcl_PutHeaderOnTx(dataTx, GETINTERNALDATA, 61);
 
 		// 1. Bloque PID Balancín (10 bytes: Kp, Ki, Kd, Max, Min)
 		int16_t pid_bal[5] = { Kp_stable, Ki_stable, Kd_stable, (int16_t)minPWM_Right, (int16_t)minPWM_Left};
@@ -663,23 +671,43 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 			unerPrtcl_PutByteOnTx(dataTx, (uint8_t) ((params_obs[i] >> 8) & 0xFF));
 		}
 
-		// 5. Bloque Rotación PWM (4 bytes: PWM_LRot, PWM_RRot)
+		// 5. Bloque Rotación PWM (8 bytes: PWM_LRot, PWM_RRot, staticOff, movingOff)
 		uint16_t params_rot[4] = { PWM_LRot, PWM_RRot, staticOff, movingOff };
 		for (int i = 0; i < 4; i++) {
 			unerPrtcl_PutByteOnTx(dataTx, (uint8_t) (params_rot[i] & 0xFF));
 			unerPrtcl_PutByteOnTx(dataTx, (uint8_t) ((params_rot[i] >> 8) & 0xFF));
 		}
 
+		// 6. Nuevos Parámetros (4 bytes: angle_limit, turn_divisor)
+		int16_t new_params[2] = { (int16_t)angle_limit, turn_divisor };
+		for (int i = 0; i < 2; i++) {
+			unerPrtcl_PutByteOnTx(dataTx, (uint8_t) (new_params[i] & 0xFF));
+			unerPrtcl_PutByteOnTx(dataTx, (uint8_t) ((new_params[i] >> 8) & 0xFF));
+		}
+
+		// 7. Anti-collapse Setpoints (4 bytes: save_min, save_max)
+		int16_t save_params[2] = { save_min, save_max };
+		for (int i = 0; i < 2; i++) {
+			unerPrtcl_PutByteOnTx(dataTx, (uint8_t) (save_params[i] & 0xFF));
+			unerPrtcl_PutByteOnTx(dataTx, (uint8_t) ((save_params[i] >> 8) & 0xFF));
+		}
+
+		// 8. current_angle_hr (4 bytes)
+		unerPrtcl_PutByteOnTx(dataTx, (uint8_t) (current_angle_hr & 0xFF));
+		unerPrtcl_PutByteOnTx(dataTx, (uint8_t) ((current_angle_hr >> 8) & 0xFF));
+		unerPrtcl_PutByteOnTx(dataTx, (uint8_t) ((current_angle_hr >> 16) & 0xFF));
+		unerPrtcl_PutByteOnTx(dataTx, (uint8_t) ((current_angle_hr >> 24) & 0xFF));
+
 		// Checksum final
 		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
 		break;
 	case GETPIDBALANCE:
-			// Tamaño: 1(cmd) + 4 variables * 4 bytes = 17 bytes
-			unerPrtcl_PutHeaderOnTx(dataTx, GETPIDBALANCE, 17);
+			// Tamaño: 1(cmd) + 5 variables * 4 bytes = 21 bytes
+			unerPrtcl_PutHeaderOnTx(dataTx, GETPIDBALANCE, 21);
 
-			int32_t pid_telemetry[4] = { error, integral, derivative, output };
+			int32_t pid_telemetry[5] = { error, integral, derivative, output, current_angle };
 
-			for (int i = 0; i < 4; i++) {
+			for (int i = 0; i < 5; i++) {
 				unerPrtcl_PutByteOnTx(dataTx, (uint8_t) (pid_telemetry[i] & 0xFF));
 				unerPrtcl_PutByteOnTx(dataTx, (uint8_t) ((pid_telemetry[i] >> 8) & 0xFF));
 				unerPrtcl_PutByteOnTx(dataTx, (uint8_t) ((pid_telemetry[i] >> 16) & 0xFF));
@@ -799,6 +827,38 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 		myWord.ui8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
 		myWord.ui8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
 		PWM_RRot = myWord.ui16[0];
+		break;
+	case SETTURNDIV:
+		unerPrtcl_PutHeaderOnTx(dataTx, SETTURNDIV, 2);
+		unerPrtcl_PutByteOnTx(dataTx, ACK);
+		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
+		myWord.ui8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		myWord.ui8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		turn_divisor = myWord.i16[0];
+		break;
+	case SETLIMITANG:
+		unerPrtcl_PutHeaderOnTx(dataTx, SETLIMITANG, 2);
+		unerPrtcl_PutByteOnTx(dataTx, ACK);
+		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
+		myWord.ui8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		myWord.ui8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		angle_limit = (int32_t)myWord.i16[0];
+		break;
+	case SETPOINTSAVEMIN:
+		unerPrtcl_PutHeaderOnTx(dataTx, SETPOINTSAVEMIN, 2);
+		unerPrtcl_PutByteOnTx(dataTx, ACK);
+		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
+		myWord.ui8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		myWord.ui8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		save_min = myWord.i16[0];
+		break;
+	case SETPOINTSAVEMAX:
+		unerPrtcl_PutHeaderOnTx(dataTx, SETPOINTSAVEMAX, 2);
+		unerPrtcl_PutByteOnTx(dataTx, ACK);
+		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
+		myWord.ui8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		myWord.ui8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		save_max = myWord.i16[0];
 		break;
 	default:
 		unerPrtcl_PutHeaderOnTx(dataTx, (_eCmd) dataRx->buff[dataRx->indexData],
@@ -1439,32 +1499,7 @@ void PID_ControlTask(void) {
 	RUN_PID = FALSE;
 
 	// =========================================================
-	// --- 1. LECTURA E INVERSIÓN DE SENSORES ---
-	// =========================================================
-	int32_t left_ir = 4095 - adcData[5];
-	int32_t center_ir = 4095 - adcData[3];
-	int32_t right_ir = 4095 - adcData[1];
-
-	if (left_ir < 0)
-		left_ir = 0;
-	if (center_ir < 0)
-		center_ir = 0;
-	if (right_ir < 0)
-		right_ir = 0;
-
-	sum_sensors = left_ir + center_ir + right_ir;
-	if (sum_sensors == 0)
-		sum_sensors = 1;
-
-	// Sensores de obstáculo (mayor valor = más cerca)
-	int32_t ir_front = adcData[6]; // Frontal centrado
-	int32_t ir_corner_r = adcData[0]; // Esquina derecha 45°
-	int32_t ir_corner_l = adcData[4]; // Esquina izquierda 45°
-	int32_t ir_side_r = adcData[7]; // Lateral derecho 90°
-	int32_t ir_side_l = adcData[2]; // Lateral izquierdo 90°
-
-	// =========================================================
-	// --- 2. FILTROS Y CÁLCULO DE ÁNGULO (IMU) ---
+	// --- 1. FILTROS Y CÁLCULO DE ÁNGULO (IMU) ---
 	// =========================================================
 	if (ax_filt == 0 && az_filt == 0) {
 		ax_filt = ax;
@@ -1474,384 +1509,86 @@ void PID_ControlTask(void) {
 		az_filt = (az * 5 + az_filt * 95) / 100;
 	}
 
-	if (az_filt > AZ_MIN_VALID || az_filt < -AZ_MIN_VALID) {
-		int32_t ratio = (ax_filt * 1000) / az_filt;
-		acc_angle_hr = (ratio * (int32_t) RADTOGRAD) / 10;
-	}
-
-	gyro_delta_hr = (-(int32_t) gy * 200) / 131;
+	acc_angle_hr     = (int32_t)ax_filt * 35; // Simplificacion considerando az como 16500 simpre, induce error - Se evita el cociente que puede generar problemas.
+	gyro_delta_hr    = (-(int32_t) gy * 200) / 131;
 	current_angle_hr = (ALPHA_GYRO * (current_angle_hr + gyro_delta_hr)
-			+ ALPHA_ACC * acc_angle_hr) / 100;
+			         +  ALPHA_ACC  * acc_angle_hr) / 100;
 	current_angle = current_angle_hr / 100;
 
+
 	// =========================================================
-	// --- 3. MÁQUINA DE ESTADOS PRINCIPAL ---
+	// --- 2. LAZO PID CENTRAL (Equilibrio) ---
 	// =========================================================
 	int32_t target_setpoint = setpoint;
-	turn_offset = 0;
 
-	uint8_t ir1_active = (left_ir > IR_WHITE);
-	uint8_t ir3_active = (center_ir > IR_WHITE);
-	uint8_t ir5_active = (right_ir > IR_WHITE);
-	uint8_t active_count = ir1_active + ir3_active + ir5_active;
-
-	// Salida del esquivador: solo busca línea en la fase final
-	// (OBS_WALL luego de la segunda esquina, marcada con obs_stop_done == 2)
-	if (obsState == OBS_WALL && obs_stop_done == 2
-			&& (ir3_active || ir1_active || ir5_active)) {
-		obsState = OBS_IDLE;
-		lineState = LINE_FOLLOWING;
-		obs_timer = 0;
-		obs_stop_done = 0;
+	if (current_angle > ANG2) {
+		target_setpoint = save_min;
+		integral        = 0;
+	} else if (current_angle < -ANG10) {
+		target_setpoint = save_max;
+		integral        = 0;
+	} else if (current_angle > angle_limit) {
+		target_setpoint = angle_limit;
+		integral        = 0;
 	}
 
-	if (obsState != OBS_IDLE) {
-
-		switch (obsState) {
-
-		// -------------------------------------------------
-		// OBS_APPROACH
-		// Obstáculo detectado frontalmente.
-		// Subfase 0: para el robot obs_stop_cycles ciclos y
-		//            decide hacia qué lado esquivar comparando
-		//            los sensores de esquina 45°.
-		// Subfase 1: rota HASTA QUE el sensor lateral alcance
-		//            el valor de 'obs_align_dist' (alineación con la pared).
-		// -------------------------------------------------
-		case OBS_APPROACH:
-
-			if (obs_stop_done == 0) {
-				// Subfase de parada
-				target_setpoint = 0;
-				turn_offset = 0;
-				obs_timer++;
-
-				if (obs_timer >= obs_stop_cycles) {
-					obs_timer = 0;
-
-					// Decide lado aleatoriamente usando el bit 0 del timer
-					// como fuente de pseudo-aleatoriedad
-					obs_turn_dir = (obs_timer ^ (uint8_t) current_angle) & 0x01;
-					obs_stop_done = 1;
-				}
-
-			} else {
-				// Subfase de rotación basada en sensor lateral
-				// Rota hasta que el sensor lateral del lado CONTRARIO
-				// al giro detecte la caja (porque al rotar 90° la caja
-				// que estaba al frente queda al costado opuesto al giro)
-				target_setpoint = 0;
-				turn_offset = (obs_turn_dir == 1) ? custom_turn : -custom_turn;
-
-				int32_t lateral_align =
-						(obs_turn_dir == 1) ? ir_side_r : ir_side_l;
-
-				if (lateral_align >= obs_align_dist) {
-					obs_stop_done = 0;
-					obs_timer = 0;
-					obsState = OBS_WALL;
-				}
-			}
-			break;
-			// -------------------------------------------------
-			// OBS_WALL
-			// Avanza siguiendo la pared lateral mediante control
-			// proporcional sobre el sensor lateral (90°).
-			// Cuando el lateral cae por debajo de obs_lost_dist
-			// el objeto terminó → entra a OBS_CORNER para doblar.
-			// -------------------------------------------------
-		case OBS_WALL: {
-					int32_t lateral     = (obs_turn_dir == 1) ? ir_side_r : ir_side_l;
-					int32_t corner_sens = (obs_turn_dir == 1) ? ir_corner_r : ir_corner_l;
-					int32_t dist_error  = lateral - obs_side_dist;
-					int32_t dist_corr   = dist_error / 20;
-
-//					if (dist_corr >  15) dist_corr =  15;
-//					if (dist_corr < -15) dist_corr = -15;
-
-					if (lateral >= obs_lost_dist) {
-						// Sensor lateral ve la pared → sigue con proporcional normal
-						turn_offset     = (obs_turn_dir == 1) ? dist_corr : -dist_corr;
-						target_setpoint = attack_setpoint;
-
-						if (lateral < obs_lost_dist) {
-							obs_timer = 0;
-							obsState  = OBS_CORNER;
-						}
-
-					} else if (corner_sens >= obs_corner_dist) {
-						// Sensor 45° ve la pared pero el lateral no →
-						// llegó inclinado, rota en el lugar hacia la pared
-						// para alinear el sensor lateral
-						target_setpoint = 0;
-						turn_offset     = (obs_turn_dir == 1) ? -custom_turn : custom_turn;
-
-					} else {
-						// Ningún sensor ve la pared → esquina
-						obs_timer = 0;
-						obsState  = OBS_CORNER;
-					}
-					break;
-				}
-
-			// -------------------------------------------------
-			// OBS_CORNER
-			// Gestiona la esquina cuando el sensor lateral pierde
-			// la pared. Rota activando solo la rueda contraria al
-			// lado del objeto hasta que el sensor a 45° del lado
-			// del objeto alcance obs_corner_dist (confirmando que
-			// tomó la nueva cara del objeto).
-			// Luego avanza obs_stop_cycles ciclos para separarse
-			// y vuelve a OBS_WALL para seguir la nueva cara.
-			// -------------------------------------------------
-		case OBS_CORNER: {
-			int32_t corner_sensor =
-					(obs_turn_dir == 1) ? ir_corner_r : ir_corner_l;
-
-			if (obs_stop_done == 0) {
-				// Fase de rotación: rueda contraria al objeto avanza,
-				// rueda del lado del objeto retrocede → gira hacia el objeto
-				target_setpoint = 0;
-				turn_offset = (obs_turn_dir == 1) ? -custom_turn : custom_turn;
-
-				if (corner_sensor >= obs_corner_dist) {
-					// Sensor 45° tomó la nueva cara → para y avanza un poco
-					obs_timer = 0;
-					obs_stop_done = 1;
-				}
-
-			} else {
-				// Fase de avance post-esquina para separarse del vértice
-				target_setpoint = attack_setpoint;
-				turn_offset = 0;
-				obs_timer++;
-
-				if (obs_timer >= obs_stop_cycles * 2) {
-					obs_timer = 0;
-					obs_stop_done = 2;
-					obsState = OBS_WALL;
-				}
-			}
-			break;
-		}
-
-		default:
-			obsState = OBS_IDLE;
-			break;
-		}
-
-	} else {
-		// obsState == OBS_IDLE: seguimiento de línea normal.
-		// Detección frontal activa solo cuando sigue línea.
-		if (ir_front >= obs_detect_dist) {
-			obs_timer = 0;
-			obs_stop_done = 0;
-			obsState = OBS_APPROACH;
-
-		} else {
-
-			switch (lineState) {
-
-			case LINE_SEARCHING:
-				if (ir3_active) {
-					lineState = LINE_FOLLOWING;
-				}
-				break;
-
-			case LINE_FOLLOWING:
-
-				if (active_count == 3 && ir1_active && ir3_active
-						&& ir5_active) {
-					lineState = LINE_CROSS;
-					break;
-				}
-
-				if (active_count == 0) {
-					line_lost_timer = 0;
-					line_lost_phase = 0;
-					lineState = LINE_LOST;
-					break;
-				}
-
-				error_linea = ((-(1000 * left_ir) + (1000 * right_ir))
-						/ sum_sensors) / 10;
-
-				abs_error = (error_linea > 0) ? error_linea : -error_linea;
-				linear_term = Kp_line * error_linea;
-				quad_term = (Kq_line * error_linea * abs_error) / SCALE_LINE;
-				turn_offset = (linear_term + quad_term) / 4;
-
-				{
-					int32_t abs_turn =
-							(turn_offset > 0) ? turn_offset : -turn_offset;
-					int32_t curve_brake = 0;
-					if (brake_angle_div != 0) {
-						curve_brake = abs_turn / brake_angle_div;
-					}
-					target_setpoint = attack_setpoint + curve_brake;
-					if (target_setpoint > 50)
-						target_setpoint = 50;
-				}
-
-				last_line_error = error_linea;
-				break;
-
-			case LINE_LOST:
-
-				if (ir3_active) {
-					lineState = LINE_FOLLOWING;
-					break;
-				}
-
-				if (line_lost_phase == 0) {
-					turn_offset =
-							(last_line_error > 0) ? custom_turn : -custom_turn;
-					target_setpoint = 0;
-					line_lost_timer++;
-					if (line_lost_timer >= LINE_LOST_PHASE0) {
-						line_lost_timer = 0;
-						line_lost_phase = 1;
-					}
-				} else if (line_lost_phase == 1) {
-					turn_offset =
-							(last_line_error > 0) ? -custom_turn : custom_turn;
-					target_setpoint = 0;
-					line_lost_timer++;
-					if (line_lost_timer >= LINE_LOST_PHASE1) {
-						line_lost_timer = 0;
-						line_lost_phase = 2;
-					}
-				} else {
-					turn_offset =
-							(last_line_error > 0) ? -custom_turn : custom_turn;
-					target_setpoint = 0;
-				}
-				break;
-
-			case LINE_CROSS:
-				if (active_count < 3) {
-					lineState = LINE_FOLLOWING;
-					break;
-				}
-				target_setpoint = attack_setpoint;
-				break;
-
-			default:
-				lineState = LINE_SEARCHING;
-				break;
-			}
-		}
-	}
-
-	// =========================================================
-	// --- 4. LAZO PID CENTRAL (Equilibrio) ---
-	// =========================================================
-	error = target_setpoint - current_angle;
-	derivative = ((error - last_error) * 1000) / DT_MS;
+	error      = target_setpoint - current_angle;
+	derivative = (int32_t) gy * 10 / 131;
 
 	if (error > -150 && error < 150) {
 		integral += error * DT_MS;
-		if (integral > (ANG20 * DT_MS))
-			integral = (ANG20 * DT_MS);
-		if (integral < -(ANG20 * DT_MS))
-			integral = -(ANG20 * DT_MS);
+		if (integral >  (ANG20 * DT_MS)) integral =  (ANG20 * DT_MS);
+		if (integral < -(ANG20 * DT_MS)) integral = -(ANG20 * DT_MS);
 	} else {
 		integral = (integral * 8) / 10;
 	}
 
 	output = (Kp_stable * error + (Ki_stable * integral) / 1000
 			+ (Kd_stable * derivative)) / 10000;
-	last_error = error;
 
 	// =========================================================
-	// --- 5. INYECCIÓN INSTANTÁNEA DE FRICCIÓN (minPWM) ---
+	// --- 3. INYECCIÓN INSTANTÁNEA DE FRICCIÓN (minPWM) ---
 	// =========================================================
 	int32_t final_pwm_left;
 	int32_t final_pwm_right;
 
 	if (output > 0) {
-		final_pwm_left = output + minPWM_Left;
+		final_pwm_left  = output + minPWM_Left;
 		final_pwm_right = output + minPWM_Right;
 	} else if (output < 0) {
-		final_pwm_left = output - minPWM_Left;
+		final_pwm_left  = output - minPWM_Left;
 		final_pwm_right = output - minPWM_Right;
 	} else {
-		final_pwm_left = 0;
+		final_pwm_left  = 0;
 		final_pwm_right = 0;
 	}
 
 	if (current_angle > ANG45 || current_angle < -ANG45) {
-		final_pwm_left = 0;
+		final_pwm_left  = 0;
 		final_pwm_right = 0;
-		integral = 0;
+		integral        = 0;
 	}
 
 	// =========================================================
-	// --- 6. MIXER DIRECCIONAL Y SATURACIÓN ---
+	// --- 4. SATURACIÓN Y MAPEO AL HARDWARE ---
 	// =========================================================
-	int32_t pwm_left = final_pwm_left;
+	int32_t pwm_left  = final_pwm_left;
 	int32_t pwm_right = final_pwm_right;
 
-	uint8_t is_rotating = (
-			(obsState == OBS_APPROACH) ||
-			(obsState == OBS_WALL && turn_offset != 0 && target_setpoint == 0) ||
-			(lineState == LINE_LOST && obsState == OBS_IDLE)
-		);
-
-	if (obsState == OBS_CORNER && obs_stop_done == 0) {
-		if (obs_turn_dir == 1) {
-			pwm_left = (int32_t) minPWM_Left + movingOff;
-			pwm_right = (int32_t) minPWM_Right - staticOff;
-		} else {
-			pwm_left = (int32_t) minPWM_Left - staticOff;
-			pwm_right = (int32_t) minPWM_Right + movingOff;
-		}
-	} else if (is_rotating) {
-		if (turn_offset > 0) {
-			pwm_left = -(int32_t) PWM_LRot;
-			pwm_right = (int32_t) PWM_RRot;
-		} else if (turn_offset < 0) {
-			pwm_left = (int32_t) PWM_LRot;
-			pwm_right = -(int32_t) PWM_RRot;
-		} else {
-			pwm_left = 0;
-			pwm_right = 0;
-		}
-	} else {
-		if (final_pwm_left != 0) {
-			if (final_pwm_left > 0) {
-				pwm_left += (offset_left - turn_offset);
-				pwm_right += (offset_right + turn_offset);
-			} else {
-				pwm_left -= (offset_left - turn_offset);
-				pwm_right -= (offset_right + turn_offset);
-			}
-		}
-	}
-
-	if (pwm_left > (int32_t) maxPWM)
-		pwm_left = (int32_t) maxPWM;
-	if (pwm_left < -(int32_t) maxPWM)
-		pwm_left = -(int32_t) maxPWM;
-	if (pwm_right > (int32_t) maxPWM)
-		pwm_right = (int32_t) maxPWM;
-	if (pwm_right < -(int32_t) maxPWM)
-		pwm_right = -(int32_t) maxPWM;
+	if (pwm_left  >  (int32_t) maxPWM) pwm_left  =  (int32_t) maxPWM;
+	if (pwm_left  < -(int32_t) maxPWM) pwm_left  = -(int32_t) maxPWM;
+	if (pwm_right >  (int32_t) maxPWM) pwm_right =  (int32_t) maxPWM;
+	if (pwm_right < -(int32_t) maxPWM) pwm_right = -(int32_t) maxPWM;
 
 	if (current_angle > ANG45 || current_angle < -ANG45) {
-		final_pwm_left = 0;
-		final_pwm_right = 0;
-		integral = 0;
-		pwm_left = 0;
+		integral  = 0;
+		pwm_left  = 0;
 		pwm_right = 0;
 	}
 
-	// =========================================================
-	// --- 7. MAPEO AL HARDWARE ---
-	// =========================================================
 	// Izquierda: CH4 (Adelante), CH3 (Atrás)
 	if (pwm_left > 0) {
-		rPulse4 = (uint16_t) pwm_left;
+		rPulse4 = (uint16_t)  pwm_left;
 		lPulse3 = 0;
 	} else {
 		lPulse3 = (uint16_t) (-pwm_left);
@@ -1860,7 +1597,7 @@ void PID_ControlTask(void) {
 
 	// Derecha: CH2 (Adelante), CH1 (Atrás)
 	if (pwm_right > 0) {
-		rPulse2 = (uint16_t) pwm_right;
+		rPulse2 = (uint16_t)  pwm_right;
 		lPulse1 = 0;
 	} else {
 		lPulse1 = (uint16_t) (-pwm_right);
