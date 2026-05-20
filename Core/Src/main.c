@@ -261,14 +261,14 @@ int16_t Kd_stable = 8; //8
 int16_t Ki_stable = 0;
 // Pasan a ser de 16 bits. minPWM centrado en 735.
 uint16_t maxPWM    = 9999;
-uint16_t minPWM_Left  = 1100;
-uint16_t minPWM_Right = 1500;
+uint16_t minPWM_Left  = 870;
+uint16_t minPWM_Right = 1000;
 uint16_t PWM_LRot = 880;
 uint16_t PWM_RRot = 800;
 
 // Offsets que garantizan exactamente los 70 puntos de diferencia
 int16_t offset_left = 0;
-int16_t offset_right = 250; //70
+int16_t offset_right = 0; //70
 
 int32_t setpoint = 50; // Setpoint estatico, angulo unico de trabajo (x100 = 0.5°), ajustable por SETLINECTRL
 
@@ -290,6 +290,9 @@ int32_t angle_limit = 2000;  // Límite de inclinación (x100 = 20.00°)
 int16_t turn_divisor = 8;    // Divisor para el cálculo de turn_offset
 int16_t save_min = -2000;        // Anti-collapse fallback setpoint (backward recovery)
 int16_t save_max = 2000;        // Anti-collapse fallback setpoint (forward recovery)
+
+int16_t vel_damp_div = 500;
+int16_t vel_damp_limit = 100;
 
 // Ángulos usando enteros de 8 bits (0 a 255 representa un giro completo)
 uint8_t angle_x = 0;
@@ -553,20 +556,38 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
 		break;
 	case SETPWML:
-        unerPrtcl_PutHeaderOnTx(dataTx, SETPWML, 2);
-        unerPrtcl_PutByteOnTx(dataTx, ACK );
-        unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
-        myWord.ui8[0]=unerPrtcl_GetByteFromRx(dataRx,1,0);
-        myWord.ui8[1]=unerPrtcl_GetByteFromRx(dataRx,1,0);
-        lPulse1 = myWord.ui16[0];
+		unerPrtcl_PutHeaderOnTx(dataTx, SETPWML, 2);
+		unerPrtcl_PutByteOnTx(dataTx, ACK);
+		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
+		myWord.ui8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		myWord.ui8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		{
+			int16_t val_L = (int16_t)myWord.ui16[0];
+			if (val_L >= 0) {
+				rPulse4 = val_L;
+				lPulse3 = 0;
+			} else {
+				lPulse3 = -val_L;
+				rPulse4 = 0;
+			}
+		}
 		break;
 	case SETPWMR:
-        unerPrtcl_PutHeaderOnTx(dataTx, SETPWMR, 2);
-        unerPrtcl_PutByteOnTx(dataTx, ACK );
-        unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
-        myWord.ui8[0]=unerPrtcl_GetByteFromRx(dataRx,1,0);
-        myWord.ui8[1]=unerPrtcl_GetByteFromRx(dataRx,1,0);
-        rPulse2 = myWord.ui16[0];
+		unerPrtcl_PutHeaderOnTx(dataTx, SETPWMR, 2);
+		unerPrtcl_PutByteOnTx(dataTx, ACK);
+		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
+		myWord.ui8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		myWord.ui8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		{
+			int16_t val_R = (int16_t)myWord.ui16[0];
+			if (val_R >= 0) {
+				rPulse2 = val_R;
+				lPulse1 = 0;
+			} else {
+				lPulse1 = -val_R;
+				rPulse2 = 0;
+			}
+		}
 		break;
 	case SETBALANCEKP:
         unerPrtcl_PutHeaderOnTx(dataTx, SETBALANCEKP, 2);
@@ -641,8 +662,8 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 		movingOff = myWord.ui16[0];
 		break;
 	case GETINTERNALDATA:
-		// Estructura simplificada para sincronización de parámetros (56 bytes de datos + 1 chk)
-		unerPrtcl_PutHeaderOnTx(dataTx, GETINTERNALDATA, 61);
+		// Estructura simplificada para sincronización de parámetros (60 bytes de datos + 1 chk)
+		unerPrtcl_PutHeaderOnTx(dataTx, GETINTERNALDATA, 65);
 
 		// 1. Bloque PID Balancín (10 bytes: Kp, Ki, Kd, Max, Min)
 		int16_t pid_bal[5] = { Kp_stable, Ki_stable, Kd_stable, (int16_t)minPWM_Right, (int16_t)minPWM_Left};
@@ -697,6 +718,13 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 		unerPrtcl_PutByteOnTx(dataTx, (uint8_t) ((current_angle_hr >> 8) & 0xFF));
 		unerPrtcl_PutByteOnTx(dataTx, (uint8_t) ((current_angle_hr >> 16) & 0xFF));
 		unerPrtcl_PutByteOnTx(dataTx, (uint8_t) ((current_angle_hr >> 24) & 0xFF));
+
+		// 9. Vel Damp Params (4 bytes: vel_damp_div, vel_damp_limit)
+		int16_t damp_params[2] = { vel_damp_div, vel_damp_limit };
+		for (int i = 0; i < 2; i++) {
+			unerPrtcl_PutByteOnTx(dataTx, (uint8_t) (damp_params[i] & 0xFF));
+			unerPrtcl_PutByteOnTx(dataTx, (uint8_t) ((damp_params[i] >> 8) & 0xFF));
+		}
 
 		// Checksum final
 		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
@@ -859,6 +887,22 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 		myWord.ui8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
 		myWord.ui8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
 		save_max = myWord.i16[0];
+		break;
+	case SETVELDAMPDIV:
+		unerPrtcl_PutHeaderOnTx(dataTx, SETVELDAMPDIV, 2);
+		unerPrtcl_PutByteOnTx(dataTx, ACK);
+		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
+		myWord.ui8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		myWord.ui8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		vel_damp_div = myWord.i16[0];
+		break;
+	case SETVELDAMPLIM:
+		unerPrtcl_PutHeaderOnTx(dataTx, SETVELDAMPLIM, 2);
+		unerPrtcl_PutByteOnTx(dataTx, ACK);
+		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
+		myWord.ui8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		myWord.ui8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		vel_damp_limit = myWord.i16[0];
 		break;
 	default:
 		unerPrtcl_PutHeaderOnTx(dataTx, (_eCmd) dataRx->buff[dataRx->indexData],
@@ -1589,6 +1633,7 @@ void PID_ControlTask(void) {
 		turn_offset = (linear_term + quad_term) / turn_divisor;
 
 		{
+			// --- CONTROL DE VELOCIDAD PURO EN CURVAS ---
 			int32_t abs_turn = (turn_offset > 0) ? turn_offset : -turn_offset;
 			int32_t curve_brake = 0;
 
@@ -1596,11 +1641,14 @@ void PID_ControlTask(void) {
 				curve_brake = abs_turn / brake_angle_div;
 			}
 
+			// Inclinación base (velocidad) menos el contrasetpoint de frenado
 			target_setpoint = attack_setpoint + curve_brake;
-			if (target_setpoint > 5000)
-				target_setpoint = 5000;
-			if (target_setpoint < -5000)
-				target_setpoint = -5000;
+
+			// Límites de inclinación operativa
+			if (target_setpoint > ANG10)
+				target_setpoint = ANG10;
+			if (target_setpoint < -ANG10)
+				target_setpoint = -ANG10;
 		}
 
 		last_line_error = error_linea;
@@ -1654,7 +1702,7 @@ void PID_ControlTask(void) {
 	// Si está siguiendo línea usa ANG20, si no (búsqueda/perdido) usa ANG10
 	int32_t back_trigger = (lineState == LINE_FOLLOWING) ? ANG15 : ANG10;
 
-	// --- SISTEMA DE CONTRASETPOINT ---
+	// --- SISTEMA DE CONTRASETPOINT POR CAÍDA ---
 	// 1. Evaluamos primero el caso extremo positivo para que no quede bloqueado
 	if (current_angle > angle_limit) {
 		target_setpoint = angle_limit;
@@ -1694,8 +1742,7 @@ void PID_ControlTask(void) {
 	int32_t pwm_left = 0;
 	int32_t pwm_right = 0;
 
-	uint8_t is_rotating =
-			(lineState == LINE_LOST || lineState == LINE_SEARCHING);
+	uint8_t is_rotating = (lineState == LINE_LOST || lineState == LINE_SEARCHING);
 
 	if (is_rotating) {
 		// --- MODO PIVOTE SEGURO ---
@@ -1771,7 +1818,6 @@ void PID_ControlTask(void) {
 		rPulse2 = 0;
 	}
 }
-
 
 /* USER CODE END 0 */
 
