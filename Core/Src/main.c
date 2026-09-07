@@ -443,7 +443,7 @@ typedef enum {
     DODGE_LINE_FOLLOWING,  // Seguimiento de línea con rampa de desaceleración
     DODGE_ROTATING,        // Rotación de 90° con giroscopio
     DODGE_WALL_FOLLOWING,  // Evasión PD continua
-    DODGE_STANDBY          // Standby unificado de frenado (1.5s a +1000, 1.5s a +350)
+    DODGE_STANDBY          // Standby unificado de frenado (1.0s a +1000, 2.0s a +250)
 } _eDodgeSubState;
 
 
@@ -2236,10 +2236,10 @@ void PID_ControlTask(void) {
 			dodge_timer += DT_MS;
 			turn_offset = 0; // Frenado recto y balanceo quieto en el lugar
 
-			if (dodge_timer < 1500) {
-				target_setpoint = 1000; // Frenado brusco (+10.00°) durante los primeros 1.5s
+			if (dodge_timer < 1000) {
+				target_setpoint = 1000; // Frenado brusco (+10.00°) durante el primer 1.0s
 			} else if (dodge_timer < 3000) {
-				target_setpoint = 350;  // Estabilización erguida (+3.50°) durante los 1.5s restantes
+				target_setpoint = 250;  // Estabilización erguida (+2.50°) durante los 2.0s restantes
 			} else {
 				// Finalizados los 3.0s de standby: pasar al siguiente estado configurado
 				dodge_timer = 0;
@@ -2253,7 +2253,7 @@ void PID_ControlTask(void) {
 
 		case DODGE_ROTATING: {
 			// Rotación directa de 90° con giroscopio (la espera y frenado previo se realizaron en DODGE_STANDBY)
-			target_setpoint = 350; // Inclinación (+3.50°) durante la rotación para buena adherencia
+			target_setpoint = 250; // Inclinación (+2.50°) durante la rotación para buena adherencia
 			integral = (integral * 7) / 10; // Atenuación de memoria inercial
 
 			int32_t gz_calibrated = gz - gz_offset;
