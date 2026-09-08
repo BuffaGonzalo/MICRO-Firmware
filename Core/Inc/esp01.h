@@ -51,7 +51,7 @@ typedef enum{
 
 
 #define ESP01RXBUFAT		1024
-#define ESP01TXBUFAT		2048
+#define ESP01TXBUFAT		1024
 
 
 /**< Inicializa el driver ESP01 UDP */
