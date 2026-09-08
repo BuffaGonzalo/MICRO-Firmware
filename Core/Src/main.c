@@ -2232,22 +2232,41 @@ void PID_ControlTask(void) {
 			break;
 
 		case DODGE_STANDBY:
-			// Standby unificado de frenado (encontrar pared y encontrar línea)
 			dodge_timer += DT_MS;
-			turn_offset = 0; // Frenado recto y balanceo quieto en el lugar
 
-			if (dodge_timer < 1000) {
-				target_setpoint = 1000; // Frenado brusco (+10.00°) durante el primer 1.0s
-			} else if (dodge_timer < 3000) {
-				target_setpoint = 250;  // Estabilización erguida (+2.50°) durante los 2.0s restantes
-			} else {
-				// Finalizados los 3.0s de standby: pasar al siguiente estado configurado
-				dodge_timer = 0;
-				dodge_yaw = 0;
-				if (standby_next_state == DODGE_LINE_FOLLOWING) {
+			if (standby_next_state == DODGE_LINE_FOLLOWING) {
+				// --- FRENO DIRECCIONAL ACTIVO (CATCH & ALIGN): REINCORPORACIÓN TRAS SEGUIR PARED ---
+				// 1. Ejecutar el seguidor de línea para calcular turn_offset de alineación continua
+				LineFollowingMEF(left_ir, center_ir, right_ir, &target_setpoint);
+
+				// 2. Sobrescribir target_setpoint para frenar activamente la inercia lineal
+				if (dodge_timer < 600) {
+					// Fase 1 (0 a 600 ms): Frenado firme contra inercia (+6.00°)
+					target_setpoint = 600;
+				} else if (dodge_timer < 1500) {
+					// Fase 2 (600 a 1500 ms): Estabilización suave (+1.50°) mientras turn_offset alinea con la cinta
+					target_setpoint = 150;
+				} else {
+					// Fase 3 (>1500 ms): Finalizar esquivado, resetear timers y pasar el control total a la línea
+					dodge_timer = 0;
+					dodge_yaw = 0;
 					lineState = LINE_FOLLOWING;
+					dodgeState = DODGE_LINE_FOLLOWING;
 				}
-				dodgeState = standby_next_state;
+			} else {
+				// --- FRENADO ESTÁNDAR RECTO: DETECCIÓN DE OBJETO FRONTAL (PRE-GIRO 90°) ---
+				turn_offset = 0; // Frenado recto y balanceo quieto en el lugar
+
+				if (dodge_timer < 1000) {
+					target_setpoint = 1000; // Frenado brusco (+10.00°) durante el primer 1.0s
+				} else if (dodge_timer < 3000) {
+					target_setpoint = 250;  // Estabilización erguida (+2.50°) durante los 2.0s restantes
+				} else {
+					// Finalizados los 3.0s de standby: pasar al siguiente estado configurado
+					dodge_timer = 0;
+					dodge_yaw = 0;
+					dodgeState = standby_next_state;
+				}
 			}
 			break;
 

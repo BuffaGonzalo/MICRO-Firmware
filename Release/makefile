@@ -38,34 +38,34 @@ $(wildcard ../makefile.init) \
 $(wildcard ../makefile.targets) \
 
 
-BUILD_ARTIFACT_NAME := MCC_STM32F103
+BUILD_ARTIFACT_NAME := MICRO
 BUILD_ARTIFACT_EXTENSION := elf
 BUILD_ARTIFACT_PREFIX :=
 BUILD_ARTIFACT := $(BUILD_ARTIFACT_PREFIX)$(BUILD_ARTIFACT_NAME)$(if $(BUILD_ARTIFACT_EXTENSION),.$(BUILD_ARTIFACT_EXTENSION),)
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXECUTABLES += \
-MCC_STM32F103.elf \
+MICRO.elf \
 
 MAP_FILES += \
-MCC_STM32F103.map \
+MICRO.map \
 
 SIZE_OUTPUT += \
 default.size.stdout \
 
 OBJDUMP_LIST += \
-MCC_STM32F103.list \
+MICRO.list \
 
 
 # All Target
 all: main-build
 
 # Main-build Target
-main-build: MCC_STM32F103.elf secondary-outputs
+main-build: MICRO.elf secondary-outputs
 
 # Tool invocations
-MCC_STM32F103.elf MCC_STM32F103.map: $(OBJS) $(USER_OBJS) C:\Users\gonza\OneDrive\Documentos\Projects\MICRO\STM32F103C8TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "MCC_STM32F103.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\Users\gonza\OneDrive\Documentos\Projects\MICRO\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="MCC_STM32F103.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+MICRO.elf MICRO.map: $(OBJS) $(USER_OBJS) C:\Users\gonza\OneDrive\Documentos\Projects\MICRO\STM32F103C8TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "MICRO.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\Users\gonza\OneDrive\Documentos\Projects\MICRO\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="MICRO.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -74,14 +74,14 @@ default.size.stdout: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	@echo 'Finished building: $@'
 	@echo ' '
 
-MCC_STM32F103.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "MCC_STM32F103.list"
+MICRO.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "MICRO.list"
 	@echo 'Finished building: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) MCC_STM32F103.elf MCC_STM32F103.list MCC_STM32F103.map default.size.stdout
+	-$(RM) MICRO.elf MICRO.list MICRO.map default.size.stdout
 	-@echo ' '
 
 secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)
