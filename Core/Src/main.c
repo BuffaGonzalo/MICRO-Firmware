@@ -2056,16 +2056,30 @@ void LineFollowingMEF(int32_t left_ir, int32_t center_ir, int32_t right_ir, int3
 			line_lost_yaw += ((int64_t)gz_cal * DT_US) / 131000LL;
 		}
 
-		// Setpoint de equilibrio erguido a +350 durante la búsqueda y frenado
-		*target_setpoint = 350;
+		// Balanceo activo con inclinación hacia adelante (-12.50°) durante las rotaciones de búsqueda
+		*target_setpoint = -1250;
+		integral = (integral * 7) / 10; // Atenuación de memoria inercial para evitar desestabilización en el giro
+
+		int32_t base_turn = 350;
+		int32_t abs_error_lost = (error < 0) ? -error : error;
 
 		switch (line_lost_phase) {
 		case LINE_LOST_ROT_90:
-			// Rotar 90 grados hacia el lado donde se perdió la línea (ej: izquierda si el auto se fue a la derecha)
-			turn_offset = (search_direction > 0) ? 350 : -350;
+			// Inclinación hacia adelante (-12.50°) con rotación y balanceo activo
+			*target_setpoint = -1250;
+
+			// Prioridad de balanceo dinámica con par de rotación firme
+			if (abs_error_lost > 450) {
+				turn_offset = 0;
+				integral = 0;
+			} else {
+				// Rotar 90 grados hacia el lado donde se perdió la línea
+				turn_offset = base_turn * search_direction;
+			}
 			{
 				int32_t abs_yaw = (line_lost_yaw < 0) ? -line_lost_yaw : line_lost_yaw;
-				if (abs_yaw >= 90000) { // 90 grados = 90,000 milígrados
+				if (abs_yaw >= 90000) { // Fin de giro (90°)
+					turn_offset = 0;
 					line_lost_yaw = 0;
 					line_lost_timer = 0;
 					line_lost_phase = LINE_LOST_ROT_180;
@@ -2074,11 +2088,21 @@ void LineFollowingMEF(int32_t left_ir, int32_t center_ir, int32_t right_ir, int3
 			break;
 
 		case LINE_LOST_ROT_180:
-			// Rotar 180 grados en sentido opuesto
-			turn_offset = (search_direction > 0) ? -350 : 350;
+			// Inclinación hacia adelante (-12.50°) con rotación y balanceo activo en sentido opuesto
+			*target_setpoint = -1250;
+
+			// Prioridad de balanceo dinámica con par de rotación firme
+			if (abs_error_lost > 450) {
+				turn_offset = 0;
+				integral = 0;
+			} else {
+				// Rotar 180 grados en sentido opuesto
+				turn_offset = base_turn * (-search_direction);
+			}
 			{
 				int32_t abs_yaw = (line_lost_yaw < 0) ? -line_lost_yaw : line_lost_yaw;
-				if (abs_yaw >= 180000) { // 180 grados = 180,000 milígrados
+				if (abs_yaw >= 180000) { // Fin de giro (180°)
+					turn_offset = 0;
 					line_lost_yaw = 0;
 					line_lost_timer = 0;
 					line_lost_phase = LINE_LOST_STOPPED;
@@ -2088,7 +2112,8 @@ void LineFollowingMEF(int32_t left_ir, int32_t center_ir, int32_t right_ir, int3
 
 		case LINE_LOST_STOPPED:
 		default:
-			// Frenado estático estricto con setpoint +350
+			// Finalizada la búsqueda sin éxito: frenar y balancear erguido (0.00°)
+			*target_setpoint = 0;
 			turn_offset = 0;
 			break;
 		}
@@ -2359,7 +2384,7 @@ void PID_ControlTask(void) {
 
 	// --- CONTROL DE PREVENCIÓN DE CAÍDA TRASERA (Lógica del Gatillo) ---
 	static uint8_t backwards_recovery_active = 0;
-	if (robotMode == STATE_SWING || robotMode == STATE_LINE_FOLLOWING || robotMode == STATE_3D_SCREEN) {
+	if (robotMode == STATE_SWING || (robotMode == STATE_LINE_FOLLOWING && lineState != LINE_LOST) || robotMode == STATE_3D_SCREEN) {
 		if (current_angle > 0) { // Si la inclinación trasera supera 0.00° (0)
 			backwards_recovery_active = 1;
 		} else if (current_angle <= 0) {
@@ -2369,6 +2394,8 @@ void PID_ControlTask(void) {
 		if (backwards_recovery_active) {
 			target_setpoint = 0; // Desactivar avance agresivo instantáneamente
 		}
+	} else if (lineState == LINE_LOST) {
+		backwards_recovery_active = 0;
 	}
 
 	// --- CONTROL DE PREVENCIÓN DE CAÍDA DELANTERA EN MODO SWING ---
@@ -2418,8 +2445,13 @@ void PID_ControlTask(void) {
 			angulo_modificador_pi = (int16_t)out_pi;
 		}
 
-		// Sumar el modificador dinámico al target_setpoint
-		target_setpoint += angulo_modificador_pi;
+		// Sumar el modificador dinámico al target_setpoint sólo si no estamos en rotación de recuperación
+		if (lineState != LINE_LOST) {
+			target_setpoint += angulo_modificador_pi;
+		} else {
+			integral_esfuerzo = 0;
+			angulo_modificador_pi = 0;
+		}
 	} else {
 		// Reiniciar variables si no estamos en modo seguidor de línea
 		pwm_filtrado = 0;
@@ -2455,16 +2487,17 @@ void PID_ControlTask(void) {
 	int32_t pwm_right = 0;
 
 	// Detectamos si el robot está en búsqueda pivot sobre propio eje (LINE_CROSS restringido exclusivamente a STATE_LINE_FOLLOWING)
-	uint8_t is_rotating_pivot = ((robotMode == STATE_LINE_FOLLOWING && (lineState == LINE_LOST || lineState == LINE_SEARCHING || lineState == LINE_CROSS)) ||
-	                             (robotMode == STATE_DODGE && (lineState == LINE_LOST || lineState == LINE_SEARCHING)));
+	// LINE_LOST se procesa en el MEZCLADOR GENERAL (idéntico a DODGE_ROTATING) para mantener activo el PID de balanceo (+250) mientras rota
+	uint8_t is_rotating_pivot = ((robotMode == STATE_LINE_FOLLOWING && (lineState == LINE_SEARCHING || lineState == LINE_CROSS)) ||
+	                             (robotMode == STATE_DODGE && lineState == LINE_SEARCHING));
 
 	if (is_rotating_pivot) {
 		// --- ROTACIÓN PIVOT SOBRE PROPIO EJE (Búsqueda de línea) ---
 		int32_t raw_L = output + turn_offset;
 		int32_t raw_R = output - turn_offset;
 
-		uint16_t rot_min_L = (lineState == LINE_LOST || lineState == LINE_CROSS) ? 770 : PWM_LRot;
-		uint16_t rot_min_R = (lineState == LINE_LOST || lineState == LINE_CROSS) ? 750 : PWM_RRot;
+		uint16_t rot_min_L = (lineState == LINE_CROSS) ? 770 : PWM_LRot;
+		uint16_t rot_min_R = (lineState == LINE_CROSS) ? 750 : PWM_RRot;
 
 		if (raw_L > 0)       pwm_left = raw_L + rot_min_L + offset_left;
 		else if (raw_L < 0)  pwm_left = raw_L - rot_min_L - offset_left;
@@ -2473,8 +2506,8 @@ void PID_ControlTask(void) {
 		else if (raw_R < 0)  pwm_right = raw_R - rot_min_R - offset_right;
 
 	} else {
-		// --- MEZCLADOR GENERAL DE VELOCIDADES DE MOTORES (DODGE_ROTATING_90, DODGE_CORNER_ROTATING y Translación) ---
-		// Vincula la rotación con el mezclador de velocidades para mantener la respuesta del PID de balanceo (output) alrededor del setpoint (+350)
+		// --- MEZCLADOR GENERAL DE VELOCIDADES DE MOTORES (DODGE_ROTATING_90, LINE_LOST y Translación) ---
+		// Vincula la rotación con el mezclador de velocidades para mantener la respuesta del PID de balanceo (output) alrededor del setpoint (+250)
 		uint16_t active_minPWM_Left = minPWM_Left;
 		uint16_t active_minPWM_Right = minPWM_Right;
 
