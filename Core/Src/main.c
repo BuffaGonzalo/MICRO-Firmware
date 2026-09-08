@@ -1983,6 +1983,7 @@ void LineFollowingMEF(int32_t left_ir, int32_t center_ir, int32_t right_ir, int3
 	static int32_t line_lost_yaw = 0;
 	static int8_t search_direction = 1;
 	static int8_t cross_direction = 1;
+	static int8_t last_active_sensor = -1; // -1: Sensor derecho en línea (rotar a derecha), +1: Sensor izquierdo (rotar a izquierda)
 
 	uint8_t ir1_active = (left_ir < IR_WHITE);
 	uint8_t ir3_active = (center_ir < IR_WHITE);
@@ -2017,7 +2018,10 @@ void LineFollowingMEF(int32_t left_ir, int32_t center_ir, int32_t right_ir, int3
 				line_lost_timer = 0;
 				line_lost_phase = LINE_LOST_ROT_90;
 				line_lost_yaw = 0;
-				search_direction = (last_line_error >= 0) ? -1 : 1;
+				// Iniciar rotación hacia el lado donde estuvo la línea por última vez:
+				// Si salió el izquierdo primero (último fue el derecho) -> search_direction = -1 (rotar a la derecha)
+				// Si salió el derecho primero (último fue el izquierdo) -> search_direction = +1 (rotar a la izquierda)
+				search_direction = last_active_sensor;
 				lineState = LINE_LOST;
 				break;
 			}
@@ -2025,6 +2029,17 @@ void LineFollowingMEF(int32_t left_ir, int32_t center_ir, int32_t right_ir, int3
 			turn_offset = last_turn_offset;
 		} else {
 			line_lost_debounce_count = 0;
+
+			// Registrar cuál sensor lateral estuvo sobre la línea por última vez
+			if (ir5_active && !ir1_active) {
+				last_active_sensor = -1; // Sensor derecho en negro (izquierdo salió primero -> rotar derecha)
+			} else if (ir1_active && !ir5_active) {
+				last_active_sensor = 1;  // Sensor izquierdo en negro (derecho salió primero -> rotar izquierda)
+			} else if (right_ir < left_ir) {
+				last_active_sensor = -1; // Analógico: sensor derecho más oscuro (más cerca de la línea)
+			} else if (left_ir < right_ir) {
+				last_active_sensor = 1;  // Analógico: sensor izquierdo más oscuro
+			}
 
 			error_linea = ((-(1000 * left_ir) + (1000 * right_ir)) / sum_sensors) / 10;
 			abs_error = (error_linea > 0) ? error_linea : -error_linea;
@@ -2056,8 +2071,6 @@ void LineFollowingMEF(int32_t left_ir, int32_t center_ir, int32_t right_ir, int3
 			line_lost_yaw += ((int64_t)gz_cal * DT_US) / 131000LL;
 		}
 
-		// Balanceo activo con inclinación hacia adelante (-12.50°) durante las rotaciones de búsqueda
-		*target_setpoint = -1250;
 		integral = (integral * 7) / 10; // Atenuación de memoria inercial para evitar desestabilización en el giro
 
 		int32_t base_turn = 350;
@@ -2112,8 +2125,8 @@ void LineFollowingMEF(int32_t left_ir, int32_t center_ir, int32_t right_ir, int3
 
 		case LINE_LOST_STOPPED:
 		default:
-			// Finalizada la búsqueda sin éxito: frenar y balancear erguido (0.00°)
-			*target_setpoint = 0;
+			// Si tras las rotaciones de 90° y 180° no se detecta la línea: mantener balanceo en el lugar a -7.50° (-750)
+			*target_setpoint = -750;
 			turn_offset = 0;
 			break;
 		}
