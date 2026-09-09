@@ -155,8 +155,10 @@ typedef enum {
 
 // Estados para la sub-MEF de pérdida de línea
 #define LINE_LOST_ROT_90      0
-#define LINE_LOST_ROT_180     1
-#define LINE_LOST_STOPPED     2
+#define LINE_LOST_WAIT_2S     1
+#define LINE_LOST_ROT_180     2
+#define LINE_LOST_STOPPED     3
+#define LINE_LOST_TURN_SPEED  180      // Esfuerzo de giro reducido para rotación suave en pérdida de línea (90° / 180°)
 
 // =========================================================
 // //LUT
@@ -305,7 +307,7 @@ _sButton myButton;                                    // Estructura de estado f�
 // =========================================================
 static char httpBuf[HTTP_BUF_SIZE];                   // Buffer para acumular el request del servidor web local
 static uint8_t httpBufIdx = 0;                        // Índice actual en el buffer HTTP (0xFF indica petición lista)
-static uint8_t isWebserverMode = 1;                   // Estado bandera del modo Webserver activo (1 = activo, 0 = inactivo)
+static uint8_t isWebserverMode = 0;                   // Estado bandera del modo Webserver activo (1 = activo, 0 = inactivo)
 static uint8_t httpTxBuf[256];                        // Buffer de transmisión para telemetría JSON (optimizado para bajo consumo de RAM)
 static char udpTargetIP[16] = "192.168.0.10";         // Dirección IP de destino UDP/TCP para envío de telemetría
 static uint16_t udpTargetPort = 30010;                // Puerto de destino UDP/TCP de la aplicación de escritorio
@@ -316,7 +318,7 @@ static char udpTargetProto[4] = "TCP";                // Protocolo de transporte
 // //REDES
 // =========================================================
 static const _sWiFiNetwork knownNetworks[] = {
-		{ "POCOX8",    "12345678",                "10.43.37.213"   },
+		{ "POCOX8",    "12345678",                "10.220.43.213"   },
 	{ "ARPANET", "1969-Apolo_11-2022",       "192.168.0.10"   },
 
 	{ "FCAL-Personal", "fcal-uner+2019",       "172.22.237.227" },
@@ -399,10 +401,10 @@ int16_t alfa_lpf = 10;                                // Coeficiente alfa del fi
 // =========================================================
 // //SEGUIDOR
 // =========================================================
-int16_t Kp_line = 150;                                // Ganancia proporcional de guiñada para corrección rápida sobre la línea
-int16_t Kq_line = 3;                                 // Ganancia derivativa/cuadrática de guiñada para atenuar oscilaciones
-int16_t Kp_line_backup = 300;                         // Respaldo de Kp_line al entrar a Swing
-int16_t Kq_line_backup = 15;                          // Respaldo de Kq_line al entrar a Swing
+int16_t Kp_line = 250;                                // Ganancia proporcional de guiñada para corrección rápida sobre la línea
+int16_t Kq_line = 25;                                 // Ganancia derivativa/cuadrática de guiñada para atenuar oscilaciones
+int16_t Kp_line_backup = 250;                         // Respaldo de Kp_line al entrar a Swing
+int16_t Kq_line_backup = 25;                          // Respaldo de Kq_line al entrar a Swing
 int32_t sum_sensors = 0;                              // Suma de lecturas normalizadas de los sensores de línea activos
 int32_t error_linea = 0;                              // Desviación calculada de la línea (eje horizontal de error)
 int32_t abs_error = 0;                                // Valor absoluto del error de línea
@@ -2029,26 +2031,37 @@ void LineFollowingMEF(int32_t left_ir, int32_t center_ir, int32_t right_ir, int3
 			line_lost_yaw += ((int64_t)gz_cal * DT_US) / 131000LL;
 		}
 
-		// Setpoint de equilibrio erguido a +350 durante la búsqueda y frenado
-		*target_setpoint = 350;
-
 		switch (line_lost_phase) {
 		case LINE_LOST_ROT_90:
-			// Rotar 90 grados hacia el lado donde se perdió la línea (ej: izquierda si el auto se fue a la derecha)
-			turn_offset = (search_direction > 0) ? 350 : -350;
+			*target_setpoint = attack_setpoint; // Mantener setpoint mientras rota 90°
+			// Rotar 90 grados hacia el lado donde se perdió la línea a menor velocidad
+			turn_offset = (search_direction > 0) ? LINE_LOST_TURN_SPEED : -LINE_LOST_TURN_SPEED;
 			{
 				int32_t abs_yaw = (line_lost_yaw < 0) ? -line_lost_yaw : line_lost_yaw;
 				if (abs_yaw >= 90000) { // 90 grados = 90,000 milígrados
 					line_lost_yaw = 0;
 					line_lost_timer = 0;
-					line_lost_phase = LINE_LOST_ROT_180;
+					line_lost_phase = LINE_LOST_WAIT_2S;
 				}
 			}
 			break;
 
+		case LINE_LOST_WAIT_2S:
+			*target_setpoint = -250; // Setpoint de -250 durante la espera de 2 segundos
+			turn_offset = 0;
+			line_lost_yaw = 0;       // Limpiar acumulación de yaw mientras está en espera
+			line_lost_timer += DT_MS;
+			if (line_lost_timer >= 2000) { // Esperar 2000 ms (2 segundos)
+				line_lost_timer = 0;
+				line_lost_yaw = 0;
+				line_lost_phase = LINE_LOST_ROT_180;
+			}
+			break;
+
 		case LINE_LOST_ROT_180:
-			// Rotar 180 grados en sentido opuesto
-			turn_offset = (search_direction > 0) ? -350 : 350;
+			*target_setpoint = attack_setpoint; // Mantener setpoint mientras rota 180°
+			// Rotar 180 grados en sentido opuesto a menor velocidad
+			turn_offset = (search_direction > 0) ? -LINE_LOST_TURN_SPEED : LINE_LOST_TURN_SPEED;
 			{
 				int32_t abs_yaw = (line_lost_yaw < 0) ? -line_lost_yaw : line_lost_yaw;
 				if (abs_yaw >= 180000) { // 180 grados = 180,000 milígrados
@@ -2062,6 +2075,7 @@ void LineFollowingMEF(int32_t left_ir, int32_t center_ir, int32_t right_ir, int3
 		case LINE_LOST_STOPPED:
 		default:
 			// Frenado estático estricto con setpoint +350
+			*target_setpoint = 350;
 			turn_offset = 0;
 			break;
 		}
@@ -2698,18 +2712,21 @@ int main(void)
   	HAL_UART_Receive_IT(&huart1, &byteUART_ESP01, 1); //non blocking
 
 
-  	/* ---- MODO WEBSERVER / SOFTAP ----
-  	 * Activo de base: el ESP-01 crea el SoftAP "MICRO" (contraseña: 12345678, canal 5, WPA2).
-  	 * Conectarse con teléfono o PC a la red "MICRO" y navegar a http://192.168.4.1
-  	 * para ver telemetría en vivo y configurar la red Wi-Fi de destino. */
-  	isWebserverMode = TRUE;
-  	ESP01_SetWebServer("MICRO", "12345678", 5, 3);
+  	/* ---- MODO WEBSERVER / SOFTAP (Desactivado para modo Station TCP) ----
+  	 * Conectarse con el teléfono o PC a la red "MICRO" (contraseña: 12345678)
+  	 * y navegar a 192.168.4.1 para ingresar el SSID y contraseña del router.
+  	 * Para reactivar SoftAP descomentar las 2 líneas siguientes: */
+  	// isWebserverMode = TRUE;
+  	// ESP01_SetWebServer("MICRO", "12345678", 5, 3);
+  	isWebserverMode = FALSE;
 
-  	/* ---- AUTO-SCAN / CONEXIÓN DIRECTA WIFI ----
-  	 * Desactivado de base para arrancar en modo SoftAP. */
+  	/* ---- MODO STATION / AUTO-SCAN DIRECTO (TCP) ----
+  	 * Conexión automática directa a las redes guardadas (knownNetworks) usando protocolo TCP. */
   	currentNetworkIdx = 0;
   	networkScanTimer = SCANTIME;
-  	networkScanActive = 0;
+  	networkScanActive = 1;
+  	ESP01_SetWIFI(knownNetworks[currentNetworkIdx].ssid,
+  	              knownNetworks[currentNetworkIdx].password);
 
   	//Inicializacion de protocolo
   	unerPrtcl_Init(&USBRx, &USBTx, buffUSBRx, buffUSBTx);
