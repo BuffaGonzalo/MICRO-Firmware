@@ -41,8 +41,9 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h \
  ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ctlreq.h \
  ../Core/Inc/util.h ../Core/Inc/img.h ../Core/Inc/fonts.h \
- ../Core/Inc/ssd1306.h ../Core/Inc/ssd1306_conf.h ../Core/Inc/ssd1306.h \
- ../Core/Inc/mpu6050.h ../Core/Inc/esp01.h ../Core/Inc/unerPrtcl.h
+ ../Core/Inc/ssd1306.h ../Core/Inc/ssd1306_conf.h ../Core/Inc/wiregfx.h \
+ ../Core/Inc/ssd1306.h ../Core/Inc/mpu6050.h ../Core/Inc/esp01.h \
+ ../Core/Inc/unerPrtcl.h
 ../Core/Inc/main.h:
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h:
 ../Core/Inc/stm32f1xx_hal_conf.h:
@@ -90,6 +91,7 @@ C:/Users/gonza/OneDrive/Documentos/Projects/MICRO/USB_DEVICE/App/usbd_cdc_if.h:
 ../Core/Inc/fonts.h:
 ../Core/Inc/ssd1306.h:
 ../Core/Inc/ssd1306_conf.h:
+../Core/Inc/wiregfx.h:
 ../Core/Inc/ssd1306.h:
 ../Core/Inc/mpu6050.h:
 ../Core/Inc/esp01.h:
