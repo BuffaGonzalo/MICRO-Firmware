@@ -69,7 +69,8 @@ typedef enum {
     STATE_DODGE = 2,          // 3 clics: Esquivado de obstáculos activo, pantalla off
     STATE_FIRST_SCREEN = 3,   // Pulsación 1s: Pantalla RAW (ADC, ACC, GYR), motores off
     STATE_SECOND_SCREEN = 4,  // Pulsación 2s: Pantalla Premium (VEL, ACL, ANG, BAL), motores off
-    STATE_3D_SCREEN = 5       // 4 clics: Figuras 3D en pantalla (Cubo->Teseracto->Pirámide cada 10s) con balanceo activo, sin WiFi
+    STATE_3D_SCREEN = 5,      // 4 clics: Figuras 3D en pantalla (Cubo->Teseracto->Pirámide cada 10s) con balanceo activo, sin WiFi
+    STATE_STANDBY = 6         // Modo Reposo / Motores apagados
 } _eRobotMode;
 /* USER CODE END PTD */
 
@@ -320,7 +321,6 @@ static char udpTargetProto[4] = "TCP";                // Protocolo de transporte
 static const _sWiFiNetwork knownNetworks[] = {
 		{ "POCOX8",    "12345678",                "10.220.43.213"   },
 	{ "ARPANET", "1969-Apolo_11-2022",       "192.168.0.10"   },
-
 	{ "FCAL-Personal", "fcal-uner+2019",       "172.22.237.227" },
 	{ "FCAL",    "fcalconcordia.06-2019",    "172.23.190.89"  },
 	{ "InternetPlus_872f10_EXT", "wlan78d0ef", "192.168.1.52" },
@@ -404,7 +404,6 @@ int16_t alfa_lpf = 10;                                // Coeficiente alfa del fi
 int16_t Kp_line = 250;                                // Ganancia proporcional de guiñada para corrección rápida sobre la línea
 int16_t Kq_line = 25;                                 // Ganancia derivativa/cuadrática de guiñada para atenuar oscilaciones
 int16_t Kp_line_backup = 250;                         // Respaldo de Kp_line al entrar a Swing
-int16_t Kq_line_backup = 25;                          // Respaldo de Kq_line al entrar a Swing
 int32_t sum_sensors = 0;                              // Suma de lecturas normalizadas de los sensores de línea activos
 int32_t error_linea = 0;                              // Desviación calculada de la línea (eje horizontal de error)
 int32_t abs_error = 0;                                // Valor absoluto del error de línea
@@ -431,9 +430,11 @@ uint16_t obs_corner_dist = 800;                       // Distancia lateral del s
 uint16_t obs_lost_dist = 400;                         // Distancia mínima lateral por debajo de la cual la pared terminó
 int32_t Kp_pared = 9;                                 // Fuerza principal para mantener distancia lateral (90°)
 int32_t Kd_anticipo = 4;                              // Fuerza menor de ayuda/anticipación anticipada (45°)
+int32_t Kd_frontal = 4;                               // Fuerza de protección frontal anticipada (IR6)
 uint16_t obs_side_dist = 1000;                        // Distancia lateral de referencia deseada para seguir la pared
 uint16_t obs_stop_cycles = 10;                        // Ciclos de inmovilización previa antes de iniciar rotación evasiva
 uint16_t obs_align_dist = 2500;                       // Distancia objetivo del sensor lateral tras rotación de 90°
+int8_t dodge_direction = -1;                          // -1: Rotación a la DERECHA, 1: IZQUIERDA
 
 // =========================================================
 // //DODGE ROTATION
@@ -445,6 +446,7 @@ typedef enum {
     DODGE_LINE_FOLLOWING,  // Seguimiento de línea con rampa de desaceleración
     DODGE_ROTATING,        // Rotación de 90° con giroscopio
     DODGE_WALL_FOLLOWING,  // Evasión PD continua
+    DODGE_RETURN_ROTATING, // Rotación sobre el lugar para re-enganchar la línea
     DODGE_STANDBY          // Standby unificado de frenado (1.5s a +1000, 1.5s a +350)
 } _eDodgeSubState;
 
@@ -452,9 +454,7 @@ typedef enum {
 volatile _eDodgeSubState dodgeState = DODGE_LINE_FOLLOWING; // Inicia en seguimiento de línea con esquivado activo
 volatile int32_t dodge_yaw = 0;
 volatile int32_t total_yaw_hr = 0;                    // Ángulo Yaw total acumulado continuo en milígrados
-volatile int32_t dodge_step_target_yaw = 2000; // Micro-paso inicial de 2.0° (2,000 mdeg)
 volatile uint32_t dodge_timer = 0;
-volatile uint8_t dodge_wall_count = 0;
 volatile int16_t gz_offset = 0;
 
 /* USER CODE END PV */
@@ -617,6 +617,85 @@ void COMMTask(_sComm *dataRx, _sComm *dataTx, uint8_t source) {
 				ESP01_Send(ESP01_GetLastConnID(), sendBuffer, 0, dataTx->nBytes, TXBUFSIZE);
 			else
 				CDC_Transmit_FS(sendBuffer, dataTx->nBytes);
+		}
+	}
+}
+
+void CHPD_Control(uint8_t state);
+
+void SetRobotMode(_eRobotMode newMode) {
+	robotMode = newMode;
+	lastMode = (_eRobotMode)-1; // Forzar actualización de pantalla/transición
+
+	switch (newMode) {
+		case STATE_SWING:
+			hbIndex = 0; // LED Swing (1 parpadeo de 100ms)
+			CHPD_Control(1);
+			Kp_line_backup = Kp_line;
+			Kp_line = 0;
+			break;
+
+		case STATE_LINE_FOLLOWING:
+			hbIndex = 1; // LED Line Following (2 parpadeos)
+			CHPD_Control(1);
+			if (Kp_line == 0) {
+				Kp_line = Kp_line_backup;
+			}
+			break;
+
+		case STATE_DODGE:
+			dodgeState = DODGE_LINE_FOLLOWING; // Inicia en seguimiento de línea
+			dodge_timer = 2000;
+			hbIndex = 2; // LED Dodge (3 parpadeos)
+			CHPD_Control(1);
+			if (Kp_line == 0) {
+				Kp_line = Kp_line_backup;
+			}
+			break;
+
+		case STATE_FIRST_SCREEN:
+			hbIndex = 3; // LED RAW (500ms encendido)
+			CHPD_Control(1);
+			ssd1306_ResetDMAState();
+			ssd1306_SetDisplayOn(1);
+			break;
+
+		case STATE_SECOND_SCREEN:
+			hbIndex = 4; // LED Premium (1000ms encendido)
+			CHPD_Control(1);
+			ssd1306_ResetDMAState();
+			ssd1306_SetDisplayOn(1);
+			break;
+
+		case STATE_3D_SCREEN:
+			hbIndex = 5; // LED Figuras 3D (4 parpadeos)
+			CHPD_Control(0); // Sin WiFi en este modo
+			Kp_line_backup = Kp_line;
+			Kp_line = 0;
+			WIREGFX_ResetCycle();
+			break;
+
+		case STATE_STANDBY:
+		default:
+			hbIndex = 3; // LED Reposo
+			CHPD_Control(1);
+			break;
+	}
+}
+
+void SetRobotModeRemote(uint8_t modeId) {
+	if (modeId == 4) {
+		// Reset Obstáculo
+		dodgeState = DODGE_LINE_FOLLOWING;
+		dodge_timer = 0;
+	} else {
+		switch (modeId) {
+			case 0: SetRobotMode(STATE_STANDBY); break;
+			case 1: SetRobotMode(STATE_SWING); break;
+			case 2: SetRobotMode(STATE_LINE_FOLLOWING); break;
+			case 3: SetRobotMode(STATE_DODGE); break;
+			case 5: SetRobotMode(STATE_3D_SCREEN); break;
+			default: SetRobotMode(STATE_STANDBY); break;
 		}
 	}
 }
@@ -790,8 +869,8 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 		movingOff = myWord.ui16[0];
 		break;
 	case GETINTERNALDATA:
-		// Estructura simplificada para sincronización de parámetros (62 bytes de datos + 1 chk)
-		unerPrtcl_PutHeaderOnTx(dataTx, GETINTERNALDATA, 81);
+		// Estructura para sincronización de parámetros (87 bytes de datos + 1 chk = 88)
+		unerPrtcl_PutHeaderOnTx(dataTx, GETINTERNALDATA, 88);
 
 		// 1. Bloque PID Balancín (10 bytes: Kp, Ki, Kd, Max, Min)
 		int16_t pid_bal[5] = { Kp_stable, Ki_stable, Kd_stable, (int16_t)minPWM_Right, (int16_t)minPWM_Left};
@@ -877,6 +956,21 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 		// 13. Kd Pared / Anticipo (2 bytes: Kd_anticipo)
 		unerPrtcl_PutByteOnTx(dataTx, (uint8_t) (Kd_anticipo & 0xFF));
 		unerPrtcl_PutByteOnTx(dataTx, (uint8_t) ((Kd_anticipo >> 8) & 0xFF));
+
+		// 14. Front Kp dummy (2 bytes: indices 82..83 en Qt)
+		unerPrtcl_PutByteOnTx(dataTx, 0);
+		unerPrtcl_PutByteOnTx(dataTx, 0);
+
+		// 15. Kd Frontal / IR6 (2 bytes: indices 84..85 en Qt)
+		unerPrtcl_PutByteOnTx(dataTx, (uint8_t) (Kd_frontal & 0xFF));
+		unerPrtcl_PutByteOnTx(dataTx, (uint8_t) ((Kd_frontal >> 8) & 0xFF));
+
+		// 16. Dirección de esquivado (1 byte: index 86 en Qt)
+		unerPrtcl_PutByteOnTx(dataTx, (uint8_t) (dodge_direction == 1 ? 1 : 0));
+
+		// 17. Modo del robot y estado de esquivado (2 bytes: indices 87 y 88 en Qt)
+		unerPrtcl_PutByteOnTx(dataTx, (uint8_t) robotMode);
+		unerPrtcl_PutByteOnTx(dataTx, (uint8_t) dodgeState);
 
 		// Checksum final
 		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
@@ -1032,6 +1126,30 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 		myWord.ui8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
 		Kd_anticipo = myWord.i16[0];
 		break;
+	case SETFRONTKD:
+		unerPrtcl_PutHeaderOnTx(dataTx, SETFRONTKD, 2);
+		unerPrtcl_PutByteOnTx(dataTx, ACK);
+		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
+		myWord.ui8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		myWord.ui8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		Kd_frontal = myWord.i16[0];
+		break;
+	case SETFRONTKP:
+		unerPrtcl_PutHeaderOnTx(dataTx, SETFRONTKP, 2);
+		unerPrtcl_PutByteOnTx(dataTx, ACK);
+		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
+		myWord.ui8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		myWord.ui8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		break;
+	case SETDODGEMODE:
+		unerPrtcl_PutHeaderOnTx(dataTx, SETDODGEMODE, 2);
+		unerPrtcl_PutByteOnTx(dataTx, ACK);
+		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
+		myWord.ui8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		myWord.ui8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		if (myWord.ui16[0] == 0) dodge_direction = -1;
+		else if (myWord.ui16[0] == 1) dodge_direction = 1;
+		break;
 	case SETLIMITANG:
 		unerPrtcl_PutHeaderOnTx(dataTx, SETLIMITANG, 2);
 		unerPrtcl_PutByteOnTx(dataTx, ACK);
@@ -1088,6 +1206,16 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 		unerPrtcl_PutByteOnTx(dataTx, ACK);
 		unerPrtcl_PutByteOnTx(dataTx, (uint8_t)((ir_csv_export_count >> 8) & 0xFF));
 		unerPrtcl_PutByteOnTx(dataTx, (uint8_t)(ir_csv_export_count & 0xFF));
+		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
+		break;
+	}
+	case SETROBOTMODE: {
+		unerPrtcl_PutHeaderOnTx(dataTx, SETROBOTMODE, 4);
+		unerPrtcl_PutByteOnTx(dataTx, ACK);
+		uint8_t reqMode = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		SetRobotModeRemote(reqMode);
+		unerPrtcl_PutByteOnTx(dataTx, (uint8_t) robotMode);
+		unerPrtcl_PutByteOnTx(dataTx, (uint8_t) dodgeState);
 		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
 		break;
 	}
@@ -1392,14 +1520,6 @@ void PWM_Control(){
 	// | * Nota: Las salidas quedan en estado "flotante" si las |
 	// |   entradas son iguales (ambas HIGH o ambas LOW).      |
 	// +-------------------------------------------------------+
-
-	  // Calcula CCRx = period * percent / 100
-//	  lPulse1  = TIM3CP * chnl_1 / 100UL;
-//	  lPulse3 = TIM3CP * chnl_3 / 100UL;
-//
-//	  rPulse2 = TIM3CP * chnl_2 / 100UL;
-//	  rPulse4 = TIM3CP * chnl_4 / 100UL;
-
 
 	//Rueda izquierda
 	__HAL_TIM_SET_COMPARE(&htim3,TIM_CHANNEL_1,lPulse1);
@@ -1840,69 +1960,13 @@ void buttonTask(_sButton *button) {
 		}
 
 		switch (button->clickCount) {
-			case 1:
-				robotMode = STATE_SWING;
-				hbIndex = 0; // LED Swing (1 parpadeo de 100ms)
-				CHPD_Control(1);
-
-				// Respaldar ganancias antes de hacerlas 0
-				Kp_line_backup = Kp_line;
-				Kq_line_backup = Kq_line;
-				Kp_line = 0;
-				Kq_line = 0;
-				break;
-			case 2:
-				robotMode = STATE_LINE_FOLLOWING;
-				hbIndex = 1; // LED Line Following (2 parpadeos)
-				CHPD_Control(1);
-
-				// Restaurar ganancias de seguimiento de línea si venían de estar en 0 (Swing)
-				if (Kp_line == 0 && Kq_line == 0) {
-					Kp_line = Kp_line_backup;
-					Kq_line = Kq_line_backup;
-				}
-				break;
-			case 3:
-				robotMode = STATE_DODGE;
-				dodgeState = DODGE_LINE_FOLLOWING; // Inicia en seguimiento de línea
-				hbIndex = 2; // LED Dodge (3 parpadeos)
-				CHPD_Control(1);
-
-				// Restaurar ganancias de seguimiento de línea si venían de estar en 0 (Swing)
-				if (Kp_line == 0 && Kq_line == 0) {
-					Kp_line = Kp_line_backup;
-					Kq_line = Kq_line_backup;
-				}
-				break;
-			case 4:
-				robotMode = STATE_3D_SCREEN;
-				hbIndex = 5; // LED Figuras 3D (4 parpadeos)
-				CHPD_Control(0); // Sin WiFi en este modo
-
-				// Modo balanceo estático para las figuras 3D
-				Kp_line_backup = Kp_line;
-				Kq_line_backup = Kq_line;
-				Kp_line = 0;
-				Kq_line = 0;
-				WIREGFX_ResetCycle();
-				break;
-			default:
-				// Si por algún motivo hace más de 4 clics, vuelve a carrera por defecto
-				robotMode = STATE_LINE_FOLLOWING;
-				hbIndex = 1;
-				CHPD_Control(1);
-
-				// Restaurar ganancias de seguimiento de línea si venían de estar en 0 (Swing)
-				if (Kp_line == 0 && Kq_line == 0) {
-					Kp_line = Kp_line_backup;
-					Kq_line = Kq_line_backup;
-				}
-				break;
+			case 1: SetRobotMode(STATE_SWING); break;
+			case 2: SetRobotMode(STATE_LINE_FOLLOWING); break;
+			case 3: SetRobotMode(STATE_DODGE); break;
+			case 4: SetRobotMode(STATE_3D_SCREEN); break;
+			default: SetRobotMode(STATE_LINE_FOLLOWING); break;
 		}
 		button->clickCount = 0; // Resetear contador
-
-		// Forzar refresco de pantalla para mantener encendido el texto del modo seleccionado
-		lastMode = (_eRobotMode)-1;
 	}
 
 	// 2. Solo tomamos decisiones de temporización de pulsación ante un EVENTO DE LIBERACIÓN
@@ -1912,34 +1976,20 @@ void buttonTask(_sButton *button) {
 			button->time = 0; // Sin acción por ahora, limpiar
 		}
 		else if (button->time >= T2000MS && button->time < T3000MS) {
-			// Retornar y reintentar en el próximo ciclo si el bus I2C está ocupado, previniendo bloqueos
 			if (HAL_I2C_GetState(&hi2c2) != HAL_I2C_STATE_READY) {
 				return;
 			}
 			button->justReleased = FALSE; // Consumir el evento
-
-			// Pulsación >= 2s y < 3s -> STATE_SECOND_SCREEN
-			robotMode = STATE_SECOND_SCREEN;
-			CHPD_Control(1);
-			ssd1306_ResetDMAState(); // SOLUCIÓN AL BUG: Reiniciar la máquina de estados DMA de la pantalla
-			ssd1306_SetDisplayOn(1); // Encender pantalla
-			hbIndex = 4;             // LED Premium (1000ms encendido)
+			SetRobotMode(STATE_SECOND_SCREEN);
 			button->clickCount = 0;  // Abortar clics cortos pendientes
 			button->time = 0;        // Limpiar
 		}
 		else if (button->time >= T1000MS && button->time < T2000MS) {
-			// Retornar y reintentar en el próximo ciclo si el bus I2C está ocupado, previniendo bloqueos
 			if (HAL_I2C_GetState(&hi2c2) != HAL_I2C_STATE_READY) {
 				return;
 			}
 			button->justReleased = FALSE; // Consumir el evento
-
-			// Pulsación >= 1s y < 2s -> STATE_FIRST_SCREEN
-			robotMode = STATE_FIRST_SCREEN;
-			CHPD_Control(1);
-			ssd1306_ResetDMAState(); // SOLUCIÓN AL BUG: Reiniciar la máquina de estados DMA de la pantalla
-			ssd1306_SetDisplayOn(1); // Encender pantalla
-			hbIndex = 3;             // LED RAW (500ms encendido)
+			SetRobotMode(STATE_FIRST_SCREEN);
 			button->clickCount = 0;  // Abortar clics cortos pendientes
 			button->time = 0;        // Limpiar
 		}
@@ -2047,7 +2097,7 @@ void LineFollowingMEF(int32_t left_ir, int32_t center_ir, int32_t right_ir, int3
 			break;
 
 		case LINE_LOST_WAIT_2S:
-			*target_setpoint = -250; // Setpoint de -250 durante la espera de 2 segundos
+			*target_setpoint = attack_setpoint; // Mantener el mismo ángulo de rotación durante la espera de 2s
 			turn_offset = 0;
 			line_lost_yaw = 0;       // Limpiar acumulación de yaw mientras está en espera
 			line_lost_timer += DT_MS;
@@ -2108,7 +2158,6 @@ void PID_ControlTask(void) {
 
 	// Variables estáticas persistentes de estado
 	static int32_t last_angle = 0;
-	static int8_t dodge_direction = -1; // -1: Rotación inicial a la DERECHA
 
 	measured_dt_ms = DT_MS;
 
@@ -2209,8 +2258,10 @@ void PID_ControlTask(void) {
 			// 1. Seguimiento de línea normal continuo a velocidad máxima
 			LineFollowingMEF(left_ir, center_ir, right_ir, &target_setpoint);
 
+			dodge_timer += DT_MS;
+
 			// Cuando se detecta el obstáculo a la distancia adecuada
-			if (cal_ir6 >= 500) {
+			if (cal_ir6 >= 500 && dodge_timer >= 1000) {
 				standby_next_state = DODGE_ROTATING;
 				turn_offset = 0;
 				dodge_timer = 0;
@@ -2219,16 +2270,18 @@ void PID_ControlTask(void) {
 			break;
 
 		case DODGE_STANDBY:
-			// Standby unificado de frenado (encontrar pared y encontrar línea)
+			// Standby unificado de frenado en 3 etapas (750ms cada una)
 			dodge_timer += DT_MS;
 			turn_offset = 0; // Frenado recto y balanceo quieto en el lugar
 
-			if (dodge_timer < 1500) {
-				target_setpoint = 1000; // Frenado brusco (+10.00°) durante los primeros 1.5s
-			} else if (dodge_timer < 3000) {
-				target_setpoint = 350;  // Estabilización erguida (+3.50°) durante los 1.5s restantes
+			if (dodge_timer < 750) {
+				target_setpoint = 1000; // Etapa 1: Frenado brusco (+10.00°) por 750ms
+			} else if (dodge_timer < 1500) {
+				target_setpoint = 350;  // Etapa 2: Estabilización (+3.50°) por 750ms
+			} else if (dodge_timer < 2250) {
+				target_setpoint = -250; // Etapa 3: Compensación e inclinación leve (-2.50°) por 750ms
 			} else {
-				// Finalizados los 3.0s de standby: pasar al siguiente estado configurado
+				// Finalizados los 2.25s de standby: pasar al siguiente estado configurado
 				dodge_timer = 0;
 				dodge_yaw = 0;
 				if (standby_next_state == DODGE_LINE_FOLLOWING) {
@@ -2271,9 +2324,10 @@ void PID_ControlTask(void) {
 		case DODGE_WALL_FOLLOWING: {
 					target_setpoint = -1400; // Setpoint de avance de -14.00° para seguimiento de pared
 
-					// Sensores de pared: 90° para control principal de distancia, 45° para anticipación anticipada
+					// Sensores de pared: 90° para control principal de distancia, 45° para anticipación anticipada, IR6 para protección frontal
 					int16_t sensor_90 = (dodge_direction == 1) ? cal_ir0 : cal_ir2;
 					int16_t sensor_45 = (dodge_direction == 1) ? cal_ir7 : cal_ir4;
+					int16_t sensor_front = cal_ir6;
 
 					// Distancia objetivo principal a la pared
 					int16_t wall_target = 800;
@@ -2284,8 +2338,11 @@ void PID_ControlTask(void) {
 					// 2. Error de anticipación del sensor diagonal 45° (Ayuda anticipada)
 					int32_t error_anticipo = sensor_45 - wall_target;
 
-					// Seguimiento PD normal de pared continuo
-					int32_t calculo_pd = ((error_distancia * Kp_pared) + (error_anticipo * Kd_anticipo)) / 100;
+					// 3. Error de protección frontal del sensor IR6 (Anticipación frontal)
+					int32_t error_frontal = (sensor_front > 500) ? (sensor_front - 500) : 0;
+
+					// Seguimiento PD normal de pared continuo con protección frontal
+					int32_t calculo_pd = ((error_distancia * Kp_pared) + (error_anticipo * Kd_anticipo) + (error_frontal * Kd_frontal)) / 100;
 
 					turn_offset = calculo_pd * dodge_direction;
 
@@ -2300,17 +2357,74 @@ void PID_ControlTask(void) {
 					}
 
 					dodge_timer += DT_MS;
-					// Re-enganche: Esperar 5 segundos (5000 ms) antes de buscar la línea nuevamente
-					if ((line_cleared || dodge_timer >= 5000) && dodge_timer >= 5000) {
-						if (center_ir < IR_DODGE_LINE_THRESHOLD || left_ir < IR_DODGE_LINE_THRESHOLD || right_ir < IR_DODGE_LINE_THRESHOLD) {
-							standby_next_state = DODGE_LINE_FOLLOWING;
+					// Re-enganche a la línea tras un tiempo mínimo de 2.0 segundos de avance siguiendo la pared
+					if (dodge_timer >= 2000 && line_cleared) {
+						uint8_t d_ir1 = (left_ir < IR_DODGE_LINE_THRESHOLD);
+						uint8_t d_ir3 = (center_ir < IR_DODGE_LINE_THRESHOLD);
+						uint8_t d_ir5 = (right_ir < IR_DODGE_LINE_THRESHOLD);
+						uint8_t d_active_count = d_ir1 + d_ir3 + d_ir5;
+
+						if (d_active_count > 0) {
+							// Una vez detectada la línea mientras se sigue la pared, pasa a rotar para alinearse
 							turn_offset = 0;
+							dodge_yaw = 0;
 							dodge_timer = 0;
-							dodgeState = DODGE_STANDBY;
+							target_setpoint = 350;
+							integral = (integral * 7) / 10;
+							dodgeState = DODGE_RETURN_ROTATING;
 						}
 					}
 					break;
 				}
+
+		case DODGE_RETURN_ROTATING: {
+			uint8_t d_ir1 = (left_ir < IR_DODGE_LINE_THRESHOLD);
+			uint8_t d_ir3 = (center_ir < IR_DODGE_LINE_THRESHOLD);
+			uint8_t d_ir5 = (right_ir < IR_DODGE_LINE_THRESHOLD);
+			uint8_t d_active_count = d_ir1 + d_ir3 + d_ir5;
+
+			dodge_timer += DT_MS;
+
+			// En cualquier momento de la rotación (tras al menos 100 ms para despejar la detección inicial):
+			// Si detecta la línea con 1 o 2 sensores: el robot ya quedó alineado longitudinalmente, pasa a seguirla.
+			// Si la detecta con 3 sensores o 0 sensores: que siga rotando en el lugar.
+			if (dodge_timer >= 100 && (d_active_count == 1 || d_active_count == 2)) {
+				turn_offset = 0;
+				dodge_yaw = 0;
+				dodge_timer = 0;
+				lineState = LINE_FOLLOWING;
+				dodgeState = DODGE_LINE_FOLLOWING;
+			} else {
+				target_setpoint = 350; // Mantiene el ángulo (+3.50°) equilibrado con el mixer
+				integral = (integral * 7) / 10; // Atenuación de memoria inercial
+
+				int32_t gz_calibrated = gz - gz_offset;
+				dodge_yaw += ((int64_t)gz_calibrated * DT_US) / 131000LL;
+				int32_t abs_yaw = (dodge_yaw < 0) ? -dodge_yaw : dodge_yaw;
+
+				// Salvaguarda de rotación máxima (180°) o timeout (3s)
+				if (abs_yaw >= 180000 || dodge_timer >= 3000) {
+					turn_offset = 0;
+					dodge_yaw = 0;
+					dodge_timer = 0;
+					lineState = LINE_FOLLOWING;
+					dodgeState = DODGE_LINE_FOLLOWING;
+				} else {
+					int32_t base_turn = 350;
+					int32_t abs_error = (error < 0) ? -error : error;
+
+					if (abs_error > 450) {
+						turn_offset = 0;
+						integral = 0;
+					} else {
+						// Si la pared está a la izquierda (dodge_direction == -1): rota a la DERECHA (-base_turn)
+						// Si la pared está a la derecha   (dodge_direction == 1):  rota a la IZQUIERDA (+base_turn)
+						turn_offset = (dodge_direction == -1) ? -base_turn : base_turn;
+					}
+				}
+			}
+			break;
+		}
 
 		default:
 			dodgeState = DODGE_WALL_FOLLOWING;
@@ -2428,6 +2542,14 @@ void PID_ControlTask(void) {
 
 	if (is_rotating_pivot) {
 		// --- ROTACIÓN PIVOT SOBRE PROPIO EJE (Búsqueda de línea) ---
+		// Cancelación algebraica (Opción B): En rotación de 90° y 180° por pérdida de línea,
+		// igualamos |turn_offset| al balance (output) para que la rueda interior se anule algebraicamente a 0 PWM
+		// mientras la rueda exterior proporciona el doble de tracción de avance alrededor del pivote.
+		if (lineState == LINE_LOST && (line_lost_phase == LINE_LOST_ROT_90 || line_lost_phase == LINE_LOST_ROT_180)) {
+			int32_t balance_effort = (output > 150) ? output : 150;
+			turn_offset = (turn_offset >= 0) ? balance_effort : -balance_effort;
+		}
+
 		int32_t raw_L = output + turn_offset;
 		int32_t raw_R = output - turn_offset;
 
@@ -2583,7 +2705,7 @@ void HandleModeScreenTransition(void) {
 	if (robotMode != lastMode) {
 		lastMode = robotMode;
 
-		if (robotMode == STATE_SWING || robotMode == STATE_LINE_FOLLOWING || robotMode == STATE_DODGE) {
+		if (robotMode == STATE_SWING || robotMode == STATE_LINE_FOLLOWING || robotMode == STATE_DODGE || robotMode == STATE_STANDBY) {
 			// Esperar a que el bus I2C esté listo
 			while (HAL_I2C_GetState(&hi2c2) != HAL_I2C_STATE_READY) {
 				// Espera activa segura
@@ -2592,7 +2714,13 @@ void HandleModeScreenTransition(void) {
 			ssd1306_SetDisplayOn(1);
 			ssd1306_Fill(Black);
 
-			if (robotMode == STATE_SWING) {
+			if (robotMode == STATE_STANDBY) {
+				// Centrar ">>>MODO 0 - STANDBY<<<"
+				ssd1306_SetCursor((128 - 12 * 7) / 2, 20);
+				ssd1306_WriteString(">>>MODO 0<<<", Font_7x10, White);
+				ssd1306_SetCursor((128 - 7 * 7) / 2, 34);
+				ssd1306_WriteString("STANDBY", Font_7x10, White);
+			} else if (robotMode == STATE_SWING) {
 				// Centrar ">>>MODO 1 -  BALANCEO<<<"
 				// Primera línea: ">>>MODO 1<<<" (12 caracteres)
 				ssd1306_SetCursor((128 - 12 * 7) / 2, 20);
