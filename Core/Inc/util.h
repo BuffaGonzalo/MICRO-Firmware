@@ -103,6 +103,7 @@ typedef enum {
 	SETDODGEMODE = 0xCF,
 	SETSOFTAP = 0xD1,
 	SETROBOTMODE = 0xD2,
+	SETGOTOTURN = 0xD3,
 
 	ACK = 0x0D,
 	EXPORTIRCSV = 0xCA,  // Exportar datos IR al CSV: responde con ACK + número de exportación (2 bytes)
