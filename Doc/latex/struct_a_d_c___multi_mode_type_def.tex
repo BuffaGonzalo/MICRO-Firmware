@@ -1,0 +1,65 @@
+\doxysubsection{Referencia de la estructura ADC\+\_\+\+Multi\+Mode\+Type\+Def}
+\hypertarget{struct_a_d_c___multi_mode_type_def}{}\label{struct_a_d_c___multi_mode_type_def}\index{ADC\_MultiModeTypeDef@{ADC\_MultiModeTypeDef}}
+
+
+Structure definition of ADC multimode.  
+
+
+
+
+{\ttfamily \+\#include "{}stm32f1xx\+\_\+hal\+\_\+adc\+\_\+ex.\+h"{}}
+
+
+
+Diagrama de colaboración de ADC\+\_\+\+Multi\+Mode\+Type\+Def:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=197pt]{struct_a_d_c___multi_mode_type_def__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsubsection*{Campos de datos}
+\begin{DoxyCompactItemize}
+\item 
+uint32\+\_\+t \doxymbox{\hyperlink{struct_a_d_c___multi_mode_type_def_a424b5606c9d5dfbfdc850080d34552ff}{Mode}}
+\begin{DoxyCompactList}\small\item\em Configures the ADC to operate in independent or multi mode. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Descripción detallada}
+Structure definition of ADC multimode. 
+
+\begin{DoxyNote}{Nota}
+The setting of these parameters with function \doxylink{group___a_d_c_ex___exported___functions___group2_gabfe8b04f9cfda94bc8aad912470122f5}{HAL\+\_\+\+ADCEx\+\_\+\+Multi\+Mode\+Config\+Channel()} is conditioned to ADCs state (both ADCs of the common group). State of ADCs of the common group must be: disabled. 
+\end{DoxyNote}
+
+
+Definición en la línea \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h_source_l00115}{115}} del archivo \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h_source}{stm32f1xx\+\_\+hal\+\_\+adc\+\_\+ex.\+h}}.
+
+
+
+\label{struct_a_d_c___multi_mode_type_def_doc-variable-members}
+\Hypertarget{struct_a_d_c___multi_mode_type_def_doc-variable-members}
+\doxysubsubsection{Documentación de campos}
+\Hypertarget{struct_a_d_c___multi_mode_type_def_a424b5606c9d5dfbfdc850080d34552ff}\index{ADC\_MultiModeTypeDef@{ADC\_MultiModeTypeDef}!Mode@{Mode}}
+\index{Mode@{Mode}!ADC\_MultiModeTypeDef@{ADC\_MultiModeTypeDef}}
+\doxyparagraph{\texorpdfstring{Mode}{Mode}}
+{\footnotesize\ttfamily \label{struct_a_d_c___multi_mode_type_def_a424b5606c9d5dfbfdc850080d34552ff} 
+uint32\+\_\+t ADC\+\_\+\+Multi\+Mode\+Type\+Def::\+\+Mode}
+
+
+
+Configures the ADC to operate in independent or multi mode. 
+
+This parameter can be a value of \doxylink{group___a_d_c_ex___common__mode}{ADC Extended Dual ADC Mode} Note: In dual mode, a change of channel configuration generates a restart that can produce a loss of synchronization. It is recommended to disable dual mode before any configuration change. Note: In case of simultaneous mode used: Exactly the same sampling time should be configured for the 2 channels that will be sampled simultaneously by ACD1 and ADC2. Note: In case of interleaved mode used: To avoid overlap between conversions, maximum sampling time allowed is 7 ADC clock cycles for fast interleaved mode and 14 ADC clock cycles for slow interleaved mode. Note: Some multimode parameters are fixed on STM32\+F1 and can be configured on other STM32 devices with several ADC (multimode configuration structure can have additional parameters). The equivalences are:
+\begin{DoxyItemize}
+\item Parameter \textquotesingle{}DMAAccess\+Mode\textquotesingle{}: On STM32\+F1, this parameter is fixed to 1 DMA channel (one DMA channel for both ADC, DMA of ADC master). On other STM32 devices with several ADC, this is equivalent to parameter \textquotesingle{}ADC\+\_\+\+DMAACCESSMODE\+\_\+12\+\_\+10\+\_\+\+BITS\textquotesingle{}.
+\item Parameter \textquotesingle{}Two\+Sampling\+Delay\textquotesingle{}: On STM32\+F1, this parameter is fixed to 7 or 14 ADC clock cycles depending on fast or slow interleaved mode selected. On other STM32 devices with several ADC, this is equivalent to parameter \textquotesingle{}ADC\+\_\+\+TWOSAMPLINGDELAY\+\_\+7\+CYCLES\textquotesingle{} (for fast interleaved mode). 
+\end{DoxyItemize}
+
+Definición en la línea \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h_source_l00117}{117}} del archivo \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h_source}{stm32f1xx\+\_\+hal\+\_\+adc\+\_\+ex.\+h}}.
+
+
+
+La documentación de esta estructura está generada del siguiente archivo:\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h}{stm32f1xx\+\_\+hal\+\_\+adc\+\_\+ex.\+h}}\end{DoxyCompactItemize}

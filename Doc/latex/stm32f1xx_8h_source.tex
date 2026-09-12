@@ -1,0 +1,279 @@
+\doxysubsection{stm32f1xx.\+h}
+\hypertarget{stm32f1xx_8h_source}{}\label{stm32f1xx_8h_source}\index{stm32f1xx.h@{stm32f1xx.h}}
+\doxymbox{\hyperlink{stm32f1xx_8h}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00001}00001\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00002}00002\ \textcolor{comment}{\ \ ******************************************************************************}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00003}00003\ \textcolor{comment}{\ \ *\ @file\ \ \ \ stm32f1xx.h}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00004}00004\ \textcolor{comment}{\ \ *\ @author\ \ MCD\ Application\ Team}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00005}00005\ \textcolor{comment}{\ \ *\ @brief\ \ \ CMSIS\ STM32F1xx\ Device\ Peripheral\ Access\ Layer\ Header\ File.\ }}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00006}00006\ \textcolor{comment}{\ \ *}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00007}00007\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ The\ file\ is\ the\ unique\ include\ file\ that\ the\ application\ programmer}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00008}00008\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ is\ using\ in\ the\ C\ source\ code,\ usually\ in\ main.c.\ This\ file\ contains:}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00009}00009\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ \ -\/\ Configuration\ section\ that\ allows\ to\ select:}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00010}00010\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/\ The\ STM32F1xx\ device\ used\ in\ the\ target\ application}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00011}00011\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/\ To\ use\ or\ not\ the\ peripheral's\ drivers\ in\ application\ code(i.e.\ }}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00012}00012\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ code\ will\ be\ based\ on\ direct\ access\ to\ peripheral's\ registers\ }}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00013}00013\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rather\ than\ drivers\ API),\ this\ option\ is\ controlled\ by\ }}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00014}00014\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}\#define\ USE\_HAL\_DRIVER"{}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00015}00015\ \textcolor{comment}{\ \ *\ \ }}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00016}00016\ \textcolor{comment}{\ \ ******************************************************************************}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00017}00017\ \textcolor{comment}{\ \ *\ @attention}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00018}00018\ \textcolor{comment}{\ \ *}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00019}00019\ \textcolor{comment}{\ \ *\ Copyright\ (c)\ 2017-\/2021\ STMicroelectronics.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00020}00020\ \textcolor{comment}{\ \ *\ All\ rights\ reserved.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00021}00021\ \textcolor{comment}{\ \ *}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00022}00022\ \textcolor{comment}{\ \ *\ This\ software\ is\ licensed\ under\ terms\ that\ can\ be\ found\ in\ the\ LICENSE\ file}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00023}00023\ \textcolor{comment}{\ \ *\ in\ the\ root\ directory\ of\ this\ software\ component.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00024}00024\ \textcolor{comment}{\ \ *\ If\ no\ LICENSE\ file\ comes\ with\ this\ software,\ it\ is\ provided\ AS-\/IS.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00025}00025\ \textcolor{comment}{\ \ *}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00026}00026\ \textcolor{comment}{\ \ ******************************************************************************}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00027}00027\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00028}00028\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00029}00029\ \textcolor{comment}{/**\ @addtogroup\ CMSIS}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00030}00030\ \textcolor{comment}{\ \ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00031}00031\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00032}00032\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00033}00033\ \textcolor{comment}{/**\ @addtogroup\ stm32f1xx}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00034}00034\ \textcolor{comment}{\ \ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00035}00035\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00036}00036\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00037}00037\ \textcolor{preprocessor}{\#ifndef\ \_\_STM32F1XX\_H}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00038}00038\ \textcolor{preprocessor}{\#define\ \_\_STM32F1XX\_H}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00040}00040\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00041}00041\ \ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00042}00042\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_cplusplus\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00043}00043\ \ \ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00044}00044\ \textcolor{comment}{/**\ @addtogroup\ Library\_configuration\_section}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00045}00045\ \textcolor{comment}{\ \ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00046}00046\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00047}00047\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00048}00048\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00049}00049\ \textcolor{comment}{\ \ *\ @brief\ STM32\ Family}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00050}00050\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00051}00051\ \textcolor{preprocessor}{\#if\ !defined\ (STM32F1)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00052}\doxymbox{\hyperlink{group___library__configuration__section_gab52bb1ba72165913f41a6271d60b844c}{00052}}\ \textcolor{preprocessor}{\#define\ STM32F1}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00053}00053\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ STM32F1\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00055}00055\ \textcolor{comment}{/*\ Uncomment\ the\ line\ below\ according\ to\ the\ target\ STM32L\ device\ used\ in\ your\ }}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00056}00056\ \textcolor{comment}{\ \ \ application\ }}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00057}00057\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00059}00059\ \textcolor{preprocessor}{\#if\ !defined\ (STM32F100xB)\ \&\&\ !defined\ (STM32F100xE)\ \&\&\ !defined\ (STM32F101x6)\ \&\&\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00060}00060\ \textcolor{preprocessor}{\ \ \ \ !defined\ (STM32F101xB)\ \&\&\ !defined\ (STM32F101xE)\ \&\&\ !defined\ (STM32F101xG)\ \&\&\ !defined\ (STM32F102x6)\ \&\&\ !defined\ (STM32F102xB)\ \&\&\ !defined\ (STM32F103x6)\ \&\&\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00061}00061\ \textcolor{preprocessor}{\ \ \ \ !defined\ (STM32F103xB)\ \&\&\ !defined\ (STM32F103xE)\ \&\&\ !defined\ (STM32F103xG)\ \&\&\ !defined\ (STM32F105xC)\ \&\&\ !defined\ (STM32F107xC)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00062}00062\ \ \ \textcolor{comment}{/*\ \#define\ STM32F100xB\ \ */}\ \ \ \textcolor{comment}{/*!<\ STM32F100C4,\ STM32F100R4,\ STM32F100C6,\ STM32F100R6,\ STM32F100C8,\ STM32F100R8,\ STM32F100V8,\ STM32F100CB,\ STM32F100RB\ and\ STM32F100VB\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00063}00063\ \ \ \textcolor{comment}{/*\ \#define\ STM32F100xE\ */}\ \ \ \ \textcolor{comment}{/*!<\ STM32F100RC,\ STM32F100VC,\ STM32F100ZC,\ STM32F100RD,\ STM32F100VD,\ STM32F100ZD,\ STM32F100RE,\ STM32F100VE\ and\ STM32F100ZE\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00064}00064\ \ \ \textcolor{comment}{/*\ \#define\ STM32F101x6\ \ */}\ \ \ \textcolor{comment}{/*!<\ STM32F101C4,\ STM32F101R4,\ STM32F101T4,\ STM32F101C6,\ STM32F101R6\ and\ STM32F101T6\ Devices\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00065}00065\ \ \ \textcolor{comment}{/*\ \#define\ STM32F101xB\ \ */}\ \ \ \textcolor{comment}{/*!<\ STM32F101C8,\ STM32F101R8,\ STM32F101T8,\ STM32F101V8,\ STM32F101CB,\ STM32F101RB,\ STM32F101TB\ and\ STM32F101VB\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00066}00066\ \ \ \textcolor{comment}{/*\ \#define\ STM32F101xE\ */}\ \ \ \ \textcolor{comment}{/*!<\ STM32F101RC,\ STM32F101VC,\ STM32F101ZC,\ STM32F101RD,\ STM32F101VD,\ STM32F101ZD,\ STM32F101RE,\ STM32F101VE\ and\ STM32F101ZE\ */}\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00067}00067\ \ \ \textcolor{comment}{/*\ \#define\ STM32F101xG\ \ */}\ \ \ \textcolor{comment}{/*!<\ STM32F101RF,\ STM32F101VF,\ STM32F101ZF,\ STM32F101RG,\ STM32F101VG\ and\ STM32F101ZG\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00068}00068\ \ \ \textcolor{comment}{/*\ \#define\ STM32F102x6\ */}\ \ \ \ \textcolor{comment}{/*!<\ STM32F102C4,\ STM32F102R4,\ STM32F102C6\ and\ STM32F102R6\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00069}00069\ \ \ \textcolor{comment}{/*\ \#define\ STM32F102xB\ \ */}\ \ \ \textcolor{comment}{/*!<\ STM32F102C8,\ STM32F102R8,\ STM32F102CB\ and\ STM32F102RB\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00070}00070\ \ \ \textcolor{comment}{/*\ \#define\ STM32F103x6\ \ */}\ \ \ \textcolor{comment}{/*!<\ STM32F103C4,\ STM32F103R4,\ STM32F103T4,\ STM32F103C6,\ STM32F103R6\ and\ STM32F103T6\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00071}00071\ \ \ \textcolor{comment}{/*\ \#define\ STM32F103xB\ \ */}\ \ \ \textcolor{comment}{/*!<\ STM32F103C8,\ STM32F103R8,\ STM32F103T8,\ STM32F103V8,\ STM32F103CB,\ STM32F103RB,\ STM32F103TB\ and\ STM32F103VB\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00072}00072\ \ \ \textcolor{comment}{/*\ \#define\ STM32F103xE\ */}\ \ \ \ \textcolor{comment}{/*!<\ STM32F103RC,\ STM32F103VC,\ STM32F103ZC,\ STM32F103RD,\ STM32F103VD,\ STM32F103ZD,\ STM32F103RE,\ STM32F103VE\ and\ STM32F103ZE\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00073}00073\ \ \ \textcolor{comment}{/*\ \#define\ STM32F103xG\ \ */}\ \ \ \textcolor{comment}{/*!<\ STM32F103RF,\ STM32F103VF,\ STM32F103ZF,\ STM32F103RG,\ STM32F103VG\ and\ STM32F103ZG\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00074}00074\ \ \ \textcolor{comment}{/*\ \#define\ STM32F105xC\ */}\ \ \ \ \textcolor{comment}{/*!<\ STM32F105R8,\ STM32F105V8,\ STM32F105RB,\ STM32F105VB,\ STM32F105RC\ and\ STM32F105VC\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00075}00075\ \ \ \textcolor{comment}{/*\ \#define\ STM32F107xC\ \ */}\ \ \ \textcolor{comment}{/*!<\ STM32F107RB,\ STM32F107VB,\ STM32F107RC\ and\ STM32F107VC\ */}\ \ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00076}00076\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00078}00078\ \textcolor{comment}{/*\ \ Tip:\ To\ avoid\ modifying\ this\ file\ each\ time\ you\ need\ to\ switch\ between\ these}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00079}00079\ \textcolor{comment}{\ \ \ \ \ \ \ \ devices,\ you\ can\ define\ the\ device\ in\ your\ toolchain\ compiler\ preprocessor.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00080}00080\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00081}00081\ \ \ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00082}00082\ \textcolor{preprocessor}{\#if\ !defined\ \ (USE\_HAL\_DRIVER)}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00083}00083\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00084}00084\ \textcolor{comment}{\ *\ @brief\ Comment\ the\ line\ below\ if\ you\ will\ not\ use\ the\ peripherals\ drivers.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00085}00085\ \textcolor{comment}{\ \ \ In\ this\ case,\ these\ drivers\ will\ not\ be\ included\ and\ the\ application\ code\ will\ }}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00086}00086\ \textcolor{comment}{\ \ \ be\ based\ on\ direct\ access\ to\ peripherals\ registers\ }}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00087}00087\ \textcolor{comment}{\ \ \ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00088}00088\ \ \ \textcolor{comment}{/*\#define\ USE\_HAL\_DRIVER\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00089}00089\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ USE\_HAL\_DRIVER\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00090}00090\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00091}00091\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00092}00092\ \textcolor{comment}{\ \ *\ @brief\ CMSIS\ Device\ version\ number}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00093}00093\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00094}\doxymbox{\hyperlink{group___library__configuration__section_gab50febca128907bd4baf44562e1202d0}{00094}}\ \textcolor{preprocessor}{\#define\ \_\_STM32F1\_CMSIS\_VERSION\_MAIN\ \ \ (0x04)\ }\textcolor{comment}{/*!<\ [31:24]\ main\ version\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00095}\doxymbox{\hyperlink{group___library__configuration__section_ga4e51532a561075fb07e03adf49646321}{00095}}\ \textcolor{preprocessor}{\#define\ \_\_STM32F1\_CMSIS\_VERSION\_SUB1\ \ \ (0x03)\ }\textcolor{comment}{/*!<\ [23:16]\ sub1\ version\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00096}\doxymbox{\hyperlink{group___library__configuration__section_gaadb6cccec78cfbae315f60e7a72d7ad6}{00096}}\ \textcolor{preprocessor}{\#define\ \_\_STM32F1\_CMSIS\_VERSION\_SUB2\ \ \ (0x05)\ }\textcolor{comment}{/*!<\ [15:8]\ \ sub2\ version\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00097}\doxymbox{\hyperlink{group___library__configuration__section_ga3a6ddbe6f81547b6c4379e0a43769c2a}{00097}}\ \textcolor{preprocessor}{\#define\ \_\_STM32F1\_CMSIS\_VERSION\_RC\ \ \ \ \ (0x00)\ }\textcolor{comment}{/*!<\ [7:0]\ \ release\ candidate\ */}\textcolor{preprocessor}{\ }}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00098}\doxymbox{\hyperlink{group___library__configuration__section_ga9bdb63d2332892bb8339e343cf504e9e}{00098}}\ \textcolor{preprocessor}{\#define\ \_\_STM32F1\_CMSIS\_VERSION\ \ \ \ \ \ \ \ ((\_\_STM32F1\_CMSIS\_VERSION\_MAIN\ <<\ 24)\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00099}00099\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |(\_\_STM32F1\_CMSIS\_VERSION\_SUB1\ <<\ 16)\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00100}00100\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |(\_\_STM32F1\_CMSIS\_VERSION\_SUB2\ <<\ 8\ )\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00101}00101\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |(\_\_STM32F1\_CMSIS\_VERSION\_RC))}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00102}00102\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00103}00103\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00104}00104\ \textcolor{comment}{\ \ *\ @\}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00105}00105\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00106}00106\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00107}00107\ \textcolor{comment}{/**\ @addtogroup\ Device\_Included}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00108}00108\ \textcolor{comment}{\ \ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00109}00109\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00110}00110\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00111}00111\ \textcolor{preprocessor}{\#if\ defined(STM32F100xB)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00112}00112\ \textcolor{preprocessor}{\ \ \#include\ "{}stm32f100xb.h"{}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00113}00113\ \textcolor{preprocessor}{\#elif\ defined(STM32F100xE)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00114}00114\ \textcolor{preprocessor}{\ \ \#include\ "{}stm32f100xe.h"{}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00115}00115\ \textcolor{preprocessor}{\#elif\ defined(STM32F101x6)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00116}00116\ \textcolor{preprocessor}{\ \ \#include\ "{}stm32f101x6.h"{}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00117}00117\ \textcolor{preprocessor}{\#elif\ defined(STM32F101xB)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00118}00118\ \textcolor{preprocessor}{\ \ \#include\ "{}stm32f101xb.h"{}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00119}00119\ \textcolor{preprocessor}{\#elif\ defined(STM32F101xE)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00120}00120\ \textcolor{preprocessor}{\ \ \#include\ "{}stm32f101xe.h"{}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00121}00121\ \textcolor{preprocessor}{\#elif\ defined(STM32F101xG)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00122}00122\ \textcolor{preprocessor}{\ \ \#include\ "{}stm32f101xg.h"{}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00123}00123\ \textcolor{preprocessor}{\#elif\ defined(STM32F102x6)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00124}00124\ \textcolor{preprocessor}{\ \ \#include\ "{}stm32f102x6.h"{}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00125}00125\ \textcolor{preprocessor}{\#elif\ defined(STM32F102xB)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00126}00126\ \textcolor{preprocessor}{\ \ \#include\ "{}stm32f102xb.h"{}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00127}00127\ \textcolor{preprocessor}{\#elif\ defined(STM32F103x6)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00128}00128\ \textcolor{preprocessor}{\ \ \#include\ "{}stm32f103x6.h"{}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00129}00129\ \textcolor{preprocessor}{\#elif\ defined(STM32F103xB)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00130}00130\ \textcolor{preprocessor}{\ \ \#include\ "{}\doxymbox{\hyperlink{stm32f103xb_8h}{stm32f103xb.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00131}00131\ \textcolor{preprocessor}{\#elif\ defined(STM32F103xE)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00132}00132\ \textcolor{preprocessor}{\ \ \#include\ "{}stm32f103xe.h"{}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00133}00133\ \textcolor{preprocessor}{\#elif\ defined(STM32F103xG)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00134}00134\ \textcolor{preprocessor}{\ \ \#include\ "{}stm32f103xg.h"{}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00135}00135\ \textcolor{preprocessor}{\#elif\ defined(STM32F105xC)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00136}00136\ \textcolor{preprocessor}{\ \ \#include\ "{}stm32f105xc.h"{}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00137}00137\ \textcolor{preprocessor}{\#elif\ defined(STM32F107xC)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00138}00138\ \textcolor{preprocessor}{\ \ \#include\ "{}stm32f107xc.h"{}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00139}00139\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00140}00140\ \textcolor{preprocessor}{\ \#error\ "{}Please\ select\ first\ the\ target\ STM32F1xx\ device\ used\ in\ your\ application\ (in\ stm32f1xx.h\ file)"{}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00141}00141\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00142}00142\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00143}00143\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00144}00144\ \textcolor{comment}{\ \ *\ @\}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00145}00145\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00146}00146\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00147}00147\ \textcolor{comment}{/**\ @addtogroup\ Exported\_types}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00148}00148\ \textcolor{comment}{\ \ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00149}00149\ \textcolor{comment}{\ \ */}\ \ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00150}\doxymbox{\hyperlink{group___exported__types_ga89136caac2e14c55151f527ac02daaff}{00150}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00151}00151\ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00152}\doxymbox{\hyperlink{group___exported__types_gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05}{00152}}\ \ \ \doxymbox{\hyperlink{group___exported__types_gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05}{RESET}}\ =\ 0,\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00153}\doxymbox{\hyperlink{group___exported__types_gga89136caac2e14c55151f527ac02daaffab44c8101cc294c074709ec1b14211792}{00153}}\ \ \ \doxymbox{\hyperlink{group___exported__types_gga89136caac2e14c55151f527ac02daaffab44c8101cc294c074709ec1b14211792}{SET}}\ =\ !\doxymbox{\hyperlink{group___exported__types_gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05}{RESET}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00154}\doxymbox{\hyperlink{group___exported__types_ga39d4411201fb731279ad5a409b2b80d7}{00154}}\ \}\ \doxymbox{\hyperlink{group___exported__types_ga89136caac2e14c55151f527ac02daaff}{FlagStatus}},\ \doxymbox{\hyperlink{group___exported__types_ga39d4411201fb731279ad5a409b2b80d7}{ITStatus}};}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00155}00155\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00156}\doxymbox{\hyperlink{group___exported__types_gac9a7e9a35d2513ec15c3b537aaa4fba1}{00156}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00157}00157\ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00158}\doxymbox{\hyperlink{group___exported__types_ggac9a7e9a35d2513ec15c3b537aaa4fba1ad3a9df141be0ccf10389b640f492b26d}{00158}}\ \ \ \doxymbox{\hyperlink{group___exported__types_ggac9a7e9a35d2513ec15c3b537aaa4fba1ad3a9df141be0ccf10389b640f492b26d}{DISABLE}}\ =\ 0,\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00159}\doxymbox{\hyperlink{group___exported__types_ggac9a7e9a35d2513ec15c3b537aaa4fba1a7d46875fa3ebd2c34d2756950eda83bf}{00159}}\ \ \ \doxymbox{\hyperlink{group___exported__types_ggac9a7e9a35d2513ec15c3b537aaa4fba1a7d46875fa3ebd2c34d2756950eda83bf}{ENABLE}}\ =\ !\doxymbox{\hyperlink{group___exported__types_ggac9a7e9a35d2513ec15c3b537aaa4fba1ad3a9df141be0ccf10389b640f492b26d}{DISABLE}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00160}00160\ \}\ \doxymbox{\hyperlink{group___exported__types_gac9a7e9a35d2513ec15c3b537aaa4fba1}{FunctionalState}};}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00161}\doxymbox{\hyperlink{group___exported__types_gaffaf7c3f537d7a3370b1bbdda67a2bf6}{00161}}\ \textcolor{preprocessor}{\#define\ IS\_FUNCTIONAL\_STATE(STATE)\ (((STATE)\ ==\ DISABLE)\ ||\ ((STATE)\ ==\ ENABLE))}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00162}00162\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00163}\doxymbox{\hyperlink{group___exported__types_ga8333b96c67f83cba354b3407fcbb6ee8}{00163}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00164}00164\ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00165}\doxymbox{\hyperlink{group___exported__types_gga8333b96c67f83cba354b3407fcbb6ee8ac7f69f7c9e5aea9b8f54cf02870e2bf8}{00165}}\ \ \ \doxymbox{\hyperlink{group___exported__types_gga8333b96c67f83cba354b3407fcbb6ee8ac7f69f7c9e5aea9b8f54cf02870e2bf8}{SUCCESS}}\ =\ 0U,}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00166}\doxymbox{\hyperlink{group___exported__types_gga8333b96c67f83cba354b3407fcbb6ee8a2fd6f336d08340583bd620a7f5694c90}{00166}}\ \ \ \doxymbox{\hyperlink{group___exported__types_gga8333b96c67f83cba354b3407fcbb6ee8a2fd6f336d08340583bd620a7f5694c90}{ERROR}}\ =\ !\doxymbox{\hyperlink{group___exported__types_gga8333b96c67f83cba354b3407fcbb6ee8ac7f69f7c9e5aea9b8f54cf02870e2bf8}{SUCCESS}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00167}00167\ \}\ \doxymbox{\hyperlink{group___exported__types_ga8333b96c67f83cba354b3407fcbb6ee8}{ErrorStatus}};}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00168}00168\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00169}00169\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00170}00170\ \textcolor{comment}{\ \ *\ @\}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00171}00171\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00172}00172\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00173}00173\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00174}00174\ \textcolor{comment}{/**\ @addtogroup\ Exported\_macros}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00175}00175\ \textcolor{comment}{\ \ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00176}00176\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00177}\doxymbox{\hyperlink{group___exported__macros_ga26474f43799fbade9cf300e21dd3a91a}{00177}}\ \textcolor{preprocessor}{\#define\ SET\_BIT(REG,\ BIT)\ \ \ \ \ ((REG)\ |=\ (BIT))}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00178}00178\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00179}\doxymbox{\hyperlink{group___exported__macros_ga133aae6fc0d41bffab39ab223a7001de}{00179}}\ \textcolor{preprocessor}{\#define\ CLEAR\_BIT(REG,\ BIT)\ \ \ ((REG)\ \&=\ \string~(BIT))}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00180}00180\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00181}\doxymbox{\hyperlink{group___exported__macros_ga822bb1bb9710d5f2fa6396b84e583c33}{00181}}\ \textcolor{preprocessor}{\#define\ READ\_BIT(REG,\ BIT)\ \ \ \ ((REG)\ \&\ (BIT))}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00182}00182\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00183}\doxymbox{\hyperlink{group___exported__macros_ga1378fbdda39f40b85420df55f41460ef}{00183}}\ \textcolor{preprocessor}{\#define\ CLEAR\_REG(REG)\ \ \ \ \ \ \ \ ((REG)\ =\ (0x0))}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00184}00184\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00185}\doxymbox{\hyperlink{group___exported__macros_ga32f78bffcaf6d13023dcd7f05e0c4d57}{00185}}\ \textcolor{preprocessor}{\#define\ WRITE\_REG(REG,\ VAL)\ \ \ ((REG)\ =\ (VAL))}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00186}00186\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00187}\doxymbox{\hyperlink{group___exported__macros_gae7f188a4d26c9e713a48414783421071}{00187}}\ \textcolor{preprocessor}{\#define\ READ\_REG(REG)\ \ \ \ \ \ \ \ \ ((REG))}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00188}00188\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00189}\doxymbox{\hyperlink{group___exported__macros_ga6553c99f510c3bab8cc0a91602053247}{00189}}\ \textcolor{preprocessor}{\#define\ MODIFY\_REG(REG,\ CLEARMASK,\ SETMASK)\ \ WRITE\_REG((REG),\ (((READ\_REG(REG))\ \&\ (\string~(CLEARMASK)))\ |\ (SETMASK)))}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00190}00190\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00191}\doxymbox{\hyperlink{group___exported__macros_ga47a8870d71d55cefb3df47cd8c815ec8}{00191}}\ \textcolor{preprocessor}{\#define\ POSITION\_VAL(VAL)\ \ \ \ \ (\_\_CLZ(\_\_RBIT(VAL)))\ }}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00192}00192\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00193}00193\ \textcolor{comment}{/*\ Use\ of\ CMSIS\ compiler\ intrinsics\ for\ register\ exclusive\ access\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00194}00194\ \textcolor{comment}{/*\ Atomic\ 32-\/bit\ register\ access\ macro\ to\ set\ one\ or\ several\ bits\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00195}\doxymbox{\hyperlink{group___exported__macros_ga5daccb3b4245b833e81ff60fd1f4cf80}{00195}}\ \textcolor{preprocessor}{\#define\ ATOMIC\_SET\_BIT(REG,\ BIT)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00196}00196\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00197}00197\ \textcolor{preprocessor}{\ \ \ \ uint32\_t\ val;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00198}00198\ \textcolor{preprocessor}{\ \ \ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00199}00199\ \textcolor{preprocessor}{\ \ \ \ \ \ val\ =\ \_\_LDREXW((\_\_IO\ uint32\_t\ *)\&(REG))\ |\ (BIT);\ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00200}00200\ \textcolor{preprocessor}{\ \ \ \ \}\ while\ ((\_\_STREXW(val,(\_\_IO\ uint32\_t\ *)\&(REG)))\ !=\ 0U);\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00201}00201\ \textcolor{preprocessor}{\ \ \}\ while(0)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00202}00202\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00203}00203\ \textcolor{comment}{/*\ Atomic\ 32-\/bit\ register\ access\ macro\ to\ clear\ one\ or\ several\ bits\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00204}\doxymbox{\hyperlink{group___exported__macros_ga08dfef58d3b054b80745eda49e8907fb}{00204}}\ \textcolor{preprocessor}{\#define\ ATOMIC\_CLEAR\_BIT(REG,\ BIT)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00205}00205\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00206}00206\ \textcolor{preprocessor}{\ \ \ \ uint32\_t\ val;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00207}00207\ \textcolor{preprocessor}{\ \ \ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00208}00208\ \textcolor{preprocessor}{\ \ \ \ \ \ val\ =\ \_\_LDREXW((\_\_IO\ uint32\_t\ *)\&(REG))\ \&\ \string~(BIT);\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00209}00209\ \textcolor{preprocessor}{\ \ \ \ \}\ while\ ((\_\_STREXW(val,(\_\_IO\ uint32\_t\ *)\&(REG)))\ !=\ 0U);\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00210}00210\ \textcolor{preprocessor}{\ \ \}\ while(0)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00211}00211\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00212}00212\ \textcolor{comment}{/*\ Atomic\ 32-\/bit\ register\ access\ macro\ to\ clear\ and\ set\ one\ or\ several\ bits\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00213}\doxymbox{\hyperlink{group___exported__macros_ga89dc36b64605a58fd1666d76b51bde1c}{00213}}\ \textcolor{preprocessor}{\#define\ ATOMIC\_MODIFY\_REG(REG,\ CLEARMSK,\ SETMASK)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00214}00214\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00215}00215\ \textcolor{preprocessor}{\ \ \ \ uint32\_t\ val;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00216}00216\ \textcolor{preprocessor}{\ \ \ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00217}00217\ \textcolor{preprocessor}{\ \ \ \ \ \ val\ =\ (\_\_LDREXW((\_\_IO\ uint32\_t\ *)\&(REG))\ \&\ \string~(CLEARMSK))\ |\ (SETMASK);\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00218}00218\ \textcolor{preprocessor}{\ \ \ \ \}\ while\ ((\_\_STREXW(val,(\_\_IO\ uint32\_t\ *)\&(REG)))\ !=\ 0U);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00219}00219\ \textcolor{preprocessor}{\ \ \}\ while(0)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00220}00220\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00221}00221\ \textcolor{comment}{/*\ Atomic\ 16-\/bit\ register\ access\ macro\ to\ set\ one\ or\ several\ bits\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00222}\doxymbox{\hyperlink{group___exported__macros_ga567c489b25ec989c6ffcda6e1a49c4c2}{00222}}\ \textcolor{preprocessor}{\#define\ ATOMIC\_SETH\_BIT(REG,\ BIT)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00223}00223\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00224}00224\ \textcolor{preprocessor}{\ \ \ \ uint16\_t\ val;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00225}00225\ \textcolor{preprocessor}{\ \ \ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00226}00226\ \textcolor{preprocessor}{\ \ \ \ \ \ val\ =\ \_\_LDREXH((\_\_IO\ uint16\_t\ *)\&(REG))\ |\ (BIT);\ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00227}00227\ \textcolor{preprocessor}{\ \ \ \ \}\ while\ ((\_\_STREXH(val,(\_\_IO\ uint16\_t\ *)\&(REG)))\ !=\ 0U);\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00228}00228\ \textcolor{preprocessor}{\ \ \}\ while(0)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00229}00229\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00230}00230\ \textcolor{comment}{/*\ Atomic\ 16-\/bit\ register\ access\ macro\ to\ clear\ one\ or\ several\ bits\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00231}\doxymbox{\hyperlink{group___exported__macros_ga72150176ac8514f3a9f71b354d344661}{00231}}\ \textcolor{preprocessor}{\#define\ ATOMIC\_CLEARH\_BIT(REG,\ BIT)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00232}00232\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00233}00233\ \textcolor{preprocessor}{\ \ \ \ uint16\_t\ val;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00234}00234\ \textcolor{preprocessor}{\ \ \ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00235}00235\ \textcolor{preprocessor}{\ \ \ \ \ \ val\ =\ \_\_LDREXH((\_\_IO\ uint16\_t\ *)\&(REG))\ \&\ \string~(BIT);\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00236}00236\ \textcolor{preprocessor}{\ \ \ \ \}\ while\ ((\_\_STREXH(val,(\_\_IO\ uint16\_t\ *)\&(REG)))\ !=\ 0U);\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00237}00237\ \textcolor{preprocessor}{\ \ \}\ while(0)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00238}00238\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00239}00239\ \textcolor{comment}{/*\ Atomic\ 16-\/bit\ register\ access\ macro\ to\ clear\ and\ set\ one\ or\ several\ bits\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00240}\doxymbox{\hyperlink{group___exported__macros_ga8774e17ec273484ebb30efd3f9307f3a}{00240}}\ \textcolor{preprocessor}{\#define\ ATOMIC\_MODIFYH\_REG(REG,\ CLEARMSK,\ SETMASK)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00241}00241\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00242}00242\ \textcolor{preprocessor}{\ \ \ \ uint16\_t\ val;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00243}00243\ \textcolor{preprocessor}{\ \ \ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00244}00244\ \textcolor{preprocessor}{\ \ \ \ \ \ val\ =\ (\_\_LDREXH((\_\_IO\ uint16\_t\ *)\&(REG))\ \&\ \string~(CLEARMSK))\ |\ (SETMASK);\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00245}00245\ \textcolor{preprocessor}{\ \ \ \ \}\ while\ ((\_\_STREXH(val,(\_\_IO\ uint16\_t\ *)\&(REG)))\ !=\ 0U);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00246}00246\ \textcolor{preprocessor}{\ \ \}\ while(0)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00247}00247\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00248}00248\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00249}00249\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00250}00250\ \textcolor{comment}{\ \ *\ @\}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00251}00251\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00252}00252\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00253}00253\ \textcolor{preprocessor}{\#if\ defined\ (USE\_HAL\_DRIVER)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00254}00254\ \textcolor{preprocessor}{\ \#include\ "{}\doxymbox{\hyperlink{stm32f1xx__hal_8h}{stm32f1xx\_hal.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00255}00255\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ USE\_HAL\_DRIVER\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00256}00256\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00257}00257\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00258}00258\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00259}00259\ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00260}00260\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_cplusplus\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00261}00261\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00262}00262\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_STM32F1xx\_H\ */}\textcolor{preprocessor}{}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00263}00263\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00264}00264\ \textcolor{comment}{\ \ *\ @\}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00265}00265\ \textcolor{comment}{\ \ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00266}00266\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00267}00267\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00268}00268\ \textcolor{comment}{\ \ *\ @\}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00269}00269\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00270}00270\ \ \ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00271}00271\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00272}00272\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx_8h_source_l00273}00273\ }
+
+\end{DoxyCode}

@@ -1,0 +1,1318 @@
+\doxysubsection{Referencia del archivo esp01.\+h}
+\hypertarget{esp01_8h}{}\label{esp01_8h}\index{esp01.h@{esp01.h}}
+
+
+Driver de comunicación por comandos AT para módulo Wi-\/\+Fi ESP8266 (ESP-\/01).  
+
+
+{\ttfamily \+\#include $<$stdint.\+h$>$}\newline
+Gráfico de dependencias incluidas en esp01.\+h:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=131pt]{esp01_8h__incl}
+\end{center}
+\end{figure}
+Gráfico de los archivos que directa o indirectamente incluyen a este archivo:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=194pt]{esp01_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsubsection*{Estructuras de datos}
+\begin{DoxyCompactItemize}
+\item 
+struct \doxymbox{\hyperlink{struct__s_e_s_p01_handle}{\+\_\+s\+ESP01\+Handle}}
+\begin{DoxyCompactList}\small\item\em Estructura de funciones de bajo nivel requeridas por el driver ESP01. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsubsection*{defines}
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{group___e_s_p01___constants_ga44ee3af49d0f758f6c1560b175189ba7}{ESP01\+RXBUFAT}}~1024
+\begin{DoxyCompactList}\small\item\em Capacidad en bytes del buffer circular interno de recepción AT. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group___e_s_p01___constants_ga8b93227603bcb458033daf9d1e3c7465}{ESP01\+TXBUFAT}}~1024
+\begin{DoxyCompactList}\small\item\em Capacidad en bytes del buffer circular interno de transmisión AT. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsubsection*{Enumeraciones}
+\begin{DoxyCompactItemize}
+\item 
+enum \doxymbox{\hyperlink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2}{\+\_\+e\+ESP01\+STATUS}} \{ \newline
+\doxymbox{\hyperlink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2a4d87bc3d84344f736dbc4c85b5758d4c}{ESP01\+\_\+\+NOT\+\_\+\+INIT}} = -\/1
+, \doxymbox{\hyperlink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2aa1180526c1a95367a039182f6da2bba1}{ESP01\+\_\+\+WIFI\+\_\+\+DISCONNECTED}}
+, \doxymbox{\hyperlink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2a7c133fa46287606556e9d7024b68abbb}{ESP01\+\_\+\+WIFI\+\_\+\+NOT\+\_\+\+SETED}}
+, \doxymbox{\hyperlink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2a0466b8f983811be46a36dcaf6ef71a36}{ESP01\+\_\+\+WIFI\+\_\+\+CONNECTING\+\_\+\+WIFI}}
+, \newline
+\doxymbox{\hyperlink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2a9b36b0c6e4d43330c18cdb81779ec728}{ESP01\+\_\+\+WIFI\+\_\+\+CONNECTED}}
+, \doxymbox{\hyperlink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2a367131f0be2b862f04cdd6ed027a2486}{ESP01\+\_\+\+WIFI\+\_\+\+NEW\+\_\+\+IP}}
+, \doxymbox{\hyperlink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2a12aa1b1c2d5aa588e81a8f9f0ad12ef7}{ESP01\+\_\+\+UDPTCP\+\_\+\+DISCONNECTED}}
+, \doxymbox{\hyperlink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2a9c5a09bc66bfe5ce6b86d4f27d2adfaf}{ESP01\+\_\+\+UDPTCP\+\_\+\+CONNECTING}}
+, \newline
+\doxymbox{\hyperlink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2ac8f073d54fd8dcbf72e7a3adde828c3a}{ESP01\+\_\+\+UDPTCP\+\_\+\+CONNECTED}}
+, \doxymbox{\hyperlink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2ac3b9ac426c9861699da15475f1d993f7}{ESP01\+\_\+\+SEND\+\_\+\+BUSY}}
+, \doxymbox{\hyperlink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2a45e0857107766400ffd60a18ee94eb85}{ESP01\+\_\+\+SEND\+\_\+\+READY}}
+, \doxymbox{\hyperlink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2a33bb493c0af1d26674f7e49634e1f652}{ESP01\+\_\+\+SEND\+\_\+\+OK}}
+, \newline
+\doxymbox{\hyperlink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2a3b330d0c95ccdafd39f5edec499dc50d}{ESP01\+\_\+\+SEND\+\_\+\+ERROR}}
+ \}
+\begin{DoxyCompactList}\small\item\em Estados operativos de la máquina de estados finita del driver ESP01. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsubsection*{Funciones}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{esp01_8h_a0add87bd2ab5edd589193c74a57ea0a9}{ESP01\+\_\+\+Attach\+Change\+State}} (void(\texorpdfstring{$\ast$}{*}a\+ESP01\+Change\+State)(\doxymbox{\hyperlink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2}{\+\_\+e\+ESP01\+STATUS}} esp01\+State))
+\begin{DoxyCompactList}\small\item\em Registra una función de notificación para cambios de estado en el driver. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{esp01_8h_a7f5bac77ca969bc7d6003517b0e264a2}{ESP01\+\_\+\+Attach\+Debug\+Str}} (void(\texorpdfstring{$\ast$}{*}a\+ESP01\+Dbg\+Str)(const char \texorpdfstring{$\ast$}{*}dbg\+Str))
+\begin{DoxyCompactList}\small\item\em Registra una función callback para imprimir trazas de depuración de texto. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{esp01_8h_a8c18994c09715199de6359ea62f14769}{ESP01\+\_\+\+Close\+UDPTCP}} (void)
+\begin{DoxyCompactList}\small\item\em Cierra la conexión activa de socket UDP o TCP ({\ttfamily AT+\+CIPCLOSE}). \end{DoxyCompactList}\item 
+uint8\+\_\+t \doxymbox{\hyperlink{esp01_8h_af47ed4c5c630699f78e99af31e34ab72}{ESP01\+\_\+\+Get\+Last\+Conn\+ID}} (void)
+\begin{DoxyCompactList}\small\item\em Retorna el identificador de conexión ({\ttfamily conn\+ID}) de la última petición HTTP recibida ({\ttfamily +IPD}). \end{DoxyCompactList}\item 
+char \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{esp01_8h_a266759c19a904fb0e9f360b902185fb2}{ESP01\+\_\+\+Get\+Local\+IP}} (void)
+\begin{DoxyCompactList}\small\item\em Obtiene la dirección IP local asignada al ESP-\/01 en la red Wi-\/\+Fi. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{esp01_8h_a96572d45c42130b3ede565dd9eb63ac4}{ESP01\+\_\+\+Init}} (\doxymbox{\hyperlink{struct__s_e_s_p01_handle}{\+\_\+s\+ESP01\+Handle}} \texorpdfstring{$\ast$}{*}h\+ESP01)
+\begin{DoxyCompactList}\small\item\em Inicializa las estructuras internas y timers del driver ESP01. \end{DoxyCompactList}\item 
+int \doxymbox{\hyperlink{esp01_8h_a952adaf4cf76b1e4b3c8d5e196200d3f}{ESP01\+\_\+\+Is\+HDRRST}} (void)
+\begin{DoxyCompactList}\small\item\em Consulta si el módulo se encuentra actualmente ejecutando un reset físico por hardware. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2}{\+\_\+e\+ESP01\+STATUS}} \doxymbox{\hyperlink{esp01_8h_a941cbda6de4f9cfdbaa27ca6e62392c0}{ESP01\+\_\+\+Send}} (uint8\+\_\+t conn\+ID, uint8\+\_\+t \texorpdfstring{$\ast$}{*}buf, uint16\+\_\+t ir\+Ring\+Buf, uint16\+\_\+t length, uint16\+\_\+t size\+Ring\+Buf)
+\begin{DoxyCompactList}\small\item\em Transmite un bloque de datos del buffer circular a través del socket activo. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{esp01_8h_a97d544f7df6ee98063ce7952fbe565a4}{ESP01\+\_\+\+Set\+Web\+Server}} (const char \texorpdfstring{$\ast$}{*}ap\+SSID, const char \texorpdfstring{$\ast$}{*}ap\+Pass, uint8\+\_\+t ch, uint8\+\_\+t enc)
+\begin{DoxyCompactList}\small\item\em Configura el módulo en modo Dual (Station + Soft\+AP) y levanta un servidor Web HTTP. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{esp01_8h_accb8ca062ab92f813a32d8f0b88e7a43}{ESP01\+\_\+\+Set\+WIFI}} (const char \texorpdfstring{$\ast$}{*}ssid, const char \texorpdfstring{$\ast$}{*}password)
+\begin{DoxyCompactList}\small\item\em Configura las credenciales de la red Wi-\/\+Fi e inicia el proceso de asociación. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2}{\+\_\+e\+ESP01\+STATUS}} \doxymbox{\hyperlink{esp01_8h_aec68f854c567875dddc5e5e89c0b3bcb}{ESP01\+\_\+\+Start\+TCP}} (const char \texorpdfstring{$\ast$}{*}Remote\+IP, uint16\+\_\+t Remote\+PORT, uint16\+\_\+t Local\+PORT)
+\begin{DoxyCompactList}\small\item\em Inicia una conexión de transporte TCP cliente hacia un servidor remoto. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2}{\+\_\+e\+ESP01\+STATUS}} \doxymbox{\hyperlink{esp01_8h_a0791bfac7d8d5783dde678ecb5c24e1e}{ESP01\+\_\+\+Start\+UDP}} (const char \texorpdfstring{$\ast$}{*}Remote\+IP, uint16\+\_\+t Remote\+PORT, uint16\+\_\+t Local\+PORT)
+\begin{DoxyCompactList}\small\item\em Inicia una conexión de transporte UDP hacia un endpoint IP y puerto remotos. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2}{\+\_\+e\+ESP01\+STATUS}} \doxymbox{\hyperlink{esp01_8h_a5a8932a922139481e9cb537ec1c543ae}{ESP01\+\_\+\+State\+UDPTCP}} (void)
+\begin{DoxyCompactList}\small\item\em Consulta el estado de enlace del socket UDP o TCP. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2}{\+\_\+e\+ESP01\+STATUS}} \doxymbox{\hyperlink{esp01_8h_ad01a767d3ccfcd7a0103135281464276}{ESP01\+\_\+\+State\+WIFI}} (void)
+\begin{DoxyCompactList}\small\item\em Consulta el estado actual de la conexión a la infraestructura Wi-\/\+Fi. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{esp01_8h_a2a01570b672fe27bb4c6a6f5f4753995}{ESP01\+\_\+\+Task}} (void)
+\begin{DoxyCompactList}\small\item\em Tarea principal de procesamiento de la máquina de estados AT. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{esp01_8h_a56d89861ed59233e20a6a4eadbe1c17a}{ESP01\+\_\+\+Timeout10ms}} (void)
+\begin{DoxyCompactList}\small\item\em Base de tiempo periódica de 10 ms para la gestión de timeouts del módulo. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{esp01_8h_aa4745589acec5f8d6a97a414810dc8c1}{ESP01\+\_\+\+Write\+RX}} (uint8\+\_\+t value)
+\begin{DoxyCompactList}\small\item\em Inyecta un byte recibido por interrupción USART en el buffer del driver. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Descripción detallada}
+Driver de comunicación por comandos AT para módulo Wi-\/\+Fi ESP8266 (ESP-\/01). 
+
+\begin{DoxyAuthor}{Autor}
+Germán E. Hachmann / Gonzalo M. Buffa 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Fecha}
+04/\+08/\+2024
+\end{DoxyDate}
+Este módulo implementa el control asíncrono del transceptor Wi-\/\+Fi ESP-\/01 a través de USART, gestionando la máquina de estados de conexión a puntos de acceso (Modo Station), la creación de redes locales (Modo Soft\+AP), la apertura de sockets UDP/\+\+TCP para telemetría y el servidor HTTP embebido para configuración remota. 
+
+Definición en el archivo \doxymbox{\hyperlink{esp01_8h_source}{esp01.\+h}}.
+
+
+
+\label{esp01_8h_doc-enum-members}
+\Hypertarget{esp01_8h_doc-enum-members}
+\doxysubsubsection{Documentación de enumeraciones}
+\Hypertarget{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2}\index{esp01.h@{esp01.h}!\_eESP01STATUS@{\_eESP01STATUS}}
+\index{\_eESP01STATUS@{\_eESP01STATUS}!esp01.h@{esp01.h}}
+\doxyparagraph{\texorpdfstring{\_eESP01STATUS}{\_eESP01STATUS}}
+{\footnotesize\ttfamily \label{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2} 
+enum \doxymbox{\hyperlink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2}{\+\_\+e\+ESP01\+STATUS}}}
+
+
+
+Estados operativos de la máquina de estados finita del driver ESP01. 
+
+\begin{DoxyEnumFields}[2]{Valores de enumeraciones}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ESP01\_NOT\_INIT@{ESP01\_NOT\_INIT}!esp01.h@{esp01.h}}
+\index{esp01.h@{esp01.h}!ESP01\_NOT\_INIT@{ESP01\_NOT\_INIT}}
+}\Hypertarget{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2a4d87bc3d84344f736dbc4c85b5758d4c}\label{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2a4d87bc3d84344f736dbc4c85b5758d4c} 
+ESP01\+\_\+\+NOT\+\_\+\+INIT&Driver no inicializado o en proceso de reinicio hardware. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ESP01\_WIFI\_DISCONNECTED@{ESP01\_WIFI\_DISCONNECTED}!esp01.h@{esp01.h}}
+\index{esp01.h@{esp01.h}!ESP01\_WIFI\_DISCONNECTED@{ESP01\_WIFI\_DISCONNECTED}}
+}\Hypertarget{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2aa1180526c1a95367a039182f6da2bba1}\label{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2aa1180526c1a95367a039182f6da2bba1} 
+ESP01\+\_\+\+WIFI\+\_\+\+DISCONNECTED&Desconectado de la red Wi-\/\+Fi. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ESP01\_WIFI\_NOT\_SETED@{ESP01\_WIFI\_NOT\_SETED}!esp01.h@{esp01.h}}
+\index{esp01.h@{esp01.h}!ESP01\_WIFI\_NOT\_SETED@{ESP01\_WIFI\_NOT\_SETED}}
+}\Hypertarget{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2a7c133fa46287606556e9d7024b68abbb}\label{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2a7c133fa46287606556e9d7024b68abbb} 
+ESP01\+\_\+\+WIFI\+\_\+\+NOT\+\_\+\+SETED&Sin credenciales de red Wi-\/\+Fi configuradas. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ESP01\_WIFI\_CONNECTING\_WIFI@{ESP01\_WIFI\_CONNECTING\_WIFI}!esp01.h@{esp01.h}}
+\index{esp01.h@{esp01.h}!ESP01\_WIFI\_CONNECTING\_WIFI@{ESP01\_WIFI\_CONNECTING\_WIFI}}
+}\Hypertarget{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2a0466b8f983811be46a36dcaf6ef71a36}\label{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2a0466b8f983811be46a36dcaf6ef71a36} 
+ESP01\+\_\+\+WIFI\+\_\+\+CONNECTING\+\_\+\+WIFI&Intentando asociarse al punto de acceso (SSID/\+\+Password). \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ESP01\_WIFI\_CONNECTED@{ESP01\_WIFI\_CONNECTED}!esp01.h@{esp01.h}}
+\index{esp01.h@{esp01.h}!ESP01\_WIFI\_CONNECTED@{ESP01\_WIFI\_CONNECTED}}
+}\Hypertarget{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2a9b36b0c6e4d43330c18cdb81779ec728}\label{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2a9b36b0c6e4d43330c18cdb81779ec728} 
+ESP01\+\_\+\+WIFI\+\_\+\+CONNECTED&Conectado exitosamente al punto de acceso Wi-\/\+Fi. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ESP01\_WIFI\_NEW\_IP@{ESP01\_WIFI\_NEW\_IP}!esp01.h@{esp01.h}}
+\index{esp01.h@{esp01.h}!ESP01\_WIFI\_NEW\_IP@{ESP01\_WIFI\_NEW\_IP}}
+}\Hypertarget{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2a367131f0be2b862f04cdd6ed027a2486}\label{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2a367131f0be2b862f04cdd6ed027a2486} 
+ESP01\+\_\+\+WIFI\+\_\+\+NEW\+\_\+\+IP&Dirección IP asignada por DHCP obtenida. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ESP01\_UDPTCP\_DISCONNECTED@{ESP01\_UDPTCP\_DISCONNECTED}!esp01.h@{esp01.h}}
+\index{esp01.h@{esp01.h}!ESP01\_UDPTCP\_DISCONNECTED@{ESP01\_UDPTCP\_DISCONNECTED}}
+}\Hypertarget{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2a12aa1b1c2d5aa588e81a8f9f0ad12ef7}\label{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2a12aa1b1c2d5aa588e81a8f9f0ad12ef7} 
+ESP01\+\_\+\+UDPTCP\+\_\+\+DISCONNECTED&Socket UDP/\+\+TCP cerrado o desconectado. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ESP01\_UDPTCP\_CONNECTING@{ESP01\_UDPTCP\_CONNECTING}!esp01.h@{esp01.h}}
+\index{esp01.h@{esp01.h}!ESP01\_UDPTCP\_CONNECTING@{ESP01\_UDPTCP\_CONNECTING}}
+}\Hypertarget{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2a9c5a09bc66bfe5ce6b86d4f27d2adfaf}\label{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2a9c5a09bc66bfe5ce6b86d4f27d2adfaf} 
+ESP01\+\_\+\+UDPTCP\+\_\+\+CONNECTING&Estableciendo socket de comunicación UDP/\+\+TCP con el host remoto. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ESP01\_UDPTCP\_CONNECTED@{ESP01\_UDPTCP\_CONNECTED}!esp01.h@{esp01.h}}
+\index{esp01.h@{esp01.h}!ESP01\_UDPTCP\_CONNECTED@{ESP01\_UDPTCP\_CONNECTED}}
+}\Hypertarget{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2ac8f073d54fd8dcbf72e7a3adde828c3a}\label{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2ac8f073d54fd8dcbf72e7a3adde828c3a} 
+ESP01\+\_\+\+UDPTCP\+\_\+\+CONNECTED&Socket UDP/\+\+TCP conectado y listo para transferir datos. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ESP01\_SEND\_BUSY@{ESP01\_SEND\_BUSY}!esp01.h@{esp01.h}}
+\index{esp01.h@{esp01.h}!ESP01\_SEND\_BUSY@{ESP01\_SEND\_BUSY}}
+}\Hypertarget{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2ac3b9ac426c9861699da15475f1d993f7}\label{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2ac3b9ac426c9861699da15475f1d993f7} 
+ESP01\+\_\+\+SEND\+\_\+\+BUSY&Transmisión de datos en progreso por la USART. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ESP01\_SEND\_READY@{ESP01\_SEND\_READY}!esp01.h@{esp01.h}}
+\index{esp01.h@{esp01.h}!ESP01\_SEND\_READY@{ESP01\_SEND\_READY}}
+}\Hypertarget{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2a45e0857107766400ffd60a18ee94eb85}\label{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2a45e0857107766400ffd60a18ee94eb85} 
+ESP01\+\_\+\+SEND\+\_\+\+READY&Buffer disponible y módulo listo para recibir nuevo comando de envío. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ESP01\_SEND\_OK@{ESP01\_SEND\_OK}!esp01.h@{esp01.h}}
+\index{esp01.h@{esp01.h}!ESP01\_SEND\_OK@{ESP01\_SEND\_OK}}
+}\Hypertarget{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2a33bb493c0af1d26674f7e49634e1f652}\label{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2a33bb493c0af1d26674f7e49634e1f652} 
+ESP01\+\_\+\+SEND\+\_\+\+OK&Confirmación de paquete enviado exitosamente ({\ttfamily SEND OK}). \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ESP01\_SEND\_ERROR@{ESP01\_SEND\_ERROR}!esp01.h@{esp01.h}}
+\index{esp01.h@{esp01.h}!ESP01\_SEND\_ERROR@{ESP01\_SEND\_ERROR}}
+}\Hypertarget{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2a3b330d0c95ccdafd39f5edec499dc50d}\label{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2a3b330d0c95ccdafd39f5edec499dc50d} 
+ESP01\+\_\+\+SEND\+\_\+\+ERROR&Fallo o error reportado en la transmisión de datos. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definición en la línea \doxymbox{\hyperlink{esp01_8h_source_l00021}{21}} del archivo \doxymbox{\hyperlink{esp01_8h_source}{esp01.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00022\ \ \ \ \ \doxymbox{\hyperlink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2a4d87bc3d84344f736dbc4c85b5758d4c}{ESP01\_NOT\_INIT}}\ =\ -\/1,\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*!<\ Driver\ no\ inicializado\ o\ en\ proceso\ de\ reinicio\ hardware\ */}}
+\DoxyCodeLine{00023\ \ \ \ \ \doxymbox{\hyperlink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2aa1180526c1a95367a039182f6da2bba1}{ESP01\_WIFI\_DISCONNECTED}},\ \ \ \ \ \ \ \textcolor{comment}{/*!<\ Desconectado\ de\ la\ red\ Wi-\/Fi\ */}}
+\DoxyCodeLine{00024\ \ \ \ \ \doxymbox{\hyperlink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2a7c133fa46287606556e9d7024b68abbb}{ESP01\_WIFI\_NOT\_SETED}},\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*!<\ Sin\ credenciales\ de\ red\ Wi-\/Fi\ configuradas\ */}}
+\DoxyCodeLine{00025\ \ \ \ \ \doxymbox{\hyperlink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2a0466b8f983811be46a36dcaf6ef71a36}{ESP01\_WIFI\_CONNECTING\_WIFI}},\ \ \ \ \textcolor{comment}{/*!<\ Intentando\ asociarse\ al\ punto\ de\ acceso\ (SSID/Password)\ */}}
+\DoxyCodeLine{00026\ \ \ \ \ \doxymbox{\hyperlink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2a9b36b0c6e4d43330c18cdb81779ec728}{ESP01\_WIFI\_CONNECTED}},\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*!<\ Conectado\ exitosamente\ al\ punto\ de\ acceso\ Wi-\/Fi\ */}}
+\DoxyCodeLine{00027\ \ \ \ \ \doxymbox{\hyperlink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2a367131f0be2b862f04cdd6ed027a2486}{ESP01\_WIFI\_NEW\_IP}},\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*!<\ Dirección\ IP\ asignada\ por\ DHCP\ obtenida\ */}}
+\DoxyCodeLine{00028\ \ \ \ \ \doxymbox{\hyperlink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2a12aa1b1c2d5aa588e81a8f9f0ad12ef7}{ESP01\_UDPTCP\_DISCONNECTED}},\ \ \ \ \ \textcolor{comment}{/*!<\ Socket\ UDP/TCP\ cerrado\ o\ desconectado\ */}}
+\DoxyCodeLine{00029\ \ \ \ \ \doxymbox{\hyperlink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2a9c5a09bc66bfe5ce6b86d4f27d2adfaf}{ESP01\_UDPTCP\_CONNECTING}},\ \ \ \ \ \ \ \textcolor{comment}{/*!<\ Estableciendo\ socket\ de\ comunicación\ UDP/TCP\ con\ el\ host\ remoto\ */}}
+\DoxyCodeLine{00030\ \ \ \ \ \doxymbox{\hyperlink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2ac8f073d54fd8dcbf72e7a3adde828c3a}{ESP01\_UDPTCP\_CONNECTED}},\ \ \ \ \ \ \ \ \textcolor{comment}{/*!<\ Socket\ UDP/TCP\ conectado\ y\ listo\ para\ transferir\ datos\ */}}
+\DoxyCodeLine{00031\ \ \ \ \ \doxymbox{\hyperlink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2ac3b9ac426c9861699da15475f1d993f7}{ESP01\_SEND\_BUSY}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*!<\ Transmisión\ de\ datos\ en\ progreso\ por\ la\ USART\ */}}
+\DoxyCodeLine{00032\ \ \ \ \ \doxymbox{\hyperlink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2a45e0857107766400ffd60a18ee94eb85}{ESP01\_SEND\_READY}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*!<\ Buffer\ disponible\ y\ módulo\ listo\ para\ recibir\ nuevo\ comando\ de\ envío\ */}}
+\DoxyCodeLine{00033\ \ \ \ \ \doxymbox{\hyperlink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2a33bb493c0af1d26674f7e49634e1f652}{ESP01\_SEND\_OK}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*!<\ Confirmación\ de\ paquete\ enviado\ exitosamente\ (`SEND\ OK`)\ */}}
+\DoxyCodeLine{00034\ \ \ \ \ \doxymbox{\hyperlink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2a3b330d0c95ccdafd39f5edec499dc50d}{ESP01\_SEND\_ERROR}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*!<\ Fallo\ o\ error\ reportado\ en\ la\ transmisión\ de\ datos\ */}}
+\DoxyCodeLine{00035\ \}\ \doxymbox{\hyperlink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2}{\_eESP01STATUS}};}
+
+\end{DoxyCode}
+
+
+\label{esp01_8h_doc-func-members}
+\Hypertarget{esp01_8h_doc-func-members}
+\doxysubsubsection{Documentación de funciones}
+\Hypertarget{esp01_8h_a0add87bd2ab5edd589193c74a57ea0a9}\index{esp01.h@{esp01.h}!ESP01\_AttachChangeState@{ESP01\_AttachChangeState}}
+\index{ESP01\_AttachChangeState@{ESP01\_AttachChangeState}!esp01.h@{esp01.h}}
+\doxyparagraph{\texorpdfstring{ESP01\_AttachChangeState()}{ESP01\_AttachChangeState()}}
+{\footnotesize\ttfamily \label{esp01_8h_a0add87bd2ab5edd589193c74a57ea0a9} 
+void ESP01\+\_\+\+Attach\+Change\+State (\begin{DoxyParamCaption}\item[{void(\texorpdfstring{$\ast$}{*}}]{a\+ESP01\+Change\+State~}{)(\doxymbox{\hyperlink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2}{\+\_\+e\+ESP01\+STATUS}} esp01\+State)}\end{DoxyParamCaption})}
+
+
+
+Registra una función de notificación para cambios de estado en el driver. 
+
+
+\begin{DoxyParams}[1]{Parámetros}
+\doxymbox{\texttt{in}}  & {\em a\+ESP01\+Change\+State} & Puntero a función callback que recibe el nuevo {\ttfamily \doxylink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2}{\+\_\+e\+ESP01\+STATUS}}. \\
+\hline
+\end{DoxyParams}
+
+
+Definición en la línea \doxymbox{\hyperlink{esp01_8c_source_l00425}{425}} del archivo \doxymbox{\hyperlink{esp01_8c_source}{esp01.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00425\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00426\ \ \ \ \ \doxymbox{\hyperlink{esp01_8c_a6916f4a398cffc609ae97024337bd32a}{ESP01ChangeState}}\ =\ aESP01ChangeState;}
+\DoxyCodeLine{00427\ \}}
+
+\end{DoxyCode}
+
+
+Hace referencia a \doxymbox{\hyperlink{esp01_8c_source_l00425}{ESP01\+\_\+\+Attach\+Change\+State()}} y \doxymbox{\hyperlink{esp01_8c_source_l00071}{ESP01\+Change\+State}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{esp01_8c_source_l00425}{ESP01\+\_\+\+Attach\+Change\+State()}} y \doxymbox{\hyperlink{main_8c_source_l03056}{main()}}.
+
+Gráfico de llamadas de esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=218pt]{esp01_8h_a0add87bd2ab5edd589193c74a57ea0a9_cgraph}
+\end{center}
+\end{figure}
+Gráfico de llamadas a esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=295pt]{esp01_8h_a0add87bd2ab5edd589193c74a57ea0a9_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{esp01_8h_a7f5bac77ca969bc7d6003517b0e264a2}\index{esp01.h@{esp01.h}!ESP01\_AttachDebugStr@{ESP01\_AttachDebugStr}}
+\index{ESP01\_AttachDebugStr@{ESP01\_AttachDebugStr}!esp01.h@{esp01.h}}
+\doxyparagraph{\texorpdfstring{ESP01\_AttachDebugStr()}{ESP01\_AttachDebugStr()}}
+{\footnotesize\ttfamily \label{esp01_8h_a7f5bac77ca969bc7d6003517b0e264a2} 
+void ESP01\+\_\+\+Attach\+Debug\+Str (\begin{DoxyParamCaption}\item[{void(\texorpdfstring{$\ast$}{*}}]{a\+ESP01\+Dbg\+Str~}{)(const char \texorpdfstring{$\ast$}{*}dbg\+Str)}\end{DoxyParamCaption})}
+
+
+
+Registra una función callback para imprimir trazas de depuración de texto. 
+
+
+\begin{DoxyParams}[1]{Parámetros}
+\doxymbox{\texttt{in}}  & {\em a\+ESP01\+Dbg\+Str} & Puntero a función que recibe cadenas de depuración terminadas en {\ttfamily \textbackslash{}0}. \\
+\hline
+\end{DoxyParams}
+
+
+Definición en la línea \doxymbox{\hyperlink{esp01_8c_source_l00429}{429}} del archivo \doxymbox{\hyperlink{esp01_8c_source}{esp01.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00429\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00430\ \ \ \ \ \doxymbox{\hyperlink{esp01_8c_ac26be4efe2b5e8aa3dc9399c926a09b1}{ESP01DbgStr}}\ =\ aESP01DbgStr;}
+\DoxyCodeLine{00431\ \}}
+
+\end{DoxyCode}
+
+
+Hace referencia a \doxymbox{\hyperlink{esp01_8c_source_l00429}{ESP01\+\_\+\+Attach\+Debug\+Str()}} y \doxymbox{\hyperlink{esp01_8c_source_l00072}{ESP01\+Dbg\+Str}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{esp01_8c_source_l00429}{ESP01\+\_\+\+Attach\+Debug\+Str()}} y \doxymbox{\hyperlink{main_8c_source_l03056}{main()}}.
+
+Gráfico de llamadas de esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=202pt]{esp01_8h_a7f5bac77ca969bc7d6003517b0e264a2_cgraph}
+\end{center}
+\end{figure}
+Gráfico de llamadas a esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=278pt]{esp01_8h_a7f5bac77ca969bc7d6003517b0e264a2_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{esp01_8h_a8c18994c09715199de6359ea62f14769}\index{esp01.h@{esp01.h}!ESP01\_CloseUDPTCP@{ESP01\_CloseUDPTCP}}
+\index{ESP01\_CloseUDPTCP@{ESP01\_CloseUDPTCP}!esp01.h@{esp01.h}}
+\doxyparagraph{\texorpdfstring{ESP01\_CloseUDPTCP()}{ESP01\_CloseUDPTCP()}}
+{\footnotesize\ttfamily \label{esp01_8h_a8c18994c09715199de6359ea62f14769} 
+void ESP01\+\_\+\+Close\+UDPTCP (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Cierra la conexión activa de socket UDP o TCP ({\ttfamily AT+\+CIPCLOSE}). 
+
+
+
+Definición en la línea \doxymbox{\hyperlink{esp01_8c_source_l00270}{270}} del archivo \doxymbox{\hyperlink{esp01_8c_source}{esp01.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00271\ \ \ \ \ \textcolor{keywordflow}{if}(\doxymbox{\hyperlink{esp01_8c_ab635d3bd67841cd7644edaa68440ba07}{esp01Handle}}.\doxymbox{\hyperlink{struct__s_e_s_p01_handle_a059bcc5945a3e9693f6c6a471d47bc80}{WriteUSARTByte}}\ ==\ \doxymbox{\hyperlink{group___u_s_b___d_e_f___exported___defines_ga070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}})}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00273\ }
+\DoxyCodeLine{00274\ \ \ \ \ \doxymbox{\hyperlink{esp01_8c_ae039cf1a4db0e21048f9477807e17a6a}{esp01ATSate}}\ =\ \doxymbox{\hyperlink{esp01_8c_a2bdc2a0e623040751999f8d414da1b7faf2f3d0515ad20199db1646ad25a7a2d4}{ESP01ATCIPCLOSE}};}
+\DoxyCodeLine{00275\ \}}
+
+\end{DoxyCode}
+
+
+Hace referencia a \doxymbox{\hyperlink{esp01_8c_source_l00270}{ESP01\+\_\+\+Close\+UDPTCP()}}, \doxymbox{\hyperlink{esp01_8c_source_l00038}{ESP01\+ATCIPCLOSE}}, \doxymbox{\hyperlink{esp01_8c_ae039cf1a4db0e21048f9477807e17a6a}{esp01\+ATSate}}, \doxymbox{\hyperlink{esp01_8c_source_l00103}{esp01\+Handle}}, \doxymbox{\hyperlink{usbd__def_8h_source_l00045}{NULL}} y \doxymbox{\hyperlink{esp01_8h_source_l00053}{\+\_\+s\+ESP01\+Handle::\+\+Write\+USARTByte}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{esp01_8c_source_l00270}{ESP01\+\_\+\+Close\+UDPTCP()}}.
+
+Gráfico de llamadas de esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=200pt]{esp01_8h_a8c18994c09715199de6359ea62f14769_cgraph}
+\end{center}
+\end{figure}
+Gráfico de llamadas a esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=200pt]{esp01_8h_a8c18994c09715199de6359ea62f14769_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{esp01_8h_af47ed4c5c630699f78e99af31e34ab72}\index{esp01.h@{esp01.h}!ESP01\_GetLastConnID@{ESP01\_GetLastConnID}}
+\index{ESP01\_GetLastConnID@{ESP01\_GetLastConnID}!esp01.h@{esp01.h}}
+\doxyparagraph{\texorpdfstring{ESP01\_GetLastConnID()}{ESP01\_GetLastConnID()}}
+{\footnotesize\ttfamily \label{esp01_8h_af47ed4c5c630699f78e99af31e34ab72} 
+uint8\+\_\+t ESP01\+\_\+\+Get\+Last\+Conn\+ID (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Retorna el identificador de conexión ({\ttfamily conn\+ID}) de la última petición HTTP recibida ({\ttfamily +IPD}). 
+
+Devuelve el ID de la ultima conexion recibida por +IPD.
+
+\begin{DoxyReturn}{Devuelve}
+ID numérico de conexión (rango 0 a 4 en multiplexado {\ttfamily CIPMUX=1}).
+\end{DoxyReturn}
+Retorna el identificador de conexión ({\ttfamily conn\+ID}) de la última petición HTTP recibida ({\ttfamily +IPD}).
+
+Usar este valor para pasarlo a \doxylink{esp01_8h_a941cbda6de4f9cfdbaa27ca6e62392c0}{ESP01\+\_\+\+Send()} cuando se esta en modo webserver 
+
+Definición en la línea \doxymbox{\hyperlink{esp01_8c_source_l00212}{212}} del archivo \doxymbox{\hyperlink{esp01_8c_source}{esp01.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00213\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{esp01_8c_a826a85faa6f5d3c43a90bb8fb00c8bcf}{esp01LastConnID}};}
+\DoxyCodeLine{00214\ \}}
+
+\end{DoxyCode}
+
+
+Hace referencia a \doxymbox{\hyperlink{esp01_8c_source_l00212}{ESP01\+\_\+\+Get\+Last\+Conn\+ID()}} y \doxymbox{\hyperlink{esp01_8c_source_l00088}{esp01\+Last\+Conn\+ID}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{main_8c_source_l00737}{COMMTask()}}, \doxymbox{\hyperlink{esp01_8c_source_l00212}{ESP01\+\_\+\+Get\+Last\+Conn\+ID()}} y \doxymbox{\hyperlink{main_8c_source_l01999}{http\+Task()}}.
+
+Gráfico de llamadas de esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=200pt]{esp01_8h_af47ed4c5c630699f78e99af31e34ab72_cgraph}
+\end{center}
+\end{figure}
+Gráfico de llamadas a esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{esp01_8h_af47ed4c5c630699f78e99af31e34ab72_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{esp01_8h_a266759c19a904fb0e9f360b902185fb2}\index{esp01.h@{esp01.h}!ESP01\_GetLocalIP@{ESP01\_GetLocalIP}}
+\index{ESP01\_GetLocalIP@{ESP01\_GetLocalIP}!esp01.h@{esp01.h}}
+\doxyparagraph{\texorpdfstring{ESP01\_GetLocalIP()}{ESP01\_GetLocalIP()}}
+{\footnotesize\ttfamily \label{esp01_8h_a266759c19a904fb0e9f360b902185fb2} 
+char \texorpdfstring{$\ast$}{*} ESP01\+\_\+\+Get\+Local\+IP (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Obtiene la dirección IP local asignada al ESP-\/01 en la red Wi-\/\+Fi. 
+
+\begin{DoxyReturn}{Devuelve}
+Puntero a la cadena que contiene la IP local, o {\ttfamily \doxylink{group___u_s_b___d_e_f___exported___defines_ga070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}} si no posee IP asignada. 
+\end{DoxyReturn}
+
+
+Definición en la línea \doxymbox{\hyperlink{esp01_8c_source_l00287}{287}} del archivo \doxymbox{\hyperlink{esp01_8c_source}{esp01.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00288\ \ \ \ \ \textcolor{keywordflow}{if}(\doxymbox{\hyperlink{esp01_8c_adaa222818abf1d7278b739ca14b8c240}{esp01Flags}}.bit.WIFICONNECTED\ \&\&\ \ \doxymbox{\hyperlink{esp01_8c_a39735d0758c30463396935c84e9eaf4f}{esp01LocalIP}}[0]!=\textcolor{charliteral}{'\(\backslash\)0'})}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{esp01_8c_a39735d0758c30463396935c84e9eaf4f}{esp01LocalIP}};}
+\DoxyCodeLine{00290\ }
+\DoxyCodeLine{00291\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{group___u_s_b___d_e_f___exported___defines_ga070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}};}
+\DoxyCodeLine{00292\ \}}
+
+\end{DoxyCode}
+
+
+Hace referencia a \doxymbox{\hyperlink{esp01_8c_source_l00287}{ESP01\+\_\+\+Get\+Local\+IP()}}, \doxymbox{\hyperlink{esp01_8c_adaa222818abf1d7278b739ca14b8c240}{esp01\+Flags}}, \doxymbox{\hyperlink{esp01_8c_source_l00079}{esp01\+Local\+IP}} y \doxymbox{\hyperlink{usbd__def_8h_source_l00045}{NULL}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{esp01_8c_source_l00287}{ESP01\+\_\+\+Get\+Local\+IP()}}.
+
+Gráfico de llamadas de esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=181pt]{esp01_8h_a266759c19a904fb0e9f360b902185fb2_cgraph}
+\end{center}
+\end{figure}
+Gráfico de llamadas a esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=181pt]{esp01_8h_a266759c19a904fb0e9f360b902185fb2_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{esp01_8h_a96572d45c42130b3ede565dd9eb63ac4}\index{esp01.h@{esp01.h}!ESP01\_Init@{ESP01\_Init}}
+\index{ESP01\_Init@{ESP01\_Init}!esp01.h@{esp01.h}}
+\doxyparagraph{\texorpdfstring{ESP01\_Init()}{ESP01\_Init()}}
+{\footnotesize\ttfamily \label{esp01_8h_a96572d45c42130b3ede565dd9eb63ac4} 
+void ESP01\+\_\+\+Init (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{struct__s_e_s_p01_handle}{\+\_\+s\+ESP01\+Handle}} \texorpdfstring{$\ast$}{*}}]{h\+ESP01}{}\end{DoxyParamCaption})}
+
+
+
+Inicializa las estructuras internas y timers del driver ESP01. 
+
+
+\begin{DoxyParams}[1]{Parámetros}
+\doxymbox{\texttt{in}}  & {\em h\+ESP01} & Puntero a la estructura de manejadores de hardware {\ttfamily \doxylink{struct__s_e_s_p01_handle}{\+\_\+s\+ESP01\+Handle}}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Nota}
+Esta función debe ejecutarse antes de cualquier otra interacción con el driver. 
+\end{DoxyNote}
+
+
+Definición en la línea \doxymbox{\hyperlink{esp01_8c_source_l00371}{371}} del archivo \doxymbox{\hyperlink{esp01_8c_source}{esp01.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00371\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00372\ }
+\DoxyCodeLine{00373\ \ \ \ \ memcpy(\&\doxymbox{\hyperlink{esp01_8c_ab635d3bd67841cd7644edaa68440ba07}{esp01Handle}},\ hESP01,\ \textcolor{keyword}{sizeof}(\doxymbox{\hyperlink{struct__s_e_s_p01_handle}{\_sESP01Handle}}));}
+\DoxyCodeLine{00374\ }
+\DoxyCodeLine{00375\ \ \ \ \ \doxymbox{\hyperlink{esp01_8c_ae039cf1a4db0e21048f9477807e17a6a}{esp01ATSate}}\ =\ \doxymbox{\hyperlink{esp01_8c_a2bdc2a0e623040751999f8d414da1b7fa3641fa6d94694ab4719a839e4c6a5965}{ESP01ATIDLE}};}
+\DoxyCodeLine{00376\ \ \ \ \ \doxymbox{\hyperlink{esp01_8c_a99a85bfb93fd5abd35501c97a3a117f2}{esp01HState}}\ =\ 0;}
+\DoxyCodeLine{00377\ \ \ \ \ \doxymbox{\hyperlink{esp01_8c_aa78fc2c95fa4038592cbc498941a516d}{esp01irTX}}\ =\ 0;}
+\DoxyCodeLine{00378\ \ \ \ \ \doxymbox{\hyperlink{esp01_8c_ae7af679741b24f63f3160bafb92d07eb}{esp01iwTX}}\ =\ 0;}
+\DoxyCodeLine{00379\ \ \ \ \ \doxymbox{\hyperlink{esp01_8c_aab735316b6b96e2778707a866e74f011}{esp01irRXAT}}\ =\ 0;}
+\DoxyCodeLine{00380\ \ \ \ \ \doxymbox{\hyperlink{esp01_8c_a283689766ae8e5bf4d858e6a4b817683}{esp01iwRXAT}}\ =\ 0;}
+\DoxyCodeLine{00381\ \ \ \ \ \doxymbox{\hyperlink{esp01_8c_adaa222818abf1d7278b739ca14b8c240}{esp01Flags}}.byte\ =\ 0;}
+\DoxyCodeLine{00382\ \ \ \ \ \doxymbox{\hyperlink{esp01_8c_a65ed4cc22d028103561171adc7b5e56e}{esp01WebServerMode}}\ =\ 0;}
+\DoxyCodeLine{00383\ \ \ \ \ \doxymbox{\hyperlink{esp01_8c_a826a85faa6f5d3c43a90bb8fb00c8bcf}{esp01LastConnID}}\ \ \ \ =\ 0;}
+\DoxyCodeLine{00384\ \ \ \ \ \doxymbox{\hyperlink{esp01_8c_a6916f4a398cffc609ae97024337bd32a}{ESP01ChangeState}}\ =\ \doxymbox{\hyperlink{group___u_s_b___d_e_f___exported___defines_ga070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}};}
+\DoxyCodeLine{00385\ \ \ \ \ \doxymbox{\hyperlink{esp01_8c_ac26be4efe2b5e8aa3dc9399c926a09b1}{ESP01DbgStr}}\ =\ \doxymbox{\hyperlink{group___u_s_b___d_e_f___exported___defines_ga070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}};}
+\DoxyCodeLine{00386\ \}}
+
+\end{DoxyCode}
+
+
+Hace referencia a \doxymbox{\hyperlink{esp01_8c_source_l00371}{ESP01\+\_\+\+Init()}}, \doxymbox{\hyperlink{esp01_8c_source_l00019}{ESP01\+ATIDLE}}, \doxymbox{\hyperlink{esp01_8c_ae039cf1a4db0e21048f9477807e17a6a}{esp01\+ATSate}}, \doxymbox{\hyperlink{esp01_8c_source_l00071}{ESP01\+Change\+State}}, \doxymbox{\hyperlink{esp01_8c_source_l00072}{ESP01\+Dbg\+Str}}, \doxymbox{\hyperlink{esp01_8c_adaa222818abf1d7278b739ca14b8c240}{esp01\+Flags}}, \doxymbox{\hyperlink{esp01_8c_source_l00103}{esp01\+Handle}}, \doxymbox{\hyperlink{esp01_8c_source_l00090}{esp01\+HState}}, \doxymbox{\hyperlink{esp01_8c_source_l00095}{esp01ir\+RXAT}}, \doxymbox{\hyperlink{esp01_8c_source_l00096}{esp01ir\+TX}}, \doxymbox{\hyperlink{esp01_8c_source_l00094}{esp01iw\+RXAT}}, \doxymbox{\hyperlink{esp01_8c_source_l00097}{esp01iw\+TX}}, \doxymbox{\hyperlink{esp01_8c_source_l00088}{esp01\+Last\+Conn\+ID}}, \doxymbox{\hyperlink{esp01_8c_source_l00087}{esp01\+Web\+Server\+Mode}} y \doxymbox{\hyperlink{usbd__def_8h_source_l00045}{NULL}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{esp01_8c_source_l00371}{ESP01\+\_\+\+Init()}} y \doxymbox{\hyperlink{main_8c_source_l03056}{main()}}.
+
+Gráfico de llamadas de esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=146pt]{esp01_8h_a96572d45c42130b3ede565dd9eb63ac4_cgraph}
+\end{center}
+\end{figure}
+Gráfico de llamadas a esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=219pt]{esp01_8h_a96572d45c42130b3ede565dd9eb63ac4_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{esp01_8h_a952adaf4cf76b1e4b3c8d5e196200d3f}\index{esp01.h@{esp01.h}!ESP01\_IsHDRRST@{ESP01\_IsHDRRST}}
+\index{ESP01\_IsHDRRST@{ESP01\_IsHDRRST}!esp01.h@{esp01.h}}
+\doxyparagraph{\texorpdfstring{ESP01\_IsHDRRST()}{ESP01\_IsHDRRST()}}
+{\footnotesize\ttfamily \label{esp01_8h_a952adaf4cf76b1e4b3c8d5e196200d3f} 
+int ESP01\+\_\+\+Is\+HDRRST (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Consulta si el módulo se encuentra actualmente ejecutando un reset físico por hardware. 
+
+
+\begin{DoxyRetVals}{Valores devueltos}
+{\em 1} & Hard reset en proceso. \\
+\hline
+{\em 0} & Funcionamiento normal. \\
+\hline
+\end{DoxyRetVals}
+
+
+Definición en la línea \doxymbox{\hyperlink{esp01_8c_source_l00433}{433}} del archivo \doxymbox{\hyperlink{esp01_8c_source}{esp01.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00433\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00434\ \ \ \ \ \textcolor{keywordflow}{if}(\doxymbox{\hyperlink{esp01_8c_ae039cf1a4db0e21048f9477807e17a6a}{esp01ATSate}}==\doxymbox{\hyperlink{esp01_8c_a2bdc2a0e623040751999f8d414da1b7fa36265164a6c084c4f853254305ba49f3}{ESP01ATHARDRST0}}\ ||\ \doxymbox{\hyperlink{esp01_8c_ae039cf1a4db0e21048f9477807e17a6a}{esp01ATSate}}==\doxymbox{\hyperlink{esp01_8c_a2bdc2a0e623040751999f8d414da1b7fa191b3bfc7f2767c3f0e4fce2fef6d1d9}{ESP01ATHARDRST1}}\ ||\ \doxymbox{\hyperlink{esp01_8c_ae039cf1a4db0e21048f9477807e17a6a}{esp01ATSate}}==\doxymbox{\hyperlink{esp01_8c_a2bdc2a0e623040751999f8d414da1b7fa8bdbffebf6b52225a37a54f7beff07eb}{ESP01ATHARDRSTSTOP}})}
+\DoxyCodeLine{00435\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{00436\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00437\ \}}
+
+\end{DoxyCode}
+
+
+Hace referencia a \doxymbox{\hyperlink{esp01_8c_source_l00433}{ESP01\+\_\+\+Is\+HDRRST()}}, \doxymbox{\hyperlink{esp01_8c_source_l00042}{ESP01\+ATHARDRST0}}, \doxymbox{\hyperlink{esp01_8c_source_l00043}{ESP01\+ATHARDRST1}}, \doxymbox{\hyperlink{esp01_8c_source_l00044}{ESP01\+ATHARDRSTSTOP}} y \doxymbox{\hyperlink{esp01_8c_ae039cf1a4db0e21048f9477807e17a6a}{esp01\+ATSate}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{esp01_8c_source_l00433}{ESP01\+\_\+\+Is\+HDRRST()}}.
+
+Gráfico de llamadas de esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=183pt]{esp01_8h_a952adaf4cf76b1e4b3c8d5e196200d3f_cgraph}
+\end{center}
+\end{figure}
+Gráfico de llamadas a esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=183pt]{esp01_8h_a952adaf4cf76b1e4b3c8d5e196200d3f_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{esp01_8h_a941cbda6de4f9cfdbaa27ca6e62392c0}\index{esp01.h@{esp01.h}!ESP01\_Send@{ESP01\_Send}}
+\index{ESP01\_Send@{ESP01\_Send}!esp01.h@{esp01.h}}
+\doxyparagraph{\texorpdfstring{ESP01\_Send()}{ESP01\_Send()}}
+{\footnotesize\ttfamily \label{esp01_8h_a941cbda6de4f9cfdbaa27ca6e62392c0} 
+\doxymbox{\hyperlink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2}{\+\_\+e\+ESP01\+STATUS}} ESP01\+\_\+\+Send (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{conn\+ID}{, }\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{buf}{, }\item[{uint16\+\_\+t}]{ir\+Ring\+Buf}{, }\item[{uint16\+\_\+t}]{length}{, }\item[{uint16\+\_\+t}]{size\+Ring\+Buf}{}\end{DoxyParamCaption})}
+
+
+
+Transmite un bloque de datos del buffer circular a través del socket activo. 
+
+
+\begin{DoxyParams}[1]{Parámetros}
+\doxymbox{\texttt{in}}  & {\em conn\+ID} & Identificador del canal/\+conexión (0 para modo Station único; ID de cliente en Web\+Server). \\
+\hline
+\doxymbox{\texttt{in}}  & {\em buf} & Puntero al buffer de memoria que almacena los datos. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em ir\+Ring\+Buf} & Índice de lectura actual en el buffer circular. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em length} & Cantidad de bytes a transmitir. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em size\+Ring\+Buf} & Tamaño total del buffer circular para gestión de wrap-\/around. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Valores devueltos}
+{\em \doxylink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2a45e0857107766400ffd60a18ee94eb85}{ESP01\+\_\+\+SEND\+\_\+\+READY}} & Transmisión encolada correctamente hacia el módulo. \\
+\hline
+{\em \doxylink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2ac3b9ac426c9861699da15475f1d993f7}{ESP01\+\_\+\+SEND\+\_\+\+BUSY}} & Transmisor ocupado con un envío previo. \\
+\hline
+{\em \doxylink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2a3b330d0c95ccdafd39f5edec499dc50d}{ESP01\+\_\+\+SEND\+\_\+\+ERROR}} & Fallo al procesar el comando AT de envío. \\
+\hline
+\end{DoxyRetVals}
+\texorpdfstring{$<$}{<} Capacidad en bytes del buffer circular interno de transmisión AT
+
+Definición en la línea \doxymbox{\hyperlink{esp01_8c_source_l00314}{314}} del archivo \doxymbox{\hyperlink{esp01_8c_source}{esp01.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00315\ \ \ \ \ \textcolor{keywordflow}{if}(\doxymbox{\hyperlink{esp01_8c_ab635d3bd67841cd7644edaa68440ba07}{esp01Handle}}.\doxymbox{\hyperlink{struct__s_e_s_p01_handle_a059bcc5945a3e9693f6c6a471d47bc80}{WriteUSARTByte}}\ ==\ \doxymbox{\hyperlink{group___u_s_b___d_e_f___exported___defines_ga070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}})}
+\DoxyCodeLine{00316\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2a4d87bc3d84344f736dbc4c85b5758d4c}{ESP01\_NOT\_INIT}};}
+\DoxyCodeLine{00317\ }
+\DoxyCodeLine{00318\ \ \ \ \ \textcolor{keywordflow}{if}(\doxymbox{\hyperlink{esp01_8c_adaa222818abf1d7278b739ca14b8c240}{esp01Flags}}.bit.UDPTCPCONNECTED\ ==\ 0\ \&\&\ !\doxymbox{\hyperlink{esp01_8c_a65ed4cc22d028103561171adc7b5e56e}{esp01WebServerMode}})}
+\DoxyCodeLine{00319\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2a12aa1b1c2d5aa588e81a8f9f0ad12ef7}{ESP01\_UDPTCP\_DISCONNECTED}};}
+\DoxyCodeLine{00320\ }
+\DoxyCodeLine{00321\ \ \ \ \ \textcolor{keywordflow}{if}(\doxymbox{\hyperlink{esp01_8c_adaa222818abf1d7278b739ca14b8c240}{esp01Flags}}.bit.SENDINGDATA\ ==\ 0)\{}
+\DoxyCodeLine{00322\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ strInt[10];}
+\DoxyCodeLine{00323\ \ \ \ \ \ \ \ \ uint8\_t\ l\ =\ 0;}
+\DoxyCodeLine{00324\ }
+\DoxyCodeLine{00325\ \ \ \ \ \ \ \ \ itoa(length,\ strInt,\ 10);}
+\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ l\ =\ strlen(strInt);}
+\DoxyCodeLine{00327\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(l>4\ ||\ l==0)}
+\DoxyCodeLine{00328\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2a3b330d0c95ccdafd39f5edec499dc50d}{ESP01\_SEND\_ERROR}};}
+\DoxyCodeLine{00329\ }
+\DoxyCodeLine{00330\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{esp01_8c_aba289a26727c56cc193314eada1de5e0}{ESP01StrToBufTX}}(\doxymbox{\hyperlink{esp01_8c_ad7daaefd5b52f2f2ce8c7b53ebe8f0f3}{ATCIPSEND}});}
+\DoxyCodeLine{00331\ }
+\DoxyCodeLine{00332\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Con\ CIPMUX=1\ (webserver)\ el\ formato\ es\ AT+CIPSEND=connID,length\ */}}
+\DoxyCodeLine{00333\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Con\ CIPMUX=0\ (UDP/TCP)\ \ \ el\ formato\ es\ AT+CIPSEND=length\ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00334\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\doxymbox{\hyperlink{esp01_8c_a65ed4cc22d028103561171adc7b5e56e}{esp01WebServerMode}})\{}
+\DoxyCodeLine{00335\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ connStr[4];}
+\DoxyCodeLine{00336\ \ \ \ \ \ \ \ \ \ \ \ \ itoa(connID,\ connStr,\ 10);}
+\DoxyCodeLine{00337\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{esp01_8c_aba289a26727c56cc193314eada1de5e0}{ESP01StrToBufTX}}(connStr);}
+\DoxyCodeLine{00338\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{esp01_8c_a1a0e13f37468a52c6ba671c482ba1515}{ESP01ByteToBufTX}}(\textcolor{charliteral}{','});}
+\DoxyCodeLine{00339\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00340\ }
+\DoxyCodeLine{00341\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{esp01_8c_aba289a26727c56cc193314eada1de5e0}{ESP01StrToBufTX}}(strInt);}
+\DoxyCodeLine{00342\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{esp01_8c_aba289a26727c56cc193314eada1de5e0}{ESP01StrToBufTX}}(\textcolor{stringliteral}{"{}\(\backslash\)r>"{}});}
+\DoxyCodeLine{00343\ }
+\DoxyCodeLine{00344\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(uint16\_t\ i=0;\ i<length;\ i++)\{}
+\DoxyCodeLine{00345\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{esp01_8c_af8856cdb57a3bbdad7287b7ec0bfc57a}{esp01TXATBuf}}[\doxymbox{\hyperlink{esp01_8c_ae7af679741b24f63f3160bafb92d07eb}{esp01iwTX}}++]\ =\ buf[irRingBuf++];}
+\DoxyCodeLine{00346\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\doxymbox{\hyperlink{esp01_8c_ae7af679741b24f63f3160bafb92d07eb}{esp01iwTX}}\ ==\ \doxymbox{\hyperlink{group___e_s_p01___constants_ga8b93227603bcb458033daf9d1e3c7465}{ESP01TXBUFAT}})}
+\DoxyCodeLine{00347\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{esp01_8c_ae7af679741b24f63f3160bafb92d07eb}{esp01iwTX}}\ =\ 0;}
+\DoxyCodeLine{00348\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(irRingBuf\ ==\ sizeRingBuf)}
+\DoxyCodeLine{00349\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ irRingBuf\ =\ 0;}
+\DoxyCodeLine{00350\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00351\ }
+\DoxyCodeLine{00352\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{esp01_8c_adaa222818abf1d7278b739ca14b8c240}{esp01Flags}}.bit.TXCIPSEND\ =\ 1;}
+\DoxyCodeLine{00353\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{esp01_8c_adaa222818abf1d7278b739ca14b8c240}{esp01Flags}}.bit.SENDINGDATA\ =\ 1;}
+\DoxyCodeLine{00354\ }
+\DoxyCodeLine{00355\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\doxymbox{\hyperlink{esp01_8c_ac26be4efe2b5e8aa3dc9399c926a09b1}{ESP01DbgStr}}\ !=\ \doxymbox{\hyperlink{group___u_s_b___d_e_f___exported___defines_ga070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}})\{}
+\DoxyCodeLine{00356\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{esp01_8c_ac26be4efe2b5e8aa3dc9399c926a09b1}{ESP01DbgStr}}(\textcolor{stringliteral}{"{}+\&DBGSENDING\ DATA\ "{}});}
+\DoxyCodeLine{00357\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{esp01_8c_ac26be4efe2b5e8aa3dc9399c926a09b1}{ESP01DbgStr}}(strInt);}
+\DoxyCodeLine{00358\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{esp01_8c_ac26be4efe2b5e8aa3dc9399c926a09b1}{ESP01DbgStr}}(\textcolor{stringliteral}{"{}\(\backslash\)n"{}});}
+\DoxyCodeLine{00359\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00360\ }
+\DoxyCodeLine{00361\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2a45e0857107766400ffd60a18ee94eb85}{ESP01\_SEND\_READY}};}
+\DoxyCodeLine{00362\ \ \ \ \ \}}
+\DoxyCodeLine{00363\ }
+\DoxyCodeLine{00364\ \ \ \ \ \textcolor{keywordflow}{if}(\doxymbox{\hyperlink{esp01_8c_ac26be4efe2b5e8aa3dc9399c926a09b1}{ESP01DbgStr}}\ !=\ \doxymbox{\hyperlink{group___u_s_b___d_e_f___exported___defines_ga070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}})}
+\DoxyCodeLine{00365\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{esp01_8c_ac26be4efe2b5e8aa3dc9399c926a09b1}{ESP01DbgStr}}(\textcolor{stringliteral}{"{}+\&DBGSENDING\ DATA\ BUSY\(\backslash\)n"{}});}
+\DoxyCodeLine{00366\ }
+\DoxyCodeLine{00367\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2ac3b9ac426c9861699da15475f1d993f7}{ESP01\_SEND\_BUSY}};}
+\DoxyCodeLine{00368\ \}}
+
+\end{DoxyCode}
+
+
+Hace referencia a \doxymbox{\hyperlink{esp01_8c_source_l00113}{ATCIPSEND}}, \doxymbox{\hyperlink{esp01_8h_source_l00022}{ESP01\+\_\+\+NOT\+\_\+\+INIT}}, \doxymbox{\hyperlink{esp01_8c_source_l00314}{ESP01\+\_\+\+Send()}}, \doxymbox{\hyperlink{esp01_8h_source_l00031}{ESP01\+\_\+\+SEND\+\_\+\+BUSY}}, \doxymbox{\hyperlink{esp01_8h_source_l00034}{ESP01\+\_\+\+SEND\+\_\+\+ERROR}}, \doxymbox{\hyperlink{esp01_8h_source_l00032}{ESP01\+\_\+\+SEND\+\_\+\+READY}}, \doxymbox{\hyperlink{esp01_8h_source_l00028}{ESP01\+\_\+\+UDPTCP\+\_\+\+DISCONNECTED}}, \doxymbox{\hyperlink{esp01_8c_source_l01060}{ESP01\+Byte\+To\+Buf\+TX()}}, \doxymbox{\hyperlink{esp01_8c_source_l00072}{ESP01\+Dbg\+Str}}, \doxymbox{\hyperlink{esp01_8c_adaa222818abf1d7278b739ca14b8c240}{esp01\+Flags}}, \doxymbox{\hyperlink{esp01_8c_source_l00103}{esp01\+Handle}}, \doxymbox{\hyperlink{esp01_8c_source_l00097}{esp01iw\+TX}}, \doxymbox{\hyperlink{esp01_8c_source_l01052}{ESP01\+Str\+To\+Buf\+TX()}}, \doxymbox{\hyperlink{esp01_8c_source_l00093}{esp01\+TXATBuf}}, \doxymbox{\hyperlink{esp01_8h_source_l00043}{ESP01\+TXBUFAT}}, \doxymbox{\hyperlink{esp01_8c_source_l00087}{esp01\+Web\+Server\+Mode}}, \doxymbox{\hyperlink{usbd__def_8h_source_l00045}{NULL}} y \doxymbox{\hyperlink{esp01_8h_source_l00053}{\+\_\+s\+ESP01\+Handle::\+\+Write\+USARTByte}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{main_8c_source_l00737}{COMMTask()}}, \doxymbox{\hyperlink{esp01_8c_source_l00314}{ESP01\+\_\+\+Send()}}, \doxymbox{\hyperlink{main_8c_source_l01888}{send\+HTMLForm()}}, \doxymbox{\hyperlink{main_8c_source_l01901}{send\+HTTPOKPage()}}, \doxymbox{\hyperlink{main_8c_source_l01833}{send\+JSONTelemetry()}} y \doxymbox{\hyperlink{main_8c_source_l03878}{Wi\+Fi\+\_\+\+Heartbeat\+Tick()}}.
+
+Gráfico de llamadas de esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=296pt]{esp01_8h_a941cbda6de4f9cfdbaa27ca6e62392c0_cgraph}
+\end{center}
+\end{figure}
+Gráfico de llamadas a esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{esp01_8h_a941cbda6de4f9cfdbaa27ca6e62392c0_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{esp01_8h_a97d544f7df6ee98063ce7952fbe565a4}\index{esp01.h@{esp01.h}!ESP01\_SetWebServer@{ESP01\_SetWebServer}}
+\index{ESP01\_SetWebServer@{ESP01\_SetWebServer}!esp01.h@{esp01.h}}
+\doxyparagraph{\texorpdfstring{ESP01\_SetWebServer()}{ESP01\_SetWebServer()}}
+{\footnotesize\ttfamily \label{esp01_8h_a97d544f7df6ee98063ce7952fbe565a4} 
+void ESP01\+\_\+\+Set\+Web\+Server (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{ap\+SSID}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{ap\+Pass}{, }\item[{uint8\+\_\+t}]{ch}{, }\item[{uint8\+\_\+t}]{enc}{}\end{DoxyParamCaption})}
+
+
+
+Configura el módulo en modo Dual (Station + Soft\+AP) y levanta un servidor Web HTTP. 
+
+Configura el ESP01 en modo Soft\+AP + inicia servidor HTTP en puerto 80.
+
+El módulo crea un punto de acceso inalámbrico propio en el canal especificado y abre un socket servidor TCP en el puerto 80 para permitir la configuración mediante una página HTML interactiva. 
+\begin{DoxyParams}[1]{Parámetros}
+\doxymbox{\texttt{in}}  & {\em ap\+SSID} & Nombre (SSID) de la red inalámbrica que emitirá el robot. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em ap\+Pass} & Contraseña del Soft\+AP (mínimo 8 caracteres, o NULL/"{}"{} para red abierta). \\
+\hline
+\doxymbox{\texttt{in}}  & {\em ch} & Canal de radiofrecuencia Wi-\/\+Fi (1 a 13). \\
+\hline
+\doxymbox{\texttt{in}}  & {\em enc} & Tipo de autenticación: 0=Abierta, 2=WPA, 3=WPA2, 4=WPA/\+\+WPA2.\\
+\hline
+\end{DoxyParams}
+Configura el módulo en modo Dual (Station + Soft\+AP) y levanta un servidor Web HTTP.
+
+El STM32 podra recibir peticiones HTTP con SSID y contraseña para luego llamar a \doxylink{esp01_8h_accb8ca062ab92f813a32d8f0b88e7a43}{ESP01\+\_\+\+Set\+WIFI()} y conectarse como Station.
+
+
+\begin{DoxyParams}{Parámetros}
+{\em ap\+SSID} & Nombre de la red Wi\+Fi a crear \\
+\hline
+{\em ap\+Pass} & Contraseña del AP (minimo 8 chars). NULL o "{}"{} para red abierta \\
+\hline
+{\em ch} & Canal Wi\+Fi (1-\/13) \\
+\hline
+{\em enc} & Encriptacion: 0=abierta, 2=WPA, 3=WPA2, 4=WPA/\+\+WPA2 \\
+\hline
+\end{DoxyParams}
+
+
+Definición en la línea \doxymbox{\hyperlink{esp01_8c_source_l00183}{183}} del archivo \doxymbox{\hyperlink{esp01_8c_source}{esp01.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00184\ \ \ \ \ \doxymbox{\hyperlink{esp01_8c_ae039cf1a4db0e21048f9477807e17a6a}{esp01ATSate}}\ =\ \doxymbox{\hyperlink{esp01_8c_a2bdc2a0e623040751999f8d414da1b7fa3641fa6d94694ab4719a839e4c6a5965}{ESP01ATIDLE}};}
+\DoxyCodeLine{00185\ \ \ \ \ \doxymbox{\hyperlink{esp01_8c_adaa222818abf1d7278b739ca14b8c240}{esp01Flags}}.byte\ =\ 0;}
+\DoxyCodeLine{00186\ \ \ \ \ \doxymbox{\hyperlink{esp01_8c_a65ed4cc22d028103561171adc7b5e56e}{esp01WebServerMode}}\ =\ 1;}
+\DoxyCodeLine{00187\ }
+\DoxyCodeLine{00188\ \ \ \ \ strncpy(\doxymbox{\hyperlink{esp01_8c_aab7d52ded35472566573bb3297a2bdc7}{esp01AP\_SSID}},\ apSSID,\ 31);}
+\DoxyCodeLine{00189\ \ \ \ \ \doxymbox{\hyperlink{esp01_8c_aab7d52ded35472566573bb3297a2bdc7}{esp01AP\_SSID}}[31]\ =\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{00190\ }
+\DoxyCodeLine{00191\ \ \ \ \ \textcolor{keywordflow}{if}(apPass\ \&\&\ apPass[0]\ !=\ \textcolor{charliteral}{'\(\backslash\)0'})\{}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ strncpy(\doxymbox{\hyperlink{esp01_8c_a0e93fe9dc98f761b33bc0d23bf54fdbd}{esp01AP\_PASS}},\ apPass,\ 31);}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{esp01_8c_a0e93fe9dc98f761b33bc0d23bf54fdbd}{esp01AP\_PASS}}[31]\ =\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{00194\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{esp01_8c_a0e93fe9dc98f761b33bc0d23bf54fdbd}{esp01AP\_PASS}}[0]\ =\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ enc\ =\ 0;\ \textcolor{comment}{/*\ Sin\ contraseña\ →\ red\ abierta\ */}}
+\DoxyCodeLine{00197\ \ \ \ \ \}}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00199\ \ \ \ \ itoa(ch,\ \ \doxymbox{\hyperlink{esp01_8c_ae5d3488f4560a80805da589577ee6d05}{esp01AP\_CH}},\ \ 10);}
+\DoxyCodeLine{00200\ \ \ \ \ itoa(enc,\ \doxymbox{\hyperlink{esp01_8c_a12a837b1b1e64d8f79bb972f0b82e89b}{esp01AP\_ENC}},\ 10);}
+\DoxyCodeLine{00201\ }
+\DoxyCodeLine{00202\ \ \ \ \ \doxymbox{\hyperlink{esp01_8c_a6f38a87990ac36032d6a6231de34f98a}{esp01TimeoutTask}}\ =\ 50;}
+\DoxyCodeLine{00203\ \ \ \ \ \doxymbox{\hyperlink{esp01_8c_ae039cf1a4db0e21048f9477807e17a6a}{esp01ATSate}}\ =\ \doxymbox{\hyperlink{esp01_8c_a2bdc2a0e623040751999f8d414da1b7fa36265164a6c084c4f853254305ba49f3}{ESP01ATHARDRST0}};}
+\DoxyCodeLine{00204\ \ \ \ \ \doxymbox{\hyperlink{esp01_8c_ae72a3be246ee0d6e3c505c2697168c79}{esp01TriesAT}}\ =\ 0;}
+\DoxyCodeLine{00205\ \}}
+
+\end{DoxyCode}
+
+
+Hace referencia a \doxymbox{\hyperlink{esp01_8c_source_l00183}{ESP01\+\_\+\+Set\+Web\+Server()}}, \doxymbox{\hyperlink{esp01_8c_source_l00085}{esp01\+AP\+\_\+\+CH}}, \doxymbox{\hyperlink{esp01_8c_source_l00086}{esp01\+AP\+\_\+\+ENC}}, \doxymbox{\hyperlink{esp01_8c_source_l00084}{esp01\+AP\+\_\+\+PASS}}, \doxymbox{\hyperlink{esp01_8c_source_l00083}{esp01\+AP\+\_\+\+SSID}}, \doxymbox{\hyperlink{esp01_8c_source_l00042}{ESP01\+ATHARDRST0}}, \doxymbox{\hyperlink{esp01_8c_source_l00019}{ESP01\+ATIDLE}}, \doxymbox{\hyperlink{esp01_8c_ae039cf1a4db0e21048f9477807e17a6a}{esp01\+ATSate}}, \doxymbox{\hyperlink{esp01_8c_adaa222818abf1d7278b739ca14b8c240}{esp01\+Flags}}, \doxymbox{\hyperlink{esp01_8c_source_l00067}{esp01\+Timeout\+Task}}, \doxymbox{\hyperlink{esp01_8c_source_l00099}{esp01\+Tries\+AT}} y \doxymbox{\hyperlink{esp01_8c_source_l00087}{esp01\+Web\+Server\+Mode}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{esp01_8c_source_l00183}{ESP01\+\_\+\+Set\+Web\+Server()}}.
+
+Gráfico de llamadas de esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=195pt]{esp01_8h_a97d544f7df6ee98063ce7952fbe565a4_cgraph}
+\end{center}
+\end{figure}
+Gráfico de llamadas a esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=195pt]{esp01_8h_a97d544f7df6ee98063ce7952fbe565a4_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{esp01_8h_accb8ca062ab92f813a32d8f0b88e7a43}\index{esp01.h@{esp01.h}!ESP01\_SetWIFI@{ESP01\_SetWIFI}}
+\index{ESP01\_SetWIFI@{ESP01\_SetWIFI}!esp01.h@{esp01.h}}
+\doxyparagraph{\texorpdfstring{ESP01\_SetWIFI()}{ESP01\_SetWIFI()}}
+{\footnotesize\ttfamily \label{esp01_8h_accb8ca062ab92f813a32d8f0b88e7a43} 
+void ESP01\+\_\+\+Set\+WIFI (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{ssid}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{password}{}\end{DoxyParamCaption})}
+
+
+
+Configura las credenciales de la red Wi-\/\+Fi e inicia el proceso de asociación. 
+
+Si existía una conexión previa activa, el driver la cierra antes de conectar al nuevo SSID. El estado puede verificarse con {\ttfamily \doxylink{esp01_8h_ad01a767d3ccfcd7a0103135281464276}{ESP01\+\_\+\+State\+WIFI()}}. 
+\begin{DoxyParams}[1]{Parámetros}
+\doxymbox{\texttt{in}}  & {\em ssid} & Cadena con el identificador de red (SSID). \\
+\hline
+\doxymbox{\texttt{in}}  & {\em password} & Cadena con la clave WPA/\+\+WPA2 de la red. \\
+\hline
+\end{DoxyParams}
+
+
+Definición en la línea \doxymbox{\hyperlink{esp01_8c_source_l00156}{156}} del archivo \doxymbox{\hyperlink{esp01_8c_source}{esp01.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00157\ \ \ \ \ \doxymbox{\hyperlink{esp01_8c_ae039cf1a4db0e21048f9477807e17a6a}{esp01ATSate}}\ =\ \doxymbox{\hyperlink{esp01_8c_a2bdc2a0e623040751999f8d414da1b7fa3641fa6d94694ab4719a839e4c6a5965}{ESP01ATIDLE}};}
+\DoxyCodeLine{00158\ \ \ \ \ \doxymbox{\hyperlink{esp01_8c_adaa222818abf1d7278b739ca14b8c240}{esp01Flags}}.byte\ =\ 0;}
+\DoxyCodeLine{00159\ \ \ \ \ \doxymbox{\hyperlink{esp01_8c_a65ed4cc22d028103561171adc7b5e56e}{esp01WebServerMode}}\ =\ 0;\ \ \ \textcolor{comment}{/*\ Salir\ del\ modo\ webserver\ al\ conectar\ como\ Station\ */}}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00161\ \ \ \ \ strncpy(\doxymbox{\hyperlink{esp01_8c_abe38a2fe28eba6cd7c2370e6fb5caf8a}{esp01SSID}},\ ssid,\ 64);}
+\DoxyCodeLine{00162\ \ \ \ \ \doxymbox{\hyperlink{esp01_8c_abe38a2fe28eba6cd7c2370e6fb5caf8a}{esp01SSID}}[63]\ =\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{00163\ \ \ \ \ strncpy(\doxymbox{\hyperlink{esp01_8c_affef476749c75d15e8eaee494ca85c3a}{esp01PASSWORD}},\ password,\ 32);}
+\DoxyCodeLine{00164\ \ \ \ \ \doxymbox{\hyperlink{esp01_8c_affef476749c75d15e8eaee494ca85c3a}{esp01PASSWORD}}[31]\ =\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00166\ \ \ \ \ \doxymbox{\hyperlink{esp01_8c_a6f38a87990ac36032d6a6231de34f98a}{esp01TimeoutTask}}\ =\ 50;}
+\DoxyCodeLine{00167\ \ \ \ \ \doxymbox{\hyperlink{esp01_8c_ae039cf1a4db0e21048f9477807e17a6a}{esp01ATSate}}\ =\ \doxymbox{\hyperlink{esp01_8c_a2bdc2a0e623040751999f8d414da1b7fa36265164a6c084c4f853254305ba49f3}{ESP01ATHARDRST0}};}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00169\ \ \ \ \ \doxymbox{\hyperlink{esp01_8c_ae72a3be246ee0d6e3c505c2697168c79}{esp01TriesAT}}\ =\ 0;}
+\DoxyCodeLine{00170\ \}}
+
+\end{DoxyCode}
+
+
+Hace referencia a \doxymbox{\hyperlink{esp01_8c_source_l00156}{ESP01\+\_\+\+Set\+WIFI()}}, \doxymbox{\hyperlink{esp01_8c_source_l00042}{ESP01\+ATHARDRST0}}, \doxymbox{\hyperlink{esp01_8c_source_l00019}{ESP01\+ATIDLE}}, \doxymbox{\hyperlink{esp01_8c_ae039cf1a4db0e21048f9477807e17a6a}{esp01\+ATSate}}, \doxymbox{\hyperlink{esp01_8c_adaa222818abf1d7278b739ca14b8c240}{esp01\+Flags}}, \doxymbox{\hyperlink{esp01_8c_source_l00075}{esp01\+PASSWORD}}, \doxymbox{\hyperlink{esp01_8c_source_l00074}{esp01\+SSID}}, \doxymbox{\hyperlink{esp01_8c_source_l00067}{esp01\+Timeout\+Task}}, \doxymbox{\hyperlink{esp01_8c_source_l00099}{esp01\+Tries\+AT}} y \doxymbox{\hyperlink{esp01_8c_source_l00087}{esp01\+Web\+Server\+Mode}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{esp01_8c_source_l00156}{ESP01\+\_\+\+Set\+WIFI()}}, \doxymbox{\hyperlink{main_8c_source_l01999}{http\+Task()}}, \doxymbox{\hyperlink{main_8c_source_l03056}{main()}}, \doxymbox{\hyperlink{main_8c_source_l01970}{On\+ESP01\+Change\+State()}} y \doxymbox{\hyperlink{main_8c_source_l03847}{Wi\+Fi\+\_\+\+Scan\+Tick()}}.
+
+Gráfico de llamadas de esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=169pt]{esp01_8h_accb8ca062ab92f813a32d8f0b88e7a43_cgraph}
+\end{center}
+\end{figure}
+Gráfico de llamadas a esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{esp01_8h_accb8ca062ab92f813a32d8f0b88e7a43_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{esp01_8h_aec68f854c567875dddc5e5e89c0b3bcb}\index{esp01.h@{esp01.h}!ESP01\_StartTCP@{ESP01\_StartTCP}}
+\index{ESP01\_StartTCP@{ESP01\_StartTCP}!esp01.h@{esp01.h}}
+\doxyparagraph{\texorpdfstring{ESP01\_StartTCP()}{ESP01\_StartTCP()}}
+{\footnotesize\ttfamily \label{esp01_8h_aec68f854c567875dddc5e5e89c0b3bcb} 
+\doxymbox{\hyperlink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2}{\+\_\+e\+ESP01\+STATUS}} ESP01\+\_\+\+Start\+TCP (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{Remote\+IP}{, }\item[{uint16\+\_\+t}]{Remote\+PORT}{, }\item[{uint16\+\_\+t}]{Local\+PORT}{}\end{DoxyParamCaption})}
+
+
+
+Inicia una conexión de transporte TCP cliente hacia un servidor remoto. 
+
+
+\begin{DoxyParams}[1]{Parámetros}
+\doxymbox{\texttt{in}}  & {\em Remote\+IP} & Dirección IP del servidor TCP remoto. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em Remote\+PORT} & Puerto del servidor TCP remoto. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em Local\+PORT} & Puerto local de enlace. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Devuelve}
+Estado resultante de la solicitud de conexión ({\ttfamily \doxylink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2}{\+\_\+e\+ESP01\+STATUS}}). 
+\end{DoxyReturn}
+
+
+Definición en la línea \doxymbox{\hyperlink{esp01_8c_source_l00243}{243}} del archivo \doxymbox{\hyperlink{esp01_8c_source}{esp01.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00244\ \ \ \ \ \textcolor{keywordflow}{if}(\doxymbox{\hyperlink{esp01_8c_ab635d3bd67841cd7644edaa68440ba07}{esp01Handle}}.\doxymbox{\hyperlink{struct__s_e_s_p01_handle_a059bcc5945a3e9693f6c6a471d47bc80}{WriteUSARTByte}}\ ==\ \doxymbox{\hyperlink{group___u_s_b___d_e_f___exported___defines_ga070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}})}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2a4d87bc3d84344f736dbc4c85b5758d4c}{ESP01\_NOT\_INIT}};}
+\DoxyCodeLine{00246\ }
+\DoxyCodeLine{00247\ \ \ \ \ \textcolor{keywordflow}{if}(LocalPORT\ ==\ 0)}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ LocalPORT\ =\ 30000;}
+\DoxyCodeLine{00249\ }
+\DoxyCodeLine{00250\ \ \ \ \ strcpy(\doxymbox{\hyperlink{esp01_8c_a0eaef13611c34b83e4b552e7ea1afcf5}{esp01PROTO}},\ \textcolor{stringliteral}{"{}TCP"{}});}
+\DoxyCodeLine{00251\ }
+\DoxyCodeLine{00252\ \ \ \ \ strncpy(\doxymbox{\hyperlink{esp01_8c_a8c9f11754edc7140ea48695ca558ff2a}{esp01RemoteIP}},\ RemoteIP,\ 15);}
+\DoxyCodeLine{00253\ \ \ \ \ \doxymbox{\hyperlink{esp01_8c_a8c9f11754edc7140ea48695ca558ff2a}{esp01RemoteIP}}[15]\ =\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{00254\ }
+\DoxyCodeLine{00255\ \ \ \ \ itoa(RemotePORT,\ \doxymbox{\hyperlink{esp01_8c_a73466740704eff09a515bad17b10d159}{esp01RemotePORT}},\ 10);}
+\DoxyCodeLine{00256\ \ \ \ \ itoa(LocalPORT,\ \doxymbox{\hyperlink{esp01_8c_ae92a2a9e92c1a277eabc8c977636c40a}{esp01LocalPORT}},\ 10);}
+\DoxyCodeLine{00257\ }
+\DoxyCodeLine{00258\ \ \ \ \ \textcolor{keywordflow}{if}(\doxymbox{\hyperlink{esp01_8c_abe38a2fe28eba6cd7c2370e6fb5caf8a}{esp01SSID}}[0]\ ==\ \textcolor{charliteral}{'\(\backslash\)0'})}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2a7c133fa46287606556e9d7024b68abbb}{ESP01\_WIFI\_NOT\_SETED}};}
+\DoxyCodeLine{00260\ }
+\DoxyCodeLine{00261\ \ \ \ \ \textcolor{keywordflow}{if}(\doxymbox{\hyperlink{esp01_8c_adaa222818abf1d7278b739ca14b8c240}{esp01Flags}}.bit.WIFICONNECTED\ ==\ 0)}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2aa1180526c1a95367a039182f6da2bba1}{ESP01\_WIFI\_DISCONNECTED}};}
+\DoxyCodeLine{00263\ }
+\DoxyCodeLine{00264\ \ \ \ \ \doxymbox{\hyperlink{esp01_8c_ae039cf1a4db0e21048f9477807e17a6a}{esp01ATSate}}\ =\ \doxymbox{\hyperlink{esp01_8c_a2bdc2a0e623040751999f8d414da1b7faf2f3d0515ad20199db1646ad25a7a2d4}{ESP01ATCIPCLOSE}};}
+\DoxyCodeLine{00265\ }
+\DoxyCodeLine{00266\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2a9c5a09bc66bfe5ce6b86d4f27d2adfaf}{ESP01\_UDPTCP\_CONNECTING}};}
+\DoxyCodeLine{00267\ \}}
+
+\end{DoxyCode}
+
+
+Hace referencia a \doxymbox{\hyperlink{esp01_8h_source_l00022}{ESP01\+\_\+\+NOT\+\_\+\+INIT}}, \doxymbox{\hyperlink{esp01_8c_source_l00243}{ESP01\+\_\+\+Start\+TCP()}}, \doxymbox{\hyperlink{esp01_8h_source_l00029}{ESP01\+\_\+\+UDPTCP\+\_\+\+CONNECTING}}, \doxymbox{\hyperlink{esp01_8h_source_l00023}{ESP01\+\_\+\+WIFI\+\_\+\+DISCONNECTED}}, \doxymbox{\hyperlink{esp01_8h_source_l00024}{ESP01\+\_\+\+WIFI\+\_\+\+NOT\+\_\+\+SETED}}, \doxymbox{\hyperlink{esp01_8c_source_l00038}{ESP01\+ATCIPCLOSE}}, \doxymbox{\hyperlink{esp01_8c_ae039cf1a4db0e21048f9477807e17a6a}{esp01\+ATSate}}, \doxymbox{\hyperlink{esp01_8c_adaa222818abf1d7278b739ca14b8c240}{esp01\+Flags}}, \doxymbox{\hyperlink{esp01_8c_source_l00103}{esp01\+Handle}}, \doxymbox{\hyperlink{esp01_8c_source_l00080}{esp01\+Local\+PORT}}, \doxymbox{\hyperlink{esp01_8c_source_l00077}{esp01\+PROTO}}, \doxymbox{\hyperlink{esp01_8c_source_l00076}{esp01\+Remote\+IP}}, \doxymbox{\hyperlink{esp01_8c_source_l00078}{esp01\+Remote\+PORT}}, \doxymbox{\hyperlink{esp01_8c_source_l00074}{esp01\+SSID}}, \doxymbox{\hyperlink{usbd__def_8h_source_l00045}{NULL}} y \doxymbox{\hyperlink{esp01_8h_source_l00053}{\+\_\+s\+ESP01\+Handle::\+\+Write\+USARTByte}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{esp01_8c_source_l00243}{ESP01\+\_\+\+Start\+TCP()}} y \doxymbox{\hyperlink{main_8c_source_l01999}{http\+Task()}}.
+
+Gráfico de llamadas de esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=173pt]{esp01_8h_aec68f854c567875dddc5e5e89c0b3bcb_cgraph}
+\end{center}
+\end{figure}
+Gráfico de llamadas a esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{esp01_8h_aec68f854c567875dddc5e5e89c0b3bcb_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{esp01_8h_a0791bfac7d8d5783dde678ecb5c24e1e}\index{esp01.h@{esp01.h}!ESP01\_StartUDP@{ESP01\_StartUDP}}
+\index{ESP01\_StartUDP@{ESP01\_StartUDP}!esp01.h@{esp01.h}}
+\doxyparagraph{\texorpdfstring{ESP01\_StartUDP()}{ESP01\_StartUDP()}}
+{\footnotesize\ttfamily \label{esp01_8h_a0791bfac7d8d5783dde678ecb5c24e1e} 
+\doxymbox{\hyperlink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2}{\+\_\+e\+ESP01\+STATUS}} ESP01\+\_\+\+Start\+UDP (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{Remote\+IP}{, }\item[{uint16\+\_\+t}]{Remote\+PORT}{, }\item[{uint16\+\_\+t}]{Local\+PORT}{}\end{DoxyParamCaption})}
+
+
+
+Inicia una conexión de transporte UDP hacia un endpoint IP y puerto remotos. 
+
+
+\begin{DoxyParams}[1]{Parámetros}
+\doxymbox{\texttt{in}}  & {\em Remote\+IP} & Dirección IP de destino en formato texto (ej: {\ttfamily "{}192.\+168.\+0.\+10"{}}). \\
+\hline
+\doxymbox{\texttt{in}}  & {\em Remote\+PORT} & Puerto UDP de destino en el equipo remoto. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em Local\+PORT} & Puerto UDP de escucha local en el ESP-\/01. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Devuelve}
+Estado resultante de la solicitud de apertura ({\ttfamily \doxylink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2}{\+\_\+e\+ESP01\+STATUS}}). 
+\end{DoxyReturn}
+
+
+Definición en la línea \doxymbox{\hyperlink{esp01_8c_source_l00217}{217}} del archivo \doxymbox{\hyperlink{esp01_8c_source}{esp01.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00218\ \ \ \ \ \textcolor{keywordflow}{if}(\doxymbox{\hyperlink{esp01_8c_ab635d3bd67841cd7644edaa68440ba07}{esp01Handle}}.\doxymbox{\hyperlink{struct__s_e_s_p01_handle_a059bcc5945a3e9693f6c6a471d47bc80}{WriteUSARTByte}}\ ==\ \doxymbox{\hyperlink{group___u_s_b___d_e_f___exported___defines_ga070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}})}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2a4d87bc3d84344f736dbc4c85b5758d4c}{ESP01\_NOT\_INIT}};}
+\DoxyCodeLine{00220\ }
+\DoxyCodeLine{00221\ \ \ \ \ \textcolor{keywordflow}{if}(LocalPORT\ ==\ 0)}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ LocalPORT\ =\ 30000;}
+\DoxyCodeLine{00223\ }
+\DoxyCodeLine{00224\ \ \ \ \ strcpy(\doxymbox{\hyperlink{esp01_8c_a0eaef13611c34b83e4b552e7ea1afcf5}{esp01PROTO}},\ \textcolor{stringliteral}{"{}UDP"{}});}
+\DoxyCodeLine{00225\ }
+\DoxyCodeLine{00226\ \ \ \ \ strncpy(\doxymbox{\hyperlink{esp01_8c_a8c9f11754edc7140ea48695ca558ff2a}{esp01RemoteIP}},\ RemoteIP,\ 15);}
+\DoxyCodeLine{00227\ \ \ \ \ \doxymbox{\hyperlink{esp01_8c_a8c9f11754edc7140ea48695ca558ff2a}{esp01RemoteIP}}[15]\ =\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{00228\ }
+\DoxyCodeLine{00229\ \ \ \ \ itoa(RemotePORT,\ \doxymbox{\hyperlink{esp01_8c_a73466740704eff09a515bad17b10d159}{esp01RemotePORT}},\ 10);}
+\DoxyCodeLine{00230\ \ \ \ \ itoa(LocalPORT,\ \doxymbox{\hyperlink{esp01_8c_ae92a2a9e92c1a277eabc8c977636c40a}{esp01LocalPORT}},\ 10);}
+\DoxyCodeLine{00231\ }
+\DoxyCodeLine{00232\ \ \ \ \ \textcolor{keywordflow}{if}(\doxymbox{\hyperlink{esp01_8c_abe38a2fe28eba6cd7c2370e6fb5caf8a}{esp01SSID}}[0]\ ==\ \textcolor{charliteral}{'\(\backslash\)0'})}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2a7c133fa46287606556e9d7024b68abbb}{ESP01\_WIFI\_NOT\_SETED}};}
+\DoxyCodeLine{00234\ }
+\DoxyCodeLine{00235\ \ \ \ \ \textcolor{keywordflow}{if}(\doxymbox{\hyperlink{esp01_8c_adaa222818abf1d7278b739ca14b8c240}{esp01Flags}}.bit.WIFICONNECTED\ ==\ 0)}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2aa1180526c1a95367a039182f6da2bba1}{ESP01\_WIFI\_DISCONNECTED}};}
+\DoxyCodeLine{00237\ }
+\DoxyCodeLine{00238\ \ \ \ \ \doxymbox{\hyperlink{esp01_8c_ae039cf1a4db0e21048f9477807e17a6a}{esp01ATSate}}\ =\ \doxymbox{\hyperlink{esp01_8c_a2bdc2a0e623040751999f8d414da1b7faf2f3d0515ad20199db1646ad25a7a2d4}{ESP01ATCIPCLOSE}};}
+\DoxyCodeLine{00239\ }
+\DoxyCodeLine{00240\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2a9c5a09bc66bfe5ce6b86d4f27d2adfaf}{ESP01\_UDPTCP\_CONNECTING}};}
+\DoxyCodeLine{00241\ \}}
+
+\end{DoxyCode}
+
+
+Hace referencia a \doxymbox{\hyperlink{esp01_8h_source_l00022}{ESP01\+\_\+\+NOT\+\_\+\+INIT}}, \doxymbox{\hyperlink{esp01_8c_source_l00217}{ESP01\+\_\+\+Start\+UDP()}}, \doxymbox{\hyperlink{esp01_8h_source_l00029}{ESP01\+\_\+\+UDPTCP\+\_\+\+CONNECTING}}, \doxymbox{\hyperlink{esp01_8h_source_l00023}{ESP01\+\_\+\+WIFI\+\_\+\+DISCONNECTED}}, \doxymbox{\hyperlink{esp01_8h_source_l00024}{ESP01\+\_\+\+WIFI\+\_\+\+NOT\+\_\+\+SETED}}, \doxymbox{\hyperlink{esp01_8c_source_l00038}{ESP01\+ATCIPCLOSE}}, \doxymbox{\hyperlink{esp01_8c_ae039cf1a4db0e21048f9477807e17a6a}{esp01\+ATSate}}, \doxymbox{\hyperlink{esp01_8c_adaa222818abf1d7278b739ca14b8c240}{esp01\+Flags}}, \doxymbox{\hyperlink{esp01_8c_source_l00103}{esp01\+Handle}}, \doxymbox{\hyperlink{esp01_8c_source_l00080}{esp01\+Local\+PORT}}, \doxymbox{\hyperlink{esp01_8c_source_l00077}{esp01\+PROTO}}, \doxymbox{\hyperlink{esp01_8c_source_l00076}{esp01\+Remote\+IP}}, \doxymbox{\hyperlink{esp01_8c_source_l00078}{esp01\+Remote\+PORT}}, \doxymbox{\hyperlink{esp01_8c_source_l00074}{esp01\+SSID}}, \doxymbox{\hyperlink{usbd__def_8h_source_l00045}{NULL}} y \doxymbox{\hyperlink{esp01_8h_source_l00053}{\+\_\+s\+ESP01\+Handle::\+\+Write\+USARTByte}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{esp01_8c_source_l00217}{ESP01\+\_\+\+Start\+UDP()}} y \doxymbox{\hyperlink{main_8c_source_l01999}{http\+Task()}}.
+
+Gráfico de llamadas de esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=175pt]{esp01_8h_a0791bfac7d8d5783dde678ecb5c24e1e_cgraph}
+\end{center}
+\end{figure}
+Gráfico de llamadas a esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{esp01_8h_a0791bfac7d8d5783dde678ecb5c24e1e_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{esp01_8h_a5a8932a922139481e9cb537ec1c543ae}\index{esp01.h@{esp01.h}!ESP01\_StateUDPTCP@{ESP01\_StateUDPTCP}}
+\index{ESP01\_StateUDPTCP@{ESP01\_StateUDPTCP}!esp01.h@{esp01.h}}
+\doxyparagraph{\texorpdfstring{ESP01\_StateUDPTCP()}{ESP01\_StateUDPTCP()}}
+{\footnotesize\ttfamily \label{esp01_8h_a5a8932a922139481e9cb537ec1c543ae} 
+\doxymbox{\hyperlink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2}{\+\_\+e\+ESP01\+STATUS}} ESP01\+\_\+\+State\+UDPTCP (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Consulta el estado de enlace del socket UDP o TCP. 
+
+\begin{DoxyReturn}{Devuelve}
+Estado del socket ({\ttfamily \doxylink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2}{\+\_\+e\+ESP01\+STATUS}}). 
+\end{DoxyReturn}
+
+
+Definición en la línea \doxymbox{\hyperlink{esp01_8c_source_l00295}{295}} del archivo \doxymbox{\hyperlink{esp01_8c_source}{esp01.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00296\ \ \ \ \ \textcolor{keywordflow}{if}(\doxymbox{\hyperlink{esp01_8c_ab635d3bd67841cd7644edaa68440ba07}{esp01Handle}}.\doxymbox{\hyperlink{struct__s_e_s_p01_handle_a059bcc5945a3e9693f6c6a471d47bc80}{WriteUSARTByte}}\ ==\ \doxymbox{\hyperlink{group___u_s_b___d_e_f___exported___defines_ga070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}})}
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2a4d87bc3d84344f736dbc4c85b5758d4c}{ESP01\_NOT\_INIT}};}
+\DoxyCodeLine{00298\ }
+\DoxyCodeLine{00299\ \ \ \ \ \textcolor{keywordflow}{if}(\doxymbox{\hyperlink{esp01_8c_adaa222818abf1d7278b739ca14b8c240}{esp01Flags}}.bit.UDPTCPCONNECTED)}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2ac8f073d54fd8dcbf72e7a3adde828c3a}{ESP01\_UDPTCP\_CONNECTED}};}
+\DoxyCodeLine{00301\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2a12aa1b1c2d5aa588e81a8f9f0ad12ef7}{ESP01\_UDPTCP\_DISCONNECTED}};}
+\DoxyCodeLine{00303\ \}}
+
+\end{DoxyCode}
+
+
+Hace referencia a \doxymbox{\hyperlink{esp01_8h_source_l00022}{ESP01\+\_\+\+NOT\+\_\+\+INIT}}, \doxymbox{\hyperlink{esp01_8c_source_l00295}{ESP01\+\_\+\+State\+UDPTCP()}}, \doxymbox{\hyperlink{esp01_8h_source_l00030}{ESP01\+\_\+\+UDPTCP\+\_\+\+CONNECTED}}, \doxymbox{\hyperlink{esp01_8h_source_l00028}{ESP01\+\_\+\+UDPTCP\+\_\+\+DISCONNECTED}}, \doxymbox{\hyperlink{esp01_8c_adaa222818abf1d7278b739ca14b8c240}{esp01\+Flags}}, \doxymbox{\hyperlink{esp01_8c_source_l00103}{esp01\+Handle}}, \doxymbox{\hyperlink{usbd__def_8h_source_l00045}{NULL}} y \doxymbox{\hyperlink{esp01_8h_source_l00053}{\+\_\+s\+ESP01\+Handle::\+\+Write\+USARTByte}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{esp01_8c_source_l00295}{ESP01\+\_\+\+State\+UDPTCP()}} y \doxymbox{\hyperlink{main_8c_source_l03878}{Wi\+Fi\+\_\+\+Heartbeat\+Tick()}}.
+
+Gráfico de llamadas de esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=197pt]{esp01_8h_a5a8932a922139481e9cb537ec1c543ae_cgraph}
+\end{center}
+\end{figure}
+Gráfico de llamadas a esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{esp01_8h_a5a8932a922139481e9cb537ec1c543ae_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{esp01_8h_ad01a767d3ccfcd7a0103135281464276}\index{esp01.h@{esp01.h}!ESP01\_StateWIFI@{ESP01\_StateWIFI}}
+\index{ESP01\_StateWIFI@{ESP01\_StateWIFI}!esp01.h@{esp01.h}}
+\doxyparagraph{\texorpdfstring{ESP01\_StateWIFI()}{ESP01\_StateWIFI()}}
+{\footnotesize\ttfamily \label{esp01_8h_ad01a767d3ccfcd7a0103135281464276} 
+\doxymbox{\hyperlink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2}{\+\_\+e\+ESP01\+STATUS}} ESP01\+\_\+\+State\+WIFI (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Consulta el estado actual de la conexión a la infraestructura Wi-\/\+Fi. 
+
+\begin{DoxyReturn}{Devuelve}
+Estado actual según {\ttfamily \doxylink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2}{\+\_\+e\+ESP01\+STATUS}}. 
+\end{DoxyReturn}
+
+
+Definición en la línea \doxymbox{\hyperlink{esp01_8c_source_l00277}{277}} del archivo \doxymbox{\hyperlink{esp01_8c_source}{esp01.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00278\ \ \ \ \ \textcolor{keywordflow}{if}(\doxymbox{\hyperlink{esp01_8c_ab635d3bd67841cd7644edaa68440ba07}{esp01Handle}}.\doxymbox{\hyperlink{struct__s_e_s_p01_handle_a059bcc5945a3e9693f6c6a471d47bc80}{WriteUSARTByte}}\ ==\ \doxymbox{\hyperlink{group___u_s_b___d_e_f___exported___defines_ga070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}})}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2a4d87bc3d84344f736dbc4c85b5758d4c}{ESP01\_NOT\_INIT}};}
+\DoxyCodeLine{00280\ }
+\DoxyCodeLine{00281\ \ \ \ \ \textcolor{keywordflow}{if}(\doxymbox{\hyperlink{esp01_8c_adaa222818abf1d7278b739ca14b8c240}{esp01Flags}}.bit.WIFICONNECTED)}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2a9b36b0c6e4d43330c18cdb81779ec728}{ESP01\_WIFI\_CONNECTED}};}
+\DoxyCodeLine{00283\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{esp01_8h_a3ef46651a9b54c4eba13c758b17ecec2aa1180526c1a95367a039182f6da2bba1}{ESP01\_WIFI\_DISCONNECTED}};}
+\DoxyCodeLine{00285\ \}}
+
+\end{DoxyCode}
+
+
+Hace referencia a \doxymbox{\hyperlink{esp01_8h_source_l00022}{ESP01\+\_\+\+NOT\+\_\+\+INIT}}, \doxymbox{\hyperlink{esp01_8c_source_l00277}{ESP01\+\_\+\+State\+WIFI()}}, \doxymbox{\hyperlink{esp01_8h_source_l00026}{ESP01\+\_\+\+WIFI\+\_\+\+CONNECTED}}, \doxymbox{\hyperlink{esp01_8h_source_l00023}{ESP01\+\_\+\+WIFI\+\_\+\+DISCONNECTED}}, \doxymbox{\hyperlink{esp01_8c_adaa222818abf1d7278b739ca14b8c240}{esp01\+Flags}}, \doxymbox{\hyperlink{esp01_8c_source_l00103}{esp01\+Handle}}, \doxymbox{\hyperlink{usbd__def_8h_source_l00045}{NULL}} y \doxymbox{\hyperlink{esp01_8h_source_l00053}{\+\_\+s\+ESP01\+Handle::\+\+Write\+USARTByte}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{esp01_8c_source_l00277}{ESP01\+\_\+\+State\+WIFI()}}.
+
+Gráfico de llamadas de esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=177pt]{esp01_8h_ad01a767d3ccfcd7a0103135281464276_cgraph}
+\end{center}
+\end{figure}
+Gráfico de llamadas a esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=177pt]{esp01_8h_ad01a767d3ccfcd7a0103135281464276_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{esp01_8h_a2a01570b672fe27bb4c6a6f5f4753995}\index{esp01.h@{esp01.h}!ESP01\_Task@{ESP01\_Task}}
+\index{ESP01\_Task@{ESP01\_Task}!esp01.h@{esp01.h}}
+\doxyparagraph{\texorpdfstring{ESP01\_Task()}{ESP01\_Task()}}
+{\footnotesize\ttfamily \label{esp01_8h_a2a01570b672fe27bb4c6a6f5f4753995} 
+void ESP01\+\_\+\+Task (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Tarea principal de procesamiento de la máquina de estados AT. 
+
+Debe ser llamada continuamente en el bucle principal ({\ttfamily \doxylink{main_8c_a840291bc02cba5474a4cb46a9b9566fe}{main}}) para analizar las respuestas recibidas por USART ({\ttfamily OK}, {\ttfamily \doxylink{group___exported__types_gga8333b96c67f83cba354b3407fcbb6ee8a2fd6f336d08340583bd620a7f5694c90}{ERROR}}, {\ttfamily +IPD}, etc.) y gestionar envíos. 
+
+Definición en la línea \doxymbox{\hyperlink{esp01_8c_source_l00414}{414}} del archivo \doxymbox{\hyperlink{esp01_8c_source}{esp01.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00414\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00415\ }
+\DoxyCodeLine{00416\ \ \ \ \ \textcolor{keywordflow}{if}(\doxymbox{\hyperlink{esp01_8c_aab735316b6b96e2778707a866e74f011}{esp01irRXAT}}\ !=\ \doxymbox{\hyperlink{esp01_8c_a283689766ae8e5bf4d858e6a4b817683}{esp01iwRXAT}})}
+\DoxyCodeLine{00417\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{esp01_8c_ac6a81d9dbbaba1820f9315ffaf52882e}{ESP01ATDecode}}();}
+\DoxyCodeLine{00418\ }
+\DoxyCodeLine{00419\ \ \ \ \ \textcolor{keywordflow}{if}(!\doxymbox{\hyperlink{esp01_8c_a6f38a87990ac36032d6a6231de34f98a}{esp01TimeoutTask}})}
+\DoxyCodeLine{00420\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{esp01_8c_a797496177ee289e255ef7cb124baec22}{ESP01DOConnection}}();}
+\DoxyCodeLine{00421\ }
+\DoxyCodeLine{00422\ \ \ \ \ \doxymbox{\hyperlink{esp01_8c_aec5d9f44f57bc32bc23da969108fb094}{ESP01SENDData}}();}
+\DoxyCodeLine{00423\ \}}
+
+\end{DoxyCode}
+
+
+Hace referencia a \doxymbox{\hyperlink{esp01_8c_source_l00414}{ESP01\+\_\+\+Task()}}, \doxymbox{\hyperlink{esp01_8c_source_l00443}{ESP01\+ATDecode()}}, \doxymbox{\hyperlink{esp01_8c_source_l00744}{ESP01\+DOConnection()}}, \doxymbox{\hyperlink{esp01_8c_source_l00095}{esp01ir\+RXAT}}, \doxymbox{\hyperlink{esp01_8c_source_l00094}{esp01iw\+RXAT}}, \doxymbox{\hyperlink{esp01_8c_source_l01018}{ESP01\+SENDData()}} y \doxymbox{\hyperlink{esp01_8c_source_l00067}{esp01\+Timeout\+Task}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{esp01_8c_source_l00414}{ESP01\+\_\+\+Task()}} y \doxymbox{\hyperlink{main_8c_source_l03056}{main()}}.
+
+Gráfico de llamadas de esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{esp01_8h_a2a01570b672fe27bb4c6a6f5f4753995_cgraph}
+\end{center}
+\end{figure}
+Gráfico de llamadas a esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=226pt]{esp01_8h_a2a01570b672fe27bb4c6a6f5f4753995_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{esp01_8h_a56d89861ed59233e20a6a4eadbe1c17a}\index{esp01.h@{esp01.h}!ESP01\_Timeout10ms@{ESP01\_Timeout10ms}}
+\index{ESP01\_Timeout10ms@{ESP01\_Timeout10ms}!esp01.h@{esp01.h}}
+\doxyparagraph{\texorpdfstring{ESP01\_Timeout10ms()}{ESP01\_Timeout10ms()}}
+{\footnotesize\ttfamily \label{esp01_8h_a56d89861ed59233e20a6a4eadbe1c17a} 
+void ESP01\+\_\+\+Timeout10ms (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Base de tiempo periódica de 10 ms para la gestión de timeouts del módulo. 
+
+Debe ser llamada periódicamente cada 10 milisegundos desde el planificador del sistema. 
+
+Definición en la línea \doxymbox{\hyperlink{esp01_8c_source_l00389}{389}} del archivo \doxymbox{\hyperlink{esp01_8c_source}{esp01.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00389\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00390\ \ \ \ \ \textcolor{keywordflow}{if}(\doxymbox{\hyperlink{esp01_8c_a6f38a87990ac36032d6a6231de34f98a}{esp01TimeoutTask}})}
+\DoxyCodeLine{00391\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{esp01_8c_a6f38a87990ac36032d6a6231de34f98a}{esp01TimeoutTask}}-\/-\/;}
+\DoxyCodeLine{00392\ }
+\DoxyCodeLine{00393\ \ \ \ \ \textcolor{keywordflow}{if}(\doxymbox{\hyperlink{esp01_8c_ad881f31b89bc52ad919189004c71d9ad}{esp01TimeoutDataRx}})\{}
+\DoxyCodeLine{00394\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{esp01_8c_ad881f31b89bc52ad919189004c71d9ad}{esp01TimeoutDataRx}}-\/-\/;}
+\DoxyCodeLine{00395\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\doxymbox{\hyperlink{esp01_8c_ad881f31b89bc52ad919189004c71d9ad}{esp01TimeoutDataRx}})}
+\DoxyCodeLine{00396\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{esp01_8c_a99a85bfb93fd5abd35501c97a3a117f2}{esp01HState}}\ =\ 0;}
+\DoxyCodeLine{00397\ \ \ \ \ \}}
+\DoxyCodeLine{00398\ }
+\DoxyCodeLine{00399\ \ \ \ \ \textcolor{keywordflow}{if}(\doxymbox{\hyperlink{esp01_8c_a5f322d6d47acf876903214379ab05b95}{esp01TimeoutTxSymbol}})}
+\DoxyCodeLine{00400\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{esp01_8c_a5f322d6d47acf876903214379ab05b95}{esp01TimeoutTxSymbol}}-\/-\/;}
+\DoxyCodeLine{00401\ }
+\DoxyCodeLine{00402\ \ \ \ \ \textcolor{comment}{//\ -\/-\/-\/\ NUEVO:\ WATCHDOG\ ANTI-\/CONGELAMIENTO\ -\/-\/-\/}}
+\DoxyCodeLine{00403\ \ \ \ \ \textcolor{keywordflow}{if}(\doxymbox{\hyperlink{esp01_8c_a2485ff9c79574a37fb2971e1fc85117c}{esp01TimeoutSendOk}})\{}
+\DoxyCodeLine{00404\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{esp01_8c_a2485ff9c79574a37fb2971e1fc85117c}{esp01TimeoutSendOk}}-\/-\/;}
+\DoxyCodeLine{00405\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\doxymbox{\hyperlink{esp01_8c_a2485ff9c79574a37fb2971e1fc85117c}{esp01TimeoutSendOk}}\ \&\&\ \doxymbox{\hyperlink{esp01_8c_adaa222818abf1d7278b739ca14b8c240}{esp01Flags}}.bit.SENDINGDATA)\{}
+\DoxyCodeLine{00406\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Destrabamos\ el\ envío\ descartando\ el\ paquete\ atascado.}}
+\DoxyCodeLine{00407\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ NO\ reiniciamos\ la\ máquina\ de\ estados,\ solo\ limpiamos\ el\ canal.}}
+\DoxyCodeLine{00408\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{esp01_8c_adaa222818abf1d7278b739ca14b8c240}{esp01Flags}}.bit.SENDINGDATA\ =\ 0;}
+\DoxyCodeLine{00409\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{esp01_8c_aa78fc2c95fa4038592cbc498941a516d}{esp01irTX}}\ =\ \doxymbox{\hyperlink{esp01_8c_ae7af679741b24f63f3160bafb92d07eb}{esp01iwTX}};}
+\DoxyCodeLine{00410\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00411\ \ \ \ \ \}}
+\DoxyCodeLine{00412\ \}}
+
+\end{DoxyCode}
+
+
+Hace referencia a \doxymbox{\hyperlink{esp01_8c_source_l00389}{ESP01\+\_\+\+Timeout10ms()}}, \doxymbox{\hyperlink{esp01_8c_adaa222818abf1d7278b739ca14b8c240}{esp01\+Flags}}, \doxymbox{\hyperlink{esp01_8c_source_l00090}{esp01\+HState}}, \doxymbox{\hyperlink{esp01_8c_source_l00096}{esp01ir\+TX}}, \doxymbox{\hyperlink{esp01_8c_source_l00097}{esp01iw\+TX}}, \doxymbox{\hyperlink{esp01_8c_source_l00068}{esp01\+Timeout\+Data\+Rx}}, \doxymbox{\hyperlink{esp01_8c_source_l00070}{esp01\+Timeout\+Send\+Ok}}, \doxymbox{\hyperlink{esp01_8c_source_l00067}{esp01\+Timeout\+Task}} y \doxymbox{\hyperlink{esp01_8c_source_l00069}{esp01\+Timeout\+Tx\+Symbol}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{main_8c_source_l01441}{do10ms()}} y \doxymbox{\hyperlink{esp01_8c_source_l00389}{ESP01\+\_\+\+Timeout10ms()}}.
+
+Gráfico de llamadas de esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=191pt]{esp01_8h_a56d89861ed59233e20a6a4eadbe1c17a_cgraph}
+\end{center}
+\end{figure}
+Gráfico de llamadas a esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{esp01_8h_a56d89861ed59233e20a6a4eadbe1c17a_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{esp01_8h_aa4745589acec5f8d6a97a414810dc8c1}\index{esp01.h@{esp01.h}!ESP01\_WriteRX@{ESP01\_WriteRX}}
+\index{ESP01\_WriteRX@{ESP01\_WriteRX}!esp01.h@{esp01.h}}
+\doxyparagraph{\texorpdfstring{ESP01\_WriteRX()}{ESP01\_WriteRX()}}
+{\footnotesize\ttfamily \label{esp01_8h_aa4745589acec5f8d6a97a414810dc8c1} 
+void ESP01\+\_\+\+Write\+RX (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{value}{}\end{DoxyParamCaption})}
+
+
+
+Inyecta un byte recibido por interrupción USART en el buffer del driver. 
+
+
+\begin{DoxyParams}[1]{Parámetros}
+\doxymbox{\texttt{in}}  & {\em value} & Byte recibido desde el módulo ESP-\/01 por hardware USART. \\
+\hline
+\end{DoxyParams}
+\texorpdfstring{$<$}{<} Capacidad en bytes del buffer circular interno de recepción AT
+
+Definición en la línea \doxymbox{\hyperlink{esp01_8c_source_l00306}{306}} del archivo \doxymbox{\hyperlink{esp01_8c_source}{esp01.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00306\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00307\ \textcolor{comment}{//\ \ if(esp01Handle.bufRX\ ==\ NULL)}}
+\DoxyCodeLine{00308\ \textcolor{comment}{//\ \ \ \ \ \ return;}}
+\DoxyCodeLine{00309\ \ \ \ \ \doxymbox{\hyperlink{esp01_8c_a80dabe474ebe85e022ad249c0b1aa76e}{esp01RXATBuf}}[\doxymbox{\hyperlink{esp01_8c_a283689766ae8e5bf4d858e6a4b817683}{esp01iwRXAT}}++]\ =\ value;}
+\DoxyCodeLine{00310\ \ \ \ \ \textcolor{keywordflow}{if}(\doxymbox{\hyperlink{esp01_8c_a283689766ae8e5bf4d858e6a4b817683}{esp01iwRXAT}}\ ==\ \doxymbox{\hyperlink{group___e_s_p01___constants_ga44ee3af49d0f758f6c1560b175189ba7}{ESP01RXBUFAT}})}
+\DoxyCodeLine{00311\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{esp01_8c_a283689766ae8e5bf4d858e6a4b817683}{esp01iwRXAT}}\ =\ 0;}
+\DoxyCodeLine{00312\ \}}
+
+\end{DoxyCode}
+
+
+Hace referencia a \doxymbox{\hyperlink{esp01_8c_source_l00306}{ESP01\+\_\+\+Write\+RX()}}, \doxymbox{\hyperlink{esp01_8c_source_l00094}{esp01iw\+RXAT}}, \doxymbox{\hyperlink{esp01_8c_source_l00092}{esp01\+RXATBuf}} y \doxymbox{\hyperlink{esp01_8h_source_l00042}{ESP01\+RXBUFAT}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{esp01_8c_source_l00306}{ESP01\+\_\+\+Write\+RX()}} y \doxymbox{\hyperlink{main_8c_source_l01768}{Feed\+Rx\+Buf()}}.
+
+Gráfico de llamadas de esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=169pt]{esp01_8h_aa4745589acec5f8d6a97a414810dc8c1_cgraph}
+\end{center}
+\end{figure}
+Gráfico de llamadas a esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{esp01_8h_aa4745589acec5f8d6a97a414810dc8c1_icgraph}
+\end{center}
+\end{figure}

@@ -1,0 +1,327 @@
+\doxysubsection{wiregfx.\+c}
+\hypertarget{wiregfx_8c_source}{}\label{wiregfx_8c_source}\index{wiregfx.c@{wiregfx.c}}
+\doxymbox{\hyperlink{wiregfx_8c}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00001}00001\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00002}00002\ \textcolor{comment}{\ *\ @file\ \ \ wiregfx.c}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00003}00003\ \textcolor{comment}{\ *\ @author\ Gonzalo\ M.\ Buffa}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00004}00004\ \textcolor{comment}{\ *\ @date\ \ \ 28/04/2026}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00005}00005\ \textcolor{comment}{\ *\ @brief\ \ Implementación\ del\ pipeline\ de\ renderizado\ alámbrico\ (Wireframe)\ 3D/4D\ en\ punto\ fijo.}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00006}00006\ \textcolor{comment}{\ *\ @details\ Realiza\ proyecciones\ axonométricas\ y\ en\ perspectiva\ estereográfica\ sobre\ el\ display\ SSD1306.}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00007}00007\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ Aplica\ matrices\ de\ rotación\ trigonométrica\ computadas\ mediante\ una\ tabla\ precalculada\ (sin\_LUT)}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00008}00008\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ de\ 256\ elementos\ escalada\ a\ 7\ bits\ (\$1.0\ \(\backslash\)approx\ 127\$),\ sustituyendo\ la\ división\ en\ coma\ flotante}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00009}00009\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ por\ desplazamientos\ aritméticos\ a\ la\ derecha\ (`>>\ 7`).}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00010}00010\ \textcolor{comment}{\ *\ @ingroup\ group\_ui\_graphics}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00011}00011\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00013}00013\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{wiregfx_8h}{wiregfx.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00014}00014\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00015}00015\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00016}00016\ \textcolor{comment}{\ *\ @name\ Variables\ Estáticas\ de\ Ángulos\ de\ Rotación}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00017}00017\ \textcolor{comment}{\ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00018}00018\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00019}\doxymbox{\hyperlink{wiregfx_8c_ab524463dacbe156ad8377887abd07839}{00019}}\ \textcolor{keyword}{static}\ uint8\_t\ \doxymbox{\hyperlink{wiregfx_8c_ab524463dacbe156ad8377887abd07839}{angle\_x}}\ =\ 0;\ \ \ \textcolor{comment}{/*!<\ Ángulo\ de\ rotación\ sobre\ el\ eje\ X\ (0\ a\ 255\ =\ 0°\ a\ 360°)\ */}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00020}\doxymbox{\hyperlink{wiregfx_8c_a80b26bdd0e7515bcb7dab5e799e73d90}{00020}}\ \textcolor{keyword}{static}\ uint8\_t\ \doxymbox{\hyperlink{wiregfx_8c_a80b26bdd0e7515bcb7dab5e799e73d90}{angle\_y}}\ =\ 0;\ \ \ \textcolor{comment}{/*!<\ Ángulo\ de\ rotación\ sobre\ el\ eje\ Y\ */}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00021}\doxymbox{\hyperlink{wiregfx_8c_a06ef935d6fae1bed8d4fdde3ed2d8500}{00021}}\ \textcolor{keyword}{static}\ uint8\_t\ \doxymbox{\hyperlink{wiregfx_8c_a06ef935d6fae1bed8d4fdde3ed2d8500}{angle\_z}}\ =\ 0;\ \ \ \textcolor{comment}{/*!<\ Ángulo\ de\ rotación\ sobre\ el\ eje\ Z\ */}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00022}\doxymbox{\hyperlink{wiregfx_8c_a1dd6556da34d6df771b77a181c129791}{00022}}\ \textcolor{keyword}{static}\ uint8\_t\ \doxymbox{\hyperlink{wiregfx_8c_a1dd6556da34d6df771b77a181c129791}{angle\_xz}}\ =\ 0;\ \ \textcolor{comment}{/*!<\ Ángulo\ de\ rotación\ en\ el\ plano\ X-\/Z\ (para\ 4D)\ */}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00023}\doxymbox{\hyperlink{wiregfx_8c_ac19649c26af01b34b719bda7a4e0c5ff}{00023}}\ \textcolor{keyword}{static}\ uint8\_t\ \doxymbox{\hyperlink{wiregfx_8c_ac19649c26af01b34b719bda7a4e0c5ff}{angle\_yz}}\ =\ 0;\ \ \textcolor{comment}{/*!<\ Ángulo\ de\ rotación\ en\ el\ plano\ Y-\/Z\ (para\ 4D)\ */}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00024}\doxymbox{\hyperlink{wiregfx_8c_a05ecc5ecfd4f71d82e8b72bee2846b1d}{00024}}\ \textcolor{keyword}{static}\ uint8\_t\ \doxymbox{\hyperlink{wiregfx_8c_a05ecc5ecfd4f71d82e8b72bee2846b1d}{angle\_xw}}\ =\ 0;\ \ \textcolor{comment}{/*!<\ Ángulo\ de\ rotación\ en\ el\ plano\ X-\/W\ de\ la\ 4ta\ dimensión\ */}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00025}00025\ \textcolor{comment}{/**\ @\}\ */}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00027}00027\ \textcolor{comment}{//\ Look-\/Up\ Table\ (LUT)\ de\ Seno.\ 256\ valores\ precalculados.}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00028}00028\ \textcolor{comment}{//\ Está\ escalada\ de\ -\/127\ a\ 127.\ (1.0\ =\ 127).\ Esto\ nos\ permite\ dividir\ rápido\ con\ "{}>>\ 7"{}.}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00029}\doxymbox{\hyperlink{wiregfx_8c_a31dcfeb0361aa1f281db225a98b22e5f}{00029}}\ \textcolor{keyword}{const}\ int8\_t\ \doxymbox{\hyperlink{wiregfx_8c_a31dcfeb0361aa1f281db225a98b22e5f}{sin\_LUT}}[256]\ =\ \{}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00030}00030\ \ \ \ \ 0,\ 3,\ 6,\ 9,\ 12,\ 15,\ 18,\ 21,\ 24,\ 28,\ 31,\ 34,\ 37,\ 40,\ 43,\ 46,}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00031}00031\ \ \ \ \ 48,\ 51,\ 54,\ 57,\ 60,\ 63,\ 65,\ 68,\ 71,\ 73,\ 76,\ 78,\ 81,\ 83,\ 85,\ 88,}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00032}00032\ \ \ \ \ 90,\ 92,\ 94,\ 96,\ 98,\ 100,\ 102,\ 104,\ 106,\ 108,\ 109,\ 111,\ 112,\ 114,\ 115,\ 117,}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00033}00033\ \ \ \ \ 118,\ 119,\ 120,\ 121,\ 122,\ 123,\ 124,\ 124,\ 125,\ 126,\ 126,\ 126,\ 127,\ 127,\ 127,\ 127,}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00034}00034\ \ \ \ \ 127,\ 127,\ 127,\ 127,\ 126,\ 126,\ 126,\ 125,\ 124,\ 124,\ 123,\ 122,\ 121,\ 120,\ 119,\ 118,}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00035}00035\ \ \ \ \ 117,\ 115,\ 114,\ 112,\ 111,\ 109,\ 108,\ 106,\ 104,\ 102,\ 100,\ 98,\ 96,\ 94,\ 92,\ 90,}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00036}00036\ \ \ \ \ 88,\ 85,\ 83,\ 81,\ 78,\ 76,\ 73,\ 71,\ 68,\ 65,\ 63,\ 60,\ 57,\ 54,\ 51,\ 48,}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00037}00037\ \ \ \ \ 46,\ 43,\ 40,\ 37,\ 34,\ 31,\ 28,\ 24,\ 21,\ 18,\ 15,\ 12,\ 9,\ 6,\ 3,\ 0,}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00038}00038\ \ \ \ \ -\/3,\ -\/6,\ -\/9,\ -\/12,\ -\/15,\ -\/18,\ -\/21,\ -\/24,\ -\/28,\ -\/31,\ -\/34,\ -\/37,\ -\/40,\ -\/43,\ -\/46,\ -\/48,}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00039}00039\ \ \ \ \ -\/51,\ -\/54,\ -\/57,\ -\/60,\ -\/63,\ -\/65,\ -\/68,\ -\/71,\ -\/73,\ -\/76,\ -\/78,\ -\/81,\ -\/83,\ -\/85,\ -\/88,\ -\/90,}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00040}00040\ \ \ \ \ -\/92,\ -\/94,\ -\/96,\ -\/98,\ -\/100,\ -\/102,\ -\/104,\ -\/106,\ -\/108,\ -\/109,\ -\/111,\ -\/112,\ -\/114,\ -\/115,\ -\/117,\ -\/118,}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00041}00041\ \ \ \ \ -\/119,\ -\/120,\ -\/121,\ -\/122,\ -\/123,\ -\/124,\ -\/124,\ -\/125,\ -\/126,\ -\/126,\ -\/126,\ -\/127,\ -\/127,\ -\/127,\ -\/127,\ -\/127,}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00042}00042\ \ \ \ \ -\/127,\ -\/127,\ -\/127,\ -\/126,\ -\/126,\ -\/126,\ -\/125,\ -\/124,\ -\/124,\ -\/123,\ -\/122,\ -\/121,\ -\/120,\ -\/119,\ -\/118,\ -\/117,}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00043}00043\ \ \ \ \ -\/115,\ -\/114,\ -\/112,\ -\/111,\ -\/109,\ -\/108,\ -\/106,\ -\/104,\ -\/102,\ -\/100,\ -\/98,\ -\/96,\ -\/94,\ -\/92,\ -\/90,\ -\/88,}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00044}00044\ \ \ \ \ -\/85,\ -\/83,\ -\/81,\ -\/78,\ -\/76,\ -\/73,\ -\/71,\ -\/68,\ -\/65,\ -\/63,\ -\/60,\ -\/57,\ -\/54,\ -\/51,\ -\/48,\ -\/46,}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00045}00045\ \ \ \ \ -\/43,\ -\/40,\ -\/37,\ -\/34,\ -\/31,\ -\/28,\ -\/24,\ -\/21,\ -\/18,\ -\/15,\ -\/12,\ -\/9,\ -\/6,\ -\/3,\ 0}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00046}00046\ \};}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00048}\doxymbox{\hyperlink{wiregfx_8c_a3bb3396490d4e7b1654cb9e7bedc1e67}{00048}}\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{struct_point3_d}{Point3D}}\ \doxymbox{\hyperlink{wiregfx_8c_a3bb3396490d4e7b1654cb9e7bedc1e67}{cube\_vertices}}[8]\ =\ \{}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00049}00049\ \ \ \ \ \{-\/16,\ -\/16,\ -\/16\},\ \{\ 16,\ -\/16,\ -\/16\},\ \{\ 16,\ \ 16,\ -\/16\},\ \{-\/16,\ \ 16,\ -\/16\},}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00050}00050\ \ \ \ \ \{-\/16,\ -\/16,\ \ 16\},\ \{\ 16,\ -\/16,\ \ 16\},\ \{\ 16,\ \ 16,\ \ 16\},\ \{-\/16,\ \ 16,\ \ 16\}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00051}00051\ \};}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00053}\doxymbox{\hyperlink{wiregfx_8c_aecc1a37d8a3eff4db9fdeb3a6d836215}{00053}}\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{wiregfx_8c_aecc1a37d8a3eff4db9fdeb3a6d836215}{cube\_edges}}[12][2]\ =\ \{}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00054}00054\ \ \ \ \ \{0,\ 1\},\ \{1,\ 2\},\ \{2,\ 3\},\ \{3,\ 0\},\ \{4,\ 5\},\ \{5,\ 6\},\ \{6,\ 7\},\ \{7,\ 4\},\ \{0,\ 4\},\ \{1,\ 5\},\ \{2,\ 6\},\ \{3,\ 7\}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00055}00055\ \};}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00057}\doxymbox{\hyperlink{wiregfx_8c_afd9f889e92a18dad325e83cb67b6a526}{00057}}\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{struct_point4_d}{Point4D}}\ \doxymbox{\hyperlink{wiregfx_8c_afd9f889e92a18dad325e83cb67b6a526}{tesseract\_vertices}}[16]\ =\ \{}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00058}00058\ \ \ \ \ \{-\/16,\ -\/16,\ -\/16,\ -\/16\},\ \{\ 16,\ -\/16,\ -\/16,\ -\/16\},\ \{\ 16,\ \ 16,\ -\/16,\ -\/16\},\ \{-\/16,\ \ 16,\ -\/16,\ -\/16\},}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00059}00059\ \ \ \ \ \{-\/16,\ -\/16,\ \ 16,\ -\/16\},\ \{\ 16,\ -\/16,\ \ 16,\ -\/16\},\ \{\ 16,\ \ 16,\ \ 16,\ -\/16\},\ \{-\/16,\ \ 16,\ \ 16,\ -\/16\},}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00060}00060\ \ \ \ \ \{-\/16,\ -\/16,\ -\/16,\ \ 16\},\ \{\ 16,\ -\/16,\ -\/16,\ \ 16\},\ \{\ 16,\ \ 16,\ -\/16,\ \ 16\},\ \{-\/16,\ \ 16,\ -\/16,\ \ 16\},}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00061}00061\ \ \ \ \ \{-\/16,\ -\/16,\ \ 16,\ \ 16\},\ \{\ 16,\ -\/16,\ \ 16,\ \ 16\},\ \{\ 16,\ \ 16,\ \ 16,\ \ 16\},\ \{-\/16,\ \ 16,\ \ 16,\ \ 16\}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00062}00062\ \};}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00064}\doxymbox{\hyperlink{wiregfx_8c_a2c25d0a928c29d1d3aa35427b5bc6b6d}{00064}}\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{wiregfx_8c_a2c25d0a928c29d1d3aa35427b5bc6b6d}{tesseract\_edges}}[32][2]\ =\ \{}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00065}00065\ \ \ \ \ \{0,1\},\ \{1,2\},\ \{2,3\},\ \{3,0\},\ \{4,5\},\ \{5,6\},\ \{6,7\},\ \{7,4\},\ \{0,4\},\ \{1,5\},\ \{2,6\},\ \{3,7\},}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00066}00066\ \ \ \ \ \{8,9\},\ \{9,10\},\ \{10,11\},\ \{11,8\},\ \{12,13\},\ \{13,14\},\ \{14,15\},\ \{15,12\},\ \{8,12\},\ \{9,13\},\ \{10,14\},\ \{11,15\},}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00067}00067\ \ \ \ \ \{0,8\},\ \{1,9\},\ \{2,10\},\ \{3,11\},\ \{4,12\},\ \{5,13\},\ \{6,14\},\ \{7,15\}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00068}00068\ \};}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00069}00069\ }
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00070}00070\ \textcolor{comment}{//\ -\/-\/-\/\ Vértices\ y\ Aristas\ de\ la\ Pirámide\ -\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00071}\doxymbox{\hyperlink{wiregfx_8c_a4b15c5c7bddb3ff3ef6ebfdeb9261161}{00071}}\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{struct_point3_d}{Point3D}}\ \doxymbox{\hyperlink{wiregfx_8c_a4b15c5c7bddb3ff3ef6ebfdeb9261161}{pyramid\_vertices}}[5]\ =\ \{}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00072}00072\ \ \ \ \ \{\ \ 0,\ -\/20,\ \ \ 0\},\ \textcolor{comment}{//\ 0:\ Punta\ (Apex)\ -\/\ Y\ negativo\ va\ hacia\ "{}arriba"{}\ en\ la\ pantalla}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00073}00073\ \ \ \ \ \{-\/16,\ \ 16,\ -\/16\},\ \textcolor{comment}{//\ 1:\ Base\ Izquierda-\/Atrás}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00074}00074\ \ \ \ \ \{\ 16,\ \ 16,\ -\/16\},\ \textcolor{comment}{//\ 2:\ Base\ Derecha-\/Atrás}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00075}00075\ \ \ \ \ \{\ 16,\ \ 16,\ \ 16\},\ \textcolor{comment}{//\ 3:\ Base\ Derecha-\/Adelante}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00076}00076\ \ \ \ \ \{-\/16,\ \ 16,\ \ 16\}\ \ \textcolor{comment}{//\ 4:\ Base\ Izquierda-\/Adelante}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00077}00077\ \};}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00078}00078\ }
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00079}\doxymbox{\hyperlink{wiregfx_8c_a4d1acf92c5a782faa68ac209e4cfe788}{00079}}\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{wiregfx_8c_a4d1acf92c5a782faa68ac209e4cfe788}{pyramid\_edges}}[8][2]\ =\ \{}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00080}00080\ \ \ \ \ \{0,\ 1\},\ \{0,\ 2\},\ \{0,\ 3\},\ \{0,\ 4\},\ \textcolor{comment}{//\ Lineas\ de\ la\ punta\ a\ la\ base}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00081}00081\ \ \ \ \ \{1,\ 2\},\ \{2,\ 3\},\ \{3,\ 4\},\ \{4,\ 1\}\ \ \textcolor{comment}{//\ Lineas\ que\ forman\ el\ cuadrado\ de\ la\ base}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00082}00082\ \};}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00083}00083\ }
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00084}00084\ \textcolor{comment}{//\ -\/-\/-\/\ Vértices\ y\ Aristas\ de\ la\ Esfera\ (Low-\/Poly)\ -\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00085}00085\ \textcolor{comment}{//\ Tiene\ un\ Polo\ Norte,\ un\ Polo\ Sur,\ y\ dos\ anillos\ (Ecuador\ y\ zonas\ templadas)}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00086}\doxymbox{\hyperlink{wiregfx_8c_a28fb0af1317ff851a80e435b55bf02d6}{00086}}\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{struct_point3_d}{Point3D}}\ \doxymbox{\hyperlink{wiregfx_8c_a28fb0af1317ff851a80e435b55bf02d6}{sphere\_vertices}}[14]\ =\ \{}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00087}00087\ \ \ \ \ \{\ \ 0,\ -\/20,\ \ \ 0\},\ \textcolor{comment}{//\ 0:\ Polo\ Norte}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00088}00088\ \ \ \ \ \{\ \ 0,\ \ 20,\ \ \ 0\},\ \textcolor{comment}{//\ 1:\ Polo\ Sur}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00089}00089\ }
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00090}00090\ \ \ \ \ \textcolor{comment}{//\ Anillo\ Superior\ (Y\ =\ -\/10)}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00091}00091\ \ \ \ \ \{\ 14,\ -\/10,\ \ \ 0\},\ \{\ \ 0,\ -\/10,\ \ 14\},\ \{-\/14,\ -\/10,\ \ \ 0\},\ \{\ \ 0,\ -\/10,\ -\/14\},}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00092}00092\ }
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00093}00093\ \ \ \ \ \textcolor{comment}{//\ Anillo\ Central\ (Ecuador,\ Y\ =\ 0)}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00094}00094\ \ \ \ \ \{\ 20,\ \ \ 0,\ \ \ 0\},\ \{\ \ 0,\ \ \ 0,\ \ 20\},\ \{-\/20,\ \ \ 0,\ \ \ 0\},\ \{\ \ 0,\ \ \ 0,\ -\/20\},}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00095}00095\ }
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00096}00096\ \ \ \ \ \textcolor{comment}{//\ Anillo\ Inferior\ (Y\ =\ 10)}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00097}00097\ \ \ \ \ \{\ 14,\ \ 10,\ \ \ 0\},\ \{\ \ 0,\ \ 10,\ \ 14\},\ \{-\/14,\ \ 10,\ \ \ 0\},\ \{\ \ 0,\ \ 10,\ -\/14\}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00098}00098\ \};}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00099}00099\ }
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00100}\doxymbox{\hyperlink{wiregfx_8c_a77606d6068502259c5de0b0bdd4ddd14}{00100}}\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{wiregfx_8c_a77606d6068502259c5de0b0bdd4ddd14}{sphere\_edges}}[24][2]\ =\ \{}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00101}00101\ \ \ \ \ \textcolor{comment}{//\ Conexiones\ del\ Polo\ Norte\ al\ anillo\ superior}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00102}00102\ \ \ \ \ \{0,\ 2\},\ \{0,\ 3\},\ \{0,\ 4\},\ \{0,\ 5\},}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00103}00103\ \ \ \ \ \textcolor{comment}{//\ Conexiones\ Anillo\ Sup\ -\/>\ Ecuador}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00104}00104\ \ \ \ \ \{2,\ 6\},\ \{3,\ 7\},\ \{4,\ 8\},\ \{5,\ 9\},}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00105}00105\ \ \ \ \ \{2,\ 7\},\ \{3,\ 8\},\ \{4,\ 9\},\ \{5,\ 6\},\ \textcolor{comment}{//\ Diagonales\ para\ dar\ volumen}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00106}00106\ \ \ \ \ \textcolor{comment}{//\ Conexiones\ Ecuador\ -\/>\ Anillo\ Inf}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00107}00107\ \ \ \ \ \{6,\ 10\},\ \{7,\ 11\},\ \{8,\ 12\},\ \{9,\ 13\},}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00108}00108\ \ \ \ \ \{7,\ 10\},\ \{8,\ 11\},\ \{9,\ 12\},\ \{6,\ 13\},\ \textcolor{comment}{//\ Diagonales}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00109}00109\ \ \ \ \ \textcolor{comment}{//\ Conexiones\ Anillo\ Inf\ -\/>\ Polo\ Sur}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00110}00110\ \ \ \ \ \{10,\ 1\},\ \{11,\ 1\},\ \{12,\ 1\},\ \{13,\ 1\}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00111}00111\ \};}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00112}00112\ \textcolor{comment}{//\ -\/-\/-\/\ Implementación\ de\ Funciones\ -\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00113}00113\ }
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00114}\doxymbox{\hyperlink{wiregfx_8h_aa040a177091d5ca94b339fc40ffe7006}{00114}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{wiregfx_8h_aa040a177091d5ca94b339fc40ffe7006}{WIREGFX\_Graphics\_DrawCube}}(\textcolor{keywordtype}{void})\ \{}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00115}00115\ \ \ \ \ \doxymbox{\hyperlink{struct_point2_d}{Point2D}}\ projected[8];}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00116}00116\ \ \ \ \ int32\_t\ sin\_x\ =\ \doxymbox{\hyperlink{wiregfx_8c_a31dcfeb0361aa1f281db225a98b22e5f}{sin\_LUT}}[\doxymbox{\hyperlink{wiregfx_8c_ab524463dacbe156ad8377887abd07839}{angle\_x}}];}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00117}00117\ \ \ \ \ int32\_t\ cos\_x\ =\ \doxymbox{\hyperlink{wiregfx_8c_a31dcfeb0361aa1f281db225a98b22e5f}{sin\_LUT}}[(uint8\_t)(\doxymbox{\hyperlink{wiregfx_8c_ab524463dacbe156ad8377887abd07839}{angle\_x}}\ +\ 64)];}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00118}00118\ \ \ \ \ int32\_t\ sin\_y\ =\ \doxymbox{\hyperlink{wiregfx_8c_a31dcfeb0361aa1f281db225a98b22e5f}{sin\_LUT}}[\doxymbox{\hyperlink{wiregfx_8c_a80b26bdd0e7515bcb7dab5e799e73d90}{angle\_y}}];}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00119}00119\ \ \ \ \ int32\_t\ cos\_y\ =\ \doxymbox{\hyperlink{wiregfx_8c_a31dcfeb0361aa1f281db225a98b22e5f}{sin\_LUT}}[(uint8\_t)(\doxymbox{\hyperlink{wiregfx_8c_a80b26bdd0e7515bcb7dab5e799e73d90}{angle\_y}}\ +\ 64)];}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00120}00120\ \ \ \ \ int32\_t\ sin\_z\ =\ \doxymbox{\hyperlink{wiregfx_8c_a31dcfeb0361aa1f281db225a98b22e5f}{sin\_LUT}}[\doxymbox{\hyperlink{wiregfx_8c_a06ef935d6fae1bed8d4fdde3ed2d8500}{angle\_z}}];}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00121}00121\ \ \ \ \ int32\_t\ cos\_z\ =\ \doxymbox{\hyperlink{wiregfx_8c_a31dcfeb0361aa1f281db225a98b22e5f}{sin\_LUT}}[(uint8\_t)(\doxymbox{\hyperlink{wiregfx_8c_a06ef935d6fae1bed8d4fdde3ed2d8500}{angle\_z}}\ +\ 64)];}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00122}00122\ }
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00123}00123\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a77620914b6d1247e7515a36c38672391}{ssd1306\_Fill}}(\doxymbox{\hyperlink{ssd1306_8h_a6f68a90e6eefe5396bcbec2cd699d500ac1e9bce8242f443c54c7405223d616cd}{Black}});}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00124}00124\ }
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00125}00125\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ 8;\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00126}00126\ \ \ \ \ \ \ \ \ int32\_t\ x\ =\ \doxymbox{\hyperlink{wiregfx_8c_a3bb3396490d4e7b1654cb9e7bedc1e67}{cube\_vertices}}[i].\doxymbox{\hyperlink{struct_point3_d_aac47db42875eea60c141fa2711bc05da}{x}};}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00127}00127\ \ \ \ \ \ \ \ \ int32\_t\ y\ =\ \doxymbox{\hyperlink{wiregfx_8c_a3bb3396490d4e7b1654cb9e7bedc1e67}{cube\_vertices}}[i].\doxymbox{\hyperlink{struct_point3_d_a95edfd4f1e1876312867eac04e74b657}{y}};}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00128}00128\ \ \ \ \ \ \ \ \ int32\_t\ z\ =\ \doxymbox{\hyperlink{wiregfx_8c_a3bb3396490d4e7b1654cb9e7bedc1e67}{cube\_vertices}}[i].\doxymbox{\hyperlink{struct_point3_d_a6ebcea10c74b8b9055838fc0d5aeddff}{z}};}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00129}00129\ }
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00130}00130\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Rotaciones\ (X,\ Y,\ Z)\ aplicando\ corrimiento\ >>\ 7\ para\ punto\ fijo}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00131}00131\ \ \ \ \ \ \ \ \ int32\_t\ xy\ =\ (y\ *\ cos\_x\ -\/\ z\ *\ sin\_x)\ >>\ 7;}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00132}00132\ \ \ \ \ \ \ \ \ int32\_t\ xz\ =\ (y\ *\ sin\_x\ +\ z\ *\ cos\_x)\ >>\ 7;}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00133}00133\ \ \ \ \ \ \ \ \ y\ =\ xy;\ z\ =\ xz;}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00134}00134\ }
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00135}00135\ \ \ \ \ \ \ \ \ int32\_t\ yx\ =\ (x\ *\ cos\_y\ +\ z\ *\ sin\_y)\ >>\ 7;}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00136}00136\ \ \ \ \ \ \ \ \ int32\_t\ yz\ =\ (-\/x\ *\ sin\_y\ +\ z\ *\ cos\_y)\ >>\ 7;}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00137}00137\ \ \ \ \ \ \ \ \ x\ =\ yx;\ z\ =\ yz;}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00138}00138\ }
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00139}00139\ \ \ \ \ \ \ \ \ int32\_t\ zx\ =\ (x\ *\ cos\_z\ -\/\ y\ *\ sin\_z)\ >>\ 7;}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00140}00140\ \ \ \ \ \ \ \ \ int32\_t\ zy\ =\ (x\ *\ sin\_z\ +\ y\ *\ cos\_z)\ >>\ 7;}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00141}00141\ \ \ \ \ \ \ \ \ x\ =\ zx;\ y\ =\ zy;}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00142}00142\ }
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00143}00143\ \ \ \ \ \ \ \ \ projected[i].\doxymbox{\hyperlink{struct_point2_d_a20dfae07a7e7084de11e3c0a90fd5ba0}{x}}\ =\ x\ +\ \doxymbox{\hyperlink{group___wire_g_f_x___config_gaffb36ca3a6519ca609cfa9a0d70a682a}{CENTER\_X}};}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00144}00144\ \ \ \ \ \ \ \ \ projected[i].\doxymbox{\hyperlink{struct_point2_d_a194b209717366ee3c45102701a49e922}{y}}\ =\ y\ +\ \doxymbox{\hyperlink{group___wire_g_f_x___config_ga65dba9379097de8ea0bb4afd9d504b2b}{CENTER\_Y}};}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00145}00145\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00146}00146\ }
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00147}00147\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ 12;\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00148}00148\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a99529b2a48960312342d3c323aadcec8}{ssd1306\_Line}}(projected[\doxymbox{\hyperlink{wiregfx_8c_aecc1a37d8a3eff4db9fdeb3a6d836215}{cube\_edges}}[i][0]].x,\ projected[\doxymbox{\hyperlink{wiregfx_8c_aecc1a37d8a3eff4db9fdeb3a6d836215}{cube\_edges}}[i][0]].y,}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00149}00149\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ projected[\doxymbox{\hyperlink{wiregfx_8c_aecc1a37d8a3eff4db9fdeb3a6d836215}{cube\_edges}}[i][1]].x,\ projected[\doxymbox{\hyperlink{wiregfx_8c_aecc1a37d8a3eff4db9fdeb3a6d836215}{cube\_edges}}[i][1]].y,\ \doxymbox{\hyperlink{ssd1306_8h_a6f68a90e6eefe5396bcbec2cd699d500ab548046646b36c12aa6ba841de500094}{White}});}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00150}00150\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00151}00151\ }
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00152}00152\ \ \ \ \ \doxymbox{\hyperlink{wiregfx_8c_ab524463dacbe156ad8377887abd07839}{angle\_x}}\ +=\ 2;\ \doxymbox{\hyperlink{wiregfx_8c_a80b26bdd0e7515bcb7dab5e799e73d90}{angle\_y}}\ +=\ 1;\ \doxymbox{\hyperlink{wiregfx_8c_a06ef935d6fae1bed8d4fdde3ed2d8500}{angle\_z}}\ +=\ 3;}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00153}00153\ \}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00154}00154\ }
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00155}\doxymbox{\hyperlink{wiregfx_8h_ad2de8c930d3b77da950022208a3c581c}{00155}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{wiregfx_8h_ad2de8c930d3b77da950022208a3c581c}{WIREGFX\_Graphics\_DrawTesseract}}(\textcolor{keywordtype}{void})\ \{}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00156}00156\ \ \ \ \ \doxymbox{\hyperlink{struct_point2_d}{Point2D}}\ projected[16];}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00157}00157\ \ \ \ \ int32\_t\ sin\_xz\ =\ \doxymbox{\hyperlink{wiregfx_8c_a31dcfeb0361aa1f281db225a98b22e5f}{sin\_LUT}}[\doxymbox{\hyperlink{wiregfx_8c_a1dd6556da34d6df771b77a181c129791}{angle\_xz}}];}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00158}00158\ \ \ \ \ int32\_t\ cos\_xz\ =\ \doxymbox{\hyperlink{wiregfx_8c_a31dcfeb0361aa1f281db225a98b22e5f}{sin\_LUT}}[(uint8\_t)(\doxymbox{\hyperlink{wiregfx_8c_a1dd6556da34d6df771b77a181c129791}{angle\_xz}}\ +\ 64)];}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00159}00159\ \ \ \ \ int32\_t\ sin\_yz\ =\ \doxymbox{\hyperlink{wiregfx_8c_a31dcfeb0361aa1f281db225a98b22e5f}{sin\_LUT}}[\doxymbox{\hyperlink{wiregfx_8c_ac19649c26af01b34b719bda7a4e0c5ff}{angle\_yz}}];}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00160}00160\ \ \ \ \ int32\_t\ cos\_yz\ =\ \doxymbox{\hyperlink{wiregfx_8c_a31dcfeb0361aa1f281db225a98b22e5f}{sin\_LUT}}[(uint8\_t)(\doxymbox{\hyperlink{wiregfx_8c_ac19649c26af01b34b719bda7a4e0c5ff}{angle\_yz}}\ +\ 64)];}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00161}00161\ \ \ \ \ int32\_t\ sin\_xw\ =\ \doxymbox{\hyperlink{wiregfx_8c_a31dcfeb0361aa1f281db225a98b22e5f}{sin\_LUT}}[\doxymbox{\hyperlink{wiregfx_8c_a05ecc5ecfd4f71d82e8b72bee2846b1d}{angle\_xw}}];}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00162}00162\ \ \ \ \ int32\_t\ cos\_xw\ =\ \doxymbox{\hyperlink{wiregfx_8c_a31dcfeb0361aa1f281db225a98b22e5f}{sin\_LUT}}[(uint8\_t)(\doxymbox{\hyperlink{wiregfx_8c_a05ecc5ecfd4f71d82e8b72bee2846b1d}{angle\_xw}}\ +\ 64)];}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00163}00163\ }
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00164}00164\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a77620914b6d1247e7515a36c38672391}{ssd1306\_Fill}}(\doxymbox{\hyperlink{ssd1306_8h_a6f68a90e6eefe5396bcbec2cd699d500ac1e9bce8242f443c54c7405223d616cd}{Black}});}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00165}00165\ }
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00166}00166\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ 16;\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00167}00167\ \ \ \ \ \ \ \ \ int32\_t\ x\ =\ \doxymbox{\hyperlink{wiregfx_8c_afd9f889e92a18dad325e83cb67b6a526}{tesseract\_vertices}}[i].\doxymbox{\hyperlink{struct_point4_d_afa208b7de233e9c26e8647481f4cdb3c}{x}};}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00168}00168\ \ \ \ \ \ \ \ \ int32\_t\ y\ =\ \doxymbox{\hyperlink{wiregfx_8c_afd9f889e92a18dad325e83cb67b6a526}{tesseract\_vertices}}[i].\doxymbox{\hyperlink{struct_point4_d_ae0503121411b6aa6d384b86601dab3ba}{y}};}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00169}00169\ \ \ \ \ \ \ \ \ int32\_t\ z\ =\ \doxymbox{\hyperlink{wiregfx_8c_afd9f889e92a18dad325e83cb67b6a526}{tesseract\_vertices}}[i].\doxymbox{\hyperlink{struct_point4_d_a20d9e81a16908b478280514a28ff1b3e}{z}};}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00170}00170\ \ \ \ \ \ \ \ \ int32\_t\ w\ =\ \doxymbox{\hyperlink{wiregfx_8c_afd9f889e92a18dad325e83cb67b6a526}{tesseract\_vertices}}[i].\doxymbox{\hyperlink{struct_point4_d_aaf6ac6494d64b38cd1744f1d654a5a28}{w}};}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00171}00171\ }
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00172}00172\ \ \ \ \ \ \ \ \ int32\_t\ xw\_x\ =\ (x\ *\ cos\_xw\ -\/\ w\ *\ sin\_xw)\ >>\ 7;}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00173}00173\ \ \ \ \ \ \ \ \ int32\_t\ xw\_w\ =\ (x\ *\ sin\_xw\ +\ w\ *\ cos\_xw)\ >>\ 7;}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00174}00174\ \ \ \ \ \ \ \ \ x\ =\ xw\_x;\ w\ =\ xw\_w;}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00175}00175\ }
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00176}00176\ \ \ \ \ \ \ \ \ int32\_t\ xz\_x\ =\ (x\ *\ cos\_xz\ -\/\ z\ *\ sin\_xz)\ >>\ 7;}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00177}00177\ \ \ \ \ \ \ \ \ int32\_t\ xz\_z\ =\ (x\ *\ sin\_xz\ +\ z\ *\ cos\_xz)\ >>\ 7;}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00178}00178\ \ \ \ \ \ \ \ \ x\ =\ xz\_x;\ z\ =\ xz\_z;}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00179}00179\ }
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00180}00180\ \ \ \ \ \ \ \ \ int32\_t\ yz\_y\ =\ (y\ *\ cos\_yz\ -\/\ z\ *\ sin\_yz)\ >>\ 7;}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00181}00181\ \ \ \ \ \ \ \ \ int32\_t\ yz\_z\ =\ (y\ *\ sin\_yz\ +\ z\ *\ cos\_yz)\ >>\ 7;}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00182}00182\ \ \ \ \ \ \ \ \ y\ =\ yz\_y;\ z\ =\ yz\_z;}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00183}00183\ }
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00184}00184\ \ \ \ \ \ \ \ \ int32\_t\ w\_factor\ =\ 48\ -\/\ w;}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00185}00185\ \ \ \ \ \ \ \ \ x\ =\ (x\ *\ w\_factor)\ >>\ 6;}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00186}00186\ \ \ \ \ \ \ \ \ y\ =\ (y\ *\ w\_factor)\ >>\ 6;}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00187}00187\ }
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00188}00188\ \ \ \ \ \ \ \ \ projected[i].\doxymbox{\hyperlink{struct_point2_d_a20dfae07a7e7084de11e3c0a90fd5ba0}{x}}\ =\ x\ +\ \doxymbox{\hyperlink{group___wire_g_f_x___config_gaffb36ca3a6519ca609cfa9a0d70a682a}{CENTER\_X}};}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00189}00189\ \ \ \ \ \ \ \ \ projected[i].\doxymbox{\hyperlink{struct_point2_d_a194b209717366ee3c45102701a49e922}{y}}\ =\ y\ +\ \doxymbox{\hyperlink{group___wire_g_f_x___config_ga65dba9379097de8ea0bb4afd9d504b2b}{CENTER\_Y}};}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00190}00190\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00191}00191\ }
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00192}00192\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ 32;\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00193}00193\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a99529b2a48960312342d3c323aadcec8}{ssd1306\_Line}}(projected[\doxymbox{\hyperlink{wiregfx_8c_a2c25d0a928c29d1d3aa35427b5bc6b6d}{tesseract\_edges}}[i][0]].x,\ projected[\doxymbox{\hyperlink{wiregfx_8c_a2c25d0a928c29d1d3aa35427b5bc6b6d}{tesseract\_edges}}[i][0]].y,}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00194}00194\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ projected[\doxymbox{\hyperlink{wiregfx_8c_a2c25d0a928c29d1d3aa35427b5bc6b6d}{tesseract\_edges}}[i][1]].x,\ projected[\doxymbox{\hyperlink{wiregfx_8c_a2c25d0a928c29d1d3aa35427b5bc6b6d}{tesseract\_edges}}[i][1]].y,\ \doxymbox{\hyperlink{ssd1306_8h_a6f68a90e6eefe5396bcbec2cd699d500ab548046646b36c12aa6ba841de500094}{White}});}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00195}00195\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00196}00196\ }
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00197}00197\ \ \ \ \ \doxymbox{\hyperlink{wiregfx_8c_a1dd6556da34d6df771b77a181c129791}{angle\_xz}}\ +=\ 1;\ \doxymbox{\hyperlink{wiregfx_8c_ac19649c26af01b34b719bda7a4e0c5ff}{angle\_yz}}\ +=\ 1;\ \doxymbox{\hyperlink{wiregfx_8c_a05ecc5ecfd4f71d82e8b72bee2846b1d}{angle\_xw}}\ +=\ 2;}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00198}00198\ \}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00199}00199\ }
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00200}\doxymbox{\hyperlink{wiregfx_8h_af013fb800cc4848c93ea2dda220eaf6e}{00200}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{wiregfx_8h_af013fb800cc4848c93ea2dda220eaf6e}{WIREGFX\_Graphics\_DrawPyramid}}(\textcolor{keywordtype}{void})\ \{}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00201}00201\ \ \ \ \ \doxymbox{\hyperlink{struct_point2_d}{Point2D}}\ projected[5];}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00202}00202\ \ \ \ \ int32\_t\ sin\_x\ =\ \doxymbox{\hyperlink{wiregfx_8c_a31dcfeb0361aa1f281db225a98b22e5f}{sin\_LUT}}[\doxymbox{\hyperlink{wiregfx_8c_ab524463dacbe156ad8377887abd07839}{angle\_x}}];}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00203}00203\ \ \ \ \ int32\_t\ cos\_x\ =\ \doxymbox{\hyperlink{wiregfx_8c_a31dcfeb0361aa1f281db225a98b22e5f}{sin\_LUT}}[(uint8\_t)(\doxymbox{\hyperlink{wiregfx_8c_ab524463dacbe156ad8377887abd07839}{angle\_x}}\ +\ 64)];}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00204}00204\ \ \ \ \ int32\_t\ sin\_y\ =\ \doxymbox{\hyperlink{wiregfx_8c_a31dcfeb0361aa1f281db225a98b22e5f}{sin\_LUT}}[\doxymbox{\hyperlink{wiregfx_8c_a80b26bdd0e7515bcb7dab5e799e73d90}{angle\_y}}];}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00205}00205\ \ \ \ \ int32\_t\ cos\_y\ =\ \doxymbox{\hyperlink{wiregfx_8c_a31dcfeb0361aa1f281db225a98b22e5f}{sin\_LUT}}[(uint8\_t)(\doxymbox{\hyperlink{wiregfx_8c_a80b26bdd0e7515bcb7dab5e799e73d90}{angle\_y}}\ +\ 64)];}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00206}00206\ \ \ \ \ int32\_t\ sin\_z\ =\ \doxymbox{\hyperlink{wiregfx_8c_a31dcfeb0361aa1f281db225a98b22e5f}{sin\_LUT}}[\doxymbox{\hyperlink{wiregfx_8c_a06ef935d6fae1bed8d4fdde3ed2d8500}{angle\_z}}];}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00207}00207\ \ \ \ \ int32\_t\ cos\_z\ =\ \doxymbox{\hyperlink{wiregfx_8c_a31dcfeb0361aa1f281db225a98b22e5f}{sin\_LUT}}[(uint8\_t)(\doxymbox{\hyperlink{wiregfx_8c_a06ef935d6fae1bed8d4fdde3ed2d8500}{angle\_z}}\ +\ 64)];}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00208}00208\ }
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00209}00209\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a77620914b6d1247e7515a36c38672391}{ssd1306\_Fill}}(\doxymbox{\hyperlink{ssd1306_8h_a6f68a90e6eefe5396bcbec2cd699d500ac1e9bce8242f443c54c7405223d616cd}{Black}});}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00210}00210\ }
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00211}00211\ \ \ \ \ \textcolor{comment}{//\ 1.\ Rotar\ y\ proyectar\ los\ 5\ vértices}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00212}00212\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ 5;\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00213}00213\ \ \ \ \ \ \ \ \ int32\_t\ x\ =\ \doxymbox{\hyperlink{wiregfx_8c_a4b15c5c7bddb3ff3ef6ebfdeb9261161}{pyramid\_vertices}}[i].\doxymbox{\hyperlink{struct_point3_d_aac47db42875eea60c141fa2711bc05da}{x}};}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00214}00214\ \ \ \ \ \ \ \ \ int32\_t\ y\ =\ \doxymbox{\hyperlink{wiregfx_8c_a4b15c5c7bddb3ff3ef6ebfdeb9261161}{pyramid\_vertices}}[i].\doxymbox{\hyperlink{struct_point3_d_a95edfd4f1e1876312867eac04e74b657}{y}};}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00215}00215\ \ \ \ \ \ \ \ \ int32\_t\ z\ =\ \doxymbox{\hyperlink{wiregfx_8c_a4b15c5c7bddb3ff3ef6ebfdeb9261161}{pyramid\_vertices}}[i].\doxymbox{\hyperlink{struct_point3_d_a6ebcea10c74b8b9055838fc0d5aeddff}{z}};}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00216}00216\ }
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00217}00217\ \ \ \ \ \ \ \ \ int32\_t\ xy\ =\ (y\ *\ cos\_x\ -\/\ z\ *\ sin\_x)\ >>\ 7;}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00218}00218\ \ \ \ \ \ \ \ \ int32\_t\ xz\ =\ (y\ *\ sin\_x\ +\ z\ *\ cos\_x)\ >>\ 7;}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00219}00219\ \ \ \ \ \ \ \ \ y\ =\ xy;\ z\ =\ xz;}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00220}00220\ }
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00221}00221\ \ \ \ \ \ \ \ \ int32\_t\ yx\ =\ (x\ *\ cos\_y\ +\ z\ *\ sin\_y)\ >>\ 7;}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00222}00222\ \ \ \ \ \ \ \ \ int32\_t\ yz\ =\ (-\/x\ *\ sin\_y\ +\ z\ *\ cos\_y)\ >>\ 7;}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00223}00223\ \ \ \ \ \ \ \ \ x\ =\ yx;\ z\ =\ yz;}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00224}00224\ }
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00225}00225\ \ \ \ \ \ \ \ \ int32\_t\ zx\ =\ (x\ *\ cos\_z\ -\/\ y\ *\ sin\_z)\ >>\ 7;}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00226}00226\ \ \ \ \ \ \ \ \ int32\_t\ zy\ =\ (x\ *\ sin\_z\ +\ y\ *\ cos\_z)\ >>\ 7;}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00227}00227\ \ \ \ \ \ \ \ \ x\ =\ zx;\ y\ =\ zy;}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00228}00228\ }
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00229}00229\ \ \ \ \ \ \ \ \ projected[i].\doxymbox{\hyperlink{struct_point2_d_a20dfae07a7e7084de11e3c0a90fd5ba0}{x}}\ =\ x\ +\ \doxymbox{\hyperlink{group___wire_g_f_x___config_gaffb36ca3a6519ca609cfa9a0d70a682a}{CENTER\_X}};}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00230}00230\ \ \ \ \ \ \ \ \ projected[i].\doxymbox{\hyperlink{struct_point2_d_a194b209717366ee3c45102701a49e922}{y}}\ =\ y\ +\ \doxymbox{\hyperlink{group___wire_g_f_x___config_ga65dba9379097de8ea0bb4afd9d504b2b}{CENTER\_Y}};}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00231}00231\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00232}00232\ }
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00233}00233\ \ \ \ \ \textcolor{comment}{//\ 2.\ Dibujar\ las\ 8\ aristas}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00234}00234\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ 8;\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00235}00235\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a99529b2a48960312342d3c323aadcec8}{ssd1306\_Line}}(projected[\doxymbox{\hyperlink{wiregfx_8c_a4d1acf92c5a782faa68ac209e4cfe788}{pyramid\_edges}}[i][0]].x,\ projected[\doxymbox{\hyperlink{wiregfx_8c_a4d1acf92c5a782faa68ac209e4cfe788}{pyramid\_edges}}[i][0]].y,}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00236}00236\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ projected[\doxymbox{\hyperlink{wiregfx_8c_a4d1acf92c5a782faa68ac209e4cfe788}{pyramid\_edges}}[i][1]].x,\ projected[\doxymbox{\hyperlink{wiregfx_8c_a4d1acf92c5a782faa68ac209e4cfe788}{pyramid\_edges}}[i][1]].y,\ \doxymbox{\hyperlink{ssd1306_8h_a6f68a90e6eefe5396bcbec2cd699d500ab548046646b36c12aa6ba841de500094}{White}});}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00237}00237\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00238}00238\ }
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00239}00239\ \ \ \ \ \textcolor{comment}{//\ Incremento\ de\ ángulos\ (puedes\ jugar\ con\ estos\ valores)}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00240}00240\ \ \ \ \ \doxymbox{\hyperlink{wiregfx_8c_ab524463dacbe156ad8377887abd07839}{angle\_x}}\ +=\ 2;\ \doxymbox{\hyperlink{wiregfx_8c_a80b26bdd0e7515bcb7dab5e799e73d90}{angle\_y}}\ +=\ 3;\ \doxymbox{\hyperlink{wiregfx_8c_a06ef935d6fae1bed8d4fdde3ed2d8500}{angle\_z}}\ +=\ 1;}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00241}00241\ \}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00242}00242\ }
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00243}\doxymbox{\hyperlink{wiregfx_8h_ab0f2ac846917b11ac3fa0a4325687066}{00243}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{wiregfx_8h_ab0f2ac846917b11ac3fa0a4325687066}{WIREGFX\_Graphics\_DrawSphere}}(\textcolor{keywordtype}{void})\ \{}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00244}00244\ \ \ \ \ \doxymbox{\hyperlink{struct_point2_d}{Point2D}}\ projected[14];\ \textcolor{comment}{//\ 14\ vértices}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00245}00245\ }
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00246}00246\ \ \ \ \ int32\_t\ sin\_x\ =\ \doxymbox{\hyperlink{wiregfx_8c_a31dcfeb0361aa1f281db225a98b22e5f}{sin\_LUT}}[\doxymbox{\hyperlink{wiregfx_8c_ab524463dacbe156ad8377887abd07839}{angle\_x}}];}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00247}00247\ \ \ \ \ int32\_t\ cos\_x\ =\ \doxymbox{\hyperlink{wiregfx_8c_a31dcfeb0361aa1f281db225a98b22e5f}{sin\_LUT}}[(uint8\_t)(\doxymbox{\hyperlink{wiregfx_8c_ab524463dacbe156ad8377887abd07839}{angle\_x}}\ +\ 64)];}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00248}00248\ \ \ \ \ int32\_t\ sin\_y\ =\ \doxymbox{\hyperlink{wiregfx_8c_a31dcfeb0361aa1f281db225a98b22e5f}{sin\_LUT}}[\doxymbox{\hyperlink{wiregfx_8c_a80b26bdd0e7515bcb7dab5e799e73d90}{angle\_y}}];}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00249}00249\ \ \ \ \ int32\_t\ cos\_y\ =\ \doxymbox{\hyperlink{wiregfx_8c_a31dcfeb0361aa1f281db225a98b22e5f}{sin\_LUT}}[(uint8\_t)(\doxymbox{\hyperlink{wiregfx_8c_a80b26bdd0e7515bcb7dab5e799e73d90}{angle\_y}}\ +\ 64)];}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00250}00250\ \ \ \ \ int32\_t\ sin\_z\ =\ \doxymbox{\hyperlink{wiregfx_8c_a31dcfeb0361aa1f281db225a98b22e5f}{sin\_LUT}}[\doxymbox{\hyperlink{wiregfx_8c_a06ef935d6fae1bed8d4fdde3ed2d8500}{angle\_z}}];}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00251}00251\ \ \ \ \ int32\_t\ cos\_z\ =\ \doxymbox{\hyperlink{wiregfx_8c_a31dcfeb0361aa1f281db225a98b22e5f}{sin\_LUT}}[(uint8\_t)(\doxymbox{\hyperlink{wiregfx_8c_a06ef935d6fae1bed8d4fdde3ed2d8500}{angle\_z}}\ +\ 64)];}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00252}00252\ }
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00253}00253\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a77620914b6d1247e7515a36c38672391}{ssd1306\_Fill}}(\doxymbox{\hyperlink{ssd1306_8h_a6f68a90e6eefe5396bcbec2cd699d500ac1e9bce8242f443c54c7405223d616cd}{Black}});}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00254}00254\ }
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00255}00255\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ 14;\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00256}00256\ \ \ \ \ \ \ \ \ int32\_t\ x\ =\ \doxymbox{\hyperlink{wiregfx_8c_a28fb0af1317ff851a80e435b55bf02d6}{sphere\_vertices}}[i].\doxymbox{\hyperlink{struct_point3_d_aac47db42875eea60c141fa2711bc05da}{x}};}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00257}00257\ \ \ \ \ \ \ \ \ int32\_t\ y\ =\ \doxymbox{\hyperlink{wiregfx_8c_a28fb0af1317ff851a80e435b55bf02d6}{sphere\_vertices}}[i].\doxymbox{\hyperlink{struct_point3_d_a95edfd4f1e1876312867eac04e74b657}{y}};}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00258}00258\ \ \ \ \ \ \ \ \ int32\_t\ z\ =\ \doxymbox{\hyperlink{wiregfx_8c_a28fb0af1317ff851a80e435b55bf02d6}{sphere\_vertices}}[i].\doxymbox{\hyperlink{struct_point3_d_a6ebcea10c74b8b9055838fc0d5aeddff}{z}};}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00259}00259\ }
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00260}00260\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Rotaciones\ matriciales}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00261}00261\ \ \ \ \ \ \ \ \ int32\_t\ xy\ =\ (y\ *\ cos\_x\ -\/\ z\ *\ sin\_x)\ >>\ 7;}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00262}00262\ \ \ \ \ \ \ \ \ int32\_t\ xz\ =\ (y\ *\ sin\_x\ +\ z\ *\ cos\_x)\ >>\ 7;}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00263}00263\ \ \ \ \ \ \ \ \ y\ =\ xy;\ z\ =\ xz;}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00264}00264\ }
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00265}00265\ \ \ \ \ \ \ \ \ int32\_t\ yx\ =\ (x\ *\ cos\_y\ +\ z\ *\ sin\_y)\ >>\ 7;}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00266}00266\ \ \ \ \ \ \ \ \ int32\_t\ yz\ =\ (-\/x\ *\ sin\_y\ +\ z\ *\ cos\_y)\ >>\ 7;}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00267}00267\ \ \ \ \ \ \ \ \ x\ =\ yx;\ z\ =\ yz;}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00268}00268\ }
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00269}00269\ \ \ \ \ \ \ \ \ int32\_t\ zx\ =\ (x\ *\ cos\_z\ -\/\ y\ *\ sin\_z)\ >>\ 7;}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00270}00270\ \ \ \ \ \ \ \ \ int32\_t\ zy\ =\ (x\ *\ sin\_z\ +\ y\ *\ cos\_z)\ >>\ 7;}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00271}00271\ \ \ \ \ \ \ \ \ x\ =\ zx;\ y\ =\ zy;}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00272}00272\ }
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00273}00273\ \ \ \ \ \ \ \ \ projected[i].\doxymbox{\hyperlink{struct_point2_d_a20dfae07a7e7084de11e3c0a90fd5ba0}{x}}\ =\ x\ +\ \doxymbox{\hyperlink{group___wire_g_f_x___config_gaffb36ca3a6519ca609cfa9a0d70a682a}{CENTER\_X}};}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00274}00274\ \ \ \ \ \ \ \ \ projected[i].\doxymbox{\hyperlink{struct_point2_d_a194b209717366ee3c45102701a49e922}{y}}\ =\ y\ +\ \doxymbox{\hyperlink{group___wire_g_f_x___config_ga65dba9379097de8ea0bb4afd9d504b2b}{CENTER\_Y}};}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00275}00275\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00276}00276\ }
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00277}00277\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ 24;\ i++)\ \{\ \textcolor{comment}{//\ 24\ aristas}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00278}00278\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a99529b2a48960312342d3c323aadcec8}{ssd1306\_Line}}(projected[\doxymbox{\hyperlink{wiregfx_8c_a77606d6068502259c5de0b0bdd4ddd14}{sphere\_edges}}[i][0]].x,\ projected[\doxymbox{\hyperlink{wiregfx_8c_a77606d6068502259c5de0b0bdd4ddd14}{sphere\_edges}}[i][0]].y,}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00279}00279\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ projected[\doxymbox{\hyperlink{wiregfx_8c_a77606d6068502259c5de0b0bdd4ddd14}{sphere\_edges}}[i][1]].x,\ projected[\doxymbox{\hyperlink{wiregfx_8c_a77606d6068502259c5de0b0bdd4ddd14}{sphere\_edges}}[i][1]].y,\ \doxymbox{\hyperlink{ssd1306_8h_a6f68a90e6eefe5396bcbec2cd699d500ab548046646b36c12aa6ba841de500094}{White}});}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00280}00280\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00281}00281\ }
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00282}00282\ \ \ \ \ \doxymbox{\hyperlink{wiregfx_8c_ab524463dacbe156ad8377887abd07839}{angle\_x}}\ +=\ 1;\ \doxymbox{\hyperlink{wiregfx_8c_a80b26bdd0e7515bcb7dab5e799e73d90}{angle\_y}}\ +=\ 2;\ \doxymbox{\hyperlink{wiregfx_8c_a06ef935d6fae1bed8d4fdde3ed2d8500}{angle\_z}}\ +=\ 1;\ \textcolor{comment}{//\ Giro\ suave}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00283}00283\ \}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00284}00284\ }
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00285}\doxymbox{\hyperlink{wiregfx_8c_aa36114bb09d841e9432302e300d3b781}{00285}}\ \textcolor{keyword}{static}\ uint32\_t\ \doxymbox{\hyperlink{wiregfx_8c_aa36114bb09d841e9432302e300d3b781}{wiregfx\_last\_switch\_tick}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00286}\doxymbox{\hyperlink{wiregfx_8c_ad227f5a9c4231508fefba8fbe1f994e6}{00286}}\ \textcolor{keyword}{static}\ uint8\_t\ \doxymbox{\hyperlink{wiregfx_8c_ad227f5a9c4231508fefba8fbe1f994e6}{wiregfx\_figure\_index}}\ =\ 0;\ \textcolor{comment}{//\ 0:\ Cubo,\ 1:\ Teseracto,\ 2:\ Pirámide}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00287}00287\ }
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00288}\doxymbox{\hyperlink{wiregfx_8h_a6713ee890930c608f8ce3238a1ce9443}{00288}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{wiregfx_8h_a6713ee890930c608f8ce3238a1ce9443}{WIREGFX\_ResetCycle}}(\textcolor{keywordtype}{void})\ \{}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00289}00289\ \ \ \ \ \doxymbox{\hyperlink{wiregfx_8c_aa36114bb09d841e9432302e300d3b781}{wiregfx\_last\_switch\_tick}}\ =\ \doxymbox{\hyperlink{group___h_a_l___exported___functions___group2_gac9b3a85a73735ac840d0dcb59bc0fdd6}{HAL\_GetTick}}();}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00290}00290\ \ \ \ \ \doxymbox{\hyperlink{wiregfx_8c_ad227f5a9c4231508fefba8fbe1f994e6}{wiregfx\_figure\_index}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00291}00291\ \}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00292}00292\ }
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00293}\doxymbox{\hyperlink{wiregfx_8h_a369fa94b542724966d415a205d719cd6}{00293}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{wiregfx_8h_a369fa94b542724966d415a205d719cd6}{WIREGFX\_DisplayTask}}(\textcolor{keywordtype}{void})\ \{}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00294}00294\ \ \ \ \ uint32\_t\ now\ =\ \doxymbox{\hyperlink{group___h_a_l___exported___functions___group2_gac9b3a85a73735ac840d0dcb59bc0fdd6}{HAL\_GetTick}}();}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00295}00295\ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{wiregfx_8c_aa36114bb09d841e9432302e300d3b781}{wiregfx\_last\_switch\_tick}}\ ==\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00296}00296\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{wiregfx_8c_aa36114bb09d841e9432302e300d3b781}{wiregfx\_last\_switch\_tick}}\ =\ now;}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00297}00297\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00298}00298\ }
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00299}00299\ \ \ \ \ \textcolor{comment}{//\ Cada\ 10\ segundos\ (10,000\ ms)\ se\ cambia\ de\ figura}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00300}00300\ \ \ \ \ \textcolor{keywordflow}{if}\ ((now\ -\/\ \doxymbox{\hyperlink{wiregfx_8c_aa36114bb09d841e9432302e300d3b781}{wiregfx\_last\_switch\_tick}})\ >=\ 10000)\ \{}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00301}00301\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{wiregfx_8c_aa36114bb09d841e9432302e300d3b781}{wiregfx\_last\_switch\_tick}}\ =\ now;}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00302}00302\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{wiregfx_8c_ad227f5a9c4231508fefba8fbe1f994e6}{wiregfx\_figure\_index}}\ =\ (\doxymbox{\hyperlink{wiregfx_8c_ad227f5a9c4231508fefba8fbe1f994e6}{wiregfx\_figure\_index}}\ +\ 1)\ \%\ 3;}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00303}00303\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00304}00304\ }
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00305}00305\ \ \ \ \ \textcolor{comment}{//\ Orden\ de\ renderizado:\ Cubo\ -\/>\ Teseracto\ -\/>\ Pirámide}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00306}00306\ \ \ \ \ \textcolor{keywordflow}{switch}\ (\doxymbox{\hyperlink{wiregfx_8c_ad227f5a9c4231508fefba8fbe1f994e6}{wiregfx\_figure\_index}})\ \{}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00307}00307\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 0:}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00308}00308\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{wiregfx_8h_aa040a177091d5ca94b339fc40ffe7006}{WIREGFX\_Graphics\_DrawCube}}();}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00309}00309\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00310}00310\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 1:}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00311}00311\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{wiregfx_8h_ad2de8c930d3b77da950022208a3c581c}{WIREGFX\_Graphics\_DrawTesseract}}();}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00312}00312\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00313}00313\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 2:}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00314}00314\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{wiregfx_8h_af013fb800cc4848c93ea2dda220eaf6e}{WIREGFX\_Graphics\_DrawPyramid}}();}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00315}00315\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00316}00316\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00317}00317\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{wiregfx_8c_ad227f5a9c4231508fefba8fbe1f994e6}{wiregfx\_figure\_index}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00318}00318\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{wiregfx_8h_aa040a177091d5ca94b339fc40ffe7006}{WIREGFX\_Graphics\_DrawCube}}();}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00319}00319\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00320}00320\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8c_source_l00321}00321\ \}}
+
+\end{DoxyCode}

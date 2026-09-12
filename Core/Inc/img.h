@@ -1,14 +1,19 @@
-/*
- * img.h
- *
- *  Created on: Jun 2, 2025
- *      Author: gonza
+/**
+ * @file   img.h
+ * @author Gonzalo M. Buffa
+ * @date   02/06/2025
+ * @brief  Mapas de bits monocromáticos (Bitmaps) para presentación en display OLED SSD1306.
+ * @details Contiene arreglos binarios de imágenes estáticas (128x64 píxeles) para pantallas de
+ *          bienvenida (Splash screen) y logotipos de presentación.
+ * @ingroup group_ui_graphics
  */
 
 #ifndef INC_IMG_H_
 #define INC_IMG_H_
 
-// 'Chat-GPT-Logo-lowpoly', 128x64px
+/**
+ * @brief Logotipo monocromático de 128x64 píxeles para splash screen en display OLED.
+ */
 const unsigned char chat_gpt_128x64 [] = {
 	0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
 	0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,

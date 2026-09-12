@@ -1,0 +1,566 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>MICRO-Firmware: Referencia del archivo stm32f1xx_hal_tim.c</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="codefolding.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  extensions: ["tex2jax.js"],
+  jax: ["input/TeX","output/HTML-CSS"],
+});
+</script>
+<script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">MICRO-Firmware<span id="projectnumber">&#160;EX100923v01</span>
+   </div>
+   <div id="projectbrief">Firmware de Péndulo Invertido Autónomo de Dos Ruedas (STM32F103C8T6 - ARM Cortex-M3)</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Buscar" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('stm32f1xx__hal__tim_8c.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">Referencia del archivo stm32f1xx_hal_tim.c</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>TIM HAL module driver. This file provides firmware functions to manage the following functionalities of the Timer (TIM) peripheral:  
+<a href="#details">Más...</a></p>
+<div class="textblock"><code>#include &quot;<a class="el" href="stm32f1xx__hal_8h_source.html">stm32f1xx_hal.h</a>&quot;</code><br />
+</div><div class="textblock"><div id="dynsection-0" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de dependencias incluidas en stm32f1xx_hal_tim.c:</div>
+<div id="dynsection-0-summary" class="dynsummary">
+</div>
+<div id="dynsection-0-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="stm32f1xx__hal__tim_8c__incl.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+</div>
+<p><a href="stm32f1xx__hal__tim_8c_source.html">Ir al código fuente de este archivo.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Funciones</h2></td></tr>
+<tr class="memitem:gaaf97adbc39e48456a1c83c54895de83b" id="r_gaaf97adbc39e48456a1c83c54895de83b"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group1.html#gaaf97adbc39e48456a1c83c54895de83b">HAL_TIM_Base_DeInit</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim)</td></tr>
+<tr class="memdesc:gaaf97adbc39e48456a1c83c54895de83b"><td class="mdescLeft">&#160;</td><td class="mdescRight">DeInitializes the TIM Base peripheral.  <br /></td></tr>
+<tr class="memitem:ga42bb3b65bc8be378b82748feb9898b75" id="r_ga42bb3b65bc8be378b82748feb9898b75"><td class="memItemLeft"><a class="el" href="group___t_i_m___exported___types.html#gae0994cf5970e56ca4903e9151f40010c">HAL_TIM_StateTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group10.html#ga42bb3b65bc8be378b82748feb9898b75">HAL_TIM_Base_GetState</a> (const <a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim)</td></tr>
+<tr class="memdesc:ga42bb3b65bc8be378b82748feb9898b75"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the TIM Base handle state.  <br /></td></tr>
+<tr class="memitem:ga1b288eb68eb52c97b8d187cdd6e9088f" id="r_ga1b288eb68eb52c97b8d187cdd6e9088f"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group1.html#ga1b288eb68eb52c97b8d187cdd6e9088f">HAL_TIM_Base_Init</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim)</td></tr>
+<tr class="memdesc:ga1b288eb68eb52c97b8d187cdd6e9088f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the TIM Time base Unit according to the specified parameters in the <a class="el" href="struct_t_i_m___handle_type_def.html" title="TIM Time Base Handle Structure definition.">TIM_HandleTypeDef</a> and initialize the associated handle.  <br /></td></tr>
+<tr class="memitem:ga13352a6c9cb3225511e5f29dbb894e84" id="r_ga13352a6c9cb3225511e5f29dbb894e84"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group1.html#ga13352a6c9cb3225511e5f29dbb894e84">HAL_TIM_Base_MspDeInit</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim)</td></tr>
+<tr class="memdesc:ga13352a6c9cb3225511e5f29dbb894e84"><td class="mdescLeft">&#160;</td><td class="mdescRight">DeInitializes TIM Base MSP.  <br /></td></tr>
+<tr class="memitem:ga818f4d5d1e2f417438d281b4ac9efb9c" id="r_ga818f4d5d1e2f417438d281b4ac9efb9c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group1.html#ga818f4d5d1e2f417438d281b4ac9efb9c">HAL_TIM_Base_MspInit</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim)</td></tr>
+<tr class="memdesc:ga818f4d5d1e2f417438d281b4ac9efb9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the TIM Base MSP.  <br /></td></tr>
+<tr class="memitem:gaf7e5ee80207a338050413e14f7bd24f9" id="r_gaf7e5ee80207a338050413e14f7bd24f9"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group1.html#gaf7e5ee80207a338050413e14f7bd24f9">HAL_TIM_Base_Start</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim)</td></tr>
+<tr class="memdesc:gaf7e5ee80207a338050413e14f7bd24f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts the TIM Base generation.  <br /></td></tr>
+<tr class="memitem:ga263ffa0db8285daa9ca0010690079203" id="r_ga263ffa0db8285daa9ca0010690079203"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group1.html#ga263ffa0db8285daa9ca0010690079203">HAL_TIM_Base_Start_DMA</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, const uint32_t *pData, uint16_t Length)</td></tr>
+<tr class="memdesc:ga263ffa0db8285daa9ca0010690079203"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts the TIM Base generation in DMA mode.  <br /></td></tr>
+<tr class="memitem:gae517d80e2ac713069767df8e8915971e" id="r_gae517d80e2ac713069767df8e8915971e"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group1.html#gae517d80e2ac713069767df8e8915971e">HAL_TIM_Base_Start_IT</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim)</td></tr>
+<tr class="memdesc:gae517d80e2ac713069767df8e8915971e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts the TIM Base generation in interrupt mode.  <br /></td></tr>
+<tr class="memitem:ga78697261126cd2facc463b81e8c4b238" id="r_ga78697261126cd2facc463b81e8c4b238"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group1.html#ga78697261126cd2facc463b81e8c4b238">HAL_TIM_Base_Stop</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim)</td></tr>
+<tr class="memdesc:ga78697261126cd2facc463b81e8c4b238"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stops the TIM Base generation.  <br /></td></tr>
+<tr class="memitem:ga7673776de6e35f5cbe887e62e13e87b5" id="r_ga7673776de6e35f5cbe887e62e13e87b5"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group1.html#ga7673776de6e35f5cbe887e62e13e87b5">HAL_TIM_Base_Stop_DMA</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim)</td></tr>
+<tr class="memdesc:ga7673776de6e35f5cbe887e62e13e87b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stops the TIM Base generation in DMA mode.  <br /></td></tr>
+<tr class="memitem:ga19443605c97f15b5ede7d8337534ece4" id="r_ga19443605c97f15b5ede7d8337534ece4"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group1.html#ga19443605c97f15b5ede7d8337534ece4">HAL_TIM_Base_Stop_IT</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim)</td></tr>
+<tr class="memdesc:ga19443605c97f15b5ede7d8337534ece4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stops the TIM Base generation in interrupt mode.  <br /></td></tr>
+<tr class="memitem:gaa29ed013caefca2a181a1cabac66d521" id="r_gaa29ed013caefca2a181a1cabac66d521"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group8.html#gaa29ed013caefca2a181a1cabac66d521">HAL_TIM_ConfigClockSource</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, const <a class="el" href="struct_t_i_m___clock_config_type_def.html">TIM_ClockConfigTypeDef</a> *sClockSourceConfig)</td></tr>
+<tr class="memdesc:gaa29ed013caefca2a181a1cabac66d521"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures the clock source to be used.  <br /></td></tr>
+<tr class="memitem:gae194787f5481c163b6eec962ed7ff205" id="r_gae194787f5481c163b6eec962ed7ff205"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group8.html#gae194787f5481c163b6eec962ed7ff205">HAL_TIM_ConfigOCrefClear</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, const <a class="el" href="struct_t_i_m___clear_input_config_type_def.html">TIM_ClearInputConfigTypeDef</a> *sClearInputConfig, uint32_t Channel)</td></tr>
+<tr class="memdesc:gae194787f5481c163b6eec962ed7ff205"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures the OCRef clear feature.  <br /></td></tr>
+<tr class="memitem:ga7dfab2adafd2f2e315a9531f1150c201" id="r_ga7dfab2adafd2f2e315a9531f1150c201"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group8.html#ga7dfab2adafd2f2e315a9531f1150c201">HAL_TIM_ConfigTI1Input</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, uint32_t TI1_Selection)</td></tr>
+<tr class="memdesc:ga7dfab2adafd2f2e315a9531f1150c201"><td class="mdescLeft">&#160;</td><td class="mdescRight">Selects the signal connected to the TI1 input: direct from CH1_input or a XOR combination between CH1_input, CH2_input &amp; CH3_input.  <br /></td></tr>
+<tr class="memitem:ga741807469bb3349d9a63fb492d277b41" id="r_ga741807469bb3349d9a63fb492d277b41"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group8.html#ga741807469bb3349d9a63fb492d277b41">HAL_TIM_DMABurst_MultiReadStart</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, uint32_t BurstBaseAddress, uint32_t BurstRequestSrc, uint32_t *BurstBuffer, uint32_t BurstLength, uint32_t DataLength)</td></tr>
+<tr class="memdesc:ga741807469bb3349d9a63fb492d277b41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure the DMA Burst to transfer Data from the TIM peripheral to the memory.  <br /></td></tr>
+<tr class="memitem:ga0c198603c11b2e0140dabd8dcdb5a0ff" id="r_ga0c198603c11b2e0140dabd8dcdb5a0ff"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group8.html#ga0c198603c11b2e0140dabd8dcdb5a0ff">HAL_TIM_DMABurst_MultiWriteStart</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, uint32_t BurstBaseAddress, uint32_t BurstRequestSrc, const uint32_t *BurstBuffer, uint32_t BurstLength, uint32_t DataLength)</td></tr>
+<tr class="memdesc:ga0c198603c11b2e0140dabd8dcdb5a0ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure the DMA Burst to transfer multiple Data from the memory to the TIM peripheral.  <br /></td></tr>
+<tr class="memitem:ga39c612c473747448615e2e3cb2668224" id="r_ga39c612c473747448615e2e3cb2668224"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group8.html#ga39c612c473747448615e2e3cb2668224">HAL_TIM_DMABurst_ReadStart</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, uint32_t BurstBaseAddress, uint32_t BurstRequestSrc, uint32_t *BurstBuffer, uint32_t BurstLength)</td></tr>
+<tr class="memdesc:ga39c612c473747448615e2e3cb2668224"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure the DMA Burst to transfer Data from the TIM peripheral to the memory.  <br /></td></tr>
+<tr class="memitem:ga41cfa290ee87229cba1962e78e2a9d01" id="r_ga41cfa290ee87229cba1962e78e2a9d01"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group8.html#ga41cfa290ee87229cba1962e78e2a9d01">HAL_TIM_DMABurst_ReadStop</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, uint32_t BurstRequestSrc)</td></tr>
+<tr class="memdesc:ga41cfa290ee87229cba1962e78e2a9d01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stop the DMA burst reading.  <br /></td></tr>
+<tr class="memitem:ga35788d18e435d06a76a40fda5d6c13e7" id="r_ga35788d18e435d06a76a40fda5d6c13e7"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group8.html#ga35788d18e435d06a76a40fda5d6c13e7">HAL_TIM_DMABurst_WriteStart</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, uint32_t BurstBaseAddress, uint32_t BurstRequestSrc, const uint32_t *BurstBuffer, uint32_t BurstLength)</td></tr>
+<tr class="memdesc:ga35788d18e435d06a76a40fda5d6c13e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure the DMA Burst to transfer Data from the memory to the TIM peripheral.  <br /></td></tr>
+<tr class="memitem:ga8f5649baaf219f2559bbe9e8e2c3658e" id="r_ga8f5649baaf219f2559bbe9e8e2c3658e"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group8.html#ga8f5649baaf219f2559bbe9e8e2c3658e">HAL_TIM_DMABurst_WriteStop</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, uint32_t BurstRequestSrc)</td></tr>
+<tr class="memdesc:ga8f5649baaf219f2559bbe9e8e2c3658e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stops the TIM DMA Burst mode.  <br /></td></tr>
+<tr class="memitem:gac66bce244fd83b4a1ef9cc5a594f8ac5" id="r_gac66bce244fd83b4a1ef9cc5a594f8ac5"><td class="memItemLeft"><a class="el" href="group___t_i_m___exported___types.html#ga9b87df539778a60ea940a9d5ba793f7c">HAL_TIM_DMABurstStateTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group10.html#gac66bce244fd83b4a1ef9cc5a594f8ac5">HAL_TIM_DMABurstState</a> (const <a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim)</td></tr>
+<tr class="memdesc:gac66bce244fd83b4a1ef9cc5a594f8ac5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return actual state of a DMA burst operation.  <br /></td></tr>
+<tr class="memitem:gaaf99281fd7635e20c08e48bfc9ea11e3" id="r_gaaf99281fd7635e20c08e48bfc9ea11e3"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group6.html#gaaf99281fd7635e20c08e48bfc9ea11e3">HAL_TIM_Encoder_DeInit</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim)</td></tr>
+<tr class="memdesc:gaaf99281fd7635e20c08e48bfc9ea11e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">DeInitializes the TIM Encoder interface.  <br /></td></tr>
+<tr class="memitem:ga727c46df756e06eb4730ab5413c52b6d" id="r_ga727c46df756e06eb4730ab5413c52b6d"><td class="memItemLeft"><a class="el" href="group___t_i_m___exported___types.html#gae0994cf5970e56ca4903e9151f40010c">HAL_TIM_StateTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group10.html#ga727c46df756e06eb4730ab5413c52b6d">HAL_TIM_Encoder_GetState</a> (const <a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim)</td></tr>
+<tr class="memdesc:ga727c46df756e06eb4730ab5413c52b6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the TIM Encoder Mode handle state.  <br /></td></tr>
+<tr class="memitem:gabbd8d70ab36161f83e1c09087789955d" id="r_gabbd8d70ab36161f83e1c09087789955d"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group6.html#gabbd8d70ab36161f83e1c09087789955d">HAL_TIM_Encoder_Init</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, const <a class="el" href="struct_t_i_m___encoder___init_type_def.html">TIM_Encoder_InitTypeDef</a> *sConfig)</td></tr>
+<tr class="memdesc:gabbd8d70ab36161f83e1c09087789955d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the TIM Encoder Interface and initialize the associated handle.  <br /></td></tr>
+<tr class="memitem:gaa70f2f3e397232a1e1c5696ac0f552bf" id="r_gaa70f2f3e397232a1e1c5696ac0f552bf"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group6.html#gaa70f2f3e397232a1e1c5696ac0f552bf">HAL_TIM_Encoder_MspDeInit</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim)</td></tr>
+<tr class="memdesc:gaa70f2f3e397232a1e1c5696ac0f552bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">DeInitializes TIM Encoder Interface MSP.  <br /></td></tr>
+<tr class="memitem:ga98de2b927fcee2ceccd352b583d04192" id="r_ga98de2b927fcee2ceccd352b583d04192"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group6.html#ga98de2b927fcee2ceccd352b583d04192">HAL_TIM_Encoder_MspInit</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim)</td></tr>
+<tr class="memdesc:ga98de2b927fcee2ceccd352b583d04192"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the TIM Encoder Interface MSP.  <br /></td></tr>
+<tr class="memitem:ga6450b21fa2bf6bf71a0f85c0a1519e21" id="r_ga6450b21fa2bf6bf71a0f85c0a1519e21"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group6.html#ga6450b21fa2bf6bf71a0f85c0a1519e21">HAL_TIM_Encoder_Start</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, uint32_t Channel)</td></tr>
+<tr class="memdesc:ga6450b21fa2bf6bf71a0f85c0a1519e21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts the TIM Encoder Interface.  <br /></td></tr>
+<tr class="memitem:ga8b9798534ad0917d31d581afe720d8cf" id="r_ga8b9798534ad0917d31d581afe720d8cf"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group6.html#ga8b9798534ad0917d31d581afe720d8cf">HAL_TIM_Encoder_Start_DMA</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, uint32_t Channel, uint32_t *pData1, uint32_t *pData2, uint16_t Length)</td></tr>
+<tr class="memdesc:ga8b9798534ad0917d31d581afe720d8cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts the TIM Encoder Interface in DMA mode.  <br /></td></tr>
+<tr class="memitem:ga9a573a3203752709841acab8412f541e" id="r_ga9a573a3203752709841acab8412f541e"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group6.html#ga9a573a3203752709841acab8412f541e">HAL_TIM_Encoder_Start_IT</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, uint32_t Channel)</td></tr>
+<tr class="memdesc:ga9a573a3203752709841acab8412f541e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts the TIM Encoder Interface in interrupt mode.  <br /></td></tr>
+<tr class="memitem:ga2d603e9167803b080be1f2915e972bbf" id="r_ga2d603e9167803b080be1f2915e972bbf"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group6.html#ga2d603e9167803b080be1f2915e972bbf">HAL_TIM_Encoder_Stop</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, uint32_t Channel)</td></tr>
+<tr class="memdesc:ga2d603e9167803b080be1f2915e972bbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stops the TIM Encoder Interface.  <br /></td></tr>
+<tr class="memitem:ga12ea48505e269532feff5b64f605b56f" id="r_ga12ea48505e269532feff5b64f605b56f"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group6.html#ga12ea48505e269532feff5b64f605b56f">HAL_TIM_Encoder_Stop_DMA</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, uint32_t Channel)</td></tr>
+<tr class="memdesc:ga12ea48505e269532feff5b64f605b56f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stops the TIM Encoder Interface in DMA mode.  <br /></td></tr>
+<tr class="memitem:gac07923b4764255a1e0b82c975689542d" id="r_gac07923b4764255a1e0b82c975689542d"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group6.html#gac07923b4764255a1e0b82c975689542d">HAL_TIM_Encoder_Stop_IT</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, uint32_t Channel)</td></tr>
+<tr class="memdesc:gac07923b4764255a1e0b82c975689542d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stops the TIM Encoder Interface in interrupt mode.  <br /></td></tr>
+<tr class="memitem:ga87ccde88540408ad03343623d4a324ab" id="r_ga87ccde88540408ad03343623d4a324ab"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group9.html#ga87ccde88540408ad03343623d4a324ab">HAL_TIM_ErrorCallback</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim)</td></tr>
+<tr class="memdesc:ga87ccde88540408ad03343623d4a324ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timer error callback in non-blocking mode.  <br /></td></tr>
+<tr class="memitem:gab4a60fe7cbb64a321bdce2ee1b9c8730" id="r_gab4a60fe7cbb64a321bdce2ee1b9c8730"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group8.html#gab4a60fe7cbb64a321bdce2ee1b9c8730">HAL_TIM_GenerateEvent</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, uint32_t EventSource)</td></tr>
+<tr class="memdesc:gab4a60fe7cbb64a321bdce2ee1b9c8730"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a software event.  <br /></td></tr>
+<tr class="memitem:ga878b1bc139a257de3a427b235cd639f3" id="r_ga878b1bc139a257de3a427b235cd639f3"><td class="memItemLeft"><a class="el" href="group___t_i_m___exported___types.html#gaa3fa7bcbb4707f1151ccfc90a8cf9706">HAL_TIM_ActiveChannel</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group10.html#ga878b1bc139a257de3a427b235cd639f3">HAL_TIM_GetActiveChannel</a> (const <a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim)</td></tr>
+<tr class="memdesc:ga878b1bc139a257de3a427b235cd639f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the TIM Encoder Mode handle state.  <br /></td></tr>
+<tr class="memitem:ga3ce6635814be512115f217d3ad798a64" id="r_ga3ce6635814be512115f217d3ad798a64"><td class="memItemLeft"><a class="el" href="group___t_i_m___exported___types.html#ga1a70fcbe9952e18af5c890e216a15f34">HAL_TIM_ChannelStateTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group10.html#ga3ce6635814be512115f217d3ad798a64">HAL_TIM_GetChannelState</a> (const <a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, uint32_t Channel)</td></tr>
+<tr class="memdesc:ga3ce6635814be512115f217d3ad798a64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return actual state of the TIM channel.  <br /></td></tr>
+<tr class="memitem:gafd7ec5ecffcad9af7b3b125afd460d4a" id="r_gafd7ec5ecffcad9af7b3b125afd460d4a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group9.html#gafd7ec5ecffcad9af7b3b125afd460d4a">HAL_TIM_IC_CaptureCallback</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim)</td></tr>
+<tr class="memdesc:gafd7ec5ecffcad9af7b3b125afd460d4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Input Capture callback in non-blocking mode.  <br /></td></tr>
+<tr class="memitem:ga5217c42140503ef40ab6e4e40158ccf9" id="r_ga5217c42140503ef40ab6e4e40158ccf9"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group9.html#ga5217c42140503ef40ab6e4e40158ccf9">HAL_TIM_IC_CaptureHalfCpltCallback</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim)</td></tr>
+<tr class="memdesc:ga5217c42140503ef40ab6e4e40158ccf9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Input Capture half complete callback in non-blocking mode.  <br /></td></tr>
+<tr class="memitem:ga031c508e41997d53c059665ebd3638a3" id="r_ga031c508e41997d53c059665ebd3638a3"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group8.html#ga031c508e41997d53c059665ebd3638a3">HAL_TIM_IC_ConfigChannel</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, const <a class="el" href="struct_t_i_m___i_c___init_type_def.html">TIM_IC_InitTypeDef</a> *sConfig, uint32_t Channel)</td></tr>
+<tr class="memdesc:ga031c508e41997d53c059665ebd3638a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the TIM Input Capture Channels according to the specified parameters in the <a class="el" href="struct_t_i_m___i_c___init_type_def.html" title="TIM Input Capture Configuration Structure definition.">TIM_IC_InitTypeDef</a>.  <br /></td></tr>
+<tr class="memitem:ga2fc9af96c4ec45ba9057e182012f3586" id="r_ga2fc9af96c4ec45ba9057e182012f3586"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group4.html#ga2fc9af96c4ec45ba9057e182012f3586">HAL_TIM_IC_DeInit</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim)</td></tr>
+<tr class="memdesc:ga2fc9af96c4ec45ba9057e182012f3586"><td class="mdescLeft">&#160;</td><td class="mdescRight">DeInitializes the TIM peripheral.  <br /></td></tr>
+<tr class="memitem:ga39d5fb67dc3867b6f9bd6a0a99fa0b82" id="r_ga39d5fb67dc3867b6f9bd6a0a99fa0b82"><td class="memItemLeft"><a class="el" href="group___t_i_m___exported___types.html#gae0994cf5970e56ca4903e9151f40010c">HAL_TIM_StateTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group10.html#ga39d5fb67dc3867b6f9bd6a0a99fa0b82">HAL_TIM_IC_GetState</a> (const <a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim)</td></tr>
+<tr class="memdesc:ga39d5fb67dc3867b6f9bd6a0a99fa0b82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the TIM Input Capture handle state.  <br /></td></tr>
+<tr class="memitem:ga342aa1098891f55f59c7867afff589c1" id="r_ga342aa1098891f55f59c7867afff589c1"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group4.html#ga342aa1098891f55f59c7867afff589c1">HAL_TIM_IC_Init</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim)</td></tr>
+<tr class="memdesc:ga342aa1098891f55f59c7867afff589c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the TIM Input Capture Time base according to the specified parameters in the <a class="el" href="struct_t_i_m___handle_type_def.html" title="TIM Time Base Handle Structure definition.">TIM_HandleTypeDef</a> and initializes the associated handle.  <br /></td></tr>
+<tr class="memitem:gad5f41bab0e64035329cd324b4f4158c9" id="r_gad5f41bab0e64035329cd324b4f4158c9"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group4.html#gad5f41bab0e64035329cd324b4f4158c9">HAL_TIM_IC_MspDeInit</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim)</td></tr>
+<tr class="memdesc:gad5f41bab0e64035329cd324b4f4158c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">DeInitializes TIM Input Capture MSP.  <br /></td></tr>
+<tr class="memitem:ga2be7d8426eb60e45ee71c763fc5687c0" id="r_ga2be7d8426eb60e45ee71c763fc5687c0"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group4.html#ga2be7d8426eb60e45ee71c763fc5687c0">HAL_TIM_IC_MspInit</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim)</td></tr>
+<tr class="memdesc:ga2be7d8426eb60e45ee71c763fc5687c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the TIM Input Capture MSP.  <br /></td></tr>
+<tr class="memitem:gaab393018ca6f8fad04a815feb1796ce7" id="r_gaab393018ca6f8fad04a815feb1796ce7"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group4.html#gaab393018ca6f8fad04a815feb1796ce7">HAL_TIM_IC_Start</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, uint32_t Channel)</td></tr>
+<tr class="memdesc:gaab393018ca6f8fad04a815feb1796ce7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts the TIM Input Capture measurement.  <br /></td></tr>
+<tr class="memitem:gac3b7deffff43a8bdc3e2eea42115efff" id="r_gac3b7deffff43a8bdc3e2eea42115efff"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group4.html#gac3b7deffff43a8bdc3e2eea42115efff">HAL_TIM_IC_Start_DMA</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, uint32_t Channel, uint32_t *pData, uint16_t Length)</td></tr>
+<tr class="memdesc:gac3b7deffff43a8bdc3e2eea42115efff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts the TIM Input Capture measurement in DMA mode.  <br /></td></tr>
+<tr class="memitem:gac0e3515f374ec6b9d30609cd683649d6" id="r_gac0e3515f374ec6b9d30609cd683649d6"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group4.html#gac0e3515f374ec6b9d30609cd683649d6">HAL_TIM_IC_Start_IT</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, uint32_t Channel)</td></tr>
+<tr class="memdesc:gac0e3515f374ec6b9d30609cd683649d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts the TIM Input Capture measurement in interrupt mode.  <br /></td></tr>
+<tr class="memitem:ga1b5edb103cb27dbd5380e9b24d12658f" id="r_ga1b5edb103cb27dbd5380e9b24d12658f"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group4.html#ga1b5edb103cb27dbd5380e9b24d12658f">HAL_TIM_IC_Stop</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, uint32_t Channel)</td></tr>
+<tr class="memdesc:ga1b5edb103cb27dbd5380e9b24d12658f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stops the TIM Input Capture measurement.  <br /></td></tr>
+<tr class="memitem:ga8e7dc17f058ef9c826774436d68f80b5" id="r_ga8e7dc17f058ef9c826774436d68f80b5"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group4.html#ga8e7dc17f058ef9c826774436d68f80b5">HAL_TIM_IC_Stop_DMA</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, uint32_t Channel)</td></tr>
+<tr class="memdesc:ga8e7dc17f058ef9c826774436d68f80b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stops the TIM Input Capture measurement in DMA mode.  <br /></td></tr>
+<tr class="memitem:gaf5664e207667c99ef50378813056e5f6" id="r_gaf5664e207667c99ef50378813056e5f6"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group4.html#gaf5664e207667c99ef50378813056e5f6">HAL_TIM_IC_Stop_IT</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, uint32_t Channel)</td></tr>
+<tr class="memdesc:gaf5664e207667c99ef50378813056e5f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stops the TIM Input Capture measurement in interrupt mode.  <br /></td></tr>
+<tr class="memitem:ga2dc3ef34340412aa8a01d734d2ff8f88" id="r_ga2dc3ef34340412aa8a01d734d2ff8f88"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group7.html#ga2dc3ef34340412aa8a01d734d2ff8f88">HAL_TIM_IRQHandler</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim)</td></tr>
+<tr class="memdesc:ga2dc3ef34340412aa8a01d734d2ff8f88"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function handles TIM interrupts requests.  <br /></td></tr>
+<tr class="memitem:ga8fb64ba07b18cc24f8f9191369ed2d02" id="r_ga8fb64ba07b18cc24f8f9191369ed2d02"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group8.html#ga8fb64ba07b18cc24f8f9191369ed2d02">HAL_TIM_OC_ConfigChannel</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, const <a class="el" href="struct_t_i_m___o_c___init_type_def.html">TIM_OC_InitTypeDef</a> *sConfig, uint32_t Channel)</td></tr>
+<tr class="memdesc:ga8fb64ba07b18cc24f8f9191369ed2d02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the TIM Output Compare Channels according to the specified parameters in the <a class="el" href="struct_t_i_m___o_c___init_type_def.html" title="TIM Output Compare Configuration Structure definition.">TIM_OC_InitTypeDef</a>.  <br /></td></tr>
+<tr class="memitem:ga79f0c3e3015a81c535a578edc2fee8ca" id="r_ga79f0c3e3015a81c535a578edc2fee8ca"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group2.html#ga79f0c3e3015a81c535a578edc2fee8ca">HAL_TIM_OC_DeInit</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim)</td></tr>
+<tr class="memdesc:ga79f0c3e3015a81c535a578edc2fee8ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">DeInitializes the TIM peripheral.  <br /></td></tr>
+<tr class="memitem:ga72d683097eb396e4250395df2c89dcfd" id="r_ga72d683097eb396e4250395df2c89dcfd"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group9.html#ga72d683097eb396e4250395df2c89dcfd">HAL_TIM_OC_DelayElapsedCallback</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim)</td></tr>
+<tr class="memdesc:ga72d683097eb396e4250395df2c89dcfd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output Compare callback in non-blocking mode.  <br /></td></tr>
+<tr class="memitem:gad1aa07ea9327c409b78b36fe0ed78a6e" id="r_gad1aa07ea9327c409b78b36fe0ed78a6e"><td class="memItemLeft"><a class="el" href="group___t_i_m___exported___types.html#gae0994cf5970e56ca4903e9151f40010c">HAL_TIM_StateTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group10.html#gad1aa07ea9327c409b78b36fe0ed78a6e">HAL_TIM_OC_GetState</a> (const <a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim)</td></tr>
+<tr class="memdesc:gad1aa07ea9327c409b78b36fe0ed78a6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the TIM OC handle state.  <br /></td></tr>
+<tr class="memitem:ga7541c3db71ec7c0b4b54afa473bdb19a" id="r_ga7541c3db71ec7c0b4b54afa473bdb19a"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group2.html#ga7541c3db71ec7c0b4b54afa473bdb19a">HAL_TIM_OC_Init</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim)</td></tr>
+<tr class="memdesc:ga7541c3db71ec7c0b4b54afa473bdb19a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the TIM Output Compare according to the specified parameters in the <a class="el" href="struct_t_i_m___handle_type_def.html" title="TIM Time Base Handle Structure definition.">TIM_HandleTypeDef</a> and initializes the associated handle.  <br /></td></tr>
+<tr class="memitem:ga013103615b9188bb923b4f87e06e954e" id="r_ga013103615b9188bb923b4f87e06e954e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group2.html#ga013103615b9188bb923b4f87e06e954e">HAL_TIM_OC_MspDeInit</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim)</td></tr>
+<tr class="memdesc:ga013103615b9188bb923b4f87e06e954e"><td class="mdescLeft">&#160;</td><td class="mdescRight">DeInitializes TIM Output Compare MSP.  <br /></td></tr>
+<tr class="memitem:gac33e33a0f70d74457a6df0e9495205e0" id="r_gac33e33a0f70d74457a6df0e9495205e0"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group2.html#gac33e33a0f70d74457a6df0e9495205e0">HAL_TIM_OC_MspInit</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim)</td></tr>
+<tr class="memdesc:gac33e33a0f70d74457a6df0e9495205e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the TIM Output Compare MSP.  <br /></td></tr>
+<tr class="memitem:ga5dbbafc75b341b79d29bc41f8ec15492" id="r_ga5dbbafc75b341b79d29bc41f8ec15492"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group2.html#ga5dbbafc75b341b79d29bc41f8ec15492">HAL_TIM_OC_Start</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, uint32_t Channel)</td></tr>
+<tr class="memdesc:ga5dbbafc75b341b79d29bc41f8ec15492"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts the TIM Output Compare signal generation.  <br /></td></tr>
+<tr class="memitem:ga1e4410b534d2381ff535bb987f340cba" id="r_ga1e4410b534d2381ff535bb987f340cba"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group2.html#ga1e4410b534d2381ff535bb987f340cba">HAL_TIM_OC_Start_DMA</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, uint32_t Channel, const uint32_t *pData, uint16_t Length)</td></tr>
+<tr class="memdesc:ga1e4410b534d2381ff535bb987f340cba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts the TIM Output Compare signal generation in DMA mode.  <br /></td></tr>
+<tr class="memitem:gad3116f3b344392f7b947ff1218ba9ed8" id="r_gad3116f3b344392f7b947ff1218ba9ed8"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group2.html#gad3116f3b344392f7b947ff1218ba9ed8">HAL_TIM_OC_Start_IT</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, uint32_t Channel)</td></tr>
+<tr class="memdesc:gad3116f3b344392f7b947ff1218ba9ed8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts the TIM Output Compare signal generation in interrupt mode.  <br /></td></tr>
+<tr class="memitem:ga9cb1f62afb99aea0db8cc28b378b68ad" id="r_ga9cb1f62afb99aea0db8cc28b378b68ad"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group2.html#ga9cb1f62afb99aea0db8cc28b378b68ad">HAL_TIM_OC_Stop</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, uint32_t Channel)</td></tr>
+<tr class="memdesc:ga9cb1f62afb99aea0db8cc28b378b68ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stops the TIM Output Compare signal generation.  <br /></td></tr>
+<tr class="memitem:ga27f1f66d2d38ec428580a5feb3628c48" id="r_ga27f1f66d2d38ec428580a5feb3628c48"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group2.html#ga27f1f66d2d38ec428580a5feb3628c48">HAL_TIM_OC_Stop_DMA</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, uint32_t Channel)</td></tr>
+<tr class="memdesc:ga27f1f66d2d38ec428580a5feb3628c48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stops the TIM Output Compare signal generation in DMA mode.  <br /></td></tr>
+<tr class="memitem:gacc324ef35c0b207a8331c657d86fc1bd" id="r_gacc324ef35c0b207a8331c657d86fc1bd"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group2.html#gacc324ef35c0b207a8331c657d86fc1bd">HAL_TIM_OC_Stop_IT</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, uint32_t Channel)</td></tr>
+<tr class="memdesc:gacc324ef35c0b207a8331c657d86fc1bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stops the TIM Output Compare signal generation in interrupt mode.  <br /></td></tr>
+<tr class="memitem:gaefb1913440053c45a4f9a50a8c05c6be" id="r_gaefb1913440053c45a4f9a50a8c05c6be"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group8.html#gaefb1913440053c45a4f9a50a8c05c6be">HAL_TIM_OnePulse_ConfigChannel</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, <a class="el" href="struct_t_i_m___one_pulse___init_type_def.html">TIM_OnePulse_InitTypeDef</a> *sConfig, uint32_t OutputChannel, uint32_t InputChannel)</td></tr>
+<tr class="memdesc:gaefb1913440053c45a4f9a50a8c05c6be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the TIM One Pulse Channels according to the specified parameters in the <a class="el" href="struct_t_i_m___one_pulse___init_type_def.html" title="TIM One Pulse Mode Configuration Structure definition.">TIM_OnePulse_InitTypeDef</a>.  <br /></td></tr>
+<tr class="memitem:gae60b468b11199522c6c83a943439c7b7" id="r_gae60b468b11199522c6c83a943439c7b7"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group5.html#gae60b468b11199522c6c83a943439c7b7">HAL_TIM_OnePulse_DeInit</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim)</td></tr>
+<tr class="memdesc:gae60b468b11199522c6c83a943439c7b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">DeInitializes the TIM One Pulse.  <br /></td></tr>
+<tr class="memitem:ga28deed8246fb5225ee2ae354250e8e37" id="r_ga28deed8246fb5225ee2ae354250e8e37"><td class="memItemLeft"><a class="el" href="group___t_i_m___exported___types.html#gae0994cf5970e56ca4903e9151f40010c">HAL_TIM_StateTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group10.html#ga28deed8246fb5225ee2ae354250e8e37">HAL_TIM_OnePulse_GetState</a> (const <a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim)</td></tr>
+<tr class="memdesc:ga28deed8246fb5225ee2ae354250e8e37"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the TIM One Pulse Mode handle state.  <br /></td></tr>
+<tr class="memitem:ga476d67a220c23ebdc69fac7b09dbaa72" id="r_ga476d67a220c23ebdc69fac7b09dbaa72"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group5.html#ga476d67a220c23ebdc69fac7b09dbaa72">HAL_TIM_OnePulse_Init</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, uint32_t OnePulseMode)</td></tr>
+<tr class="memdesc:ga476d67a220c23ebdc69fac7b09dbaa72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the TIM One Pulse Time Base according to the specified parameters in the <a class="el" href="struct_t_i_m___handle_type_def.html" title="TIM Time Base Handle Structure definition.">TIM_HandleTypeDef</a> and initializes the associated handle.  <br /></td></tr>
+<tr class="memitem:ga6098abc96dde2ac83d253dcd1db68c20" id="r_ga6098abc96dde2ac83d253dcd1db68c20"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group5.html#ga6098abc96dde2ac83d253dcd1db68c20">HAL_TIM_OnePulse_MspDeInit</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim)</td></tr>
+<tr class="memdesc:ga6098abc96dde2ac83d253dcd1db68c20"><td class="mdescLeft">&#160;</td><td class="mdescRight">DeInitializes TIM One Pulse MSP.  <br /></td></tr>
+<tr class="memitem:ga83620fa1d589565e3fb770de046fad1e" id="r_ga83620fa1d589565e3fb770de046fad1e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group5.html#ga83620fa1d589565e3fb770de046fad1e">HAL_TIM_OnePulse_MspInit</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim)</td></tr>
+<tr class="memdesc:ga83620fa1d589565e3fb770de046fad1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the TIM One Pulse MSP.  <br /></td></tr>
+<tr class="memitem:ga40e43e4f2484df59079e0316d6a6fd23" id="r_ga40e43e4f2484df59079e0316d6a6fd23"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group5.html#ga40e43e4f2484df59079e0316d6a6fd23">HAL_TIM_OnePulse_Start</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, uint32_t OutputChannel)</td></tr>
+<tr class="memdesc:ga40e43e4f2484df59079e0316d6a6fd23"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts the TIM One Pulse signal generation.  <br /></td></tr>
+<tr class="memitem:gafcde302725d20c6f992f26660d491bb9" id="r_gafcde302725d20c6f992f26660d491bb9"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group5.html#gafcde302725d20c6f992f26660d491bb9">HAL_TIM_OnePulse_Start_IT</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, uint32_t OutputChannel)</td></tr>
+<tr class="memdesc:gafcde302725d20c6f992f26660d491bb9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts the TIM One Pulse signal generation in interrupt mode.  <br /></td></tr>
+<tr class="memitem:gac7744a2a063e8bf2909319d70fc764fd" id="r_gac7744a2a063e8bf2909319d70fc764fd"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group5.html#gac7744a2a063e8bf2909319d70fc764fd">HAL_TIM_OnePulse_Stop</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, uint32_t OutputChannel)</td></tr>
+<tr class="memdesc:gac7744a2a063e8bf2909319d70fc764fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stops the TIM One Pulse signal generation.  <br /></td></tr>
+<tr class="memitem:ga6bbce5414404228fde71dadd8d1cddc7" id="r_ga6bbce5414404228fde71dadd8d1cddc7"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group5.html#ga6bbce5414404228fde71dadd8d1cddc7">HAL_TIM_OnePulse_Stop_IT</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, uint32_t OutputChannel)</td></tr>
+<tr class="memdesc:ga6bbce5414404228fde71dadd8d1cddc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stops the TIM One Pulse signal generation in interrupt mode.  <br /></td></tr>
+<tr class="memitem:ga8a3b0ad512a6e6c6157440b68d395eac" id="r_ga8a3b0ad512a6e6c6157440b68d395eac"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group9.html#ga8a3b0ad512a6e6c6157440b68d395eac">HAL_TIM_PeriodElapsedCallback</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim)</td></tr>
+<tr class="memdesc:ga8a3b0ad512a6e6c6157440b68d395eac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Period elapsed callback in non-blocking mode.  <br /></td></tr>
+<tr class="memitem:gab03cbb1cd64b6fe9f654fd1afc396c53" id="r_gab03cbb1cd64b6fe9f654fd1afc396c53"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group9.html#gab03cbb1cd64b6fe9f654fd1afc396c53">HAL_TIM_PeriodElapsedHalfCpltCallback</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim)</td></tr>
+<tr class="memdesc:gab03cbb1cd64b6fe9f654fd1afc396c53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Period elapsed half complete callback in non-blocking mode.  <br /></td></tr>
+<tr class="memitem:ga258d2356d817adaa3d39d2d0b6de9223" id="r_ga258d2356d817adaa3d39d2d0b6de9223"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group8.html#ga258d2356d817adaa3d39d2d0b6de9223">HAL_TIM_PWM_ConfigChannel</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, const <a class="el" href="struct_t_i_m___o_c___init_type_def.html">TIM_OC_InitTypeDef</a> *sConfig, uint32_t Channel)</td></tr>
+<tr class="memdesc:ga258d2356d817adaa3d39d2d0b6de9223"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the TIM PWM channels according to the specified parameters in the <a class="el" href="struct_t_i_m___o_c___init_type_def.html" title="TIM Output Compare Configuration Structure definition.">TIM_OC_InitTypeDef</a>.  <br /></td></tr>
+<tr class="memitem:ga5bb7b197ace5bab9ef120163ff1520bd" id="r_ga5bb7b197ace5bab9ef120163ff1520bd"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group3.html#ga5bb7b197ace5bab9ef120163ff1520bd">HAL_TIM_PWM_DeInit</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim)</td></tr>
+<tr class="memdesc:ga5bb7b197ace5bab9ef120163ff1520bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">DeInitializes the TIM peripheral.  <br /></td></tr>
+<tr class="memitem:ga795c42446ffd11385c8b66087fe695f6" id="r_ga795c42446ffd11385c8b66087fe695f6"><td class="memItemLeft"><a class="el" href="group___t_i_m___exported___types.html#gae0994cf5970e56ca4903e9151f40010c">HAL_TIM_StateTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group10.html#ga795c42446ffd11385c8b66087fe695f6">HAL_TIM_PWM_GetState</a> (const <a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim)</td></tr>
+<tr class="memdesc:ga795c42446ffd11385c8b66087fe695f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the TIM PWM handle state.  <br /></td></tr>
+<tr class="memitem:ga25824b2eed564cc37a8983b99a83bdc7" id="r_ga25824b2eed564cc37a8983b99a83bdc7"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group3.html#ga25824b2eed564cc37a8983b99a83bdc7">HAL_TIM_PWM_Init</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim)</td></tr>
+<tr class="memdesc:ga25824b2eed564cc37a8983b99a83bdc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the TIM PWM Time Base according to the specified parameters in the <a class="el" href="struct_t_i_m___handle_type_def.html" title="TIM Time Base Handle Structure definition.">TIM_HandleTypeDef</a> and initializes the associated handle.  <br /></td></tr>
+<tr class="memitem:gaacd8fd2fca75e29fba9b2348d84ee651" id="r_gaacd8fd2fca75e29fba9b2348d84ee651"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group3.html#gaacd8fd2fca75e29fba9b2348d84ee651">HAL_TIM_PWM_MspDeInit</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim)</td></tr>
+<tr class="memdesc:gaacd8fd2fca75e29fba9b2348d84ee651"><td class="mdescLeft">&#160;</td><td class="mdescRight">DeInitializes TIM PWM MSP.  <br /></td></tr>
+<tr class="memitem:ga59d8244592242f39686341d8aa38ed77" id="r_ga59d8244592242f39686341d8aa38ed77"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group3.html#ga59d8244592242f39686341d8aa38ed77">HAL_TIM_PWM_MspInit</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim)</td></tr>
+<tr class="memdesc:ga59d8244592242f39686341d8aa38ed77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the TIM PWM MSP.  <br /></td></tr>
+<tr class="memitem:ga9a92449e0bcf905d0b44eba7b6e1638c" id="r_ga9a92449e0bcf905d0b44eba7b6e1638c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group9.html#ga9a92449e0bcf905d0b44eba7b6e1638c">HAL_TIM_PWM_PulseFinishedCallback</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim)</td></tr>
+<tr class="memdesc:ga9a92449e0bcf905d0b44eba7b6e1638c"><td class="mdescLeft">&#160;</td><td class="mdescRight">PWM Pulse finished callback in non-blocking mode.  <br /></td></tr>
+<tr class="memitem:ga8175d5841c0cd41861e547cd071d1b81" id="r_ga8175d5841c0cd41861e547cd071d1b81"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group9.html#ga8175d5841c0cd41861e547cd071d1b81">HAL_TIM_PWM_PulseFinishedHalfCpltCallback</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim)</td></tr>
+<tr class="memdesc:ga8175d5841c0cd41861e547cd071d1b81"><td class="mdescLeft">&#160;</td><td class="mdescRight">PWM Pulse finished half complete callback in non-blocking mode.  <br /></td></tr>
+<tr class="memitem:ga11da9bda53a5d21c293bb01da91e592d" id="r_ga11da9bda53a5d21c293bb01da91e592d"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group3.html#ga11da9bda53a5d21c293bb01da91e592d">HAL_TIM_PWM_Start</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, uint32_t Channel)</td></tr>
+<tr class="memdesc:ga11da9bda53a5d21c293bb01da91e592d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts the PWM signal generation.  <br /></td></tr>
+<tr class="memitem:ga3621f6126e33c1abb80cb572499f335c" id="r_ga3621f6126e33c1abb80cb572499f335c"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group3.html#ga3621f6126e33c1abb80cb572499f335c">HAL_TIM_PWM_Start_DMA</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, uint32_t Channel, const uint32_t *pData, uint16_t Length)</td></tr>
+<tr class="memdesc:ga3621f6126e33c1abb80cb572499f335c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts the TIM PWM signal generation in DMA mode.  <br /></td></tr>
+<tr class="memitem:gaca1f5fbc35101d0fc7e8af31c9a0c26c" id="r_gaca1f5fbc35101d0fc7e8af31c9a0c26c"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group3.html#gaca1f5fbc35101d0fc7e8af31c9a0c26c">HAL_TIM_PWM_Start_IT</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, uint32_t Channel)</td></tr>
+<tr class="memdesc:gaca1f5fbc35101d0fc7e8af31c9a0c26c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts the PWM signal generation in interrupt mode.  <br /></td></tr>
+<tr class="memitem:gae087011858379feeb770ecb4568829d3" id="r_gae087011858379feeb770ecb4568829d3"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group3.html#gae087011858379feeb770ecb4568829d3">HAL_TIM_PWM_Stop</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, uint32_t Channel)</td></tr>
+<tr class="memdesc:gae087011858379feeb770ecb4568829d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stops the PWM signal generation.  <br /></td></tr>
+<tr class="memitem:gad77367f9b8d8d17842a913f7d6ce274b" id="r_gad77367f9b8d8d17842a913f7d6ce274b"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group3.html#gad77367f9b8d8d17842a913f7d6ce274b">HAL_TIM_PWM_Stop_DMA</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, uint32_t Channel)</td></tr>
+<tr class="memdesc:gad77367f9b8d8d17842a913f7d6ce274b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stops the TIM PWM signal generation in DMA mode.  <br /></td></tr>
+<tr class="memitem:ga0559af125dc5fb2bb183a6a4b86808b5" id="r_ga0559af125dc5fb2bb183a6a4b86808b5"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group3.html#ga0559af125dc5fb2bb183a6a4b86808b5">HAL_TIM_PWM_Stop_IT</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, uint32_t Channel)</td></tr>
+<tr class="memdesc:ga0559af125dc5fb2bb183a6a4b86808b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stops the PWM signal generation in interrupt mode.  <br /></td></tr>
+<tr class="memitem:ga726cf270b20654c4094da3eca1648f92" id="r_ga726cf270b20654c4094da3eca1648f92"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group8.html#ga726cf270b20654c4094da3eca1648f92">HAL_TIM_ReadCapturedValue</a> (const <a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, uint32_t Channel)</td></tr>
+<tr class="memdesc:ga726cf270b20654c4094da3eca1648f92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read the captured value from Capture Compare unit.  <br /></td></tr>
+<tr class="memitem:ga50ddcf971c747fa974c7b89ff5d3fe18" id="r_ga50ddcf971c747fa974c7b89ff5d3fe18"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group8.html#ga50ddcf971c747fa974c7b89ff5d3fe18">HAL_TIM_SlaveConfigSynchro</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, const <a class="el" href="struct_t_i_m___slave_config_type_def.html">TIM_SlaveConfigTypeDef</a> *sSlaveConfig)</td></tr>
+<tr class="memdesc:ga50ddcf971c747fa974c7b89ff5d3fe18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures the TIM in Slave mode.  <br /></td></tr>
+<tr class="memitem:ga5ac6bc06273d5b5b848eda023a32fe2f" id="r_ga5ac6bc06273d5b5b848eda023a32fe2f"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group8.html#ga5ac6bc06273d5b5b848eda023a32fe2f">HAL_TIM_SlaveConfigSynchro_IT</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, const <a class="el" href="struct_t_i_m___slave_config_type_def.html">TIM_SlaveConfigTypeDef</a> *sSlaveConfig)</td></tr>
+<tr class="memdesc:ga5ac6bc06273d5b5b848eda023a32fe2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures the TIM in Slave mode in interrupt mode.  <br /></td></tr>
+<tr class="memitem:gaac628fb57879a419f2f9016532f9b751" id="r_gaac628fb57879a419f2f9016532f9b751"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group9.html#gaac628fb57879a419f2f9016532f9b751">HAL_TIM_TriggerCallback</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim)</td></tr>
+<tr class="memdesc:gaac628fb57879a419f2f9016532f9b751"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hall Trigger detection callback in non-blocking mode.  <br /></td></tr>
+<tr class="memitem:ga400ca722cdd63117ac3b55e8eef7fe68" id="r_ga400ca722cdd63117ac3b55e8eef7fe68"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___exported___functions___group9.html#ga400ca722cdd63117ac3b55e8eef7fe68">HAL_TIM_TriggerHalfCpltCallback</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim)</td></tr>
+<tr class="memdesc:ga400ca722cdd63117ac3b55e8eef7fe68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hall Trigger detection half complete callback in non-blocking mode.  <br /></td></tr>
+<tr class="memitem:gae0f82ff07c1973cf4fb132740a8e24ae" id="r_gae0f82ff07c1973cf4fb132740a8e24ae"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___private___functions.html#gae0f82ff07c1973cf4fb132740a8e24ae">TIM_Base_SetConfig</a> (<a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *TIMx, const <a class="el" href="struct_t_i_m___base___init_type_def.html">TIM_Base_InitTypeDef</a> *Structure)</td></tr>
+<tr class="memdesc:gae0f82ff07c1973cf4fb132740a8e24ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Time Base configuration.  <br /></td></tr>
+<tr class="memitem:ga7fcc6d5ca311c37f5d0250687c899924" id="r_ga7fcc6d5ca311c37f5d0250687c899924"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___private___functions.html#ga7fcc6d5ca311c37f5d0250687c899924">TIM_CCxChannelCmd</a> (<a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *TIMx, uint32_t Channel, uint32_t ChannelState)</td></tr>
+<tr class="memdesc:ga7fcc6d5ca311c37f5d0250687c899924"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables or disables the TIM Capture Compare Channel x.  <br /></td></tr>
+<tr class="memitem:ga60b9c315720fddb3db32299f05f7d712" id="r_ga60b9c315720fddb3db32299f05f7d712"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___private___functions.html#ga60b9c315720fddb3db32299f05f7d712">TIM_DMACaptureCplt</a> (<a class="el" href="group___d_m_a___exported___types.html#ga41b754a906b86bce54dc79938970138b">DMA_HandleTypeDef</a> *hdma)</td></tr>
+<tr class="memdesc:ga60b9c315720fddb3db32299f05f7d712"><td class="mdescLeft">&#160;</td><td class="mdescRight">TIM DMA Capture complete callback.  <br /></td></tr>
+<tr class="memitem:ga2c2f2f092eaa9414661422f06fdc56a0" id="r_ga2c2f2f092eaa9414661422f06fdc56a0"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___private___functions.html#ga2c2f2f092eaa9414661422f06fdc56a0">TIM_DMACaptureHalfCplt</a> (<a class="el" href="group___d_m_a___exported___types.html#ga41b754a906b86bce54dc79938970138b">DMA_HandleTypeDef</a> *hdma)</td></tr>
+<tr class="memdesc:ga2c2f2f092eaa9414661422f06fdc56a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">TIM DMA Capture half complete callback.  <br /></td></tr>
+<tr class="memitem:ga0b80d1e286521d39c4e58ffd16c60674" id="r_ga0b80d1e286521d39c4e58ffd16c60674"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___private___functions.html#ga0b80d1e286521d39c4e58ffd16c60674">TIM_DMADelayPulseCplt</a> (<a class="el" href="group___d_m_a___exported___types.html#ga41b754a906b86bce54dc79938970138b">DMA_HandleTypeDef</a> *hdma)</td></tr>
+<tr class="memdesc:ga0b80d1e286521d39c4e58ffd16c60674"><td class="mdescLeft">&#160;</td><td class="mdescRight">TIM DMA Delay Pulse complete callback.  <br /></td></tr>
+<tr class="memitem:ga8bfc333f26980f4e473a75cdb45de292" id="r_ga8bfc333f26980f4e473a75cdb45de292"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___private___functions.html#ga8bfc333f26980f4e473a75cdb45de292">TIM_DMADelayPulseHalfCplt</a> (<a class="el" href="group___d_m_a___exported___types.html#ga41b754a906b86bce54dc79938970138b">DMA_HandleTypeDef</a> *hdma)</td></tr>
+<tr class="memdesc:ga8bfc333f26980f4e473a75cdb45de292"><td class="mdescLeft">&#160;</td><td class="mdescRight">TIM DMA Delay Pulse half complete callback.  <br /></td></tr>
+<tr class="memitem:gaa112bee5279feee040c1ea9e283f7378" id="r_gaa112bee5279feee040c1ea9e283f7378"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___private___functions.html#gaa112bee5279feee040c1ea9e283f7378">TIM_DMAError</a> (<a class="el" href="group___d_m_a___exported___types.html#ga41b754a906b86bce54dc79938970138b">DMA_HandleTypeDef</a> *hdma)</td></tr>
+<tr class="memdesc:gaa112bee5279feee040c1ea9e283f7378"><td class="mdescLeft">&#160;</td><td class="mdescRight">TIM DMA error callback.  <br /></td></tr>
+<tr class="memitem:gafc3511e23dbb9fd3d5bb3a2f41013093" id="r_gafc3511e23dbb9fd3d5bb3a2f41013093"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___private___functions.html#gafc3511e23dbb9fd3d5bb3a2f41013093">TIM_DMAPeriodElapsedCplt</a> (<a class="el" href="group___d_m_a___exported___types.html#ga41b754a906b86bce54dc79938970138b">DMA_HandleTypeDef</a> *hdma)</td></tr>
+<tr class="memdesc:gafc3511e23dbb9fd3d5bb3a2f41013093"><td class="mdescLeft">&#160;</td><td class="mdescRight">TIM DMA Period Elapse complete callback.  <br /></td></tr>
+<tr class="memitem:gacf111315a5ab28a602e92e2815c8a041" id="r_gacf111315a5ab28a602e92e2815c8a041"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___private___functions.html#gacf111315a5ab28a602e92e2815c8a041">TIM_DMAPeriodElapsedHalfCplt</a> (<a class="el" href="group___d_m_a___exported___types.html#ga41b754a906b86bce54dc79938970138b">DMA_HandleTypeDef</a> *hdma)</td></tr>
+<tr class="memdesc:gacf111315a5ab28a602e92e2815c8a041"><td class="mdescLeft">&#160;</td><td class="mdescRight">TIM DMA Period Elapse half complete callback.  <br /></td></tr>
+<tr class="memitem:ga6400608ed445a4f50e42ea6b7d2b7330" id="r_ga6400608ed445a4f50e42ea6b7d2b7330"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___private___functions.html#ga6400608ed445a4f50e42ea6b7d2b7330">TIM_DMATriggerCplt</a> (<a class="el" href="group___d_m_a___exported___types.html#ga41b754a906b86bce54dc79938970138b">DMA_HandleTypeDef</a> *hdma)</td></tr>
+<tr class="memdesc:ga6400608ed445a4f50e42ea6b7d2b7330"><td class="mdescLeft">&#160;</td><td class="mdescRight">TIM DMA Trigger callback.  <br /></td></tr>
+<tr class="memitem:ga3e58af7629351ccefecbfd615d8567ec" id="r_ga3e58af7629351ccefecbfd615d8567ec"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___private___functions.html#ga3e58af7629351ccefecbfd615d8567ec">TIM_DMATriggerHalfCplt</a> (<a class="el" href="group___d_m_a___exported___types.html#ga41b754a906b86bce54dc79938970138b">DMA_HandleTypeDef</a> *hdma)</td></tr>
+<tr class="memdesc:ga3e58af7629351ccefecbfd615d8567ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">TIM DMA Trigger half complete callback.  <br /></td></tr>
+<tr class="memitem:ga0dc6b90093e2510142a5b21d75e025e0" id="r_ga0dc6b90093e2510142a5b21d75e025e0"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___private___functions.html#ga0dc6b90093e2510142a5b21d75e025e0">TIM_ETR_SetConfig</a> (<a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *TIMx, uint32_t TIM_ExtTRGPrescaler, uint32_t TIM_ExtTRGPolarity, uint32_t ExtTRGFilter)</td></tr>
+<tr class="memdesc:ga0dc6b90093e2510142a5b21d75e025e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures the TIMx External Trigger (ETR).  <br /></td></tr>
+<tr class="memitem:ga77df75bca78ebeaa519d0a1f8cc5e9b0" id="r_ga77df75bca78ebeaa519d0a1f8cc5e9b0"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___private___functions.html#ga77df75bca78ebeaa519d0a1f8cc5e9b0">TIM_ITRx_SetConfig</a> (<a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *TIMx, uint32_t InputTriggerSource)</td></tr>
+<tr class="memdesc:ga77df75bca78ebeaa519d0a1f8cc5e9b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Selects the Input Trigger source.  <br /></td></tr>
+<tr class="memitem:gabf4ee1e8853f526443ca70a94be27535" id="r_gabf4ee1e8853f526443ca70a94be27535"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___private___functions.html#gabf4ee1e8853f526443ca70a94be27535">TIM_OC1_SetConfig</a> (<a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *TIMx, const <a class="el" href="struct_t_i_m___o_c___init_type_def.html">TIM_OC_InitTypeDef</a> *OC_Config)</td></tr>
+<tr class="memdesc:gabf4ee1e8853f526443ca70a94be27535"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timer Output Compare 1 configuration.  <br /></td></tr>
+<tr class="memitem:ga5d921b105aeea15c381e7a265af9092e" id="r_ga5d921b105aeea15c381e7a265af9092e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___private___functions.html#ga5d921b105aeea15c381e7a265af9092e">TIM_OC2_SetConfig</a> (<a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *TIMx, const <a class="el" href="struct_t_i_m___o_c___init_type_def.html">TIM_OC_InitTypeDef</a> *OC_Config)</td></tr>
+<tr class="memdesc:ga5d921b105aeea15c381e7a265af9092e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timer Output Compare 2 configuration.  <br /></td></tr>
+<tr class="memitem:gab2edd1631f20953874885f523fefc5b3" id="r_gab2edd1631f20953874885f523fefc5b3"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___private___functions.html#gab2edd1631f20953874885f523fefc5b3">TIM_OC3_SetConfig</a> (<a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *TIMx, const <a class="el" href="struct_t_i_m___o_c___init_type_def.html">TIM_OC_InitTypeDef</a> *OC_Config)</td></tr>
+<tr class="memdesc:gab2edd1631f20953874885f523fefc5b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timer Output Compare 3 configuration.  <br /></td></tr>
+<tr class="memitem:ga907c15ec22e462f8b0fd0fbb1b313d24" id="r_ga907c15ec22e462f8b0fd0fbb1b313d24"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___private___functions.html#ga907c15ec22e462f8b0fd0fbb1b313d24">TIM_OC4_SetConfig</a> (<a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *TIMx, const <a class="el" href="struct_t_i_m___o_c___init_type_def.html">TIM_OC_InitTypeDef</a> *OC_Config)</td></tr>
+<tr class="memdesc:ga907c15ec22e462f8b0fd0fbb1b313d24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timer Output Compare 4 configuration.  <br /></td></tr>
+<tr class="memitem:ga18f89a659bee6d04b3691106a08933ac" id="r_ga18f89a659bee6d04b3691106a08933ac"><td class="memItemLeft">static <a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___private___functions.html#ga18f89a659bee6d04b3691106a08933ac">TIM_SlaveTimer_SetConfig</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, const <a class="el" href="struct_t_i_m___slave_config_type_def.html">TIM_SlaveConfigTypeDef</a> *sSlaveConfig)</td></tr>
+<tr class="memdesc:ga18f89a659bee6d04b3691106a08933ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Slave Timer configuration function.  <br /></td></tr>
+<tr class="memitem:gad0e250cfb2d9975b31b8b0451a462af7" id="r_gad0e250cfb2d9975b31b8b0451a462af7"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___private___functions.html#gad0e250cfb2d9975b31b8b0451a462af7">TIM_TI1_ConfigInputStage</a> (<a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *TIMx, uint32_t TIM_ICPolarity, uint32_t TIM_ICFilter)</td></tr>
+<tr class="memdesc:gad0e250cfb2d9975b31b8b0451a462af7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure the Polarity and Filter for TI1.  <br /></td></tr>
+<tr class="memitem:ga83c847710a92f0558c862dd0dc889ff3" id="r_ga83c847710a92f0558c862dd0dc889ff3"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___private___functions.html#ga83c847710a92f0558c862dd0dc889ff3">TIM_TI1_SetConfig</a> (<a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *TIMx, uint32_t TIM_ICPolarity, uint32_t TIM_ICSelection, uint32_t TIM_ICFilter)</td></tr>
+<tr class="memdesc:ga83c847710a92f0558c862dd0dc889ff3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure the TI1 as Input.  <br /></td></tr>
+<tr class="memitem:gadd6717ac5574f28c7481a77f74ba65e9" id="r_gadd6717ac5574f28c7481a77f74ba65e9"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___private___functions.html#gadd6717ac5574f28c7481a77f74ba65e9">TIM_TI2_ConfigInputStage</a> (<a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *TIMx, uint32_t TIM_ICPolarity, uint32_t TIM_ICFilter)</td></tr>
+<tr class="memdesc:gadd6717ac5574f28c7481a77f74ba65e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure the Polarity and Filter for TI2.  <br /></td></tr>
+<tr class="memitem:gab618aa45aa314d85c179bab1eada83af" id="r_gab618aa45aa314d85c179bab1eada83af"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___private___functions.html#gab618aa45aa314d85c179bab1eada83af">TIM_TI2_SetConfig</a> (<a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *TIMx, uint32_t TIM_ICPolarity, uint32_t TIM_ICSelection, uint32_t TIM_ICFilter)</td></tr>
+<tr class="memdesc:gab618aa45aa314d85c179bab1eada83af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure the TI2 as Input.  <br /></td></tr>
+<tr class="memitem:ga0a4ef7434b82106bf99fa982429a040f" id="r_ga0a4ef7434b82106bf99fa982429a040f"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___private___functions.html#ga0a4ef7434b82106bf99fa982429a040f">TIM_TI3_SetConfig</a> (<a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *TIMx, uint32_t TIM_ICPolarity, uint32_t TIM_ICSelection, uint32_t TIM_ICFilter)</td></tr>
+<tr class="memdesc:ga0a4ef7434b82106bf99fa982429a040f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure the TI3 as Input.  <br /></td></tr>
+<tr class="memitem:ga2ccd78dc8653bff6d2a0f3499c4ae9d3" id="r_ga2ccd78dc8653bff6d2a0f3499c4ae9d3"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="group___t_i_m___private___functions.html#ga2ccd78dc8653bff6d2a0f3499c4ae9d3">TIM_TI4_SetConfig</a> (<a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *TIMx, uint32_t TIM_ICPolarity, uint32_t TIM_ICSelection, uint32_t TIM_ICFilter)</td></tr>
+<tr class="memdesc:ga2ccd78dc8653bff6d2a0f3499c4ae9d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure the TI4 as Input.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Descripción detallada</h2>
+<div class="textblock"><p>TIM HAL module driver. This file provides firmware functions to manage the following functionalities of the Timer (TIM) peripheral: </p>
+<dl class="section author"><dt>Autor</dt><dd>MCD Application Team<ul>
+<li>TIM Time Base Initialization</li>
+<li>TIM Time Base Start</li>
+<li>TIM Time Base Start Interruption</li>
+<li>TIM Time Base Start DMA</li>
+<li>TIM Output Compare/PWM Initialization</li>
+<li>TIM Output Compare/PWM Channel Configuration</li>
+<li>TIM Output Compare/PWM Start</li>
+<li>TIM Output Compare/PWM Start Interruption</li>
+<li>TIM Output Compare/PWM Start DMA</li>
+<li>TIM Input Capture Initialization</li>
+<li>TIM Input Capture Channel Configuration</li>
+<li>TIM Input Capture Start</li>
+<li>TIM Input Capture Start Interruption</li>
+<li>TIM Input Capture Start DMA</li>
+<li>TIM One Pulse Initialization</li>
+<li>TIM One Pulse Channel Configuration</li>
+<li>TIM One Pulse Start</li>
+<li>TIM Encoder Interface Initialization</li>
+<li>TIM Encoder Interface Start</li>
+<li>TIM Encoder Interface Start Interruption</li>
+<li>TIM Encoder Interface Start DMA</li>
+<li>Commutation Event configuration with Interruption and DMA</li>
+<li>TIM OCRef clear configuration</li>
+<li>TIM External Clock configuration</li>
+</ul>
+</dd></dl>
+<dl class="section attention"><dt>Atención</dt><dd></dd></dl>
+<p>Copyright (c) 2016 STMicroelectronics. All rights reserved.</p>
+<p>This software is licensed under terms that can be found in the LICENSE file in the root directory of this software component. If no LICENSE file comes with this software, it is provided AS-IS.</p>
+<pre class="fragment">  ==============================================================================
+                      ##### TIMER Generic features #####
+  ==============================================================================
+  [..] The Timer features include:
+       (#) 16-bit up, down, up/down auto-reload counter.
+       (#) 16-bit programmable prescaler allowing dividing (also on the fly) the
+           counter clock frequency either by any factor between 1 and 65536.
+       (#) Up to 4 independent channels for:
+           (++) Input Capture
+           (++) Output Compare
+           (++) PWM generation (Edge and Center-aligned Mode)
+           (++) One-pulse mode output
+       (#) Synchronization circuit to control the timer with external signals and to interconnect
+            several timers together.
+       (#) Supports incremental encoder for positioning purposes
+
+            ##### How to use this driver #####
+  ==============================================================================
+    [..]
+     (#) Initialize the TIM low level resources by implementing the following functions
+         depending on the selected feature:
+           (++) Time Base : HAL_TIM_Base_MspInit()
+           (++) Input Capture : HAL_TIM_IC_MspInit()
+           (++) Output Compare : HAL_TIM_OC_MspInit()
+           (++) PWM generation : HAL_TIM_PWM_MspInit()
+           (++) One-pulse mode output : HAL_TIM_OnePulse_MspInit()
+           (++) Encoder mode output : HAL_TIM_Encoder_MspInit()
+
+     (#) Initialize the TIM low level resources :
+        (##) Enable the TIM interface clock using __HAL_RCC_TIMx_CLK_ENABLE();
+        (##) TIM pins configuration
+            (+++) Enable the clock for the TIM GPIOs using the following function:
+             __HAL_RCC_GPIOx_CLK_ENABLE();
+            (+++) Configure these TIM pins in Alternate function mode using HAL_GPIO_Init();
+
+     (#) The external Clock can be configured, if needed (the default clock is the
+         internal clock from the APBx), using the following function:
+         HAL_TIM_ConfigClockSource, the clock configuration should be done before
+         any start function.
+
+     (#) Configure the TIM in the desired functioning mode using one of the
+       Initialization function of this driver:
+       (++) HAL_TIM_Base_Init: to use the Timer to generate a simple time base
+       (++) HAL_TIM_OC_Init and HAL_TIM_OC_ConfigChannel: to use the Timer to generate an
+            Output Compare signal.
+       (++) HAL_TIM_PWM_Init and HAL_TIM_PWM_ConfigChannel: to use the Timer to generate a
+            PWM signal.
+       (++) HAL_TIM_IC_Init and HAL_TIM_IC_ConfigChannel: to use the Timer to measure an
+            external signal.
+       (++) HAL_TIM_OnePulse_Init and HAL_TIM_OnePulse_ConfigChannel: to use the Timer
+            in One Pulse Mode.
+       (++) HAL_TIM_Encoder_Init: to use the Timer Encoder Interface.
+
+     (#) Activate the TIM peripheral using one of the start functions depending from the feature used:
+           (++) Time Base : HAL_TIM_Base_Start(), HAL_TIM_Base_Start_DMA(), HAL_TIM_Base_Start_IT()
+           (++) Input Capture :  HAL_TIM_IC_Start(), HAL_TIM_IC_Start_DMA(), HAL_TIM_IC_Start_IT()
+           (++) Output Compare : HAL_TIM_OC_Start(), HAL_TIM_OC_Start_DMA(), HAL_TIM_OC_Start_IT()
+           (++) PWM generation : HAL_TIM_PWM_Start(), HAL_TIM_PWM_Start_DMA(), HAL_TIM_PWM_Start_IT()
+           (++) One-pulse mode output : HAL_TIM_OnePulse_Start(), HAL_TIM_OnePulse_Start_IT()
+           (++) Encoder mode output : HAL_TIM_Encoder_Start(), HAL_TIM_Encoder_Start_DMA(), HAL_TIM_Encoder_Start_IT().
+
+     (#) The DMA Burst is managed with the two following functions:
+         HAL_TIM_DMABurst_WriteStart()
+         HAL_TIM_DMABurst_ReadStart()
+
+    *** Callback registration ***
+  =============================================
+
+  [..]
+  The compilation define  USE_HAL_TIM_REGISTER_CALLBACKS when set to 1
+  allows the user to configure dynamically the driver callbacks.
+
+  [..]
+  Use Function HAL_TIM_RegisterCallback() to register a callback.
+  HAL_TIM_RegisterCallback() takes as parameters the HAL peripheral handle,
+  the Callback ID and a pointer to the user callback function.
+
+  [..]
+  Use function HAL_TIM_UnRegisterCallback() to reset a callback to the default
+  weak function.
+  HAL_TIM_UnRegisterCallback takes as parameters the HAL peripheral handle,
+  and the Callback ID.
+
+  [..]
+  These functions allow to register/unregister following callbacks:
+    (+) Base_MspInitCallback              : TIM Base Msp Init Callback.
+    (+) Base_MspDeInitCallback            : TIM Base Msp DeInit Callback.
+    (+) IC_MspInitCallback                : TIM IC Msp Init Callback.
+    (+) IC_MspDeInitCallback              : TIM IC Msp DeInit Callback.
+    (+) OC_MspInitCallback                : TIM OC Msp Init Callback.
+    (+) OC_MspDeInitCallback              : TIM OC Msp DeInit Callback.
+    (+) PWM_MspInitCallback               : TIM PWM Msp Init Callback.
+    (+) PWM_MspDeInitCallback             : TIM PWM Msp DeInit Callback.
+    (+) OnePulse_MspInitCallback          : TIM One Pulse Msp Init Callback.
+    (+) OnePulse_MspDeInitCallback        : TIM One Pulse Msp DeInit Callback.
+    (+) Encoder_MspInitCallback           : TIM Encoder Msp Init Callback.
+    (+) Encoder_MspDeInitCallback         : TIM Encoder Msp DeInit Callback.
+    (+) HallSensor_MspInitCallback        : TIM Hall Sensor Msp Init Callback.
+    (+) HallSensor_MspDeInitCallback      : TIM Hall Sensor Msp DeInit Callback.
+    (+) PeriodElapsedCallback             : TIM Period Elapsed Callback.
+    (+) PeriodElapsedHalfCpltCallback     : TIM Period Elapsed half complete Callback.
+    (+) TriggerCallback                   : TIM Trigger Callback.
+    (+) TriggerHalfCpltCallback           : TIM Trigger half complete Callback.
+    (+) IC_CaptureCallback                : TIM Input Capture Callback.
+    (+) IC_CaptureHalfCpltCallback        : TIM Input Capture half complete Callback.
+    (+) OC_DelayElapsedCallback           : TIM Output Compare Delay Elapsed Callback.
+    (+) PWM_PulseFinishedCallback         : TIM PWM Pulse Finished Callback.
+    (+) PWM_PulseFinishedHalfCpltCallback : TIM PWM Pulse Finished half complete Callback.
+    (+) ErrorCallback                     : TIM Error Callback.
+    (+) CommutationCallback               : TIM Commutation Callback.
+    (+) CommutationHalfCpltCallback       : TIM Commutation half complete Callback.
+    (+) BreakCallback                     : TIM Break Callback.
+
+  [..]
+By default, after the Init and when the state is HAL_TIM_STATE_RESET
+all interrupt callbacks are set to the corresponding weak functions:
+  examples HAL_TIM_TriggerCallback(), HAL_TIM_ErrorCallback().
+
+  [..]
+  Exception done for MspInit and MspDeInit functions that are reset to the legacy weak
+  functionalities in the Init / DeInit only when these callbacks are null
+  (not registered beforehand). If not, MspInit or MspDeInit are not null, the Init / DeInit
+    keep and use the user MspInit / MspDeInit callbacks(registered beforehand)
+
+  [..]
+    Callbacks can be registered / unregistered in HAL_TIM_STATE_READY state only.
+    Exception done MspInit / MspDeInit that can be registered / unregistered
+    in HAL_TIM_STATE_READY or HAL_TIM_STATE_RESET state,
+    thus registered(user) MspInit / DeInit callbacks can be used during the Init / DeInit.
+  In that case first register the MspInit/MspDeInit user callbacks
+      using HAL_TIM_RegisterCallback() before calling DeInit or Init function.
+
+  [..]
+      When The compilation define USE_HAL_TIM_REGISTER_CALLBACKS is set to 0 or
+      not defined, the callback registration feature is not available and all callbacks
+      are set to the corresponding weak functions.
+</pre> 
+<p class="definition">Definición en el archivo <a class="el" href="stm32f1xx__hal__tim_8c_source.html">stm32f1xx_hal_tim.c</a>.</p>
+</div></div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_60925fc218da8ca7908795bf5f624060.html">Drivers</a></li><li class="navelem"><a href="dir_bb6a392354d207333b00bd1cb9328973.html">STM32F1xx_HAL_Driver</a></li><li class="navelem"><a href="dir_934d29f6e99d76aa15686823274a01c7.html">Src</a></li><li class="navelem"><a href="stm32f1xx__hal__tim_8c.html">stm32f1xx_hal_tim.c</a></li>
+    <li class="footer">Generado el <span class="timestamp"></span> para MICRO-Firmware por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

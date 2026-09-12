@@ -1,0 +1,623 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>MICRO-Firmware: IO operation functions</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="codefolding.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  extensions: ["tex2jax.js"],
+  jax: ["input/TeX","output/HTML-CSS"],
+});
+</script>
+<script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">MICRO-Firmware<span id="projectnumber">&#160;EX100923v01</span>
+   </div>
+   <div id="projectbrief">Firmware de Péndulo Invertido Autónomo de Dos Ruedas (STM32F103C8T6 - ARM Cortex-M3)</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Buscar" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('group___g_p_i_o___exported___functions___group2.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">IO operation functions <div class="ingroups"><a class="el" href="group___s_t_m32_f1xx___h_a_l___driver.html">STM32F1xx_HAL_Driver</a> &raquo; <a class="el" href="group___g_p_i_o.html">GPIO</a> &raquo; <a class="el" href="group___g_p_i_o___exported___functions.html">GPIO Exported Functions</a></div></div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>GPIO Read and Write.  
+<a href="#details">Más...</a></p>
+<div id="dynsection-0" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Diagrama de colaboración de IO operation functions:</div>
+<div id="dynsection-0-summary" class="dynsummary">
+</div>
+<div id="dynsection-0-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___g_p_i_o___exported___functions___group2.svg" width="380" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Funciones</h2></td></tr>
+<tr class="memitem:ga56028562a930db41dec5a34a2be6c708" id="r_ga56028562a930db41dec5a34a2be6c708"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ga56028562a930db41dec5a34a2be6c708">HAL_GPIO_EXTI_Callback</a> (uint16_t GPIO_Pin)</td></tr>
+<tr class="memdesc:ga56028562a930db41dec5a34a2be6c708"><td class="mdescLeft">&#160;</td><td class="mdescRight">EXTI line detection callbacks.  <br /></td></tr>
+<tr class="memitem:gaa5de1ec4ebdd47e3e2b786224adaa9d0" id="r_gaa5de1ec4ebdd47e3e2b786224adaa9d0"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#gaa5de1ec4ebdd47e3e2b786224adaa9d0">HAL_GPIO_EXTI_IRQHandler</a> (uint16_t GPIO_Pin)</td></tr>
+<tr class="memdesc:gaa5de1ec4ebdd47e3e2b786224adaa9d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function handles EXTI interrupt request.  <br /></td></tr>
+<tr class="memitem:gad03c868b4a4fb25883c1bb86d0c7e9ca" id="r_gad03c868b4a4fb25883c1bb86d0c7e9ca"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="#gad03c868b4a4fb25883c1bb86d0c7e9ca">HAL_GPIO_LockPin</a> (<a class="el" href="struct_g_p_i_o___type_def.html">GPIO_TypeDef</a> *GPIOx, uint16_t GPIO_Pin)</td></tr>
+<tr class="memdesc:gad03c868b4a4fb25883c1bb86d0c7e9ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Locks GPIO Pins configuration registers.  <br /></td></tr>
+<tr class="memitem:gaf2b819ea6551319ddd5670db318d2e4e" id="r_gaf2b819ea6551319ddd5670db318d2e4e"><td class="memItemLeft"><a class="el" href="group___g_p_i_o___exported___types.html#ga5b3ef0486b179415581eb342e0ea6b43">GPIO_PinState</a>&#160;</td><td class="memItemRight"><a class="el" href="#gaf2b819ea6551319ddd5670db318d2e4e">HAL_GPIO_ReadPin</a> (<a class="el" href="struct_g_p_i_o___type_def.html">GPIO_TypeDef</a> *GPIOx, uint16_t GPIO_Pin)</td></tr>
+<tr class="memdesc:gaf2b819ea6551319ddd5670db318d2e4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the specified input port pin.  <br /></td></tr>
+<tr class="memitem:gaf5e0c89f752de5cdedcc30db068133f6" id="r_gaf5e0c89f752de5cdedcc30db068133f6"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#gaf5e0c89f752de5cdedcc30db068133f6">HAL_GPIO_TogglePin</a> (<a class="el" href="struct_g_p_i_o___type_def.html">GPIO_TypeDef</a> *GPIOx, uint16_t GPIO_Pin)</td></tr>
+<tr class="memdesc:gaf5e0c89f752de5cdedcc30db068133f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Toggles the specified GPIO pin.  <br /></td></tr>
+<tr class="memitem:gaf4b97bdf533a02f51ef696d43b6da5c4" id="r_gaf4b97bdf533a02f51ef696d43b6da5c4"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#gaf4b97bdf533a02f51ef696d43b6da5c4">HAL_GPIO_WritePin</a> (<a class="el" href="struct_g_p_i_o___type_def.html">GPIO_TypeDef</a> *GPIOx, uint16_t GPIO_Pin, <a class="el" href="group___g_p_i_o___exported___types.html#ga5b3ef0486b179415581eb342e0ea6b43">GPIO_PinState</a> PinState)</td></tr>
+<tr class="memdesc:gaf4b97bdf533a02f51ef696d43b6da5c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets or clears the selected data port bit.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Descripción detallada</h2>
+<div class="textblock"><p>GPIO Read and Write. </p>
+<pre class="fragment"> ===============================================================================
+                       ##### IO operation functions #####
+ ===============================================================================
+  [..]
+    This subsection provides a set of functions allowing to manage the GPIOs.
+</pre> </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Documentación de funciones</h2>
+<a id="ga56028562a930db41dec5a34a2be6c708" name="ga56028562a930db41dec5a34a2be6c708"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga56028562a930db41dec5a34a2be6c708">&#9670;&#160;</a></span>HAL_GPIO_EXTI_Callback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group___u_s_b_d___d_e_f___exported___macros.html#ga5181eb756a197a06d1c4ed1f40a065bc">__weak</a> void HAL_GPIO_EXTI_Callback </td>
+          <td>(</td>
+          <td class="paramtype">uint16_t</td>          <td class="paramname"><span class="paramname"><em>GPIO_Pin</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__gpio_8h.html">stm32f1xx_hal_gpio.h</a>&quot;</code></p>
+
+<p>EXTI line detection callbacks. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GPIO_Pin</td><td>Specifies the pins connected EXTI line </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__gpio_8c_source.html#l00561">561</a> del archivo <a class="el" href="stm32f1xx__hal__gpio_8c_source.html">stm32f1xx_hal_gpio.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  562</span>{</div>
+<div class="line"><span class="lineno">  563</span>  <span class="comment">/* Prevent unused argument(s) compilation warning */</span></div>
+<div class="line"><span class="lineno">  564</span>  UNUSED(GPIO_Pin);</div>
+<div class="line"><span class="lineno">  565</span>  <span class="comment">/* NOTE: This function Should not be modified, when the callback is needed,</span></div>
+<div class="line"><span class="lineno">  566</span><span class="comment">           the HAL_GPIO_EXTI_Callback could be implemented in the user file</span></div>
+<div class="line"><span class="lineno">  567</span><span class="comment">   */</span></div>
+<div class="line"><span class="lineno">  568</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="usbd__def_8h_source.html#l00283">__weak</a> y <a class="el" href="stm32f1xx__hal__gpio_8c_source.html#l00561">HAL_GPIO_EXTI_Callback()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal__gpio_8c_source.html#l00561">HAL_GPIO_EXTI_Callback()</a> y <a class="el" href="stm32f1xx__hal__gpio_8c_source.html#l00546">HAL_GPIO_EXTI_IRQHandler()</a>.</p>
+<div id="dynsection-1" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-1-summary" class="dynsummary">
+</div>
+<div id="dynsection-1-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___g_p_i_o___exported___functions___group2_ga56028562a930db41dec5a34a2be6c708_cgraph.svg" width="194" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-2" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-2-summary" class="dynsummary">
+</div>
+<div id="dynsection-2-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___g_p_i_o___exported___functions___group2_ga56028562a930db41dec5a34a2be6c708_icgraph.svg" width="442" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="gaa5de1ec4ebdd47e3e2b786224adaa9d0" name="gaa5de1ec4ebdd47e3e2b786224adaa9d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa5de1ec4ebdd47e3e2b786224adaa9d0">&#9670;&#160;</a></span>HAL_GPIO_EXTI_IRQHandler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void HAL_GPIO_EXTI_IRQHandler </td>
+          <td>(</td>
+          <td class="paramtype">uint16_t</td>          <td class="paramname"><span class="paramname"><em>GPIO_Pin</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__gpio_8h.html">stm32f1xx_hal_gpio.h</a>&quot;</code></p>
+
+<p>This function handles EXTI interrupt request. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GPIO_Pin</td><td>Specifies the pins connected EXTI line </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; Peripheral base address in the alias region</p>
+<p>&lt; Peripheral base address in the alias region</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__gpio_8c_source.html#l00546">546</a> del archivo <a class="el" href="stm32f1xx__hal__gpio_8c_source.html">stm32f1xx_hal_gpio.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  547</span>{</div>
+<div class="line"><span class="lineno">  548</span>  <span class="comment">/* EXTI line interrupt detected */</span></div>
+<div class="line"><span class="lineno">  549</span>  <span class="keywordflow">if</span> (<a class="code hl_define" href="group___g_p_i_o___exported___macros.html#ga27f0e1f6c38745169d74620f6a178a94">__HAL_GPIO_EXTI_GET_IT</a>(GPIO_Pin) != 0x00u)</div>
+<div class="line"><span class="lineno">  550</span>  {</div>
+<div class="line"><span class="lineno">  551</span>    <a class="code hl_define" href="group___g_p_i_o___exported___macros.html#ga2a086506eec826f49b200fba64beb9f1">__HAL_GPIO_EXTI_CLEAR_IT</a>(GPIO_Pin);</div>
+<div class="line"><span class="lineno">  552</span>    <a class="code hl_function" href="#ga56028562a930db41dec5a34a2be6c708">HAL_GPIO_EXTI_Callback</a>(GPIO_Pin);</div>
+<div class="line"><span class="lineno">  553</span>  }</div>
+<div class="line"><span class="lineno">  554</span>}</div>
+<div class="ttc" id="agroup___g_p_i_o___exported___functions___group2_html_ga56028562a930db41dec5a34a2be6c708"><div class="ttname"><a href="#ga56028562a930db41dec5a34a2be6c708">HAL_GPIO_EXTI_Callback</a></div><div class="ttdeci">void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)</div><div class="ttdoc">EXTI line detection callbacks.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__gpio_8c_source.html#l00561">stm32f1xx_hal_gpio.c:561</a></div></div>
+<div class="ttc" id="agroup___g_p_i_o___exported___macros_html_ga27f0e1f6c38745169d74620f6a178a94"><div class="ttname"><a href="group___g_p_i_o___exported___macros.html#ga27f0e1f6c38745169d74620f6a178a94">__HAL_GPIO_EXTI_GET_IT</a></div><div class="ttdeci">#define __HAL_GPIO_EXTI_GET_IT(__EXTI_LINE__)</div><div class="ttdoc">Checks whether the specified EXTI line is asserted or not.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__gpio_8h_source.html#l00190">stm32f1xx_hal_gpio.h:190</a></div></div>
+<div class="ttc" id="agroup___g_p_i_o___exported___macros_html_ga2a086506eec826f49b200fba64beb9f1"><div class="ttname"><a href="group___g_p_i_o___exported___macros.html#ga2a086506eec826f49b200fba64beb9f1">__HAL_GPIO_EXTI_CLEAR_IT</a></div><div class="ttdeci">#define __HAL_GPIO_EXTI_CLEAR_IT(__EXTI_LINE__)</div><div class="ttdoc">Clears the EXTI&#39;s line pending bits.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__gpio_8h_source.html#l00198">stm32f1xx_hal_gpio.h:198</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__hal__gpio_8h_source.html#l00198">__HAL_GPIO_EXTI_CLEAR_IT</a>, <a class="el" href="stm32f1xx__hal__gpio_8h_source.html#l00190">__HAL_GPIO_EXTI_GET_IT</a>, <a class="el" href="stm32f1xx__hal__gpio_8c_source.html#l00561">HAL_GPIO_EXTI_Callback()</a> y <a class="el" href="stm32f1xx__hal__gpio_8c_source.html#l00546">HAL_GPIO_EXTI_IRQHandler()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal__gpio_8c_source.html#l00546">HAL_GPIO_EXTI_IRQHandler()</a>.</p>
+<div id="dynsection-3" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-3-summary" class="dynsummary">
+</div>
+<div id="dynsection-3-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___g_p_i_o___exported___functions___group2_gaa5de1ec4ebdd47e3e2b786224adaa9d0_cgraph.svg" width="442" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-4" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-4-summary" class="dynsummary">
+</div>
+<div id="dynsection-4-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___g_p_i_o___exported___functions___group2_gaa5de1ec4ebdd47e3e2b786224adaa9d0_icgraph.svg" width="211" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="gad03c868b4a4fb25883c1bb86d0c7e9ca" name="gad03c868b4a4fb25883c1bb86d0c7e9ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad03c868b4a4fb25883c1bb86d0c7e9ca">&#9670;&#160;</a></span>HAL_GPIO_LockPin()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a> HAL_GPIO_LockPin </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_g_p_i_o___type_def.html">GPIO_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>GPIOx</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t</td>          <td class="paramname"><span class="paramname"><em>GPIO_Pin</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__gpio_8h.html">stm32f1xx_hal_gpio.h</a>&quot;</code></p>
+
+<p>Locks GPIO Pins configuration registers. </p>
+<dl class="section note"><dt>Nota</dt><dd>The locking mechanism allows the IO configuration to be frozen. When the LOCK sequence has been applied on a port bit, it is no longer possible to modify the value of the port bit until the next reset. </dd></dl>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GPIOx</td><td>where x can be (A..G depending on device used) to select the GPIO peripheral </td></tr>
+    <tr><td class="paramname">GPIO_Pin</td><td>specifies the port bit to be locked. This parameter can be any combination of GPIO_PIN_x where x can be (0..15). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; Defines 'read / write' permissions</p>
+<p>&lt; 0x00010000</p>
+<p>&lt; Lock key</p>
+<p>&lt; 0x00010000</p>
+<p>&lt; Lock key</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__gpio_8c_source.html#l00511">511</a> del archivo <a class="el" href="stm32f1xx__hal__gpio_8c_source.html">stm32f1xx_hal_gpio.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  512</span>{</div>
+<div class="line"><span class="lineno">  513</span>  __IO uint32_t tmp = <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#gafa2a83bf31ef76ee3857c7cb0a90c4d9">GPIO_LCKR_LCKK</a>;</div>
+<div class="line"><span class="lineno">  514</span> </div>
+<div class="line"><span class="lineno">  515</span>  <span class="comment">/* Check the parameters */</span></div>
+<div class="line"><span class="lineno">  516</span>  <a class="code hl_define" href="stm32f1xx__hal__conf_8h.html#a631dea7b230e600555f979c62af1de21">assert_param</a>(<a class="code hl_define" href="group___exported__macro.html#gaa84537785f7bf8425db6e392187ea2e6">IS_GPIO_LOCK_INSTANCE</a>(GPIOx));</div>
+<div class="line"><span class="lineno">  517</span>  <a class="code hl_define" href="stm32f1xx__hal__conf_8h.html#a631dea7b230e600555f979c62af1de21">assert_param</a>(<a class="code hl_define" href="group___g_p_i_o___private___macros.html#gad6ec74e33360395535ad5d91ba6d4781">IS_GPIO_PIN</a>(GPIO_Pin));</div>
+<div class="line"><span class="lineno">  518</span> </div>
+<div class="line"><span class="lineno">  519</span>  <span class="comment">/* Apply lock key write sequence */</span></div>
+<div class="line"><span class="lineno">  520</span>  <a class="code hl_define" href="group___exported__macros.html#ga26474f43799fbade9cf300e21dd3a91a">SET_BIT</a>(tmp, GPIO_Pin);</div>
+<div class="line"><span class="lineno">  521</span>  <span class="comment">/* Set LCKx bit(s): LCKK=&#39;1&#39; + LCK[15-0] */</span></div>
+<div class="line"><span class="lineno">  522</span>  GPIOx-&gt;<a class="code hl_variable" href="struct_g_p_i_o___type_def.html#a688cba9da61c7a2b121ad3e25862dd91">LCKR</a> = tmp;</div>
+<div class="line"><span class="lineno">  523</span>  <span class="comment">/* Reset LCKx bit(s): LCKK=&#39;0&#39; + LCK[15-0] */</span></div>
+<div class="line"><span class="lineno">  524</span>  GPIOx-&gt;<a class="code hl_variable" href="struct_g_p_i_o___type_def.html#a688cba9da61c7a2b121ad3e25862dd91">LCKR</a> = GPIO_Pin;</div>
+<div class="line"><span class="lineno">  525</span>  <span class="comment">/* Set LCKx bit(s): LCKK=&#39;1&#39; + LCK[15-0] */</span></div>
+<div class="line"><span class="lineno">  526</span>  GPIOx-&gt;<a class="code hl_variable" href="struct_g_p_i_o___type_def.html#a688cba9da61c7a2b121ad3e25862dd91">LCKR</a> = tmp;</div>
+<div class="line"><span class="lineno">  527</span>  <span class="comment">/* Read LCKK register. This read is mandatory to complete key lock sequence */</span></div>
+<div class="line"><span class="lineno">  528</span>  tmp = GPIOx-&gt;<a class="code hl_variable" href="struct_g_p_i_o___type_def.html#a688cba9da61c7a2b121ad3e25862dd91">LCKR</a>;</div>
+<div class="line"><span class="lineno">  529</span> </div>
+<div class="line"><span class="lineno">  530</span>  <span class="comment">/* read again in order to confirm lock is active */</span></div>
+<div class="line"><span class="lineno">  531</span>  <span class="keywordflow">if</span> ((uint32_t)(GPIOx-&gt;<a class="code hl_variable" href="struct_g_p_i_o___type_def.html#a688cba9da61c7a2b121ad3e25862dd91">LCKR</a> &amp; <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#gafa2a83bf31ef76ee3857c7cb0a90c4d9">GPIO_LCKR_LCKK</a>))</div>
+<div class="line"><span class="lineno">  532</span>  {</div>
+<div class="line"><span class="lineno">  533</span>    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632">HAL_OK</a>;</div>
+<div class="line"><span class="lineno">  534</span>  }</div>
+<div class="line"><span class="lineno">  535</span>  <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  536</span>  {</div>
+<div class="line"><span class="lineno">  537</span>    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478fa5a04e395e501e4e400172c610478c4a4">HAL_ERROR</a>;</div>
+<div class="line"><span class="lineno">  538</span>  }</div>
+<div class="line"><span class="lineno">  539</span>}</div>
+<div class="ttc" id="agroup___exported__macro_html_gaa84537785f7bf8425db6e392187ea2e6"><div class="ttname"><a href="group___exported__macro.html#gaa84537785f7bf8425db6e392187ea2e6">IS_GPIO_LOCK_INSTANCE</a></div><div class="ttdeci">#define IS_GPIO_LOCK_INSTANCE(INSTANCE)</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l09925">stm32f103xb.h:9925</a></div></div>
+<div class="ttc" id="agroup___exported__macros_html_ga26474f43799fbade9cf300e21dd3a91a"><div class="ttname"><a href="group___exported__macros.html#ga26474f43799fbade9cf300e21dd3a91a">SET_BIT</a></div><div class="ttdeci">#define SET_BIT(REG, BIT)</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx_8h_source.html#l00177">stm32f1xx.h:177</a></div></div>
+<div class="ttc" id="agroup___g_p_i_o___private___macros_html_gad6ec74e33360395535ad5d91ba6d4781"><div class="ttname"><a href="group___g_p_i_o___private___macros.html#gad6ec74e33360395535ad5d91ba6d4781">IS_GPIO_PIN</a></div><div class="ttdeci">#define IS_GPIO_PIN(PIN)</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__gpio_8h_source.html#l00263">stm32f1xx_hal_gpio.h:263</a></div></div>
+<div class="ttc" id="agroup___peripheral___registers___bits___definition_html_gafa2a83bf31ef76ee3857c7cb0a90c4d9"><div class="ttname"><a href="group___peripheral___registers___bits___definition.html#gafa2a83bf31ef76ee3857c7cb0a90c4d9">GPIO_LCKR_LCKK</a></div><div class="ttdeci">#define GPIO_LCKR_LCKK</div><div class="ttdoc">Lock key.</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l01946">stm32f103xb.h:1946</a></div></div>
+<div class="ttc" id="astm32f1xx__hal__conf_8h_html_a631dea7b230e600555f979c62af1de21"><div class="ttname"><a href="stm32f1xx__hal__conf_8h.html#a631dea7b230e600555f979c62af1de21">assert_param</a></div><div class="ttdeci">#define assert_param(expr)</div><div class="ttdoc">Include module&#39;s header file.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__conf_8h_source.html#l00373">stm32f1xx_hal_conf.h:373</a></div></div>
+<div class="ttc" id="astm32f1xx__hal__def_8h_html_a63c0679d1cb8b8c684fbb0632743478fa5a04e395e501e4e400172c610478c4a4"><div class="ttname"><a href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478fa5a04e395e501e4e400172c610478c4a4">HAL_ERROR</a></div><div class="ttdeci">@ HAL_ERROR</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__def_8h_source.html#l00041">stm32f1xx_hal_def.h:41</a></div></div>
+<div class="ttc" id="astm32f1xx__hal__def_8h_html_a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632"><div class="ttname"><a href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632">HAL_OK</a></div><div class="ttdeci">@ HAL_OK</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__def_8h_source.html#l00040">stm32f1xx_hal_def.h:40</a></div></div>
+<div class="ttc" id="astruct_g_p_i_o___type_def_html_a688cba9da61c7a2b121ad3e25862dd91"><div class="ttname"><a href="struct_g_p_i_o___type_def.html#a688cba9da61c7a2b121ad3e25862dd91">GPIO_TypeDef::LCKR</a></div><div class="ttdeci">volatile uint32_t LCKR</div><div class="ttdoc">&lt; Defines &#39;read / write&#39; permissions</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l00365">stm32f103xb.h:365</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__hal__conf_8h_source.html#l00373">assert_param</a>, <a class="el" href="stm32f103xb_8h_source.html#l01946">GPIO_LCKR_LCKK</a>, <a class="el" href="stm32f1xx__hal__def_8h_source.html#l00041">HAL_ERROR</a>, <a class="el" href="stm32f1xx__hal__gpio_8c_source.html#l00511">HAL_GPIO_LockPin()</a>, <a class="el" href="stm32f1xx__hal__def_8h_source.html#l00040">HAL_OK</a>, <a class="el" href="stm32f103xb_8h_source.html#l09925">IS_GPIO_LOCK_INSTANCE</a>, <a class="el" href="stm32f1xx__hal__gpio_8h_source.html#l00263">IS_GPIO_PIN</a>, <a class="el" href="stm32f103xb_8h_source.html#l00365">GPIO_TypeDef::LCKR</a> y <a class="el" href="stm32f1xx_8h_source.html#l00177">SET_BIT</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal__gpio_8c_source.html#l00511">HAL_GPIO_LockPin()</a>.</p>
+<div id="dynsection-5" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-5-summary" class="dynsummary">
+</div>
+<div id="dynsection-5-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___g_p_i_o___exported___functions___group2_gad03c868b4a4fb25883c1bb86d0c7e9ca_cgraph.svg" width="152" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-6" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-6-summary" class="dynsummary">
+</div>
+<div id="dynsection-6-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___g_p_i_o___exported___functions___group2_gad03c868b4a4fb25883c1bb86d0c7e9ca_icgraph.svg" width="152" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="gaf2b819ea6551319ddd5670db318d2e4e" name="gaf2b819ea6551319ddd5670db318d2e4e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf2b819ea6551319ddd5670db318d2e4e">&#9670;&#160;</a></span>HAL_GPIO_ReadPin()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group___g_p_i_o___exported___types.html#ga5b3ef0486b179415581eb342e0ea6b43">GPIO_PinState</a> HAL_GPIO_ReadPin </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_g_p_i_o___type_def.html">GPIO_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>GPIOx</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t</td>          <td class="paramname"><span class="paramname"><em>GPIO_Pin</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__gpio_8h.html">stm32f1xx_hal_gpio.h</a>&quot;</code></p>
+
+<p>Reads the specified input port pin. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GPIOx</td><td>where x can be (A..G depending on device used) to select the GPIO peripheral </td></tr>
+    <tr><td class="paramname">GPIO_Pin</td><td>specifies the port bit to read. This parameter can be GPIO_PIN_x where x can be (0..15). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">The</td><td>input port pin value. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__gpio_8c_source.html#l00431">431</a> del archivo <a class="el" href="stm32f1xx__hal__gpio_8c_source.html">stm32f1xx_hal_gpio.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  432</span>{</div>
+<div class="line"><span class="lineno">  433</span>  <a class="code hl_enumeration" href="group___g_p_i_o___exported___types.html#ga5b3ef0486b179415581eb342e0ea6b43">GPIO_PinState</a> bitstatus;</div>
+<div class="line"><span class="lineno">  434</span> </div>
+<div class="line"><span class="lineno">  435</span>  <span class="comment">/* Check the parameters */</span></div>
+<div class="line"><span class="lineno">  436</span>  <a class="code hl_define" href="stm32f1xx__hal__conf_8h.html#a631dea7b230e600555f979c62af1de21">assert_param</a>(<a class="code hl_define" href="group___g_p_i_o___private___macros.html#gad6ec74e33360395535ad5d91ba6d4781">IS_GPIO_PIN</a>(GPIO_Pin));</div>
+<div class="line"><span class="lineno">  437</span> </div>
+<div class="line"><span class="lineno">  438</span>  <span class="keywordflow">if</span> ((GPIOx-&gt;<a class="code hl_variable" href="struct_g_p_i_o___type_def.html#aaeb10779e90965a31fd21e6a929a6597">IDR</a> &amp; GPIO_Pin) != (uint32_t)<a class="code hl_enumvalue" href="group___g_p_i_o___exported___types.html#gga5b3ef0486b179415581eb342e0ea6b43a90af2af95004ea61d76950ff3f2f6ec2">GPIO_PIN_RESET</a>)</div>
+<div class="line"><span class="lineno">  439</span>  {</div>
+<div class="line"><span class="lineno">  440</span>    bitstatus = <a class="code hl_enumvalue" href="group___g_p_i_o___exported___types.html#gga5b3ef0486b179415581eb342e0ea6b43a746c062509db3ad1e47beed7527f9f8a">GPIO_PIN_SET</a>;</div>
+<div class="line"><span class="lineno">  441</span>  }</div>
+<div class="line"><span class="lineno">  442</span>  <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  443</span>  {</div>
+<div class="line"><span class="lineno">  444</span>    bitstatus = <a class="code hl_enumvalue" href="group___g_p_i_o___exported___types.html#gga5b3ef0486b179415581eb342e0ea6b43a90af2af95004ea61d76950ff3f2f6ec2">GPIO_PIN_RESET</a>;</div>
+<div class="line"><span class="lineno">  445</span>  }</div>
+<div class="line"><span class="lineno">  446</span>  <span class="keywordflow">return</span> bitstatus;</div>
+<div class="line"><span class="lineno">  447</span>}</div>
+<div class="ttc" id="agroup___g_p_i_o___exported___types_html_ga5b3ef0486b179415581eb342e0ea6b43"><div class="ttname"><a href="group___g_p_i_o___exported___types.html#ga5b3ef0486b179415581eb342e0ea6b43">GPIO_PinState</a></div><div class="ttdeci">GPIO_PinState</div><div class="ttdoc">GPIO Bit SET and Bit RESET enumeration.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__gpio_8h_source.html#l00064">stm32f1xx_hal_gpio.h:65</a></div></div>
+<div class="ttc" id="agroup___g_p_i_o___exported___types_html_gga5b3ef0486b179415581eb342e0ea6b43a746c062509db3ad1e47beed7527f9f8a"><div class="ttname"><a href="group___g_p_i_o___exported___types.html#gga5b3ef0486b179415581eb342e0ea6b43a746c062509db3ad1e47beed7527f9f8a">GPIO_PIN_SET</a></div><div class="ttdeci">@ GPIO_PIN_SET</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__gpio_8h_source.html#l00067">stm32f1xx_hal_gpio.h:67</a></div></div>
+<div class="ttc" id="agroup___g_p_i_o___exported___types_html_gga5b3ef0486b179415581eb342e0ea6b43a90af2af95004ea61d76950ff3f2f6ec2"><div class="ttname"><a href="group___g_p_i_o___exported___types.html#gga5b3ef0486b179415581eb342e0ea6b43a90af2af95004ea61d76950ff3f2f6ec2">GPIO_PIN_RESET</a></div><div class="ttdeci">@ GPIO_PIN_RESET</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__gpio_8h_source.html#l00066">stm32f1xx_hal_gpio.h:66</a></div></div>
+<div class="ttc" id="astruct_g_p_i_o___type_def_html_aaeb10779e90965a31fd21e6a929a6597"><div class="ttname"><a href="struct_g_p_i_o___type_def.html#aaeb10779e90965a31fd21e6a929a6597">GPIO_TypeDef::IDR</a></div><div class="ttdeci">volatile uint32_t IDR</div><div class="ttdoc">&lt; Defines &#39;read / write&#39; permissions</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l00361">stm32f103xb.h:361</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__hal__conf_8h_source.html#l00373">assert_param</a>, <a class="el" href="stm32f1xx__hal__gpio_8h_source.html#l00066">GPIO_PIN_RESET</a>, <a class="el" href="stm32f1xx__hal__gpio_8h_source.html#l00067">GPIO_PIN_SET</a>, <a class="el" href="stm32f1xx__hal__gpio_8c_source.html#l00431">HAL_GPIO_ReadPin()</a>, <a class="el" href="stm32f103xb_8h_source.html#l00361">GPIO_TypeDef::IDR</a> y <a class="el" href="stm32f1xx__hal__gpio_8h_source.html#l00263">IS_GPIO_PIN</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="main_8c_source.html#l02110">buttonTimeout10ms()</a> y <a class="el" href="stm32f1xx__hal__gpio_8c_source.html#l00431">HAL_GPIO_ReadPin()</a>.</p>
+<div id="dynsection-7" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-7-summary" class="dynsummary">
+</div>
+<div id="dynsection-7-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___g_p_i_o___exported___functions___group2_gaf2b819ea6551319ddd5670db318d2e4e_cgraph.svg" width="155" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-8" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-8-summary" class="dynsummary">
+</div>
+<div id="dynsection-8-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___g_p_i_o___exported___functions___group2_gaf2b819ea6551319ddd5670db318d2e4e_icgraph.svg" width="580" height="136"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="gaf5e0c89f752de5cdedcc30db068133f6" name="gaf5e0c89f752de5cdedcc30db068133f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf5e0c89f752de5cdedcc30db068133f6">&#9670;&#160;</a></span>HAL_GPIO_TogglePin()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void HAL_GPIO_TogglePin </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_g_p_i_o___type_def.html">GPIO_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>GPIOx</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t</td>          <td class="paramname"><span class="paramname"><em>GPIO_Pin</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__gpio_8h.html">stm32f1xx_hal_gpio.h</a>&quot;</code></p>
+
+<p>Toggles the specified GPIO pin. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GPIOx</td><td>where x can be (A..G depending on device used) to select the GPIO peripheral </td></tr>
+    <tr><td class="paramname">GPIO_Pin</td><td>Specifies the pins to be toggled. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__gpio_8c_source.html#l00487">487</a> del archivo <a class="el" href="stm32f1xx__hal__gpio_8c_source.html">stm32f1xx_hal_gpio.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  488</span>{</div>
+<div class="line"><span class="lineno">  489</span>  uint32_t odr;</div>
+<div class="line"><span class="lineno">  490</span> </div>
+<div class="line"><span class="lineno">  491</span>  <span class="comment">/* Check the parameters */</span></div>
+<div class="line"><span class="lineno">  492</span>  <a class="code hl_define" href="stm32f1xx__hal__conf_8h.html#a631dea7b230e600555f979c62af1de21">assert_param</a>(<a class="code hl_define" href="group___g_p_i_o___private___macros.html#gad6ec74e33360395535ad5d91ba6d4781">IS_GPIO_PIN</a>(GPIO_Pin));</div>
+<div class="line"><span class="lineno">  493</span> </div>
+<div class="line"><span class="lineno">  494</span>  <span class="comment">/* get current Output Data Register value */</span></div>
+<div class="line"><span class="lineno">  495</span>  odr = GPIOx-&gt;<a class="code hl_variable" href="struct_g_p_i_o___type_def.html#a845e01039cf7ad8cc6439c58748e42e5">ODR</a>;</div>
+<div class="line"><span class="lineno">  496</span> </div>
+<div class="line"><span class="lineno">  497</span>  <span class="comment">/* Set selected pins that were at low level, and reset ones that were high */</span></div>
+<div class="line"><span class="lineno">  498</span>  GPIOx-&gt;<a class="code hl_variable" href="struct_g_p_i_o___type_def.html#a339be3e24fd21a4dbe815ffa6908e3ff">BSRR</a> = ((odr &amp; GPIO_Pin) &lt;&lt; <a class="code hl_define" href="group___g_p_i_o___private___constants.html#gae8e9740a0d9ca9a179cb4fd05a2cd3d9">GPIO_NUMBER</a>) | (~odr &amp; GPIO_Pin);</div>
+<div class="line"><span class="lineno">  499</span>}</div>
+<div class="ttc" id="agroup___g_p_i_o___private___constants_html_gae8e9740a0d9ca9a179cb4fd05a2cd3d9"><div class="ttname"><a href="group___g_p_i_o___private___constants.html#gae8e9740a0d9ca9a179cb4fd05a2cd3d9">GPIO_NUMBER</a></div><div class="ttdeci">#define GPIO_NUMBER</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__gpio_8c_source.html#l00131">stm32f1xx_hal_gpio.c:131</a></div></div>
+<div class="ttc" id="astruct_g_p_i_o___type_def_html_a339be3e24fd21a4dbe815ffa6908e3ff"><div class="ttname"><a href="struct_g_p_i_o___type_def.html#a339be3e24fd21a4dbe815ffa6908e3ff">GPIO_TypeDef::BSRR</a></div><div class="ttdeci">volatile uint32_t BSRR</div><div class="ttdoc">&lt; Defines &#39;read / write&#39; permissions</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l00363">stm32f103xb.h:363</a></div></div>
+<div class="ttc" id="astruct_g_p_i_o___type_def_html_a845e01039cf7ad8cc6439c58748e42e5"><div class="ttname"><a href="struct_g_p_i_o___type_def.html#a845e01039cf7ad8cc6439c58748e42e5">GPIO_TypeDef::ODR</a></div><div class="ttdeci">volatile uint32_t ODR</div><div class="ttdoc">&lt; Defines &#39;read / write&#39; permissions</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l00362">stm32f103xb.h:362</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__hal__conf_8h_source.html#l00373">assert_param</a>, <a class="el" href="stm32f103xb_8h_source.html#l00363">GPIO_TypeDef::BSRR</a>, <a class="el" href="stm32f1xx__hal__gpio_8c_source.html#l00131">GPIO_NUMBER</a>, <a class="el" href="stm32f1xx__hal__gpio_8c_source.html#l00487">HAL_GPIO_TogglePin()</a>, <a class="el" href="stm32f1xx__hal__gpio_8h_source.html#l00263">IS_GPIO_PIN</a> y <a class="el" href="stm32f103xb_8h_source.html#l00362">GPIO_TypeDef::ODR</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal__gpio_8c_source.html#l00487">HAL_GPIO_TogglePin()</a>.</p>
+<div id="dynsection-9" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-9-summary" class="dynsummary">
+</div>
+<div id="dynsection-9-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___g_p_i_o___exported___functions___group2_gaf5e0c89f752de5cdedcc30db068133f6_cgraph.svg" width="163" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-10" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-10-summary" class="dynsummary">
+</div>
+<div id="dynsection-10-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___g_p_i_o___exported___functions___group2_gaf5e0c89f752de5cdedcc30db068133f6_icgraph.svg" width="163" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="gaf4b97bdf533a02f51ef696d43b6da5c4" name="gaf4b97bdf533a02f51ef696d43b6da5c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf4b97bdf533a02f51ef696d43b6da5c4">&#9670;&#160;</a></span>HAL_GPIO_WritePin()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void HAL_GPIO_WritePin </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_g_p_i_o___type_def.html">GPIO_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>GPIOx</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t</td>          <td class="paramname"><span class="paramname"><em>GPIO_Pin</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group___g_p_i_o___exported___types.html#ga5b3ef0486b179415581eb342e0ea6b43">GPIO_PinState</a></td>          <td class="paramname"><span class="paramname"><em>PinState</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__gpio_8h.html">stm32f1xx_hal_gpio.h</a>&quot;</code></p>
+
+<p>Sets or clears the selected data port bit. </p>
+<dl class="section note"><dt>Nota</dt><dd>This function uses GPIOx_BSRR register to allow atomic read/modify accesses. In this way, there is no risk of an IRQ occurring between the read and the modify access.</dd></dl>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GPIOx</td><td>where x can be (A..G depending on device used) to select the GPIO peripheral </td></tr>
+    <tr><td class="paramname">GPIO_Pin</td><td>specifies the port bit to be written. This parameter can be one of GPIO_PIN_x where x can be (0..15). </td></tr>
+    <tr><td class="paramname">PinState</td><td>specifies the value to be written to the selected bit. This parameter can be one of the <a class="el" href="group___g_p_i_o___exported___types.html#ga5b3ef0486b179415581eb342e0ea6b43" title="GPIO Bit SET and Bit RESET enumeration.">GPIO_PinState</a> enum values: <ul>
+<li>GPIO_PIN_RESET: to clear the port pin </li>
+<li>GPIO_PIN_SET: to set the port pin </li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__gpio_8c_source.html#l00465">465</a> del archivo <a class="el" href="stm32f1xx__hal__gpio_8c_source.html">stm32f1xx_hal_gpio.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  466</span>{</div>
+<div class="line"><span class="lineno">  467</span>  <span class="comment">/* Check the parameters */</span></div>
+<div class="line"><span class="lineno">  468</span>  <a class="code hl_define" href="stm32f1xx__hal__conf_8h.html#a631dea7b230e600555f979c62af1de21">assert_param</a>(<a class="code hl_define" href="group___g_p_i_o___private___macros.html#gad6ec74e33360395535ad5d91ba6d4781">IS_GPIO_PIN</a>(GPIO_Pin));</div>
+<div class="line"><span class="lineno">  469</span>  <a class="code hl_define" href="stm32f1xx__hal__conf_8h.html#a631dea7b230e600555f979c62af1de21">assert_param</a>(<a class="code hl_define" href="group___g_p_i_o___private___macros.html#ga6da646a4924c5cfae3024c660476f26f">IS_GPIO_PIN_ACTION</a>(PinState));</div>
+<div class="line"><span class="lineno">  470</span> </div>
+<div class="line"><span class="lineno">  471</span>  <span class="keywordflow">if</span> (PinState != <a class="code hl_enumvalue" href="group___g_p_i_o___exported___types.html#gga5b3ef0486b179415581eb342e0ea6b43a90af2af95004ea61d76950ff3f2f6ec2">GPIO_PIN_RESET</a>)</div>
+<div class="line"><span class="lineno">  472</span>  {</div>
+<div class="line"><span class="lineno">  473</span>    GPIOx-&gt;<a class="code hl_variable" href="struct_g_p_i_o___type_def.html#a339be3e24fd21a4dbe815ffa6908e3ff">BSRR</a> = GPIO_Pin;</div>
+<div class="line"><span class="lineno">  474</span>  }</div>
+<div class="line"><span class="lineno">  475</span>  <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  476</span>  {</div>
+<div class="line"><span class="lineno">  477</span>    GPIOx-&gt;<a class="code hl_variable" href="struct_g_p_i_o___type_def.html#a339be3e24fd21a4dbe815ffa6908e3ff">BSRR</a> = (uint32_t)GPIO_Pin &lt;&lt; 16u;</div>
+<div class="line"><span class="lineno">  478</span>  }</div>
+<div class="line"><span class="lineno">  479</span>}</div>
+<div class="ttc" id="agroup___g_p_i_o___private___macros_html_ga6da646a4924c5cfae3024c660476f26f"><div class="ttname"><a href="group___g_p_i_o___private___macros.html#ga6da646a4924c5cfae3024c660476f26f">IS_GPIO_PIN_ACTION</a></div><div class="ttdeci">#define IS_GPIO_PIN_ACTION(ACTION)</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__gpio_8h_source.html#l00262">stm32f1xx_hal_gpio.h:262</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__hal__conf_8h_source.html#l00373">assert_param</a>, <a class="el" href="stm32f103xb_8h_source.html#l00363">GPIO_TypeDef::BSRR</a>, <a class="el" href="stm32f1xx__hal__gpio_8h_source.html#l00066">GPIO_PIN_RESET</a>, <a class="el" href="stm32f1xx__hal__gpio_8c_source.html#l00465">HAL_GPIO_WritePin()</a>, <a class="el" href="stm32f1xx__hal__gpio_8h_source.html#l00263">IS_GPIO_PIN</a> y <a class="el" href="stm32f1xx__hal__gpio_8h_source.html#l00262">IS_GPIO_PIN_ACTION</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="main_8c_source.html#l01744">CHPD_Control()</a>, <a class="el" href="stm32f1xx__hal__gpio_8c_source.html#l00465">HAL_GPIO_WritePin()</a>, <a class="el" href="main_8c_source.html#l01476">heartBeatTask()</a>, <a class="el" href="main_8c_source.html#l03056">main()</a> y <a class="el" href="main_8c_source.html#l03677">MX_GPIO_Init()</a>.</p>
+<div id="dynsection-11" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-11-summary" class="dynsummary">
+</div>
+<div id="dynsection-11-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___g_p_i_o___exported___functions___group2_gaf4b97bdf533a02f51ef696d43b6da5c4_cgraph.svg" width="155" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-12" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-12-summary" class="dynsummary">
+</div>
+<div id="dynsection-12-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___g_p_i_o___exported___functions___group2_gaf4b97bdf533a02f51ef696d43b6da5c4_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generado el <span class="timestamp"></span> para MICRO-Firmware por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

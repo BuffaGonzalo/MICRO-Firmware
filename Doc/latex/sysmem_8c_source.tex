@@ -1,0 +1,73 @@
+\doxysubsection{sysmem.\+c}
+\hypertarget{sysmem_8c_source}{}\label{sysmem_8c_source}\index{sysmem.c@{sysmem.c}}
+\doxymbox{\hyperlink{sysmem_8c}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00001}00001\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00002}00002\ \textcolor{comment}{\ *\ @file\ \ \ \ \ \ sysmem.c}}
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00003}00003\ \textcolor{comment}{\ *\ @author\ \ \ \ Generated\ by\ STM32CubeIDE\ /\ STMicroelectronics}}
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00004}00004\ \textcolor{comment}{\ *\ @brief\ \ \ \ \ Gestión\ de\ memoria\ dinámica\ (Heap)\ y\ llamada\ \`{}\_sbrk`\ para\ Newlib\ libc.}}
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00005}00005\ \textcolor{comment}{\ *\ @details\ \ \ Administra\ la\ memoria\ asignada\ al\ heap\ para\ funciones\ como\ \`{}malloc()`\ y\ \`{}free()`,}}
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00006}00006\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ previniendo\ la\ colisión\ con\ el\ puntero\ de\ pila\ (Stack\ Pointer).}}
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00007}00007\ \textcolor{comment}{\ *\ @ingroup\ \ \ group\_system}}
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00008}00008\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00011}00011\ \textcolor{comment}{/*\ Includes\ */}}
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00012}00012\ \textcolor{preprocessor}{\#include\ <errno.h>}}
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00013}00013\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00014}00014\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00015}00015\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00016}00016\ \textcolor{comment}{\ *\ Pointer\ to\ the\ current\ high\ watermark\ of\ the\ heap\ usage}}
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00017}00017\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00018}\doxymbox{\hyperlink{sysmem_8c_a2cf862d604e9c7cfcf0528a0f539a6a5}{00018}}\ \textcolor{keyword}{static}\ uint8\_t\ *\doxymbox{\hyperlink{sysmem_8c_a2cf862d604e9c7cfcf0528a0f539a6a5}{\_\_sbrk\_heap\_end}}\ =\ \doxymbox{\hyperlink{group___u_s_b___d_e_f___exported___defines_ga070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}};}
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00019}00019\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00020}00020\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00021}00021\ \textcolor{comment}{\ *\ @brief\ \_sbrk()\ allocates\ memory\ to\ the\ newlib\ heap\ and\ is\ used\ by\ malloc}}
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00022}00022\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ and\ others\ from\ the\ C\ library}}
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00023}00023\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00024}00024\ \textcolor{comment}{\ *\ @verbatim}}
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00025}00025\ \textcolor{comment}{\ *\ \#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#}}
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00026}00026\ \textcolor{comment}{\ *\ \#\ \ .data\ \ \#\ \ .bss\ \ \#\ \ \ \ \ \ \ newlib\ heap\ \ \ \ \ \ \ \#\ \ \ \ \ \ \ \ \ \ MSP\ stack\ \ \ \ \ \ \ \ \ \ \#}}
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00027}00027\ \textcolor{comment}{\ *\ \#\ \ \ \ \ \ \ \ \ \#\ \ \ \ \ \ \ \ \#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Reserved\ by\ \_Min\_Stack\_Size\ \#}}
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00028}00028\ \textcolor{comment}{\ *\ \#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#}}
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00029}00029\ \textcolor{comment}{\ *\ \string^-\/-\/\ RAM\ start\ \ \ \ \ \ \string^-\/-\/\ \_end\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_estack,\ RAM\ end\ -\/-\/\string^}}
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00030}00030\ \textcolor{comment}{\ *\ @endverbatim}}
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00031}00031\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00032}00032\ \textcolor{comment}{\ *\ This\ implementation\ starts\ allocating\ at\ the\ '\_end'\ linker\ symbol}}
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00033}00033\ \textcolor{comment}{\ *\ The\ '\_Min\_Stack\_Size'\ linker\ symbol\ reserves\ a\ memory\ for\ the\ MSP\ stack}}
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00034}00034\ \textcolor{comment}{\ *\ The\ implementation\ considers\ '\_estack'\ linker\ symbol\ to\ be\ RAM\ end}}
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00035}00035\ \textcolor{comment}{\ *\ NOTE:\ If\ the\ MSP\ stack,\ at\ any\ point\ during\ execution,\ grows\ larger\ than\ the}}
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00036}00036\ \textcolor{comment}{\ *\ reserved\ size,\ please\ increase\ the\ '\_Min\_Stack\_Size'.}}
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00037}00037\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00038}00038\ \textcolor{comment}{\ *\ @param\ incr\ Memory\ size}}
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00039}00039\ \textcolor{comment}{\ *\ @return\ Pointer\ to\ allocated\ memory}}
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00040}00040\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00041}\doxymbox{\hyperlink{sysmem_8c_a68125648bcce70b6bb3aa0be50e99700}{00041}}\ \textcolor{keywordtype}{void}\ *\doxymbox{\hyperlink{sysmem_8c_a68125648bcce70b6bb3aa0be50e99700}{\_sbrk}}(ptrdiff\_t\ incr)}
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00042}00042\ \{}
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00043}00043\ \ \ \textcolor{keyword}{extern}\ uint8\_t\ \_end;\ \textcolor{comment}{/*\ Symbol\ defined\ in\ the\ linker\ script\ */}}
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00044}00044\ \ \ \textcolor{keyword}{extern}\ uint8\_t\ \_estack;\ \textcolor{comment}{/*\ Symbol\ defined\ in\ the\ linker\ script\ */}}
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00045}00045\ \ \ \textcolor{keyword}{extern}\ uint32\_t\ \_Min\_Stack\_Size;\ \textcolor{comment}{/*\ Symbol\ defined\ in\ the\ linker\ script\ */}}
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00046}00046\ \ \ \textcolor{keyword}{const}\ uint32\_t\ stack\_limit\ =\ (uint32\_t)\&\_estack\ -\/\ (uint32\_t)\&\_Min\_Stack\_Size;}
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00047}00047\ \ \ \textcolor{keyword}{const}\ uint8\_t\ *max\_heap\ =\ (uint8\_t\ *)stack\_limit;}
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00048}00048\ \ \ uint8\_t\ *prev\_heap\_end;}
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00050}00050\ \ \ \textcolor{comment}{/*\ Initialize\ heap\ end\ at\ first\ call\ */}}
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00051}00051\ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{group___u_s_b___d_e_f___exported___defines_ga070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}}\ ==\ \doxymbox{\hyperlink{sysmem_8c_a2cf862d604e9c7cfcf0528a0f539a6a5}{\_\_sbrk\_heap\_end}})}
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00052}00052\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00053}00053\ \ \ \ \ \doxymbox{\hyperlink{sysmem_8c_a2cf862d604e9c7cfcf0528a0f539a6a5}{\_\_sbrk\_heap\_end}}\ =\ \&\_end;}
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00054}00054\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00056}00056\ \ \ \textcolor{comment}{/*\ Protect\ heap\ from\ growing\ into\ the\ reserved\ MSP\ stack\ */}}
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00057}00057\ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{sysmem_8c_a2cf862d604e9c7cfcf0528a0f539a6a5}{\_\_sbrk\_heap\_end}}\ +\ incr\ >\ max\_heap)}
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00058}00058\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00059}00059\ \ \ \ \ errno\ =\ ENOMEM;}
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00060}00060\ \ \ \ \ \textcolor{keywordflow}{return}\ (\textcolor{keywordtype}{void}\ *)-\/1;}
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00061}00061\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00063}00063\ \ \ prev\_heap\_end\ =\ \doxymbox{\hyperlink{sysmem_8c_a2cf862d604e9c7cfcf0528a0f539a6a5}{\_\_sbrk\_heap\_end}};}
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00064}00064\ \ \ \doxymbox{\hyperlink{sysmem_8c_a2cf862d604e9c7cfcf0528a0f539a6a5}{\_\_sbrk\_heap\_end}}\ +=\ incr;}
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00065}00065\ }
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00066}00066\ \ \ \textcolor{keywordflow}{return}\ (\textcolor{keywordtype}{void}\ *)prev\_heap\_end;}
+\DoxyCodeLine{\Hypertarget{sysmem_8c_source_l00067}00067\ \}}
+
+\end{DoxyCode}

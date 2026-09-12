@@ -1,0 +1,103 @@
+\doxysubsection{Referencia de la estructura \+\_\+s\+ESP01\+Handle}
+\hypertarget{struct__s_e_s_p01_handle}{}\label{struct__s_e_s_p01_handle}\index{\_sESP01Handle@{\_sESP01Handle}}
+
+
+Estructura de funciones de bajo nivel requeridas por el driver ESP01.  
+
+
+
+
+{\ttfamily \+\#include "{}esp01.\+h"{}}
+
+
+
+Diagrama de colaboración de \+\_\+s\+ESP01\+Handle:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=181pt]{struct__s_e_s_p01_handle__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsubsection*{Campos de datos}
+\begin{DoxyCompactItemize}
+\item 
+void(\texorpdfstring{$\ast$}{*}) \doxymbox{\hyperlink{struct__s_e_s_p01_handle_a1047c3fc5c7cfebeaef2a3888bb9b856}{Do\+CHPD}} (uint8\+\_\+t value)
+\begin{DoxyCompactList}\small\item\em Puntero a función que comanda el pin CH\+\_\+\+PD (Chip Enable). \end{DoxyCompactList}\item 
+void(\texorpdfstring{$\ast$}{*}) \doxymbox{\hyperlink{struct__s_e_s_p01_handle_a5d3ef9ee2008bd883bd16a22e14b4949}{Write\+Byte\+To\+Buf\+RX}} (uint8\+\_\+t value)
+\begin{DoxyCompactList}\small\item\em Puntero a función que almacena un byte entrante en el buffer de la aplicación. \end{DoxyCompactList}\item 
+int(\texorpdfstring{$\ast$}{*}) \doxymbox{\hyperlink{struct__s_e_s_p01_handle_a059bcc5945a3e9693f6c6a471d47bc80}{Write\+USARTByte}} (uint8\+\_\+t value)
+\begin{DoxyCompactList}\small\item\em Puntero a función que escribe un byte en la USART (retorna 1 si tuvo éxito). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Descripción detallada}
+Estructura de funciones de bajo nivel requeridas por el driver ESP01. 
+
+Permite la abstracción del hardware para que el driver controle el pin de habilitación del módulo y realice la lectura/\+escritura en la USART asignada. 
+
+Definición en la línea \doxymbox{\hyperlink{esp01_8h_source_l00051}{51}} del archivo \doxymbox{\hyperlink{esp01_8h_source}{esp01.\+h}}.
+
+
+
+\label{struct__s_e_s_p01_handle_doc-variable-members}
+\Hypertarget{struct__s_e_s_p01_handle_doc-variable-members}
+\doxysubsubsection{Documentación de campos}
+\Hypertarget{struct__s_e_s_p01_handle_a1047c3fc5c7cfebeaef2a3888bb9b856}\index{\_sESP01Handle@{\_sESP01Handle}!DoCHPD@{DoCHPD}}
+\index{DoCHPD@{DoCHPD}!\_sESP01Handle@{\_sESP01Handle}}
+\doxyparagraph{\texorpdfstring{DoCHPD}{DoCHPD}}
+{\footnotesize\ttfamily \label{struct__s_e_s_p01_handle_a1047c3fc5c7cfebeaef2a3888bb9b856} 
+void(\texorpdfstring{$\ast$}{*}) \+\_\+s\+ESP01\+Handle::\+\+Do\+CHPD(uint8\+\_\+t value)}
+
+
+
+Puntero a función que comanda el pin CH\+\_\+\+PD (Chip Enable). 
+
+
+
+Definición en la línea \doxymbox{\hyperlink{esp01_8h_source_l00052}{52}} del archivo \doxymbox{\hyperlink{esp01_8h_source}{esp01.\+h}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{esp01_8c_source_l00744}{ESP01\+DOConnection()}} y \doxymbox{\hyperlink{main_8c_source_l03056}{main()}}.
+
+\Hypertarget{struct__s_e_s_p01_handle_a5d3ef9ee2008bd883bd16a22e14b4949}\index{\_sESP01Handle@{\_sESP01Handle}!WriteByteToBufRX@{WriteByteToBufRX}}
+\index{WriteByteToBufRX@{WriteByteToBufRX}!\_sESP01Handle@{\_sESP01Handle}}
+\doxyparagraph{\texorpdfstring{WriteByteToBufRX}{WriteByteToBufRX}}
+{\footnotesize\ttfamily \label{struct__s_e_s_p01_handle_a5d3ef9ee2008bd883bd16a22e14b4949} 
+void(\texorpdfstring{$\ast$}{*}) \+\_\+s\+ESP01\+Handle::\+\+Write\+Byte\+To\+Buf\+RX(uint8\+\_\+t value)}
+
+
+
+Puntero a función que almacena un byte entrante en el buffer de la aplicación. 
+
+
+
+Definición en la línea \doxymbox{\hyperlink{esp01_8h_source_l00054}{54}} del archivo \doxymbox{\hyperlink{esp01_8h_source}{esp01.\+h}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{esp01_8c_source_l00443}{ESP01\+ATDecode()}} y \doxymbox{\hyperlink{main_8c_source_l03056}{main()}}.
+
+\Hypertarget{struct__s_e_s_p01_handle_a059bcc5945a3e9693f6c6a471d47bc80}\index{\_sESP01Handle@{\_sESP01Handle}!WriteUSARTByte@{WriteUSARTByte}}
+\index{WriteUSARTByte@{WriteUSARTByte}!\_sESP01Handle@{\_sESP01Handle}}
+\doxyparagraph{\texorpdfstring{WriteUSARTByte}{WriteUSARTByte}}
+{\footnotesize\ttfamily \label{struct__s_e_s_p01_handle_a059bcc5945a3e9693f6c6a471d47bc80} 
+int(\texorpdfstring{$\ast$}{*}) \+\_\+s\+ESP01\+Handle::\+\+Write\+USARTByte(uint8\+\_\+t value)}
+
+
+
+Puntero a función que escribe un byte en la USART (retorna 1 si tuvo éxito). 
+
+
+
+Definición en la línea \doxymbox{\hyperlink{esp01_8h_source_l00053}{53}} del archivo \doxymbox{\hyperlink{esp01_8h_source}{esp01.\+h}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{esp01_8c_source_l00270}{ESP01\+\_\+\+Close\+UDPTCP()}}, \doxymbox{\hyperlink{esp01_8c_source_l00314}{ESP01\+\_\+\+Send()}}, \doxymbox{\hyperlink{esp01_8c_source_l00243}{ESP01\+\_\+\+Start\+TCP()}}, \doxymbox{\hyperlink{esp01_8c_source_l00217}{ESP01\+\_\+\+Start\+UDP()}}, \doxymbox{\hyperlink{esp01_8c_source_l00295}{ESP01\+\_\+\+State\+UDPTCP()}}, \doxymbox{\hyperlink{esp01_8c_source_l00277}{ESP01\+\_\+\+State\+WIFI()}}, \doxymbox{\hyperlink{esp01_8c_source_l01018}{ESP01\+SENDData()}} y \doxymbox{\hyperlink{main_8c_source_l03056}{main()}}.
+
+
+
+La documentación de esta estructura está generada del siguiente archivo:\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{esp01_8h}{esp01.\+h}}\end{DoxyCompactItemize}

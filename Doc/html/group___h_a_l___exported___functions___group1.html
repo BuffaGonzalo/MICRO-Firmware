@@ -1,0 +1,529 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>MICRO-Firmware: Initialization and de-initialization Functions</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="codefolding.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  extensions: ["tex2jax.js"],
+  jax: ["input/TeX","output/HTML-CSS"],
+});
+</script>
+<script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">MICRO-Firmware<span id="projectnumber">&#160;EX100923v01</span>
+   </div>
+   <div id="projectbrief">Firmware de Péndulo Invertido Autónomo de Dos Ruedas (STM32F103C8T6 - ARM Cortex-M3)</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Buscar" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('group___h_a_l___exported___functions___group1.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">Initialization and de-initialization Functions <div class="ingroups"><a class="el" href="group___s_t_m32_f1xx___h_a_l___driver.html">STM32F1xx_HAL_Driver</a> &raquo; <a class="el" href="group___h_a_l.html">HAL</a> &#124; <a class="el" href="group___s_t_m32_f1xx___h_a_l___driver.html">STM32F1xx_HAL_Driver</a> &raquo; <a class="el" href="group___h_a_l.html">HAL</a> &raquo; <a class="el" href="group___h_a_l___exported___macros.html">HAL Exported Macros</a> &raquo; <a class="el" href="group___h_a_l___exported___functions.html">HAL Exported Functions</a></div></div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Initialization and de-initialization functions.  
+<a href="#details">Más...</a></p>
+<div id="dynsection-0" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Diagrama de colaboración de Initialization and de-initialization Functions:</div>
+<div id="dynsection-0-summary" class="dynsummary">
+</div>
+<div id="dynsection-0-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___h_a_l___exported___functions___group1.svg" width="396" height="54"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Funciones</h2></td></tr>
+<tr class="memitem:ga95911129a26afb05232caaaefa31956f" id="r_ga95911129a26afb05232caaaefa31956f"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="#ga95911129a26afb05232caaaefa31956f">HAL_DeInit</a> (void)</td></tr>
+<tr class="memdesc:ga95911129a26afb05232caaaefa31956f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function de-Initializes common part of the HAL and stops the systick.  <br /></td></tr>
+<tr class="memitem:gaecac54d350c3730e6831eb404e557dc4" id="r_gaecac54d350c3730e6831eb404e557dc4"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="#gaecac54d350c3730e6831eb404e557dc4">HAL_Init</a> (void)</td></tr>
+<tr class="memdesc:gaecac54d350c3730e6831eb404e557dc4"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is used to initialize the HAL Library; it must be the first instruction to be executed in the main program (before to call any other HAL function), it performs the following: Configure the Flash prefetch.  <br /></td></tr>
+<tr class="memitem:ga44d1542f9985b2243b14a41070cc41cc" id="r_ga44d1542f9985b2243b14a41070cc41cc"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="#ga44d1542f9985b2243b14a41070cc41cc">HAL_InitTick</a> (uint32_t TickPriority)</td></tr>
+<tr class="memdesc:ga44d1542f9985b2243b14a41070cc41cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function configures the source of the time base.  <br /></td></tr>
+<tr class="memitem:gaa2d4540edcb9dacec34edb77f3455bf0" id="r_gaa2d4540edcb9dacec34edb77f3455bf0"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#gaa2d4540edcb9dacec34edb77f3455bf0">HAL_MspDeInit</a> (void)</td></tr>
+<tr class="memdesc:gaa2d4540edcb9dacec34edb77f3455bf0"><td class="mdescLeft">&#160;</td><td class="mdescRight">DeInitializes the MSP.  <br /></td></tr>
+<tr class="memitem:gae4fb8e66865c87d0ebab74a726a6891f" id="r_gae4fb8e66865c87d0ebab74a726a6891f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#gae4fb8e66865c87d0ebab74a726a6891f">HAL_MspInit</a> (void)</td></tr>
+<tr class="memdesc:gae4fb8e66865c87d0ebab74a726a6891f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the MSP.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Descripción detallada</h2>
+<div class="textblock"><p>Initialization and de-initialization functions. </p>
+<pre class="fragment"> ===============================================================================
+              ##### Initialization and de-initialization functions #####
+ ===============================================================================
+   [..]  This section provides functions allowing to:
+      (+) Initializes the Flash interface, the NVIC allocation and initial clock
+          configuration. It initializes the systick also when timeout is needed
+          and the backup domain when enabled.
+      (+) de-Initializes common part of the HAL.
+      (+) Configure The time base source to have 1ms time base with a dedicated
+          Tick interrupt priority.
+        (++) SysTick timer is used by default as source of time base, but user
+             can eventually implement his proper time base source (a general purpose
+             timer for example or other time source), keeping in mind that Time base
+             duration should be kept 1ms since PPP_TIMEOUT_VALUEs are defined and
+             handled in milliseconds basis.
+        (++) Time base configuration function (HAL_InitTick ()) is called automatically
+             at the beginning of the program after reset by HAL_Init() or at any time
+             when clock is configured, by HAL_RCC_ClockConfig().
+        (++) Source of time base is configured  to generate interrupts at regular
+             time intervals. Care must be taken if HAL_Delay() is called from a
+             peripheral ISR process, the Tick interrupt line must have higher priority
+            (numerically lower) than the peripheral interrupt. Otherwise the caller
+            ISR process will be blocked.
+       (++) functions affecting time base configurations are declared as __weak
+             to make  override possible  in case of other  implementations in user file.
+</pre> </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Documentación de funciones</h2>
+<a id="ga95911129a26afb05232caaaefa31956f" name="ga95911129a26afb05232caaaefa31956f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga95911129a26afb05232caaaefa31956f">&#9670;&#160;</a></span>HAL_DeInit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a> HAL_DeInit </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal_8h.html">stm32f1xx_hal.h</a>&quot;</code></p>
+
+<p>This function de-Initializes common part of the HAL and stops the systick. </p>
+<p>of time base. </p><dl class="section note"><dt>Nota</dt><dd>This function is optional. </dd></dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname"><a class="el" href="group___h_a_l.html" title="HAL module driver.">HAL</a></td><td>status </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; Peripheral base address in the alias region</p>
+<p>&lt; Peripheral base address in the alias region</p>
+<p>&lt; Peripheral base address in the alias region</p>
+<p>&lt; Peripheral base address in the alias region</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal_8c_source.html#l00175">175</a> del archivo <a class="el" href="stm32f1xx__hal_8c_source.html">stm32f1xx_hal.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  176</span>{</div>
+<div class="line"><span class="lineno">  177</span>  <span class="comment">/* Reset of all peripherals */</span></div>
+<div class="line"><span class="lineno">  178</span>  <a class="code hl_define" href="group___r_c_c___a_p_b1___force___release___reset.html#ga6f6e7048eca1abd1be132027f5b79465">__HAL_RCC_APB1_FORCE_RESET</a>();</div>
+<div class="line"><span class="lineno">  179</span>  <a class="code hl_define" href="group___r_c_c___a_p_b1___force___release___reset.html#ga9d0742ab271ace3dbe1a4e83de3d017b">__HAL_RCC_APB1_RELEASE_RESET</a>();</div>
+<div class="line"><span class="lineno">  180</span> </div>
+<div class="line"><span class="lineno">  181</span>  <a class="code hl_define" href="group___r_c_c___a_p_b2___force___release___reset.html#ga8788da8c644ad0cc54912baede7d49b4">__HAL_RCC_APB2_FORCE_RESET</a>();</div>
+<div class="line"><span class="lineno">  182</span>  <a class="code hl_define" href="group___r_c_c___a_p_b2___force___release___reset.html#gae1e413d623154942d5bbe89769161ece">__HAL_RCC_APB2_RELEASE_RESET</a>();</div>
+<div class="line"><span class="lineno">  183</span> </div>
+<div class="line"><span class="lineno">  184</span><span class="preprocessor">#if defined(STM32F105xC) || defined(STM32F107xC)</span></div>
+<div class="line"><span class="lineno">  185</span>  __HAL_RCC_AHB_FORCE_RESET();</div>
+<div class="line"><span class="lineno">  186</span>  __HAL_RCC_AHB_RELEASE_RESET();</div>
+<div class="line"><span class="lineno">  187</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  188</span> </div>
+<div class="line"><span class="lineno">  189</span>  <span class="comment">/* De-Init the low level hardware */</span></div>
+<div class="line"><span class="lineno">  190</span>  <a class="code hl_function" href="#gaa2d4540edcb9dacec34edb77f3455bf0">HAL_MspDeInit</a>();</div>
+<div class="line"><span class="lineno">  191</span> </div>
+<div class="line"><span class="lineno">  192</span>  <span class="comment">/* Return function status */</span></div>
+<div class="line"><span class="lineno">  193</span>  <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632">HAL_OK</a>;</div>
+<div class="line"><span class="lineno">  194</span>}</div>
+<div class="ttc" id="agroup___h_a_l___exported___functions___group1_html_gaa2d4540edcb9dacec34edb77f3455bf0"><div class="ttname"><a href="#gaa2d4540edcb9dacec34edb77f3455bf0">HAL_MspDeInit</a></div><div class="ttdeci">void HAL_MspDeInit(void)</div><div class="ttdoc">DeInitializes the MSP.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal_8c_source.html#l00211">stm32f1xx_hal.c:211</a></div></div>
+<div class="ttc" id="agroup___r_c_c___a_p_b1___force___release___reset_html_ga6f6e7048eca1abd1be132027f5b79465"><div class="ttname"><a href="group___r_c_c___a_p_b1___force___release___reset.html#ga6f6e7048eca1abd1be132027f5b79465">__HAL_RCC_APB1_FORCE_RESET</a></div><div class="ttdeci">#define __HAL_RCC_APB1_FORCE_RESET()</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__rcc_8h_source.html#l00615">stm32f1xx_hal_rcc.h:615</a></div></div>
+<div class="ttc" id="agroup___r_c_c___a_p_b1___force___release___reset_html_ga9d0742ab271ace3dbe1a4e83de3d017b"><div class="ttname"><a href="group___r_c_c___a_p_b1___force___release___reset.html#ga9d0742ab271ace3dbe1a4e83de3d017b">__HAL_RCC_APB1_RELEASE_RESET</a></div><div class="ttdeci">#define __HAL_RCC_APB1_RELEASE_RESET()</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__rcc_8h_source.html#l00625">stm32f1xx_hal_rcc.h:625</a></div></div>
+<div class="ttc" id="agroup___r_c_c___a_p_b2___force___release___reset_html_ga8788da8c644ad0cc54912baede7d49b4"><div class="ttname"><a href="group___r_c_c___a_p_b2___force___release___reset.html#ga8788da8c644ad0cc54912baede7d49b4">__HAL_RCC_APB2_FORCE_RESET</a></div><div class="ttdeci">#define __HAL_RCC_APB2_FORCE_RESET()</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__rcc_8h_source.html#l00643">stm32f1xx_hal_rcc.h:643</a></div></div>
+<div class="ttc" id="agroup___r_c_c___a_p_b2___force___release___reset_html_gae1e413d623154942d5bbe89769161ece"><div class="ttname"><a href="group___r_c_c___a_p_b2___force___release___reset.html#gae1e413d623154942d5bbe89769161ece">__HAL_RCC_APB2_RELEASE_RESET</a></div><div class="ttdeci">#define __HAL_RCC_APB2_RELEASE_RESET()</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__rcc_8h_source.html#l00655">stm32f1xx_hal_rcc.h:655</a></div></div>
+<div class="ttc" id="astm32f1xx__hal__def_8h_html_a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632"><div class="ttname"><a href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632">HAL_OK</a></div><div class="ttdeci">@ HAL_OK</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__def_8h_source.html#l00040">stm32f1xx_hal_def.h:40</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__hal__rcc_8h_source.html#l00615">__HAL_RCC_APB1_FORCE_RESET</a>, <a class="el" href="stm32f1xx__hal__rcc_8h_source.html#l00625">__HAL_RCC_APB1_RELEASE_RESET</a>, <a class="el" href="stm32f1xx__hal__rcc_8h_source.html#l00643">__HAL_RCC_APB2_FORCE_RESET</a>, <a class="el" href="stm32f1xx__hal__rcc_8h_source.html#l00655">__HAL_RCC_APB2_RELEASE_RESET</a>, <a class="el" href="stm32f1xx__hal_8c_source.html#l00175">HAL_DeInit()</a>, <a class="el" href="stm32f1xx__hal_8c_source.html#l00211">HAL_MspDeInit()</a> y <a class="el" href="stm32f1xx__hal__def_8h_source.html#l00040">HAL_OK</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal_8c_source.html#l00175">HAL_DeInit()</a>.</p>
+<div id="dynsection-1" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-1-summary" class="dynsummary">
+</div>
+<div id="dynsection-1-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___h_a_l___exported___functions___group1_ga95911129a26afb05232caaaefa31956f_cgraph.svg" width="263" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-2" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-2-summary" class="dynsummary">
+</div>
+<div id="dynsection-2-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___h_a_l___exported___functions___group1_ga95911129a26afb05232caaaefa31956f_icgraph.svg" width="100" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="gaecac54d350c3730e6831eb404e557dc4" name="gaecac54d350c3730e6831eb404e557dc4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaecac54d350c3730e6831eb404e557dc4">&#9670;&#160;</a></span>HAL_Init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a> HAL_Init </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal_8h.html">stm32f1xx_hal.h</a>&quot;</code></p>
+
+<p>This function is used to initialize the HAL Library; it must be the first instruction to be executed in the main program (before to call any other HAL function), it performs the following: Configure the Flash prefetch. </p>
+<p>Configures the SysTick to generate an interrupt each 1 millisecond, which is clocked by the HSI (at this stage, the clock is not yet configured and thus the system is running from the internal HSI at 16 MHz). Set NVIC Group Priority to 4. Calls the <a class="el" href="stm32f1xx__hal__msp_8c.html#gae4fb8e66865c87d0ebab74a726a6891f" title="Initializes the Global MSP.">HAL_MspInit()</a> callback function defined in user file "stm32f1xx_hal_msp.c" to do the global low level hardware initialization</p>
+<dl class="section note"><dt>Nota</dt><dd>SysTick is used as time base for the <a class="el" href="group___h_a_l___exported___functions___group2.html#gab1dc1e6b438daacfe38a312a90221330" title="This function provides minimum delay (in milliseconds) based on variable incremented.">HAL_Delay()</a> function, the application need to ensure that the SysTick time base is always set to 1 millisecond to have correct HAL operation. </dd></dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname"><a class="el" href="group___h_a_l.html" title="HAL module driver.">HAL</a></td><td>status </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; Peripheral base address in the alias region</p>
+<p>&lt; Flash registers base address</p>
+<p>&lt; 0x00000010</p>
+<p>&lt; Prefetch Buffer Enable</p>
+<p>&lt; 4 bits for pre-emption priority 0 bits for subpriority</p>
+<p>&lt; tick interrupt priority (lowest by default) <br  />
+</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal_8c_source.html#l00142">142</a> del archivo <a class="el" href="stm32f1xx__hal_8c_source.html">stm32f1xx_hal.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  143</span>{</div>
+<div class="line"><span class="lineno">  144</span>  <span class="comment">/* Configure Flash prefetch */</span></div>
+<div class="line"><span class="lineno">  145</span><span class="preprocessor">#if (PREFETCH_ENABLE != 0)</span></div>
+<div class="line"><span class="lineno">  146</span><span class="preprocessor">#if defined(STM32F101x6) || defined(STM32F101xB) || defined(STM32F101xE) || defined(STM32F101xG) || \</span></div>
+<div class="line"><span class="lineno">  147</span><span class="preprocessor">    defined(STM32F102x6) || defined(STM32F102xB) || \</span></div>
+<div class="line"><span class="lineno">  148</span><span class="preprocessor">    defined(STM32F103x6) || defined(STM32F103xB) || defined(STM32F103xE) || defined(STM32F103xG) || \</span></div>
+<div class="line"><span class="lineno">  149</span><span class="preprocessor">    defined(STM32F105xC) || defined(STM32F107xC)</span></div>
+<div class="line"><span class="lineno">  150</span> </div>
+<div class="line"><span class="lineno">  151</span>  <span class="comment">/* Prefetch buffer is not available on value line devices */</span></div>
+<div class="line"><span class="lineno">  152</span>  <a class="code hl_define" href="group___f_l_a_s_h___prefetch.html#gad36059641057f824516303ea92734e6f">__HAL_FLASH_PREFETCH_BUFFER_ENABLE</a>();</div>
+<div class="line"><span class="lineno">  153</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  154</span><span class="preprocessor">#endif </span><span class="comment">/* PREFETCH_ENABLE */</span><span class="preprocessor"></span></div>
+<div class="line"><span class="lineno">  155</span> </div>
+<div class="line"><span class="lineno">  156</span>  <span class="comment">/* Set Interrupt Group Priority */</span></div>
+<div class="line"><span class="lineno">  157</span>  <a class="code hl_function" href="group___c_o_r_t_e_x___exported___functions___group1.html#gad9be53e08b1498adea006e5e037f238f">HAL_NVIC_SetPriorityGrouping</a>(<a class="code hl_define" href="group___c_o_r_t_e_x___preemption___priority___group.html#gae6eab9140204bc938255aa148e597c45">NVIC_PRIORITYGROUP_4</a>);</div>
+<div class="line"><span class="lineno">  158</span> </div>
+<div class="line"><span class="lineno">  159</span>  <span class="comment">/* Use systick as time base source and configure 1ms tick (default clock after Reset is HSI) */</span></div>
+<div class="line"><span class="lineno">  160</span>  <a class="code hl_function" href="#ga44d1542f9985b2243b14a41070cc41cc">HAL_InitTick</a>(<a class="code hl_define" href="stm32f1xx__hal__conf_8h.html#ae27809d4959b9fd5b5d974e3e1c77d2e">TICK_INT_PRIORITY</a>);</div>
+<div class="line"><span class="lineno">  161</span> </div>
+<div class="line"><span class="lineno">  162</span>  <span class="comment">/* Init the low level hardware */</span></div>
+<div class="line"><span class="lineno">  163</span>  <a class="code hl_function" href="stm32f1xx__hal__msp_8c.html#gae4fb8e66865c87d0ebab74a726a6891f">HAL_MspInit</a>();</div>
+<div class="line"><span class="lineno">  164</span> </div>
+<div class="line"><span class="lineno">  165</span>  <span class="comment">/* Return function status */</span></div>
+<div class="line"><span class="lineno">  166</span>  <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632">HAL_OK</a>;</div>
+<div class="line"><span class="lineno">  167</span>}</div>
+<div class="ttc" id="agroup___c_o_r_t_e_x___exported___functions___group1_html_gad9be53e08b1498adea006e5e037f238f"><div class="ttname"><a href="group___c_o_r_t_e_x___exported___functions___group1.html#gad9be53e08b1498adea006e5e037f238f">HAL_NVIC_SetPriorityGrouping</a></div><div class="ttdeci">void HAL_NVIC_SetPriorityGrouping(uint32_t PriorityGroup)</div><div class="ttdoc">Sets the priority grouping field (preemption priority and subpriority) using the required unlock sequ...</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__cortex_8c_source.html#l00142">stm32f1xx_hal_cortex.c:142</a></div></div>
+<div class="ttc" id="agroup___c_o_r_t_e_x___preemption___priority___group_html_gae6eab9140204bc938255aa148e597c45"><div class="ttname"><a href="group___c_o_r_t_e_x___preemption___priority___group.html#gae6eab9140204bc938255aa148e597c45">NVIC_PRIORITYGROUP_4</a></div><div class="ttdeci">#define NVIC_PRIORITYGROUP_4</div><div class="ttdoc">4 bits for pre-emption priority 0 bits for subpriority</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__cortex_8h_source.html#l00097">stm32f1xx_hal_cortex.h:97</a></div></div>
+<div class="ttc" id="agroup___f_l_a_s_h___prefetch_html_gad36059641057f824516303ea92734e6f"><div class="ttname"><a href="group___f_l_a_s_h___prefetch.html#gad36059641057f824516303ea92734e6f">__HAL_FLASH_PREFETCH_BUFFER_ENABLE</a></div><div class="ttdeci">#define __HAL_FLASH_PREFETCH_BUFFER_ENABLE()</div><div class="ttdoc">Enable the FLASH prefetch buffer.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__flash_8h_source.html#l00229">stm32f1xx_hal_flash.h:229</a></div></div>
+<div class="ttc" id="agroup___h_a_l___exported___functions___group1_html_ga44d1542f9985b2243b14a41070cc41cc"><div class="ttname"><a href="#ga44d1542f9985b2243b14a41070cc41cc">HAL_InitTick</a></div><div class="ttdeci">HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)</div><div class="ttdoc">This function configures the source of the time base.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal_8c_source.html#l00234">stm32f1xx_hal.c:234</a></div></div>
+<div class="ttc" id="astm32f1xx__hal__conf_8h_html_ae27809d4959b9fd5b5d974e3e1c77d2e"><div class="ttname"><a href="stm32f1xx__hal__conf_8h.html#ae27809d4959b9fd5b5d974e3e1c77d2e">TICK_INT_PRIORITY</a></div><div class="ttdeci">#define TICK_INT_PRIORITY</div><div class="ttdoc">tick interrupt priority (lowest by default)</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__conf_8h_source.html#l00122">stm32f1xx_hal_conf.h:122</a></div></div>
+<div class="ttc" id="astm32f1xx__hal__msp_8c_html_gae4fb8e66865c87d0ebab74a726a6891f"><div class="ttname"><a href="stm32f1xx__hal__msp_8c.html#gae4fb8e66865c87d0ebab74a726a6891f">HAL_MspInit</a></div><div class="ttdeci">void HAL_MspInit(void)</div><div class="ttdoc">Initializes the Global MSP.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__msp_8c_source.html#l00059">stm32f1xx_hal_msp.c:59</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__hal__flash_8h_source.html#l00229">__HAL_FLASH_PREFETCH_BUFFER_ENABLE</a>, <a class="el" href="stm32f1xx__hal_8c_source.html#l00142">HAL_Init()</a>, <a class="el" href="stm32f1xx__hal_8c_source.html#l00234">HAL_InitTick()</a>, <a class="el" href="stm32f1xx__hal__msp_8c_source.html#l00059">HAL_MspInit()</a>, <a class="el" href="stm32f1xx__hal__cortex_8c_source.html#l00142">HAL_NVIC_SetPriorityGrouping()</a>, <a class="el" href="stm32f1xx__hal__def_8h_source.html#l00040">HAL_OK</a>, <a class="el" href="stm32f1xx__hal__cortex_8h_source.html#l00097">NVIC_PRIORITYGROUP_4</a> y <a class="el" href="stm32f1xx__hal__conf_8h_source.html#l00122">TICK_INT_PRIORITY</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal_8c_source.html#l00142">HAL_Init()</a> y <a class="el" href="main_8c_source.html#l03056">main()</a>.</p>
+<div id="dynsection-3" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-3-summary" class="dynsummary">
+</div>
+<div id="dynsection-3-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___h_a_l___exported___functions___group1_gaecac54d350c3730e6831eb404e557dc4_cgraph.svg" width="544" height="248"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-4" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-4-summary" class="dynsummary">
+</div>
+<div id="dynsection-4-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___h_a_l___exported___functions___group1_gaecac54d350c3730e6831eb404e557dc4_icgraph.svg" width="180" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ga44d1542f9985b2243b14a41070cc41cc" name="ga44d1542f9985b2243b14a41070cc41cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga44d1542f9985b2243b14a41070cc41cc">&#9670;&#160;</a></span>HAL_InitTick()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group___u_s_b_d___d_e_f___exported___macros.html#ga5181eb756a197a06d1c4ed1f40a065bc">__weak</a> <a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a> HAL_InitTick </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>TickPriority</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal_8h.html">stm32f1xx_hal.h</a>&quot;</code></p>
+
+<p>This function configures the source of the time base. </p>
+<p>The time source is configured to have 1ms time base with a dedicated Tick interrupt priority. </p><dl class="section note"><dt>Nota</dt><dd>This function is called automatically at the beginning of program after reset by <a class="el" href="#gaecac54d350c3730e6831eb404e557dc4" title="This function is used to initialize the HAL Library; it must be the first instruction to be executed ...">HAL_Init()</a> or at any time when clock is reconfigured by <a class="el" href="group___r_c_c___exported___functions___group1.html#gad0a4b5c7459219fafc15f3f867563ef3" title="Initializes the CPU, AHB and APB buses clocks according to the specified parameters in the RCC_ClkIni...">HAL_RCC_ClockConfig()</a>. </dd>
+<dd>
+In the default implementation, SysTick timer is the source of time base. It is used to generate interrupts at regular time intervals. Care must be taken if <a class="el" href="group___h_a_l___exported___functions___group2.html#gab1dc1e6b438daacfe38a312a90221330" title="This function provides minimum delay (in milliseconds) based on variable incremented.">HAL_Delay()</a> is called from a peripheral ISR process, The SysTick interrupt must have higher priority (numerically lower) than the peripheral interrupt. Otherwise the caller ISR process will be blocked. The function is declared as __weak to be overwritten in case of other implementation in user file. </dd></dl>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">TickPriority</td><td>Tick interrupt priority. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname"><a class="el" href="group___h_a_l.html" title="HAL module driver.">HAL</a></td><td>status </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; STM32 uses 4 Bits for the Priority Levels <br  />
+</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal_8c_source.html#l00234">234</a> del archivo <a class="el" href="stm32f1xx__hal_8c_source.html">stm32f1xx_hal.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  235</span>{</div>
+<div class="line"><span class="lineno">  236</span>  <span class="comment">/* Configure the SysTick to have interrupt in 1ms time basis*/</span></div>
+<div class="line"><span class="lineno">  237</span>  <span class="keywordflow">if</span> (<a class="code hl_function" href="group___c_o_r_t_e_x___exported___functions___group1.html#gac3a3f0d53c315523a8e6e7bcac1940cf">HAL_SYSTICK_Config</a>(<a class="code hl_variable" href="group___s_t_m32_f1xx___system___private___variables.html#gaa3cd3e43291e81e795d642b79b6088e6">SystemCoreClock</a> / (1000U / <a class="code hl_variable" href="group___h_a_l___exported___constants.html#ga84a0c55c4d0bff06a085b4fcfd6531cd">uwTickFreq</a>)) &gt; 0U)</div>
+<div class="line"><span class="lineno">  238</span>  {</div>
+<div class="line"><span class="lineno">  239</span>    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478fa5a04e395e501e4e400172c610478c4a4">HAL_ERROR</a>;</div>
+<div class="line"><span class="lineno">  240</span>  }</div>
+<div class="line"><span class="lineno">  241</span> </div>
+<div class="line"><span class="lineno">  242</span>  <span class="comment">/* Configure the SysTick IRQ priority */</span></div>
+<div class="line"><span class="lineno">  243</span>  <span class="keywordflow">if</span> (TickPriority &lt; (1UL &lt;&lt; <a class="code hl_define" href="group___configuration__section__for___c_m_s_i_s.html#gae3fe3587d5100c787e02102ce3944460">__NVIC_PRIO_BITS</a>))</div>
+<div class="line"><span class="lineno">  244</span>  {</div>
+<div class="line"><span class="lineno">  245</span>    <a class="code hl_function" href="group___c_o_r_t_e_x___exported___functions___group1.html#ga8581a82025a4780efd00876a66e3e91b">HAL_NVIC_SetPriority</a>(<a class="code hl_enumvalue" href="group___peripheral__interrupt__number__definition.html#gga7e1129cd8a196f4284d41db3e82ad5c8a6dbff8f8543325f3474cbae2446776e7">SysTick_IRQn</a>, TickPriority, 0U);</div>
+<div class="line"><span class="lineno">  246</span>    <a class="code hl_variable" href="group___h_a_l___exported___constants.html#ga3000c5e83924ed2debb1849c738d4be2">uwTickPrio</a> = TickPriority;</div>
+<div class="line"><span class="lineno">  247</span>  }</div>
+<div class="line"><span class="lineno">  248</span>  <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  249</span>  {</div>
+<div class="line"><span class="lineno">  250</span>    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478fa5a04e395e501e4e400172c610478c4a4">HAL_ERROR</a>;</div>
+<div class="line"><span class="lineno">  251</span>  }</div>
+<div class="line"><span class="lineno">  252</span> </div>
+<div class="line"><span class="lineno">  253</span>  <span class="comment">/* Return function status */</span></div>
+<div class="line"><span class="lineno">  254</span>  <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632">HAL_OK</a>;</div>
+<div class="line"><span class="lineno">  255</span>}</div>
+<div class="ttc" id="agroup___c_o_r_t_e_x___exported___functions___group1_html_ga8581a82025a4780efd00876a66e3e91b"><div class="ttname"><a href="group___c_o_r_t_e_x___exported___functions___group1.html#ga8581a82025a4780efd00876a66e3e91b">HAL_NVIC_SetPriority</a></div><div class="ttdeci">void HAL_NVIC_SetPriority(IRQn_Type IRQn, uint32_t PreemptPriority, uint32_t SubPriority)</div><div class="ttdoc">Sets the priority of an interrupt.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__cortex_8c_source.html#l00164">stm32f1xx_hal_cortex.c:164</a></div></div>
+<div class="ttc" id="agroup___c_o_r_t_e_x___exported___functions___group1_html_gac3a3f0d53c315523a8e6e7bcac1940cf"><div class="ttname"><a href="group___c_o_r_t_e_x___exported___functions___group1.html#gac3a3f0d53c315523a8e6e7bcac1940cf">HAL_SYSTICK_Config</a></div><div class="ttdeci">uint32_t HAL_SYSTICK_Config(uint32_t TicksNumb)</div><div class="ttdoc">Initializes the System Timer and its interrupt, and starts the System Tick Timer.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__cortex_8c_source.html#l00228">stm32f1xx_hal_cortex.c:228</a></div></div>
+<div class="ttc" id="agroup___configuration__section__for___c_m_s_i_s_html_gae3fe3587d5100c787e02102ce3944460"><div class="ttname"><a href="group___configuration__section__for___c_m_s_i_s.html#gae3fe3587d5100c787e02102ce3944460">__NVIC_PRIO_BITS</a></div><div class="ttdeci">#define __NVIC_PRIO_BITS</div><div class="ttdoc">STM32 uses 4 Bits for the Priority Levels.</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l00051">stm32f103xb.h:51</a></div></div>
+<div class="ttc" id="agroup___h_a_l___exported___constants_html_ga3000c5e83924ed2debb1849c738d4be2"><div class="ttname"><a href="group___h_a_l___exported___constants.html#ga3000c5e83924ed2debb1849c738d4be2">uwTickPrio</a></div><div class="ttdeci">uint32_t uwTickPrio</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal_8c_source.html#l00080">stm32f1xx_hal.c:80</a></div></div>
+<div class="ttc" id="agroup___h_a_l___exported___constants_html_ga84a0c55c4d0bff06a085b4fcfd6531cd"><div class="ttname"><a href="group___h_a_l___exported___constants.html#ga84a0c55c4d0bff06a085b4fcfd6531cd">uwTickFreq</a></div><div class="ttdeci">HAL_TickFreqTypeDef uwTickFreq</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal_8c_source.html#l00081">stm32f1xx_hal.c:81</a></div></div>
+<div class="ttc" id="agroup___peripheral__interrupt__number__definition_html_gga7e1129cd8a196f4284d41db3e82ad5c8a6dbff8f8543325f3474cbae2446776e7"><div class="ttname"><a href="group___peripheral__interrupt__number__definition.html#gga7e1129cd8a196f4284d41db3e82ad5c8a6dbff8f8543325f3474cbae2446776e7">SysTick_IRQn</a></div><div class="ttdeci">@ SysTick_IRQn</div><div class="ttdoc">15 Cortex-M3 System Tick Interrupt</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l00079">stm32f103xb.h:79</a></div></div>
+<div class="ttc" id="agroup___s_t_m32_f1xx___system___private___variables_html_gaa3cd3e43291e81e795d642b79b6088e6"><div class="ttname"><a href="group___s_t_m32_f1xx___system___private___variables.html#gaa3cd3e43291e81e795d642b79b6088e6">SystemCoreClock</a></div><div class="ttdeci">uint32_t SystemCoreClock</div><div class="ttdoc">System Clock Frequency (Core Clock).</div><div class="ttdef"><b>Definición</b> <a href="system__stm32f1xx_8c_source.html#l00114">system_stm32f1xx.c:114</a></div></div>
+<div class="ttc" id="astm32f1xx__hal__def_8h_html_a63c0679d1cb8b8c684fbb0632743478fa5a04e395e501e4e400172c610478c4a4"><div class="ttname"><a href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478fa5a04e395e501e4e400172c610478c4a4">HAL_ERROR</a></div><div class="ttdeci">@ HAL_ERROR</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__def_8h_source.html#l00041">stm32f1xx_hal_def.h:41</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f103xb_8h_source.html#l00051">__NVIC_PRIO_BITS</a>, <a class="el" href="usbd__def_8h_source.html#l00283">__weak</a>, <a class="el" href="stm32f1xx__hal__def_8h_source.html#l00041">HAL_ERROR</a>, <a class="el" href="stm32f1xx__hal_8c_source.html#l00234">HAL_InitTick()</a>, <a class="el" href="stm32f1xx__hal__cortex_8c_source.html#l00164">HAL_NVIC_SetPriority()</a>, <a class="el" href="stm32f1xx__hal__def_8h_source.html#l00040">HAL_OK</a>, <a class="el" href="stm32f1xx__hal__cortex_8c_source.html#l00228">HAL_SYSTICK_Config()</a>, <a class="el" href="system__stm32f1xx_8c_source.html#l00114">SystemCoreClock</a>, <a class="el" href="stm32f103xb_8h_source.html#l00079">SysTick_IRQn</a>, <a class="el" href="stm32f1xx__hal_8c_source.html#l00081">uwTickFreq</a> y <a class="el" href="stm32f1xx__hal_8c_source.html#l00080">uwTickPrio</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal_8c_source.html#l00142">HAL_Init()</a>, <a class="el" href="stm32f1xx__hal_8c_source.html#l00234">HAL_InitTick()</a>, <a class="el" href="stm32f1xx__hal__rcc_8c_source.html#l00811">HAL_RCC_ClockConfig()</a>, <a class="el" href="stm32f1xx__hal__rcc_8c_source.html#l00200">HAL_RCC_DeInit()</a> y <a class="el" href="stm32f1xx__hal_8c_source.html#l00322">HAL_SetTickFreq()</a>.</p>
+<div id="dynsection-5" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-5-summary" class="dynsummary">
+</div>
+<div id="dynsection-5-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___h_a_l___exported___functions___group1_ga44d1542f9985b2243b14a41070cc41cc_cgraph.svg" width="314" height="136"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-6" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-6-summary" class="dynsummary">
+</div>
+<div id="dynsection-6-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___h_a_l___exported___functions___group1_ga44d1542f9985b2243b14a41070cc41cc_icgraph.svg" width="614" height="286"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="gaa2d4540edcb9dacec34edb77f3455bf0" name="gaa2d4540edcb9dacec34edb77f3455bf0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa2d4540edcb9dacec34edb77f3455bf0">&#9670;&#160;</a></span>HAL_MspDeInit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group___u_s_b_d___d_e_f___exported___macros.html#ga5181eb756a197a06d1c4ed1f40a065bc">__weak</a> void HAL_MspDeInit </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal_8h.html">stm32f1xx_hal.h</a>&quot;</code></p>
+
+<p>DeInitializes the MSP. </p>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal_8c_source.html#l00211">211</a> del archivo <a class="el" href="stm32f1xx__hal_8c_source.html">stm32f1xx_hal.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  212</span>{</div>
+<div class="line"><span class="lineno">  213</span>  <span class="comment">/* NOTE : This function should not be modified, when the callback is needed,</span></div>
+<div class="line"><span class="lineno">  214</span><span class="comment">            the HAL_MspDeInit could be implemented in the user file</span></div>
+<div class="line"><span class="lineno">  215</span><span class="comment">   */</span></div>
+<div class="line"><span class="lineno">  216</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="usbd__def_8h_source.html#l00283">__weak</a> y <a class="el" href="stm32f1xx__hal_8c_source.html#l00211">HAL_MspDeInit()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal_8c_source.html#l00175">HAL_DeInit()</a> y <a class="el" href="stm32f1xx__hal_8c_source.html#l00211">HAL_MspDeInit()</a>.</p>
+<div id="dynsection-7" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-7-summary" class="dynsummary">
+</div>
+<div id="dynsection-7-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___h_a_l___exported___functions___group1_gaa2d4540edcb9dacec34edb77f3455bf0_cgraph.svg" width="126" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-8" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-8-summary" class="dynsummary">
+</div>
+<div id="dynsection-8-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___h_a_l___exported___functions___group1_gaa2d4540edcb9dacec34edb77f3455bf0_icgraph.svg" width="263" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="gae4fb8e66865c87d0ebab74a726a6891f" name="gae4fb8e66865c87d0ebab74a726a6891f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae4fb8e66865c87d0ebab74a726a6891f">&#9670;&#160;</a></span>HAL_MspInit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void HAL_MspInit </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal_8h.html">stm32f1xx_hal.h</a>&quot;</code></p>
+
+<p>Initialize the MSP. </p>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal_8c_source.html#l00200">200</a> del archivo <a class="el" href="stm32f1xx__hal_8c_source.html">stm32f1xx_hal.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  201</span>{</div>
+<div class="line"><span class="lineno">  202</span>  <span class="comment">/* NOTE : This function should not be modified, when the callback is needed,</span></div>
+<div class="line"><span class="lineno">  203</span><span class="comment">            the HAL_MspInit could be implemented in the user file</span></div>
+<div class="line"><span class="lineno">  204</span><span class="comment">   */</span></div>
+<div class="line"><span class="lineno">  205</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="usbd__def_8h_source.html#l00283">__weak</a> y <a class="el" href="stm32f1xx__hal__msp_8c_source.html#l00059">HAL_MspInit()</a>.</p>
+<div id="dynsection-9" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-9-summary" class="dynsummary">
+</div>
+<div id="dynsection-9-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___h_a_l___exported___functions___group1_gae4fb8e66865c87d0ebab74a726a6891f_cgraph.svg" width="254" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generado el <span class="timestamp"></span> para MICRO-Firmware por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

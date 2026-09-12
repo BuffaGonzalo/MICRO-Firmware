@@ -1,0 +1,333 @@
+\doxysubsection{usbd\+\_\+cdc\+\_\+if.\+c}
+\hypertarget{usbd__cdc__if_8c_source}{}\label{usbd__cdc__if_8c_source}\index{usbd\_cdc\_if.c@{usbd\_cdc\_if.c}}
+\doxymbox{\hyperlink{usbd__cdc__if_8c}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00001}00001\ \textcolor{comment}{/*\ USER\ CODE\ BEGIN\ Header\ */}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00002}00002\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00003}00003\ \textcolor{comment}{\ \ ******************************************************************************}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00004}00004\ \textcolor{comment}{\ \ *\ @file\ \ \ \ \ \ \ \ \ \ \ :\ usbd\_cdc\_if.c}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00005}00005\ \textcolor{comment}{\ \ *\ @version\ \ \ \ \ \ \ \ :\ v1.0\_Cube}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00006}00006\ \textcolor{comment}{\ \ *\ @brief\ \ \ \ \ \ \ \ \ \ :\ Usb\ device\ for\ Virtual\ Com\ Port.}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00007}00007\ \textcolor{comment}{\ \ ******************************************************************************}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00008}00008\ \textcolor{comment}{\ \ *\ @attention}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00009}00009\ \textcolor{comment}{\ \ *}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00010}00010\ \textcolor{comment}{\ \ *\ Copyright\ (c)\ 2025\ STMicroelectronics.}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00011}00011\ \textcolor{comment}{\ \ *\ All\ rights\ reserved.}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00012}00012\ \textcolor{comment}{\ \ *}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00013}00013\ \textcolor{comment}{\ \ *\ This\ software\ is\ licensed\ under\ terms\ that\ can\ be\ found\ in\ the\ LICENSE\ file}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00014}00014\ \textcolor{comment}{\ \ *\ in\ the\ root\ directory\ of\ this\ software\ component.}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00015}00015\ \textcolor{comment}{\ \ *\ If\ no\ LICENSE\ file\ comes\ with\ this\ software,\ it\ is\ provided\ AS-\/IS.}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00016}00016\ \textcolor{comment}{\ \ *}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00017}00017\ \textcolor{comment}{\ \ ******************************************************************************}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00018}00018\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00019}00019\ \textcolor{comment}{/*\ USER\ CODE\ END\ Header\ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00021}00021\ \textcolor{comment}{/*\ Includes\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00022}00022\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{usbd__cdc__if_8h}{usbd\_cdc\_if.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00024}00024\ \textcolor{comment}{/*\ USER\ CODE\ BEGIN\ INCLUDE\ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00026}00026\ \textcolor{comment}{/*\ USER\ CODE\ END\ INCLUDE\ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00028}00028\ \textcolor{comment}{/*\ Private\ typedef\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00029}00029\ \textcolor{comment}{/*\ Private\ define\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00030}00030\ \textcolor{comment}{/*\ Private\ macro\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00032}00032\ \textcolor{comment}{/*\ USER\ CODE\ BEGIN\ PV\ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00033}00033\ \textcolor{comment}{/*\ Private\ variables\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00035}00035\ \textcolor{comment}{/*\ USER\ CODE\ END\ PV\ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00036}00036\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00037}00037\ \textcolor{comment}{/**\ @addtogroup\ STM32\_USB\_OTG\_DEVICE\_LIBRARY}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00038}00038\ \textcolor{comment}{\ \ *\ @brief\ Usb\ device\ library.}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00039}00039\ \textcolor{comment}{\ \ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00040}00040\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00041}00041\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00042}00042\ \textcolor{comment}{/**\ @addtogroup\ USBD\_CDC\_IF}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00043}00043\ \textcolor{comment}{\ \ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00044}00044\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00045}00045\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00046}00046\ \textcolor{comment}{/**\ @defgroup\ USBD\_CDC\_IF\_Private\_TypesDefinitions\ USBD\_CDC\_IF\_Private\_TypesDefinitions}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00047}00047\ \textcolor{comment}{\ \ *\ @brief\ Private\ types.}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00048}00048\ \textcolor{comment}{\ \ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00049}00049\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00050}00050\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00051}00051\ \textcolor{comment}{/*\ USER\ CODE\ BEGIN\ PRIVATE\_TYPES\ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00053}00053\ \textcolor{comment}{/*\ USER\ CODE\ END\ PRIVATE\_TYPES\ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00054}00054\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00055}00055\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00056}00056\ \textcolor{comment}{\ \ *\ @\}}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00057}00057\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00058}00058\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00059}00059\ \textcolor{comment}{/**\ @defgroup\ USBD\_CDC\_IF\_Private\_Defines\ USBD\_CDC\_IF\_Private\_Defines}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00060}00060\ \textcolor{comment}{\ \ *\ @brief\ Private\ defines.}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00061}00061\ \textcolor{comment}{\ \ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00062}00062\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00064}00064\ \textcolor{comment}{/*\ USER\ CODE\ BEGIN\ PRIVATE\_DEFINES\ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00065}00065\ \textcolor{comment}{/*\ USER\ CODE\ END\ PRIVATE\_DEFINES\ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00066}00066\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00067}00067\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00068}00068\ \textcolor{comment}{\ \ *\ @\}}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00069}00069\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00070}00070\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00071}00071\ \textcolor{comment}{/**\ @defgroup\ USBD\_CDC\_IF\_Private\_Macros\ USBD\_CDC\_IF\_Private\_Macros}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00072}00072\ \textcolor{comment}{\ \ *\ @brief\ Private\ macros.}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00073}00073\ \textcolor{comment}{\ \ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00074}00074\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00075}00075\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00076}00076\ \textcolor{comment}{/*\ USER\ CODE\ BEGIN\ PRIVATE\_MACRO\ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00078}00078\ \textcolor{comment}{/*\ USER\ CODE\ END\ PRIVATE\_MACRO\ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00079}00079\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00080}00080\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00081}00081\ \textcolor{comment}{\ \ *\ @\}}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00082}00082\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00083}00083\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00084}00084\ \textcolor{comment}{/**\ @defgroup\ USBD\_CDC\_IF\_Private\_Variables\ USBD\_CDC\_IF\_Private\_Variables}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00085}00085\ \textcolor{comment}{\ \ *\ @brief\ Private\ variables.}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00086}00086\ \textcolor{comment}{\ \ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00087}00087\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00088}00088\ \textcolor{comment}{/*\ Create\ buffer\ for\ reception\ and\ transmission\ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00089}00089\ \textcolor{comment}{/*\ It's\ up\ to\ user\ to\ redefine\ and/or\ remove\ those\ define\ */}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00090}00090\ \textcolor{comment}{/**\ Received\ data\ over\ USB\ are\ stored\ in\ this\ buffer\ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00091}\doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f___private___variables_ga2e85d51c3cc8ebdcb70f1428efc09ff2}{00091}}\ uint8\_t\ \doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f___private___variables_ga2e85d51c3cc8ebdcb70f1428efc09ff2}{UserRxBufferFS}}[\doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f___exported___defines_gaf3db03a3d03a80e1ec7a0a9c470d9692}{APP\_RX\_DATA\_SIZE}}];}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00092}00092\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00093}00093\ \textcolor{comment}{/**\ Data\ to\ send\ over\ USB\ CDC\ are\ stored\ in\ this\ buffer\ \ \ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00094}\doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f___private___variables_ga373c85fcb2972f31bdf4d9ae5d403250}{00094}}\ uint8\_t\ \doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f___private___variables_ga373c85fcb2972f31bdf4d9ae5d403250}{UserTxBufferFS}}[\doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f___exported___defines_gaff35924b436331d533599db9489c79ee}{APP\_TX\_DATA\_SIZE}}];}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00095}00095\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00096}00096\ \textcolor{comment}{/*\ USER\ CODE\ BEGIN\ PRIVATE\_VARIABLES\ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00097}\doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f___private___variables_ga249341bc16b465a55f87efa56839efcb}{00097}}\ \textcolor{keyword}{static}\ void\ (*\doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f___private___variables_ga249341bc16b465a55f87efa56839efcb}{MyPtrRx}})(uint8\_t*\ buf,\ uint32\_t\ Len)\ =\ \doxymbox{\hyperlink{group___u_s_b___d_e_f___exported___defines_ga070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}};}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00098}00098\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00099}\doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f___private___variables_gae3a3c94208e83963003dd17497952344}{00099}}\ \doxymbox{\hyperlink{struct_u_s_b_d___c_d_c___line_coding_type_def}{USBD\_CDC\_LineCodingTypeDef}}\ \doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f___private___variables_gae3a3c94208e83963003dd17497952344}{LineCoding}}\ =\ \{}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00100}00100\ \ \ \ \ .bitrate\ =\ 115200,\ \ \textcolor{comment}{/*\ baud\ rate\ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00101}00101\ \ \ \ \ .format\ =\ 0x00,\ \ \ \ \ \textcolor{comment}{/*\ stop\ bits\ 1\ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00102}00102\ \ \ \ \ .paritytype\ =\ 0x00,\ \textcolor{comment}{/*\ parity\ none\ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00103}00103\ \ \ \ \ .datatype\ =\ 0x08\ \ \ \ \textcolor{comment}{/*\ nb.\ of\ bits\ 8*/}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00104}00104\ \};}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00105}00105\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00106}00106\ \textcolor{comment}{/*\ USER\ CODE\ END\ PRIVATE\_VARIABLES\ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00107}00107\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00108}00108\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00109}00109\ \textcolor{comment}{\ \ *\ @\}}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00110}00110\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00111}00111\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00112}00112\ \textcolor{comment}{/**\ @defgroup\ USBD\_CDC\_IF\_Exported\_Variables\ USBD\_CDC\_IF\_Exported\_Variables}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00113}00113\ \textcolor{comment}{\ \ *\ @brief\ Public\ variables.}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00114}00114\ \textcolor{comment}{\ \ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00115}00115\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00116}00116\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00117}00117\ \textcolor{keyword}{extern}\ \doxymbox{\hyperlink{group___u_s_b_d___d_e_f___exported___types_definitions_ga08827834e2e564cea191282b65ce06f7}{USBD\_HandleTypeDef}}\ \doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f___exported___variables_gafe8a2d9e10b33d5e7906f9f04f95358e}{hUsbDeviceFS}};}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00118}00118\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00119}00119\ \textcolor{comment}{/*\ USER\ CODE\ BEGIN\ EXPORTED\_VARIABLES\ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00120}00120\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00121}00121\ \textcolor{comment}{/*\ USER\ CODE\ END\ EXPORTED\_VARIABLES\ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00122}00122\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00123}00123\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00124}00124\ \textcolor{comment}{\ \ *\ @\}}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00125}00125\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00126}00126\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00127}00127\ \textcolor{comment}{/**\ @defgroup\ USBD\_CDC\_IF\_Private\_FunctionPrototypes\ USBD\_CDC\_IF\_Private\_FunctionPrototypes}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00128}00128\ \textcolor{comment}{\ \ *\ @brief\ Private\ functions\ declaration.}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00129}00129\ \textcolor{comment}{\ \ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00130}00130\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00131}00131\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00132}00132\ \textcolor{keyword}{static}\ int8\_t\ \doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f___private___function_prototypes_ga400c7977253a3ee946cf2a1197bc940d}{CDC\_Init\_FS}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00133}00133\ \textcolor{keyword}{static}\ int8\_t\ \doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f___private___function_prototypes_ga3aaa6d7ac8cd77d9aed892348d83a8a8}{CDC\_DeInit\_FS}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00134}00134\ \textcolor{keyword}{static}\ int8\_t\ \doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f___private___function_prototypes_ga617e289cd860bc4c6831e01c7f2893a2}{CDC\_Control\_FS}}(uint8\_t\ cmd,\ uint8\_t*\ pbuf,\ uint16\_t\ length);}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00135}00135\ \textcolor{keyword}{static}\ int8\_t\ \doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f___private___function_prototypes_ga89250023659c1f485873b20514959f0a}{CDC\_Receive\_FS}}(uint8\_t*\ pbuf,\ uint32\_t\ *Len);}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00136}00136\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00137}00137\ \textcolor{comment}{/*\ USER\ CODE\ BEGIN\ PRIVATE\_FUNCTIONS\_DECLARATION\ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00138}00138\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00139}00139\ \textcolor{comment}{/*\ USER\ CODE\ END\ PRIVATE\_FUNCTIONS\_DECLARATION\ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00140}00140\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00141}00141\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00142}00142\ \textcolor{comment}{\ \ *\ @\}}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00143}00143\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00144}00144\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00145}\doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f_ga99394ed19b774f171df96c2848c411ed}{00145}}\ \doxymbox{\hyperlink{group__usbd__cdc_ga61c7c06f80adff14be2358af5e6971f4}{USBD\_CDC\_ItfTypeDef}}\ \doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f_ga99394ed19b774f171df96c2848c411ed}{USBD\_Interface\_fops\_FS}}\ =}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00146}00146\ \{}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00147}00147\ \ \ \doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f___private___function_prototypes_ga400c7977253a3ee946cf2a1197bc940d}{CDC\_Init\_FS}},}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00148}00148\ \ \ \doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f___private___function_prototypes_ga3aaa6d7ac8cd77d9aed892348d83a8a8}{CDC\_DeInit\_FS}},}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00149}00149\ \ \ \doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f___private___function_prototypes_ga617e289cd860bc4c6831e01c7f2893a2}{CDC\_Control\_FS}},}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00150}00150\ \ \ \doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f___private___function_prototypes_ga89250023659c1f485873b20514959f0a}{CDC\_Receive\_FS}}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00151}00151\ \};}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00152}00152\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00153}00153\ \textcolor{comment}{/*\ Private\ functions\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00154}00154\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00155}00155\ \textcolor{comment}{\ \ *\ @brief\ \ Initializes\ the\ CDC\ media\ low\ layer\ over\ the\ FS\ USB\ IP}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00156}00156\ \textcolor{comment}{\ \ *\ @retval\ USBD\_OK\ if\ all\ operations\ are\ OK\ else\ USBD\_FAIL}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00157}00157\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00158}\doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f___private___function_prototypes_ga400c7977253a3ee946cf2a1197bc940d}{00158}}\ \textcolor{keyword}{static}\ int8\_t\ \doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f___private___function_prototypes_ga400c7977253a3ee946cf2a1197bc940d}{CDC\_Init\_FS}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00159}00159\ \{}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00160}00160\ \ \ \textcolor{comment}{/*\ USER\ CODE\ BEGIN\ 3\ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00161}00161\ \ \ \textcolor{comment}{/*\ Set\ Application\ Buffers\ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00162}00162\ \ \ \doxymbox{\hyperlink{group___u_s_b___c_o_r_e___exported___functions_gaae40b75b0ccc21281f4aa1e2fbdc0d4f}{USBD\_CDC\_SetTxBuffer}}(\&\doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f___exported___variables_gafe8a2d9e10b33d5e7906f9f04f95358e}{hUsbDeviceFS}},\ \doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f___private___variables_ga373c85fcb2972f31bdf4d9ae5d403250}{UserTxBufferFS}},\ 0);}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00163}00163\ \ \ \doxymbox{\hyperlink{group___u_s_b___c_o_r_e___exported___functions_gaa8539af2ff78ce9a464def5de05726c3}{USBD\_CDC\_SetRxBuffer}}(\&\doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f___exported___variables_gafe8a2d9e10b33d5e7906f9f04f95358e}{hUsbDeviceFS}},\ \doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f___private___variables_ga2e85d51c3cc8ebdcb70f1428efc09ff2}{UserRxBufferFS}});}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00164}00164\ \ \ \textcolor{keywordflow}{return}\ (\doxymbox{\hyperlink{group___u_s_b_d___d_e_f___exported___types_definitions_ggaebc658c200e50399361e7901f0a57e95a82f83a0537693d71dd31a4ae9960d737}{USBD\_OK}});}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00165}00165\ \ \ \textcolor{comment}{/*\ USER\ CODE\ END\ 3\ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00166}00166\ \}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00167}00167\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00168}00168\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00169}00169\ \textcolor{comment}{\ \ *\ @brief\ \ DeInitializes\ the\ CDC\ media\ low\ layer}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00170}00170\ \textcolor{comment}{\ \ *\ @retval\ USBD\_OK\ if\ all\ operations\ are\ OK\ else\ USBD\_FAIL}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00171}00171\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00172}\doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f___private___function_prototypes_ga3aaa6d7ac8cd77d9aed892348d83a8a8}{00172}}\ \textcolor{keyword}{static}\ int8\_t\ \doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f___private___function_prototypes_ga3aaa6d7ac8cd77d9aed892348d83a8a8}{CDC\_DeInit\_FS}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00173}00173\ \{}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00174}00174\ \ \ \textcolor{comment}{/*\ USER\ CODE\ BEGIN\ 4\ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00175}00175\ \ \ \textcolor{keywordflow}{return}\ (\doxymbox{\hyperlink{group___u_s_b_d___d_e_f___exported___types_definitions_ggaebc658c200e50399361e7901f0a57e95a82f83a0537693d71dd31a4ae9960d737}{USBD\_OK}});}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00176}00176\ \ \ \textcolor{comment}{/*\ USER\ CODE\ END\ 4\ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00177}00177\ \}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00178}00178\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00179}00179\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00180}00180\ \textcolor{comment}{\ \ *\ @brief\ \ Manage\ the\ CDC\ class\ requests}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00181}00181\ \textcolor{comment}{\ \ *\ @param\ \ cmd:\ Command\ code}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00182}00182\ \textcolor{comment}{\ \ *\ @param\ \ pbuf:\ Buffer\ containing\ command\ data\ (request\ parameters)}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00183}00183\ \textcolor{comment}{\ \ *\ @param\ \ length:\ Number\ of\ data\ to\ be\ sent\ (in\ bytes)}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00184}00184\ \textcolor{comment}{\ \ *\ @retval\ Result\ of\ the\ operation:\ USBD\_OK\ if\ all\ operations\ are\ OK\ else\ USBD\_FAIL}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00185}00185\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00186}\doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f___private___function_prototypes_ga617e289cd860bc4c6831e01c7f2893a2}{00186}}\ \textcolor{keyword}{static}\ int8\_t\ \doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f___private___function_prototypes_ga617e289cd860bc4c6831e01c7f2893a2}{CDC\_Control\_FS}}(uint8\_t\ cmd,\ uint8\_t*\ pbuf,\ uint16\_t\ length)}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00187}00187\ \{}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00188}00188\ \ \ \textcolor{comment}{/*\ USER\ CODE\ BEGIN\ 5\ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00189}00189\ \ \ \textcolor{keywordflow}{switch}(cmd)}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00190}00190\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00191}00191\ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{group__usbd__cdc___exported___defines_ga7aaa245703a0a2191c27697715f3727c}{CDC\_SEND\_ENCAPSULATED\_COMMAND}}:}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00192}00192\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00193}00193\ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00194}00194\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00195}00195\ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{group__usbd__cdc___exported___defines_ga6170632c774a3163b5a9927cc4e960ec}{CDC\_GET\_ENCAPSULATED\_RESPONSE}}:}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00196}00196\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00197}00197\ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00198}00198\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00199}00199\ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{group__usbd__cdc___exported___defines_ga893b79445f99070657e8d45f6495b174}{CDC\_SET\_COMM\_FEATURE}}:}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00200}00200\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00201}00201\ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00202}00202\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00203}00203\ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{group__usbd__cdc___exported___defines_gad0912dac888d01142b225b0c6f8a508f}{CDC\_GET\_COMM\_FEATURE}}:}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00204}00204\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00205}00205\ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00206}00206\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00207}00207\ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{group__usbd__cdc___exported___defines_ga6c79b8666110840333ad3785bf7ce87c}{CDC\_CLEAR\_COMM\_FEATURE}}:}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00208}00208\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00209}00209\ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00210}00210\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00211}00211\ \textcolor{comment}{\ \ /*******************************************************************************/}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00212}00212\ \ \ \textcolor{comment}{/*\ Line\ Coding\ Structure\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00213}00213\ \ \ \textcolor{comment}{/*-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00214}00214\ \ \ \textcolor{comment}{/*\ Offset\ |\ Field\ \ \ \ \ \ \ |\ Size\ |\ Value\ \ |\ Description\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00215}00215\ \ \ \textcolor{comment}{/*\ 0\ \ \ \ \ \ |\ dwDTERate\ \ \ |\ \ \ 4\ \ |\ Number\ |Data\ terminal\ rate,\ in\ bits\ per\ second*/}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00216}00216\ \ \ \textcolor{comment}{/*\ 4\ \ \ \ \ \ |\ bCharFormat\ |\ \ \ 1\ \ |\ Number\ |\ Stop\ bits\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00217}00217\ \ \ \textcolor{comment}{/*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0\ -\/\ 1\ Stop\ bit\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00218}00218\ \ \ \textcolor{comment}{/*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 1\ -\/\ 1.5\ Stop\ bits\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00219}00219\ \ \ \textcolor{comment}{/*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 2\ -\/\ 2\ Stop\ bits\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00220}00220\ \ \ \textcolor{comment}{/*\ 5\ \ \ \ \ \ |\ bParityType\ |\ \ 1\ \ \ |\ Number\ |\ Parity\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00221}00221\ \ \ \textcolor{comment}{/*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0\ -\/\ None\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00222}00222\ \ \ \textcolor{comment}{/*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 1\ -\/\ Odd\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00223}00223\ \ \ \textcolor{comment}{/*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 2\ -\/\ Even\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00224}00224\ \ \ \textcolor{comment}{/*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 3\ -\/\ Mark\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00225}00225\ \ \ \textcolor{comment}{/*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 4\ -\/\ Space\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00226}00226\ \ \ \textcolor{comment}{/*\ 6\ \ \ \ \ \ |\ bDataBits\ \ |\ \ \ 1\ \ \ |\ Number\ Data\ bits\ (5,\ 6,\ 7,\ 8\ or\ 16).\ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00227}00227\ \textcolor{comment}{\ \ /*******************************************************************************/}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00228}00228\ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{group__usbd__cdc___exported___defines_gad07ce089c8757b8d2ff37ddd83dc9351}{CDC\_SET\_LINE\_CODING}}:}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00229}00229\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f___private___variables_gae3a3c94208e83963003dd17497952344}{LineCoding}}.\doxymbox{\hyperlink{struct_u_s_b_d___c_d_c___line_coding_type_def_a2c398e4f03da3b373756c7a18160f30a}{bitrate}}\ =\ (uint32\_t)(pbuf[0]\ |\ (pbuf[1]\ <<\ 8)\ |\ (pbuf[2]\ <<\ 16)\ |\ (pbuf[3]\ <<\ 24));}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00230}00230\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f___private___variables_gae3a3c94208e83963003dd17497952344}{LineCoding}}.\doxymbox{\hyperlink{struct_u_s_b_d___c_d_c___line_coding_type_def_a7d94fafa04246a861cc6430472cd2879}{format}}\ =\ pbuf[4];}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00231}00231\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f___private___variables_gae3a3c94208e83963003dd17497952344}{LineCoding}}.\doxymbox{\hyperlink{struct_u_s_b_d___c_d_c___line_coding_type_def_ab09d9ec77910fe34fb015552678491eb}{paritytype}}\ =\ pbuf[5];}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00232}00232\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f___private___variables_gae3a3c94208e83963003dd17497952344}{LineCoding}}.\doxymbox{\hyperlink{struct_u_s_b_d___c_d_c___line_coding_type_def_a5635b4abf930a5bc86bacc96188ba6ea}{datatype}}\ =\ pbuf[6];}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00233}00233\ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00234}00234\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00235}00235\ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{group__usbd__cdc___exported___defines_ga1068ab45668e413d964a01bc36fa2d43}{CDC\_GET\_LINE\_CODING}}:}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00236}00236\ \ \ \ \ \ \ \ \ pbuf[0]\ =\ (uint8\_t)(\doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f___private___variables_gae3a3c94208e83963003dd17497952344}{LineCoding}}.\doxymbox{\hyperlink{struct_u_s_b_d___c_d_c___line_coding_type_def_a2c398e4f03da3b373756c7a18160f30a}{bitrate}});}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00237}00237\ \ \ \ \ \ \ \ \ pbuf[1]\ =\ (uint8\_t)(\doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f___private___variables_gae3a3c94208e83963003dd17497952344}{LineCoding}}.\doxymbox{\hyperlink{struct_u_s_b_d___c_d_c___line_coding_type_def_a2c398e4f03da3b373756c7a18160f30a}{bitrate}}\ >>\ 8);}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00238}00238\ \ \ \ \ \ \ \ \ pbuf[2]\ =\ (uint8\_t)(\doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f___private___variables_gae3a3c94208e83963003dd17497952344}{LineCoding}}.\doxymbox{\hyperlink{struct_u_s_b_d___c_d_c___line_coding_type_def_a2c398e4f03da3b373756c7a18160f30a}{bitrate}}\ >>\ 16);}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00239}00239\ \ \ \ \ \ \ \ \ pbuf[3]\ =\ (uint8\_t)(\doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f___private___variables_gae3a3c94208e83963003dd17497952344}{LineCoding}}.\doxymbox{\hyperlink{struct_u_s_b_d___c_d_c___line_coding_type_def_a2c398e4f03da3b373756c7a18160f30a}{bitrate}}\ >>\ 24);}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00240}00240\ \ \ \ \ \ \ \ \ pbuf[4]\ =\ \doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f___private___variables_gae3a3c94208e83963003dd17497952344}{LineCoding}}.\doxymbox{\hyperlink{struct_u_s_b_d___c_d_c___line_coding_type_def_a7d94fafa04246a861cc6430472cd2879}{format}};}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00241}00241\ \ \ \ \ \ \ \ \ pbuf[5]\ =\ \doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f___private___variables_gae3a3c94208e83963003dd17497952344}{LineCoding}}.\doxymbox{\hyperlink{struct_u_s_b_d___c_d_c___line_coding_type_def_ab09d9ec77910fe34fb015552678491eb}{paritytype}};}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00242}00242\ \ \ \ \ \ \ \ \ pbuf[6]\ =\ \doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f___private___variables_gae3a3c94208e83963003dd17497952344}{LineCoding}}.\doxymbox{\hyperlink{struct_u_s_b_d___c_d_c___line_coding_type_def_a5635b4abf930a5bc86bacc96188ba6ea}{datatype}};}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00243}00243\ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00244}00244\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00245}00245\ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{group__usbd__cdc___exported___defines_ga11c392243dec4d03970f1eaa1f8053ae}{CDC\_SET\_CONTROL\_LINE\_STATE}}:}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00246}00246\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00247}00247\ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00248}00248\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00249}00249\ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{group__usbd__cdc___exported___defines_ga868c480caf0abda6b458c82281dda8ad}{CDC\_SEND\_BREAK}}:}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00250}00250\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00251}00251\ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00252}00252\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00253}00253\ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00254}00254\ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00255}00255\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00256}00256\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00257}00257\ \ \ \textcolor{keywordflow}{return}\ (\doxymbox{\hyperlink{group___u_s_b_d___d_e_f___exported___types_definitions_ggaebc658c200e50399361e7901f0a57e95a82f83a0537693d71dd31a4ae9960d737}{USBD\_OK}});}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00258}00258\ \ \ \textcolor{comment}{/*\ USER\ CODE\ END\ 5\ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00259}00259\ \}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00260}00260\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00261}00261\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00262}00262\ \textcolor{comment}{\ \ *\ @brief\ \ Data\ received\ over\ USB\ OUT\ endpoint\ are\ sent\ over\ CDC\ interface}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00263}00263\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ through\ this\ function.}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00264}00264\ \textcolor{comment}{\ \ *}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00265}00265\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ @note}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00266}00266\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ This\ function\ will\ issue\ a\ NAK\ packet\ on\ any\ OUT\ packet\ received\ on}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00267}00267\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ USB\ endpoint\ until\ exiting\ this\ function.\ If\ you\ exit\ this\ function}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00268}00268\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ before\ transfer\ is\ complete\ on\ CDC\ interface\ (ie.\ using\ DMA\ controller)}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00269}00269\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ it\ will\ result\ in\ receiving\ more\ data\ while\ previous\ ones\ are\ still}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00270}00270\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ not\ sent.}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00271}00271\ \textcolor{comment}{\ \ *}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00272}00272\ \textcolor{comment}{\ \ *\ @param\ \ Buf:\ Buffer\ of\ data\ to\ be\ received}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00273}00273\ \textcolor{comment}{\ \ *\ @param\ \ Len:\ Number\ of\ data\ received\ (in\ bytes)}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00274}00274\ \textcolor{comment}{\ \ *\ @retval\ Result\ of\ the\ operation:\ USBD\_OK\ if\ all\ operations\ are\ OK\ else\ USBD\_FAIL}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00275}00275\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00276}\doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f___private___function_prototypes_ga89250023659c1f485873b20514959f0a}{00276}}\ \textcolor{keyword}{static}\ int8\_t\ \doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f___private___function_prototypes_ga89250023659c1f485873b20514959f0a}{CDC\_Receive\_FS}}(uint8\_t*\ Buf,\ uint32\_t\ *Len)}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00277}00277\ \{}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00278}00278\ \ \ \textcolor{comment}{/*\ USER\ CODE\ BEGIN\ 6\ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00279}00279\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00280}00280\ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f___private___variables_ga249341bc16b465a55f87efa56839efcb}{MyPtrRx}}\ !=\ \doxymbox{\hyperlink{group___u_s_b___d_e_f___exported___defines_ga070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}})\ \{}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00281}00281\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f___private___variables_ga249341bc16b465a55f87efa56839efcb}{MyPtrRx}}(Buf,\ *Len);}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00282}00282\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00283}00283\ \ \ \ \ \doxymbox{\hyperlink{group___u_s_b___c_o_r_e___exported___functions_gaa8539af2ff78ce9a464def5de05726c3}{USBD\_CDC\_SetRxBuffer}}(\&\doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f___exported___variables_gafe8a2d9e10b33d5e7906f9f04f95358e}{hUsbDeviceFS}},\ \&Buf[0]);}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00284}00284\ \ \ \ \ \doxymbox{\hyperlink{group___u_s_b___c_o_r_e___exported___functions_ga55dff87863e1c76fd1139016da75903c}{USBD\_CDC\_ReceivePacket}}(\&\doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f___exported___variables_gafe8a2d9e10b33d5e7906f9f04f95358e}{hUsbDeviceFS}});}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00285}00285\ \ \ \ \ \textcolor{keywordflow}{return}\ (\doxymbox{\hyperlink{group___u_s_b_d___d_e_f___exported___types_definitions_ggaebc658c200e50399361e7901f0a57e95a82f83a0537693d71dd31a4ae9960d737}{USBD\_OK}});}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00286}00286\ \ \ \textcolor{comment}{/*\ USER\ CODE\ END\ 6\ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00287}00287\ \}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00288}00288\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00289}00289\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00290}00290\ \textcolor{comment}{\ \ *\ @brief\ \ CDC\_Transmit\_FS}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00291}00291\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ Data\ to\ send\ over\ USB\ IN\ endpoint\ are\ sent\ over\ CDC\ interface}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00292}00292\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ through\ this\ function.}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00293}00293\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ @note}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00294}00294\ \textcolor{comment}{\ \ *}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00295}00295\ \textcolor{comment}{\ \ *}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00296}00296\ \textcolor{comment}{\ \ *\ @param\ \ Buf:\ Buffer\ of\ data\ to\ be\ sent}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00297}00297\ \textcolor{comment}{\ \ *\ @param\ \ Len:\ Number\ of\ data\ to\ be\ sent\ (in\ bytes)}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00298}00298\ \textcolor{comment}{\ \ *\ @retval\ USBD\_OK\ if\ all\ operations\ are\ OK\ else\ USBD\_FAIL\ or\ USBD\_BUSY}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00299}00299\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00300}\doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f_ga5137d6201dbdef2bf351c5b4941c24f4}{00300}}\ uint8\_t\ \doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f_ga5137d6201dbdef2bf351c5b4941c24f4}{CDC\_Transmit\_FS}}(uint8\_t*\ Buf,\ uint16\_t\ Len)}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00301}00301\ \{}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00302}00302\ \ \ uint8\_t\ result\ =\ \doxymbox{\hyperlink{group___u_s_b_d___d_e_f___exported___types_definitions_ggaebc658c200e50399361e7901f0a57e95a82f83a0537693d71dd31a4ae9960d737}{USBD\_OK}};}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00303}00303\ \ \ \textcolor{comment}{/*\ USER\ CODE\ BEGIN\ 7\ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00304}00304\ \ \ \doxymbox{\hyperlink{struct_u_s_b_d___c_d_c___handle_type_def}{USBD\_CDC\_HandleTypeDef}}\ *hcdc\ =\ (\doxymbox{\hyperlink{struct_u_s_b_d___c_d_c___handle_type_def}{USBD\_CDC\_HandleTypeDef}}*)\doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f___exported___variables_gafe8a2d9e10b33d5e7906f9f04f95358e}{hUsbDeviceFS}}.\doxymbox{\hyperlink{struct___u_s_b_d___handle_type_def_acb39dec6f552fcb28268351a90cbc709}{pClassData}};}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00305}00305\ \ \ \textcolor{keywordflow}{if}\ (hcdc-\/>\doxymbox{\hyperlink{struct_u_s_b_d___c_d_c___handle_type_def_a1182e901250449fe66be702ff839e01f}{TxState}}\ !=\ 0)\{}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00306}00306\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{group___u_s_b_d___d_e_f___exported___types_definitions_ggaebc658c200e50399361e7901f0a57e95ac740a5fc3a2c8458f50c1778a85b68b4}{USBD\_BUSY}};}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00307}00307\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00308}00308\ \ \ \doxymbox{\hyperlink{group___u_s_b___c_o_r_e___exported___functions_gaae40b75b0ccc21281f4aa1e2fbdc0d4f}{USBD\_CDC\_SetTxBuffer}}(\&\doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f___exported___variables_gafe8a2d9e10b33d5e7906f9f04f95358e}{hUsbDeviceFS}},\ Buf,\ Len);}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00309}00309\ \ \ result\ =\ \doxymbox{\hyperlink{group___u_s_b___c_o_r_e___exported___functions_gac6132b25e4ac00c4d918d3d73a3be5c7}{USBD\_CDC\_TransmitPacket}}(\&\doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f___exported___variables_gafe8a2d9e10b33d5e7906f9f04f95358e}{hUsbDeviceFS}});}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00310}00310\ \ \ \textcolor{comment}{/*\ USER\ CODE\ END\ 7\ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00311}00311\ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00312}00312\ \}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00313}00313\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00314}00314\ \textcolor{comment}{/*\ USER\ CODE\ BEGIN\ PRIVATE\_FUNCTIONS\_IMPLEMENTATION\ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00315}\doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f_ga5f6e89de6e72d5c63eef973c7a288f04}{00315}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f_ga5f6e89de6e72d5c63eef973c7a288f04}{CDC\_Attach\_Rx}}(\textcolor{keywordtype}{void}(*PtrRx)(uint8\_t\ *buf,\ uint32\_t\ Len))\{}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00316}00316\ \ \ \ \ \doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f___private___variables_ga249341bc16b465a55f87efa56839efcb}{MyPtrRx}}\ =\ PtrRx;}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00317}00317\ \}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00318}00318\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00319}00319\ \textcolor{comment}{/*\ USER\ CODE\ END\ PRIVATE\_FUNCTIONS\_IMPLEMENTATION\ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00320}00320\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00321}00321\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00322}00322\ \textcolor{comment}{\ \ *\ @\}}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00323}00323\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00324}00324\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00325}00325\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00326}00326\ \textcolor{comment}{\ \ *\ @\}}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc__if_8c_source_l00327}00327\ \textcolor{comment}{\ \ */}}
+
+\end{DoxyCode}

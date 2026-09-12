@@ -1,0 +1,1076 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>MICRO-Firmware: ADC helper macro</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="codefolding.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  extensions: ["tex2jax.js"],
+  jax: ["input/TeX","output/HTML-CSS"],
+});
+</script>
+<script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">MICRO-Firmware<span id="projectnumber">&#160;EX100923v01</span>
+   </div>
+   <div id="projectbrief">Firmware de Péndulo Invertido Autónomo de Dos Ruedas (STM32F103C8T6 - ARM Cortex-M3)</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Buscar" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('group___a_d_c___l_l___e_m___h_e_l_p_e_r___m_a_c_r_o.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">ADC helper macro <div class="ingroups"><a class="el" href="group___s_t_m32_f1xx___l_l___driver.html">STM32F1xx_LL_Driver</a> &raquo; <a class="el" href="group___a_d_c___l_l.html">ADC</a> &raquo; <a class="el" href="group___a_d_c___l_l___exported___macros.html">ADC Exported Macros</a></div></div></div>
+</div><!--header-->
+<div class="contents">
+<div id="dynsection-0" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Diagrama de colaboración de ADC helper macro:</div>
+<div id="dynsection-0-summary" class="dynsummary">
+</div>
+<div id="dynsection-0-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___a_d_c___l_l___e_m___h_e_l_p_e_r___m_a_c_r_o.svg" width="342" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
+defines</h2></td></tr>
+<tr class="memitem:gab842462663bf4c5aaf8f81bae98d8ab0" id="r_gab842462663bf4c5aaf8f81bae98d8ab0"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gab842462663bf4c5aaf8f81bae98d8ab0">__LL_ADC_ANALOGWD_CHANNEL_GROUP</a>(__CHANNEL__,  __GROUP__)</td></tr>
+<tr class="memdesc:gab842462663bf4c5aaf8f81bae98d8ab0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper macro to define ADC analog watchdog parameter: define a single channel to monitor with analog watchdog from sequencer channel and groups definition.  <br /></td></tr>
+<tr class="memitem:ga352e0833fe7776abbe2cd70d2962111f" id="r_ga352e0833fe7776abbe2cd70d2962111f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga352e0833fe7776abbe2cd70d2962111f">__LL_ADC_ANALOGWD_GET_THRESHOLD_RESOLUTION</a>(__ADC_RESOLUTION__,  __AWD_THRESHOLD_12_BITS__)</td></tr>
+<tr class="memdesc:ga352e0833fe7776abbe2cd70d2962111f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper macro to get the value of ADC analog watchdog threshold high or low in function of ADC resolution, when ADC resolution is different of 12 bits.  <br /></td></tr>
+<tr class="memitem:ga3d1b3ad0d19fc86f40f9a916335a6f2c" id="r_ga3d1b3ad0d19fc86f40f9a916335a6f2c"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga3d1b3ad0d19fc86f40f9a916335a6f2c">__LL_ADC_ANALOGWD_SET_THRESHOLD_RESOLUTION</a>(__ADC_RESOLUTION__,  __AWD_THRESHOLD__)</td></tr>
+<tr class="memdesc:ga3d1b3ad0d19fc86f40f9a916335a6f2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper macro to set the value of ADC analog watchdog threshold high or low in function of ADC resolution, when ADC resolution is different of 12 bits.  <br /></td></tr>
+<tr class="memitem:ga444f2b3a6c550a015a536f258a0bbd6c" id="r_ga444f2b3a6c550a015a536f258a0bbd6c"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga444f2b3a6c550a015a536f258a0bbd6c">__LL_ADC_CALC_DATA_TO_VOLTAGE</a>(__VREFANALOG_VOLTAGE__,  __ADC_DATA__,  __ADC_RESOLUTION__)</td></tr>
+<tr class="memdesc:ga444f2b3a6c550a015a536f258a0bbd6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper macro to calculate the voltage (unit: mVolt) corresponding to a ADC conversion data (unit: digital value).  <br /></td></tr>
+<tr class="memitem:gac0dbec1ace57042d961480fbc9dde762" id="r_gac0dbec1ace57042d961480fbc9dde762"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gac0dbec1ace57042d961480fbc9dde762">__LL_ADC_CALC_TEMPERATURE_TYP_PARAMS</a>(__TEMPSENSOR_TYP_AVGSLOPE__,  __TEMPSENSOR_TYP_CALX_V__,  __TEMPSENSOR_CALX_TEMP__,  __VREFANALOG_VOLTAGE__,  __TEMPSENSOR_ADC_DATA__,  __ADC_RESOLUTION__)</td></tr>
+<tr class="memdesc:gac0dbec1ace57042d961480fbc9dde762"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper macro to calculate the temperature (unit: degree Celsius) from ADC conversion data of internal temperature sensor.  <br /></td></tr>
+<tr class="memitem:gaf1de3f488fe365b29512610afaafedbd" id="r_gaf1de3f488fe365b29512610afaafedbd"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaf1de3f488fe365b29512610afaafedbd">__LL_ADC_CHANNEL_INTERNAL_TO_EXTERNAL</a>(__CHANNEL__)</td></tr>
+<tr class="memdesc:gaf1de3f488fe365b29512610afaafedbd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper macro to convert a channel defined from parameter definition of a ADC internal channel (LL_ADC_CHANNEL_VREFINT, LL_ADC_CHANNEL_TEMPSENSOR, ...), to its equivalent parameter definition of a ADC external channel (LL_ADC_CHANNEL_1, LL_ADC_CHANNEL_2, ...).  <br /></td></tr>
+<tr class="memitem:ga11b528ebb75ee65deafce2dd57bb7569" id="r_ga11b528ebb75ee65deafce2dd57bb7569"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga11b528ebb75ee65deafce2dd57bb7569">__LL_ADC_CHANNEL_TO_DECIMAL_NB</a>(__CHANNEL__)</td></tr>
+<tr class="memdesc:ga11b528ebb75ee65deafce2dd57bb7569"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper macro to get ADC channel number in decimal format from literals LL_ADC_CHANNEL_x.  <br /></td></tr>
+<tr class="memitem:ga06222c0a27b40e8317cb67befccb7403" id="r_ga06222c0a27b40e8317cb67befccb7403"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga06222c0a27b40e8317cb67befccb7403">__LL_ADC_COMMON_INSTANCE</a>(__ADCx__)</td></tr>
+<tr class="memdesc:ga06222c0a27b40e8317cb67befccb7403"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper macro to select the ADC common instance to which is belonging the selected ADC instance.  <br /></td></tr>
+<tr class="memitem:ga3959d839cda9c4a3022efd325fa1341c" id="r_ga3959d839cda9c4a3022efd325fa1341c"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga3959d839cda9c4a3022efd325fa1341c">__LL_ADC_DECIMAL_NB_TO_CHANNEL</a>(__DECIMAL_NB__)</td></tr>
+<tr class="memdesc:ga3959d839cda9c4a3022efd325fa1341c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper macro to get ADC channel in literal format LL_ADC_CHANNEL_x from number in decimal format.  <br /></td></tr>
+<tr class="memitem:gaf282502c4c0bc20df730379dab7be94a" id="r_gaf282502c4c0bc20df730379dab7be94a"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaf282502c4c0bc20df730379dab7be94a">__LL_ADC_DIGITAL_SCALE</a>(__ADC_RESOLUTION__)</td></tr>
+<tr class="memdesc:gaf282502c4c0bc20df730379dab7be94a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper macro to define the ADC conversion data full-scale digital value corresponding to the selected ADC resolution.  <br /></td></tr>
+<tr class="memitem:gac0143222e7da440ede9c1adb0a340126" id="r_gac0143222e7da440ede9c1adb0a340126"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gac0143222e7da440ede9c1adb0a340126">__LL_ADC_IS_CHANNEL_INTERNAL</a>(__CHANNEL__)</td></tr>
+<tr class="memdesc:gac0143222e7da440ede9c1adb0a340126"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper macro to determine whether the selected channel corresponds to literal definitions of driver.  <br /></td></tr>
+<tr class="memitem:gac5a44923b4142e1f1acdf3a7c92ce034" id="r_gac5a44923b4142e1f1acdf3a7c92ce034"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gac5a44923b4142e1f1acdf3a7c92ce034">__LL_ADC_IS_CHANNEL_INTERNAL_AVAILABLE</a>(__ADC_INSTANCE__,  __CHANNEL__)</td></tr>
+<tr class="memdesc:gac5a44923b4142e1f1acdf3a7c92ce034"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper macro to determine whether the internal channel selected is available on the ADC instance selected.  <br /></td></tr>
+<tr class="memitem:ga7389f2efada78ba7e5794169c8e7cfb6" id="r_ga7389f2efada78ba7e5794169c8e7cfb6"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga7389f2efada78ba7e5794169c8e7cfb6">__LL_ADC_IS_ENABLED_ALL_COMMON_INSTANCE</a>(__ADCXY_COMMON__)</td></tr>
+<tr class="memdesc:ga7389f2efada78ba7e5794169c8e7cfb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper macro to check if all ADC instances sharing the same ADC common instance are disabled.  <br /></td></tr>
+<tr class="memitem:ga684a597fa10d3ec2fafe1e4246107a22" id="r_ga684a597fa10d3ec2fafe1e4246107a22"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga684a597fa10d3ec2fafe1e4246107a22">__LL_ADC_MULTI_CONV_DATA_MASTER_SLAVE</a>(__ADC_MULTI_MASTER_SLAVE__,  __ADC_MULTI_CONV_DATA__)</td></tr>
+<tr class="memdesc:ga684a597fa10d3ec2fafe1e4246107a22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper macro to get the ADC multimode conversion data of ADC master or ADC slave from raw value with both ADC conversion data concatenated.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Descripción detallada</h2>
+<div class="textblock"></div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Documentación de «define»</h2>
+<a id="gab842462663bf4c5aaf8f81bae98d8ab0" name="gab842462663bf4c5aaf8f81bae98d8ab0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab842462663bf4c5aaf8f81bae98d8ab0">&#9670;&#160;</a></span>__LL_ADC_ANALOGWD_CHANNEL_GROUP</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define __LL_ADC_ANALOGWD_CHANNEL_GROUP</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>__CHANNEL__</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>__GROUP__</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__adc_8h.html">stm32f1xx_ll_adc.h</a>&quot;</code></p>
+<b>Valor:</b><div class="fragment"><div class="line">(((__GROUP__) == <a class="code hl_define" href="group___a_d_c___l_l___e_c___g_r_o_u_p_s.html#gaf39dfacf14bd1d1178b7cafa69d24d1d">LL_ADC_GROUP_REGULAR</a>)                                                                  \</div>
+<div class="line">  ? (((__CHANNEL__) &amp; <a class="code hl_define" href="group___a_d_c___l_l___private___constants.html#ga027c9946ec12be31e2266ba45641977d">ADC_CHANNEL_ID_MASK</a>) | <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga6e006d43fcb9fe1306745c95a1bdd651">ADC_CR1_AWDEN</a> | <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga5c9fc31f19c04033dfa98e982519c451">ADC_CR1_AWDSGL</a>)                            \</div>
+<div class="line">    :                                                                                                   \</div>
+<div class="line">    ((__GROUP__) == <a class="code hl_define" href="group___a_d_c___l_l___e_c___g_r_o_u_p_s.html#gade3017ea04c39c6599957d5b82f04077">LL_ADC_GROUP_INJECTED</a>)                                                              \</div>
+<div class="line">     ? (((__CHANNEL__) &amp; <a class="code hl_define" href="group___a_d_c___l_l___private___constants.html#ga027c9946ec12be31e2266ba45641977d">ADC_CHANNEL_ID_MASK</a>) | <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga4886de74bcd3a1e545094089f76fd0b3">ADC_CR1_JAWDEN</a> | <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga5c9fc31f19c04033dfa98e982519c451">ADC_CR1_AWDSGL</a>)                        \</div>
+<div class="line">       :                                                                                                \</div>
+<div class="line">       (((__CHANNEL__) &amp; <a class="code hl_define" href="group___a_d_c___l_l___private___constants.html#ga027c9946ec12be31e2266ba45641977d">ADC_CHANNEL_ID_MASK</a>) | <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga4886de74bcd3a1e545094089f76fd0b3">ADC_CR1_JAWDEN</a> | <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga6e006d43fcb9fe1306745c95a1bdd651">ADC_CR1_AWDEN</a> | <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga5c9fc31f19c04033dfa98e982519c451">ADC_CR1_AWDSGL</a>)        \</div>
+<div class="line">)</div>
+<div class="ttc" id="agroup___a_d_c___l_l___e_c___g_r_o_u_p_s_html_gade3017ea04c39c6599957d5b82f04077"><div class="ttname"><a href="group___a_d_c___l_l___e_c___g_r_o_u_p_s.html#gade3017ea04c39c6599957d5b82f04077">LL_ADC_GROUP_INJECTED</a></div><div class="ttdeci">#define LL_ADC_GROUP_INJECTED</div><div class="ttdoc">ADC group injected (not available on all STM32 devices).</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__ll__adc_8h_source.html#l00496">stm32f1xx_ll_adc.h:496</a></div></div>
+<div class="ttc" id="agroup___a_d_c___l_l___e_c___g_r_o_u_p_s_html_gaf39dfacf14bd1d1178b7cafa69d24d1d"><div class="ttname"><a href="group___a_d_c___l_l___e_c___g_r_o_u_p_s.html#gaf39dfacf14bd1d1178b7cafa69d24d1d">LL_ADC_GROUP_REGULAR</a></div><div class="ttdeci">#define LL_ADC_GROUP_REGULAR</div><div class="ttdoc">ADC group regular (available on all STM32 devices).</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__ll__adc_8h_source.html#l00495">stm32f1xx_ll_adc.h:495</a></div></div>
+<div class="ttc" id="agroup___a_d_c___l_l___private___constants_html_ga027c9946ec12be31e2266ba45641977d"><div class="ttname"><a href="group___a_d_c___l_l___private___constants.html#ga027c9946ec12be31e2266ba45641977d">ADC_CHANNEL_ID_MASK</a></div><div class="ttdeci">#define ADC_CHANNEL_ID_MASK</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__ll__adc_8h_source.html#l00115">stm32f1xx_ll_adc.h:115</a></div></div>
+<div class="ttc" id="agroup___peripheral___registers___bits___definition_html_ga4886de74bcd3a1e545094089f76fd0b3"><div class="ttname"><a href="group___peripheral___registers___bits___definition.html#ga4886de74bcd3a1e545094089f76fd0b3">ADC_CR1_JAWDEN</a></div><div class="ttdeci">#define ADC_CR1_JAWDEN</div><div class="ttdoc">ADC analog watchdog 1 enable on scope ADC group injected.</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l03361">stm32f103xb.h:3361</a></div></div>
+<div class="ttc" id="agroup___peripheral___registers___bits___definition_html_ga5c9fc31f19c04033dfa98e982519c451"><div class="ttname"><a href="group___peripheral___registers___bits___definition.html#ga5c9fc31f19c04033dfa98e982519c451">ADC_CR1_AWDSGL</a></div><div class="ttdeci">#define ADC_CR1_AWDSGL</div><div class="ttdoc">ADC analog watchdog 1 monitoring a single channel or all channels.</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l03333">stm32f103xb.h:3333</a></div></div>
+<div class="ttc" id="agroup___peripheral___registers___bits___definition_html_ga6e006d43fcb9fe1306745c95a1bdd651"><div class="ttname"><a href="group___peripheral___registers___bits___definition.html#ga6e006d43fcb9fe1306745c95a1bdd651">ADC_CR1_AWDEN</a></div><div class="ttdeci">#define ADC_CR1_AWDEN</div><div class="ttdoc">ADC analog watchdog 1 enable on scope ADC group regular.</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l03364">stm32f103xb.h:3364</a></div></div>
+</div><!-- fragment -->
+<p>Helper macro to define ADC analog watchdog parameter: define a single channel to monitor with analog watchdog from sequencer channel and groups definition. </p>
+<dl class="section note"><dt>Nota</dt><dd>To be used with function LL_ADC_SetAnalogWDMonitChannels(). Example: LL_ADC_SetAnalogWDMonitChannels(
+            ADC1, LL_ADC_AWD1,
+            __LL_ADC_ANALOGWD_CHANNEL_GROUP(LL_ADC_CHANNEL4, LL_ADC_GROUP_REGULAR)) </dd></dl>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">__CHANNEL__</td><td>This parameter can be one of the following values: <ul>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga65ab7da5776ec034ad969fb6bdb23144" title="LL_ADC_CHANNEL_0">LL_ADC_CHANNEL_0</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga810add73c60874916547b5d8cde1970f" title="LL_ADC_CHANNEL_1">LL_ADC_CHANNEL_1</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#gadee2200298b004e8908c83d26dabbce5" title="LL_ADC_CHANNEL_2">LL_ADC_CHANNEL_2</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#gad49456a49014e2ab6fb8da3ac718d21f" title="LL_ADC_CHANNEL_3">LL_ADC_CHANNEL_3</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga06dec8046aed75d352d8541e64e7b3da" title="LL_ADC_CHANNEL_4">LL_ADC_CHANNEL_4</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#gaed34ad28fea75c6baaaba3e2c7a71c8b" title="LL_ADC_CHANNEL_5">LL_ADC_CHANNEL_5</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga4f460233be3024d07bad405c3c835d22" title="LL_ADC_CHANNEL_6">LL_ADC_CHANNEL_6</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#gac4c5065aeb7f1b18f7f3957d19ce1901" title="LL_ADC_CHANNEL_7">LL_ADC_CHANNEL_7</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#gaa0095223cfdf58479d1ffef2e811a26b" title="LL_ADC_CHANNEL_8">LL_ADC_CHANNEL_8</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga0322ab63547820a4e8c43d007a1e86d9" title="LL_ADC_CHANNEL_9">LL_ADC_CHANNEL_9</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga8a2d6a4765ddedfcfba8b4ab5fcc8ea6" title="LL_ADC_CHANNEL_10">LL_ADC_CHANNEL_10</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga7d2c990bf0e1af4b1a827bb7ecec5a44" title="LL_ADC_CHANNEL_11">LL_ADC_CHANNEL_11</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga0707b9e85eb0d9981c290cfb7959abfa" title="LL_ADC_CHANNEL_12">LL_ADC_CHANNEL_12</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#gace8ee39580bad4a5c6ba486935e58cbb" title="LL_ADC_CHANNEL_13">LL_ADC_CHANNEL_13</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#gaad10ae7be97d4ce2b144ffd53cd3774b" title="LL_ADC_CHANNEL_14">LL_ADC_CHANNEL_14</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga71a5a4a134ece82d297e2ca65b09ddb8" title="LL_ADC_CHANNEL_15">LL_ADC_CHANNEL_15</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga2a94655da139c7bd8b65103f71a8d819" title="LL_ADC_CHANNEL_16">LL_ADC_CHANNEL_16</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga58724577e3f5127259f5d11493b2fbfc" title="LL_ADC_CHANNEL_17">LL_ADC_CHANNEL_17</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga46bdc1ff0e256ee31a4cadf7e5989250" title="LL_ADC_CHANNEL_VREFINT">LL_ADC_CHANNEL_VREFINT</a> (1) </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#gafcc04965dbb0191c8d1e326b377c745a" title="LL_ADC_CHANNEL_TEMPSENSOR">LL_ADC_CHANNEL_TEMPSENSOR</a> (1)</li>
+</ul>
+(1) On STM32F1, parameter available only on ADC instance: ADC1.<br  />
+ (1) For ADC channel read back from ADC register, comparison with internal channel parameter to be done using helper macro <a class="el" href="#gaf1de3f488fe365b29512610afaafedbd" title="__LL_ADC_CHANNEL_INTERNAL_TO_EXTERNAL()">__LL_ADC_CHANNEL_INTERNAL_TO_EXTERNAL()</a>. </td></tr>
+    <tr><td class="paramname">__GROUP__</td><td>This parameter can be one of the following values: <ul>
+<li><a class="el" href="group___a_d_c___l_l___e_c___g_r_o_u_p_s.html#gaf39dfacf14bd1d1178b7cafa69d24d1d" title="LL_ADC_GROUP_REGULAR">LL_ADC_GROUP_REGULAR</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___g_r_o_u_p_s.html#gade3017ea04c39c6599957d5b82f04077" title="LL_ADC_GROUP_INJECTED">LL_ADC_GROUP_INJECTED</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___g_r_o_u_p_s.html#gadf73c1c1a335928ca4ff87d3401b09ab" title="LL_ADC_GROUP_REGULAR_INJECTED">LL_ADC_GROUP_REGULAR_INJECTED</a> </li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">Returned</td><td>value can be one of the following values: <ul>
+<li><a class="el" href="group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s.html#ga9ebfe5a499db40f87b9eb9e98d56f08f" title="LL_ADC_AWD_DISABLE">LL_ADC_AWD_DISABLE</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s.html#ga75ca2706e687106e85561262998c2577" title="LL_ADC_AWD_ALL_CHANNELS_REG">LL_ADC_AWD_ALL_CHANNELS_REG</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s.html#ga477665ceb4983b24435d4d703e94c723" title="LL_ADC_AWD_ALL_CHANNELS_INJ">LL_ADC_AWD_ALL_CHANNELS_INJ</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s.html#gae03a54e862957504f04ed2178588cf07" title="LL_ADC_AWD_ALL_CHANNELS_REG_INJ">LL_ADC_AWD_ALL_CHANNELS_REG_INJ</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s.html#ga255bae5c5f9e9368f18090b0698d2e22" title="LL_ADC_AWD_CHANNEL_0_REG">LL_ADC_AWD_CHANNEL_0_REG</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s.html#ga5466ee77166acc3c0ee9c68f7a869901" title="LL_ADC_AWD_CHANNEL_0_INJ">LL_ADC_AWD_CHANNEL_0_INJ</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s.html#gaadda84b13fe1341b10845a7603f35060" title="LL_ADC_AWD_CHANNEL_0_REG_INJ">LL_ADC_AWD_CHANNEL_0_REG_INJ</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s.html#ga645eebdc1ba871fc2793c208cf8e9a5b" title="LL_ADC_AWD_CHANNEL_1_REG">LL_ADC_AWD_CHANNEL_1_REG</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s.html#ga4ff35f980baa695ae3e32abab24b888a" title="LL_ADC_AWD_CHANNEL_1_INJ">LL_ADC_AWD_CHANNEL_1_INJ</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s.html#ga7e2785f112eefda9dddd3de9e4d592d7" title="LL_ADC_AWD_CHANNEL_1_REG_INJ">LL_ADC_AWD_CHANNEL_1_REG_INJ</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s.html#ga32093a0d9f2956b7be9b6dd918671aab" title="LL_ADC_AWD_CHANNEL_2_REG">LL_ADC_AWD_CHANNEL_2_REG</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s.html#ga0455b0abac99da9705a5c82749f3d111" title="LL_ADC_AWD_CHANNEL_2_INJ">LL_ADC_AWD_CHANNEL_2_INJ</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s.html#ga90ab41519bc8be8795b6687d6bf9bbb0" title="LL_ADC_AWD_CHANNEL_2_REG_INJ">LL_ADC_AWD_CHANNEL_2_REG_INJ</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s.html#ga09ae45d1567b23fccf0fd47fe9145904" title="LL_ADC_AWD_CHANNEL_3_REG">LL_ADC_AWD_CHANNEL_3_REG</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s.html#gaf674bbe70ae2ace7fb99f4a27de7063b" title="LL_ADC_AWD_CHANNEL_3_INJ">LL_ADC_AWD_CHANNEL_3_INJ</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s.html#ga1b2bc279bbaa5a20a0f081c60926c2b1" title="LL_ADC_AWD_CHANNEL_3_REG_INJ">LL_ADC_AWD_CHANNEL_3_REG_INJ</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s.html#ga83074f9f9f4cefbf52005a946b26f570" title="LL_ADC_AWD_CHANNEL_4_REG">LL_ADC_AWD_CHANNEL_4_REG</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s.html#gadf5731060c7a5781a2a9770942f23ae1" title="LL_ADC_AWD_CHANNEL_4_INJ">LL_ADC_AWD_CHANNEL_4_INJ</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s.html#ga7eee17f245d84e34cf41299b53e5acbd" title="LL_ADC_AWD_CHANNEL_4_REG_INJ">LL_ADC_AWD_CHANNEL_4_REG_INJ</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s.html#ga89c0bc1e591b8aebe6a4783c7dc6ad15" title="LL_ADC_AWD_CHANNEL_5_REG">LL_ADC_AWD_CHANNEL_5_REG</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s.html#ga2bf527b9b770ee71057102a9288bc79c" title="LL_ADC_AWD_CHANNEL_5_INJ">LL_ADC_AWD_CHANNEL_5_INJ</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s.html#gadcf4b1d9d1dd971ab542cd615cf1bb06" title="LL_ADC_AWD_CHANNEL_5_REG_INJ">LL_ADC_AWD_CHANNEL_5_REG_INJ</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s.html#ga06423213ad952e3fdf6717a1ea766cca" title="LL_ADC_AWD_CHANNEL_6_REG">LL_ADC_AWD_CHANNEL_6_REG</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s.html#ga28fc2d6a43e7beb60d2f6050ebaf90a0" title="LL_ADC_AWD_CHANNEL_6_INJ">LL_ADC_AWD_CHANNEL_6_INJ</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s.html#ga6a5f5094cda9d7c63b2f599ec4a39bef" title="LL_ADC_AWD_CHANNEL_6_REG_INJ">LL_ADC_AWD_CHANNEL_6_REG_INJ</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s.html#ga34a076cfbb9e03670631789f089aec97" title="LL_ADC_AWD_CHANNEL_7_REG">LL_ADC_AWD_CHANNEL_7_REG</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s.html#gad0b46ff84613efcedcd48cbef05db5f9" title="LL_ADC_AWD_CHANNEL_7_INJ">LL_ADC_AWD_CHANNEL_7_INJ</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s.html#ga7b06c6c344e04abe41af739087794309" title="LL_ADC_AWD_CHANNEL_7_REG_INJ">LL_ADC_AWD_CHANNEL_7_REG_INJ</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s.html#ga4d9a91e8483fb73cc07bd3d084fed969" title="LL_ADC_AWD_CHANNEL_8_REG">LL_ADC_AWD_CHANNEL_8_REG</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s.html#ga2f063978ee2792f146d9cb6ad4a3214c" title="LL_ADC_AWD_CHANNEL_8_INJ">LL_ADC_AWD_CHANNEL_8_INJ</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s.html#ga1b8789fa9286ed933be0d5bd5bba3124" title="LL_ADC_AWD_CHANNEL_8_REG_INJ">LL_ADC_AWD_CHANNEL_8_REG_INJ</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s.html#gac239050c45c3ac127499204abd0fc24f" title="LL_ADC_AWD_CHANNEL_9_REG">LL_ADC_AWD_CHANNEL_9_REG</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s.html#ga1120253ba14cc0619e197d6bdbd51b32" title="LL_ADC_AWD_CHANNEL_9_INJ">LL_ADC_AWD_CHANNEL_9_INJ</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s.html#gac01ae56de33e5e18190869e1f385bc39" title="LL_ADC_AWD_CHANNEL_9_REG_INJ">LL_ADC_AWD_CHANNEL_9_REG_INJ</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s.html#ga45ff20ba9bf17c1530d9b88e8b16a2b0" title="LL_ADC_AWD_CHANNEL_10_REG">LL_ADC_AWD_CHANNEL_10_REG</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s.html#ga3464c8f012cbd853c8d48c22ff386d33" title="LL_ADC_AWD_CHANNEL_10_INJ">LL_ADC_AWD_CHANNEL_10_INJ</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s.html#gaa844fecac50587cf12dc8685e7d8f1e2" title="LL_ADC_AWD_CHANNEL_10_REG_INJ">LL_ADC_AWD_CHANNEL_10_REG_INJ</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s.html#gafed1585c005b7a6d2fbe1f8c905491eb" title="LL_ADC_AWD_CHANNEL_11_REG">LL_ADC_AWD_CHANNEL_11_REG</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s.html#ga956418db427b438ee77e613b29d71d8f" title="LL_ADC_AWD_CHANNEL_11_INJ">LL_ADC_AWD_CHANNEL_11_INJ</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s.html#gadcb3b8a2980264804d81b736d2bcc0e8" title="LL_ADC_AWD_CHANNEL_11_REG_INJ">LL_ADC_AWD_CHANNEL_11_REG_INJ</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s.html#gae2c2602752f435f321f158564571e377" title="LL_ADC_AWD_CHANNEL_12_REG">LL_ADC_AWD_CHANNEL_12_REG</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s.html#ga498293bde174d8827681c1f5d04154c4" title="LL_ADC_AWD_CHANNEL_12_INJ">LL_ADC_AWD_CHANNEL_12_INJ</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s.html#gad7e2c72c572881056ba7b4e143476760" title="LL_ADC_AWD_CHANNEL_12_REG_INJ">LL_ADC_AWD_CHANNEL_12_REG_INJ</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s.html#ga236301b36b921d6425e02bb4f5ecd3ac" title="LL_ADC_AWD_CHANNEL_13_REG">LL_ADC_AWD_CHANNEL_13_REG</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s.html#ga52827d83af2b92e31f1b7f4d283950df" title="LL_ADC_AWD_CHANNEL_13_INJ">LL_ADC_AWD_CHANNEL_13_INJ</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s.html#ga3007f509eed4b057b08be8be895ac52b" title="LL_ADC_AWD_CHANNEL_13_REG_INJ">LL_ADC_AWD_CHANNEL_13_REG_INJ</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s.html#ga1117c07106022c579f87ae7d664f1fce" title="LL_ADC_AWD_CHANNEL_14_REG">LL_ADC_AWD_CHANNEL_14_REG</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s.html#ga48b6cab808b3c1d629c2d457f0217290" title="LL_ADC_AWD_CHANNEL_14_INJ">LL_ADC_AWD_CHANNEL_14_INJ</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s.html#gac1dfab342801edf23d8813e836cac355" title="LL_ADC_AWD_CHANNEL_14_REG_INJ">LL_ADC_AWD_CHANNEL_14_REG_INJ</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s.html#gaf21d41b3ac5e8982f03f0ec6c8bc9012" title="LL_ADC_AWD_CHANNEL_15_REG">LL_ADC_AWD_CHANNEL_15_REG</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s.html#ga578ce840cb0bcd78828aa9d9824071f3" title="LL_ADC_AWD_CHANNEL_15_INJ">LL_ADC_AWD_CHANNEL_15_INJ</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s.html#ga031a9a5f553f8582352221161c11b89e" title="LL_ADC_AWD_CHANNEL_15_REG_INJ">LL_ADC_AWD_CHANNEL_15_REG_INJ</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s.html#ga93d9c1aa54330c6b0ff8f49a57851d55" title="LL_ADC_AWD_CHANNEL_16_REG">LL_ADC_AWD_CHANNEL_16_REG</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s.html#gaa6e7f9769c6110067ac65ae3a5fb7ca2" title="LL_ADC_AWD_CHANNEL_16_INJ">LL_ADC_AWD_CHANNEL_16_INJ</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s.html#ga379f30a806784636a0f851768e6f6452" title="LL_ADC_AWD_CHANNEL_16_REG_INJ">LL_ADC_AWD_CHANNEL_16_REG_INJ</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s.html#ga72747c23175fb5867967f465ea0485d6" title="LL_ADC_AWD_CHANNEL_17_REG">LL_ADC_AWD_CHANNEL_17_REG</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s.html#ga2a49475b98761b2322c39a9f1025ea71" title="LL_ADC_AWD_CHANNEL_17_INJ">LL_ADC_AWD_CHANNEL_17_INJ</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s.html#gae8a8c3058c40854280e2e235c9de167a" title="LL_ADC_AWD_CHANNEL_17_REG_INJ">LL_ADC_AWD_CHANNEL_17_REG_INJ</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s.html#gae6bf344a37d002a57e9b9b4e749eeff8" title="LL_ADC_AWD_CH_VREFINT_REG">LL_ADC_AWD_CH_VREFINT_REG</a> (1) </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s.html#gafbb4d421f2c85360b559a2c6829840ad" title="LL_ADC_AWD_CH_VREFINT_INJ">LL_ADC_AWD_CH_VREFINT_INJ</a> (1) </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s.html#ga1fd7287ac44177a92067f095bfd16d83" title="LL_ADC_AWD_CH_VREFINT_REG_INJ">LL_ADC_AWD_CH_VREFINT_REG_INJ</a> (1) </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s.html#ga7d3ccd25179002a95f06ea3b1e84ba2d" title="LL_ADC_AWD_CH_TEMPSENSOR_REG">LL_ADC_AWD_CH_TEMPSENSOR_REG</a> (1) </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s.html#gae2f25aa60ff0287dd6630265890c9a99" title="LL_ADC_AWD_CH_TEMPSENSOR_INJ">LL_ADC_AWD_CH_TEMPSENSOR_INJ</a> (1) </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s.html#gaaed7a17024fef86c233ce4fba4fc7cf7" title="LL_ADC_AWD_CH_TEMPSENSOR_REG_INJ">LL_ADC_AWD_CH_TEMPSENSOR_REG_INJ</a> (1)</li>
+</ul>
+(1) On STM32F1, parameter available only on ADC instance: ADC1. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__adc_8h_source.html#l01296">1296</a> del archivo <a class="el" href="stm32f1xx__ll__adc_8h_source.html">stm32f1xx_ll_adc.h</a>.</p>
+
+</div>
+</div>
+<a id="ga352e0833fe7776abbe2cd70d2962111f" name="ga352e0833fe7776abbe2cd70d2962111f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga352e0833fe7776abbe2cd70d2962111f">&#9670;&#160;</a></span>__LL_ADC_ANALOGWD_GET_THRESHOLD_RESOLUTION</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define __LL_ADC_ANALOGWD_GET_THRESHOLD_RESOLUTION</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>__ADC_RESOLUTION__</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>__AWD_THRESHOLD_12_BITS__</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__adc_8h.html">stm32f1xx_ll_adc.h</a>&quot;</code></p>
+<b>Valor:</b><div class="fragment"><div class="line">(__AWD_THRESHOLD_12_BITS__)</div>
+</div><!-- fragment -->
+<p>Helper macro to get the value of ADC analog watchdog threshold high or low in function of ADC resolution, when ADC resolution is different of 12 bits. </p>
+<dl class="section note"><dt>Nota</dt><dd>To be used with function LL_ADC_GetAnalogWDThresholds(). Example, with a ADC resolution of 8 bits, to get the value of analog watchdog threshold high (on 8 bits): &lt; threshold_value_6_bits &gt; = __LL_ADC_ANALOGWD_GET_THRESHOLD_RESOLUTION (LL_ADC_RESOLUTION_8B, LL_ADC_GetAnalogWDThresholds(&lt;ADCx param&gt;, LL_ADC_AWD_THRESHOLD_HIGH) ); </dd></dl>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">__ADC_RESOLUTION__</td><td>This parameter can be one of the following values: <ul>
+<li><a class="el" href="group___a_d_c___l_l___e_c___r_e_s_o_l_u_t_i_o_n.html#ga51db34f993f02ce3ae25e70488ddb106" title="LL_ADC_RESOLUTION_12B">LL_ADC_RESOLUTION_12B</a> </li>
+</ul>
+</td></tr>
+    <tr><td class="paramname">__AWD_THRESHOLD_12_BITS__</td><td>Value between Min_Data=0x000 and Max_Data=0xFFF </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">Value</td><td>between Min_Data=0x000 and Max_Data=0xFFF </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__adc_8h_source.html#l01347">1347</a> del archivo <a class="el" href="stm32f1xx__ll__adc_8h_source.html">stm32f1xx_ll_adc.h</a>.</p>
+
+</div>
+</div>
+<a id="ga3d1b3ad0d19fc86f40f9a916335a6f2c" name="ga3d1b3ad0d19fc86f40f9a916335a6f2c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3d1b3ad0d19fc86f40f9a916335a6f2c">&#9670;&#160;</a></span>__LL_ADC_ANALOGWD_SET_THRESHOLD_RESOLUTION</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define __LL_ADC_ANALOGWD_SET_THRESHOLD_RESOLUTION</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>__ADC_RESOLUTION__</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>__AWD_THRESHOLD__</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__adc_8h.html">stm32f1xx_ll_adc.h</a>&quot;</code></p>
+<b>Valor:</b><div class="fragment"><div class="line">((__AWD_THRESHOLD__) &lt;&lt; (0U))</div>
+</div><!-- fragment -->
+<p>Helper macro to set the value of ADC analog watchdog threshold high or low in function of ADC resolution, when ADC resolution is different of 12 bits. </p>
+<dl class="section note"><dt>Nota</dt><dd>To be used with function LL_ADC_SetAnalogWDThresholds(). Example, with a ADC resolution of 8 bits, to set the value of analog watchdog threshold high (on 8 bits): LL_ADC_SetAnalogWDThresholds (&lt; ADCx param &gt;, <a class="el" href="#ga3d1b3ad0d19fc86f40f9a916335a6f2c" title="Helper macro to set the value of ADC analog watchdog threshold high or low in function of ADC resolut...">__LL_ADC_ANALOGWD_SET_THRESHOLD_RESOLUTION(LL_ADC_RESOLUTION_8B, &lt;threshold_value_8_bits&gt;)</a> ); </dd></dl>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">__ADC_RESOLUTION__</td><td>This parameter can be one of the following values: <ul>
+<li><a class="el" href="group___a_d_c___l_l___e_c___r_e_s_o_l_u_t_i_o_n.html#ga51db34f993f02ce3ae25e70488ddb106" title="LL_ADC_RESOLUTION_12B">LL_ADC_RESOLUTION_12B</a> </li>
+</ul>
+</td></tr>
+    <tr><td class="paramname">__AWD_THRESHOLD__</td><td>Value between Min_Data=0x000 and Max_Data=0xFFF </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">Value</td><td>between Min_Data=0x000 and Max_Data=0xFFF </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__adc_8h_source.html#l01325">1325</a> del archivo <a class="el" href="stm32f1xx__ll__adc_8h_source.html">stm32f1xx_ll_adc.h</a>.</p>
+
+</div>
+</div>
+<a id="ga444f2b3a6c550a015a536f258a0bbd6c" name="ga444f2b3a6c550a015a536f258a0bbd6c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga444f2b3a6c550a015a536f258a0bbd6c">&#9670;&#160;</a></span>__LL_ADC_CALC_DATA_TO_VOLTAGE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define __LL_ADC_CALC_DATA_TO_VOLTAGE</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>__VREFANALOG_VOLTAGE__</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>__ADC_DATA__</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>__ADC_RESOLUTION__</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__adc_8h.html">stm32f1xx_ll_adc.h</a>&quot;</code></p>
+<b>Valor:</b><div class="fragment"><div class="line">((__ADC_DATA__) * (__VREFANALOG_VOLTAGE__)                                   \</div>
+<div class="line"> / <a class="code hl_define" href="#gaf282502c4c0bc20df730379dab7be94a">__LL_ADC_DIGITAL_SCALE</a>(__ADC_RESOLUTION__)                                \</div>
+<div class="line">)</div>
+<div class="ttc" id="agroup___a_d_c___l_l___e_m___h_e_l_p_e_r___m_a_c_r_o_html_gaf282502c4c0bc20df730379dab7be94a"><div class="ttname"><a href="#gaf282502c4c0bc20df730379dab7be94a">__LL_ADC_DIGITAL_SCALE</a></div><div class="ttdeci">#define __LL_ADC_DIGITAL_SCALE(__ADC_RESOLUTION__)</div><div class="ttdoc">Helper macro to define the ADC conversion data full-scale digital value corresponding to the selected...</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__ll__adc_8h_source.html#l01461">stm32f1xx_ll_adc.h:1461</a></div></div>
+</div><!-- fragment -->
+<p>Helper macro to calculate the voltage (unit: mVolt) corresponding to a ADC conversion data (unit: digital value). </p>
+<dl class="section note"><dt>Nota</dt><dd>Analog reference voltage (Vref+) must be known from user board environment or can be calculated using ADC measurement. </dd></dl>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">__VREFANALOG_VOLTAGE__</td><td>Analog reference voltage (unit: mV) </td></tr>
+    <tr><td class="paramname">__ADC_DATA__</td><td>ADC conversion data (resolution 12 bits) (unit: digital value). </td></tr>
+    <tr><td class="paramname">__ADC_RESOLUTION__</td><td>This parameter can be one of the following values: <ul>
+<li><a class="el" href="group___a_d_c___l_l___e_c___r_e_s_o_l_u_t_i_o_n.html#ga51db34f993f02ce3ae25e70488ddb106" title="LL_ADC_RESOLUTION_12B">LL_ADC_RESOLUTION_12B</a> </li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname"><a class="el" href="group___a_d_c.html" title="ADC HAL module driver.">ADC</a></td><td>conversion data equivalent voltage value (unit: mVolt) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__adc_8h_source.html#l01477">1477</a> del archivo <a class="el" href="stm32f1xx__ll__adc_8h_source.html">stm32f1xx_ll_adc.h</a>.</p>
+
+</div>
+</div>
+<a id="gac0dbec1ace57042d961480fbc9dde762" name="gac0dbec1ace57042d961480fbc9dde762"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac0dbec1ace57042d961480fbc9dde762">&#9670;&#160;</a></span>__LL_ADC_CALC_TEMPERATURE_TYP_PARAMS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define __LL_ADC_CALC_TEMPERATURE_TYP_PARAMS</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>__TEMPSENSOR_TYP_AVGSLOPE__</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>__TEMPSENSOR_TYP_CALX_V__</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>__TEMPSENSOR_CALX_TEMP__</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>__VREFANALOG_VOLTAGE__</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>__TEMPSENSOR_ADC_DATA__</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>__ADC_RESOLUTION__</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__adc_8h.html">stm32f1xx_ll_adc.h</a>&quot;</code></p>
+<b>Valor:</b><div class="fragment"><div class="line">((( (                                                                        \</div>
+<div class="line">     (int32_t)(((__TEMPSENSOR_TYP_CALX_V__))                                 \</div>
+<div class="line">               * 1000)                                                       \</div>
+<div class="line">     -                                                                       \</div>
+<div class="line">     (int32_t)((((__TEMPSENSOR_ADC_DATA__) * (__VREFANALOG_VOLTAGE__))       \</div>
+<div class="line">                / <a class="code hl_define" href="#gaf282502c4c0bc20df730379dab7be94a">__LL_ADC_DIGITAL_SCALE</a>(__ADC_RESOLUTION__))                \</div>
+<div class="line">               * 1000)                                                       \</div>
+<div class="line">    )                                                                        \</div>
+<div class="line">  ) / (__TEMPSENSOR_TYP_AVGSLOPE__)                                          \</div>
+<div class="line"> ) + (__TEMPSENSOR_CALX_TEMP__)                                              \</div>
+<div class="line">)</div>
+</div><!-- fragment -->
+<p>Helper macro to calculate the temperature (unit: degree Celsius) from ADC conversion data of internal temperature sensor. </p>
+<dl class="section note"><dt>Nota</dt><dd>Computation is using temperature sensor typical values (refer to device datasheet). </dd>
+<dd>
+Calculation formula: Temperature = (TS_TYP_CALx_VOLT(uV) - TS_ADC_DATA * Conversion_uV) / Avg_Slope + CALx_TEMP with TS_ADC_DATA = temperature sensor raw data measured by ADC (unit: digital value) Avg_Slope = temperature sensor slope (unit: uV/Degree Celsius) TS_TYP_CALx_VOLT = temperature sensor digital value at temperature CALx_TEMP (unit: mV) Caution: Calculation relevancy under reserve the temperature sensor of the current device has characteristics in line with datasheet typical values. If temperature sensor calibration values are available on on this device (presence of macro __LL_ADC_CALC_TEMPERATURE()), temperature calculation will be more accurate using helper macro __LL_ADC_CALC_TEMPERATURE(). </dd>
+<dd>
+As calculation input, the analog reference voltage (Vref+) must be defined as it impacts the ADC LSB equivalent voltage. </dd>
+<dd>
+Analog reference voltage (Vref+) must be known from user board environment or can be calculated using ADC measurement. </dd>
+<dd>
+ADC measurement data must correspond to a resolution of 12bits (full scale digital value 4095). If not the case, the data must be preliminarily rescaled to an equivalent resolution of 12 bits. </dd></dl>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">__TEMPSENSOR_TYP_AVGSLOPE__</td><td>Device datasheet data: Temperature sensor slope typical value (unit: uV/DegCelsius). On STM32F1, refer to device datasheet parameter "Avg_Slope". </td></tr>
+    <tr><td class="paramname">__TEMPSENSOR_TYP_CALX_V__</td><td>Device datasheet data: Temperature sensor voltage typical value (at temperature and Vref+ defined in parameters below) (unit: mV). On STM32F1, refer to device datasheet parameter "V25". </td></tr>
+    <tr><td class="paramname">__TEMPSENSOR_CALX_TEMP__</td><td>Device datasheet data: Temperature at which temperature sensor voltage (see parameter above) is corresponding (unit: mV) </td></tr>
+    <tr><td class="paramname">__VREFANALOG_VOLTAGE__</td><td>Analog voltage reference (Vref+) voltage (unit: mV) </td></tr>
+    <tr><td class="paramname">__TEMPSENSOR_ADC_DATA__</td><td>ADC conversion data of internal temperature sensor (unit: digital value). </td></tr>
+    <tr><td class="paramname">__ADC_RESOLUTION__</td><td>ADC resolution at which internal temperature sensor voltage has been measured. This parameter can be one of the following values: <ul>
+<li><a class="el" href="group___a_d_c___l_l___e_c___r_e_s_o_l_u_t_i_o_n.html#ga51db34f993f02ce3ae25e70488ddb106" title="LL_ADC_RESOLUTION_12B">LL_ADC_RESOLUTION_12B</a> </li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">Temperature</td><td>(unit: degree Celsius) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__adc_8h_source.html#l01525">1525</a> del archivo <a class="el" href="stm32f1xx__ll__adc_8h_source.html">stm32f1xx_ll_adc.h</a>.</p>
+
+</div>
+</div>
+<a id="gaf1de3f488fe365b29512610afaafedbd" name="gaf1de3f488fe365b29512610afaafedbd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf1de3f488fe365b29512610afaafedbd">&#9670;&#160;</a></span>__LL_ADC_CHANNEL_INTERNAL_TO_EXTERNAL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define __LL_ADC_CHANNEL_INTERNAL_TO_EXTERNAL</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>__CHANNEL__</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__adc_8h.html">stm32f1xx_ll_adc.h</a>&quot;</code></p>
+<b>Valor:</b><div class="fragment"><div class="line">((__CHANNEL__) &amp; <a class="code hl_define" href="group___a_d_c___l_l___private___constants.html#ga9bccd97590f30395f4ad337515fc47cd">~ADC_CHANNEL_ID_INTERNAL_CH_MASK</a>)</div>
+<div class="ttc" id="agroup___a_d_c___l_l___private___constants_html_ga9bccd97590f30395f4ad337515fc47cd"><div class="ttname"><a href="group___a_d_c___l_l___private___constants.html#ga9bccd97590f30395f4ad337515fc47cd">ADC_CHANNEL_ID_INTERNAL_CH_MASK</a></div><div class="ttdeci">#define ADC_CHANNEL_ID_INTERNAL_CH_MASK</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__ll__adc_8h_source.html#l00122">stm32f1xx_ll_adc.h:122</a></div></div>
+</div><!-- fragment -->
+<p>Helper macro to convert a channel defined from parameter definition of a ADC internal channel (LL_ADC_CHANNEL_VREFINT, LL_ADC_CHANNEL_TEMPSENSOR, ...), to its equivalent parameter definition of a ADC external channel (LL_ADC_CHANNEL_1, LL_ADC_CHANNEL_2, ...). </p>
+<dl class="section note"><dt>Nota</dt><dd>The channel parameter can be, additionally to a value defined from parameter definition of a ADC internal channel (LL_ADC_CHANNEL_VREFINT, LL_ADC_CHANNEL_TEMPSENSOR, ...), a value defined from parameter definition of ADC external channel (LL_ADC_CHANNEL_1, LL_ADC_CHANNEL_2, ...) or a value from functions where a channel number is returned from ADC registers. </dd></dl>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">__CHANNEL__</td><td>This parameter can be one of the following values: <ul>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga65ab7da5776ec034ad969fb6bdb23144" title="LL_ADC_CHANNEL_0">LL_ADC_CHANNEL_0</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga810add73c60874916547b5d8cde1970f" title="LL_ADC_CHANNEL_1">LL_ADC_CHANNEL_1</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#gadee2200298b004e8908c83d26dabbce5" title="LL_ADC_CHANNEL_2">LL_ADC_CHANNEL_2</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#gad49456a49014e2ab6fb8da3ac718d21f" title="LL_ADC_CHANNEL_3">LL_ADC_CHANNEL_3</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga06dec8046aed75d352d8541e64e7b3da" title="LL_ADC_CHANNEL_4">LL_ADC_CHANNEL_4</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#gaed34ad28fea75c6baaaba3e2c7a71c8b" title="LL_ADC_CHANNEL_5">LL_ADC_CHANNEL_5</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga4f460233be3024d07bad405c3c835d22" title="LL_ADC_CHANNEL_6">LL_ADC_CHANNEL_6</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#gac4c5065aeb7f1b18f7f3957d19ce1901" title="LL_ADC_CHANNEL_7">LL_ADC_CHANNEL_7</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#gaa0095223cfdf58479d1ffef2e811a26b" title="LL_ADC_CHANNEL_8">LL_ADC_CHANNEL_8</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga0322ab63547820a4e8c43d007a1e86d9" title="LL_ADC_CHANNEL_9">LL_ADC_CHANNEL_9</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga8a2d6a4765ddedfcfba8b4ab5fcc8ea6" title="LL_ADC_CHANNEL_10">LL_ADC_CHANNEL_10</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga7d2c990bf0e1af4b1a827bb7ecec5a44" title="LL_ADC_CHANNEL_11">LL_ADC_CHANNEL_11</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga0707b9e85eb0d9981c290cfb7959abfa" title="LL_ADC_CHANNEL_12">LL_ADC_CHANNEL_12</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#gace8ee39580bad4a5c6ba486935e58cbb" title="LL_ADC_CHANNEL_13">LL_ADC_CHANNEL_13</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#gaad10ae7be97d4ce2b144ffd53cd3774b" title="LL_ADC_CHANNEL_14">LL_ADC_CHANNEL_14</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga71a5a4a134ece82d297e2ca65b09ddb8" title="LL_ADC_CHANNEL_15">LL_ADC_CHANNEL_15</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga2a94655da139c7bd8b65103f71a8d819" title="LL_ADC_CHANNEL_16">LL_ADC_CHANNEL_16</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga58724577e3f5127259f5d11493b2fbfc" title="LL_ADC_CHANNEL_17">LL_ADC_CHANNEL_17</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga46bdc1ff0e256ee31a4cadf7e5989250" title="LL_ADC_CHANNEL_VREFINT">LL_ADC_CHANNEL_VREFINT</a> (1) </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#gafcc04965dbb0191c8d1e326b377c745a" title="LL_ADC_CHANNEL_TEMPSENSOR">LL_ADC_CHANNEL_TEMPSENSOR</a> (1)</li>
+</ul>
+(1) On STM32F1, parameter available only on ADC instance: ADC1. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">Returned</td><td>value can be one of the following values: <ul>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga65ab7da5776ec034ad969fb6bdb23144" title="LL_ADC_CHANNEL_0">LL_ADC_CHANNEL_0</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga810add73c60874916547b5d8cde1970f" title="LL_ADC_CHANNEL_1">LL_ADC_CHANNEL_1</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#gadee2200298b004e8908c83d26dabbce5" title="LL_ADC_CHANNEL_2">LL_ADC_CHANNEL_2</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#gad49456a49014e2ab6fb8da3ac718d21f" title="LL_ADC_CHANNEL_3">LL_ADC_CHANNEL_3</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga06dec8046aed75d352d8541e64e7b3da" title="LL_ADC_CHANNEL_4">LL_ADC_CHANNEL_4</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#gaed34ad28fea75c6baaaba3e2c7a71c8b" title="LL_ADC_CHANNEL_5">LL_ADC_CHANNEL_5</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga4f460233be3024d07bad405c3c835d22" title="LL_ADC_CHANNEL_6">LL_ADC_CHANNEL_6</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#gac4c5065aeb7f1b18f7f3957d19ce1901" title="LL_ADC_CHANNEL_7">LL_ADC_CHANNEL_7</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#gaa0095223cfdf58479d1ffef2e811a26b" title="LL_ADC_CHANNEL_8">LL_ADC_CHANNEL_8</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga0322ab63547820a4e8c43d007a1e86d9" title="LL_ADC_CHANNEL_9">LL_ADC_CHANNEL_9</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga8a2d6a4765ddedfcfba8b4ab5fcc8ea6" title="LL_ADC_CHANNEL_10">LL_ADC_CHANNEL_10</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga7d2c990bf0e1af4b1a827bb7ecec5a44" title="LL_ADC_CHANNEL_11">LL_ADC_CHANNEL_11</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga0707b9e85eb0d9981c290cfb7959abfa" title="LL_ADC_CHANNEL_12">LL_ADC_CHANNEL_12</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#gace8ee39580bad4a5c6ba486935e58cbb" title="LL_ADC_CHANNEL_13">LL_ADC_CHANNEL_13</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#gaad10ae7be97d4ce2b144ffd53cd3774b" title="LL_ADC_CHANNEL_14">LL_ADC_CHANNEL_14</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga71a5a4a134ece82d297e2ca65b09ddb8" title="LL_ADC_CHANNEL_15">LL_ADC_CHANNEL_15</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga2a94655da139c7bd8b65103f71a8d819" title="LL_ADC_CHANNEL_16">LL_ADC_CHANNEL_16</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga58724577e3f5127259f5d11493b2fbfc" title="LL_ADC_CHANNEL_17">LL_ADC_CHANNEL_17</a> </li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__adc_8h_source.html#l01154">1154</a> del archivo <a class="el" href="stm32f1xx__ll__adc_8h_source.html">stm32f1xx_ll_adc.h</a>.</p>
+
+</div>
+</div>
+<a id="ga11b528ebb75ee65deafce2dd57bb7569" name="ga11b528ebb75ee65deafce2dd57bb7569"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga11b528ebb75ee65deafce2dd57bb7569">&#9670;&#160;</a></span>__LL_ADC_CHANNEL_TO_DECIMAL_NB</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define __LL_ADC_CHANNEL_TO_DECIMAL_NB</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>__CHANNEL__</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__adc_8h.html">stm32f1xx_ll_adc.h</a>&quot;</code></p>
+<b>Valor:</b><div class="fragment"><div class="line">(((__CHANNEL__) &amp; <a class="code hl_define" href="group___a_d_c___l_l___private___constants.html#gad355e392c28d1a838ffaac9492b1cd56">ADC_CHANNEL_ID_NUMBER_MASK</a>) &gt;&gt; <a class="code hl_define" href="group___a_d_c___l_l___private___constants.html#ga6cb2ea1732e012a3fdae0edc3c3b49cd">ADC_CHANNEL_ID_NUMBER_BITOFFSET_POS</a>)</div>
+<div class="ttc" id="agroup___a_d_c___l_l___private___constants_html_ga6cb2ea1732e012a3fdae0edc3c3b49cd"><div class="ttname"><a href="group___a_d_c___l_l___private___constants.html#ga6cb2ea1732e012a3fdae0edc3c3b49cd">ADC_CHANNEL_ID_NUMBER_BITOFFSET_POS</a></div><div class="ttdeci">#define ADC_CHANNEL_ID_NUMBER_BITOFFSET_POS</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__ll__adc_8h_source.html#l00114">stm32f1xx_ll_adc.h:114</a></div></div>
+<div class="ttc" id="agroup___a_d_c___l_l___private___constants_html_gad355e392c28d1a838ffaac9492b1cd56"><div class="ttname"><a href="group___a_d_c___l_l___private___constants.html#gad355e392c28d1a838ffaac9492b1cd56">ADC_CHANNEL_ID_NUMBER_MASK</a></div><div class="ttdeci">#define ADC_CHANNEL_ID_NUMBER_MASK</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__ll__adc_8h_source.html#l00113">stm32f1xx_ll_adc.h:113</a></div></div>
+</div><!-- fragment -->
+<p>Helper macro to get ADC channel number in decimal format from literals LL_ADC_CHANNEL_x. </p>
+<dl class="section note"><dt>Nota</dt><dd>Example: <a class="el" href="#ga11b528ebb75ee65deafce2dd57bb7569" title="Helper macro to get ADC channel number in decimal format from literals LL_ADC_CHANNEL_x.">__LL_ADC_CHANNEL_TO_DECIMAL_NB(LL_ADC_CHANNEL_4)</a> will return decimal number "4". </dd>
+<dd>
+The input can be a value from functions where a channel number is returned, either defined with number or with bitfield (only one bit must be set). </dd></dl>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">__CHANNEL__</td><td>This parameter can be one of the following values: <ul>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga65ab7da5776ec034ad969fb6bdb23144" title="LL_ADC_CHANNEL_0">LL_ADC_CHANNEL_0</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga810add73c60874916547b5d8cde1970f" title="LL_ADC_CHANNEL_1">LL_ADC_CHANNEL_1</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#gadee2200298b004e8908c83d26dabbce5" title="LL_ADC_CHANNEL_2">LL_ADC_CHANNEL_2</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#gad49456a49014e2ab6fb8da3ac718d21f" title="LL_ADC_CHANNEL_3">LL_ADC_CHANNEL_3</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga06dec8046aed75d352d8541e64e7b3da" title="LL_ADC_CHANNEL_4">LL_ADC_CHANNEL_4</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#gaed34ad28fea75c6baaaba3e2c7a71c8b" title="LL_ADC_CHANNEL_5">LL_ADC_CHANNEL_5</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga4f460233be3024d07bad405c3c835d22" title="LL_ADC_CHANNEL_6">LL_ADC_CHANNEL_6</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#gac4c5065aeb7f1b18f7f3957d19ce1901" title="LL_ADC_CHANNEL_7">LL_ADC_CHANNEL_7</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#gaa0095223cfdf58479d1ffef2e811a26b" title="LL_ADC_CHANNEL_8">LL_ADC_CHANNEL_8</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga0322ab63547820a4e8c43d007a1e86d9" title="LL_ADC_CHANNEL_9">LL_ADC_CHANNEL_9</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga8a2d6a4765ddedfcfba8b4ab5fcc8ea6" title="LL_ADC_CHANNEL_10">LL_ADC_CHANNEL_10</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga7d2c990bf0e1af4b1a827bb7ecec5a44" title="LL_ADC_CHANNEL_11">LL_ADC_CHANNEL_11</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga0707b9e85eb0d9981c290cfb7959abfa" title="LL_ADC_CHANNEL_12">LL_ADC_CHANNEL_12</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#gace8ee39580bad4a5c6ba486935e58cbb" title="LL_ADC_CHANNEL_13">LL_ADC_CHANNEL_13</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#gaad10ae7be97d4ce2b144ffd53cd3774b" title="LL_ADC_CHANNEL_14">LL_ADC_CHANNEL_14</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga71a5a4a134ece82d297e2ca65b09ddb8" title="LL_ADC_CHANNEL_15">LL_ADC_CHANNEL_15</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga2a94655da139c7bd8b65103f71a8d819" title="LL_ADC_CHANNEL_16">LL_ADC_CHANNEL_16</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga58724577e3f5127259f5d11493b2fbfc" title="LL_ADC_CHANNEL_17">LL_ADC_CHANNEL_17</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga46bdc1ff0e256ee31a4cadf7e5989250" title="LL_ADC_CHANNEL_VREFINT">LL_ADC_CHANNEL_VREFINT</a> (1) </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#gafcc04965dbb0191c8d1e326b377c745a" title="LL_ADC_CHANNEL_TEMPSENSOR">LL_ADC_CHANNEL_TEMPSENSOR</a> (1)</li>
+</ul>
+(1) On STM32F1, parameter available only on ADC instance: ADC1. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">Value</td><td>between Min_Data=0 and Max_Data=18 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__adc_8h_source.html#l01002">1002</a> del archivo <a class="el" href="stm32f1xx__ll__adc_8h_source.html">stm32f1xx_ll_adc.h</a>.</p>
+
+</div>
+</div>
+<a id="ga06222c0a27b40e8317cb67befccb7403" name="ga06222c0a27b40e8317cb67befccb7403"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga06222c0a27b40e8317cb67befccb7403">&#9670;&#160;</a></span>__LL_ADC_COMMON_INSTANCE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define __LL_ADC_COMMON_INSTANCE</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>__ADCx__</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__adc_8h.html">stm32f1xx_ll_adc.h</a>&quot;</code></p>
+<b>Valor:</b><div class="fragment"><div class="line">(<a class="code hl_define" href="group___peripheral__declaration.html#gaf14f3ee44d5eab3d8f7dac1006cb5582">ADC12_COMMON</a>)</div>
+<div class="ttc" id="agroup___peripheral__declaration_html_gaf14f3ee44d5eab3d8f7dac1006cb5582"><div class="ttname"><a href="group___peripheral__declaration.html#gaf14f3ee44d5eab3d8f7dac1006cb5582">ADC12_COMMON</a></div><div class="ttdeci">#define ADC12_COMMON</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l00671">stm32f103xb.h:671</a></div></div>
+</div><!-- fragment -->
+<p>Helper macro to select the ADC common instance to which is belonging the selected ADC instance. </p>
+<dl class="section note"><dt>Nota</dt><dd>ADC common register instance can be used for:<ul>
+<li>Set parameters common to several ADC instances</li>
+<li>Multimode (for devices with several ADC instances) Refer to functions having argument "ADCxy_COMMON" as parameter. </li>
+</ul>
+</dd>
+<dd>
+On STM32F1, there is no common ADC instance. However, ADC instance ADC1 has a role of common ADC instance for ADC1 and ADC2: this instance is used to manage internal channels and multimode (these features are managed in ADC common instances on some other STM32 devices). ADC instance ADC3 (if available on the selected device) has no ADC common instance. </dd></dl>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">__ADCx__</td><td>ADC instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname"><a class="el" href="group___a_d_c.html" title="ADC HAL module driver.">ADC</a></td><td>common register instance </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__adc_8h_source.html#l01398">1398</a> del archivo <a class="el" href="stm32f1xx__ll__adc_8h_source.html">stm32f1xx_ll_adc.h</a>.</p>
+
+</div>
+</div>
+<a id="ga3959d839cda9c4a3022efd325fa1341c" name="ga3959d839cda9c4a3022efd325fa1341c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3959d839cda9c4a3022efd325fa1341c">&#9670;&#160;</a></span>__LL_ADC_DECIMAL_NB_TO_CHANNEL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define __LL_ADC_DECIMAL_NB_TO_CHANNEL</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>__DECIMAL_NB__</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__adc_8h.html">stm32f1xx_ll_adc.h</a>&quot;</code></p>
+<b>Valor:</b><div class="fragment"><div class="line">(((__DECIMAL_NB__) &lt;= 9U)                                                                                     \</div>
+<div class="line">  ? (                                                                                                         \</div>
+<div class="line">     ((__DECIMAL_NB__) &lt;&lt; <a class="code hl_define" href="group___a_d_c___l_l___private___constants.html#ga6cb2ea1732e012a3fdae0edc3c3b49cd">ADC_CHANNEL_ID_NUMBER_BITOFFSET_POS</a>)                                       |        \</div>
+<div class="line">     (<a class="code hl_define" href="group___a_d_c___l_l___private___constants.html#gafcebde0c3932f6c1c8021396cc5c0169">ADC_SMPR2_REGOFFSET</a> | (((uint32_t) (3U * (__DECIMAL_NB__))) &lt;&lt; <a class="code hl_define" href="group___a_d_c___l_l___private___constants.html#gadc9120a2edca6e33090ba4c662c136bb">ADC_CHANNEL_SMPx_BITOFFSET_POS</a>))         \</div>
+<div class="line">    )                                                                                                         \</div>
+<div class="line">    :                                                                                                         \</div>
+<div class="line">    (                                                                                                         \</div>
+<div class="line">     ((__DECIMAL_NB__) &lt;&lt; <a class="code hl_define" href="group___a_d_c___l_l___private___constants.html#ga6cb2ea1732e012a3fdae0edc3c3b49cd">ADC_CHANNEL_ID_NUMBER_BITOFFSET_POS</a>)                                              | \</div>
+<div class="line">     (<a class="code hl_define" href="group___a_d_c___l_l___private___constants.html#ga7f4ff77fbb7c4809f5c8b8281b77cc62">ADC_SMPR1_REGOFFSET</a> | (((uint32_t) (3U * ((__DECIMAL_NB__) - 10U))) &lt;&lt; <a class="code hl_define" href="group___a_d_c___l_l___private___constants.html#gadc9120a2edca6e33090ba4c662c136bb">ADC_CHANNEL_SMPx_BITOFFSET_POS</a>)) \</div>
+<div class="line">    )                                                                                                         \</div>
+<div class="line">)</div>
+<div class="ttc" id="agroup___a_d_c___l_l___private___constants_html_ga7f4ff77fbb7c4809f5c8b8281b77cc62"><div class="ttname"><a href="group___a_d_c___l_l___private___constants.html#ga7f4ff77fbb7c4809f5c8b8281b77cc62">ADC_SMPR1_REGOFFSET</a></div><div class="ttdeci">#define ADC_SMPR1_REGOFFSET</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__ll__adc_8h_source.html#l00126">stm32f1xx_ll_adc.h:126</a></div></div>
+<div class="ttc" id="agroup___a_d_c___l_l___private___constants_html_gadc9120a2edca6e33090ba4c662c136bb"><div class="ttname"><a href="group___a_d_c___l_l___private___constants.html#gadc9120a2edca6e33090ba4c662c136bb">ADC_CHANNEL_SMPx_BITOFFSET_POS</a></div><div class="ttdeci">#define ADC_CHANNEL_SMPx_BITOFFSET_POS</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__ll__adc_8h_source.html#l00131">stm32f1xx_ll_adc.h:131</a></div></div>
+<div class="ttc" id="agroup___a_d_c___l_l___private___constants_html_gafcebde0c3932f6c1c8021396cc5c0169"><div class="ttname"><a href="group___a_d_c___l_l___private___constants.html#gafcebde0c3932f6c1c8021396cc5c0169">ADC_SMPR2_REGOFFSET</a></div><div class="ttdeci">#define ADC_SMPR2_REGOFFSET</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__ll__adc_8h_source.html#l00127">stm32f1xx_ll_adc.h:127</a></div></div>
+</div><!-- fragment -->
+<p>Helper macro to get ADC channel in literal format LL_ADC_CHANNEL_x from number in decimal format. </p>
+<dl class="section note"><dt>Nota</dt><dd>Example: <a class="el" href="#ga3959d839cda9c4a3022efd325fa1341c" title="Helper macro to get ADC channel in literal format LL_ADC_CHANNEL_x from number in decimal format.">__LL_ADC_DECIMAL_NB_TO_CHANNEL(4)</a> will return a data equivalent to "LL_ADC_CHANNEL_4". </dd></dl>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">__DECIMAL_NB__</td><td>Value between Min_Data=0 and Max_Data=18 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">Returned</td><td>value can be one of the following values: <ul>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga65ab7da5776ec034ad969fb6bdb23144" title="LL_ADC_CHANNEL_0">LL_ADC_CHANNEL_0</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga810add73c60874916547b5d8cde1970f" title="LL_ADC_CHANNEL_1">LL_ADC_CHANNEL_1</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#gadee2200298b004e8908c83d26dabbce5" title="LL_ADC_CHANNEL_2">LL_ADC_CHANNEL_2</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#gad49456a49014e2ab6fb8da3ac718d21f" title="LL_ADC_CHANNEL_3">LL_ADC_CHANNEL_3</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga06dec8046aed75d352d8541e64e7b3da" title="LL_ADC_CHANNEL_4">LL_ADC_CHANNEL_4</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#gaed34ad28fea75c6baaaba3e2c7a71c8b" title="LL_ADC_CHANNEL_5">LL_ADC_CHANNEL_5</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga4f460233be3024d07bad405c3c835d22" title="LL_ADC_CHANNEL_6">LL_ADC_CHANNEL_6</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#gac4c5065aeb7f1b18f7f3957d19ce1901" title="LL_ADC_CHANNEL_7">LL_ADC_CHANNEL_7</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#gaa0095223cfdf58479d1ffef2e811a26b" title="LL_ADC_CHANNEL_8">LL_ADC_CHANNEL_8</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga0322ab63547820a4e8c43d007a1e86d9" title="LL_ADC_CHANNEL_9">LL_ADC_CHANNEL_9</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga8a2d6a4765ddedfcfba8b4ab5fcc8ea6" title="LL_ADC_CHANNEL_10">LL_ADC_CHANNEL_10</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga7d2c990bf0e1af4b1a827bb7ecec5a44" title="LL_ADC_CHANNEL_11">LL_ADC_CHANNEL_11</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga0707b9e85eb0d9981c290cfb7959abfa" title="LL_ADC_CHANNEL_12">LL_ADC_CHANNEL_12</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#gace8ee39580bad4a5c6ba486935e58cbb" title="LL_ADC_CHANNEL_13">LL_ADC_CHANNEL_13</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#gaad10ae7be97d4ce2b144ffd53cd3774b" title="LL_ADC_CHANNEL_14">LL_ADC_CHANNEL_14</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga71a5a4a134ece82d297e2ca65b09ddb8" title="LL_ADC_CHANNEL_15">LL_ADC_CHANNEL_15</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga2a94655da139c7bd8b65103f71a8d819" title="LL_ADC_CHANNEL_16">LL_ADC_CHANNEL_16</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga58724577e3f5127259f5d11493b2fbfc" title="LL_ADC_CHANNEL_17">LL_ADC_CHANNEL_17</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga46bdc1ff0e256ee31a4cadf7e5989250" title="LL_ADC_CHANNEL_VREFINT">LL_ADC_CHANNEL_VREFINT</a> (1) </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#gafcc04965dbb0191c8d1e326b377c745a" title="LL_ADC_CHANNEL_TEMPSENSOR">LL_ADC_CHANNEL_TEMPSENSOR</a> (1)</li>
+</ul>
+(1) On STM32F1, parameter available only on ADC instance: ADC1.<br  />
+ (1) For ADC channel read back from ADC register, comparison with internal channel parameter to be done using helper macro <a class="el" href="#gaf1de3f488fe365b29512610afaafedbd" title="__LL_ADC_CHANNEL_INTERNAL_TO_EXTERNAL()">__LL_ADC_CHANNEL_INTERNAL_TO_EXTERNAL()</a>. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__adc_8h_source.html#l01039">1039</a> del archivo <a class="el" href="stm32f1xx__ll__adc_8h_source.html">stm32f1xx_ll_adc.h</a>.</p>
+
+</div>
+</div>
+<a id="gaf282502c4c0bc20df730379dab7be94a" name="gaf282502c4c0bc20df730379dab7be94a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf282502c4c0bc20df730379dab7be94a">&#9670;&#160;</a></span>__LL_ADC_DIGITAL_SCALE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define __LL_ADC_DIGITAL_SCALE</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>__ADC_RESOLUTION__</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__adc_8h.html">stm32f1xx_ll_adc.h</a>&quot;</code></p>
+<b>Valor:</b><div class="fragment"><div class="line">(0xFFFU)</div>
+</div><!-- fragment -->
+<p>Helper macro to define the ADC conversion data full-scale digital value corresponding to the selected ADC resolution. </p>
+<dl class="section note"><dt>Nota</dt><dd>ADC conversion data full-scale corresponds to voltage range determined by analog voltage references Vref+ and Vref- (refer to reference manual). </dd></dl>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">__ADC_RESOLUTION__</td><td>This parameter can be one of the following values: <ul>
+<li><a class="el" href="group___a_d_c___l_l___e_c___r_e_s_o_l_u_t_i_o_n.html#ga51db34f993f02ce3ae25e70488ddb106" title="LL_ADC_RESOLUTION_12B">LL_ADC_RESOLUTION_12B</a> </li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname"><a class="el" href="group___a_d_c.html" title="ADC HAL module driver.">ADC</a></td><td>conversion data equivalent voltage value (unit: mVolt) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__adc_8h_source.html#l01461">1461</a> del archivo <a class="el" href="stm32f1xx__ll__adc_8h_source.html">stm32f1xx_ll_adc.h</a>.</p>
+
+</div>
+</div>
+<a id="gac0143222e7da440ede9c1adb0a340126" name="gac0143222e7da440ede9c1adb0a340126"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac0143222e7da440ede9c1adb0a340126">&#9670;&#160;</a></span>__LL_ADC_IS_CHANNEL_INTERNAL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define __LL_ADC_IS_CHANNEL_INTERNAL</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>__CHANNEL__</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__adc_8h.html">stm32f1xx_ll_adc.h</a>&quot;</code></p>
+<b>Valor:</b><div class="fragment"><div class="line">(((__CHANNEL__) &amp; <a class="code hl_define" href="group___a_d_c___l_l___private___constants.html#ga9bccd97590f30395f4ad337515fc47cd">ADC_CHANNEL_ID_INTERNAL_CH_MASK</a>) != 0U)</div>
+</div><!-- fragment -->
+<p>Helper macro to determine whether the selected channel corresponds to literal definitions of driver. </p>
+<dl class="section note"><dt>Nota</dt><dd>The different literal definitions of ADC channels are:<ul>
+<li>ADC internal channel: LL_ADC_CHANNEL_VREFINT, LL_ADC_CHANNEL_TEMPSENSOR, ...</li>
+<li>ADC external channel (channel connected to a GPIO pin): LL_ADC_CHANNEL_1, LL_ADC_CHANNEL_2, ... </li>
+</ul>
+</dd>
+<dd>
+The channel parameter must be a value defined from literal definition of a ADC internal channel (LL_ADC_CHANNEL_VREFINT, LL_ADC_CHANNEL_TEMPSENSOR, ...), ADC external channel (LL_ADC_CHANNEL_1, LL_ADC_CHANNEL_2, ...), must not be a value from functions where a channel number is returned from ADC registers, because internal and external channels share the same channel number in ADC registers. The differentiation is made only with parameters definitions of driver. </dd></dl>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">__CHANNEL__</td><td>This parameter can be one of the following values: <ul>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga65ab7da5776ec034ad969fb6bdb23144" title="LL_ADC_CHANNEL_0">LL_ADC_CHANNEL_0</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga810add73c60874916547b5d8cde1970f" title="LL_ADC_CHANNEL_1">LL_ADC_CHANNEL_1</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#gadee2200298b004e8908c83d26dabbce5" title="LL_ADC_CHANNEL_2">LL_ADC_CHANNEL_2</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#gad49456a49014e2ab6fb8da3ac718d21f" title="LL_ADC_CHANNEL_3">LL_ADC_CHANNEL_3</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga06dec8046aed75d352d8541e64e7b3da" title="LL_ADC_CHANNEL_4">LL_ADC_CHANNEL_4</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#gaed34ad28fea75c6baaaba3e2c7a71c8b" title="LL_ADC_CHANNEL_5">LL_ADC_CHANNEL_5</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga4f460233be3024d07bad405c3c835d22" title="LL_ADC_CHANNEL_6">LL_ADC_CHANNEL_6</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#gac4c5065aeb7f1b18f7f3957d19ce1901" title="LL_ADC_CHANNEL_7">LL_ADC_CHANNEL_7</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#gaa0095223cfdf58479d1ffef2e811a26b" title="LL_ADC_CHANNEL_8">LL_ADC_CHANNEL_8</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga0322ab63547820a4e8c43d007a1e86d9" title="LL_ADC_CHANNEL_9">LL_ADC_CHANNEL_9</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga8a2d6a4765ddedfcfba8b4ab5fcc8ea6" title="LL_ADC_CHANNEL_10">LL_ADC_CHANNEL_10</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga7d2c990bf0e1af4b1a827bb7ecec5a44" title="LL_ADC_CHANNEL_11">LL_ADC_CHANNEL_11</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga0707b9e85eb0d9981c290cfb7959abfa" title="LL_ADC_CHANNEL_12">LL_ADC_CHANNEL_12</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#gace8ee39580bad4a5c6ba486935e58cbb" title="LL_ADC_CHANNEL_13">LL_ADC_CHANNEL_13</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#gaad10ae7be97d4ce2b144ffd53cd3774b" title="LL_ADC_CHANNEL_14">LL_ADC_CHANNEL_14</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga71a5a4a134ece82d297e2ca65b09ddb8" title="LL_ADC_CHANNEL_15">LL_ADC_CHANNEL_15</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga2a94655da139c7bd8b65103f71a8d819" title="LL_ADC_CHANNEL_16">LL_ADC_CHANNEL_16</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga58724577e3f5127259f5d11493b2fbfc" title="LL_ADC_CHANNEL_17">LL_ADC_CHANNEL_17</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga46bdc1ff0e256ee31a4cadf7e5989250" title="LL_ADC_CHANNEL_VREFINT">LL_ADC_CHANNEL_VREFINT</a> (1) </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#gafcc04965dbb0191c8d1e326b377c745a" title="LL_ADC_CHANNEL_TEMPSENSOR">LL_ADC_CHANNEL_TEMPSENSOR</a> (1)</li>
+</ul>
+(1) On STM32F1, parameter available only on ADC instance: ADC1. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">Value</td><td>"0" if the channel corresponds to a parameter definition of a ADC external channel (channel connected to a GPIO pin). Value "1" if the channel corresponds to a parameter definition of a ADC internal channel. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__adc_8h_source.html#l01095">1095</a> del archivo <a class="el" href="stm32f1xx__ll__adc_8h_source.html">stm32f1xx_ll_adc.h</a>.</p>
+
+</div>
+</div>
+<a id="gac5a44923b4142e1f1acdf3a7c92ce034" name="gac5a44923b4142e1f1acdf3a7c92ce034"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac5a44923b4142e1f1acdf3a7c92ce034">&#9670;&#160;</a></span>__LL_ADC_IS_CHANNEL_INTERNAL_AVAILABLE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define __LL_ADC_IS_CHANNEL_INTERNAL_AVAILABLE</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>__ADC_INSTANCE__</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>__CHANNEL__</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__adc_8h.html">stm32f1xx_ll_adc.h</a>&quot;</code></p>
+<b>Valor:</b><div class="fragment"><div class="line">(((__ADC_INSTANCE__) == <a class="code hl_define" href="group___peripheral__declaration.html#ga90d2d5c526ce5c0a551f533eccbee71a">ADC1</a>)                                                \</div>
+<div class="line">  ? (                                                                        \</div>
+<div class="line">     ((__CHANNEL__) == <a class="code hl_define" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga46bdc1ff0e256ee31a4cadf7e5989250">LL_ADC_CHANNEL_VREFINT</a>)    ||                         \</div>
+<div class="line">     ((__CHANNEL__) == <a class="code hl_define" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#gafcc04965dbb0191c8d1e326b377c745a">LL_ADC_CHANNEL_TEMPSENSOR</a>)                            \</div>
+<div class="line">    )                                                                        \</div>
+<div class="line">    :                                                                        \</div>
+<div class="line">    (0U)                                                                     \</div>
+<div class="line">)</div>
+<div class="ttc" id="agroup___a_d_c___l_l___e_c___c_h_a_n_n_e_l_html_ga46bdc1ff0e256ee31a4cadf7e5989250"><div class="ttname"><a href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga46bdc1ff0e256ee31a4cadf7e5989250">LL_ADC_CHANNEL_VREFINT</a></div><div class="ttdeci">#define LL_ADC_CHANNEL_VREFINT</div><div class="ttdoc">ADC internal channel connected to VrefInt: Internal voltage reference.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__ll__adc_8h_source.html#l00523">stm32f1xx_ll_adc.h:523</a></div></div>
+<div class="ttc" id="agroup___a_d_c___l_l___e_c___c_h_a_n_n_e_l_html_gafcc04965dbb0191c8d1e326b377c745a"><div class="ttname"><a href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#gafcc04965dbb0191c8d1e326b377c745a">LL_ADC_CHANNEL_TEMPSENSOR</a></div><div class="ttdeci">#define LL_ADC_CHANNEL_TEMPSENSOR</div><div class="ttdoc">ADC internal channel connected to Temperature sensor.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__ll__adc_8h_source.html#l00524">stm32f1xx_ll_adc.h:524</a></div></div>
+<div class="ttc" id="agroup___peripheral__declaration_html_ga90d2d5c526ce5c0a551f533eccbee71a"><div class="ttname"><a href="group___peripheral__declaration.html#ga90d2d5c526ce5c0a551f533eccbee71a">ADC1</a></div><div class="ttdeci">#define ADC1</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l00669">stm32f103xb.h:669</a></div></div>
+</div><!-- fragment -->
+<p>Helper macro to determine whether the internal channel selected is available on the ADC instance selected. </p>
+<dl class="section note"><dt>Nota</dt><dd>The channel parameter must be a value defined from parameter definition of a ADC internal channel (LL_ADC_CHANNEL_VREFINT, LL_ADC_CHANNEL_TEMPSENSOR, ...), must not be a value defined from parameter definition of ADC external channel (LL_ADC_CHANNEL_1, LL_ADC_CHANNEL_2, ...) or a value from functions where a channel number is returned from ADC registers, because internal and external channels share the same channel number in ADC registers. The differentiation is made only with parameters definitions of driver. </dd></dl>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">__ADC_INSTANCE__</td><td>ADC instance </td></tr>
+    <tr><td class="paramname">__CHANNEL__</td><td>This parameter can be one of the following values: <ul>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#ga46bdc1ff0e256ee31a4cadf7e5989250" title="LL_ADC_CHANNEL_VREFINT">LL_ADC_CHANNEL_VREFINT</a> (1) </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___c_h_a_n_n_e_l.html#gafcc04965dbb0191c8d1e326b377c745a" title="LL_ADC_CHANNEL_TEMPSENSOR">LL_ADC_CHANNEL_TEMPSENSOR</a> (1)</li>
+</ul>
+(1) On STM32F1, parameter available only on ADC instance: ADC1. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">Value</td><td>"0" if the internal channel selected is not available on the ADC instance selected. Value "1" if the internal channel selected is available on the ADC instance selected. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__adc_8h_source.html#l01179">1179</a> del archivo <a class="el" href="stm32f1xx__ll__adc_8h_source.html">stm32f1xx_ll_adc.h</a>.</p>
+
+</div>
+</div>
+<a id="ga7389f2efada78ba7e5794169c8e7cfb6" name="ga7389f2efada78ba7e5794169c8e7cfb6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7389f2efada78ba7e5794169c8e7cfb6">&#9670;&#160;</a></span>__LL_ADC_IS_ENABLED_ALL_COMMON_INSTANCE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define __LL_ADC_IS_ENABLED_ALL_COMMON_INSTANCE</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>__ADCXY_COMMON__</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__adc_8h.html">stm32f1xx_ll_adc.h</a>&quot;</code></p>
+<b>Valor:</b><div class="fragment"><div class="line">(<a class="code hl_function" href="group___a_d_c___l_l___e_f___operation___a_d_c___instance.html#ga3d32861466167b57403dac3f3f84e50d">LL_ADC_IsEnabled</a>(<a class="code hl_define" href="group___peripheral__declaration.html#ga90d2d5c526ce5c0a551f533eccbee71a">ADC1</a>) |                                                    \</div>
+<div class="line"> LL_ADC_IsEnabled(<a class="code hl_define" href="group___peripheral__declaration.html#gac5503ae96c26b4475226f96715a1bf1e">ADC2</a>)  )</div>
+<div class="ttc" id="agroup___a_d_c___l_l___e_f___operation___a_d_c___instance_html_ga3d32861466167b57403dac3f3f84e50d"><div class="ttname"><a href="group___a_d_c___l_l___e_f___operation___a_d_c___instance.html#ga3d32861466167b57403dac3f3f84e50d">LL_ADC_IsEnabled</a></div><div class="ttdeci">static __inline uint32_t LL_ADC_IsEnabled(ADC_TypeDef *ADCx)</div><div class="ttdoc">Get the selected ADC instance enable state.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__ll__adc_8h_source.html#l03266">stm32f1xx_ll_adc.h:3266</a></div></div>
+<div class="ttc" id="agroup___peripheral__declaration_html_gac5503ae96c26b4475226f96715a1bf1e"><div class="ttname"><a href="group___peripheral__declaration.html#gac5503ae96c26b4475226f96715a1bf1e">ADC2</a></div><div class="ttdeci">#define ADC2</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l00670">stm32f103xb.h:670</a></div></div>
+</div><!-- fragment -->
+<p>Helper macro to check if all ADC instances sharing the same ADC common instance are disabled. </p>
+<dl class="section note"><dt>Nota</dt><dd>This check is required by functions with setting conditioned to ADC state: All ADC instances of the ADC common group must be disabled. Refer to functions having argument "ADCxy_COMMON" as parameter. </dd>
+<dd>
+On devices with only 1 ADC common instance, parameter of this macro is useless and can be ignored (parameter kept for compatibility with devices featuring several ADC common instances). </dd>
+<dd>
+On STM32F1, there is no common ADC instance. However, ADC instance ADC1 has a role of common ADC instance for ADC1 and ADC2: this instance is used to manage internal channels and multimode (these features are managed in ADC common instances on some other STM32 devices). ADC instance ADC3 (if available on the selected device) has no ADC common instance. </dd></dl>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">__ADCXY_COMMON__</td><td>ADC common instance (can be set directly from CMSIS definition or by using helper macro <a class="el" href="#ga06222c0a27b40e8317cb67befccb7403" title="__LL_ADC_COMMON_INSTANCE()">__LL_ADC_COMMON_INSTANCE()</a> ) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">Value</td><td>"0" if all ADC instances sharing the same ADC common instance are disabled. Value "1" if at least one ADC instance sharing the same ADC common instance is enabled. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__adc_8h_source.html#l01443">1443</a> del archivo <a class="el" href="stm32f1xx__ll__adc_8h_source.html">stm32f1xx_ll_adc.h</a>.</p>
+
+</div>
+</div>
+<a id="ga684a597fa10d3ec2fafe1e4246107a22" name="ga684a597fa10d3ec2fafe1e4246107a22"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga684a597fa10d3ec2fafe1e4246107a22">&#9670;&#160;</a></span>__LL_ADC_MULTI_CONV_DATA_MASTER_SLAVE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define __LL_ADC_MULTI_CONV_DATA_MASTER_SLAVE</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>__ADC_MULTI_MASTER_SLAVE__</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>__ADC_MULTI_CONV_DATA__</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__adc_8h.html">stm32f1xx_ll_adc.h</a>&quot;</code></p>
+<b>Valor:</b><div class="fragment"><div class="line">(((__ADC_MULTI_CONV_DATA__) &gt;&gt; <a class="code hl_define" href="group___exported__macros.html#ga47a8870d71d55cefb3df47cd8c815ec8">POSITION_VAL</a>((__ADC_MULTI_MASTER_SLAVE__))) &amp; <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#gada596183c4087696c486546e88176038">ADC_DR_DATA</a>)</div>
+<div class="ttc" id="agroup___exported__macros_html_ga47a8870d71d55cefb3df47cd8c815ec8"><div class="ttname"><a href="group___exported__macros.html#ga47a8870d71d55cefb3df47cd8c815ec8">POSITION_VAL</a></div><div class="ttdeci">#define POSITION_VAL(VAL)</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx_8h_source.html#l00191">stm32f1xx.h:191</a></div></div>
+<div class="ttc" id="agroup___peripheral___registers___bits___definition_html_gada596183c4087696c486546e88176038"><div class="ttname"><a href="group___peripheral___registers___bits___definition.html#gada596183c4087696c486546e88176038">ADC_DR_DATA</a></div><div class="ttdeci">#define ADC_DR_DATA</div><div class="ttdoc">ADC group regular conversion data.</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l03800">stm32f103xb.h:3800</a></div></div>
+</div><!-- fragment -->
+<p>Helper macro to get the ADC multimode conversion data of ADC master or ADC slave from raw value with both ADC conversion data concatenated. </p>
+<dl class="section note"><dt>Nota</dt><dd>This macro is intended to be used when multimode transfer by DMA is enabled. In this case the transferred data need to processed with this macro to separate the conversion data of ADC master and ADC slave. </dd></dl>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">__ADC_MULTI_MASTER_SLAVE__</td><td>This parameter can be one of the following values: <ul>
+<li><a class="el" href="group___a_d_c___l_l___e_c___m_u_l_t_i___m_a_s_t_e_r___s_l_a_v_e.html#gad3540a8cedf792f06f558b2f68a0d6a1" title="LL_ADC_MULTI_MASTER">LL_ADC_MULTI_MASTER</a> </li>
+<li><a class="el" href="group___a_d_c___l_l___e_c___m_u_l_t_i___m_a_s_t_e_r___s_l_a_v_e.html#ga457b6bf1afeb9e7741a01bf6af5eec08" title="LL_ADC_MULTI_SLAVE">LL_ADC_MULTI_SLAVE</a> </li>
+</ul>
+</td></tr>
+    <tr><td class="paramname">__ADC_MULTI_CONV_DATA__</td><td>Value between Min_Data=0x000 and Max_Data=0xFFF </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">Value</td><td>between Min_Data=0x000 and Max_Data=0xFFF </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__adc_8h_source.html#l01364">1364</a> del archivo <a class="el" href="stm32f1xx__ll__adc_8h_source.html">stm32f1xx_ll_adc.h</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generado el <span class="timestamp"></span> para MICRO-Firmware por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

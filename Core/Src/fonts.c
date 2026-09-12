@@ -1,3 +1,11 @@
+/**
+ * @file   fonts.c
+ * @author Olivier Van den Eede / Aleksander Alekseev / Gonzalo M. Buffa
+ * @brief  Definición de las matrices de píxeles para las fuentes tipográficas del display OLED.
+ * @details Almacena las tablas de mapas de bits ASCII en memoria FLASH (const) para su consulta directa
+ *          en la rutina de dibujo de caracteres sin allocación dinámica.
+ * @ingroup group_ui_graphics
+ */
 
 #include "fonts.h"
 

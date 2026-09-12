@@ -1,0 +1,81 @@
+\doxysubsection{Referencia del archivo stm32f1xx\+\_\+hal\+\_\+adc\+\_\+ex.\+c}
+\hypertarget{stm32f1xx__hal__adc__ex_8c}{}\label{stm32f1xx__hal__adc__ex_8c}\index{stm32f1xx\_hal\_adc\_ex.c@{stm32f1xx\_hal\_adc\_ex.c}}
+
+
+This file provides firmware functions to manage the following functionalities of the Analog to Digital Convertor (ADC) peripheral:  
+
+
+{\ttfamily \+\#include "{}stm32f1xx\+\_\+hal.\+h"{}}\newline
+Gráfico de dependencias incluidas en stm32f1xx\+\_\+hal\+\_\+adc\+\_\+ex.\+c:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{stm32f1xx__hal__adc__ex_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsubsection*{defines}
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{group___a_d_c_ex___private___constants_gaac92cdb9e1e5d475ca5ef3e983754d44}{ADC\+\_\+\+CALIBRATION\+\_\+\+TIMEOUT}}~10U
+\item 
+\+\#define \doxymbox{\hyperlink{group___a_d_c_ex___private___constants_ga80cbebf52566c42915ce1edd144cbc70}{ADC\+\_\+\+PRECALIBRATION\+\_\+\+DELAY\+\_\+\+ADCCLOCKCYCLES}}~2U
+\item 
+\+\#define \doxymbox{\hyperlink{group___a_d_c_ex___private___constants_gab57114ba262a4b64193617b22da005b0}{ADC\+\_\+\+TEMPSENSOR\+\_\+\+DELAY\+\_\+\+US}}~10U
+\end{DoxyCompactItemize}
+\doxysubsubsubsection*{Funciones}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \doxymbox{\hyperlink{group___a_d_c_ex___exported___functions___group1_gabb53dc2716c8250256368c4f60701dab}{HAL\+\_\+\+ADCEx\+\_\+\+Calibration\+\_\+\+Start}} (\doxymbox{\hyperlink{group___a_d_c___exported___types_ga46483fcdb7a528252920c304ec59d006}{ADC\+\_\+\+Handle\+Type\+Def}} \texorpdfstring{$\ast$}{*}hadc)
+\begin{DoxyCompactList}\small\item\em Perform an ADC automatic self-\/calibration Calibration prerequisite: ADC must be disabled (execute this function before \doxylink{group___a_d_c___exported___functions___group2_ga193666e3bde978627c9ee1e2073c69c0}{HAL\+\_\+\+ADC\+\_\+\+Start()} or after \doxylink{group___a_d_c___exported___functions___group2_ga1b00cb85fc6c0f40fabd02701528711d}{HAL\+\_\+\+ADC\+\_\+\+Stop()} ). \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \doxymbox{\hyperlink{group___a_d_c_ex___exported___functions___group2_ga5736a78398eb51ddeb09dd83d1243045}{HAL\+\_\+\+ADCEx\+\_\+\+Injected\+Config\+Channel}} (\doxymbox{\hyperlink{group___a_d_c___exported___types_ga46483fcdb7a528252920c304ec59d006}{ADC\+\_\+\+Handle\+Type\+Def}} \texorpdfstring{$\ast$}{*}hadc, \doxymbox{\hyperlink{struct_a_d_c___injection_conf_type_def}{ADC\+\_\+\+Injection\+Conf\+Type\+Def}} \texorpdfstring{$\ast$}{*}s\+Config\+Injected)
+\begin{DoxyCompactList}\small\item\em Configures the ADC injected group and the selected channel to be linked to the injected group. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{group___a_d_c_ex___exported___functions___group1_gade71165e2efb09c48f919e6477b73683}{HAL\+\_\+\+ADCEx\+\_\+\+Injected\+Conv\+Cplt\+Callback}} (\doxymbox{\hyperlink{group___a_d_c___exported___types_ga46483fcdb7a528252920c304ec59d006}{ADC\+\_\+\+Handle\+Type\+Def}} \texorpdfstring{$\ast$}{*}hadc)
+\begin{DoxyCompactList}\small\item\em Injected conversion complete callback in non blocking mode. \end{DoxyCompactList}\item 
+uint32\+\_\+t \doxymbox{\hyperlink{group___a_d_c_ex___exported___functions___group1_ga7996668b61263f91c76d5f55551f3a07}{HAL\+\_\+\+ADCEx\+\_\+\+Injected\+Get\+Value}} (\doxymbox{\hyperlink{group___a_d_c___exported___types_ga46483fcdb7a528252920c304ec59d006}{ADC\+\_\+\+Handle\+Type\+Def}} \texorpdfstring{$\ast$}{*}hadc, uint32\+\_\+t Injected\+Rank)
+\begin{DoxyCompactList}\small\item\em Get ADC injected group conversion result. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \doxymbox{\hyperlink{group___a_d_c_ex___exported___functions___group1_ga5e11b306be79f36c71a73f2e465ad613}{HAL\+\_\+\+ADCEx\+\_\+\+Injected\+Poll\+For\+Conversion}} (\doxymbox{\hyperlink{group___a_d_c___exported___types_ga46483fcdb7a528252920c304ec59d006}{ADC\+\_\+\+Handle\+Type\+Def}} \texorpdfstring{$\ast$}{*}hadc, uint32\+\_\+t Timeout)
+\begin{DoxyCompactList}\small\item\em Wait for injected group conversion to be completed. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \doxymbox{\hyperlink{group___a_d_c_ex___exported___functions___group1_gaa666882ff772df8a5140090422825ed6}{HAL\+\_\+\+ADCEx\+\_\+\+Injected\+Start}} (\doxymbox{\hyperlink{group___a_d_c___exported___types_ga46483fcdb7a528252920c304ec59d006}{ADC\+\_\+\+Handle\+Type\+Def}} \texorpdfstring{$\ast$}{*}hadc)
+\begin{DoxyCompactList}\small\item\em Enables ADC, starts conversion of injected group. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \doxymbox{\hyperlink{group___a_d_c_ex___exported___functions___group1_gaf55cd28b1394a0564f99e1f5069c0ed1}{HAL\+\_\+\+ADCEx\+\_\+\+Injected\+Start\+\_\+\+IT}} (\doxymbox{\hyperlink{group___a_d_c___exported___types_ga46483fcdb7a528252920c304ec59d006}{ADC\+\_\+\+Handle\+Type\+Def}} \texorpdfstring{$\ast$}{*}hadc)
+\begin{DoxyCompactList}\small\item\em Enables ADC, starts conversion of injected group with interruption. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \doxymbox{\hyperlink{group___a_d_c_ex___exported___functions___group1_ga91f6c85ae910e9baaf578a346c30c7c1}{HAL\+\_\+\+ADCEx\+\_\+\+Injected\+Stop}} (\doxymbox{\hyperlink{group___a_d_c___exported___types_ga46483fcdb7a528252920c304ec59d006}{ADC\+\_\+\+Handle\+Type\+Def}} \texorpdfstring{$\ast$}{*}hadc)
+\begin{DoxyCompactList}\small\item\em Stop conversion of injected channels. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \doxymbox{\hyperlink{group___a_d_c_ex___exported___functions___group1_gae032f41136f4dc4b3f3c2476b96a21f5}{HAL\+\_\+\+ADCEx\+\_\+\+Injected\+Stop\+\_\+\+IT}} (\doxymbox{\hyperlink{group___a_d_c___exported___types_ga46483fcdb7a528252920c304ec59d006}{ADC\+\_\+\+Handle\+Type\+Def}} \texorpdfstring{$\ast$}{*}hadc)
+\begin{DoxyCompactList}\small\item\em Stop conversion of injected channels, disable interruption of end-\/of-\/conversion. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \doxymbox{\hyperlink{group___a_d_c_ex___exported___functions___group2_gabfe8b04f9cfda94bc8aad912470122f5}{HAL\+\_\+\+ADCEx\+\_\+\+Multi\+Mode\+Config\+Channel}} (\doxymbox{\hyperlink{group___a_d_c___exported___types_ga46483fcdb7a528252920c304ec59d006}{ADC\+\_\+\+Handle\+Type\+Def}} \texorpdfstring{$\ast$}{*}hadc, \doxymbox{\hyperlink{struct_a_d_c___multi_mode_type_def}{ADC\+\_\+\+Multi\+Mode\+Type\+Def}} \texorpdfstring{$\ast$}{*}multimode)
+\begin{DoxyCompactList}\small\item\em Enable ADC multimode and configure multimode parameters. \end{DoxyCompactList}\item 
+uint32\+\_\+t \doxymbox{\hyperlink{group___a_d_c_ex___exported___functions___group1_ga5ab7c06d2f0b5f9de1f86de5713d68d2}{HAL\+\_\+\+ADCEx\+\_\+\+Multi\+Mode\+Get\+Value}} (\doxymbox{\hyperlink{group___a_d_c___exported___types_ga46483fcdb7a528252920c304ec59d006}{ADC\+\_\+\+Handle\+Type\+Def}} \texorpdfstring{$\ast$}{*}hadc)
+\begin{DoxyCompactList}\small\item\em Returns the last ADC Master\&Slave regular conversions results data in the selected multi mode. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \doxymbox{\hyperlink{group___a_d_c_ex___exported___functions___group1_gab36a3508a06430d7c7d0def79ec61b08}{HAL\+\_\+\+ADCEx\+\_\+\+Multi\+Mode\+Start\+\_\+\+DMA}} (\doxymbox{\hyperlink{group___a_d_c___exported___types_ga46483fcdb7a528252920c304ec59d006}{ADC\+\_\+\+Handle\+Type\+Def}} \texorpdfstring{$\ast$}{*}hadc, uint32\+\_\+t \texorpdfstring{$\ast$}{*}p\+Data, uint32\+\_\+t Length)
+\begin{DoxyCompactList}\small\item\em Enables ADC, starts conversion of regular group and transfers result through DMA. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \doxymbox{\hyperlink{group___a_d_c_ex___exported___functions___group1_ga6a114ff60985be225d621a5c3be8ddf2}{HAL\+\_\+\+ADCEx\+\_\+\+Multi\+Mode\+Stop\+\_\+\+DMA}} (\doxymbox{\hyperlink{group___a_d_c___exported___types_ga46483fcdb7a528252920c304ec59d006}{ADC\+\_\+\+Handle\+Type\+Def}} \texorpdfstring{$\ast$}{*}hadc)
+\begin{DoxyCompactList}\small\item\em Stop ADC conversion of regular group (and injected channels in case of auto\+\_\+injection mode), disable ADC DMA transfer, disable ADC peripheral. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Descripción detallada}
+This file provides firmware functions to manage the following functionalities of the Analog to Digital Convertor (ADC) peripheral: 
+
+\begin{DoxyAuthor}{Autor}
+MCD Application Team
+\begin{DoxyItemize}
+\item Peripheral Control functions Other functions (generic functions) are available in file "{}stm32f1xx\+\_\+hal\+\_\+adc.\+c"{}.
+\end{DoxyItemize}
+\end{DoxyAuthor}
+\begin{DoxyAttention}{Atención}
+
+\end{DoxyAttention}
+Copyright (c) 2016 STMicroelectronics. All rights reserved.
+
+This software is licensed under terms that can be found in the LICENSE file in the root directory of this software component. If no LICENSE file comes with this software, it is provided AS-\/\+IS.
+
+\begin{DoxyVerb}[..] 
+(@) Sections "ADC peripheral features" and "How to use this driver" are
+    available in file of generic functions "stm32f1xx_hal_adc.c".
+[..]
+\end{DoxyVerb}
+ 
+
+Definición en el archivo \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8c_source}{stm32f1xx\+\_\+hal\+\_\+adc\+\_\+ex.\+c}}.
+

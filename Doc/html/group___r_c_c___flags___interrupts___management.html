@@ -1,0 +1,415 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>MICRO-Firmware: Flags Interrupts Management</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="codefolding.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  extensions: ["tex2jax.js"],
+  jax: ["input/TeX","output/HTML-CSS"],
+});
+</script>
+<script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">MICRO-Firmware<span id="projectnumber">&#160;EX100923v01</span>
+   </div>
+   <div id="projectbrief">Firmware de Péndulo Invertido Autónomo de Dos Ruedas (STM32F103C8T6 - ARM Cortex-M3)</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Buscar" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('group___r_c_c___flags___interrupts___management.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">Flags Interrupts Management <div class="ingroups"><a class="el" href="group___s_t_m32_f1xx___h_a_l___driver.html">STM32F1xx_HAL_Driver</a> &raquo; <a class="el" href="group___r_c_c.html">RCC</a> &raquo; <a class="el" href="group___r_c_c___exported___macros.html">RCC Exported Macros</a></div></div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>macros to manage the specified RCC Flags and interrupts.  
+<a href="#details">Más...</a></p>
+<div id="dynsection-0" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Diagrama de colaboración de Flags Interrupts Management:</div>
+<div id="dynsection-0-summary" class="dynsummary">
+</div>
+<div id="dynsection-0-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___r_c_c___flags___interrupts___management.svg" width="404" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
+defines</h2></td></tr>
+<tr class="memitem:ga9d8ab157f58045b8daf8136bee54f139" id="r_ga9d8ab157f58045b8daf8136bee54f139"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga9d8ab157f58045b8daf8136bee54f139">__HAL_RCC_CLEAR_IT</a>(__INTERRUPT__)</td></tr>
+<tr class="memdesc:ga9d8ab157f58045b8daf8136bee54f139"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear the RCC's interrupt pending bits.  <br /></td></tr>
+<tr class="memitem:gaf28c11b36035ef1e27883ff7ee2c46b0" id="r_gaf28c11b36035ef1e27883ff7ee2c46b0"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaf28c11b36035ef1e27883ff7ee2c46b0">__HAL_RCC_CLEAR_RESET_FLAGS</a>()</td></tr>
+<tr class="memdesc:gaf28c11b36035ef1e27883ff7ee2c46b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set RMVF bit to clear the reset flags.  <br /></td></tr>
+<tr class="memitem:gafc4df8cd4df0a529d11f18bf1f7e9f50" id="r_gafc4df8cd4df0a529d11f18bf1f7e9f50"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gafc4df8cd4df0a529d11f18bf1f7e9f50">__HAL_RCC_DISABLE_IT</a>(__INTERRUPT__)</td></tr>
+<tr class="memdesc:gafc4df8cd4df0a529d11f18bf1f7e9f50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable RCC interrupt.  <br /></td></tr>
+<tr class="memitem:ga180fb20a37b31a6e4f7e59213a6c0405" id="r_ga180fb20a37b31a6e4f7e59213a6c0405"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga180fb20a37b31a6e4f7e59213a6c0405">__HAL_RCC_ENABLE_IT</a>(__INTERRUPT__)</td></tr>
+<tr class="memdesc:ga180fb20a37b31a6e4f7e59213a6c0405"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable RCC interrupt.  <br /></td></tr>
+<tr class="memitem:gae2d7d461630562bf2a2ddb31b1f96449" id="r_gae2d7d461630562bf2a2ddb31b1f96449"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gae2d7d461630562bf2a2ddb31b1f96449">__HAL_RCC_GET_FLAG</a>(__FLAG__)</td></tr>
+<tr class="memdesc:gae2d7d461630562bf2a2ddb31b1f96449"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check RCC flag is set or not.  <br /></td></tr>
+<tr class="memitem:ga134af980b892f362c05ae21922cd828d" id="r_ga134af980b892f362c05ae21922cd828d"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga134af980b892f362c05ae21922cd828d">__HAL_RCC_GET_IT</a>(__INTERRUPT__)</td></tr>
+<tr class="memdesc:ga134af980b892f362c05ae21922cd828d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check the RCC's interrupt has occurred or not.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Descripción detallada</h2>
+<div class="textblock"><p>macros to manage the specified RCC Flags and interrupts. </p>
+</div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Documentación de «define»</h2>
+<a id="ga9d8ab157f58045b8daf8136bee54f139" name="ga9d8ab157f58045b8daf8136bee54f139"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9d8ab157f58045b8daf8136bee54f139">&#9670;&#160;</a></span>__HAL_RCC_CLEAR_IT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define __HAL_RCC_CLEAR_IT</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>__INTERRUPT__</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__rcc_8h.html">stm32f1xx_hal_rcc.h</a>&quot;</code></p>
+<b>Valor:</b><div class="fragment"><div class="line">(*(__IO uint8_t *) <a class="code hl_define" href="group___r_c_c___private___constants.html#ga1387fb2dfadb830eb83ab2772c8d2294">RCC_CIR_BYTE2_ADDRESS</a> = (__INTERRUPT__))</div>
+<div class="ttc" id="agroup___r_c_c___private___constants_html_ga1387fb2dfadb830eb83ab2772c8d2294"><div class="ttname"><a href="group___r_c_c___private___constants.html#ga1387fb2dfadb830eb83ab2772c8d2294">RCC_CIR_BYTE2_ADDRESS</a></div><div class="ttdeci">#define RCC_CIR_BYTE2_ADDRESS</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__rcc_8h_source.html#l01288">stm32f1xx_hal_rcc.h:1288</a></div></div>
+</div><!-- fragment -->
+<p>Clear the RCC's interrupt pending bits. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">__INTERRUPT__</td><td>specifies the interrupt pending bit to clear. This parameter can be any combination of the following values: <ul>
+<li><a class="el" href="group___r_c_c___interrupt.html#ga2b4ef277c1b71f96e0bef4b9a72fca94" title="RCC_IT_LSIRDY">RCC_IT_LSIRDY</a> LSI ready interrupt. </li>
+<li><a class="el" href="group___r_c_c___interrupt.html#gad6b6e78a426850f595ef180d292a673d" title="RCC_IT_LSERDY">RCC_IT_LSERDY</a> LSE ready interrupt. </li>
+<li><a class="el" href="group___r_c_c___interrupt.html#ga69637e51b71f73f519c8c0a0613d042f" title="RCC_IT_HSIRDY">RCC_IT_HSIRDY</a> HSI ready interrupt. </li>
+<li><a class="el" href="group___r_c_c___interrupt.html#gad13eaede352bca59611e6cae68665866" title="RCC_IT_HSERDY">RCC_IT_HSERDY</a> HSE ready interrupt. </li>
+<li><a class="el" href="group___r_c_c___interrupt.html#ga68d48e7811fb58f2649dce6cf0d823d9" title="RCC_IT_PLLRDY">RCC_IT_PLLRDY</a> Main PLL ready interrupt.  </li>
+<li><a class="el" href="group___r_c_c___interrupt.html#ga9bb34a4912d2084dc1c0834eb53aa7a3" title="RCC_IT_CSS">RCC_IT_CSS</a> Clock Security System interrupt </li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__rcc_8h_source.html#l01078">1078</a> del archivo <a class="el" href="stm32f1xx__hal__rcc_8h_source.html">stm32f1xx_hal_rcc.h</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal__rcc_8c_source.html#l01345">HAL_RCC_NMI_IRQHandler()</a>.</p>
+
+</div>
+</div>
+<a id="gaf28c11b36035ef1e27883ff7ee2c46b0" name="gaf28c11b36035ef1e27883ff7ee2c46b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf28c11b36035ef1e27883ff7ee2c46b0">&#9670;&#160;</a></span>__HAL_RCC_CLEAR_RESET_FLAGS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define __HAL_RCC_CLEAR_RESET_FLAGS</td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__rcc_8h.html">stm32f1xx_hal_rcc.h</a>&quot;</code></p>
+<b>Valor:</b><div class="fragment"><div class="line">(*(__IO uint32_t *)<a class="code hl_define" href="group___r_c_c___bit_address___alias_region.html#ga40f8ee2c5fa801d0b72ae230578dd77b">RCC_CSR_RMVF_BB</a> = <a class="code hl_enumvalue" href="group___exported__types.html#ggac9a7e9a35d2513ec15c3b537aaa4fba1a7d46875fa3ebd2c34d2756950eda83bf">ENABLE</a>)</div>
+<div class="ttc" id="agroup___exported__types_html_ggac9a7e9a35d2513ec15c3b537aaa4fba1a7d46875fa3ebd2c34d2756950eda83bf"><div class="ttname"><a href="group___exported__types.html#ggac9a7e9a35d2513ec15c3b537aaa4fba1a7d46875fa3ebd2c34d2756950eda83bf">ENABLE</a></div><div class="ttdeci">@ ENABLE</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx_8h_source.html#l00159">stm32f1xx.h:159</a></div></div>
+<div class="ttc" id="agroup___r_c_c___bit_address___alias_region_html_ga40f8ee2c5fa801d0b72ae230578dd77b"><div class="ttname"><a href="group___r_c_c___bit_address___alias_region.html#ga40f8ee2c5fa801d0b72ae230578dd77b">RCC_CSR_RMVF_BB</a></div><div class="ttdeci">#define RCC_CSR_RMVF_BB</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__rcc_8h_source.html#l01258">stm32f1xx_hal_rcc.h:1258</a></div></div>
+</div><!-- fragment -->
+<p>Set RMVF bit to clear the reset flags. </p>
+<p>The reset flags are RCC_FLAG_PINRST, RCC_FLAG_PORRST, RCC_FLAG_SFTRST, RCC_FLAG_IWDGRST, RCC_FLAG_WWDGRST, RCC_FLAG_LPWRRST </p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__rcc_8h_source.html#l01104">1104</a> del archivo <a class="el" href="stm32f1xx__hal__rcc_8h_source.html">stm32f1xx_hal_rcc.h</a>.</p>
+
+</div>
+</div>
+<a id="gafc4df8cd4df0a529d11f18bf1f7e9f50" name="gafc4df8cd4df0a529d11f18bf1f7e9f50"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gafc4df8cd4df0a529d11f18bf1f7e9f50">&#9670;&#160;</a></span>__HAL_RCC_DISABLE_IT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define __HAL_RCC_DISABLE_IT</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>__INTERRUPT__</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__rcc_8h.html">stm32f1xx_hal_rcc.h</a>&quot;</code></p>
+<b>Valor:</b><div class="fragment"><div class="line">(*(__IO uint8_t *) <a class="code hl_define" href="group___r_c_c___private___constants.html#ga97f80d22ba3506a43accbeb9ceb31f51">RCC_CIR_BYTE1_ADDRESS</a> &amp;= (uint8_t)(~(__INTERRUPT__)))</div>
+<div class="ttc" id="agroup___r_c_c___private___constants_html_ga97f80d22ba3506a43accbeb9ceb31f51"><div class="ttname"><a href="group___r_c_c___private___constants.html#ga97f80d22ba3506a43accbeb9ceb31f51">RCC_CIR_BYTE1_ADDRESS</a></div><div class="ttdeci">#define RCC_CIR_BYTE1_ADDRESS</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__rcc_8h_source.html#l01285">stm32f1xx_hal_rcc.h:1285</a></div></div>
+</div><!-- fragment -->
+<p>Disable RCC interrupt. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">__INTERRUPT__</td><td>specifies the RCC interrupt sources to be disabled. This parameter can be any combination of the following values: <ul>
+<li><a class="el" href="group___r_c_c___interrupt.html#ga2b4ef277c1b71f96e0bef4b9a72fca94" title="RCC_IT_LSIRDY">RCC_IT_LSIRDY</a> LSI ready interrupt </li>
+<li><a class="el" href="group___r_c_c___interrupt.html#gad6b6e78a426850f595ef180d292a673d" title="RCC_IT_LSERDY">RCC_IT_LSERDY</a> LSE ready interrupt </li>
+<li><a class="el" href="group___r_c_c___interrupt.html#ga69637e51b71f73f519c8c0a0613d042f" title="RCC_IT_HSIRDY">RCC_IT_HSIRDY</a> HSI ready interrupt </li>
+<li><a class="el" href="group___r_c_c___interrupt.html#gad13eaede352bca59611e6cae68665866" title="RCC_IT_HSERDY">RCC_IT_HSERDY</a> HSE ready interrupt </li>
+<li><a class="el" href="group___r_c_c___interrupt.html#ga68d48e7811fb58f2649dce6cf0d823d9" title="RCC_IT_PLLRDY">RCC_IT_PLLRDY</a> main PLL ready interrupt  </li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__rcc_8h_source.html#l01059">1059</a> del archivo <a class="el" href="stm32f1xx__hal__rcc_8h_source.html">stm32f1xx_hal_rcc.h</a>.</p>
+
+</div>
+</div>
+<a id="ga180fb20a37b31a6e4f7e59213a6c0405" name="ga180fb20a37b31a6e4f7e59213a6c0405"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga180fb20a37b31a6e4f7e59213a6c0405">&#9670;&#160;</a></span>__HAL_RCC_ENABLE_IT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define __HAL_RCC_ENABLE_IT</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>__INTERRUPT__</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__rcc_8h.html">stm32f1xx_hal_rcc.h</a>&quot;</code></p>
+<b>Valor:</b><div class="fragment"><div class="line">(*(__IO uint8_t *) <a class="code hl_define" href="group___r_c_c___private___constants.html#ga97f80d22ba3506a43accbeb9ceb31f51">RCC_CIR_BYTE1_ADDRESS</a> |= (__INTERRUPT__))</div>
+</div><!-- fragment -->
+<p>Enable RCC interrupt. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">__INTERRUPT__</td><td>specifies the RCC interrupt sources to be enabled. This parameter can be any combination of the following values: <ul>
+<li><a class="el" href="group___r_c_c___interrupt.html#ga2b4ef277c1b71f96e0bef4b9a72fca94" title="RCC_IT_LSIRDY">RCC_IT_LSIRDY</a> LSI ready interrupt </li>
+<li><a class="el" href="group___r_c_c___interrupt.html#gad6b6e78a426850f595ef180d292a673d" title="RCC_IT_LSERDY">RCC_IT_LSERDY</a> LSE ready interrupt </li>
+<li><a class="el" href="group___r_c_c___interrupt.html#ga69637e51b71f73f519c8c0a0613d042f" title="RCC_IT_HSIRDY">RCC_IT_HSIRDY</a> HSI ready interrupt </li>
+<li><a class="el" href="group___r_c_c___interrupt.html#gad13eaede352bca59611e6cae68665866" title="RCC_IT_HSERDY">RCC_IT_HSERDY</a> HSE ready interrupt </li>
+<li><a class="el" href="group___r_c_c___interrupt.html#ga68d48e7811fb58f2649dce6cf0d823d9" title="RCC_IT_PLLRDY">RCC_IT_PLLRDY</a> main PLL ready interrupt  </li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__rcc_8h_source.html#l01041">1041</a> del archivo <a class="el" href="stm32f1xx__hal__rcc_8h_source.html">stm32f1xx_hal_rcc.h</a>.</p>
+
+</div>
+</div>
+<a id="gae2d7d461630562bf2a2ddb31b1f96449" name="gae2d7d461630562bf2a2ddb31b1f96449"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae2d7d461630562bf2a2ddb31b1f96449">&#9670;&#160;</a></span>__HAL_RCC_GET_FLAG</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define __HAL_RCC_GET_FLAG</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>__FLAG__</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__rcc_8h.html">stm32f1xx_hal_rcc.h</a>&quot;</code></p>
+<b>Valor:</b><div class="fragment"><div class="line">(((((__FLAG__) &gt;&gt; 5U) == <a class="code hl_define" href="group___r_c_c___private___constants.html#ga56feb1abcd35b22427fa55164c585afa">CR_REG_INDEX</a>)?   <a class="code hl_define" href="group___peripheral__declaration.html#ga74944438a086975793d26ae48d5882d4">RCC</a>-&gt;CR   : \</div>
+<div class="line">((((__FLAG__) &gt;&gt; 5U) == <a class="code hl_define" href="group___r_c_c___private___constants.html#ga114b3e5b2a2cdb5d85f65511fe085a6d">BDCR_REG_INDEX</a>)? <a class="code hl_define" href="group___peripheral__declaration.html#ga74944438a086975793d26ae48d5882d4">RCC</a>-&gt;BDCR : \</div>
+<div class="line">                                        <a class="code hl_define" href="group___peripheral__declaration.html#ga74944438a086975793d26ae48d5882d4">RCC</a>-&gt;CSR)) &amp; (1U &lt;&lt; ((__FLAG__) &amp; <a class="code hl_define" href="group___r_c_c___private___constants.html#ga80017c6bf8a5c6f53a1a21bb8db93a82">RCC_FLAG_MASK</a>)))</div>
+<div class="ttc" id="agroup___peripheral__declaration_html_ga74944438a086975793d26ae48d5882d4"><div class="ttname"><a href="group___peripheral__declaration.html#ga74944438a086975793d26ae48d5882d4">RCC</a></div><div class="ttdeci">#define RCC</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l00683">stm32f103xb.h:683</a></div></div>
+<div class="ttc" id="agroup___r_c_c___private___constants_html_ga114b3e5b2a2cdb5d85f65511fe085a6d"><div class="ttname"><a href="group___r_c_c___private___constants.html#ga114b3e5b2a2cdb5d85f65511fe085a6d">BDCR_REG_INDEX</a></div><div class="ttdeci">#define BDCR_REG_INDEX</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__rcc_8h_source.html#l01292">stm32f1xx_hal_rcc.h:1292</a></div></div>
+<div class="ttc" id="agroup___r_c_c___private___constants_html_ga56feb1abcd35b22427fa55164c585afa"><div class="ttname"><a href="group___r_c_c___private___constants.html#ga56feb1abcd35b22427fa55164c585afa">CR_REG_INDEX</a></div><div class="ttdeci">#define CR_REG_INDEX</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__rcc_8h_source.html#l01291">stm32f1xx_hal_rcc.h:1291</a></div></div>
+<div class="ttc" id="agroup___r_c_c___private___constants_html_ga80017c6bf8a5c6f53a1a21bb8db93a82"><div class="ttname"><a href="group___r_c_c___private___constants.html#ga80017c6bf8a5c6f53a1a21bb8db93a82">RCC_FLAG_MASK</a></div><div class="ttdeci">#define RCC_FLAG_MASK</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__rcc_8h_source.html#l01295">stm32f1xx_hal_rcc.h:1295</a></div></div>
+</div><!-- fragment -->
+<p>Check RCC flag is set or not. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">__FLAG__</td><td>specifies the flag to check. This parameter can be one of the following values: <ul>
+<li><a class="el" href="group___r_c_c___flag.html#ga827d986723e7ce652fa733bb8184d216" title="RCC_FLAG_HSIRDY">RCC_FLAG_HSIRDY</a> HSI oscillator clock ready. </li>
+<li><a class="el" href="group___r_c_c___flag.html#ga173edf47bec93cf269a0e8d0fec9997c" title="RCC_FLAG_HSERDY">RCC_FLAG_HSERDY</a> HSE oscillator clock ready. </li>
+<li><a class="el" href="group___r_c_c___flag.html#gaf82d8afb18d9df75db1d6c08b9c50046" title="RCC_FLAG_PLLRDY">RCC_FLAG_PLLRDY</a> Main PLL clock ready.  </li>
+<li><a class="el" href="group___r_c_c___flag.html#gac9fb963db446c16e46a18908f7fe1927" title="RCC_FLAG_LSERDY">RCC_FLAG_LSERDY</a> LSE oscillator clock ready. </li>
+<li><a class="el" href="group___r_c_c___flag.html#ga8c5e4992314d347597621bfe7ab10d72" title="RCC_FLAG_LSIRDY">RCC_FLAG_LSIRDY</a> LSI oscillator clock ready. </li>
+<li><a class="el" href="group___r_c_c___flag.html#gabfc3ab5d4a8a94ec1c9f38794ce37ad6" title="RCC_FLAG_PINRST">RCC_FLAG_PINRST</a> Pin reset. </li>
+<li><a class="el" href="group___r_c_c___flag.html#ga39ad309070f416720207eece5da7dc2c" title="RCC_FLAG_PORRST">RCC_FLAG_PORRST</a> POR/PDR reset. </li>
+<li><a class="el" href="group___r_c_c___flag.html#gaf7852615e9b19f0b2dbc8d08c7594b52" title="RCC_FLAG_SFTRST">RCC_FLAG_SFTRST</a> Software reset. </li>
+<li><a class="el" href="group___r_c_c___flag.html#gaac46bac8a97cf16635ff7ffc1e6c657f" title="RCC_FLAG_IWDGRST">RCC_FLAG_IWDGRST</a> Independent Watchdog reset. </li>
+<li><a class="el" href="group___r_c_c___flag.html#gaa80b60b2d497ccd7b7de1075009999a7" title="RCC_FLAG_WWDGRST">RCC_FLAG_WWDGRST</a> Window Watchdog reset. </li>
+<li><a class="el" href="group___r_c_c___flag.html#ga67049531354aed7546971163d02c9920" title="RCC_FLAG_LPWRRST">RCC_FLAG_LPWRRST</a> Low Power reset. </li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">The</td><td>new state of <b>FLAG</b> (TRUE or FALSE). </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__rcc_8h_source.html#l01129">1129</a> del archivo <a class="el" href="stm32f1xx__hal__rcc_8h_source.html">stm32f1xx_hal_rcc.h</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal__rcc_8c_source.html#l00811">HAL_RCC_ClockConfig()</a>, <a class="el" href="stm32f1xx__hal__rcc_8c_source.html#l00345">HAL_RCC_OscConfig()</a> y <a class="el" href="stm32f1xx__hal__rcc__ex_8c_source.html#l00098">HAL_RCCEx_PeriphCLKConfig()</a>.</p>
+
+</div>
+</div>
+<a id="ga134af980b892f362c05ae21922cd828d" name="ga134af980b892f362c05ae21922cd828d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga134af980b892f362c05ae21922cd828d">&#9670;&#160;</a></span>__HAL_RCC_GET_IT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define __HAL_RCC_GET_IT</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>__INTERRUPT__</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__rcc_8h.html">stm32f1xx_hal_rcc.h</a>&quot;</code></p>
+<b>Valor:</b><div class="fragment"><div class="line">((<a class="code hl_define" href="group___peripheral__declaration.html#ga74944438a086975793d26ae48d5882d4">RCC</a>-&gt;CIR &amp; (__INTERRUPT__)) == (__INTERRUPT__))</div>
+</div><!-- fragment -->
+<p>Check the RCC's interrupt has occurred or not. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">__INTERRUPT__</td><td>specifies the RCC interrupt source to check. This parameter can be one of the following values: <ul>
+<li><a class="el" href="group___r_c_c___interrupt.html#ga2b4ef277c1b71f96e0bef4b9a72fca94" title="RCC_IT_LSIRDY">RCC_IT_LSIRDY</a> LSI ready interrupt. </li>
+<li><a class="el" href="group___r_c_c___interrupt.html#gad6b6e78a426850f595ef180d292a673d" title="RCC_IT_LSERDY">RCC_IT_LSERDY</a> LSE ready interrupt. </li>
+<li><a class="el" href="group___r_c_c___interrupt.html#ga69637e51b71f73f519c8c0a0613d042f" title="RCC_IT_HSIRDY">RCC_IT_HSIRDY</a> HSI ready interrupt. </li>
+<li><a class="el" href="group___r_c_c___interrupt.html#gad13eaede352bca59611e6cae68665866" title="RCC_IT_HSERDY">RCC_IT_HSERDY</a> HSE ready interrupt. </li>
+<li><a class="el" href="group___r_c_c___interrupt.html#ga68d48e7811fb58f2649dce6cf0d823d9" title="RCC_IT_PLLRDY">RCC_IT_PLLRDY</a> Main PLL ready interrupt.  </li>
+<li><a class="el" href="group___r_c_c___interrupt.html#ga9bb34a4912d2084dc1c0834eb53aa7a3" title="RCC_IT_CSS">RCC_IT_CSS</a> Clock Security System interrupt </li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">The</td><td>new state of <b>INTERRUPT</b> (TRUE or FALSE). </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__rcc_8h_source.html#l01098">1098</a> del archivo <a class="el" href="stm32f1xx__hal__rcc_8h_source.html">stm32f1xx_hal_rcc.h</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal__rcc_8c_source.html#l01345">HAL_RCC_NMI_IRQHandler()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generado el <span class="timestamp"></span> para MICRO-Firmware por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

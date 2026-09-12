@@ -1,0 +1,1316 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>MICRO-Firmware: FLASHEx Private Functions</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="codefolding.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  extensions: ["tex2jax.js"],
+  jax: ["input/TeX","output/HTML-CSS"],
+});
+</script>
+<script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">MICRO-Firmware<span id="projectnumber">&#160;EX100923v01</span>
+   </div>
+   <div id="projectbrief">Firmware de Péndulo Invertido Autónomo de Dos Ruedas (STM32F103C8T6 - ARM Cortex-M3)</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Buscar" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('group___f_l_a_s_h_ex___private___functions.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">FLASHEx Private Functions <div class="ingroups"><a class="el" href="group___s_t_m32_f1xx___h_a_l___driver.html">STM32F1xx_HAL_Driver</a> &raquo; <a class="el" href="group___f_l_a_s_h_ex.html">FLASHEx</a></div></div></div>
+</div><!--header-->
+<div class="contents">
+<div id="dynsection-0" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Diagrama de colaboración de FLASHEx Private Functions:</div>
+<div id="dynsection-0-summary" class="dynsummary">
+</div>
+<div id="dynsection-0-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___f_l_a_s_h_ex___private___functions.svg" width="326" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Funciones</h2></td></tr>
+<tr class="memitem:gaa300a694929be042b75ca73d2812de54" id="r_gaa300a694929be042b75ca73d2812de54"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#gaa300a694929be042b75ca73d2812de54">FLASH_MassErase</a> (uint32_t Banks)</td></tr>
+<tr class="memdesc:gaa300a694929be042b75ca73d2812de54"><td class="mdescLeft">&#160;</td><td class="mdescRight">Full erase of FLASH memory Bank.  <br /></td></tr>
+<tr class="memitem:gabc1e012f5503602b9b3142354f21f0e7" id="r_gabc1e012f5503602b9b3142354f21f0e7"><td class="memItemLeft">static <a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="#gabc1e012f5503602b9b3142354f21f0e7">FLASH_OB_DisableWRP</a> (uint32_t WriteProtectPage)</td></tr>
+<tr class="memdesc:gabc1e012f5503602b9b3142354f21f0e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable the write protection of the desired pages.  <br /></td></tr>
+<tr class="memitem:ga76eb4e121e6c592fde1010e1f5f6c6f7" id="r_ga76eb4e121e6c592fde1010e1f5f6c6f7"><td class="memItemLeft">static <a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="#ga76eb4e121e6c592fde1010e1f5f6c6f7">FLASH_OB_EnableWRP</a> (uint32_t WriteProtectPage)</td></tr>
+<tr class="memdesc:ga76eb4e121e6c592fde1010e1f5f6c6f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable the write protection of the desired pages.  <br /></td></tr>
+<tr class="memitem:ga6095ad7961811c88abc165a1b6cbe6c0" id="r_ga6095ad7961811c88abc165a1b6cbe6c0"><td class="memItemLeft">static uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ga6095ad7961811c88abc165a1b6cbe6c0">FLASH_OB_GetRDP</a> (void)</td></tr>
+<tr class="memdesc:ga6095ad7961811c88abc165a1b6cbe6c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the FLASH Read Protection level.  <br /></td></tr>
+<tr class="memitem:ga8f665f6b0c7a3156643169174a0b1813" id="r_ga8f665f6b0c7a3156643169174a0b1813"><td class="memItemLeft">static uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#ga8f665f6b0c7a3156643169174a0b1813">FLASH_OB_GetUser</a> (void)</td></tr>
+<tr class="memdesc:ga8f665f6b0c7a3156643169174a0b1813"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the FLASH User Option Byte value.  <br /></td></tr>
+<tr class="memitem:ga1eac0c2fa722589c9af70cdaf3248289" id="r_ga1eac0c2fa722589c9af70cdaf3248289"><td class="memItemLeft">static uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ga1eac0c2fa722589c9af70cdaf3248289">FLASH_OB_GetWRP</a> (void)</td></tr>
+<tr class="memdesc:ga1eac0c2fa722589c9af70cdaf3248289"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the FLASH Write Protection Option Bytes value.  <br /></td></tr>
+<tr class="memitem:ga3cfacf31ab41b33b1302d3d99f8a9dd5" id="r_ga3cfacf31ab41b33b1302d3d99f8a9dd5"><td class="memItemLeft">static <a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="#ga3cfacf31ab41b33b1302d3d99f8a9dd5">FLASH_OB_ProgramData</a> (uint32_t Address, uint8_t Data)</td></tr>
+<tr class="memdesc:ga3cfacf31ab41b33b1302d3d99f8a9dd5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Programs a half word at a specified Option Byte Data address.  <br /></td></tr>
+<tr class="memitem:gaf63ed01adc57bb6e1fcc136c6fa914de" id="r_gaf63ed01adc57bb6e1fcc136c6fa914de"><td class="memItemLeft">static <a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="#gaf63ed01adc57bb6e1fcc136c6fa914de">FLASH_OB_RDP_LevelConfig</a> (uint8_t ReadProtectLevel)</td></tr>
+<tr class="memdesc:gaf63ed01adc57bb6e1fcc136c6fa914de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the read protection level.  <br /></td></tr>
+<tr class="memitem:ga35e5853f3bd5d796c58a341608e6f985" id="r_ga35e5853f3bd5d796c58a341608e6f985"><td class="memItemLeft">static <a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="#ga35e5853f3bd5d796c58a341608e6f985">FLASH_OB_UserConfig</a> (uint8_t UserConfig)</td></tr>
+<tr class="memdesc:ga35e5853f3bd5d796c58a341608e6f985"><td class="mdescLeft">&#160;</td><td class="mdescRight">Program the FLASH User Option Byte.  <br /></td></tr>
+<tr class="memitem:ga35fd7dd876d296b20c2733f55dde7da7" id="r_ga35fd7dd876d296b20c2733f55dde7da7"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ga35fd7dd876d296b20c2733f55dde7da7">FLASH_PageErase</a> (uint32_t PageAddress)</td></tr>
+<tr class="memdesc:ga35fd7dd876d296b20c2733f55dde7da7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Erase the specified FLASH memory page.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Descripción detallada</h2>
+<div class="textblock"></div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Documentación de funciones</h2>
+<a id="gaa300a694929be042b75ca73d2812de54" name="gaa300a694929be042b75ca73d2812de54"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa300a694929be042b75ca73d2812de54">&#9670;&#160;</a></span>FLASH_MassErase()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FLASH_MassErase </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>Banks</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__flash__ex_8c.html">stm32f1xx_hal_flash_ex.c</a>&quot;</code></p>
+
+<p>Full erase of FLASH memory Bank. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Banks</td><td>Banks to be erased This parameter can be one of the following values: <ul>
+<li><a class="el" href="group___f_l_a_s_h_ex___banks.html#ga8ac3f24496e5de6a2f6bd3ff77f0ca53" title="FLASH_BANK_1">FLASH_BANK_1</a> Bank1 to be erased  </li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; No error</p>
+<p>&lt; Peripheral base address in the alias region</p>
+<p>&lt; Flash registers base address</p>
+<p>&lt; 0x00000004</p>
+<p>&lt; Mass Erase</p>
+<p>&lt; Peripheral base address in the alias region</p>
+<p>&lt; Flash registers base address</p>
+<p>&lt; 0x00000040</p>
+<p>&lt; Start</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html#l00590">590</a> del archivo <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html">stm32f1xx_hal_flash_ex.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  591</span>{</div>
+<div class="line"><span class="lineno">  592</span>  <span class="comment">/* Check the parameters */</span></div>
+<div class="line"><span class="lineno">  593</span>  <a class="code hl_define" href="stm32f1xx__hal__conf_8h.html#a631dea7b230e600555f979c62af1de21">assert_param</a>(<a class="code hl_define" href="group___f_l_a_s_h_ex___private___macros.html#ga13845f67e09ef81901c6fa683f13f086">IS_FLASH_BANK</a>(Banks));</div>
+<div class="line"><span class="lineno">  594</span> </div>
+<div class="line"><span class="lineno">  595</span>  <span class="comment">/* Clean the error context */</span></div>
+<div class="line"><span class="lineno">  596</span>  <a class="code hl_variable" href="group___f_l_a_s_h___private___variables.html#ga165f289b9549ab9094501a388afe9742">pFlash</a>.<a class="code hl_variable" href="struct_f_l_a_s_h___process_type_def.html#aaf5fd8d8b4d7b9a3f9602ab23fdd7a5b">ErrorCode</a> = <a class="code hl_define" href="group___f_l_a_s_h___error___codes.html#gae7fb9ee7198d393aba27ade3a9f50a70">HAL_FLASH_ERROR_NONE</a>;</div>
+<div class="line"><span class="lineno">  597</span> </div>
+<div class="line"><span class="lineno">  598</span><span class="preprocessor">#if defined(FLASH_BANK2_END)</span></div>
+<div class="line"><span class="lineno">  599</span>  <span class="keywordflow">if</span>(Banks == FLASH_BANK_BOTH)</div>
+<div class="line"><span class="lineno">  600</span>  {</div>
+<div class="line"><span class="lineno">  601</span>    <span class="comment">/* bank1 &amp; bank2 will be erased*/</span></div>
+<div class="line"><span class="lineno">  602</span>    <a class="code hl_define" href="group___exported__macros.html#ga26474f43799fbade9cf300e21dd3a91a">SET_BIT</a>(<a class="code hl_define" href="group___peripheral__declaration.html#ga844ea28ba1e0a5a0e497f16b61ea306b">FLASH</a>-&gt;CR, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga4a287aa5a625125301306a02fb69c53a">FLASH_CR_MER</a>);</div>
+<div class="line"><span class="lineno">  603</span>    <a class="code hl_define" href="group___exported__macros.html#ga26474f43799fbade9cf300e21dd3a91a">SET_BIT</a>(<a class="code hl_define" href="group___peripheral__declaration.html#ga844ea28ba1e0a5a0e497f16b61ea306b">FLASH</a>-&gt;CR2, FLASH_CR2_MER);</div>
+<div class="line"><span class="lineno">  604</span>    <a class="code hl_define" href="group___exported__macros.html#ga26474f43799fbade9cf300e21dd3a91a">SET_BIT</a>(<a class="code hl_define" href="group___peripheral__declaration.html#ga844ea28ba1e0a5a0e497f16b61ea306b">FLASH</a>-&gt;CR, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#gafe4dd28134f93f52b1d4ec5b36a99864">FLASH_CR_STRT</a>);</div>
+<div class="line"><span class="lineno">  605</span>    <a class="code hl_define" href="group___exported__macros.html#ga26474f43799fbade9cf300e21dd3a91a">SET_BIT</a>(<a class="code hl_define" href="group___peripheral__declaration.html#ga844ea28ba1e0a5a0e497f16b61ea306b">FLASH</a>-&gt;CR2, FLASH_CR2_STRT);</div>
+<div class="line"><span class="lineno">  606</span>  }</div>
+<div class="line"><span class="lineno">  607</span>  <span class="keywordflow">else</span> <span class="keywordflow">if</span>(Banks == FLASH_BANK_2)</div>
+<div class="line"><span class="lineno">  608</span>  {</div>
+<div class="line"><span class="lineno">  609</span>    <span class="comment">/*Only bank2 will be erased*/</span></div>
+<div class="line"><span class="lineno">  610</span>    <a class="code hl_define" href="group___exported__macros.html#ga26474f43799fbade9cf300e21dd3a91a">SET_BIT</a>(<a class="code hl_define" href="group___peripheral__declaration.html#ga844ea28ba1e0a5a0e497f16b61ea306b">FLASH</a>-&gt;CR2, FLASH_CR2_MER);</div>
+<div class="line"><span class="lineno">  611</span>    <a class="code hl_define" href="group___exported__macros.html#ga26474f43799fbade9cf300e21dd3a91a">SET_BIT</a>(<a class="code hl_define" href="group___peripheral__declaration.html#ga844ea28ba1e0a5a0e497f16b61ea306b">FLASH</a>-&gt;CR2, FLASH_CR2_STRT);</div>
+<div class="line"><span class="lineno">  612</span>  }</div>
+<div class="line"><span class="lineno">  613</span>  <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  614</span>  {</div>
+<div class="line"><span class="lineno">  615</span><span class="preprocessor">#endif </span><span class="comment">/* FLASH_BANK2_END */</span><span class="preprocessor"></span></div>
+<div class="line"><span class="lineno">  616</span><span class="preprocessor">#if !defined(FLASH_BANK2_END)</span></div>
+<div class="line"><span class="lineno">  617</span>  <span class="comment">/* Prevent unused argument(s) compilation warning */</span></div>
+<div class="line"><span class="lineno">  618</span>  UNUSED(Banks);</div>
+<div class="line"><span class="lineno">  619</span><span class="preprocessor">#endif </span><span class="comment">/* FLASH_BANK2_END */</span><span class="preprocessor">  </span></div>
+<div class="line"><span class="lineno">  620</span>    <span class="comment">/* Only bank1 will be erased*/</span></div>
+<div class="line"><span class="lineno">  621</span>    <a class="code hl_define" href="group___exported__macros.html#ga26474f43799fbade9cf300e21dd3a91a">SET_BIT</a>(<a class="code hl_define" href="group___peripheral__declaration.html#ga844ea28ba1e0a5a0e497f16b61ea306b">FLASH</a>-&gt;CR, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga4a287aa5a625125301306a02fb69c53a">FLASH_CR_MER</a>);</div>
+<div class="line"><span class="lineno">  622</span>    <a class="code hl_define" href="group___exported__macros.html#ga26474f43799fbade9cf300e21dd3a91a">SET_BIT</a>(<a class="code hl_define" href="group___peripheral__declaration.html#ga844ea28ba1e0a5a0e497f16b61ea306b">FLASH</a>-&gt;CR, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#gafe4dd28134f93f52b1d4ec5b36a99864">FLASH_CR_STRT</a>);</div>
+<div class="line"><span class="lineno">  623</span><span class="preprocessor">#if defined(FLASH_BANK2_END)</span></div>
+<div class="line"><span class="lineno">  624</span>  }</div>
+<div class="line"><span class="lineno">  625</span><span class="preprocessor">#endif </span><span class="comment">/* FLASH_BANK2_END */</span><span class="preprocessor"></span></div>
+<div class="line"><span class="lineno">  626</span>}</div>
+<div class="ttc" id="agroup___exported__macros_html_ga26474f43799fbade9cf300e21dd3a91a"><div class="ttname"><a href="group___exported__macros.html#ga26474f43799fbade9cf300e21dd3a91a">SET_BIT</a></div><div class="ttdeci">#define SET_BIT(REG, BIT)</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx_8h_source.html#l00177">stm32f1xx.h:177</a></div></div>
+<div class="ttc" id="agroup___f_l_a_s_h___error___codes_html_gae7fb9ee7198d393aba27ade3a9f50a70"><div class="ttname"><a href="group___f_l_a_s_h___error___codes.html#gae7fb9ee7198d393aba27ade3a9f50a70">HAL_FLASH_ERROR_NONE</a></div><div class="ttdeci">#define HAL_FLASH_ERROR_NONE</div><div class="ttdoc">No error.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__flash_8h_source.html#l00115">stm32f1xx_hal_flash.h:115</a></div></div>
+<div class="ttc" id="agroup___f_l_a_s_h___private___variables_html_ga165f289b9549ab9094501a388afe9742"><div class="ttname"><a href="group___f_l_a_s_h___private___variables.html#ga165f289b9549ab9094501a388afe9742">pFlash</a></div><div class="ttdeci">FLASH_ProcessTypeDef pFlash</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__flash_8c_source.html#l00119">stm32f1xx_hal_flash.c:119</a></div></div>
+<div class="ttc" id="agroup___f_l_a_s_h_ex___private___macros_html_ga13845f67e09ef81901c6fa683f13f086"><div class="ttname"><a href="group___f_l_a_s_h_ex___private___macros.html#ga13845f67e09ef81901c6fa683f13f086">IS_FLASH_BANK</a></div><div class="ttdeci">#define IS_FLASH_BANK(BANK)</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__flash__ex_8h_source.html#l00114">stm32f1xx_hal_flash_ex.h:114</a></div></div>
+<div class="ttc" id="agroup___peripheral___registers___bits___definition_html_ga4a287aa5a625125301306a02fb69c53a"><div class="ttname"><a href="group___peripheral___registers___bits___definition.html#ga4a287aa5a625125301306a02fb69c53a">FLASH_CR_MER</a></div><div class="ttdeci">#define FLASH_CR_MER</div><div class="ttdoc">Mass Erase.</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l09747">stm32f103xb.h:9747</a></div></div>
+<div class="ttc" id="agroup___peripheral___registers___bits___definition_html_gafe4dd28134f93f52b1d4ec5b36a99864"><div class="ttname"><a href="group___peripheral___registers___bits___definition.html#gafe4dd28134f93f52b1d4ec5b36a99864">FLASH_CR_STRT</a></div><div class="ttdeci">#define FLASH_CR_STRT</div><div class="ttdoc">Start.</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l09756">stm32f103xb.h:9756</a></div></div>
+<div class="ttc" id="agroup___peripheral__declaration_html_ga844ea28ba1e0a5a0e497f16b61ea306b"><div class="ttname"><a href="group___peripheral__declaration.html#ga844ea28ba1e0a5a0e497f16b61ea306b">FLASH</a></div><div class="ttdeci">#define FLASH</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l00685">stm32f103xb.h:685</a></div></div>
+<div class="ttc" id="astm32f1xx__hal__conf_8h_html_a631dea7b230e600555f979c62af1de21"><div class="ttname"><a href="stm32f1xx__hal__conf_8h.html#a631dea7b230e600555f979c62af1de21">assert_param</a></div><div class="ttdeci">#define assert_param(expr)</div><div class="ttdoc">Include module&#39;s header file.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__conf_8h_source.html#l00373">stm32f1xx_hal_conf.h:373</a></div></div>
+<div class="ttc" id="astruct_f_l_a_s_h___process_type_def_html_aaf5fd8d8b4d7b9a3f9602ab23fdd7a5b"><div class="ttname"><a href="struct_f_l_a_s_h___process_type_def.html#aaf5fd8d8b4d7b9a3f9602ab23fdd7a5b">FLASH_ProcessTypeDef::ErrorCode</a></div><div class="ttdeci">volatile uint32_t ErrorCode</div><div class="ttdoc">&lt; Defines &#39;read / write&#39; permissions</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__flash_8h_source.html#l00098">stm32f1xx_hal_flash.h:98</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__hal__conf_8h_source.html#l00373">assert_param</a>, <a class="el" href="stm32f1xx__hal__flash_8h_source.html#l00098">FLASH_ProcessTypeDef::ErrorCode</a>, <a class="el" href="stm32f103xb_8h_source.html#l00685">FLASH</a>, <a class="el" href="stm32f103xb_8h_source.html#l09747">FLASH_CR_MER</a>, <a class="el" href="stm32f103xb_8h_source.html#l09756">FLASH_CR_STRT</a>, <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html#l00590">FLASH_MassErase()</a>, <a class="el" href="stm32f1xx__hal__flash_8h_source.html#l00115">HAL_FLASH_ERROR_NONE</a>, <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html#l00114">IS_FLASH_BANK</a>, <a class="el" href="stm32f1xx__hal__flash_8c_source.html#l00119">pFlash</a> y <a class="el" href="stm32f1xx_8h_source.html#l00177">SET_BIT</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html#l00590">FLASH_MassErase()</a>, <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html#l00157">HAL_FLASHEx_Erase()</a> y <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html#l00317">HAL_FLASHEx_Erase_IT()</a>.</p>
+<div id="dynsection-1" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-1-summary" class="dynsummary">
+</div>
+<div id="dynsection-1-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___f_l_a_s_h_ex___private___functions_gaa300a694929be042b75ca73d2812de54_cgraph.svg" width="148" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-2" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-2-summary" class="dynsummary">
+</div>
+<div id="dynsection-2-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___f_l_a_s_h_ex___private___functions_gaa300a694929be042b75ca73d2812de54_icgraph.svg" width="370" height="136"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="gabc1e012f5503602b9b3142354f21f0e7" name="gabc1e012f5503602b9b3142354f21f0e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gabc1e012f5503602b9b3142354f21f0e7">&#9670;&#160;</a></span>FLASH_OB_DisableWRP()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a> FLASH_OB_DisableWRP </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>WriteProtectPage</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__flash__ex_8c.html">stm32f1xx_hal_flash_ex.c</a>&quot;</code></p>
+
+<p>Disable the write protection of the desired pages. </p>
+<dl class="section note"><dt>Nota</dt><dd>An option byte erase is done automatically in this function. </dd>
+<dd>
+When the memory read protection level is selected (RDP level = 1), it is not possible to program or erase the flash page i if <br  />
+ debug features are connected or boot code is executed in RAM, even if nWRPi = 1</dd></dl>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">WriteProtectPage</td><td>specifies the page(s) to be write unprotected. The value of this parameter depend on device used within the same series </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname"><a class="el" href="group___h_a_l.html" title="HAL module driver.">HAL</a></td><td>status </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; No error</p>
+<p>&lt; Peripheral base address in the alias region</p>
+<p>&lt; Flash registers base address</p>
+<p>&lt; 0x00000010</p>
+<p>&lt; Option Byte Programming</p>
+<p>&lt; Flash Option Bytes base address</p>
+<p>&lt; Flash Option Bytes base address</p>
+<p>&lt; Flash Option Bytes base address</p>
+<p>&lt; Flash Option Bytes base address</p>
+<p>&lt; Peripheral base address in the alias region</p>
+<p>&lt; Flash registers base address</p>
+<p>&lt; 0x00000010</p>
+<p>&lt; Option Byte Programming</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html#l00762">762</a> del archivo <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html">stm32f1xx_hal_flash_ex.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  763</span>{</div>
+<div class="line"><span class="lineno">  764</span>  <a class="code hl_enumeration" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a> status = <a class="code hl_enumvalue" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632">HAL_OK</a>;</div>
+<div class="line"><span class="lineno">  765</span>  uint16_t WRP0_Data = 0xFFFF;</div>
+<div class="line"><span class="lineno">  766</span><span class="preprocessor">#if defined(FLASH_WRP1_WRP1)</span></div>
+<div class="line"><span class="lineno">  767</span>  uint16_t WRP1_Data = 0xFFFF;</div>
+<div class="line"><span class="lineno">  768</span><span class="preprocessor">#endif </span><span class="comment">/* FLASH_WRP1_WRP1 */</span><span class="preprocessor"></span></div>
+<div class="line"><span class="lineno">  769</span><span class="preprocessor">#if defined(FLASH_WRP2_WRP2)</span></div>
+<div class="line"><span class="lineno">  770</span>  uint16_t WRP2_Data = 0xFFFF;</div>
+<div class="line"><span class="lineno">  771</span><span class="preprocessor">#endif </span><span class="comment">/* FLASH_WRP2_WRP2 */</span><span class="preprocessor"></span></div>
+<div class="line"><span class="lineno">  772</span><span class="preprocessor">#if defined(FLASH_WRP3_WRP3)</span></div>
+<div class="line"><span class="lineno">  773</span>  uint16_t WRP3_Data = 0xFFFF;</div>
+<div class="line"><span class="lineno">  774</span><span class="preprocessor">#endif </span><span class="comment">/* FLASH_WRP3_WRP3 */</span><span class="preprocessor"></span></div>
+<div class="line"><span class="lineno">  775</span>  </div>
+<div class="line"><span class="lineno">  776</span>  <span class="comment">/* Check the parameters */</span></div>
+<div class="line"><span class="lineno">  777</span>  <a class="code hl_define" href="stm32f1xx__hal__conf_8h.html#a631dea7b230e600555f979c62af1de21">assert_param</a>(<a class="code hl_define" href="group___f_l_a_s_h_ex___private___macros.html#ga0833946dba77c6e2537b4afe94c2bfe1">IS_OB_WRP</a>(WriteProtectPage));</div>
+<div class="line"><span class="lineno">  778</span> </div>
+<div class="line"><span class="lineno">  779</span>  <span class="comment">/* Get current write protected pages and the new pages to be unprotected ******/</span></div>
+<div class="line"><span class="lineno">  780</span>  WriteProtectPage = (<a class="code hl_function" href="#ga1eac0c2fa722589c9af70cdaf3248289">FLASH_OB_GetWRP</a>() | WriteProtectPage);</div>
+<div class="line"><span class="lineno">  781</span> </div>
+<div class="line"><span class="lineno">  782</span><span class="preprocessor">#if defined(OB_WRP_PAGES0TO15MASK)</span></div>
+<div class="line"><span class="lineno">  783</span>  WRP0_Data = (uint16_t)(WriteProtectPage &amp; OB_WRP_PAGES0TO15MASK);</div>
+<div class="line"><span class="lineno">  784</span><span class="preprocessor">#elif defined(OB_WRP_PAGES0TO31MASK)</span></div>
+<div class="line"><span class="lineno">  785</span>  WRP0_Data = (uint16_t)(WriteProtectPage &amp; <a class="code hl_define" href="group___f_l_a_s_h_ex___o_b___write___protection.html#ga1c7bcead4496bd011c66d79c6740d7d7">OB_WRP_PAGES0TO31MASK</a>);</div>
+<div class="line"><span class="lineno">  786</span><span class="preprocessor">#endif </span><span class="comment">/* OB_WRP_PAGES0TO31MASK */</span><span class="preprocessor"></span></div>
+<div class="line"><span class="lineno">  787</span>  </div>
+<div class="line"><span class="lineno">  788</span><span class="preprocessor">#if defined(OB_WRP_PAGES16TO31MASK)</span></div>
+<div class="line"><span class="lineno">  789</span>  WRP1_Data = (uint16_t)((WriteProtectPage &amp; OB_WRP_PAGES16TO31MASK) &gt;&gt; 8U);</div>
+<div class="line"><span class="lineno">  790</span><span class="preprocessor">#elif defined(OB_WRP_PAGES32TO63MASK)</span></div>
+<div class="line"><span class="lineno">  791</span>  WRP1_Data = (uint16_t)((WriteProtectPage &amp; <a class="code hl_define" href="group___f_l_a_s_h_ex___o_b___write___protection.html#ga06b1666694d0f9d172fcfac8ed630b87">OB_WRP_PAGES32TO63MASK</a>) &gt;&gt; 8U);</div>
+<div class="line"><span class="lineno">  792</span><span class="preprocessor">#endif </span><span class="comment">/* OB_WRP_PAGES32TO63MASK */</span><span class="preprocessor"></span></div>
+<div class="line"><span class="lineno">  793</span> </div>
+<div class="line"><span class="lineno">  794</span><span class="preprocessor">#if defined(OB_WRP_PAGES64TO95MASK)</span></div>
+<div class="line"><span class="lineno">  795</span>  WRP2_Data = (uint16_t)((WriteProtectPage &amp; <a class="code hl_define" href="group___f_l_a_s_h_ex___o_b___write___protection.html#ga5441570333511e8236fb98c57f789637">OB_WRP_PAGES64TO95MASK</a>) &gt;&gt; 16U);</div>
+<div class="line"><span class="lineno">  796</span><span class="preprocessor">#endif </span><span class="comment">/* OB_WRP_PAGES64TO95MASK */</span><span class="preprocessor"></span></div>
+<div class="line"><span class="lineno">  797</span><span class="preprocessor">#if defined(OB_WRP_PAGES32TO47MASK)</span></div>
+<div class="line"><span class="lineno">  798</span>  WRP2_Data = (uint16_t)((WriteProtectPage &amp; OB_WRP_PAGES32TO47MASK) &gt;&gt; 16U);</div>
+<div class="line"><span class="lineno">  799</span><span class="preprocessor">#endif </span><span class="comment">/* OB_WRP_PAGES32TO47MASK */</span><span class="preprocessor"></span></div>
+<div class="line"><span class="lineno">  800</span> </div>
+<div class="line"><span class="lineno">  801</span><span class="preprocessor">#if defined(OB_WRP_PAGES96TO127MASK)</span></div>
+<div class="line"><span class="lineno">  802</span>  WRP3_Data = (uint16_t)((WriteProtectPage &amp; <a class="code hl_define" href="group___f_l_a_s_h_ex___o_b___write___protection.html#gaf30804e3b3595154330088860516f539">OB_WRP_PAGES96TO127MASK</a>) &gt;&gt; 24U); </div>
+<div class="line"><span class="lineno">  803</span><span class="preprocessor">#elif defined(OB_WRP_PAGES48TO255MASK)</span></div>
+<div class="line"><span class="lineno">  804</span>  WRP3_Data = (uint16_t)((WriteProtectPage &amp; OB_WRP_PAGES48TO255MASK) &gt;&gt; 24U); </div>
+<div class="line"><span class="lineno">  805</span><span class="preprocessor">#elif defined(OB_WRP_PAGES48TO511MASK)</span></div>
+<div class="line"><span class="lineno">  806</span>  WRP3_Data = (uint16_t)((WriteProtectPage &amp; OB_WRP_PAGES48TO511MASK) &gt;&gt; 24U); </div>
+<div class="line"><span class="lineno">  807</span><span class="preprocessor">#elif defined(OB_WRP_PAGES48TO127MASK)</span></div>
+<div class="line"><span class="lineno">  808</span>  WRP3_Data = (uint16_t)((WriteProtectPage &amp; OB_WRP_PAGES48TO127MASK) &gt;&gt; 24U); </div>
+<div class="line"><span class="lineno">  809</span><span class="preprocessor">#endif </span><span class="comment">/* OB_WRP_PAGES96TO127MASK */</span><span class="preprocessor"></span></div>
+<div class="line"><span class="lineno">  810</span> </div>
+<div class="line"><span class="lineno">  811</span>    </div>
+<div class="line"><span class="lineno">  812</span>  <span class="comment">/* Wait for last operation to be completed */</span></div>
+<div class="line"><span class="lineno">  813</span>  status = <a class="code hl_function" href="group___f_l_a_s_h___private___functions.html#gaf89afc110a32ac9dcf0d06b89ffd9224">FLASH_WaitForLastOperation</a>((uint32_t)<a class="code hl_define" href="group___f_l_a_s_h___private___constants.html#ga76e8ea58ef37913dcdb61efae2d6ab8f">FLASH_TIMEOUT_VALUE</a>);</div>
+<div class="line"><span class="lineno">  814</span> </div>
+<div class="line"><span class="lineno">  815</span>  <span class="keywordflow">if</span>(status == <a class="code hl_enumvalue" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632">HAL_OK</a>)</div>
+<div class="line"><span class="lineno">  816</span>  { </div>
+<div class="line"><span class="lineno">  817</span>    <span class="comment">/* Clean the error context */</span></div>
+<div class="line"><span class="lineno">  818</span>    <a class="code hl_variable" href="group___f_l_a_s_h___private___variables.html#ga165f289b9549ab9094501a388afe9742">pFlash</a>.<a class="code hl_variable" href="struct_f_l_a_s_h___process_type_def.html#aaf5fd8d8b4d7b9a3f9602ab23fdd7a5b">ErrorCode</a> = <a class="code hl_define" href="group___f_l_a_s_h___error___codes.html#gae7fb9ee7198d393aba27ade3a9f50a70">HAL_FLASH_ERROR_NONE</a>;</div>
+<div class="line"><span class="lineno">  819</span> </div>
+<div class="line"><span class="lineno">  820</span>    <span class="comment">/* To be able to write again option byte, need to perform a option byte erase */</span></div>
+<div class="line"><span class="lineno">  821</span>    status = <a class="code hl_function" href="group___f_l_a_s_h_ex___exported___functions___group2.html#ga74d4265b88afed50efe9fda0f025979a">HAL_FLASHEx_OBErase</a>();</div>
+<div class="line"><span class="lineno">  822</span>    <span class="keywordflow">if</span> (status == <a class="code hl_enumvalue" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632">HAL_OK</a>)  </div>
+<div class="line"><span class="lineno">  823</span>    {</div>
+<div class="line"><span class="lineno">  824</span>      <a class="code hl_define" href="group___exported__macros.html#ga26474f43799fbade9cf300e21dd3a91a">SET_BIT</a>(<a class="code hl_define" href="group___peripheral__declaration.html#ga844ea28ba1e0a5a0e497f16b61ea306b">FLASH</a>-&gt;CR, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga6736a5478a87f35a6a0cb66d8784a5ab">FLASH_CR_OPTPG</a>);</div>
+<div class="line"><span class="lineno">  825</span> </div>
+<div class="line"><span class="lineno">  826</span><span class="preprocessor">#if defined(FLASH_WRP0_WRP0)</span></div>
+<div class="line"><span class="lineno">  827</span>      <span class="keywordflow">if</span>(WRP0_Data != 0xFFU)</div>
+<div class="line"><span class="lineno">  828</span>      {</div>
+<div class="line"><span class="lineno">  829</span>        <a class="code hl_define" href="group___peripheral__declaration.html#gad2d5f875cdc6d696735f20fa23a895c3">OB</a>-&gt;WRP0 |= WRP0_Data;</div>
+<div class="line"><span class="lineno">  830</span>        </div>
+<div class="line"><span class="lineno">  831</span>        <span class="comment">/* Wait for last operation to be completed */</span></div>
+<div class="line"><span class="lineno">  832</span>        status = <a class="code hl_function" href="group___f_l_a_s_h___private___functions.html#gaf89afc110a32ac9dcf0d06b89ffd9224">FLASH_WaitForLastOperation</a>((uint32_t)<a class="code hl_define" href="group___f_l_a_s_h___private___constants.html#ga76e8ea58ef37913dcdb61efae2d6ab8f">FLASH_TIMEOUT_VALUE</a>);</div>
+<div class="line"><span class="lineno">  833</span>      }</div>
+<div class="line"><span class="lineno">  834</span><span class="preprocessor">#endif </span><span class="comment">/* FLASH_WRP0_WRP0 */</span><span class="preprocessor"></span></div>
+<div class="line"><span class="lineno">  835</span> </div>
+<div class="line"><span class="lineno">  836</span><span class="preprocessor">#if defined(FLASH_WRP1_WRP1)</span></div>
+<div class="line"><span class="lineno">  837</span>      <span class="keywordflow">if</span>((status == <a class="code hl_enumvalue" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632">HAL_OK</a>) &amp;&amp; (WRP1_Data != 0xFFU))</div>
+<div class="line"><span class="lineno">  838</span>      {</div>
+<div class="line"><span class="lineno">  839</span>        <a class="code hl_define" href="group___peripheral__declaration.html#gad2d5f875cdc6d696735f20fa23a895c3">OB</a>-&gt;WRP1 |= WRP1_Data;</div>
+<div class="line"><span class="lineno">  840</span>        </div>
+<div class="line"><span class="lineno">  841</span>        <span class="comment">/* Wait for last operation to be completed */</span></div>
+<div class="line"><span class="lineno">  842</span>        status = <a class="code hl_function" href="group___f_l_a_s_h___private___functions.html#gaf89afc110a32ac9dcf0d06b89ffd9224">FLASH_WaitForLastOperation</a>((uint32_t)<a class="code hl_define" href="group___f_l_a_s_h___private___constants.html#ga76e8ea58ef37913dcdb61efae2d6ab8f">FLASH_TIMEOUT_VALUE</a>);</div>
+<div class="line"><span class="lineno">  843</span>      }</div>
+<div class="line"><span class="lineno">  844</span><span class="preprocessor">#endif </span><span class="comment">/* FLASH_WRP1_WRP1 */</span><span class="preprocessor"></span></div>
+<div class="line"><span class="lineno">  845</span> </div>
+<div class="line"><span class="lineno">  846</span><span class="preprocessor">#if defined(FLASH_WRP2_WRP2)</span></div>
+<div class="line"><span class="lineno">  847</span>      <span class="keywordflow">if</span>((status == <a class="code hl_enumvalue" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632">HAL_OK</a>) &amp;&amp; (WRP2_Data != 0xFFU))</div>
+<div class="line"><span class="lineno">  848</span>      {</div>
+<div class="line"><span class="lineno">  849</span>        <a class="code hl_define" href="group___peripheral__declaration.html#gad2d5f875cdc6d696735f20fa23a895c3">OB</a>-&gt;WRP2 |= WRP2_Data;</div>
+<div class="line"><span class="lineno">  850</span>        </div>
+<div class="line"><span class="lineno">  851</span>        <span class="comment">/* Wait for last operation to be completed */</span></div>
+<div class="line"><span class="lineno">  852</span>        status = <a class="code hl_function" href="group___f_l_a_s_h___private___functions.html#gaf89afc110a32ac9dcf0d06b89ffd9224">FLASH_WaitForLastOperation</a>((uint32_t)<a class="code hl_define" href="group___f_l_a_s_h___private___constants.html#ga76e8ea58ef37913dcdb61efae2d6ab8f">FLASH_TIMEOUT_VALUE</a>);</div>
+<div class="line"><span class="lineno">  853</span>      }</div>
+<div class="line"><span class="lineno">  854</span><span class="preprocessor">#endif </span><span class="comment">/* FLASH_WRP2_WRP2 */</span><span class="preprocessor"></span></div>
+<div class="line"><span class="lineno">  855</span> </div>
+<div class="line"><span class="lineno">  856</span><span class="preprocessor">#if defined(FLASH_WRP3_WRP3)</span></div>
+<div class="line"><span class="lineno">  857</span>      <span class="keywordflow">if</span>((status == <a class="code hl_enumvalue" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632">HAL_OK</a>) &amp;&amp; (WRP3_Data != 0xFFU))</div>
+<div class="line"><span class="lineno">  858</span>      {</div>
+<div class="line"><span class="lineno">  859</span>        <a class="code hl_define" href="group___peripheral__declaration.html#gad2d5f875cdc6d696735f20fa23a895c3">OB</a>-&gt;WRP3 |= WRP3_Data;</div>
+<div class="line"><span class="lineno">  860</span>        </div>
+<div class="line"><span class="lineno">  861</span>        <span class="comment">/* Wait for last operation to be completed */</span></div>
+<div class="line"><span class="lineno">  862</span>        status = <a class="code hl_function" href="group___f_l_a_s_h___private___functions.html#gaf89afc110a32ac9dcf0d06b89ffd9224">FLASH_WaitForLastOperation</a>((uint32_t)<a class="code hl_define" href="group___f_l_a_s_h___private___constants.html#ga76e8ea58ef37913dcdb61efae2d6ab8f">FLASH_TIMEOUT_VALUE</a>);</div>
+<div class="line"><span class="lineno">  863</span>      }</div>
+<div class="line"><span class="lineno">  864</span><span class="preprocessor">#endif </span><span class="comment">/* FLASH_WRP3_WRP3 */</span><span class="preprocessor"></span></div>
+<div class="line"><span class="lineno">  865</span> </div>
+<div class="line"><span class="lineno">  866</span>      <span class="comment">/* if the program operation is completed, disable the OPTPG Bit */</span></div>
+<div class="line"><span class="lineno">  867</span>      <a class="code hl_define" href="group___exported__macros.html#ga133aae6fc0d41bffab39ab223a7001de">CLEAR_BIT</a>(<a class="code hl_define" href="group___peripheral__declaration.html#ga844ea28ba1e0a5a0e497f16b61ea306b">FLASH</a>-&gt;CR, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga6736a5478a87f35a6a0cb66d8784a5ab">FLASH_CR_OPTPG</a>);</div>
+<div class="line"><span class="lineno">  868</span>    }</div>
+<div class="line"><span class="lineno">  869</span>  }</div>
+<div class="line"><span class="lineno">  870</span>  <span class="keywordflow">return</span> status;</div>
+<div class="line"><span class="lineno">  871</span>}</div>
+<div class="ttc" id="agroup___exported__macros_html_ga133aae6fc0d41bffab39ab223a7001de"><div class="ttname"><a href="group___exported__macros.html#ga133aae6fc0d41bffab39ab223a7001de">CLEAR_BIT</a></div><div class="ttdeci">#define CLEAR_BIT(REG, BIT)</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx_8h_source.html#l00179">stm32f1xx.h:179</a></div></div>
+<div class="ttc" id="agroup___f_l_a_s_h___private___constants_html_ga76e8ea58ef37913dcdb61efae2d6ab8f"><div class="ttname"><a href="group___f_l_a_s_h___private___constants.html#ga76e8ea58ef37913dcdb61efae2d6ab8f">FLASH_TIMEOUT_VALUE</a></div><div class="ttdeci">#define FLASH_TIMEOUT_VALUE</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__flash_8h_source.html#l00040">stm32f1xx_hal_flash.h:40</a></div></div>
+<div class="ttc" id="agroup___f_l_a_s_h___private___functions_html_gaf89afc110a32ac9dcf0d06b89ffd9224"><div class="ttname"><a href="group___f_l_a_s_h___private___functions.html#gaf89afc110a32ac9dcf0d06b89ffd9224">FLASH_WaitForLastOperation</a></div><div class="ttdeci">HAL_StatusTypeDef FLASH_WaitForLastOperation(uint32_t Timeout)</div><div class="ttdoc">Wait for a FLASH operation to complete.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__flash_8c_source.html#l00819">stm32f1xx_hal_flash.c:819</a></div></div>
+<div class="ttc" id="agroup___f_l_a_s_h_ex___exported___functions___group2_html_ga74d4265b88afed50efe9fda0f025979a"><div class="ttname"><a href="group___f_l_a_s_h_ex___exported___functions___group2.html#ga74d4265b88afed50efe9fda0f025979a">HAL_FLASHEx_OBErase</a></div><div class="ttdeci">HAL_StatusTypeDef HAL_FLASHEx_OBErase(void)</div><div class="ttdoc">Erases the FLASH option bytes.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__flash__ex_8c_source.html#l00392">stm32f1xx_hal_flash_ex.c:392</a></div></div>
+<div class="ttc" id="agroup___f_l_a_s_h_ex___o_b___write___protection_html_ga06b1666694d0f9d172fcfac8ed630b87"><div class="ttname"><a href="group___f_l_a_s_h_ex___o_b___write___protection.html#ga06b1666694d0f9d172fcfac8ed630b87">OB_WRP_PAGES32TO63MASK</a></div><div class="ttdeci">#define OB_WRP_PAGES32TO63MASK</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__flash__ex_8h_source.html#l00409">stm32f1xx_hal_flash_ex.h:409</a></div></div>
+<div class="ttc" id="agroup___f_l_a_s_h_ex___o_b___write___protection_html_ga1c7bcead4496bd011c66d79c6740d7d7"><div class="ttname"><a href="group___f_l_a_s_h_ex___o_b___write___protection.html#ga1c7bcead4496bd011c66d79c6740d7d7">OB_WRP_PAGES0TO31MASK</a></div><div class="ttdeci">#define OB_WRP_PAGES0TO31MASK</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__flash__ex_8h_source.html#l00408">stm32f1xx_hal_flash_ex.h:408</a></div></div>
+<div class="ttc" id="agroup___f_l_a_s_h_ex___o_b___write___protection_html_ga5441570333511e8236fb98c57f789637"><div class="ttname"><a href="group___f_l_a_s_h_ex___o_b___write___protection.html#ga5441570333511e8236fb98c57f789637">OB_WRP_PAGES64TO95MASK</a></div><div class="ttdeci">#define OB_WRP_PAGES64TO95MASK</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__flash__ex_8h_source.html#l00410">stm32f1xx_hal_flash_ex.h:410</a></div></div>
+<div class="ttc" id="agroup___f_l_a_s_h_ex___o_b___write___protection_html_gaf30804e3b3595154330088860516f539"><div class="ttname"><a href="group___f_l_a_s_h_ex___o_b___write___protection.html#gaf30804e3b3595154330088860516f539">OB_WRP_PAGES96TO127MASK</a></div><div class="ttdeci">#define OB_WRP_PAGES96TO127MASK</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__flash__ex_8h_source.html#l00411">stm32f1xx_hal_flash_ex.h:411</a></div></div>
+<div class="ttc" id="agroup___f_l_a_s_h_ex___private___functions_html_ga1eac0c2fa722589c9af70cdaf3248289"><div class="ttname"><a href="#ga1eac0c2fa722589c9af70cdaf3248289">FLASH_OB_GetWRP</a></div><div class="ttdeci">static uint32_t FLASH_OB_GetWRP(void)</div><div class="ttdoc">Return the FLASH Write Protection Option Bytes value.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__flash__ex_8c_source.html#l01016">stm32f1xx_hal_flash_ex.c:1016</a></div></div>
+<div class="ttc" id="agroup___f_l_a_s_h_ex___private___macros_html_ga0833946dba77c6e2537b4afe94c2bfe1"><div class="ttname"><a href="group___f_l_a_s_h_ex___private___macros.html#ga0833946dba77c6e2537b4afe94c2bfe1">IS_OB_WRP</a></div><div class="ttdeci">#define IS_OB_WRP(PAGE)</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__flash__ex_8h_source.html#l00107">stm32f1xx_hal_flash_ex.h:107</a></div></div>
+<div class="ttc" id="agroup___peripheral___registers___bits___definition_html_ga6736a5478a87f35a6a0cb66d8784a5ab"><div class="ttname"><a href="group___peripheral___registers___bits___definition.html#ga6736a5478a87f35a6a0cb66d8784a5ab">FLASH_CR_OPTPG</a></div><div class="ttdeci">#define FLASH_CR_OPTPG</div><div class="ttdoc">Option Byte Programming.</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l09750">stm32f103xb.h:9750</a></div></div>
+<div class="ttc" id="agroup___peripheral__declaration_html_gad2d5f875cdc6d696735f20fa23a895c3"><div class="ttname"><a href="group___peripheral__declaration.html#gad2d5f875cdc6d696735f20fa23a895c3">OB</a></div><div class="ttdeci">#define OB</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l00686">stm32f103xb.h:686</a></div></div>
+<div class="ttc" id="astm32f1xx__hal__def_8h_html_a63c0679d1cb8b8c684fbb0632743478f"><div class="ttname"><a href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a></div><div class="ttdeci">HAL_StatusTypeDef</div><div class="ttdoc">HAL Status structures definition.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__def_8h_source.html#l00038">stm32f1xx_hal_def.h:39</a></div></div>
+<div class="ttc" id="astm32f1xx__hal__def_8h_html_a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632"><div class="ttname"><a href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632">HAL_OK</a></div><div class="ttdeci">@ HAL_OK</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__def_8h_source.html#l00040">stm32f1xx_hal_def.h:40</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__hal__conf_8h_source.html#l00373">assert_param</a>, <a class="el" href="stm32f1xx_8h_source.html#l00179">CLEAR_BIT</a>, <a class="el" href="stm32f1xx__hal__flash_8h_source.html#l00098">FLASH_ProcessTypeDef::ErrorCode</a>, <a class="el" href="stm32f103xb_8h_source.html#l00685">FLASH</a>, <a class="el" href="stm32f103xb_8h_source.html#l09750">FLASH_CR_OPTPG</a>, <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html#l00762">FLASH_OB_DisableWRP()</a>, <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html#l01016">FLASH_OB_GetWRP()</a>, <a class="el" href="stm32f1xx__hal__flash_8h_source.html#l00040">FLASH_TIMEOUT_VALUE</a>, <a class="el" href="stm32f1xx__hal__flash_8c_source.html#l00819">FLASH_WaitForLastOperation()</a>, <a class="el" href="stm32f1xx__hal__flash_8h_source.html#l00115">HAL_FLASH_ERROR_NONE</a>, <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html#l00392">HAL_FLASHEx_OBErase()</a>, <a class="el" href="stm32f1xx__hal__def_8h_source.html#l00040">HAL_OK</a>, <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html#l00107">IS_OB_WRP</a>, <a class="el" href="stm32f103xb_8h_source.html#l00686">OB</a>, <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html#l00408">OB_WRP_PAGES0TO31MASK</a>, <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html#l00409">OB_WRP_PAGES32TO63MASK</a>, <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html#l00410">OB_WRP_PAGES64TO95MASK</a>, <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html#l00411">OB_WRP_PAGES96TO127MASK</a>, <a class="el" href="stm32f1xx__hal__flash_8c_source.html#l00119">pFlash</a> y <a class="el" href="stm32f1xx_8h_source.html#l00177">SET_BIT</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html#l00762">FLASH_OB_DisableWRP()</a> y <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html#l00441">HAL_FLASHEx_OBProgram()</a>.</p>
+<div id="dynsection-3" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-3-summary" class="dynsummary">
+</div>
+<div id="dynsection-3-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___f_l_a_s_h_ex___private___functions_gabc1e012f5503602b9b3142354f21f0e7_cgraph.svg" width="100%" height="534"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div id="dynsection-4" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-4-summary" class="dynsummary">
+</div>
+<div id="dynsection-4-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___f_l_a_s_h_ex___private___functions_gabc1e012f5503602b9b3142354f21f0e7_icgraph.svg" width="420" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ga76eb4e121e6c592fde1010e1f5f6c6f7" name="ga76eb4e121e6c592fde1010e1f5f6c6f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga76eb4e121e6c592fde1010e1f5f6c6f7">&#9670;&#160;</a></span>FLASH_OB_EnableWRP()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a> FLASH_OB_EnableWRP </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>WriteProtectPage</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__flash__ex_8c.html">stm32f1xx_hal_flash_ex.c</a>&quot;</code></p>
+
+<p>Enable the write protection of the desired pages. </p>
+<dl class="section note"><dt>Nota</dt><dd>An option byte erase is done automatically in this function. </dd>
+<dd>
+When the memory read protection level is selected (RDP level = 1), it is not possible to program or erase the flash page i if debug features are connected or boot code is executed in RAM, even if nWRPi = 1</dd></dl>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">WriteProtectPage</td><td>specifies the page(s) to be write protected. The value of this parameter depend on device used within the same series </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname"><a class="el" href="group___h_a_l.html" title="HAL module driver.">HAL</a></td><td>status </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; No error</p>
+<p>&lt; Peripheral base address in the alias region</p>
+<p>&lt; Flash registers base address</p>
+<p>&lt; 0x00000010</p>
+<p>&lt; Option Byte Programming</p>
+<p>&lt; Flash Option Bytes base address</p>
+<p>&lt; Flash Option Bytes base address</p>
+<p>&lt; Flash Option Bytes base address</p>
+<p>&lt; Flash Option Bytes base address</p>
+<p>&lt; Peripheral base address in the alias region</p>
+<p>&lt; Flash registers base address</p>
+<p>&lt; 0x00000010</p>
+<p>&lt; Option Byte Programming</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html#l00639">639</a> del archivo <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html">stm32f1xx_hal_flash_ex.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  640</span>{</div>
+<div class="line"><span class="lineno">  641</span>  <a class="code hl_enumeration" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a> status = <a class="code hl_enumvalue" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632">HAL_OK</a>;</div>
+<div class="line"><span class="lineno">  642</span>  uint16_t WRP0_Data = 0xFFFF;</div>
+<div class="line"><span class="lineno">  643</span><span class="preprocessor">#if defined(FLASH_WRP1_WRP1)</span></div>
+<div class="line"><span class="lineno">  644</span>  uint16_t WRP1_Data = 0xFFFF;</div>
+<div class="line"><span class="lineno">  645</span><span class="preprocessor">#endif </span><span class="comment">/* FLASH_WRP1_WRP1 */</span><span class="preprocessor"></span></div>
+<div class="line"><span class="lineno">  646</span><span class="preprocessor">#if defined(FLASH_WRP2_WRP2)</span></div>
+<div class="line"><span class="lineno">  647</span>  uint16_t WRP2_Data = 0xFFFF;</div>
+<div class="line"><span class="lineno">  648</span><span class="preprocessor">#endif </span><span class="comment">/* FLASH_WRP2_WRP2 */</span><span class="preprocessor"></span></div>
+<div class="line"><span class="lineno">  649</span><span class="preprocessor">#if defined(FLASH_WRP3_WRP3)</span></div>
+<div class="line"><span class="lineno">  650</span>  uint16_t WRP3_Data = 0xFFFF;</div>
+<div class="line"><span class="lineno">  651</span><span class="preprocessor">#endif </span><span class="comment">/* FLASH_WRP3_WRP3 */</span><span class="preprocessor"></span></div>
+<div class="line"><span class="lineno">  652</span>  </div>
+<div class="line"><span class="lineno">  653</span>  <span class="comment">/* Check the parameters */</span></div>
+<div class="line"><span class="lineno">  654</span>  <a class="code hl_define" href="stm32f1xx__hal__conf_8h.html#a631dea7b230e600555f979c62af1de21">assert_param</a>(<a class="code hl_define" href="group___f_l_a_s_h_ex___private___macros.html#ga0833946dba77c6e2537b4afe94c2bfe1">IS_OB_WRP</a>(WriteProtectPage));</div>
+<div class="line"><span class="lineno">  655</span>    </div>
+<div class="line"><span class="lineno">  656</span>  <span class="comment">/* Get current write protected pages and the new pages to be protected ******/</span></div>
+<div class="line"><span class="lineno">  657</span>  WriteProtectPage = (uint32_t)(~((~<a class="code hl_function" href="#ga1eac0c2fa722589c9af70cdaf3248289">FLASH_OB_GetWRP</a>()) | WriteProtectPage));</div>
+<div class="line"><span class="lineno">  658</span>  </div>
+<div class="line"><span class="lineno">  659</span><span class="preprocessor">#if defined(OB_WRP_PAGES0TO15MASK)</span></div>
+<div class="line"><span class="lineno">  660</span>  WRP0_Data = (uint16_t)(WriteProtectPage &amp; OB_WRP_PAGES0TO15MASK);</div>
+<div class="line"><span class="lineno">  661</span><span class="preprocessor">#elif defined(OB_WRP_PAGES0TO31MASK)</span></div>
+<div class="line"><span class="lineno">  662</span>  WRP0_Data = (uint16_t)(WriteProtectPage &amp; <a class="code hl_define" href="group___f_l_a_s_h_ex___o_b___write___protection.html#ga1c7bcead4496bd011c66d79c6740d7d7">OB_WRP_PAGES0TO31MASK</a>);</div>
+<div class="line"><span class="lineno">  663</span><span class="preprocessor">#endif </span><span class="comment">/* OB_WRP_PAGES0TO31MASK */</span><span class="preprocessor"></span></div>
+<div class="line"><span class="lineno">  664</span>  </div>
+<div class="line"><span class="lineno">  665</span><span class="preprocessor">#if defined(OB_WRP_PAGES16TO31MASK)</span></div>
+<div class="line"><span class="lineno">  666</span>  WRP1_Data = (uint16_t)((WriteProtectPage &amp; OB_WRP_PAGES16TO31MASK) &gt;&gt; 8U);</div>
+<div class="line"><span class="lineno">  667</span><span class="preprocessor">#elif defined(OB_WRP_PAGES32TO63MASK)</span></div>
+<div class="line"><span class="lineno">  668</span>  WRP1_Data = (uint16_t)((WriteProtectPage &amp; <a class="code hl_define" href="group___f_l_a_s_h_ex___o_b___write___protection.html#ga06b1666694d0f9d172fcfac8ed630b87">OB_WRP_PAGES32TO63MASK</a>) &gt;&gt; 8U);</div>
+<div class="line"><span class="lineno">  669</span><span class="preprocessor">#endif </span><span class="comment">/* OB_WRP_PAGES32TO63MASK */</span><span class="preprocessor"></span></div>
+<div class="line"><span class="lineno">  670</span> </div>
+<div class="line"><span class="lineno">  671</span><span class="preprocessor">#if defined(OB_WRP_PAGES64TO95MASK)</span></div>
+<div class="line"><span class="lineno">  672</span>  WRP2_Data = (uint16_t)((WriteProtectPage &amp; <a class="code hl_define" href="group___f_l_a_s_h_ex___o_b___write___protection.html#ga5441570333511e8236fb98c57f789637">OB_WRP_PAGES64TO95MASK</a>) &gt;&gt; 16U);</div>
+<div class="line"><span class="lineno">  673</span><span class="preprocessor">#endif </span><span class="comment">/* OB_WRP_PAGES64TO95MASK */</span><span class="preprocessor"></span></div>
+<div class="line"><span class="lineno">  674</span><span class="preprocessor">#if defined(OB_WRP_PAGES32TO47MASK)</span></div>
+<div class="line"><span class="lineno">  675</span>  WRP2_Data = (uint16_t)((WriteProtectPage &amp; OB_WRP_PAGES32TO47MASK) &gt;&gt; 16U);</div>
+<div class="line"><span class="lineno">  676</span><span class="preprocessor">#endif </span><span class="comment">/* OB_WRP_PAGES32TO47MASK */</span><span class="preprocessor"></span></div>
+<div class="line"><span class="lineno">  677</span> </div>
+<div class="line"><span class="lineno">  678</span><span class="preprocessor">#if defined(OB_WRP_PAGES96TO127MASK)</span></div>
+<div class="line"><span class="lineno">  679</span>  WRP3_Data = (uint16_t)((WriteProtectPage &amp; <a class="code hl_define" href="group___f_l_a_s_h_ex___o_b___write___protection.html#gaf30804e3b3595154330088860516f539">OB_WRP_PAGES96TO127MASK</a>) &gt;&gt; 24U); </div>
+<div class="line"><span class="lineno">  680</span><span class="preprocessor">#elif defined(OB_WRP_PAGES48TO255MASK)</span></div>
+<div class="line"><span class="lineno">  681</span>  WRP3_Data = (uint16_t)((WriteProtectPage &amp; OB_WRP_PAGES48TO255MASK) &gt;&gt; 24U); </div>
+<div class="line"><span class="lineno">  682</span><span class="preprocessor">#elif defined(OB_WRP_PAGES48TO511MASK)</span></div>
+<div class="line"><span class="lineno">  683</span>  WRP3_Data = (uint16_t)((WriteProtectPage &amp; OB_WRP_PAGES48TO511MASK) &gt;&gt; 24U); </div>
+<div class="line"><span class="lineno">  684</span><span class="preprocessor">#elif defined(OB_WRP_PAGES48TO127MASK)</span></div>
+<div class="line"><span class="lineno">  685</span>  WRP3_Data = (uint16_t)((WriteProtectPage &amp; OB_WRP_PAGES48TO127MASK) &gt;&gt; 24U); </div>
+<div class="line"><span class="lineno">  686</span><span class="preprocessor">#endif </span><span class="comment">/* OB_WRP_PAGES96TO127MASK */</span><span class="preprocessor"></span></div>
+<div class="line"><span class="lineno">  687</span>  </div>
+<div class="line"><span class="lineno">  688</span>  <span class="comment">/* Wait for last operation to be completed */</span></div>
+<div class="line"><span class="lineno">  689</span>  status = <a class="code hl_function" href="group___f_l_a_s_h___private___functions.html#gaf89afc110a32ac9dcf0d06b89ffd9224">FLASH_WaitForLastOperation</a>((uint32_t)<a class="code hl_define" href="group___f_l_a_s_h___private___constants.html#ga76e8ea58ef37913dcdb61efae2d6ab8f">FLASH_TIMEOUT_VALUE</a>);</div>
+<div class="line"><span class="lineno">  690</span> </div>
+<div class="line"><span class="lineno">  691</span>  <span class="keywordflow">if</span>(status == <a class="code hl_enumvalue" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632">HAL_OK</a>)</div>
+<div class="line"><span class="lineno">  692</span>  { </div>
+<div class="line"><span class="lineno">  693</span>    <span class="comment">/* Clean the error context */</span></div>
+<div class="line"><span class="lineno">  694</span>    <a class="code hl_variable" href="group___f_l_a_s_h___private___variables.html#ga165f289b9549ab9094501a388afe9742">pFlash</a>.<a class="code hl_variable" href="struct_f_l_a_s_h___process_type_def.html#aaf5fd8d8b4d7b9a3f9602ab23fdd7a5b">ErrorCode</a> = <a class="code hl_define" href="group___f_l_a_s_h___error___codes.html#gae7fb9ee7198d393aba27ade3a9f50a70">HAL_FLASH_ERROR_NONE</a>;</div>
+<div class="line"><span class="lineno">  695</span> </div>
+<div class="line"><span class="lineno">  696</span>    <span class="comment">/* To be able to write again option byte, need to perform a option byte erase */</span></div>
+<div class="line"><span class="lineno">  697</span>    status = <a class="code hl_function" href="group___f_l_a_s_h_ex___exported___functions___group2.html#ga74d4265b88afed50efe9fda0f025979a">HAL_FLASHEx_OBErase</a>();</div>
+<div class="line"><span class="lineno">  698</span>    <span class="keywordflow">if</span> (status == <a class="code hl_enumvalue" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632">HAL_OK</a>)  </div>
+<div class="line"><span class="lineno">  699</span>    {</div>
+<div class="line"><span class="lineno">  700</span>      <span class="comment">/* Enable write protection */</span></div>
+<div class="line"><span class="lineno">  701</span>      <a class="code hl_define" href="group___exported__macros.html#ga26474f43799fbade9cf300e21dd3a91a">SET_BIT</a>(<a class="code hl_define" href="group___peripheral__declaration.html#ga844ea28ba1e0a5a0e497f16b61ea306b">FLASH</a>-&gt;CR, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga6736a5478a87f35a6a0cb66d8784a5ab">FLASH_CR_OPTPG</a>);</div>
+<div class="line"><span class="lineno">  702</span> </div>
+<div class="line"><span class="lineno">  703</span><span class="preprocessor">#if defined(FLASH_WRP0_WRP0)</span></div>
+<div class="line"><span class="lineno">  704</span>      <span class="keywordflow">if</span>(WRP0_Data != 0xFFU)</div>
+<div class="line"><span class="lineno">  705</span>      {</div>
+<div class="line"><span class="lineno">  706</span>        <a class="code hl_define" href="group___peripheral__declaration.html#gad2d5f875cdc6d696735f20fa23a895c3">OB</a>-&gt;WRP0 &amp;= WRP0_Data;</div>
+<div class="line"><span class="lineno">  707</span>        </div>
+<div class="line"><span class="lineno">  708</span>        <span class="comment">/* Wait for last operation to be completed */</span></div>
+<div class="line"><span class="lineno">  709</span>        status = <a class="code hl_function" href="group___f_l_a_s_h___private___functions.html#gaf89afc110a32ac9dcf0d06b89ffd9224">FLASH_WaitForLastOperation</a>((uint32_t)<a class="code hl_define" href="group___f_l_a_s_h___private___constants.html#ga76e8ea58ef37913dcdb61efae2d6ab8f">FLASH_TIMEOUT_VALUE</a>);</div>
+<div class="line"><span class="lineno">  710</span>      }</div>
+<div class="line"><span class="lineno">  711</span><span class="preprocessor">#endif </span><span class="comment">/* FLASH_WRP0_WRP0 */</span><span class="preprocessor"></span></div>
+<div class="line"><span class="lineno">  712</span> </div>
+<div class="line"><span class="lineno">  713</span><span class="preprocessor">#if defined(FLASH_WRP1_WRP1)</span></div>
+<div class="line"><span class="lineno">  714</span>      <span class="keywordflow">if</span>((status == <a class="code hl_enumvalue" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632">HAL_OK</a>) &amp;&amp; (WRP1_Data != 0xFFU))</div>
+<div class="line"><span class="lineno">  715</span>      {</div>
+<div class="line"><span class="lineno">  716</span>        <a class="code hl_define" href="group___peripheral__declaration.html#gad2d5f875cdc6d696735f20fa23a895c3">OB</a>-&gt;WRP1 &amp;= WRP1_Data;</div>
+<div class="line"><span class="lineno">  717</span>        </div>
+<div class="line"><span class="lineno">  718</span>        <span class="comment">/* Wait for last operation to be completed */</span></div>
+<div class="line"><span class="lineno">  719</span>        status = <a class="code hl_function" href="group___f_l_a_s_h___private___functions.html#gaf89afc110a32ac9dcf0d06b89ffd9224">FLASH_WaitForLastOperation</a>((uint32_t)<a class="code hl_define" href="group___f_l_a_s_h___private___constants.html#ga76e8ea58ef37913dcdb61efae2d6ab8f">FLASH_TIMEOUT_VALUE</a>);</div>
+<div class="line"><span class="lineno">  720</span>      }</div>
+<div class="line"><span class="lineno">  721</span><span class="preprocessor">#endif </span><span class="comment">/* FLASH_WRP1_WRP1 */</span><span class="preprocessor"></span></div>
+<div class="line"><span class="lineno">  722</span> </div>
+<div class="line"><span class="lineno">  723</span><span class="preprocessor">#if defined(FLASH_WRP2_WRP2)</span></div>
+<div class="line"><span class="lineno">  724</span>      <span class="keywordflow">if</span>((status == <a class="code hl_enumvalue" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632">HAL_OK</a>) &amp;&amp; (WRP2_Data != 0xFFU))</div>
+<div class="line"><span class="lineno">  725</span>      {</div>
+<div class="line"><span class="lineno">  726</span>        <a class="code hl_define" href="group___peripheral__declaration.html#gad2d5f875cdc6d696735f20fa23a895c3">OB</a>-&gt;WRP2 &amp;= WRP2_Data;</div>
+<div class="line"><span class="lineno">  727</span>        </div>
+<div class="line"><span class="lineno">  728</span>        <span class="comment">/* Wait for last operation to be completed */</span></div>
+<div class="line"><span class="lineno">  729</span>        status = <a class="code hl_function" href="group___f_l_a_s_h___private___functions.html#gaf89afc110a32ac9dcf0d06b89ffd9224">FLASH_WaitForLastOperation</a>((uint32_t)<a class="code hl_define" href="group___f_l_a_s_h___private___constants.html#ga76e8ea58ef37913dcdb61efae2d6ab8f">FLASH_TIMEOUT_VALUE</a>);</div>
+<div class="line"><span class="lineno">  730</span>      }</div>
+<div class="line"><span class="lineno">  731</span><span class="preprocessor">#endif </span><span class="comment">/* FLASH_WRP2_WRP2 */</span><span class="preprocessor"></span></div>
+<div class="line"><span class="lineno">  732</span> </div>
+<div class="line"><span class="lineno">  733</span><span class="preprocessor">#if defined(FLASH_WRP3_WRP3)</span></div>
+<div class="line"><span class="lineno">  734</span>      <span class="keywordflow">if</span>((status == <a class="code hl_enumvalue" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632">HAL_OK</a>) &amp;&amp; (WRP3_Data != 0xFFU))</div>
+<div class="line"><span class="lineno">  735</span>      {</div>
+<div class="line"><span class="lineno">  736</span>        <a class="code hl_define" href="group___peripheral__declaration.html#gad2d5f875cdc6d696735f20fa23a895c3">OB</a>-&gt;WRP3 &amp;= WRP3_Data;</div>
+<div class="line"><span class="lineno">  737</span>        </div>
+<div class="line"><span class="lineno">  738</span>        <span class="comment">/* Wait for last operation to be completed */</span></div>
+<div class="line"><span class="lineno">  739</span>        status = <a class="code hl_function" href="group___f_l_a_s_h___private___functions.html#gaf89afc110a32ac9dcf0d06b89ffd9224">FLASH_WaitForLastOperation</a>((uint32_t)<a class="code hl_define" href="group___f_l_a_s_h___private___constants.html#ga76e8ea58ef37913dcdb61efae2d6ab8f">FLASH_TIMEOUT_VALUE</a>);</div>
+<div class="line"><span class="lineno">  740</span>      }</div>
+<div class="line"><span class="lineno">  741</span><span class="preprocessor">#endif </span><span class="comment">/* FLASH_WRP3_WRP3 */</span><span class="preprocessor"></span></div>
+<div class="line"><span class="lineno">  742</span> </div>
+<div class="line"><span class="lineno">  743</span>      <span class="comment">/* if the program operation is completed, disable the OPTPG Bit */</span></div>
+<div class="line"><span class="lineno">  744</span>      <a class="code hl_define" href="group___exported__macros.html#ga133aae6fc0d41bffab39ab223a7001de">CLEAR_BIT</a>(<a class="code hl_define" href="group___peripheral__declaration.html#ga844ea28ba1e0a5a0e497f16b61ea306b">FLASH</a>-&gt;CR, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga6736a5478a87f35a6a0cb66d8784a5ab">FLASH_CR_OPTPG</a>);</div>
+<div class="line"><span class="lineno">  745</span>    }</div>
+<div class="line"><span class="lineno">  746</span>  }</div>
+<div class="line"><span class="lineno">  747</span>  </div>
+<div class="line"><span class="lineno">  748</span>  <span class="keywordflow">return</span> status;</div>
+<div class="line"><span class="lineno">  749</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__hal__conf_8h_source.html#l00373">assert_param</a>, <a class="el" href="stm32f1xx_8h_source.html#l00179">CLEAR_BIT</a>, <a class="el" href="stm32f1xx__hal__flash_8h_source.html#l00098">FLASH_ProcessTypeDef::ErrorCode</a>, <a class="el" href="stm32f103xb_8h_source.html#l00685">FLASH</a>, <a class="el" href="stm32f103xb_8h_source.html#l09750">FLASH_CR_OPTPG</a>, <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html#l00639">FLASH_OB_EnableWRP()</a>, <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html#l01016">FLASH_OB_GetWRP()</a>, <a class="el" href="stm32f1xx__hal__flash_8h_source.html#l00040">FLASH_TIMEOUT_VALUE</a>, <a class="el" href="stm32f1xx__hal__flash_8c_source.html#l00819">FLASH_WaitForLastOperation()</a>, <a class="el" href="stm32f1xx__hal__flash_8h_source.html#l00115">HAL_FLASH_ERROR_NONE</a>, <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html#l00392">HAL_FLASHEx_OBErase()</a>, <a class="el" href="stm32f1xx__hal__def_8h_source.html#l00040">HAL_OK</a>, <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html#l00107">IS_OB_WRP</a>, <a class="el" href="stm32f103xb_8h_source.html#l00686">OB</a>, <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html#l00408">OB_WRP_PAGES0TO31MASK</a>, <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html#l00409">OB_WRP_PAGES32TO63MASK</a>, <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html#l00410">OB_WRP_PAGES64TO95MASK</a>, <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html#l00411">OB_WRP_PAGES96TO127MASK</a>, <a class="el" href="stm32f1xx__hal__flash_8c_source.html#l00119">pFlash</a> y <a class="el" href="stm32f1xx_8h_source.html#l00177">SET_BIT</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html#l00639">FLASH_OB_EnableWRP()</a> y <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html#l00441">HAL_FLASHEx_OBProgram()</a>.</p>
+<div id="dynsection-5" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-5-summary" class="dynsummary">
+</div>
+<div id="dynsection-5-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___f_l_a_s_h_ex___private___functions_ga76eb4e121e6c592fde1010e1f5f6c6f7_cgraph.svg" width="100%" height="534"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div id="dynsection-6" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-6-summary" class="dynsummary">
+</div>
+<div id="dynsection-6-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___f_l_a_s_h_ex___private___functions_ga76eb4e121e6c592fde1010e1f5f6c6f7_icgraph.svg" width="416" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ga6095ad7961811c88abc165a1b6cbe6c0" name="ga6095ad7961811c88abc165a1b6cbe6c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6095ad7961811c88abc165a1b6cbe6c0">&#9670;&#160;</a></span>FLASH_OB_GetRDP()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t FLASH_OB_GetRDP </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__flash__ex_8c.html">stm32f1xx_hal_flash_ex.c</a>&quot;</code></p>
+
+<p>Returns the FLASH Read Protection level. </p>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">FLASH</td><td>RDP level This parameter can be one of the following values: <ul>
+<li><a class="el" href="group___f_l_a_s_h_ex___o_b___read___protection.html#ga22c7871bda267a2844ab9ca9f7bd38e4" title="OB_RDP_LEVEL_0">OB_RDP_LEVEL_0</a> No protection </li>
+<li><a class="el" href="group___f_l_a_s_h_ex___o_b___read___protection.html#ga778207f0d12d87bbff9d55e985aba5bc" title="OB_RDP_LEVEL_1">OB_RDP_LEVEL_1</a> Read protection of the memory </li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; Peripheral base address in the alias region</p>
+<p>&lt; Flash registers base address</p>
+<p>&lt; 0x00000002</p>
+<p>&lt; Read protection</p>
+<p>&lt; 0x00000002</p>
+<p>&lt; Read protection</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html#l01029">1029</a> del archivo <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html">stm32f1xx_hal_flash_ex.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1030</span>{</div>
+<div class="line"><span class="lineno"> 1031</span>  uint32_t readstatus = <a class="code hl_define" href="group___f_l_a_s_h_ex___o_b___read___protection.html#ga22c7871bda267a2844ab9ca9f7bd38e4">OB_RDP_LEVEL_0</a>;</div>
+<div class="line"><span class="lineno"> 1032</span>  uint32_t tmp_reg = 0U;</div>
+<div class="line"><span class="lineno"> 1033</span>  </div>
+<div class="line"><span class="lineno"> 1034</span>  <span class="comment">/* Read RDP level bits */</span></div>
+<div class="line"><span class="lineno"> 1035</span>  tmp_reg = <a class="code hl_define" href="group___exported__macros.html#ga822bb1bb9710d5f2fa6396b84e583c33">READ_BIT</a>(<a class="code hl_define" href="group___peripheral__declaration.html#ga844ea28ba1e0a5a0e497f16b61ea306b">FLASH</a>-&gt;OBR, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga052763d6c2daf0a422577a6c8a0be977">FLASH_OBR_RDPRT</a>);</div>
+<div class="line"><span class="lineno"> 1036</span> </div>
+<div class="line"><span class="lineno"> 1037</span>  <span class="keywordflow">if</span> (tmp_reg == <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga052763d6c2daf0a422577a6c8a0be977">FLASH_OBR_RDPRT</a>)</div>
+<div class="line"><span class="lineno"> 1038</span>  {</div>
+<div class="line"><span class="lineno"> 1039</span>    readstatus = <a class="code hl_define" href="group___f_l_a_s_h_ex___o_b___read___protection.html#ga778207f0d12d87bbff9d55e985aba5bc">OB_RDP_LEVEL_1</a>;</div>
+<div class="line"><span class="lineno"> 1040</span>  }</div>
+<div class="line"><span class="lineno"> 1041</span>  <span class="keywordflow">else</span> </div>
+<div class="line"><span class="lineno"> 1042</span>  {</div>
+<div class="line"><span class="lineno"> 1043</span>    readstatus = <a class="code hl_define" href="group___f_l_a_s_h_ex___o_b___read___protection.html#ga22c7871bda267a2844ab9ca9f7bd38e4">OB_RDP_LEVEL_0</a>;</div>
+<div class="line"><span class="lineno"> 1044</span>  }</div>
+<div class="line"><span class="lineno"> 1045</span> </div>
+<div class="line"><span class="lineno"> 1046</span>  <span class="keywordflow">return</span> readstatus;</div>
+<div class="line"><span class="lineno"> 1047</span>}</div>
+<div class="ttc" id="agroup___exported__macros_html_ga822bb1bb9710d5f2fa6396b84e583c33"><div class="ttname"><a href="group___exported__macros.html#ga822bb1bb9710d5f2fa6396b84e583c33">READ_BIT</a></div><div class="ttdeci">#define READ_BIT(REG, BIT)</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx_8h_source.html#l00181">stm32f1xx.h:181</a></div></div>
+<div class="ttc" id="agroup___f_l_a_s_h_ex___o_b___read___protection_html_ga22c7871bda267a2844ab9ca9f7bd38e4"><div class="ttname"><a href="group___f_l_a_s_h_ex___o_b___read___protection.html#ga22c7871bda267a2844ab9ca9f7bd38e4">OB_RDP_LEVEL_0</a></div><div class="ttdeci">#define OB_RDP_LEVEL_0</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__flash__ex_8h_source.html#l00445">stm32f1xx_hal_flash_ex.h:445</a></div></div>
+<div class="ttc" id="agroup___f_l_a_s_h_ex___o_b___read___protection_html_ga778207f0d12d87bbff9d55e985aba5bc"><div class="ttname"><a href="group___f_l_a_s_h_ex___o_b___read___protection.html#ga778207f0d12d87bbff9d55e985aba5bc">OB_RDP_LEVEL_1</a></div><div class="ttdeci">#define OB_RDP_LEVEL_1</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__flash__ex_8h_source.html#l00446">stm32f1xx_hal_flash_ex.h:446</a></div></div>
+<div class="ttc" id="agroup___peripheral___registers___bits___definition_html_ga052763d6c2daf0a422577a6c8a0be977"><div class="ttname"><a href="group___peripheral___registers___bits___definition.html#ga052763d6c2daf0a422577a6c8a0be977">FLASH_OBR_RDPRT</a></div><div class="ttdeci">#define FLASH_OBR_RDPRT</div><div class="ttdoc">Read protection.</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l09781">stm32f103xb.h:9781</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f103xb_8h_source.html#l00685">FLASH</a>, <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html#l01029">FLASH_OB_GetRDP()</a>, <a class="el" href="stm32f103xb_8h_source.html#l09781">FLASH_OBR_RDPRT</a>, <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html#l00445">OB_RDP_LEVEL_0</a>, <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html#l00446">OB_RDP_LEVEL_1</a> y <a class="el" href="stm32f1xx_8h_source.html#l00181">READ_BIT</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html#l01029">FLASH_OB_GetRDP()</a>, <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html#l00392">HAL_FLASHEx_OBErase()</a> y <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html#l00522">HAL_FLASHEx_OBGetConfig()</a>.</p>
+<div id="dynsection-7" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-7-summary" class="dynsummary">
+</div>
+<div id="dynsection-7-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___f_l_a_s_h_ex___private___functions_ga6095ad7961811c88abc165a1b6cbe6c0_cgraph.svg" width="159" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-8" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-8-summary" class="dynsummary">
+</div>
+<div id="dynsection-8-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___f_l_a_s_h_ex___private___functions_ga6095ad7961811c88abc165a1b6cbe6c0_icgraph.svg" width="100%" height="430"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="ga8f665f6b0c7a3156643169174a0b1813" name="ga8f665f6b0c7a3156643169174a0b1813"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga8f665f6b0c7a3156643169174a0b1813">&#9670;&#160;</a></span>FLASH_OB_GetUser()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t FLASH_OB_GetUser </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__flash__ex_8c.html">stm32f1xx_hal_flash_ex.c</a>&quot;</code></p>
+
+<p>Return the FLASH User Option Byte value. </p>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">The</td><td>FLASH User Option Bytes values: <a class="el" href="group___peripheral___registers___bits___definition.html#gaecbb0d905783c45eedfcc51230f9226b" title="IWDG SW.">FLASH_OBR_IWDG_SW(Bit2)</a>, <a class="el" href="group___peripheral___registers___bits___definition.html#ga8e84d6c706420de2335619043a06760d" title="nRST_STOP">FLASH_OBR_nRST_STOP(Bit3)</a>,<a class="el" href="group___peripheral___registers___bits___definition.html#ga3d863a776a1d5a136e267bac209f6a85" title="nRST_STDBY">FLASH_OBR_nRST_STDBY(Bit4)</a>. And FLASH_OBR_BFB2(Bit5) for STM32F101xG and STM32F103xG . </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; Peripheral base address in the alias region</p>
+<p>&lt; Flash registers base address</p>
+<p>&lt; 0x0000001C</p>
+<p>&lt; User Option Bytes</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html#l01055">1055</a> del archivo <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html">stm32f1xx_hal_flash_ex.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1056</span>{</div>
+<div class="line"><span class="lineno"> 1057</span>  <span class="comment">/* Return the User Option Byte */</span></div>
+<div class="line"><span class="lineno"> 1058</span>  <span class="keywordflow">return</span> (uint8_t)((<a class="code hl_define" href="group___exported__macros.html#gae7f188a4d26c9e713a48414783421071">READ_REG</a>(<a class="code hl_define" href="group___peripheral__declaration.html#ga844ea28ba1e0a5a0e497f16b61ea306b">FLASH</a>-&gt;OBR) &amp; <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga1585552c59923cb1e1979cdfdc77b991">FLASH_OBR_USER</a>) &gt;&gt; <a class="code hl_define" href="group___f_l_a_s_h_ex___private___constants.html#gaea4626c8b4ebc8ade6a84b7e1589e252">FLASH_POSITION_IWDGSW_BIT</a>);</div>
+<div class="line"><span class="lineno"> 1059</span>}</div>
+<div class="ttc" id="agroup___exported__macros_html_gae7f188a4d26c9e713a48414783421071"><div class="ttname"><a href="group___exported__macros.html#gae7f188a4d26c9e713a48414783421071">READ_REG</a></div><div class="ttdeci">#define READ_REG(REG)</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx_8h_source.html#l00187">stm32f1xx.h:187</a></div></div>
+<div class="ttc" id="agroup___f_l_a_s_h_ex___private___constants_html_gaea4626c8b4ebc8ade6a84b7e1589e252"><div class="ttname"><a href="group___f_l_a_s_h_ex___private___constants.html#gaea4626c8b4ebc8ade6a84b7e1589e252">FLASH_POSITION_IWDGSW_BIT</a></div><div class="ttdeci">#define FLASH_POSITION_IWDGSW_BIT</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__flash__ex_8c_source.html#l00074">stm32f1xx_hal_flash_ex.c:74</a></div></div>
+<div class="ttc" id="agroup___peripheral___registers___bits___definition_html_ga1585552c59923cb1e1979cdfdc77b991"><div class="ttname"><a href="group___peripheral___registers___bits___definition.html#ga1585552c59923cb1e1979cdfdc77b991">FLASH_OBR_USER</a></div><div class="ttdeci">#define FLASH_OBR_USER</div><div class="ttdoc">User Option Bytes.</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l09794">stm32f103xb.h:9794</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f103xb_8h_source.html#l00685">FLASH</a>, <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html#l01055">FLASH_OB_GetUser()</a>, <a class="el" href="stm32f103xb_8h_source.html#l09794">FLASH_OBR_USER</a>, <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html#l00074">FLASH_POSITION_IWDGSW_BIT</a> y <a class="el" href="stm32f1xx_8h_source.html#l00187">READ_REG</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html#l01055">FLASH_OB_GetUser()</a> y <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html#l00522">HAL_FLASHEx_OBGetConfig()</a>.</p>
+<div id="dynsection-9" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-9-summary" class="dynsummary">
+</div>
+<div id="dynsection-9-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___f_l_a_s_h_ex___private___functions_ga8f665f6b0c7a3156643169174a0b1813_cgraph.svg" width="158" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-10" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-10-summary" class="dynsummary">
+</div>
+<div id="dynsection-10-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___f_l_a_s_h_ex___private___functions_ga8f665f6b0c7a3156643169174a0b1813_icgraph.svg" width="404" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ga1eac0c2fa722589c9af70cdaf3248289" name="ga1eac0c2fa722589c9af70cdaf3248289"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga1eac0c2fa722589c9af70cdaf3248289">&#9670;&#160;</a></span>FLASH_OB_GetWRP()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t FLASH_OB_GetWRP </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__flash__ex_8c.html">stm32f1xx_hal_flash_ex.c</a>&quot;</code></p>
+
+<p>Return the FLASH Write Protection Option Bytes value. </p>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">The</td><td>FLASH Write Protection Option Bytes value </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; Peripheral base address in the alias region</p>
+<p>&lt; Flash registers base address</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html#l01016">1016</a> del archivo <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html">stm32f1xx_hal_flash_ex.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1017</span>{</div>
+<div class="line"><span class="lineno"> 1018</span>  <span class="comment">/* Return the FLASH write protection Register value */</span></div>
+<div class="line"><span class="lineno"> 1019</span>  <span class="keywordflow">return</span> (uint32_t)(<a class="code hl_define" href="group___exported__macros.html#gae7f188a4d26c9e713a48414783421071">READ_REG</a>(<a class="code hl_define" href="group___peripheral__declaration.html#ga844ea28ba1e0a5a0e497f16b61ea306b">FLASH</a>-&gt;WRPR));</div>
+<div class="line"><span class="lineno"> 1020</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f103xb_8h_source.html#l00685">FLASH</a>, <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html#l01016">FLASH_OB_GetWRP()</a> y <a class="el" href="stm32f1xx_8h_source.html#l00187">READ_REG</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html#l00762">FLASH_OB_DisableWRP()</a>, <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html#l00639">FLASH_OB_EnableWRP()</a>, <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html#l01016">FLASH_OB_GetWRP()</a> y <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html#l00522">HAL_FLASHEx_OBGetConfig()</a>.</p>
+<div id="dynsection-11" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-11-summary" class="dynsummary">
+</div>
+<div id="dynsection-11-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___f_l_a_s_h_ex___private___functions_ga1eac0c2fa722589c9af70cdaf3248289_cgraph.svg" width="162" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-12" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-12-summary" class="dynsummary">
+</div>
+<div id="dynsection-12-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___f_l_a_s_h_ex___private___functions_ga1eac0c2fa722589c9af70cdaf3248289_icgraph.svg" width="644" height="211"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ga3cfacf31ab41b33b1302d3d99f8a9dd5" name="ga3cfacf31ab41b33b1302d3d99f8a9dd5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3cfacf31ab41b33b1302d3d99f8a9dd5">&#9670;&#160;</a></span>FLASH_OB_ProgramData()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a> FLASH_OB_ProgramData </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>Address</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Data</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__flash__ex_8c.html">stm32f1xx_hal_flash_ex.c</a>&quot;</code></p>
+
+<p>Programs a half word at a specified Option Byte Data address. </p>
+<dl class="section note"><dt>Nota</dt><dd>The function <a class="el" href="group___f_l_a_s_h___exported___functions___group2.html#ga23d4ff42a8873bac585c92ce4f633747" title="HAL_FLASH_Unlock()">HAL_FLASH_Unlock()</a> should be called before to unlock the FLASH interface The function <a class="el" href="group___f_l_a_s_h___exported___functions___group2.html#ga6e8f380b7a938592f0b6f05d0ebf69c3" title="HAL_FLASH_OB_Unlock()">HAL_FLASH_OB_Unlock()</a> should be called before to unlock the options bytes The function <a class="el" href="group___f_l_a_s_h___exported___functions___group2.html#gafcb7356053078fd0d53fc7dc7376fdab" title="HAL_FLASH_OB_Launch()">HAL_FLASH_OB_Launch()</a> should be called after to force the reload of the options bytes (system reset will occur) Programming of the OB should be performed only after an erase (otherwise PGERR occurs) </dd></dl>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Address</td><td>specifies the address to be programmed. This parameter can be 0x1FFFF804 or 0x1FFFF806. </td></tr>
+    <tr><td class="paramname">Data</td><td>specifies the data to be programmed. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname"><a class="el" href="group___h_a_l.html" title="HAL module driver.">HAL</a></td><td>status </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; No error</p>
+<p>&lt; Peripheral base address in the alias region</p>
+<p>&lt; Flash registers base address</p>
+<p>&lt; 0x00000010</p>
+<p>&lt; Option Byte Programming</p>
+<p>&lt; Defines 'read / write' permissions</p>
+<p>&lt; Peripheral base address in the alias region</p>
+<p>&lt; Flash registers base address</p>
+<p>&lt; 0x00000010</p>
+<p>&lt; Option Byte Programming</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html#l00983">983</a> del archivo <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html">stm32f1xx_hal_flash_ex.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  984</span>{</div>
+<div class="line"><span class="lineno">  985</span>  <a class="code hl_enumeration" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a> status = <a class="code hl_enumvalue" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478fa5a04e395e501e4e400172c610478c4a4">HAL_ERROR</a>;</div>
+<div class="line"><span class="lineno">  986</span>  </div>
+<div class="line"><span class="lineno">  987</span>  <span class="comment">/* Check the parameters */</span></div>
+<div class="line"><span class="lineno">  988</span>  <a class="code hl_define" href="stm32f1xx__hal__conf_8h.html#a631dea7b230e600555f979c62af1de21">assert_param</a>(<a class="code hl_define" href="group___f_l_a_s_h_ex___private___macros.html#ga73fcac8d5f301a5c98518374ae926633">IS_OB_DATA_ADDRESS</a>(Address));</div>
+<div class="line"><span class="lineno">  989</span>  </div>
+<div class="line"><span class="lineno">  990</span>  <span class="comment">/* Wait for last operation to be completed */</span></div>
+<div class="line"><span class="lineno">  991</span>  status = <a class="code hl_function" href="group___f_l_a_s_h___private___functions.html#gaf89afc110a32ac9dcf0d06b89ffd9224">FLASH_WaitForLastOperation</a>((uint32_t)<a class="code hl_define" href="group___f_l_a_s_h___private___constants.html#ga76e8ea58ef37913dcdb61efae2d6ab8f">FLASH_TIMEOUT_VALUE</a>);</div>
+<div class="line"><span class="lineno">  992</span>  </div>
+<div class="line"><span class="lineno">  993</span>  <span class="keywordflow">if</span>(status == <a class="code hl_enumvalue" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632">HAL_OK</a>)</div>
+<div class="line"><span class="lineno">  994</span>  {</div>
+<div class="line"><span class="lineno">  995</span>    <span class="comment">/* Clean the error context */</span></div>
+<div class="line"><span class="lineno">  996</span>    <a class="code hl_variable" href="group___f_l_a_s_h___private___variables.html#ga165f289b9549ab9094501a388afe9742">pFlash</a>.<a class="code hl_variable" href="struct_f_l_a_s_h___process_type_def.html#aaf5fd8d8b4d7b9a3f9602ab23fdd7a5b">ErrorCode</a> = <a class="code hl_define" href="group___f_l_a_s_h___error___codes.html#gae7fb9ee7198d393aba27ade3a9f50a70">HAL_FLASH_ERROR_NONE</a>;</div>
+<div class="line"><span class="lineno">  997</span> </div>
+<div class="line"><span class="lineno">  998</span>    <span class="comment">/* Enables the Option Bytes Programming operation */</span></div>
+<div class="line"><span class="lineno">  999</span>    <a class="code hl_define" href="group___exported__macros.html#ga26474f43799fbade9cf300e21dd3a91a">SET_BIT</a>(<a class="code hl_define" href="group___peripheral__declaration.html#ga844ea28ba1e0a5a0e497f16b61ea306b">FLASH</a>-&gt;CR, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga6736a5478a87f35a6a0cb66d8784a5ab">FLASH_CR_OPTPG</a>); </div>
+<div class="line"><span class="lineno"> 1000</span>    *(__IO uint16_t*)Address = Data;</div>
+<div class="line"><span class="lineno"> 1001</span>    </div>
+<div class="line"><span class="lineno"> 1002</span>    <span class="comment">/* Wait for last operation to be completed */</span></div>
+<div class="line"><span class="lineno"> 1003</span>    status = <a class="code hl_function" href="group___f_l_a_s_h___private___functions.html#gaf89afc110a32ac9dcf0d06b89ffd9224">FLASH_WaitForLastOperation</a>((uint32_t)<a class="code hl_define" href="group___f_l_a_s_h___private___constants.html#ga76e8ea58ef37913dcdb61efae2d6ab8f">FLASH_TIMEOUT_VALUE</a>);</div>
+<div class="line"><span class="lineno"> 1004</span>    </div>
+<div class="line"><span class="lineno"> 1005</span>    <span class="comment">/* If the program operation is completed, disable the OPTPG Bit */</span></div>
+<div class="line"><span class="lineno"> 1006</span>    <a class="code hl_define" href="group___exported__macros.html#ga133aae6fc0d41bffab39ab223a7001de">CLEAR_BIT</a>(<a class="code hl_define" href="group___peripheral__declaration.html#ga844ea28ba1e0a5a0e497f16b61ea306b">FLASH</a>-&gt;CR, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga6736a5478a87f35a6a0cb66d8784a5ab">FLASH_CR_OPTPG</a>);</div>
+<div class="line"><span class="lineno"> 1007</span>  }</div>
+<div class="line"><span class="lineno"> 1008</span>  <span class="comment">/* Return the Option Byte Data Program Status */</span></div>
+<div class="line"><span class="lineno"> 1009</span>  <span class="keywordflow">return</span> status;</div>
+<div class="line"><span class="lineno"> 1010</span>}</div>
+<div class="ttc" id="agroup___f_l_a_s_h_ex___private___macros_html_ga73fcac8d5f301a5c98518374ae926633"><div class="ttname"><a href="group___f_l_a_s_h_ex___private___macros.html#ga73fcac8d5f301a5c98518374ae926633">IS_OB_DATA_ADDRESS</a></div><div class="ttdeci">#define IS_OB_DATA_ADDRESS(ADDRESS)</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__flash__ex_8h_source.html#l00061">stm32f1xx_hal_flash_ex.h:61</a></div></div>
+<div class="ttc" id="astm32f1xx__hal__def_8h_html_a63c0679d1cb8b8c684fbb0632743478fa5a04e395e501e4e400172c610478c4a4"><div class="ttname"><a href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478fa5a04e395e501e4e400172c610478c4a4">HAL_ERROR</a></div><div class="ttdeci">@ HAL_ERROR</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__def_8h_source.html#l00041">stm32f1xx_hal_def.h:41</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__hal__conf_8h_source.html#l00373">assert_param</a>, <a class="el" href="stm32f1xx_8h_source.html#l00179">CLEAR_BIT</a>, <a class="el" href="stm32f1xx__hal__flash_8h_source.html#l00098">FLASH_ProcessTypeDef::ErrorCode</a>, <a class="el" href="stm32f103xb_8h_source.html#l00685">FLASH</a>, <a class="el" href="stm32f103xb_8h_source.html#l09750">FLASH_CR_OPTPG</a>, <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html#l00983">FLASH_OB_ProgramData()</a>, <a class="el" href="stm32f1xx__hal__flash_8h_source.html#l00040">FLASH_TIMEOUT_VALUE</a>, <a class="el" href="stm32f1xx__hal__flash_8c_source.html#l00819">FLASH_WaitForLastOperation()</a>, <a class="el" href="stm32f1xx__hal__def_8h_source.html#l00041">HAL_ERROR</a>, <a class="el" href="stm32f1xx__hal__flash_8h_source.html#l00115">HAL_FLASH_ERROR_NONE</a>, <a class="el" href="stm32f1xx__hal__def_8h_source.html#l00040">HAL_OK</a>, <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html#l00061">IS_OB_DATA_ADDRESS</a>, <a class="el" href="stm32f1xx__hal__flash_8c_source.html#l00119">pFlash</a> y <a class="el" href="stm32f1xx_8h_source.html#l00177">SET_BIT</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html#l00983">FLASH_OB_ProgramData()</a> y <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html#l00441">HAL_FLASHEx_OBProgram()</a>.</p>
+<div id="dynsection-13" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-13-summary" class="dynsummary">
+</div>
+<div id="dynsection-13-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___f_l_a_s_h_ex___private___functions_ga3cfacf31ab41b33b1302d3d99f8a9dd5_cgraph.svg" width="630" height="136"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-14" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-14-summary" class="dynsummary">
+</div>
+<div id="dynsection-14-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___f_l_a_s_h_ex___private___functions_ga3cfacf31ab41b33b1302d3d99f8a9dd5_icgraph.svg" width="422" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="gaf63ed01adc57bb6e1fcc136c6fa914de" name="gaf63ed01adc57bb6e1fcc136c6fa914de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf63ed01adc57bb6e1fcc136c6fa914de">&#9670;&#160;</a></span>FLASH_OB_RDP_LevelConfig()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a> FLASH_OB_RDP_LevelConfig </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>ReadProtectLevel</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__flash__ex_8c.html">stm32f1xx_hal_flash_ex.c</a>&quot;</code></p>
+
+<p>Set the read protection level. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ReadProtectLevel</td><td>specifies the read protection level. This parameter can be one of the following values: <ul>
+<li><a class="el" href="group___f_l_a_s_h_ex___o_b___read___protection.html#ga22c7871bda267a2844ab9ca9f7bd38e4" title="OB_RDP_LEVEL_0">OB_RDP_LEVEL_0</a> No protection </li>
+<li><a class="el" href="group___f_l_a_s_h_ex___o_b___read___protection.html#ga778207f0d12d87bbff9d55e985aba5bc" title="OB_RDP_LEVEL_1">OB_RDP_LEVEL_1</a> Read protection of the memory </li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname"><a class="el" href="group___h_a_l.html" title="HAL module driver.">HAL</a></td><td>status </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; No error</p>
+<p>&lt; Peripheral base address in the alias region</p>
+<p>&lt; Flash registers base address</p>
+<p>&lt; 0x00000020</p>
+<p>&lt; Option Byte Erase</p>
+<p>&lt; Peripheral base address in the alias region</p>
+<p>&lt; Flash registers base address</p>
+<p>&lt; 0x00000040</p>
+<p>&lt; Start</p>
+<p>&lt; Peripheral base address in the alias region</p>
+<p>&lt; Flash registers base address</p>
+<p>&lt; 0x00000020</p>
+<p>&lt; Option Byte Erase</p>
+<p>&lt; Peripheral base address in the alias region</p>
+<p>&lt; Flash registers base address</p>
+<p>&lt; 0x00000010</p>
+<p>&lt; Option Byte Programming</p>
+<p>&lt; Flash Option Bytes base address</p>
+<p>&lt; Peripheral base address in the alias region</p>
+<p>&lt; Flash registers base address</p>
+<p>&lt; 0x00000010</p>
+<p>&lt; Option Byte Programming</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html#l00881">881</a> del archivo <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html">stm32f1xx_hal_flash_ex.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  882</span>{</div>
+<div class="line"><span class="lineno">  883</span>  <a class="code hl_enumeration" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a> status = <a class="code hl_enumvalue" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632">HAL_OK</a>;</div>
+<div class="line"><span class="lineno">  884</span>  </div>
+<div class="line"><span class="lineno">  885</span>  <span class="comment">/* Check the parameters */</span></div>
+<div class="line"><span class="lineno">  886</span>  <a class="code hl_define" href="stm32f1xx__hal__conf_8h.html#a631dea7b230e600555f979c62af1de21">assert_param</a>(<a class="code hl_define" href="group___f_l_a_s_h_ex___private___macros.html#ga8d602a97cd688390b3d1956d9970e712">IS_OB_RDP_LEVEL</a>(ReadProtectLevel));</div>
+<div class="line"><span class="lineno">  887</span>  </div>
+<div class="line"><span class="lineno">  888</span>  <span class="comment">/* Wait for last operation to be completed */</span></div>
+<div class="line"><span class="lineno">  889</span>  status = <a class="code hl_function" href="group___f_l_a_s_h___private___functions.html#gaf89afc110a32ac9dcf0d06b89ffd9224">FLASH_WaitForLastOperation</a>((uint32_t)<a class="code hl_define" href="group___f_l_a_s_h___private___constants.html#ga76e8ea58ef37913dcdb61efae2d6ab8f">FLASH_TIMEOUT_VALUE</a>);</div>
+<div class="line"><span class="lineno">  890</span>  </div>
+<div class="line"><span class="lineno">  891</span>  <span class="keywordflow">if</span>(status == <a class="code hl_enumvalue" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632">HAL_OK</a>)</div>
+<div class="line"><span class="lineno">  892</span>  { </div>
+<div class="line"><span class="lineno">  893</span>    <span class="comment">/* Clean the error context */</span></div>
+<div class="line"><span class="lineno">  894</span>    <a class="code hl_variable" href="group___f_l_a_s_h___private___variables.html#ga165f289b9549ab9094501a388afe9742">pFlash</a>.<a class="code hl_variable" href="struct_f_l_a_s_h___process_type_def.html#aaf5fd8d8b4d7b9a3f9602ab23fdd7a5b">ErrorCode</a> = <a class="code hl_define" href="group___f_l_a_s_h___error___codes.html#gae7fb9ee7198d393aba27ade3a9f50a70">HAL_FLASH_ERROR_NONE</a>;</div>
+<div class="line"><span class="lineno">  895</span>    </div>
+<div class="line"><span class="lineno">  896</span>    <span class="comment">/* If the previous operation is completed, proceed to erase the option bytes */</span></div>
+<div class="line"><span class="lineno">  897</span>    <a class="code hl_define" href="group___exported__macros.html#ga26474f43799fbade9cf300e21dd3a91a">SET_BIT</a>(<a class="code hl_define" href="group___peripheral__declaration.html#ga844ea28ba1e0a5a0e497f16b61ea306b">FLASH</a>-&gt;CR, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga19fbf5dc4339b1ec8630675f03ad6fe0">FLASH_CR_OPTER</a>);</div>
+<div class="line"><span class="lineno">  898</span>    <a class="code hl_define" href="group___exported__macros.html#ga26474f43799fbade9cf300e21dd3a91a">SET_BIT</a>(<a class="code hl_define" href="group___peripheral__declaration.html#ga844ea28ba1e0a5a0e497f16b61ea306b">FLASH</a>-&gt;CR, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#gafe4dd28134f93f52b1d4ec5b36a99864">FLASH_CR_STRT</a>);</div>
+<div class="line"><span class="lineno">  899</span> </div>
+<div class="line"><span class="lineno">  900</span>    <span class="comment">/* Wait for last operation to be completed */</span></div>
+<div class="line"><span class="lineno">  901</span>    status = <a class="code hl_function" href="group___f_l_a_s_h___private___functions.html#gaf89afc110a32ac9dcf0d06b89ffd9224">FLASH_WaitForLastOperation</a>((uint32_t)<a class="code hl_define" href="group___f_l_a_s_h___private___constants.html#ga76e8ea58ef37913dcdb61efae2d6ab8f">FLASH_TIMEOUT_VALUE</a>);</div>
+<div class="line"><span class="lineno">  902</span> </div>
+<div class="line"><span class="lineno">  903</span>    <span class="comment">/* If the erase operation is completed, disable the OPTER Bit */</span></div>
+<div class="line"><span class="lineno">  904</span>    <a class="code hl_define" href="group___exported__macros.html#ga133aae6fc0d41bffab39ab223a7001de">CLEAR_BIT</a>(<a class="code hl_define" href="group___peripheral__declaration.html#ga844ea28ba1e0a5a0e497f16b61ea306b">FLASH</a>-&gt;CR, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga19fbf5dc4339b1ec8630675f03ad6fe0">FLASH_CR_OPTER</a>);</div>
+<div class="line"><span class="lineno">  905</span> </div>
+<div class="line"><span class="lineno">  906</span>    <span class="keywordflow">if</span>(status == <a class="code hl_enumvalue" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632">HAL_OK</a>)</div>
+<div class="line"><span class="lineno">  907</span>    {</div>
+<div class="line"><span class="lineno">  908</span>      <span class="comment">/* Enable the Option Bytes Programming operation */</span></div>
+<div class="line"><span class="lineno">  909</span>      <a class="code hl_define" href="group___exported__macros.html#ga26474f43799fbade9cf300e21dd3a91a">SET_BIT</a>(<a class="code hl_define" href="group___peripheral__declaration.html#ga844ea28ba1e0a5a0e497f16b61ea306b">FLASH</a>-&gt;CR, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga6736a5478a87f35a6a0cb66d8784a5ab">FLASH_CR_OPTPG</a>);</div>
+<div class="line"><span class="lineno">  910</span>      </div>
+<div class="line"><span class="lineno">  911</span>      <a class="code hl_define" href="group___exported__macros.html#ga32f78bffcaf6d13023dcd7f05e0c4d57">WRITE_REG</a>(<a class="code hl_define" href="group___peripheral__declaration.html#gad2d5f875cdc6d696735f20fa23a895c3">OB</a>-&gt;RDP, ReadProtectLevel);</div>
+<div class="line"><span class="lineno">  912</span>      </div>
+<div class="line"><span class="lineno">  913</span>      <span class="comment">/* Wait for last operation to be completed */</span></div>
+<div class="line"><span class="lineno">  914</span>      status = <a class="code hl_function" href="group___f_l_a_s_h___private___functions.html#gaf89afc110a32ac9dcf0d06b89ffd9224">FLASH_WaitForLastOperation</a>((uint32_t)<a class="code hl_define" href="group___f_l_a_s_h___private___constants.html#ga76e8ea58ef37913dcdb61efae2d6ab8f">FLASH_TIMEOUT_VALUE</a>); </div>
+<div class="line"><span class="lineno">  915</span>      </div>
+<div class="line"><span class="lineno">  916</span>      <span class="comment">/* if the program operation is completed, disable the OPTPG Bit */</span></div>
+<div class="line"><span class="lineno">  917</span>      <a class="code hl_define" href="group___exported__macros.html#ga133aae6fc0d41bffab39ab223a7001de">CLEAR_BIT</a>(<a class="code hl_define" href="group___peripheral__declaration.html#ga844ea28ba1e0a5a0e497f16b61ea306b">FLASH</a>-&gt;CR, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga6736a5478a87f35a6a0cb66d8784a5ab">FLASH_CR_OPTPG</a>);</div>
+<div class="line"><span class="lineno">  918</span>    }</div>
+<div class="line"><span class="lineno">  919</span>  }</div>
+<div class="line"><span class="lineno">  920</span>  </div>
+<div class="line"><span class="lineno">  921</span>  <span class="keywordflow">return</span> status;</div>
+<div class="line"><span class="lineno">  922</span>}</div>
+<div class="ttc" id="agroup___exported__macros_html_ga32f78bffcaf6d13023dcd7f05e0c4d57"><div class="ttname"><a href="group___exported__macros.html#ga32f78bffcaf6d13023dcd7f05e0c4d57">WRITE_REG</a></div><div class="ttdeci">#define WRITE_REG(REG, VAL)</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx_8h_source.html#l00185">stm32f1xx.h:185</a></div></div>
+<div class="ttc" id="agroup___f_l_a_s_h_ex___private___macros_html_ga8d602a97cd688390b3d1956d9970e712"><div class="ttname"><a href="group___f_l_a_s_h_ex___private___macros.html#ga8d602a97cd688390b3d1956d9970e712">IS_OB_RDP_LEVEL</a></div><div class="ttdeci">#define IS_OB_RDP_LEVEL(LEVEL)</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__flash__ex_8h_source.html#l00059">stm32f1xx_hal_flash_ex.h:59</a></div></div>
+<div class="ttc" id="agroup___peripheral___registers___bits___definition_html_ga19fbf5dc4339b1ec8630675f03ad6fe0"><div class="ttname"><a href="group___peripheral___registers___bits___definition.html#ga19fbf5dc4339b1ec8630675f03ad6fe0">FLASH_CR_OPTER</a></div><div class="ttdeci">#define FLASH_CR_OPTER</div><div class="ttdoc">Option Byte Erase.</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l09753">stm32f103xb.h:9753</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__hal__conf_8h_source.html#l00373">assert_param</a>, <a class="el" href="stm32f1xx_8h_source.html#l00179">CLEAR_BIT</a>, <a class="el" href="stm32f1xx__hal__flash_8h_source.html#l00098">FLASH_ProcessTypeDef::ErrorCode</a>, <a class="el" href="stm32f103xb_8h_source.html#l00685">FLASH</a>, <a class="el" href="stm32f103xb_8h_source.html#l09753">FLASH_CR_OPTER</a>, <a class="el" href="stm32f103xb_8h_source.html#l09750">FLASH_CR_OPTPG</a>, <a class="el" href="stm32f103xb_8h_source.html#l09756">FLASH_CR_STRT</a>, <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html#l00881">FLASH_OB_RDP_LevelConfig()</a>, <a class="el" href="stm32f1xx__hal__flash_8h_source.html#l00040">FLASH_TIMEOUT_VALUE</a>, <a class="el" href="stm32f1xx__hal__flash_8c_source.html#l00819">FLASH_WaitForLastOperation()</a>, <a class="el" href="stm32f1xx__hal__flash_8h_source.html#l00115">HAL_FLASH_ERROR_NONE</a>, <a class="el" href="stm32f1xx__hal__def_8h_source.html#l00040">HAL_OK</a>, <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html#l00059">IS_OB_RDP_LEVEL</a>, <a class="el" href="stm32f103xb_8h_source.html#l00686">OB</a>, <a class="el" href="stm32f1xx__hal__flash_8c_source.html#l00119">pFlash</a>, <a class="el" href="stm32f1xx_8h_source.html#l00177">SET_BIT</a> y <a class="el" href="stm32f1xx_8h_source.html#l00185">WRITE_REG</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html#l00881">FLASH_OB_RDP_LevelConfig()</a>, <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html#l00392">HAL_FLASHEx_OBErase()</a> y <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html#l00441">HAL_FLASHEx_OBProgram()</a>.</p>
+<div id="dynsection-15" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-15-summary" class="dynsummary">
+</div>
+<div id="dynsection-15-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___f_l_a_s_h_ex___private___functions_gaf63ed01adc57bb6e1fcc136c6fa914de_cgraph.svg" width="658" height="136"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-16" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-16-summary" class="dynsummary">
+</div>
+<div id="dynsection-16-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___f_l_a_s_h_ex___private___functions_gaf63ed01adc57bb6e1fcc136c6fa914de_icgraph.svg" width="100%" height="421"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="ga35e5853f3bd5d796c58a341608e6f985" name="ga35e5853f3bd5d796c58a341608e6f985"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga35e5853f3bd5d796c58a341608e6f985">&#9670;&#160;</a></span>FLASH_OB_UserConfig()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a> FLASH_OB_UserConfig </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>UserConfig</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__flash__ex_8c.html">stm32f1xx_hal_flash_ex.c</a>&quot;</code></p>
+
+<p>Program the FLASH User Option Byte. </p>
+<p><br  />
+ </p><dl class="section note"><dt>Nota</dt><dd>Programming of the OB should be performed only after an erase (otherwise PGERR occurs) </dd></dl>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">UserConfig</td><td>The FLASH User Option Bytes values <a class="el" href="group___peripheral___registers___bits___definition.html#gaecbb0d905783c45eedfcc51230f9226b" title="IWDG SW.">FLASH_OBR_IWDG_SW(Bit2)</a>, <a class="el" href="group___peripheral___registers___bits___definition.html#ga8e84d6c706420de2335619043a06760d" title="nRST_STOP">FLASH_OBR_nRST_STOP(Bit3)</a>,<a class="el" href="group___peripheral___registers___bits___definition.html#ga3d863a776a1d5a136e267bac209f6a85" title="nRST_STDBY">FLASH_OBR_nRST_STDBY(Bit4)</a>. And BFBF2(Bit5) for STM32F101xG and STM32F103xG . </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname"><a class="el" href="group___h_a_l.html" title="HAL module driver.">HAL</a></td><td>status </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; No error</p>
+<p>&lt; Peripheral base address in the alias region</p>
+<p>&lt; Flash registers base address</p>
+<p>&lt; 0x00000010</p>
+<p>&lt; Option Byte Programming</p>
+<p>&lt; Flash Option Bytes base address</p>
+<p>&lt; Peripheral base address in the alias region</p>
+<p>&lt; Flash registers base address</p>
+<p>&lt; 0x00000010</p>
+<p>&lt; Option Byte Programming</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html#l00932">932</a> del archivo <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html">stm32f1xx_hal_flash_ex.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  933</span>{</div>
+<div class="line"><span class="lineno">  934</span>  <a class="code hl_enumeration" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a> status = <a class="code hl_enumvalue" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632">HAL_OK</a>;</div>
+<div class="line"><span class="lineno">  935</span> </div>
+<div class="line"><span class="lineno">  936</span>  <span class="comment">/* Check the parameters */</span></div>
+<div class="line"><span class="lineno">  937</span>  <a class="code hl_define" href="stm32f1xx__hal__conf_8h.html#a631dea7b230e600555f979c62af1de21">assert_param</a>(<a class="code hl_define" href="group___f_l_a_s_h_ex___private___macros.html#gaf2871652c08e76499d9449be6556f12c">IS_OB_IWDG_SOURCE</a>((UserConfig&amp;<a class="code hl_define" href="group___f_l_a_s_h_ex___o_b___i_watchdog.html#ga5a357e232c955444c3f2ccb9a937ffce">OB_IWDG_SW</a>)));</div>
+<div class="line"><span class="lineno">  938</span>  <a class="code hl_define" href="stm32f1xx__hal__conf_8h.html#a631dea7b230e600555f979c62af1de21">assert_param</a>(<a class="code hl_define" href="group___f_l_a_s_h_ex___private___macros.html#ga131ae3434f300c8317dd6b3b349c7cab">IS_OB_STOP_SOURCE</a>((UserConfig&amp;<a class="code hl_define" href="group___f_l_a_s_h_ex___o_b__n_r_s_t___s_t_o_p.html#ga7344fe0ec25c5eb2d11db7c855325436">OB_STOP_NO_RST</a>)));</div>
+<div class="line"><span class="lineno">  939</span>  <a class="code hl_define" href="stm32f1xx__hal__conf_8h.html#a631dea7b230e600555f979c62af1de21">assert_param</a>(<a class="code hl_define" href="group___f_l_a_s_h_ex___private___macros.html#ga8a05393df3a5e89551b4e2e1e8c5b884">IS_OB_STDBY_SOURCE</a>((UserConfig&amp;<a class="code hl_define" href="group___f_l_a_s_h_ex___o_b__n_r_s_t___s_t_d_b_y.html#gad776ed7b3b9a98013aac9976eedb7e94">OB_STDBY_NO_RST</a>)));</div>
+<div class="line"><span class="lineno">  940</span><span class="preprocessor">#if defined(FLASH_BANK2_END)</span></div>
+<div class="line"><span class="lineno">  941</span>  <a class="code hl_define" href="stm32f1xx__hal__conf_8h.html#a631dea7b230e600555f979c62af1de21">assert_param</a>(IS_OB_BOOT1((UserConfig&amp;OB_BOOT1_SET)));</div>
+<div class="line"><span class="lineno">  942</span><span class="preprocessor">#endif </span><span class="comment">/* FLASH_BANK2_END */</span><span class="preprocessor"></span></div>
+<div class="line"><span class="lineno">  943</span> </div>
+<div class="line"><span class="lineno">  944</span>  <span class="comment">/* Wait for last operation to be completed */</span></div>
+<div class="line"><span class="lineno">  945</span>  status = <a class="code hl_function" href="group___f_l_a_s_h___private___functions.html#gaf89afc110a32ac9dcf0d06b89ffd9224">FLASH_WaitForLastOperation</a>((uint32_t)<a class="code hl_define" href="group___f_l_a_s_h___private___constants.html#ga76e8ea58ef37913dcdb61efae2d6ab8f">FLASH_TIMEOUT_VALUE</a>);</div>
+<div class="line"><span class="lineno">  946</span>  </div>
+<div class="line"><span class="lineno">  947</span>  <span class="keywordflow">if</span>(status == <a class="code hl_enumvalue" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632">HAL_OK</a>)</div>
+<div class="line"><span class="lineno">  948</span>  {     </div>
+<div class="line"><span class="lineno">  949</span>    <span class="comment">/* Clean the error context */</span></div>
+<div class="line"><span class="lineno">  950</span>    <a class="code hl_variable" href="group___f_l_a_s_h___private___variables.html#ga165f289b9549ab9094501a388afe9742">pFlash</a>.<a class="code hl_variable" href="struct_f_l_a_s_h___process_type_def.html#aaf5fd8d8b4d7b9a3f9602ab23fdd7a5b">ErrorCode</a> = <a class="code hl_define" href="group___f_l_a_s_h___error___codes.html#gae7fb9ee7198d393aba27ade3a9f50a70">HAL_FLASH_ERROR_NONE</a>;</div>
+<div class="line"><span class="lineno">  951</span> </div>
+<div class="line"><span class="lineno">  952</span>    <span class="comment">/* Enable the Option Bytes Programming operation */</span></div>
+<div class="line"><span class="lineno">  953</span>    <a class="code hl_define" href="group___exported__macros.html#ga26474f43799fbade9cf300e21dd3a91a">SET_BIT</a>(<a class="code hl_define" href="group___peripheral__declaration.html#ga844ea28ba1e0a5a0e497f16b61ea306b">FLASH</a>-&gt;CR, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga6736a5478a87f35a6a0cb66d8784a5ab">FLASH_CR_OPTPG</a>); </div>
+<div class="line"><span class="lineno">  954</span> </div>
+<div class="line"><span class="lineno">  955</span><span class="preprocessor">#if defined(FLASH_BANK2_END)</span></div>
+<div class="line"><span class="lineno">  956</span>    <a class="code hl_define" href="group___peripheral__declaration.html#gad2d5f875cdc6d696735f20fa23a895c3">OB</a>-&gt;USER = (UserConfig | 0xF0U);</div>
+<div class="line"><span class="lineno">  957</span><span class="preprocessor">#else</span></div>
+<div class="line"><span class="lineno">  958</span>    <a class="code hl_define" href="group___peripheral__declaration.html#gad2d5f875cdc6d696735f20fa23a895c3">OB</a>-&gt;USER = (UserConfig | 0x88U);</div>
+<div class="line"><span class="lineno">  959</span><span class="preprocessor">#endif </span><span class="comment">/* FLASH_BANK2_END */</span><span class="preprocessor"></span></div>
+<div class="line"><span class="lineno">  960</span> </div>
+<div class="line"><span class="lineno">  961</span>    <span class="comment">/* Wait for last operation to be completed */</span></div>
+<div class="line"><span class="lineno">  962</span>    status = <a class="code hl_function" href="group___f_l_a_s_h___private___functions.html#gaf89afc110a32ac9dcf0d06b89ffd9224">FLASH_WaitForLastOperation</a>((uint32_t)<a class="code hl_define" href="group___f_l_a_s_h___private___constants.html#ga76e8ea58ef37913dcdb61efae2d6ab8f">FLASH_TIMEOUT_VALUE</a>);</div>
+<div class="line"><span class="lineno">  963</span> </div>
+<div class="line"><span class="lineno">  964</span>    <span class="comment">/* if the program operation is completed, disable the OPTPG Bit */</span></div>
+<div class="line"><span class="lineno">  965</span>    <a class="code hl_define" href="group___exported__macros.html#ga133aae6fc0d41bffab39ab223a7001de">CLEAR_BIT</a>(<a class="code hl_define" href="group___peripheral__declaration.html#ga844ea28ba1e0a5a0e497f16b61ea306b">FLASH</a>-&gt;CR, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga6736a5478a87f35a6a0cb66d8784a5ab">FLASH_CR_OPTPG</a>);</div>
+<div class="line"><span class="lineno">  966</span>  }</div>
+<div class="line"><span class="lineno">  967</span>  </div>
+<div class="line"><span class="lineno">  968</span>  <span class="keywordflow">return</span> status; </div>
+<div class="line"><span class="lineno">  969</span>}</div>
+<div class="ttc" id="agroup___f_l_a_s_h_ex___o_b___i_watchdog_html_ga5a357e232c955444c3f2ccb9a937ffce"><div class="ttname"><a href="group___f_l_a_s_h_ex___o_b___i_watchdog.html#ga5a357e232c955444c3f2ccb9a937ffce">OB_IWDG_SW</a></div><div class="ttdeci">#define OB_IWDG_SW</div><div class="ttdoc">Software IWDG selected.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__flash__ex_8h_source.html#l00454">stm32f1xx_hal_flash_ex.h:454</a></div></div>
+<div class="ttc" id="agroup___f_l_a_s_h_ex___o_b__n_r_s_t___s_t_d_b_y_html_gad776ed7b3b9a98013aac9976eedb7e94"><div class="ttname"><a href="group___f_l_a_s_h_ex___o_b__n_r_s_t___s_t_d_b_y.html#gad776ed7b3b9a98013aac9976eedb7e94">OB_STDBY_NO_RST</a></div><div class="ttdeci">#define OB_STDBY_NO_RST</div><div class="ttdoc">No reset generated when entering in STANDBY.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__flash__ex_8h_source.html#l00472">stm32f1xx_hal_flash_ex.h:472</a></div></div>
+<div class="ttc" id="agroup___f_l_a_s_h_ex___o_b__n_r_s_t___s_t_o_p_html_ga7344fe0ec25c5eb2d11db7c855325436"><div class="ttname"><a href="group___f_l_a_s_h_ex___o_b__n_r_s_t___s_t_o_p.html#ga7344fe0ec25c5eb2d11db7c855325436">OB_STOP_NO_RST</a></div><div class="ttdeci">#define OB_STOP_NO_RST</div><div class="ttdoc">No reset generated when entering in STOP.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__flash__ex_8h_source.html#l00463">stm32f1xx_hal_flash_ex.h:463</a></div></div>
+<div class="ttc" id="agroup___f_l_a_s_h_ex___private___macros_html_ga131ae3434f300c8317dd6b3b349c7cab"><div class="ttname"><a href="group___f_l_a_s_h_ex___private___macros.html#ga131ae3434f300c8317dd6b3b349c7cab">IS_OB_STOP_SOURCE</a></div><div class="ttdeci">#define IS_OB_STOP_SOURCE(SOURCE)</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__flash__ex_8h_source.html#l00065">stm32f1xx_hal_flash_ex.h:65</a></div></div>
+<div class="ttc" id="agroup___f_l_a_s_h_ex___private___macros_html_ga8a05393df3a5e89551b4e2e1e8c5b884"><div class="ttname"><a href="group___f_l_a_s_h_ex___private___macros.html#ga8a05393df3a5e89551b4e2e1e8c5b884">IS_OB_STDBY_SOURCE</a></div><div class="ttdeci">#define IS_OB_STDBY_SOURCE(SOURCE)</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__flash__ex_8h_source.html#l00067">stm32f1xx_hal_flash_ex.h:67</a></div></div>
+<div class="ttc" id="agroup___f_l_a_s_h_ex___private___macros_html_gaf2871652c08e76499d9449be6556f12c"><div class="ttname"><a href="group___f_l_a_s_h_ex___private___macros.html#gaf2871652c08e76499d9449be6556f12c">IS_OB_IWDG_SOURCE</a></div><div class="ttdeci">#define IS_OB_IWDG_SOURCE(SOURCE)</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__flash__ex_8h_source.html#l00063">stm32f1xx_hal_flash_ex.h:63</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__hal__conf_8h_source.html#l00373">assert_param</a>, <a class="el" href="stm32f1xx_8h_source.html#l00179">CLEAR_BIT</a>, <a class="el" href="stm32f1xx__hal__flash_8h_source.html#l00098">FLASH_ProcessTypeDef::ErrorCode</a>, <a class="el" href="stm32f103xb_8h_source.html#l00685">FLASH</a>, <a class="el" href="stm32f103xb_8h_source.html#l09750">FLASH_CR_OPTPG</a>, <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html#l00932">FLASH_OB_UserConfig()</a>, <a class="el" href="stm32f1xx__hal__flash_8h_source.html#l00040">FLASH_TIMEOUT_VALUE</a>, <a class="el" href="stm32f1xx__hal__flash_8c_source.html#l00819">FLASH_WaitForLastOperation()</a>, <a class="el" href="stm32f1xx__hal__flash_8h_source.html#l00115">HAL_FLASH_ERROR_NONE</a>, <a class="el" href="stm32f1xx__hal__def_8h_source.html#l00040">HAL_OK</a>, <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html#l00063">IS_OB_IWDG_SOURCE</a>, <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html#l00067">IS_OB_STDBY_SOURCE</a>, <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html#l00065">IS_OB_STOP_SOURCE</a>, <a class="el" href="stm32f103xb_8h_source.html#l00686">OB</a>, <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html#l00454">OB_IWDG_SW</a>, <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html#l00472">OB_STDBY_NO_RST</a>, <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html#l00463">OB_STOP_NO_RST</a>, <a class="el" href="stm32f1xx__hal__flash_8c_source.html#l00119">pFlash</a> y <a class="el" href="stm32f1xx_8h_source.html#l00177">SET_BIT</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html#l00932">FLASH_OB_UserConfig()</a> y <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html#l00441">HAL_FLASHEx_OBProgram()</a>.</p>
+<div id="dynsection-17" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-17-summary" class="dynsummary">
+</div>
+<div id="dynsection-17-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___f_l_a_s_h_ex___private___functions_ga35e5853f3bd5d796c58a341608e6f985_cgraph.svg" width="618" height="136"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-18" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-18-summary" class="dynsummary">
+</div>
+<div id="dynsection-18-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___f_l_a_s_h_ex___private___functions_ga35e5853f3bd5d796c58a341608e6f985_icgraph.svg" width="411" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ga35fd7dd876d296b20c2733f55dde7da7" name="ga35fd7dd876d296b20c2733f55dde7da7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga35fd7dd876d296b20c2733f55dde7da7">&#9670;&#160;</a></span>FLASH_PageErase()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FLASH_PageErase </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>PageAddress</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__flash__ex_8c.html">stm32f1xx_hal_flash_ex.c</a>&quot;</code></p>
+
+<p>Erase the specified FLASH memory page. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">PageAddress</td><td>FLASH page to erase The value of this parameter depend on device used within the same series <br  />
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; No error</p>
+<p>&lt; Peripheral base address in the alias region</p>
+<p>&lt; Flash registers base address</p>
+<p>&lt; 0x00000002</p>
+<p>&lt; Page Erase</p>
+<p>&lt; Peripheral base address in the alias region</p>
+<p>&lt; Flash registers base address</p>
+<p>&lt; Peripheral base address in the alias region</p>
+<p>&lt; Flash registers base address</p>
+<p>&lt; 0x00000040</p>
+<p>&lt; Start</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html#l01084">1084</a> del archivo <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html">stm32f1xx_hal_flash_ex.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1085</span>{</div>
+<div class="line"><span class="lineno"> 1086</span>  <span class="comment">/* Clean the error context */</span></div>
+<div class="line"><span class="lineno"> 1087</span>  <a class="code hl_variable" href="group___f_l_a_s_h___private___variables.html#ga165f289b9549ab9094501a388afe9742">pFlash</a>.<a class="code hl_variable" href="struct_f_l_a_s_h___process_type_def.html#aaf5fd8d8b4d7b9a3f9602ab23fdd7a5b">ErrorCode</a> = <a class="code hl_define" href="group___f_l_a_s_h___error___codes.html#gae7fb9ee7198d393aba27ade3a9f50a70">HAL_FLASH_ERROR_NONE</a>;</div>
+<div class="line"><span class="lineno"> 1088</span> </div>
+<div class="line"><span class="lineno"> 1089</span><span class="preprocessor">#if defined(FLASH_BANK2_END)</span></div>
+<div class="line"><span class="lineno"> 1090</span>  <span class="keywordflow">if</span>(PageAddress &gt; <a class="code hl_define" href="group___peripheral__memory__map.html#ga443a2786535d83e32dfdc2b29e379332">FLASH_BANK1_END</a>)</div>
+<div class="line"><span class="lineno"> 1091</span>  { </div>
+<div class="line"><span class="lineno"> 1092</span>    <span class="comment">/* Proceed to erase the page */</span></div>
+<div class="line"><span class="lineno"> 1093</span>    <a class="code hl_define" href="group___exported__macros.html#ga26474f43799fbade9cf300e21dd3a91a">SET_BIT</a>(<a class="code hl_define" href="group___peripheral__declaration.html#ga844ea28ba1e0a5a0e497f16b61ea306b">FLASH</a>-&gt;CR2, FLASH_CR2_PER);</div>
+<div class="line"><span class="lineno"> 1094</span>    <a class="code hl_define" href="group___exported__macros.html#ga32f78bffcaf6d13023dcd7f05e0c4d57">WRITE_REG</a>(<a class="code hl_define" href="group___peripheral__declaration.html#ga844ea28ba1e0a5a0e497f16b61ea306b">FLASH</a>-&gt;AR2, PageAddress);</div>
+<div class="line"><span class="lineno"> 1095</span>    <a class="code hl_define" href="group___exported__macros.html#ga26474f43799fbade9cf300e21dd3a91a">SET_BIT</a>(<a class="code hl_define" href="group___peripheral__declaration.html#ga844ea28ba1e0a5a0e497f16b61ea306b">FLASH</a>-&gt;CR2, FLASH_CR2_STRT);</div>
+<div class="line"><span class="lineno"> 1096</span>  }</div>
+<div class="line"><span class="lineno"> 1097</span>  <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno"> 1098</span>  {</div>
+<div class="line"><span class="lineno"> 1099</span><span class="preprocessor">#endif </span><span class="comment">/* FLASH_BANK2_END */</span><span class="preprocessor"></span></div>
+<div class="line"><span class="lineno"> 1100</span>    <span class="comment">/* Proceed to erase the page */</span></div>
+<div class="line"><span class="lineno"> 1101</span>    <a class="code hl_define" href="group___exported__macros.html#ga26474f43799fbade9cf300e21dd3a91a">SET_BIT</a>(<a class="code hl_define" href="group___peripheral__declaration.html#ga844ea28ba1e0a5a0e497f16b61ea306b">FLASH</a>-&gt;CR, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#gad845355ade49d56cf70ad0ff09595a23">FLASH_CR_PER</a>);</div>
+<div class="line"><span class="lineno"> 1102</span>    <a class="code hl_define" href="group___exported__macros.html#ga32f78bffcaf6d13023dcd7f05e0c4d57">WRITE_REG</a>(<a class="code hl_define" href="group___peripheral__declaration.html#ga844ea28ba1e0a5a0e497f16b61ea306b">FLASH</a>-&gt;AR, PageAddress);</div>
+<div class="line"><span class="lineno"> 1103</span>    <a class="code hl_define" href="group___exported__macros.html#ga26474f43799fbade9cf300e21dd3a91a">SET_BIT</a>(<a class="code hl_define" href="group___peripheral__declaration.html#ga844ea28ba1e0a5a0e497f16b61ea306b">FLASH</a>-&gt;CR, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#gafe4dd28134f93f52b1d4ec5b36a99864">FLASH_CR_STRT</a>);</div>
+<div class="line"><span class="lineno"> 1104</span><span class="preprocessor">#if defined(FLASH_BANK2_END)</span></div>
+<div class="line"><span class="lineno"> 1105</span>  }</div>
+<div class="line"><span class="lineno"> 1106</span><span class="preprocessor">#endif </span><span class="comment">/* FLASH_BANK2_END */</span><span class="preprocessor"></span></div>
+<div class="line"><span class="lineno"> 1107</span>}</div>
+<div class="ttc" id="agroup___peripheral___registers___bits___definition_html_gad845355ade49d56cf70ad0ff09595a23"><div class="ttname"><a href="group___peripheral___registers___bits___definition.html#gad845355ade49d56cf70ad0ff09595a23">FLASH_CR_PER</a></div><div class="ttdeci">#define FLASH_CR_PER</div><div class="ttdoc">Page Erase.</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l09744">stm32f103xb.h:9744</a></div></div>
+<div class="ttc" id="agroup___peripheral__memory__map_html_ga443a2786535d83e32dfdc2b29e379332"><div class="ttname"><a href="group___peripheral__memory__map.html#ga443a2786535d83e32dfdc2b29e379332">FLASH_BANK1_END</a></div><div class="ttdeci">#define FLASH_BANK1_END</div><div class="ttdoc">FLASH END address of bank1.</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l00573">stm32f103xb.h:573</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__hal__flash_8h_source.html#l00098">FLASH_ProcessTypeDef::ErrorCode</a>, <a class="el" href="stm32f103xb_8h_source.html#l00685">FLASH</a>, <a class="el" href="stm32f103xb_8h_source.html#l00573">FLASH_BANK1_END</a>, <a class="el" href="stm32f103xb_8h_source.html#l09744">FLASH_CR_PER</a>, <a class="el" href="stm32f103xb_8h_source.html#l09756">FLASH_CR_STRT</a>, <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html#l01084">FLASH_PageErase()</a>, <a class="el" href="stm32f1xx__hal__flash_8h_source.html#l00115">HAL_FLASH_ERROR_NONE</a>, <a class="el" href="stm32f1xx__hal__flash_8c_source.html#l00119">pFlash</a>, <a class="el" href="stm32f1xx_8h_source.html#l00177">SET_BIT</a> y <a class="el" href="stm32f1xx_8h_source.html#l00185">WRITE_REG</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html#l01084">FLASH_PageErase()</a>, <a class="el" href="stm32f1xx__hal__flash_8c_source.html#l00327">HAL_FLASH_IRQHandler()</a>, <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html#l00157">HAL_FLASHEx_Erase()</a> y <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html#l00317">HAL_FLASHEx_Erase_IT()</a>.</p>
+<div id="dynsection-19" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-19-summary" class="dynsummary">
+</div>
+<div id="dynsection-19-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___f_l_a_s_h_ex___private___functions_ga35fd7dd876d296b20c2733f55dde7da7_cgraph.svg" width="147" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-20" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-20-summary" class="dynsummary">
+</div>
+<div id="dynsection-20-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___f_l_a_s_h_ex___private___functions_ga35fd7dd876d296b20c2733f55dde7da7_icgraph.svg" width="368" height="211"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generado el <span class="timestamp"></span> para MICRO-Firmware por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,185 @@
+\doxysubsection{usbd\+\_\+cdc.\+h}
+\hypertarget{usbd__cdc_8h_source}{}\label{usbd__cdc_8h_source}\index{usbd\_cdc.h@{usbd\_cdc.h}}
+\doxymbox{\hyperlink{usbd__cdc_8h}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00001}00001\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00002}00002\ \textcolor{comment}{\ \ ******************************************************************************}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00003}00003\ \textcolor{comment}{\ \ *\ @file\ \ \ \ usbd\_cdc.h}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00004}00004\ \textcolor{comment}{\ \ *\ @author\ \ MCD\ Application\ Team}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00005}00005\ \textcolor{comment}{\ \ *\ @brief\ \ \ header\ file\ for\ the\ usbd\_cdc.c\ file.}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00006}00006\ \textcolor{comment}{\ \ ******************************************************************************}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00007}00007\ \textcolor{comment}{\ \ *\ @attention}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00008}00008\ \textcolor{comment}{\ \ *}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00009}00009\ \textcolor{comment}{\ \ *\ <h2><center>\&copy;\ Copyright\ (c)\ 2015\ STMicroelectronics.}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00010}00010\ \textcolor{comment}{\ \ *\ All\ rights\ reserved.</center></h2>}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00011}00011\ \textcolor{comment}{\ \ *}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00012}00012\ \textcolor{comment}{\ \ *\ This\ software\ component\ is\ licensed\ by\ ST\ under\ Ultimate\ Liberty\ license}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00013}00013\ \textcolor{comment}{\ \ *\ SLA0044,\ the\ "{}License"{};\ You\ may\ not\ use\ this\ file\ except\ in\ compliance\ with}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00014}00014\ \textcolor{comment}{\ \ *\ the\ License.\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at:}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00015}00015\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ www.st.com/SLA0044}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00016}00016\ \textcolor{comment}{\ \ *}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00017}00017\ \textcolor{comment}{\ \ ******************************************************************************}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00018}00018\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00020}00020\ \textcolor{comment}{/*\ Define\ to\ prevent\ recursive\ inclusion\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00021}00021\ \textcolor{preprocessor}{\#ifndef\ \_\_USB\_CDC\_H}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00022}00022\ \textcolor{preprocessor}{\#define\ \_\_USB\_CDC\_H}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00024}00024\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00025}00025\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00026}00026\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00028}00028\ \textcolor{comment}{/*\ Includes\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00029}00029\ \textcolor{preprocessor}{\#include\ \ "{}\doxymbox{\hyperlink{usbd__ioreq_8h}{usbd\_ioreq.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00030}00030\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00031}00031\ \textcolor{comment}{/**\ @addtogroup\ STM32\_USB\_DEVICE\_LIBRARY}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00032}00032\ \textcolor{comment}{\ \ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00033}00033\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00034}00034\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00035}00035\ \textcolor{comment}{/**\ @defgroup\ usbd\_cdc}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00036}00036\ \textcolor{comment}{\ \ *\ @brief\ This\ file\ is\ the\ Header\ file\ for\ usbd\_cdc.c}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00037}00037\ \textcolor{comment}{\ \ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00038}00038\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00040}00040\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00041}00041\ \textcolor{comment}{/**\ @defgroup\ usbd\_cdc\_Exported\_Defines}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00042}00042\ \textcolor{comment}{\ \ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00043}00043\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00044}\doxymbox{\hyperlink{group__usbd__cdc___exported___defines_ga4f4f597c2cc62e7ec1c6ac609b3eb97f}{00044}}\ \textcolor{preprocessor}{\#define\ CDC\_IN\_EP\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x81U\ \ }\textcolor{comment}{/*\ EP1\ for\ data\ IN\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00045}\doxymbox{\hyperlink{group__usbd__cdc___exported___defines_ga7623890bcaec261a69ba4622909f065c}{00045}}\ \textcolor{preprocessor}{\#define\ CDC\_OUT\_EP\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x01U\ \ }\textcolor{comment}{/*\ EP1\ for\ data\ OUT\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00046}\doxymbox{\hyperlink{group__usbd__cdc___exported___defines_gaeca7f5392ff4fc889eeb511d7d09ce75}{00046}}\ \textcolor{preprocessor}{\#define\ CDC\_CMD\_EP\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x82U\ \ }\textcolor{comment}{/*\ EP2\ for\ CDC\ commands\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00048}00048\ \textcolor{preprocessor}{\#ifndef\ CDC\_HS\_BINTERVAL}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00049}\doxymbox{\hyperlink{group__usbd__cdc___exported___defines_gaf7a06817570b273e0573b561467d079e}{00049}}\ \textcolor{preprocessor}{\#define\ CDC\_HS\_BINTERVAL\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x10U}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00050}00050\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ CDC\_HS\_BINTERVAL\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00051}00051\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00052}00052\ \textcolor{preprocessor}{\#ifndef\ CDC\_FS\_BINTERVAL}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00053}\doxymbox{\hyperlink{group__usbd__cdc___exported___defines_ga541cf34ef82ecf787cbc4871e825c3a3}{00053}}\ \textcolor{preprocessor}{\#define\ CDC\_FS\_BINTERVAL\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x10U}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00054}00054\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ CDC\_FS\_BINTERVAL\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00056}00056\ \textcolor{comment}{/*\ CDC\ Endpoints\ parameters:\ you\ can\ fine\ tune\ these\ values\ depending\ on\ the\ needed\ baudrates\ and\ performance.\ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00057}\doxymbox{\hyperlink{group__usbd__cdc___exported___defines_gae7db58dbfe2496ddba05ab027238a0c5}{00057}}\ \textcolor{preprocessor}{\#define\ CDC\_DATA\_HS\_MAX\_PACKET\_SIZE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 512U\ \ }\textcolor{comment}{/*\ Endpoint\ IN\ \&\ OUT\ Packet\ size\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00058}\doxymbox{\hyperlink{group__usbd__cdc___exported___defines_ga9aeccc7c5ce07c075d2e3da4c49f190c}{00058}}\ \textcolor{preprocessor}{\#define\ CDC\_DATA\_FS\_MAX\_PACKET\_SIZE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 64U\ \ }\textcolor{comment}{/*\ Endpoint\ IN\ \&\ OUT\ Packet\ size\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00059}\doxymbox{\hyperlink{group__usbd__cdc___exported___defines_gaf49cf1058cfa7de0867c1fae6de56b89}{00059}}\ \textcolor{preprocessor}{\#define\ CDC\_CMD\_PACKET\_SIZE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 8U\ \ }\textcolor{comment}{/*\ Control\ Endpoint\ Packet\ size\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00061}\doxymbox{\hyperlink{group__usbd__cdc___exported___defines_gaeace2e1a379f1cd527d26b7b713ba7d6}{00061}}\ \textcolor{preprocessor}{\#define\ USB\_CDC\_CONFIG\_DESC\_SIZ\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 67U}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00062}\doxymbox{\hyperlink{group__usbd__cdc___exported___defines_ga95a5ef21d7dd72fccf4aba23876d0e8b}{00062}}\ \textcolor{preprocessor}{\#define\ CDC\_DATA\_HS\_IN\_PACKET\_SIZE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CDC\_DATA\_HS\_MAX\_PACKET\_SIZE}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00063}\doxymbox{\hyperlink{group__usbd__cdc___exported___defines_gaa9171457c438566f480e14be07ff01a0}{00063}}\ \textcolor{preprocessor}{\#define\ CDC\_DATA\_HS\_OUT\_PACKET\_SIZE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CDC\_DATA\_HS\_MAX\_PACKET\_SIZE}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00064}00064\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00065}\doxymbox{\hyperlink{group__usbd__cdc___exported___defines_gaf5b83dd4c901b61bba2bc41c4916c28b}{00065}}\ \textcolor{preprocessor}{\#define\ CDC\_DATA\_FS\_IN\_PACKET\_SIZE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CDC\_DATA\_FS\_MAX\_PACKET\_SIZE}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00066}\doxymbox{\hyperlink{group__usbd__cdc___exported___defines_gaa15fbc914f64d67118729351b9e46c3c}{00066}}\ \textcolor{preprocessor}{\#define\ CDC\_DATA\_FS\_OUT\_PACKET\_SIZE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CDC\_DATA\_FS\_MAX\_PACKET\_SIZE}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00067}00067\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00068}00068\ \textcolor{comment}{/*-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00069}00069\ \textcolor{comment}{/*\ \ CDC\ definitions\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00070}00070\ \textcolor{comment}{/*-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00071}\doxymbox{\hyperlink{group__usbd__cdc___exported___defines_ga7aaa245703a0a2191c27697715f3727c}{00071}}\ \textcolor{preprocessor}{\#define\ CDC\_SEND\_ENCAPSULATED\_COMMAND\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x00U}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00072}\doxymbox{\hyperlink{group__usbd__cdc___exported___defines_ga6170632c774a3163b5a9927cc4e960ec}{00072}}\ \textcolor{preprocessor}{\#define\ CDC\_GET\_ENCAPSULATED\_RESPONSE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x01U}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00073}\doxymbox{\hyperlink{group__usbd__cdc___exported___defines_ga893b79445f99070657e8d45f6495b174}{00073}}\ \textcolor{preprocessor}{\#define\ CDC\_SET\_COMM\_FEATURE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x02U}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00074}\doxymbox{\hyperlink{group__usbd__cdc___exported___defines_gad0912dac888d01142b225b0c6f8a508f}{00074}}\ \textcolor{preprocessor}{\#define\ CDC\_GET\_COMM\_FEATURE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x03U}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00075}\doxymbox{\hyperlink{group__usbd__cdc___exported___defines_ga6c79b8666110840333ad3785bf7ce87c}{00075}}\ \textcolor{preprocessor}{\#define\ CDC\_CLEAR\_COMM\_FEATURE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x04U}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00076}\doxymbox{\hyperlink{group__usbd__cdc___exported___defines_gad07ce089c8757b8d2ff37ddd83dc9351}{00076}}\ \textcolor{preprocessor}{\#define\ CDC\_SET\_LINE\_CODING\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x20U}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00077}\doxymbox{\hyperlink{group__usbd__cdc___exported___defines_ga1068ab45668e413d964a01bc36fa2d43}{00077}}\ \textcolor{preprocessor}{\#define\ CDC\_GET\_LINE\_CODING\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x21U}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00078}\doxymbox{\hyperlink{group__usbd__cdc___exported___defines_ga11c392243dec4d03970f1eaa1f8053ae}{00078}}\ \textcolor{preprocessor}{\#define\ CDC\_SET\_CONTROL\_LINE\_STATE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x22U}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00079}\doxymbox{\hyperlink{group__usbd__cdc___exported___defines_ga868c480caf0abda6b458c82281dda8ad}{00079}}\ \textcolor{preprocessor}{\#define\ CDC\_SEND\_BREAK\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x23U}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00080}00080\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00081}00081\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00082}00082\ \textcolor{comment}{\ \ *\ @\}}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00083}00083\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00084}00084\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00085}00085\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00086}00086\ \textcolor{comment}{/**\ @defgroup\ USBD\_CORE\_Exported\_TypesDefinitions}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00087}00087\ \textcolor{comment}{\ \ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00088}00088\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00089}00089\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00090}00090\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00091}00091\ \textcolor{comment}{\ \ *\ @\}}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00092}00092\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00093}\doxymbox{\hyperlink{struct_u_s_b_d___c_d_c___line_coding_type_def}{00093}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00094}00094\ \{}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00095}\doxymbox{\hyperlink{struct_u_s_b_d___c_d_c___line_coding_type_def_a2c398e4f03da3b373756c7a18160f30a}{00095}}\ \ \ uint32\_t\ \doxymbox{\hyperlink{struct_u_s_b_d___c_d_c___line_coding_type_def_a2c398e4f03da3b373756c7a18160f30a}{bitrate}};}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00096}\doxymbox{\hyperlink{struct_u_s_b_d___c_d_c___line_coding_type_def_a7d94fafa04246a861cc6430472cd2879}{00096}}\ \ \ uint8\_t\ \ \doxymbox{\hyperlink{struct_u_s_b_d___c_d_c___line_coding_type_def_a7d94fafa04246a861cc6430472cd2879}{format}};}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00097}\doxymbox{\hyperlink{struct_u_s_b_d___c_d_c___line_coding_type_def_ab09d9ec77910fe34fb015552678491eb}{00097}}\ \ \ uint8\_t\ \ \doxymbox{\hyperlink{struct_u_s_b_d___c_d_c___line_coding_type_def_ab09d9ec77910fe34fb015552678491eb}{paritytype}};}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00098}\doxymbox{\hyperlink{struct_u_s_b_d___c_d_c___line_coding_type_def_a5635b4abf930a5bc86bacc96188ba6ea}{00098}}\ \ \ uint8\_t\ \ \doxymbox{\hyperlink{struct_u_s_b_d___c_d_c___line_coding_type_def_a5635b4abf930a5bc86bacc96188ba6ea}{datatype}};}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00099}00099\ \}\ \doxymbox{\hyperlink{struct_u_s_b_d___c_d_c___line_coding_type_def}{USBD\_CDC\_LineCodingTypeDef}};}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00100}00100\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00101}\doxymbox{\hyperlink{struct___u_s_b_d___c_d_c___itf}{00101}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{struct___u_s_b_d___c_d_c___itf}{\_USBD\_CDC\_Itf}}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00102}00102\ \{}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00103}\doxymbox{\hyperlink{struct___u_s_b_d___c_d_c___itf_a64f691b6b487eac3b9df44c641a13c9d}{00103}}\ \ \ int8\_t\ (*\ \doxymbox{\hyperlink{struct___u_s_b_d___c_d_c___itf_a64f691b6b487eac3b9df44c641a13c9d}{Init}})(void);}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00104}\doxymbox{\hyperlink{struct___u_s_b_d___c_d_c___itf_abd8f4e9127de0c9e774cb4e5a225206d}{00104}}\ \ \ int8\_t\ (*\ \doxymbox{\hyperlink{struct___u_s_b_d___c_d_c___itf_abd8f4e9127de0c9e774cb4e5a225206d}{DeInit}})(void);}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00105}\doxymbox{\hyperlink{struct___u_s_b_d___c_d_c___itf_aad1a4476f716c69f468f26794530262d}{00105}}\ \ \ int8\_t\ (*\ \doxymbox{\hyperlink{struct___u_s_b_d___c_d_c___itf_aad1a4476f716c69f468f26794530262d}{Control}})(uint8\_t\ cmd,\ uint8\_t\ *pbuf,\ uint16\_t\ length);}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00106}\doxymbox{\hyperlink{struct___u_s_b_d___c_d_c___itf_a1fac8fb1f8172c3e5cbb281721d2d540}{00106}}\ \ \ int8\_t\ (*\ \doxymbox{\hyperlink{struct___u_s_b_d___c_d_c___itf_a1fac8fb1f8172c3e5cbb281721d2d540}{Receive}})(uint8\_t\ *Buf,\ uint32\_t\ *Len);}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00107}00107\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00108}\doxymbox{\hyperlink{group__usbd__cdc_ga61c7c06f80adff14be2358af5e6971f4}{00108}}\ \}\ \doxymbox{\hyperlink{group__usbd__cdc_ga61c7c06f80adff14be2358af5e6971f4}{USBD\_CDC\_ItfTypeDef}};}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00109}00109\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00110}00110\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00111}\doxymbox{\hyperlink{struct_u_s_b_d___c_d_c___handle_type_def}{00111}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00112}00112\ \{}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00113}\doxymbox{\hyperlink{struct_u_s_b_d___c_d_c___handle_type_def_a6c090533cb619f70663620f0f430c583}{00113}}\ \ \ uint32\_t\ \doxymbox{\hyperlink{struct_u_s_b_d___c_d_c___handle_type_def_a6c090533cb619f70663620f0f430c583}{data}}[\doxymbox{\hyperlink{group__usbd__cdc___exported___defines_gae7db58dbfe2496ddba05ab027238a0c5}{CDC\_DATA\_HS\_MAX\_PACKET\_SIZE}}\ /\ 4U];\ \ \ \ \ \ \textcolor{comment}{/*\ Force\ 32bits\ alignment\ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00114}\doxymbox{\hyperlink{struct_u_s_b_d___c_d_c___handle_type_def_ab77dec971214924b610774104dc62df8}{00114}}\ \ \ uint8\_t\ \ \doxymbox{\hyperlink{struct_u_s_b_d___c_d_c___handle_type_def_ab77dec971214924b610774104dc62df8}{CmdOpCode}};}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00115}\doxymbox{\hyperlink{struct_u_s_b_d___c_d_c___handle_type_def_a4500e41900436752fc5206a7bedbfb1f}{00115}}\ \ \ uint8\_t\ \ \doxymbox{\hyperlink{struct_u_s_b_d___c_d_c___handle_type_def_a4500e41900436752fc5206a7bedbfb1f}{CmdLength}};}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00116}\doxymbox{\hyperlink{struct_u_s_b_d___c_d_c___handle_type_def_a6f952d6a90ff17c132cb946cb2cf2420}{00116}}\ \ \ uint8\_t\ \ *\doxymbox{\hyperlink{struct_u_s_b_d___c_d_c___handle_type_def_a6f952d6a90ff17c132cb946cb2cf2420}{RxBuffer}};}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00117}\doxymbox{\hyperlink{struct_u_s_b_d___c_d_c___handle_type_def_af0555df037b107c6cf61d05129b6791b}{00117}}\ \ \ uint8\_t\ \ *\doxymbox{\hyperlink{struct_u_s_b_d___c_d_c___handle_type_def_af0555df037b107c6cf61d05129b6791b}{TxBuffer}};}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00118}\doxymbox{\hyperlink{struct_u_s_b_d___c_d_c___handle_type_def_ad9c7f87a5b4bd3db87fabebbcb17edb1}{00118}}\ \ \ uint32\_t\ \doxymbox{\hyperlink{struct_u_s_b_d___c_d_c___handle_type_def_ad9c7f87a5b4bd3db87fabebbcb17edb1}{RxLength}};}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00119}\doxymbox{\hyperlink{struct_u_s_b_d___c_d_c___handle_type_def_ab40ecc7b080146480b26cb78055f3557}{00119}}\ \ \ uint32\_t\ \doxymbox{\hyperlink{struct_u_s_b_d___c_d_c___handle_type_def_ab40ecc7b080146480b26cb78055f3557}{TxLength}};}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00120}00120\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00121}\doxymbox{\hyperlink{struct_u_s_b_d___c_d_c___handle_type_def_a1182e901250449fe66be702ff839e01f}{00121}}\ \ \ \_\_IO\ uint32\_t\ \doxymbox{\hyperlink{struct_u_s_b_d___c_d_c___handle_type_def_a1182e901250449fe66be702ff839e01f}{TxState}};}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00122}\doxymbox{\hyperlink{struct_u_s_b_d___c_d_c___handle_type_def_a9eb2f3dbb7103d92e81e732a76b10833}{00122}}\ \ \ \_\_IO\ uint32\_t\ \doxymbox{\hyperlink{struct_u_s_b_d___c_d_c___handle_type_def_a9eb2f3dbb7103d92e81e732a76b10833}{RxState}};}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00123}00123\ \}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00124}00124\ \doxymbox{\hyperlink{struct_u_s_b_d___c_d_c___handle_type_def}{USBD\_CDC\_HandleTypeDef}};}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00125}00125\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00126}00126\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00127}00127\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00128}00128\ \textcolor{comment}{/**\ @defgroup\ USBD\_CORE\_Exported\_Macros}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00129}00129\ \textcolor{comment}{\ \ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00130}00130\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00131}00131\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00132}00132\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00133}00133\ \textcolor{comment}{\ \ *\ @\}}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00134}00134\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00135}00135\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00136}00136\ \textcolor{comment}{/**\ @defgroup\ USBD\_CORE\_Exported\_Variables}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00137}00137\ \textcolor{comment}{\ \ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00138}00138\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00139}00139\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00140}00140\ \textcolor{keyword}{extern}\ \doxymbox{\hyperlink{group___u_s_b_d___d_e_f___exported___types_definitions_gaafe543e63a2f424e35793fc28562a370}{USBD\_ClassTypeDef}}\ \ \doxymbox{\hyperlink{group___u_s_b_d___c_o_r_e___exported___variables_ga4ea96ee34eb73d0dae16f02a232e9b5c}{USBD\_CDC}};}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00141}\doxymbox{\hyperlink{group___u_s_b_d___c_o_r_e___exported___variables_ga9ea5914811159ebdbeac6a7e0596dd9f}{00141}}\ \textcolor{preprocessor}{\#define\ USBD\_CDC\_CLASS\ \ \ \ \&USBD\_CDC}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00142}00142\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00143}00143\ \textcolor{comment}{\ \ *\ @\}}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00144}00144\ \textcolor{comment}{\ \ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00145}00145\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00146}00146\ \textcolor{comment}{/**\ @defgroup\ USB\_CORE\_Exported\_Functions}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00147}00147\ \textcolor{comment}{\ \ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00148}00148\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00149}00149\ uint8\_t\ \ \doxymbox{\hyperlink{group___u_s_b___c_o_r_e___exported___functions_ga41e2c9c5138449916310eb508a500752}{USBD\_CDC\_RegisterInterface}}(\doxymbox{\hyperlink{group___u_s_b_d___d_e_f___exported___types_definitions_ga08827834e2e564cea191282b65ce06f7}{USBD\_HandleTypeDef}}\ \ \ *pdev,}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00150}00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group__usbd__cdc_ga61c7c06f80adff14be2358af5e6971f4}{USBD\_CDC\_ItfTypeDef}}\ *fops);}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00151}00151\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00152}00152\ uint8\_t\ \ \doxymbox{\hyperlink{group___u_s_b___c_o_r_e___exported___functions_gaae40b75b0ccc21281f4aa1e2fbdc0d4f}{USBD\_CDC\_SetTxBuffer}}(\doxymbox{\hyperlink{group___u_s_b_d___d_e_f___exported___types_definitions_ga08827834e2e564cea191282b65ce06f7}{USBD\_HandleTypeDef}}\ \ \ *pdev,}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00153}00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ \ *pbuff,}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00154}00154\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint16\_t\ length);}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00155}00155\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00156}00156\ uint8\_t\ \ \doxymbox{\hyperlink{group___u_s_b___c_o_r_e___exported___functions_gaa8539af2ff78ce9a464def5de05726c3}{USBD\_CDC\_SetRxBuffer}}(\doxymbox{\hyperlink{group___u_s_b_d___d_e_f___exported___types_definitions_ga08827834e2e564cea191282b65ce06f7}{USBD\_HandleTypeDef}}\ \ \ *pdev,}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00157}00157\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ \ *pbuff);}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00158}00158\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00159}00159\ uint8\_t\ \ \doxymbox{\hyperlink{group___u_s_b___c_o_r_e___exported___functions_ga55dff87863e1c76fd1139016da75903c}{USBD\_CDC\_ReceivePacket}}(\doxymbox{\hyperlink{group___u_s_b_d___d_e_f___exported___types_definitions_ga08827834e2e564cea191282b65ce06f7}{USBD\_HandleTypeDef}}\ *pdev);}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00160}00160\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00161}00161\ uint8\_t\ \ \doxymbox{\hyperlink{group___u_s_b___c_o_r_e___exported___functions_gac6132b25e4ac00c4d918d3d73a3be5c7}{USBD\_CDC\_TransmitPacket}}(\doxymbox{\hyperlink{group___u_s_b_d___d_e_f___exported___types_definitions_ga08827834e2e564cea191282b65ce06f7}{USBD\_HandleTypeDef}}\ *pdev);\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00162}00162\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00163}00163\ \textcolor{comment}{\ \ *\ @\}}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00164}00164\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00165}00165\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00166}00166\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00167}00167\ \}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00168}00168\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00169}00169\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00170}00170\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{/*\ \_\_USB\_CDC\_H\ */}\textcolor{preprocessor}{}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00171}00171\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00172}00172\ \textcolor{comment}{\ \ *\ @\}}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00173}00173\ \textcolor{comment}{\ \ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00174}00174\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00175}00175\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00176}00176\ \textcolor{comment}{\ \ *\ @\}}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00177}00177\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00178}00178\ }
+\DoxyCodeLine{\Hypertarget{usbd__cdc_8h_source_l00179}00179\ \textcolor{comment}{/************************\ (C)\ COPYRIGHT\ STMicroelectronics\ *****END\ OF\ FILE****/}}
+
+\end{DoxyCode}

@@ -1,0 +1,558 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>MICRO-Firmware: Referencia de la estructura _USBD_HandleTypeDef</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="codefolding.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  extensions: ["tex2jax.js"],
+  jax: ["input/TeX","output/HTML-CSS"],
+});
+</script>
+<script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">MICRO-Firmware<span id="projectnumber">&#160;EX100923v01</span>
+   </div>
+   <div id="projectbrief">Firmware de Péndulo Invertido Autónomo de Dos Ruedas (STM32F103C8T6 - ARM Cortex-M3)</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Buscar" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('struct___u_s_b_d___handle_type_def.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">Referencia de la estructura _USBD_HandleTypeDef<div class="ingroups"><a class="el" href="group___s_t_m32___u_s_b_d___d_e_v_i_c_e___l_i_b_r_a_r_y.html">STM32_USBD_DEVICE_LIBRARY</a> &raquo; <a class="el" href="group___u_s_b___d_e_f.html">USB_DEF</a> &raquo; <a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html">USBD_DEF_Exported_TypesDefinitions</a></div></div></div>
+</div><!--header-->
+<div class="contents">
+
+<p><code>#include &quot;<a class="el" href="usbd__def_8h_source.html">usbd_def.h</a>&quot;</code></p>
+<div id="dynsection-0" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Diagrama de colaboración de _USBD_HandleTypeDef:</div>
+<div id="dynsection-0-summary" class="dynsummary">
+</div>
+<div id="dynsection-0-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="struct___u_s_b_d___handle_type_def__coll__graph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Campos de datos</h2></td></tr>
+<tr class="memitem:af3d7a614a6c303c650c170be0db9e4b9" id="r_af3d7a614a6c303c650c170be0db9e4b9"><td class="memItemLeft">uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#af3d7a614a6c303c650c170be0db9e4b9">dev_address</a></td></tr>
+<tr class="memitem:a6ca03ac14a91825f90cfbcf60e7b137b" id="r_a6ca03ac14a91825f90cfbcf60e7b137b"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a6ca03ac14a91825f90cfbcf60e7b137b">dev_config</a></td></tr>
+<tr class="memitem:a15beabef5122d0052a174f8199aba0fb" id="r_a15beabef5122d0052a174f8199aba0fb"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a15beabef5122d0052a174f8199aba0fb">dev_config_status</a></td></tr>
+<tr class="memitem:aab8828b36430a92401a77d7d99afbc16" id="r_aab8828b36430a92401a77d7d99afbc16"><td class="memItemLeft">uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#aab8828b36430a92401a77d7d99afbc16">dev_connection_status</a></td></tr>
+<tr class="memitem:a106d00710a2670cb78eb7c60d5ee7148" id="r_a106d00710a2670cb78eb7c60d5ee7148"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a106d00710a2670cb78eb7c60d5ee7148">dev_default_config</a></td></tr>
+<tr class="memitem:ada8cf946bea80eddd4e02d625cd12ec3" id="r_ada8cf946bea80eddd4e02d625cd12ec3"><td class="memItemLeft">uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#ada8cf946bea80eddd4e02d625cd12ec3">dev_old_state</a></td></tr>
+<tr class="memitem:a57d4048d7f8c526945dd0aecd1ec963e" id="r_a57d4048d7f8c526945dd0aecd1ec963e"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a57d4048d7f8c526945dd0aecd1ec963e">dev_remote_wakeup</a></td></tr>
+<tr class="memitem:ab040c3b6da2606cb0271eeb0e69bf380" id="r_ab040c3b6da2606cb0271eeb0e69bf380"><td class="memItemLeft"><a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#gaa62cd3d2fb69a537ae7a5a94bdd6ae93">USBD_SpeedTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab040c3b6da2606cb0271eeb0e69bf380">dev_speed</a></td></tr>
+<tr class="memitem:ab353692b2c17b45da559adbd2fb82ee2" id="r_ab353692b2c17b45da559adbd2fb82ee2"><td class="memItemLeft">uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#ab353692b2c17b45da559adbd2fb82ee2">dev_state</a></td></tr>
+<tr class="memitem:a88ced0f8fd9995ddc0deca1dc6c6eeaf" id="r_a88ced0f8fd9995ddc0deca1dc6c6eeaf"><td class="memItemLeft">uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#a88ced0f8fd9995ddc0deca1dc6c6eeaf">dev_test_mode</a></td></tr>
+<tr class="memitem:ad0232e00e7b26d4fd44703e7aa1967e8" id="r_ad0232e00e7b26d4fd44703e7aa1967e8"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ad0232e00e7b26d4fd44703e7aa1967e8">ep0_data_len</a></td></tr>
+<tr class="memitem:a613cd6cd788fc7e1192af174f5b52038" id="r_a613cd6cd788fc7e1192af174f5b52038"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a613cd6cd788fc7e1192af174f5b52038">ep0_state</a></td></tr>
+<tr class="memitem:a349168e0c5b8446a99acfe17a4baeb4a" id="r_a349168e0c5b8446a99acfe17a4baeb4a"><td class="memItemLeft"><a class="el" href="struct_u_s_b_d___endpoint_type_def.html">USBD_EndpointTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="#a349168e0c5b8446a99acfe17a4baeb4a">ep_in</a> [16]</td></tr>
+<tr class="memitem:a44d0772ecdbc82857e4838d82cd41cbd" id="r_a44d0772ecdbc82857e4838d82cd41cbd"><td class="memItemLeft"><a class="el" href="struct_u_s_b_d___endpoint_type_def.html">USBD_EndpointTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="#a44d0772ecdbc82857e4838d82cd41cbd">ep_out</a> [16]</td></tr>
+<tr class="memitem:a5156272c7e67c05e71c7f896400736fc" id="r_a5156272c7e67c05e71c7f896400736fc"><td class="memItemLeft">uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#a5156272c7e67c05e71c7f896400736fc">id</a></td></tr>
+<tr class="memitem:a0c83fe605d308d5724b8d3ba89e4cb7e" id="r_a0c83fe605d308d5724b8d3ba89e4cb7e"><td class="memItemLeft"><a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#gaafe543e63a2f424e35793fc28562a370">USBD_ClassTypeDef</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a0c83fe605d308d5724b8d3ba89e4cb7e">pClass</a></td></tr>
+<tr class="memitem:acb39dec6f552fcb28268351a90cbc709" id="r_acb39dec6f552fcb28268351a90cbc709"><td class="memItemLeft">void *&#160;</td><td class="memItemRight"><a class="el" href="#acb39dec6f552fcb28268351a90cbc709">pClassData</a></td></tr>
+<tr class="memitem:a9b47e60cc69d401f31b657c87d043b0d" id="r_a9b47e60cc69d401f31b657c87d043b0d"><td class="memItemLeft">void *&#160;</td><td class="memItemRight"><a class="el" href="#a9b47e60cc69d401f31b657c87d043b0d">pData</a></td></tr>
+<tr class="memitem:a6ea838b67470602aac3d753d5aa480ff" id="r_a6ea838b67470602aac3d753d5aa480ff"><td class="memItemLeft"><a class="el" href="struct_u_s_b_d___descriptors_type_def.html">USBD_DescriptorsTypeDef</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a6ea838b67470602aac3d753d5aa480ff">pDesc</a></td></tr>
+<tr class="memitem:a539cfbdf2f77898186bd41e104d21695" id="r_a539cfbdf2f77898186bd41e104d21695"><td class="memItemLeft">void *&#160;</td><td class="memItemRight"><a class="el" href="#a539cfbdf2f77898186bd41e104d21695">pUserData</a></td></tr>
+<tr class="memitem:acadd0265b9179eb16d524f65dfd1c2d2" id="r_acadd0265b9179eb16d524f65dfd1c2d2"><td class="memItemLeft"><a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ga665aefb3766e4a2ad3f914d3c36c297c">USBD_SetupReqTypedef</a>&#160;</td><td class="memItemRight"><a class="el" href="#acadd0265b9179eb16d524f65dfd1c2d2">request</a></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Descripción detallada</h2>
+<div class="textblock">
+<p class="definition">Definición en la línea <a class="el" href="usbd__def_8h_source.html#l00237">237</a> del archivo <a class="el" href="usbd__def_8h_source.html">usbd_def.h</a>.</p>
+</div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Documentación de campos</h2>
+<a id="af3d7a614a6c303c650c170be0db9e4b9" name="af3d7a614a6c303c650c170be0db9e4b9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af3d7a614a6c303c650c170be0db9e4b9">&#9670;&#160;</a></span>dev_address</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t _USBD_HandleTypeDef::dev_address</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="usbd__def_8h_source.html#l00250">250</a> del archivo <a class="el" href="usbd__def_8h_source.html">usbd_def.h</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="usbd__ctlreq_8c_source.html#l00595">USBD_SetAddress()</a>.</p>
+
+</div>
+</div>
+<a id="a6ca03ac14a91825f90cfbcf60e7b137b" name="a6ca03ac14a91825f90cfbcf60e7b137b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ca03ac14a91825f90cfbcf60e7b137b">&#9670;&#160;</a></span>dev_config</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t _USBD_HandleTypeDef::dev_config</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="usbd__def_8h_source.html#l00240">240</a> del archivo <a class="el" href="usbd__def_8h_source.html">usbd_def.h</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="usbd__core_8c_source.html#l00128">USBD_DeInit()</a>, <a class="el" href="usbd__ctlreq_8c_source.html#l00712">USBD_GetConfig()</a>, <a class="el" href="usbd__core_8c_source.html#l00588">USBD_LL_DevDisconnected()</a>, <a class="el" href="usbd__core_8c_source.html#l00442">USBD_LL_Reset()</a>, <a class="el" href="usbd__ctlreq_8c_source.html#l00637">USBD_SetConfig()</a> y <a class="el" href="usbd__core_8c_source.html#l00192">USBD_Stop()</a>.</p>
+
+</div>
+</div>
+<a id="a15beabef5122d0052a174f8199aba0fb" name="a15beabef5122d0052a174f8199aba0fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15beabef5122d0052a174f8199aba0fb">&#9670;&#160;</a></span>dev_config_status</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t _USBD_HandleTypeDef::dev_config_status</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="usbd__def_8h_source.html#l00242">242</a> del archivo <a class="el" href="usbd__def_8h_source.html">usbd_def.h</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="usbd__ctlreq_8c_source.html#l00746">USBD_GetStatus()</a>.</p>
+
+</div>
+</div>
+<a id="aab8828b36430a92401a77d7d99afbc16" name="aab8828b36430a92401a77d7d99afbc16"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab8828b36430a92401a77d7d99afbc16">&#9670;&#160;</a></span>dev_connection_status</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t _USBD_HandleTypeDef::dev_connection_status</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="usbd__def_8h_source.html#l00251">251</a> del archivo <a class="el" href="usbd__def_8h_source.html">usbd_def.h</a>.</p>
+
+</div>
+</div>
+<a id="a106d00710a2670cb78eb7c60d5ee7148" name="a106d00710a2670cb78eb7c60d5ee7148"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a106d00710a2670cb78eb7c60d5ee7148">&#9670;&#160;</a></span>dev_default_config</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t _USBD_HandleTypeDef::dev_default_config</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="usbd__def_8h_source.html#l00241">241</a> del archivo <a class="el" href="usbd__def_8h_source.html">usbd_def.h</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="usbd__ctlreq_8c_source.html#l00712">USBD_GetConfig()</a>.</p>
+
+</div>
+</div>
+<a id="ada8cf946bea80eddd4e02d625cd12ec3" name="ada8cf946bea80eddd4e02d625cd12ec3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada8cf946bea80eddd4e02d625cd12ec3">&#9670;&#160;</a></span>dev_old_state</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t _USBD_HandleTypeDef::dev_old_state</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="usbd__def_8h_source.html#l00249">249</a> del archivo <a class="el" href="usbd__def_8h_source.html">usbd_def.h</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="usbd__core_8c_source.html#l00506">USBD_LL_Resume()</a> y <a class="el" href="usbd__core_8c_source.html#l00491">USBD_LL_Suspend()</a>.</p>
+
+</div>
+</div>
+<a id="a57d4048d7f8c526945dd0aecd1ec963e" name="a57d4048d7f8c526945dd0aecd1ec963e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57d4048d7f8c526945dd0aecd1ec963e">&#9670;&#160;</a></span>dev_remote_wakeup</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t _USBD_HandleTypeDef::dev_remote_wakeup</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="usbd__def_8h_source.html#l00253">253</a> del archivo <a class="el" href="usbd__def_8h_source.html">usbd_def.h</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="usbd__ctlreq_8c_source.html#l00805">USBD_ClrFeature()</a>, <a class="el" href="usbd__ctlreq_8c_source.html#l00746">USBD_GetStatus()</a>, <a class="el" href="usbd__core_8c_source.html#l00442">USBD_LL_Reset()</a> y <a class="el" href="usbd__ctlreq_8c_source.html#l00787">USBD_SetFeature()</a>.</p>
+
+</div>
+</div>
+<a id="ab040c3b6da2606cb0271eeb0e69bf380" name="ab040c3b6da2606cb0271eeb0e69bf380"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab040c3b6da2606cb0271eeb0e69bf380">&#9670;&#160;</a></span>dev_speed</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#gaa62cd3d2fb69a537ae7a5a94bdd6ae93">USBD_SpeedTypeDef</a> _USBD_HandleTypeDef::dev_speed</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="usbd__def_8h_source.html#l00243">243</a> del archivo <a class="el" href="usbd__def_8h_source.html">usbd_def.h</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="usbd__cdc_8c_source.html#l00471">USBD_CDC_Init()</a>, <a class="el" href="usbd__cdc_8c_source.html#l00903">USBD_CDC_ReceivePacket()</a>, <a class="el" href="usbd__ctlreq_8c_source.html#l00405">USBD_GetDescriptor()</a> y <a class="el" href="usbd__core_8c_source.html#l00476">USBD_LL_SetSpeed()</a>.</p>
+
+</div>
+</div>
+<a id="ab353692b2c17b45da559adbd2fb82ee2" name="ab353692b2c17b45da559adbd2fb82ee2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab353692b2c17b45da559adbd2fb82ee2">&#9670;&#160;</a></span>dev_state</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t _USBD_HandleTypeDef::dev_state</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="usbd__def_8h_source.html#l00248">248</a> del archivo <a class="el" href="usbd__def_8h_source.html">usbd_def.h</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="usbd__cdc_8c_source.html#l00583">USBD_CDC_Setup()</a>, <a class="el" href="usbd__ctlreq_8c_source.html#l00805">USBD_ClrFeature()</a>, <a class="el" href="usbd__core_8c_source.html#l00128">USBD_DeInit()</a>, <a class="el" href="usbd__ctlreq_8c_source.html#l00712">USBD_GetConfig()</a>, <a class="el" href="usbd__ctlreq_8c_source.html#l00746">USBD_GetStatus()</a>, <a class="el" href="usbd__core_8c_source.html#l00089">USBD_Init()</a>, <a class="el" href="usbd__core_8c_source.html#l00361">USBD_LL_DataInStage()</a>, <a class="el" href="usbd__core_8c_source.html#l00300">USBD_LL_DataOutStage()</a>, <a class="el" href="usbd__core_8c_source.html#l00588">USBD_LL_DevDisconnected()</a>, <a class="el" href="usbd__core_8c_source.html#l00442">USBD_LL_Reset()</a>, <a class="el" href="usbd__core_8c_source.html#l00506">USBD_LL_Resume()</a>, <a class="el" href="usbd__core_8c_source.html#l00523">USBD_LL_SOF()</a>, <a class="el" href="usbd__core_8c_source.html#l00491">USBD_LL_Suspend()</a>, <a class="el" href="usbd__ctlreq_8c_source.html#l00595">USBD_SetAddress()</a>, <a class="el" href="usbd__ctlreq_8c_source.html#l00637">USBD_SetConfig()</a>, <a class="el" href="usbd__ctlreq_8c_source.html#l00230">USBD_StdEPReq()</a> y <a class="el" href="usbd__ctlreq_8c_source.html#l00178">USBD_StdItfReq()</a>.</p>
+
+</div>
+</div>
+<a id="a88ced0f8fd9995ddc0deca1dc6c6eeaf" name="a88ced0f8fd9995ddc0deca1dc6c6eeaf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a88ced0f8fd9995ddc0deca1dc6c6eeaf">&#9670;&#160;</a></span>dev_test_mode</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t _USBD_HandleTypeDef::dev_test_mode</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="usbd__def_8h_source.html#l00252">252</a> del archivo <a class="el" href="usbd__def_8h_source.html">usbd_def.h</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="usbd__core_8c_source.html#l00361">USBD_LL_DataInStage()</a>.</p>
+
+</div>
+</div>
+<a id="ad0232e00e7b26d4fd44703e7aa1967e8" name="ad0232e00e7b26d4fd44703e7aa1967e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad0232e00e7b26d4fd44703e7aa1967e8">&#9670;&#160;</a></span>ep0_data_len</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t _USBD_HandleTypeDef::ep0_data_len</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="usbd__def_8h_source.html#l00247">247</a> del archivo <a class="el" href="usbd__def_8h_source.html">usbd_def.h</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="usbd__core_8c_source.html#l00361">USBD_LL_DataInStage()</a> y <a class="el" href="usbd__core_8c_source.html#l00263">USBD_LL_SetupStage()</a>.</p>
+
+</div>
+</div>
+<a id="a613cd6cd788fc7e1192af174f5b52038" name="a613cd6cd788fc7e1192af174f5b52038"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a613cd6cd788fc7e1192af174f5b52038">&#9670;&#160;</a></span>ep0_state</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t _USBD_HandleTypeDef::ep0_state</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="usbd__def_8h_source.html#l00246">246</a> del archivo <a class="el" href="usbd__def_8h_source.html">usbd_def.h</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="usbd__ioreq_8c_source.html#l00126">USBD_CtlPrepareRx()</a>, <a class="el" href="usbd__ioreq_8c_source.html#l00179">USBD_CtlReceiveStatus()</a>, <a class="el" href="usbd__ioreq_8c_source.html#l00087">USBD_CtlSendData()</a>, <a class="el" href="usbd__ioreq_8c_source.html#l00162">USBD_CtlSendStatus()</a>, <a class="el" href="usbd__core_8c_source.html#l00361">USBD_LL_DataInStage()</a>, <a class="el" href="usbd__core_8c_source.html#l00300">USBD_LL_DataOutStage()</a>, <a class="el" href="usbd__core_8c_source.html#l00442">USBD_LL_Reset()</a> y <a class="el" href="usbd__core_8c_source.html#l00263">USBD_LL_SetupStage()</a>.</p>
+
+</div>
+</div>
+<a id="a349168e0c5b8446a99acfe17a4baeb4a" name="a349168e0c5b8446a99acfe17a4baeb4a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a349168e0c5b8446a99acfe17a4baeb4a">&#9670;&#160;</a></span>ep_in</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_u_s_b_d___endpoint_type_def.html">USBD_EndpointTypeDef</a> _USBD_HandleTypeDef::ep_in[16]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="usbd__def_8h_source.html#l00244">244</a> del archivo <a class="el" href="usbd__def_8h_source.html">usbd_def.h</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="usbd__cdc_8c_source.html#l00677">USBD_CDC_DataIn()</a>, <a class="el" href="usbd__cdc_8c_source.html#l00549">USBD_CDC_DeInit()</a>, <a class="el" href="usbd__cdc_8c_source.html#l00471">USBD_CDC_Init()</a>, <a class="el" href="usbd__cdc_8c_source.html#l00865">USBD_CDC_TransmitPacket()</a>, <a class="el" href="usbd__ioreq_8c_source.html#l00087">USBD_CtlSendData()</a>, <a class="el" href="usbd__core_8c_source.html#l00361">USBD_LL_DataInStage()</a>, <a class="el" href="usbd__core_8c_source.html#l00442">USBD_LL_Reset()</a> y <a class="el" href="usbd__ctlreq_8c_source.html#l00230">USBD_StdEPReq()</a>.</p>
+
+</div>
+</div>
+<a id="a44d0772ecdbc82857e4838d82cd41cbd" name="a44d0772ecdbc82857e4838d82cd41cbd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a44d0772ecdbc82857e4838d82cd41cbd">&#9670;&#160;</a></span>ep_out</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_u_s_b_d___endpoint_type_def.html">USBD_EndpointTypeDef</a> _USBD_HandleTypeDef::ep_out[16]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="usbd__def_8h_source.html#l00245">245</a> del archivo <a class="el" href="usbd__def_8h_source.html">usbd_def.h</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="usbd__cdc_8c_source.html#l00549">USBD_CDC_DeInit()</a>, <a class="el" href="usbd__cdc_8c_source.html#l00471">USBD_CDC_Init()</a>, <a class="el" href="usbd__ioreq_8c_source.html#l00126">USBD_CtlPrepareRx()</a>, <a class="el" href="usbd__core_8c_source.html#l00300">USBD_LL_DataOutStage()</a>, <a class="el" href="usbd__core_8c_source.html#l00442">USBD_LL_Reset()</a> y <a class="el" href="usbd__ctlreq_8c_source.html#l00230">USBD_StdEPReq()</a>.</p>
+
+</div>
+</div>
+<a id="a5156272c7e67c05e71c7f896400736fc" name="a5156272c7e67c05e71c7f896400736fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5156272c7e67c05e71c7f896400736fc">&#9670;&#160;</a></span>id</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t _USBD_HandleTypeDef::id</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="usbd__def_8h_source.html#l00239">239</a> del archivo <a class="el" href="usbd__def_8h_source.html">usbd_def.h</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="usbd__core_8c_source.html#l00089">USBD_Init()</a>.</p>
+
+</div>
+</div>
+<a id="a0c83fe605d308d5724b8d3ba89e4cb7e" name="a0c83fe605d308d5724b8d3ba89e4cb7e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c83fe605d308d5724b8d3ba89e4cb7e">&#9670;&#160;</a></span>pClass</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#gaafe543e63a2f424e35793fc28562a370">USBD_ClassTypeDef</a>* _USBD_HandleTypeDef::pClass</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="usbd__def_8h_source.html#l00257">257</a> del archivo <a class="el" href="usbd__def_8h_source.html">usbd_def.h</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="usbd__core_8c_source.html#l00248">USBD_ClrClassConfig()</a>, <a class="el" href="usbd__core_8c_source.html#l00128">USBD_DeInit()</a>, <a class="el" href="usbd__ctlreq_8c_source.html#l00405">USBD_GetDescriptor()</a>, <a class="el" href="usbd__core_8c_source.html#l00089">USBD_Init()</a>, <a class="el" href="usbd__core_8c_source.html#l00361">USBD_LL_DataInStage()</a>, <a class="el" href="usbd__core_8c_source.html#l00300">USBD_LL_DataOutStage()</a>, <a class="el" href="usbd__core_8c_source.html#l00588">USBD_LL_DevDisconnected()</a>, <a class="el" href="usbd__core_8c_source.html#l00442">USBD_LL_Reset()</a>, <a class="el" href="usbd__core_8c_source.html#l00523">USBD_LL_SOF()</a>, <a class="el" href="usbd__core_8c_source.html#l00152">USBD_RegisterClass()</a>, <a class="el" href="usbd__core_8c_source.html#l00225">USBD_SetClassConfig()</a>, <a class="el" href="usbd__ctlreq_8c_source.html#l00114">USBD_StdDevReq()</a>, <a class="el" href="usbd__ctlreq_8c_source.html#l00230">USBD_StdEPReq()</a>, <a class="el" href="usbd__ctlreq_8c_source.html#l00178">USBD_StdItfReq()</a> y <a class="el" href="usbd__core_8c_source.html#l00192">USBD_Stop()</a>.</p>
+
+</div>
+</div>
+<a id="acb39dec6f552fcb28268351a90cbc709" name="acb39dec6f552fcb28268351a90cbc709"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb39dec6f552fcb28268351a90cbc709">&#9670;&#160;</a></span>pClassData</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void* _USBD_HandleTypeDef::pClassData</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="usbd__def_8h_source.html#l00258">258</a> del archivo <a class="el" href="usbd__def_8h_source.html">usbd_def.h</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="usbd__cdc__if_8c_source.html#l00300">CDC_Transmit_FS()</a>, <a class="el" href="usbd__cdc_8c_source.html#l00677">USBD_CDC_DataIn()</a>, <a class="el" href="usbd__cdc_8c_source.html#l00711">USBD_CDC_DataOut()</a>, <a class="el" href="usbd__cdc_8c_source.html#l00549">USBD_CDC_DeInit()</a>, <a class="el" href="usbd__cdc_8c_source.html#l00738">USBD_CDC_EP0_RxReady()</a>, <a class="el" href="usbd__cdc_8c_source.html#l00471">USBD_CDC_Init()</a>, <a class="el" href="usbd__cdc_8c_source.html#l00903">USBD_CDC_ReceivePacket()</a>, <a class="el" href="usbd__cdc_8c_source.html#l00849">USBD_CDC_SetRxBuffer()</a>, <a class="el" href="usbd__cdc_8c_source.html#l00830">USBD_CDC_SetTxBuffer()</a>, <a class="el" href="usbd__cdc_8c_source.html#l00583">USBD_CDC_Setup()</a>, <a class="el" href="usbd__cdc_8c_source.html#l00865">USBD_CDC_TransmitPacket()</a> y <a class="el" href="usbd__core_8c_source.html#l00442">USBD_LL_Reset()</a>.</p>
+
+</div>
+</div>
+<a id="a9b47e60cc69d401f31b657c87d043b0d" name="a9b47e60cc69d401f31b657c87d043b0d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b47e60cc69d401f31b657c87d043b0d">&#9670;&#160;</a></span>pData</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void* _USBD_HandleTypeDef::pData</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="usbd__def_8h_source.html#l00260">260</a> del archivo <a class="el" href="usbd__def_8h_source.html">usbd_def.h</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="usbd__cdc_8c_source.html#l00677">USBD_CDC_DataIn()</a>, <a class="el" href="usbd__conf_8c_source.html#l00479">USBD_LL_ClearStallEP()</a>, <a class="el" href="usbd__conf_8c_source.html#l00425">USBD_LL_CloseEP()</a>, <a class="el" href="usbd__conf_8c_source.html#l00353">USBD_LL_DeInit()</a>, <a class="el" href="usbd__conf_8c_source.html#l00443">USBD_LL_FlushEP()</a>, <a class="el" href="usbd__conf_8c_source.html#l00575">USBD_LL_GetRxDataSize()</a>, <a class="el" href="usbd__conf_8c_source.html#l00303">USBD_LL_Init()</a>, <a class="el" href="usbd__conf_8c_source.html#l00497">USBD_LL_IsStallEP()</a>, <a class="el" href="usbd__conf_8c_source.html#l00407">USBD_LL_OpenEP()</a>, <a class="el" href="usbd__conf_8c_source.html#l00557">USBD_LL_PrepareReceive()</a>, <a class="el" href="usbd__conf_8c_source.html#l00517">USBD_LL_SetUSBAddress()</a>, <a class="el" href="usbd__conf_8c_source.html#l00461">USBD_LL_StallEP()</a>, <a class="el" href="usbd__conf_8c_source.html#l00370">USBD_LL_Start()</a>, <a class="el" href="usbd__conf_8c_source.html#l00387">USBD_LL_Stop()</a> y <a class="el" href="usbd__conf_8c_source.html#l00537">USBD_LL_Transmit()</a>.</p>
+
+</div>
+</div>
+<a id="a6ea838b67470602aac3d753d5aa480ff" name="a6ea838b67470602aac3d753d5aa480ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ea838b67470602aac3d753d5aa480ff">&#9670;&#160;</a></span>pDesc</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_u_s_b_d___descriptors_type_def.html">USBD_DescriptorsTypeDef</a>* _USBD_HandleTypeDef::pDesc</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="usbd__def_8h_source.html#l00256">256</a> del archivo <a class="el" href="usbd__def_8h_source.html">usbd_def.h</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="usbd__ctlreq_8c_source.html#l00405">USBD_GetDescriptor()</a> y <a class="el" href="usbd__core_8c_source.html#l00089">USBD_Init()</a>.</p>
+
+</div>
+</div>
+<a id="a539cfbdf2f77898186bd41e104d21695" name="a539cfbdf2f77898186bd41e104d21695"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a539cfbdf2f77898186bd41e104d21695">&#9670;&#160;</a></span>pUserData</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void* _USBD_HandleTypeDef::pUserData</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="usbd__def_8h_source.html#l00259">259</a> del archivo <a class="el" href="usbd__def_8h_source.html">usbd_def.h</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="usbd__cdc_8c_source.html#l00711">USBD_CDC_DataOut()</a>, <a class="el" href="usbd__cdc_8c_source.html#l00549">USBD_CDC_DeInit()</a>, <a class="el" href="usbd__cdc_8c_source.html#l00738">USBD_CDC_EP0_RxReady()</a>, <a class="el" href="usbd__cdc_8c_source.html#l00471">USBD_CDC_Init()</a>, <a class="el" href="usbd__cdc_8c_source.html#l00810">USBD_CDC_RegisterInterface()</a> y <a class="el" href="usbd__cdc_8c_source.html#l00583">USBD_CDC_Setup()</a>.</p>
+
+</div>
+</div>
+<a id="acadd0265b9179eb16d524f65dfd1c2d2" name="acadd0265b9179eb16d524f65dfd1c2d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acadd0265b9179eb16d524f65dfd1c2d2">&#9670;&#160;</a></span>request</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ga665aefb3766e4a2ad3f914d3c36c297c">USBD_SetupReqTypedef</a> _USBD_HandleTypeDef::request</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="usbd__def_8h_source.html#l00255">255</a> del archivo <a class="el" href="usbd__def_8h_source.html">usbd_def.h</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="usbd__core_8c_source.html#l00263">USBD_LL_SetupStage()</a>.</p>
+
+</div>
+</div>
+<hr/>La documentación de esta estructura está generada del siguiente archivo:<ul>
+<li><a class="el" href="usbd__def_8h_source.html">usbd_def.h</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="struct___u_s_b_d___handle_type_def.html">_USBD_HandleTypeDef</a></li>
+    <li class="footer">Generado el <span class="timestamp"></span> para MICRO-Firmware por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

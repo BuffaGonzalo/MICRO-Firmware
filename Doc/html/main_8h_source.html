@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>MICRO-Firmware: Archivo de código fuente main.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="codefolding.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">MICRO-Firmware<span id="projectnumber">&#160;EX100923v01</span>
+   </div>
+   <div id="projectbrief">Firmware de Péndulo Invertido Autónomo de Dos Ruedas (STM32F103C8T6 - ARM Cortex-M3)</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Buscar" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('main_8h_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">main.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="main_8h.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment"> * @file   main.h</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment"> * @author Gonzalo M. Buffa / STMicroelectronics</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"> * @brief  Cabecera principal de la aplicación, constantes de hardware y prototipos del sistema.</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment"> * @details Define las asignaciones de pines GPIO (LED indicador de Heartbeat, botón de usuario,</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment"> *          pin de habilitación del módulo Wi-Fi ESP-01) y prototipos de controladores de error.</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment"> * @ingroup group_main</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#ifndef __MAIN_H</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#define __MAIN_H</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span> {</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="comment">/* Includes ------------------------------------------------------------------*/</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &quot;<a class="code" href="stm32f1xx__hal_8h.html">stm32f1xx_hal.h</a>&quot;</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="comment"></span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="comment"> * @brief Configura los canales PWM de los temporizadores tras la inicialización del hardware.</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="comment"> * @param[in,out] htim Puntero a la estructura de manejador del temporizador TIM.</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keywordtype">void</span> <a class="code hl_function" href="main_8h.html#ae70bce6c39d0b570a7523b86738cec4b">HAL_TIM_MspPostInit</a>(<a class="code hl_struct" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim);</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="comment"></span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="comment"> * @brief Manejador central de fallas críticas de inicialización de periféricos HAL.</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="comment"> * @details Entra en un bucle infinito de bloqueo en caso de fallo irrecuperable de reloj o bus.</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="keywordtype">void</span> <a class="code hl_function" href="main_8h.html#a1730ffe1e560465665eb47d9264826f9">Error_Handler</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="comment"></span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="comment"> * @defgroup Hardware_Pinout Asignaciones de Pines GPIO de la Placa</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="comment"> * @ingroup group_main</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="comment"> * @{</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="group___hardware___pinout.html#gac969c4fccd009dd70b69992d92cbe81a">   37</a></span><span class="preprocessor">#define LED_Pin           GPIO_PIN_13   </span><span class="comment">/*!&lt; Pin del LED indicador integrado (Heartbeat activo a nivel bajo) */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="group___hardware___pinout.html#ga3cf393d21586a4097159246e8aca13a2">   38</a></span><span class="preprocessor">#define LED_GPIO_Port     GPIOC         </span><span class="comment">/*!&lt; Puerto GPIO del LED indicador (Puerto C) */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="group___hardware___pinout.html#ga8cfad64c817b1b87958ec365c00fe484">   39</a></span><span class="preprocessor">#define SW0_Pin           GPIO_PIN_15   </span><span class="comment">/*!&lt; Pin del pulsador multifunción de usuario */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="group___hardware___pinout.html#ga6fc0123f44685ed0ecbb6e33c31d61a2">   40</a></span><span class="preprocessor">#define SW0_GPIO_Port     GPIOB         </span><span class="comment">/*!&lt; Puerto GPIO del pulsador de usuario (Puerto B) */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="group___hardware___pinout.html#gae0899db12dbc514513410dfc3f7b9856">   41</a></span><span class="preprocessor">#define ESP01_EN_Pin      GPIO_PIN_9    </span><span class="comment">/*!&lt; Pin de habilitación (CH_PD / EN) del módulo Wi-Fi ESP-01 */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="group___hardware___pinout.html#ga59b432fddc0366b0b30345abe5493e92">   42</a></span><span class="preprocessor">#define ESP01_EN_GPIO_Port GPIOB        </span><span class="comment">/*!&lt; Puerto GPIO de control del módulo ESP-01 (Puerto B) */</span><span class="preprocessor"></span><span class="comment"></span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="comment">/** @} */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>}</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="preprocessor">#endif </span><span class="comment">/* __MAIN_H */</span><span class="preprocessor"></span></div>
+<div class="ttc" id="amain_8h_html_a1730ffe1e560465665eb47d9264826f9"><div class="ttname"><a href="main_8h.html#a1730ffe1e560465665eb47d9264826f9">Error_Handler</a></div><div class="ttdeci">void Error_Handler(void)</div><div class="ttdoc">Manejador central de fallas críticas de inicialización de periféricos HAL.</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l03902">main.c:3902</a></div></div>
+<div class="ttc" id="amain_8h_html_ae70bce6c39d0b570a7523b86738cec4b"><div class="ttname"><a href="main_8h.html#ae70bce6c39d0b570a7523b86738cec4b">HAL_TIM_MspPostInit</a></div><div class="ttdeci">void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim)</div><div class="ttdoc">Configura los canales PWM de los temporizadores tras la inicialización del hardware.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__msp_8c_source.html#l00367">stm32f1xx_hal_msp.c:367</a></div></div>
+<div class="ttc" id="astm32f1xx__hal_8h_html"><div class="ttname"><a href="stm32f1xx__hal_8h.html">stm32f1xx_hal.h</a></div><div class="ttdoc">This file contains all the functions prototypes for the HAL module driver.</div></div>
+<div class="ttc" id="astruct_t_i_m___handle_type_def_html"><div class="ttname"><a href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a></div><div class="ttdoc">TIM Time Base Handle Structure definition.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim_8h_source.html#l00337">stm32f1xx_hal_tim.h:339</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_c6310732a22f63c0c2fc5595561e68f1.html">Core</a></li><li class="navelem"><a href="dir_e2489e887f17afa3cbc07a4ec152cdd2.html">Inc</a></li><li class="navelem"><a href="main_8h.html">main.h</a></li>
+    <li class="footer">Generado el <span class="timestamp"></span> para MICRO-Firmware por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

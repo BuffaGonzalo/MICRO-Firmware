@@ -1,0 +1,613 @@
+\doxysubsection{stm32f1xx\+\_\+hal.\+c}
+\hypertarget{stm32f1xx__hal_8c_source}{}\label{stm32f1xx__hal_8c_source}\index{stm32f1xx\_hal.c@{stm32f1xx\_hal.c}}
+\doxymbox{\hyperlink{stm32f1xx__hal_8c}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00001}00001\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00002}00002\ \textcolor{comment}{\ \ ******************************************************************************}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00003}00003\ \textcolor{comment}{\ \ *\ @file\ \ \ \ stm32f1xx\_hal.c}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00004}00004\ \textcolor{comment}{\ \ *\ @author\ \ MCD\ Application\ Team}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00005}00005\ \textcolor{comment}{\ \ *\ @brief\ \ \ HAL\ module\ driver.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00006}00006\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ This\ is\ the\ common\ part\ of\ the\ HAL\ initialization}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00007}00007\ \textcolor{comment}{\ \ *}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00008}00008\ \textcolor{comment}{\ \ ******************************************************************************}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00009}00009\ \textcolor{comment}{\ \ *\ @attention}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00010}00010\ \textcolor{comment}{\ \ *}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00011}00011\ \textcolor{comment}{\ \ *\ Copyright\ (c)\ 2016\ STMicroelectronics.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00012}00012\ \textcolor{comment}{\ \ *\ All\ rights\ reserved.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00013}00013\ \textcolor{comment}{\ \ *}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00014}00014\ \textcolor{comment}{\ \ *\ This\ software\ is\ licensed\ under\ terms\ that\ can\ be\ found\ in\ the\ LICENSE\ file}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00015}00015\ \textcolor{comment}{\ \ *\ in\ the\ root\ directory\ of\ this\ software\ component.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00016}00016\ \textcolor{comment}{\ \ *\ If\ no\ LICENSE\ file\ comes\ with\ this\ software,\ it\ is\ provided\ AS-\/IS.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00017}00017\ \textcolor{comment}{\ \ *}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00018}00018\ \textcolor{comment}{\ \ ******************************************************************************}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00019}00019\ \textcolor{comment}{\ \ @verbatim}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00020}00020\ \textcolor{comment}{\ \ ==============================================================================}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00021}00021\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\#\#\#\#\ How\ to\ use\ this\ driver\ \#\#\#\#\#}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00022}00022\ \textcolor{comment}{\ \ ==============================================================================}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00023}00023\ \textcolor{comment}{\ \ \ \ [..]}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00024}00024\ \textcolor{comment}{\ \ \ \ The\ common\ HAL\ driver\ contains\ a\ set\ of\ generic\ and\ common\ APIs\ that\ can\ be}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00025}00025\ \textcolor{comment}{\ \ \ \ used\ by\ the\ PPP\ peripheral\ drivers\ and\ the\ user\ to\ start\ using\ the\ HAL.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00026}00026\ \textcolor{comment}{\ \ \ \ [..]}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00027}00027\ \textcolor{comment}{\ \ \ \ The\ HAL\ contains\ two\ APIs'\ categories:}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00028}00028\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ (+)\ Common\ HAL\ APIs}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00029}00029\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ (+)\ Services\ HAL\ APIs}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00030}00030\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00031}00031\ \textcolor{comment}{\ \ @endverbatim}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00032}00032\ \textcolor{comment}{\ \ ******************************************************************************}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00033}00033\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00035}00035\ \textcolor{comment}{/*\ Includes\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00036}00036\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{stm32f1xx__hal_8h}{stm32f1xx\_hal.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00037}00037\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00038}00038\ \textcolor{comment}{/**\ @addtogroup\ STM32F1xx\_HAL\_Driver}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00039}00039\ \textcolor{comment}{\ \ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00040}00040\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00041}00041\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00042}00042\ \textcolor{comment}{/**\ @defgroup\ HAL\ HAL}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00043}00043\ \textcolor{comment}{\ \ *\ @brief\ HAL\ module\ driver.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00044}00044\ \textcolor{comment}{\ \ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00045}00045\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00047}00047\ \textcolor{preprocessor}{\#ifdef\ HAL\_MODULE\_ENABLED}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00048}00048\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00049}00049\ \textcolor{comment}{/*\ Private\ typedef\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00050}00050\ \textcolor{comment}{/*\ Private\ define\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00051}00051\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00052}00052\ \textcolor{comment}{/**\ @defgroup\ HAL\_Private\_Constants\ HAL\ Private\ Constants}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00053}00053\ \textcolor{comment}{\ \ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00054}00054\ \textcolor{comment}{\ \ */}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00055}00055\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00056}00056\ \textcolor{comment}{\ *\ @brief\ STM32F1xx\ HAL\ Driver\ version\ number}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00057}00057\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00058}\doxymbox{\hyperlink{group___h_a_l___private___constants_ga291a9c187dd0b44179f875259418b60b}{00058}}\ \textcolor{preprocessor}{\#define\ \_\_STM32F1xx\_HAL\_VERSION\_MAIN\ \ \ (0x01U)\ }\textcolor{comment}{/*!<\ [31:24]\ main\ version\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00059}\doxymbox{\hyperlink{group___h_a_l___private___constants_gaffa550498b9e78ca57c9620883fa2a55}{00059}}\ \textcolor{preprocessor}{\#define\ \_\_STM32F1xx\_HAL\_VERSION\_SUB1\ \ \ (0x01U)\ }\textcolor{comment}{/*!<\ [23:16]\ sub1\ version\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00060}\doxymbox{\hyperlink{group___h_a_l___private___constants_ga92d0a0a9cf3661f3e1349cc0543873de}{00060}}\ \textcolor{preprocessor}{\#define\ \_\_STM32F1xx\_HAL\_VERSION\_SUB2\ \ \ (0x0AU)\ }\textcolor{comment}{/*!<\ [15:8]\ \ sub2\ version\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00061}\doxymbox{\hyperlink{group___h_a_l___private___constants_ga98575788aa429d934f9f7a4a2563ab35}{00061}}\ \textcolor{preprocessor}{\#define\ \_\_STM32F1xx\_HAL\_VERSION\_RC\ \ \ \ \ (0x00U)\ }\textcolor{comment}{/*!<\ [7:0]\ \ release\ candidate\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00062}\doxymbox{\hyperlink{group___h_a_l___private___constants_ga8cca10f7badbb87034fe0046704136dd}{00062}}\ \textcolor{preprocessor}{\#define\ \_\_STM32F1xx\_HAL\_VERSION\ \ \ \ \ \ \ \ \ ((\_\_STM32F1xx\_HAL\_VERSION\_MAIN\ <<\ 24)\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00063}00063\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |(\_\_STM32F1xx\_HAL\_VERSION\_SUB1\ <<\ 16)\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00064}00064\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |(\_\_STM32F1xx\_HAL\_VERSION\_SUB2\ <<\ 8\ )\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00065}00065\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |(\_\_STM32F1xx\_HAL\_VERSION\_RC))}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00067}\doxymbox{\hyperlink{group___h_a_l___private___constants_gaeeece10cca80f3c632d3d77c3f2917b6}{00067}}\ \textcolor{preprocessor}{\#define\ IDCODE\_DEVID\_MASK\ \ \ \ 0x00000FFFU}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00068}00068\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00069}00069\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00070}00070\ \textcolor{comment}{\ \ *\ @\}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00071}00071\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00072}00072\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00073}00073\ \textcolor{comment}{/*\ Private\ macro\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00074}00074\ \textcolor{comment}{/*\ Private\ variables\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00075}00075\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00076}00076\ \textcolor{comment}{/**\ @defgroup\ HAL\_Private\_Variables\ HAL\ Private\ Variables}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00077}00077\ \textcolor{comment}{\ \ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00078}00078\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00079}\doxymbox{\hyperlink{group___h_a_l___exported___constants_ga972b5e502ca83659e949d74b45b9ba1e}{00079}}\ \_\_IO\ uint32\_t\ \doxymbox{\hyperlink{group___h_a_l___exported___constants_ga972b5e502ca83659e949d74b45b9ba1e}{uwTick}};}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00080}\doxymbox{\hyperlink{group___h_a_l___exported___constants_ga3000c5e83924ed2debb1849c738d4be2}{00080}}\ uint32\_t\ \doxymbox{\hyperlink{group___h_a_l___exported___constants_ga3000c5e83924ed2debb1849c738d4be2}{uwTickPrio}}\ \ \ =\ (1UL\ <<\ \doxymbox{\hyperlink{group___configuration__section__for___c_m_s_i_s_gae3fe3587d5100c787e02102ce3944460}{\_\_NVIC\_PRIO\_BITS}});\ \textcolor{comment}{/*\ Invalid\ PRIO\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00081}\doxymbox{\hyperlink{group___h_a_l___exported___constants_ga84a0c55c4d0bff06a085b4fcfd6531cd}{00081}}\ \doxymbox{\hyperlink{group___h_a_l___t_i_c_k___f_r_e_q_gab36ec81674817249c46734772ff3b73a}{HAL\_TickFreqTypeDef}}\ \doxymbox{\hyperlink{group___h_a_l___exported___constants_ga84a0c55c4d0bff06a085b4fcfd6531cd}{uwTickFreq}}\ =\ \doxymbox{\hyperlink{group___h_a_l___t_i_c_k___f_r_e_q_ggab36ec81674817249c46734772ff3b73aa94e043d780eb1c36291338f6d6314e42}{HAL\_TICK\_FREQ\_DEFAULT}};\ \ \textcolor{comment}{/*\ 1KHz\ */}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00082}00082\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00083}00083\ \textcolor{comment}{\ \ *\ @\}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00084}00084\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00085}00085\ \textcolor{comment}{/*\ Private\ function\ prototypes\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00086}00086\ \textcolor{comment}{/*\ Exported\ functions\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00087}00087\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00088}00088\ \textcolor{comment}{/**\ @defgroup\ HAL\_Exported\_Functions\ HAL\ Exported\ Functions}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00089}00089\ \textcolor{comment}{\ \ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00090}00090\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00091}00091\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00092}00092\ \textcolor{comment}{/**\ @defgroup\ HAL\_Exported\_Functions\_Group1\ Initialization\ and\ de-\/initialization\ Functions}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00093}00093\ \textcolor{comment}{\ *\ \ @brief\ \ \ \ Initialization\ and\ de-\/initialization\ functions}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00094}00094\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00095}00095\ \textcolor{comment}{@verbatim}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00096}00096\ \textcolor{comment}{\ ===============================================================================}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00097}00097\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\#\#\#\#\ Initialization\ and\ de-\/initialization\ functions\ \#\#\#\#\#}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00098}00098\ \textcolor{comment}{\ ===============================================================================}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00099}00099\ \textcolor{comment}{\ \ \ [..]\ \ This\ section\ provides\ functions\ allowing\ to:}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00100}00100\ \textcolor{comment}{\ \ \ \ \ \ (+)\ Initializes\ the\ Flash\ interface,\ the\ NVIC\ allocation\ and\ initial\ clock}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00101}00101\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ configuration.\ It\ initializes\ the\ systick\ also\ when\ timeout\ is\ needed}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00102}00102\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ and\ the\ backup\ domain\ when\ enabled.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00103}00103\ \textcolor{comment}{\ \ \ \ \ \ (+)\ de-\/Initializes\ common\ part\ of\ the\ HAL.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00104}00104\ \textcolor{comment}{\ \ \ \ \ \ (+)\ Configure\ The\ time\ base\ source\ to\ have\ 1ms\ time\ base\ with\ a\ dedicated}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00105}00105\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ Tick\ interrupt\ priority.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00106}00106\ \textcolor{comment}{\ \ \ \ \ \ \ \ (++)\ SysTick\ timer\ is\ used\ by\ default\ as\ source\ of\ time\ base,\ but\ user}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00107}00107\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ can\ eventually\ implement\ his\ proper\ time\ base\ source\ (a\ general\ purpose}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00108}00108\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ timer\ for\ example\ or\ other\ time\ source),\ keeping\ in\ mind\ that\ Time\ base}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00109}00109\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ duration\ should\ be\ kept\ 1ms\ since\ PPP\_TIMEOUT\_VALUEs\ are\ defined\ and}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00110}00110\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ handled\ in\ milliseconds\ basis.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00111}00111\ \textcolor{comment}{\ \ \ \ \ \ \ \ (++)\ Time\ base\ configuration\ function\ (HAL\_InitTick\ ())\ is\ called\ automatically}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00112}00112\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ at\ the\ beginning\ of\ the\ program\ after\ reset\ by\ HAL\_Init()\ or\ at\ any\ time}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00113}00113\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ when\ clock\ is\ configured,\ by\ HAL\_RCC\_ClockConfig().}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00114}00114\ \textcolor{comment}{\ \ \ \ \ \ \ \ (++)\ Source\ of\ time\ base\ is\ configured\ \ to\ generate\ interrupts\ at\ regular}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00115}00115\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ time\ intervals.\ Care\ must\ be\ taken\ if\ HAL\_Delay()\ is\ called\ from\ a}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00116}00116\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ peripheral\ ISR\ process,\ the\ Tick\ interrupt\ line\ must\ have\ higher\ priority}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00117}00117\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ (numerically\ lower)\ than\ the\ peripheral\ interrupt.\ Otherwise\ the\ caller}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00118}00118\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ ISR\ process\ will\ be\ blocked.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00119}00119\ \textcolor{comment}{\ \ \ \ \ \ \ (++)\ functions\ affecting\ time\ base\ configurations\ are\ declared\ as\ \_\_weak}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00120}00120\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ to\ make\ \ override\ possible\ \ in\ case\ of\ other\ \ implementations\ in\ user\ file.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00121}00121\ \textcolor{comment}{@endverbatim}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00122}00122\ \textcolor{comment}{\ \ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00123}00123\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00124}00124\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00125}00125\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00126}00126\ \textcolor{comment}{\ \ *\ @brief\ \ This\ function\ is\ used\ to\ initialize\ the\ HAL\ Library;\ it\ must\ be\ the\ first}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00127}00127\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ instruction\ to\ be\ executed\ in\ the\ main\ program\ (before\ to\ call\ any\ other}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00128}00128\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ HAL\ function),\ it\ performs\ the\ following:}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00129}00129\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ Configure\ the\ Flash\ prefetch.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00130}00130\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ Configures\ the\ SysTick\ to\ generate\ an\ interrupt\ each\ 1\ millisecond,}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00131}00131\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ which\ is\ clocked\ by\ the\ HSI\ (at\ this\ stage,\ the\ clock\ is\ not\ yet}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00132}00132\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ configured\ and\ thus\ the\ system\ is\ running\ from\ the\ internal\ HSI\ at\ 16\ MHz).}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00133}00133\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ Set\ NVIC\ Group\ Priority\ to\ 4.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00134}00134\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ Calls\ the\ HAL\_MspInit()\ callback\ function\ defined\ in\ user\ file}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00135}00135\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ "{}stm32f1xx\_hal\_msp.c"{}\ to\ do\ the\ global\ low\ level\ hardware\ initialization}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00136}00136\ \textcolor{comment}{\ \ *}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00137}00137\ \textcolor{comment}{\ \ *\ @note\ \ \ SysTick\ is\ used\ as\ time\ base\ for\ the\ HAL\_Delay()\ function,\ the\ application}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00138}00138\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ need\ to\ ensure\ that\ the\ SysTick\ time\ base\ is\ always\ set\ to\ 1\ millisecond}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00139}00139\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ to\ have\ correct\ HAL\ operation.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00140}00140\ \textcolor{comment}{\ \ *\ @retval\ HAL\ status}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00141}00141\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00142}\doxymbox{\hyperlink{group___h_a_l___exported___functions___group1_gaecac54d350c3730e6831eb404e557dc4}{00142}}\ \doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\_StatusTypeDef}}\ \doxymbox{\hyperlink{group___h_a_l___exported___functions___group1_gaecac54d350c3730e6831eb404e557dc4}{HAL\_Init}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00143}00143\ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00144}00144\ \ \ \textcolor{comment}{/*\ Configure\ Flash\ prefetch\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00145}00145\ \textcolor{preprocessor}{\#if\ (PREFETCH\_ENABLE\ !=\ 0)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00146}00146\ \textcolor{preprocessor}{\#if\ defined(STM32F101x6)\ ||\ defined(STM32F101xB)\ ||\ defined(STM32F101xE)\ ||\ defined(STM32F101xG)\ ||\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00147}00147\ \textcolor{preprocessor}{\ \ \ \ defined(STM32F102x6)\ ||\ defined(STM32F102xB)\ ||\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00148}00148\ \textcolor{preprocessor}{\ \ \ \ defined(STM32F103x6)\ ||\ defined(STM32F103xB)\ ||\ defined(STM32F103xE)\ ||\ defined(STM32F103xG)\ ||\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00149}00149\ \textcolor{preprocessor}{\ \ \ \ defined(STM32F105xC)\ ||\ defined(STM32F107xC)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00150}00150\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00151}00151\ \ \ \textcolor{comment}{/*\ Prefetch\ buffer\ is\ not\ available\ on\ value\ line\ devices\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00152}00152\ \ \ \doxymbox{\hyperlink{group___f_l_a_s_h___prefetch_gad36059641057f824516303ea92734e6f}{\_\_HAL\_FLASH\_PREFETCH\_BUFFER\_ENABLE}}();}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00153}00153\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00154}00154\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ PREFETCH\_ENABLE\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00155}00155\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00156}00156\ \ \ \textcolor{comment}{/*\ Set\ Interrupt\ Group\ Priority\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00157}00157\ \ \ \doxymbox{\hyperlink{group___c_o_r_t_e_x___exported___functions___group1_gad9be53e08b1498adea006e5e037f238f}{HAL\_NVIC\_SetPriorityGrouping}}(\doxymbox{\hyperlink{group___c_o_r_t_e_x___preemption___priority___group_gae6eab9140204bc938255aa148e597c45}{NVIC\_PRIORITYGROUP\_4}});}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00158}00158\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00159}00159\ \ \ \textcolor{comment}{/*\ Use\ systick\ as\ time\ base\ source\ and\ configure\ 1ms\ tick\ (default\ clock\ after\ Reset\ is\ HSI)\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00160}00160\ \ \ \doxymbox{\hyperlink{group___h_a_l___exported___functions___group1_ga44d1542f9985b2243b14a41070cc41cc}{HAL\_InitTick}}(\doxymbox{\hyperlink{stm32f1xx__hal__conf_8h_ae27809d4959b9fd5b5d974e3e1c77d2e}{TICK\_INT\_PRIORITY}});}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00161}00161\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00162}00162\ \ \ \textcolor{comment}{/*\ Init\ the\ low\ level\ hardware\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00163}00163\ \ \ \doxymbox{\hyperlink{stm32f1xx__hal__msp_8c_gae4fb8e66865c87d0ebab74a726a6891f}{HAL\_MspInit}}();}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00164}00164\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00165}00165\ \ \ \textcolor{comment}{/*\ Return\ function\ status\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00166}00166\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632}{HAL\_OK}};}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00167}00167\ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00168}00168\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00169}00169\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00170}00170\ \textcolor{comment}{\ \ *\ @brief\ This\ function\ de-\/Initializes\ common\ part\ of\ the\ HAL\ and\ stops\ the\ systick.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00171}00171\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ of\ time\ base.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00172}00172\ \textcolor{comment}{\ \ *\ @note\ This\ function\ is\ optional.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00173}00173\ \textcolor{comment}{\ \ *\ @retval\ HAL\ status}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00174}00174\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00175}\doxymbox{\hyperlink{group___h_a_l___exported___functions___group1_ga95911129a26afb05232caaaefa31956f}{00175}}\ \doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\_StatusTypeDef}}\ \doxymbox{\hyperlink{group___h_a_l___exported___functions___group1_ga95911129a26afb05232caaaefa31956f}{HAL\_DeInit}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00176}00176\ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00177}00177\ \ \ \textcolor{comment}{/*\ Reset\ of\ all\ peripherals\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00178}00178\ \ \ \doxymbox{\hyperlink{group___r_c_c___a_p_b1___force___release___reset_ga6f6e7048eca1abd1be132027f5b79465}{\_\_HAL\_RCC\_APB1\_FORCE\_RESET}}();}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00179}00179\ \ \ \doxymbox{\hyperlink{group___r_c_c___a_p_b1___force___release___reset_ga9d0742ab271ace3dbe1a4e83de3d017b}{\_\_HAL\_RCC\_APB1\_RELEASE\_RESET}}();}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00180}00180\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00181}00181\ \ \ \doxymbox{\hyperlink{group___r_c_c___a_p_b2___force___release___reset_ga8788da8c644ad0cc54912baede7d49b4}{\_\_HAL\_RCC\_APB2\_FORCE\_RESET}}();}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00182}00182\ \ \ \doxymbox{\hyperlink{group___r_c_c___a_p_b2___force___release___reset_gae1e413d623154942d5bbe89769161ece}{\_\_HAL\_RCC\_APB2\_RELEASE\_RESET}}();}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00183}00183\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00184}00184\ \textcolor{preprocessor}{\#if\ defined(STM32F105xC)\ ||\ defined(STM32F107xC)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00185}00185\ \ \ \_\_HAL\_RCC\_AHB\_FORCE\_RESET();}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00186}00186\ \ \ \_\_HAL\_RCC\_AHB\_RELEASE\_RESET();}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00187}00187\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00188}00188\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00189}00189\ \ \ \textcolor{comment}{/*\ De-\/Init\ the\ low\ level\ hardware\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00190}00190\ \ \ \doxymbox{\hyperlink{group___h_a_l___exported___functions___group1_gaa2d4540edcb9dacec34edb77f3455bf0}{HAL\_MspDeInit}}();}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00191}00191\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00192}00192\ \ \ \textcolor{comment}{/*\ Return\ function\ status\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00193}00193\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632}{HAL\_OK}};}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00194}00194\ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00195}00195\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00196}00196\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00197}00197\ \textcolor{comment}{\ \ *\ @brief\ \ Initialize\ the\ MSP.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00198}00198\ \textcolor{comment}{\ \ *\ @retval\ None}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00199}00199\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00200}\doxymbox{\hyperlink{group___h_a_l___exported___functions___group1_gae4fb8e66865c87d0ebab74a726a6891f}{00200}}\ \doxymbox{\hyperlink{group___u_s_b_d___d_e_f___exported___macros_ga5181eb756a197a06d1c4ed1f40a065bc}{\_\_weak}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{stm32f1xx__hal__msp_8c_gae4fb8e66865c87d0ebab74a726a6891f}{HAL\_MspInit}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00201}00201\ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00202}00202\ \ \ \textcolor{comment}{/*\ NOTE\ :\ This\ function\ should\ not\ be\ modified,\ when\ the\ callback\ is\ needed,}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00203}00203\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ the\ HAL\_MspInit\ could\ be\ implemented\ in\ the\ user\ file}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00204}00204\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00205}00205\ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00206}00206\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00207}00207\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00208}00208\ \textcolor{comment}{\ \ *\ @brief\ \ DeInitializes\ the\ MSP.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00209}00209\ \textcolor{comment}{\ \ *\ @retval\ None}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00210}00210\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00211}\doxymbox{\hyperlink{group___h_a_l___exported___functions___group1_gaa2d4540edcb9dacec34edb77f3455bf0}{00211}}\ \doxymbox{\hyperlink{group___u_s_b_d___d_e_f___exported___macros_ga5181eb756a197a06d1c4ed1f40a065bc}{\_\_weak}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{group___h_a_l___exported___functions___group1_gaa2d4540edcb9dacec34edb77f3455bf0}{HAL\_MspDeInit}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00212}00212\ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00213}00213\ \ \ \textcolor{comment}{/*\ NOTE\ :\ This\ function\ should\ not\ be\ modified,\ when\ the\ callback\ is\ needed,}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00214}00214\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ the\ HAL\_MspDeInit\ could\ be\ implemented\ in\ the\ user\ file}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00215}00215\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00216}00216\ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00217}00217\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00218}00218\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00219}00219\ \textcolor{comment}{\ \ *\ @brief\ This\ function\ configures\ the\ source\ of\ the\ time\ base.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00220}00220\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ The\ time\ source\ is\ configured\ \ to\ have\ 1ms\ time\ base\ with\ a\ dedicated}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00221}00221\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ Tick\ interrupt\ priority.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00222}00222\ \textcolor{comment}{\ \ *\ @note\ This\ function\ is\ called\ \ automatically\ at\ the\ beginning\ of\ program\ after}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00223}00223\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ reset\ by\ HAL\_Init()\ or\ at\ any\ time\ when\ clock\ is\ reconfigured\ \ by\ HAL\_RCC\_ClockConfig().}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00224}00224\ \textcolor{comment}{\ \ *\ @note\ In\ the\ default\ implementation,\ SysTick\ timer\ is\ the\ source\ of\ time\ base.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00225}00225\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ It\ is\ used\ to\ generate\ interrupts\ at\ regular\ time\ intervals.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00226}00226\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ Care\ must\ be\ taken\ if\ HAL\_Delay()\ is\ called\ from\ a\ peripheral\ ISR\ process,}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00227}00227\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ The\ SysTick\ interrupt\ must\ have\ higher\ priority\ (numerically\ lower)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00228}00228\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ than\ the\ peripheral\ interrupt.\ Otherwise\ the\ caller\ ISR\ process\ will\ be\ blocked.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00229}00229\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ The\ function\ is\ declared\ as\ \_\_weak\ \ to\ be\ overwritten\ \ in\ case\ of\ other}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00230}00230\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ implementation\ \ in\ user\ file.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00231}00231\ \textcolor{comment}{\ \ *\ @param\ TickPriority\ Tick\ interrupt\ priority.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00232}00232\ \textcolor{comment}{\ \ *\ @retval\ HAL\ status}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00233}00233\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00234}\doxymbox{\hyperlink{group___h_a_l___exported___functions___group1_ga44d1542f9985b2243b14a41070cc41cc}{00234}}\ \doxymbox{\hyperlink{group___u_s_b_d___d_e_f___exported___macros_ga5181eb756a197a06d1c4ed1f40a065bc}{\_\_weak}}\ \doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\_StatusTypeDef}}\ \doxymbox{\hyperlink{group___h_a_l___exported___functions___group1_ga44d1542f9985b2243b14a41070cc41cc}{HAL\_InitTick}}(uint32\_t\ TickPriority)}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00235}00235\ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00236}00236\ \ \ \textcolor{comment}{/*\ Configure\ the\ SysTick\ to\ have\ interrupt\ in\ 1ms\ time\ basis*/}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00237}00237\ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{group___c_o_r_t_e_x___exported___functions___group1_gac3a3f0d53c315523a8e6e7bcac1940cf}{HAL\_SYSTICK\_Config}}(\doxymbox{\hyperlink{group___s_t_m32_f1xx___system___private___variables_gaa3cd3e43291e81e795d642b79b6088e6}{SystemCoreClock}}\ /\ (1000U\ /\ \doxymbox{\hyperlink{group___h_a_l___exported___constants_ga84a0c55c4d0bff06a085b4fcfd6531cd}{uwTickFreq}}))\ >\ 0U)}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00238}00238\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00239}00239\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa5a04e395e501e4e400172c610478c4a4}{HAL\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00240}00240\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00241}00241\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00242}00242\ \ \ \textcolor{comment}{/*\ Configure\ the\ SysTick\ IRQ\ priority\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00243}00243\ \ \ \textcolor{keywordflow}{if}\ (TickPriority\ <\ (1UL\ <<\ \doxymbox{\hyperlink{group___configuration__section__for___c_m_s_i_s_gae3fe3587d5100c787e02102ce3944460}{\_\_NVIC\_PRIO\_BITS}}))}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00244}00244\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00245}00245\ \ \ \ \ \doxymbox{\hyperlink{group___c_o_r_t_e_x___exported___functions___group1_ga8581a82025a4780efd00876a66e3e91b}{HAL\_NVIC\_SetPriority}}(\doxymbox{\hyperlink{group___peripheral__interrupt__number__definition_gga7e1129cd8a196f4284d41db3e82ad5c8a6dbff8f8543325f3474cbae2446776e7}{SysTick\_IRQn}},\ TickPriority,\ 0U);}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00246}00246\ \ \ \ \ \doxymbox{\hyperlink{group___h_a_l___exported___constants_ga3000c5e83924ed2debb1849c738d4be2}{uwTickPrio}}\ =\ TickPriority;}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00247}00247\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00248}00248\ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00249}00249\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00250}00250\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa5a04e395e501e4e400172c610478c4a4}{HAL\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00251}00251\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00252}00252\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00253}00253\ \ \ \textcolor{comment}{/*\ Return\ function\ status\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00254}00254\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632}{HAL\_OK}};}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00255}00255\ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00256}00256\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00257}00257\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00258}00258\ \textcolor{comment}{\ \ *\ @\}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00259}00259\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00260}00260\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00261}00261\ \textcolor{comment}{/**\ @defgroup\ HAL\_Exported\_Functions\_Group2\ HAL\ Control\ functions}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00262}00262\ \textcolor{comment}{\ \ *\ \ @brief\ \ \ \ HAL\ Control\ functions}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00263}00263\ \textcolor{comment}{\ \ *}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00264}00264\ \textcolor{comment}{@verbatim}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00265}00265\ \textcolor{comment}{\ ===============================================================================}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00266}00266\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\#\#\#\#\ HAL\ Control\ functions\ \#\#\#\#\#}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00267}00267\ \textcolor{comment}{\ ===============================================================================}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00268}00268\ \textcolor{comment}{\ \ \ \ [..]\ \ This\ section\ provides\ functions\ allowing\ to:}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00269}00269\ \textcolor{comment}{\ \ \ \ \ \ (+)\ Provide\ a\ tick\ value\ in\ millisecond}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00270}00270\ \textcolor{comment}{\ \ \ \ \ \ (+)\ Provide\ a\ blocking\ delay\ in\ millisecond}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00271}00271\ \textcolor{comment}{\ \ \ \ \ \ (+)\ Suspend\ the\ time\ base\ source\ interrupt}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00272}00272\ \textcolor{comment}{\ \ \ \ \ \ (+)\ Resume\ the\ time\ base\ source\ interrupt}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00273}00273\ \textcolor{comment}{\ \ \ \ \ \ (+)\ Get\ the\ HAL\ API\ driver\ version}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00274}00274\ \textcolor{comment}{\ \ \ \ \ \ (+)\ Get\ the\ device\ identifier}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00275}00275\ \textcolor{comment}{\ \ \ \ \ \ (+)\ Get\ the\ device\ revision\ identifier}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00276}00276\ \textcolor{comment}{\ \ \ \ \ \ (+)\ Enable/Disable\ Debug\ module\ during\ SLEEP\ mode}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00277}00277\ \textcolor{comment}{\ \ \ \ \ \ (+)\ Enable/Disable\ Debug\ module\ during\ STOP\ mode}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00278}00278\ \textcolor{comment}{\ \ \ \ \ \ (+)\ Enable/Disable\ Debug\ module\ during\ STANDBY\ mode}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00279}00279\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00280}00280\ \textcolor{comment}{@endverbatim}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00281}00281\ \textcolor{comment}{\ \ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00282}00282\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00283}00283\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00284}00284\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00285}00285\ \textcolor{comment}{\ \ *\ @brief\ This\ function\ is\ called\ to\ increment\ \ a\ global\ variable\ "{}uwTick"{}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00286}00286\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ used\ as\ application\ time\ base.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00287}00287\ \textcolor{comment}{\ \ *\ @note\ In\ the\ default\ implementation,\ this\ variable\ is\ incremented\ each\ 1ms}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00288}00288\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ in\ SysTick\ ISR.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00289}00289\ \textcolor{comment}{\ \ *\ @note\ This\ function\ is\ declared\ as\ \_\_weak\ to\ be\ overwritten\ in\ case\ of\ other}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00290}00290\ \textcolor{comment}{\ \ *\ \ \ \ \ \ implementations\ in\ user\ file.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00291}00291\ \textcolor{comment}{\ \ *\ @retval\ None}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00292}00292\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00293}\doxymbox{\hyperlink{group___h_a_l___exported___functions___group2_gaba5b726bfedd013bf7bb5a51d5c4f188}{00293}}\ \doxymbox{\hyperlink{group___u_s_b_d___d_e_f___exported___macros_ga5181eb756a197a06d1c4ed1f40a065bc}{\_\_weak}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{group___h_a_l___exported___functions___group2_gaba5b726bfedd013bf7bb5a51d5c4f188}{HAL\_IncTick}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00294}00294\ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00295}00295\ \ \ \doxymbox{\hyperlink{group___h_a_l___exported___constants_ga972b5e502ca83659e949d74b45b9ba1e}{uwTick}}\ +=\ \doxymbox{\hyperlink{group___h_a_l___exported___constants_ga84a0c55c4d0bff06a085b4fcfd6531cd}{uwTickFreq}};}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00296}00296\ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00297}00297\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00298}00298\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00299}00299\ \textcolor{comment}{\ \ *\ @brief\ Provides\ a\ tick\ value\ in\ millisecond.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00300}00300\ \textcolor{comment}{\ \ *\ @note\ \ This\ function\ is\ declared\ as\ \_\_weak\ to\ be\ overwritten\ in\ case\ of\ other}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00301}00301\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ implementations\ in\ user\ file.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00302}00302\ \textcolor{comment}{\ \ *\ @retval\ tick\ value}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00303}00303\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00304}\doxymbox{\hyperlink{group___h_a_l___exported___functions___group2_gac9b3a85a73735ac840d0dcb59bc0fdd6}{00304}}\ \doxymbox{\hyperlink{group___u_s_b_d___d_e_f___exported___macros_ga5181eb756a197a06d1c4ed1f40a065bc}{\_\_weak}}\ uint32\_t\ \doxymbox{\hyperlink{group___h_a_l___exported___functions___group2_gac9b3a85a73735ac840d0dcb59bc0fdd6}{HAL\_GetTick}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00305}00305\ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00306}00306\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{group___h_a_l___exported___constants_ga972b5e502ca83659e949d74b45b9ba1e}{uwTick}};}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00307}00307\ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00308}00308\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00309}00309\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00310}00310\ \textcolor{comment}{\ \ *\ @brief\ This\ function\ returns\ a\ tick\ priority.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00311}00311\ \textcolor{comment}{\ \ *\ @retval\ tick\ priority}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00312}00312\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00313}\doxymbox{\hyperlink{group___h_a_l___exported___functions___group2_gacdcc8b5d33b9f97fe1b0abd6a86a3d4b}{00313}}\ uint32\_t\ \doxymbox{\hyperlink{group___h_a_l___exported___functions___group2_gacdcc8b5d33b9f97fe1b0abd6a86a3d4b}{HAL\_GetTickPrio}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00314}00314\ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00315}00315\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{group___h_a_l___exported___constants_ga3000c5e83924ed2debb1849c738d4be2}{uwTickPrio}};}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00316}00316\ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00317}00317\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00318}00318\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00319}00319\ \textcolor{comment}{\ \ *\ @brief\ Set\ new\ tick\ Freq.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00320}00320\ \textcolor{comment}{\ \ *\ @retval\ status}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00321}00321\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00322}\doxymbox{\hyperlink{group___h_a_l___exported___functions___group2_ga47f2dd240b2aed823a76b11496f37690}{00322}}\ \doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\_StatusTypeDef}}\ \doxymbox{\hyperlink{group___h_a_l___exported___functions___group2_ga47f2dd240b2aed823a76b11496f37690}{HAL\_SetTickFreq}}(\doxymbox{\hyperlink{group___h_a_l___t_i_c_k___f_r_e_q_gab36ec81674817249c46734772ff3b73a}{HAL\_TickFreqTypeDef}}\ Freq)}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00323}00323\ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00324}00324\ \ \ \doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\_StatusTypeDef}}\ status\ \ =\ \doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632}{HAL\_OK}};}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00325}00325\ \ \ \doxymbox{\hyperlink{group___h_a_l___t_i_c_k___f_r_e_q_gab36ec81674817249c46734772ff3b73a}{HAL\_TickFreqTypeDef}}\ prevTickFreq;}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00326}00326\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00327}00327\ \ \ \doxymbox{\hyperlink{stm32f1xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\doxymbox{\hyperlink{group___h_a_l___private___macros_ga2a86bf8a89ad75716cd92e932a8ae71e}{IS\_TICKFREQ}}(Freq));}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00328}00328\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00329}00329\ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{group___h_a_l___exported___constants_ga84a0c55c4d0bff06a085b4fcfd6531cd}{uwTickFreq}}\ !=\ Freq)}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00330}00330\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00331}00331\ \ \ \ \ \textcolor{comment}{/*\ Back\ up\ uwTickFreq\ frequency\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00332}00332\ \ \ \ \ prevTickFreq\ =\ \doxymbox{\hyperlink{group___h_a_l___exported___constants_ga84a0c55c4d0bff06a085b4fcfd6531cd}{uwTickFreq}};}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00333}00333\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00334}00334\ \ \ \ \ \textcolor{comment}{/*\ Update\ uwTickFreq\ global\ variable\ used\ by\ HAL\_InitTick()\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00335}00335\ \ \ \ \ \doxymbox{\hyperlink{group___h_a_l___exported___constants_ga84a0c55c4d0bff06a085b4fcfd6531cd}{uwTickFreq}}\ =\ Freq;}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00336}00336\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00337}00337\ \ \ \ \ \textcolor{comment}{/*\ Apply\ the\ new\ tick\ Freq\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00338}00338\ \ \ \ \ status\ =\ \doxymbox{\hyperlink{group___h_a_l___exported___functions___group1_ga44d1542f9985b2243b14a41070cc41cc}{HAL\_InitTick}}(\doxymbox{\hyperlink{group___h_a_l___exported___constants_ga3000c5e83924ed2debb1849c738d4be2}{uwTickPrio}});}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00339}00339\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00340}00340\ \ \ \ \ \textcolor{keywordflow}{if}\ (status\ !=\ \doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632}{HAL\_OK}})}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00341}00341\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00342}00342\ \ \ \ \ \ \ \textcolor{comment}{/*\ Restore\ previous\ tick\ frequency\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00343}00343\ \ \ \ \ \ \ \doxymbox{\hyperlink{group___h_a_l___exported___constants_ga84a0c55c4d0bff06a085b4fcfd6531cd}{uwTickFreq}}\ =\ prevTickFreq;}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00344}00344\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00345}00345\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00346}00346\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00347}00347\ \ \ \textcolor{keywordflow}{return}\ status;}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00348}00348\ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00349}00349\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00350}00350\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00351}00351\ \textcolor{comment}{\ \ *\ @brief\ Return\ tick\ frequency.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00352}00352\ \textcolor{comment}{\ \ *\ @retval\ Tick\ frequency.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00353}00353\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ Value\ of\ @ref\ HAL\_TickFreqTypeDef.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00354}00354\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00355}\doxymbox{\hyperlink{group___h_a_l___exported___functions___group2_ga803cdbcc0883bcf5f5c98c50024c97e6}{00355}}\ \doxymbox{\hyperlink{group___h_a_l___t_i_c_k___f_r_e_q_gab36ec81674817249c46734772ff3b73a}{HAL\_TickFreqTypeDef}}\ \doxymbox{\hyperlink{group___h_a_l___exported___functions___group2_ga803cdbcc0883bcf5f5c98c50024c97e6}{HAL\_GetTickFreq}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00356}00356\ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00357}00357\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{group___h_a_l___exported___constants_ga84a0c55c4d0bff06a085b4fcfd6531cd}{uwTickFreq}};}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00358}00358\ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00359}00359\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00360}00360\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00361}00361\ \textcolor{comment}{\ \ *\ @brief\ This\ function\ provides\ minimum\ delay\ (in\ milliseconds)\ based}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00362}00362\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ on\ variable\ incremented.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00363}00363\ \textcolor{comment}{\ \ *\ @note\ In\ the\ default\ implementation\ ,\ SysTick\ timer\ is\ the\ source\ of\ time\ base.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00364}00364\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ It\ is\ used\ to\ generate\ interrupts\ at\ regular\ time\ intervals\ where\ uwTick}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00365}00365\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ is\ incremented.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00366}00366\ \textcolor{comment}{\ \ *\ @note\ This\ function\ is\ declared\ as\ \_\_weak\ to\ be\ overwritten\ in\ case\ of\ other}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00367}00367\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ implementations\ in\ user\ file.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00368}00368\ \textcolor{comment}{\ \ *\ @param\ Delay\ specifies\ the\ delay\ time\ length,\ in\ milliseconds.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00369}00369\ \textcolor{comment}{\ \ *\ @retval\ None}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00370}00370\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00371}\doxymbox{\hyperlink{group___h_a_l___exported___functions___group2_gab1dc1e6b438daacfe38a312a90221330}{00371}}\ \doxymbox{\hyperlink{group___u_s_b_d___d_e_f___exported___macros_ga5181eb756a197a06d1c4ed1f40a065bc}{\_\_weak}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{group___h_a_l___exported___functions___group2_gab1dc1e6b438daacfe38a312a90221330}{HAL\_Delay}}(uint32\_t\ Delay)}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00372}00372\ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00373}00373\ \ \ uint32\_t\ tickstart\ =\ \doxymbox{\hyperlink{group___h_a_l___exported___functions___group2_gac9b3a85a73735ac840d0dcb59bc0fdd6}{HAL\_GetTick}}();}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00374}00374\ \ \ uint32\_t\ wait\ =\ Delay;}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00375}00375\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00376}00376\ \ \ \textcolor{comment}{/*\ Add\ a\ freq\ to\ guarantee\ minimum\ wait\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00377}00377\ \ \ \textcolor{keywordflow}{if}\ (wait\ <\ \doxymbox{\hyperlink{stm32f1xx__hal__def_8h_aad28bc64749c50dcedd6bf819fdc6974}{HAL\_MAX\_DELAY}})}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00378}00378\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00379}00379\ \ \ \ \ wait\ +=\ (uint32\_t)(\doxymbox{\hyperlink{group___h_a_l___exported___constants_ga84a0c55c4d0bff06a085b4fcfd6531cd}{uwTickFreq}});}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00380}00380\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00381}00381\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00382}00382\ \ \ \textcolor{keywordflow}{while}\ ((\doxymbox{\hyperlink{group___h_a_l___exported___functions___group2_gac9b3a85a73735ac840d0dcb59bc0fdd6}{HAL\_GetTick}}()\ -\/\ tickstart)\ <\ wait)}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00383}00383\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00384}00384\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00385}00385\ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00386}00386\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00387}00387\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00388}00388\ \textcolor{comment}{\ \ *\ @brief\ Suspend\ Tick\ increment.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00389}00389\ \textcolor{comment}{\ \ *\ @note\ In\ the\ default\ implementation\ ,\ SysTick\ timer\ is\ the\ source\ of\ time\ base.\ It\ is}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00390}00390\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ used\ to\ generate\ interrupts\ at\ regular\ time\ intervals.\ Once\ HAL\_SuspendTick()}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00391}00391\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ is\ called,\ the\ SysTick\ interrupt\ will\ be\ disabled\ and\ so\ Tick\ increment}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00392}00392\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ is\ suspended.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00393}00393\ \textcolor{comment}{\ \ *\ @note\ This\ function\ is\ declared\ as\ \_\_weak\ to\ be\ overwritten\ in\ case\ of\ other}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00394}00394\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ implementations\ in\ user\ file.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00395}00395\ \textcolor{comment}{\ \ *\ @retval\ None}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00396}00396\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00397}\doxymbox{\hyperlink{group___h_a_l___exported___functions___group2_ga84ae4b045c45d49d96b2b02e2dc516b6}{00397}}\ \doxymbox{\hyperlink{group___u_s_b_d___d_e_f___exported___macros_ga5181eb756a197a06d1c4ed1f40a065bc}{\_\_weak}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{group___h_a_l___exported___functions___group2_ga84ae4b045c45d49d96b2b02e2dc516b6}{HAL\_SuspendTick}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00398}00398\ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00399}00399\ \ \ \textcolor{comment}{/*\ Disable\ SysTick\ Interrupt\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00400}00400\ \ \ \doxymbox{\hyperlink{group___exported__macros_ga133aae6fc0d41bffab39ab223a7001de}{CLEAR\_BIT}}(SysTick-\/>CTRL,\ SysTick\_CTRL\_TICKINT\_Msk);}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00401}00401\ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00402}00402\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00403}00403\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00404}00404\ \textcolor{comment}{\ \ *\ @brief\ Resume\ Tick\ increment.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00405}00405\ \textcolor{comment}{\ \ *\ @note\ In\ the\ default\ implementation\ ,\ SysTick\ timer\ is\ the\ source\ of\ time\ base.\ It\ is}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00406}00406\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ used\ to\ generate\ interrupts\ at\ regular\ time\ intervals.\ Once\ HAL\_ResumeTick()}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00407}00407\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ is\ called,\ the\ SysTick\ interrupt\ will\ be\ enabled\ and\ so\ Tick\ increment}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00408}00408\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ is\ resumed.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00409}00409\ \textcolor{comment}{\ \ *\ @note\ This\ function\ is\ declared\ as\ \_\_weak\ to\ be\ overwritten\ in\ case\ of\ other}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00410}00410\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ implementations\ in\ user\ file.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00411}00411\ \textcolor{comment}{\ \ *\ @retval\ None}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00412}00412\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00413}\doxymbox{\hyperlink{group___h_a_l___exported___functions___group2_gac3fa17aa85e357e3f1af56ad110d2e97}{00413}}\ \doxymbox{\hyperlink{group___u_s_b_d___d_e_f___exported___macros_ga5181eb756a197a06d1c4ed1f40a065bc}{\_\_weak}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{group___h_a_l___exported___functions___group2_gac3fa17aa85e357e3f1af56ad110d2e97}{HAL\_ResumeTick}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00414}00414\ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00415}00415\ \ \ \textcolor{comment}{/*\ Enable\ SysTick\ Interrupt\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00416}00416\ \ \ \doxymbox{\hyperlink{group___exported__macros_ga26474f43799fbade9cf300e21dd3a91a}{SET\_BIT}}(SysTick-\/>CTRL,\ SysTick\_CTRL\_TICKINT\_Msk);}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00417}00417\ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00418}00418\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00419}00419\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00420}00420\ \textcolor{comment}{\ \ *\ @brief\ \ Returns\ the\ HAL\ revision}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00421}00421\ \textcolor{comment}{\ \ *\ @retval\ version\ 0xXYZR\ (8bits\ for\ each\ decimal,\ R\ for\ RC)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00422}00422\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00423}\doxymbox{\hyperlink{group___h_a_l___exported___functions___group2_gafb139b375512ad2a234e4619b129b966}{00423}}\ uint32\_t\ \doxymbox{\hyperlink{group___h_a_l___exported___functions___group2_gafb139b375512ad2a234e4619b129b966}{HAL\_GetHalVersion}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00424}00424\ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00425}00425\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{group___h_a_l___private___constants_ga8cca10f7badbb87034fe0046704136dd}{\_\_STM32F1xx\_HAL\_VERSION}};}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00426}00426\ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00427}00427\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00428}00428\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00429}00429\ \textcolor{comment}{\ \ *\ @brief\ Returns\ the\ device\ revision\ identifier.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00430}00430\ \textcolor{comment}{\ \ *\ Note:\ On\ devices\ STM32F10xx8\ and\ STM32F10xxB,}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00431}00431\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ STM32F101xC/D/E\ and\ STM32F103xC/D/E,}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00432}00432\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ STM32F101xF/G\ and\ STM32F103xF/G}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00433}00433\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ STM32F10xx4\ and\ STM32F10xx6}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00434}00434\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ Debug\ registers\ DBGMCU\_IDCODE\ and\ DBGMCU\_CR\ are\ accessible\ only\ in}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00435}00435\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ debug\ mode\ (not\ accessible\ by\ the\ user\ software\ in\ normal\ mode).}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00436}00436\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ Refer\ to\ errata\ sheet\ of\ these\ devices\ for\ more\ details.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00437}00437\ \textcolor{comment}{\ \ *\ @retval\ Device\ revision\ identifier}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00438}00438\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00439}\doxymbox{\hyperlink{group___h_a_l___exported___functions___group2_gae051ef9e932404b21f5877c7186406b8}{00439}}\ uint32\_t\ \doxymbox{\hyperlink{group___h_a_l___exported___functions___group2_gae051ef9e932404b21f5877c7186406b8}{HAL\_GetREVID}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00440}00440\ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00441}00441\ \ \ \textcolor{keywordflow}{return}\ ((\doxymbox{\hyperlink{group___peripheral__declaration_ga92ec6d9ec2251fda7d4ce09748cd74b4}{DBGMCU}}-\/>IDCODE)\ >>\ \doxymbox{\hyperlink{group___peripheral___registers___bits___definition_ga6e98f7579d16c36cbf6a09b04f2ee170}{DBGMCU\_IDCODE\_REV\_ID\_Pos}});}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00442}00442\ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00443}00443\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00444}00444\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00445}00445\ \textcolor{comment}{\ \ *\ @brief\ \ Returns\ the\ device\ identifier.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00446}00446\ \textcolor{comment}{\ \ *\ Note:\ On\ devices\ STM32F10xx8\ and\ STM32F10xxB,}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00447}00447\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ STM32F101xC/D/E\ and\ STM32F103xC/D/E,}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00448}00448\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ STM32F101xF/G\ and\ STM32F103xF/G}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00449}00449\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ STM32F10xx4\ and\ STM32F10xx6}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00450}00450\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ Debug\ registers\ DBGMCU\_IDCODE\ and\ DBGMCU\_CR\ are\ accessible\ only\ in}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00451}00451\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ debug\ mode\ (not\ accessible\ by\ the\ user\ software\ in\ normal\ mode).}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00452}00452\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ Refer\ to\ errata\ sheet\ of\ these\ devices\ for\ more\ details.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00453}00453\ \textcolor{comment}{\ \ *\ @retval\ Device\ identifier}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00454}00454\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00455}\doxymbox{\hyperlink{group___h_a_l___exported___functions___group2_gaff785f069ed650de77ff82ac407f7c84}{00455}}\ uint32\_t\ \doxymbox{\hyperlink{group___h_a_l___exported___functions___group2_gaff785f069ed650de77ff82ac407f7c84}{HAL\_GetDEVID}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00456}00456\ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00457}00457\ \ \ \textcolor{keywordflow}{return}\ ((\doxymbox{\hyperlink{group___peripheral__declaration_ga92ec6d9ec2251fda7d4ce09748cd74b4}{DBGMCU}}-\/>IDCODE)\ \&\ \doxymbox{\hyperlink{group___h_a_l___private___constants_gaeeece10cca80f3c632d3d77c3f2917b6}{IDCODE\_DEVID\_MASK}});}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00458}00458\ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00459}00459\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00460}00460\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00461}00461\ \textcolor{comment}{\ \ *\ @brief\ \ Returns\ first\ word\ of\ the\ unique\ device\ identifier\ (UID\ based\ on\ 96\ bits)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00462}00462\ \textcolor{comment}{\ \ *\ @retval\ Device\ identifier}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00463}00463\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00464}\doxymbox{\hyperlink{group___h_a_l___exported___functions___group2_gaf982aa0a575eef3758c0840a24077506}{00464}}\ uint32\_t\ \doxymbox{\hyperlink{group___h_a_l___exported___functions___group2_gaf982aa0a575eef3758c0840a24077506}{HAL\_GetUIDw0}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00465}00465\ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00466}00466\ \ \ \ \textcolor{keywordflow}{return}(\doxymbox{\hyperlink{group___exported__macros_gae7f188a4d26c9e713a48414783421071}{READ\_REG}}(*((uint32\_t\ *)\doxymbox{\hyperlink{group___peripheral__memory__map_ga664eda42b83c919b153b07b23348be67}{UID\_BASE}})));}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00467}00467\ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00468}00468\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00469}00469\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00470}00470\ \textcolor{comment}{\ \ *\ @brief\ \ Returns\ second\ word\ of\ the\ unique\ device\ identifier\ (UID\ based\ on\ 96\ bits)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00471}00471\ \textcolor{comment}{\ \ *\ @retval\ Device\ identifier}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00472}00472\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00473}\doxymbox{\hyperlink{group___h_a_l___exported___functions___group2_ga52720dd92ed2bd4314a2a129855d766c}{00473}}\ uint32\_t\ \doxymbox{\hyperlink{group___h_a_l___exported___functions___group2_ga52720dd92ed2bd4314a2a129855d766c}{HAL\_GetUIDw1}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00474}00474\ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00475}00475\ \ \ \ \textcolor{keywordflow}{return}(\doxymbox{\hyperlink{group___exported__macros_gae7f188a4d26c9e713a48414783421071}{READ\_REG}}(*((uint32\_t\ *)(\doxymbox{\hyperlink{group___peripheral__memory__map_ga664eda42b83c919b153b07b23348be67}{UID\_BASE}}\ +\ 4U))));}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00476}00476\ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00477}00477\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00478}00478\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00479}00479\ \textcolor{comment}{\ \ *\ @brief\ \ Returns\ third\ word\ of\ the\ unique\ device\ identifier\ (UID\ based\ on\ 96\ bits)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00480}00480\ \textcolor{comment}{\ \ *\ @retval\ Device\ identifier}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00481}00481\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00482}\doxymbox{\hyperlink{group___h_a_l___exported___functions___group2_ga5785ae5ec8d4c5a7dadb1359f0778700}{00482}}\ uint32\_t\ \doxymbox{\hyperlink{group___h_a_l___exported___functions___group2_ga5785ae5ec8d4c5a7dadb1359f0778700}{HAL\_GetUIDw2}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00483}00483\ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00484}00484\ \ \ \ \textcolor{keywordflow}{return}(\doxymbox{\hyperlink{group___exported__macros_gae7f188a4d26c9e713a48414783421071}{READ\_REG}}(*((uint32\_t\ *)(\doxymbox{\hyperlink{group___peripheral__memory__map_ga664eda42b83c919b153b07b23348be67}{UID\_BASE}}\ +\ 8U))));}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00485}00485\ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00486}00486\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00487}00487\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00488}00488\ \textcolor{comment}{\ \ *\ @brief\ \ Enable\ the\ Debug\ Module\ during\ SLEEP\ mode}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00489}00489\ \textcolor{comment}{\ \ *\ @retval\ None}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00490}00490\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00491}\doxymbox{\hyperlink{group___h_a_l___exported___functions___group2_gaf031bcc71ebad9b7edf405547efd762b}{00491}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{group___h_a_l___exported___functions___group2_gaf031bcc71ebad9b7edf405547efd762b}{HAL\_DBGMCU\_EnableDBGSleepMode}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00492}00492\ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00493}00493\ \ \ \doxymbox{\hyperlink{group___exported__macros_ga26474f43799fbade9cf300e21dd3a91a}{SET\_BIT}}(\doxymbox{\hyperlink{group___peripheral__declaration_ga92ec6d9ec2251fda7d4ce09748cd74b4}{DBGMCU}}-\/>CR,\ \doxymbox{\hyperlink{group___peripheral___registers___bits___definition_ga037c80fe1d7308cee68245715ef6cd9a}{DBGMCU\_CR\_DBG\_SLEEP}});}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00494}00494\ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00495}00495\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00496}00496\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00497}00497\ \textcolor{comment}{\ \ *\ @brief\ \ Disable\ the\ Debug\ Module\ during\ SLEEP\ mode}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00498}00498\ \textcolor{comment}{\ \ *\ Note:\ On\ devices\ STM32F10xx8\ and\ STM32F10xxB,}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00499}00499\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ STM32F101xC/D/E\ and\ STM32F103xC/D/E,}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00500}00500\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ STM32F101xF/G\ and\ STM32F103xF/G}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00501}00501\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ STM32F10xx4\ and\ STM32F10xx6}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00502}00502\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ Debug\ registers\ DBGMCU\_IDCODE\ and\ DBGMCU\_CR\ are\ accessible\ only\ in}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00503}00503\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ debug\ mode\ (not\ accessible\ by\ the\ user\ software\ in\ normal\ mode).}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00504}00504\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ Refer\ to\ errata\ sheet\ of\ these\ devices\ for\ more\ details.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00505}00505\ \textcolor{comment}{\ \ *\ @retval\ None}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00506}00506\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00507}\doxymbox{\hyperlink{group___h_a_l___exported___functions___group2_gac7820d0561f19999a68d714655b901b5}{00507}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{group___h_a_l___exported___functions___group2_gac7820d0561f19999a68d714655b901b5}{HAL\_DBGMCU\_DisableDBGSleepMode}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00508}00508\ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00509}00509\ \ \ \doxymbox{\hyperlink{group___exported__macros_ga133aae6fc0d41bffab39ab223a7001de}{CLEAR\_BIT}}(\doxymbox{\hyperlink{group___peripheral__declaration_ga92ec6d9ec2251fda7d4ce09748cd74b4}{DBGMCU}}-\/>CR,\ \doxymbox{\hyperlink{group___peripheral___registers___bits___definition_ga037c80fe1d7308cee68245715ef6cd9a}{DBGMCU\_CR\_DBG\_SLEEP}});}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00510}00510\ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00511}00511\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00512}00512\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00513}00513\ \textcolor{comment}{\ \ *\ @brief\ \ Enable\ the\ Debug\ Module\ during\ STOP\ mode}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00514}00514\ \textcolor{comment}{\ \ *\ Note:\ On\ devices\ STM32F10xx8\ and\ STM32F10xxB,}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00515}00515\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ STM32F101xC/D/E\ and\ STM32F103xC/D/E,}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00516}00516\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ STM32F101xF/G\ and\ STM32F103xF/G}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00517}00517\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ STM32F10xx4\ and\ STM32F10xx6}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00518}00518\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ Debug\ registers\ DBGMCU\_IDCODE\ and\ DBGMCU\_CR\ are\ accessible\ only\ in}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00519}00519\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ debug\ mode\ (not\ accessible\ by\ the\ user\ software\ in\ normal\ mode).}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00520}00520\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ Refer\ to\ errata\ sheet\ of\ these\ devices\ for\ more\ details.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00521}00521\ \textcolor{comment}{\ \ *\ Note:\ On\ all\ STM32F1\ devices:}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00522}00522\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ If\ the\ system\ tick\ timer\ interrupt\ is\ enabled\ during\ the\ Stop\ mode}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00523}00523\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ debug\ (DBG\_STOP\ bit\ set\ in\ the\ DBGMCU\_CR\ register\ ),\ it\ will\ wakeup}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00524}00524\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ the\ system\ from\ Stop\ mode.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00525}00525\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ Workaround:\ To\ debug\ the\ Stop\ mode,\ disable\ the\ system\ tick\ timer}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00526}00526\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ interrupt.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00527}00527\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ Refer\ to\ errata\ sheet\ of\ these\ devices\ for\ more\ details.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00528}00528\ \textcolor{comment}{\ \ *\ Note:\ On\ all\ STM32F1\ devices:}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00529}00529\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ If\ the\ system\ tick\ timer\ interrupt\ is\ enabled\ during\ the\ Stop\ mode}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00530}00530\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ debug\ (DBG\_STOP\ bit\ set\ in\ the\ DBGMCU\_CR\ register\ ),\ it\ will\ wakeup}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00531}00531\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ the\ system\ from\ Stop\ mode.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00532}00532\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ Workaround:\ To\ debug\ the\ Stop\ mode,\ disable\ the\ system\ tick\ timer}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00533}00533\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ interrupt.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00534}00534\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ Refer\ to\ errata\ sheet\ of\ these\ devices\ for\ more\ details.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00535}00535\ \textcolor{comment}{\ \ *\ @retval\ None}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00536}00536\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00537}\doxymbox{\hyperlink{group___h_a_l___exported___functions___group2_gadf25043b17de4bef38a95a75fd03e5c4}{00537}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{group___h_a_l___exported___functions___group2_gadf25043b17de4bef38a95a75fd03e5c4}{HAL\_DBGMCU\_EnableDBGStopMode}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00538}00538\ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00539}00539\ \ \ \doxymbox{\hyperlink{group___exported__macros_ga26474f43799fbade9cf300e21dd3a91a}{SET\_BIT}}(\doxymbox{\hyperlink{group___peripheral__declaration_ga92ec6d9ec2251fda7d4ce09748cd74b4}{DBGMCU}}-\/>CR,\ \doxymbox{\hyperlink{group___peripheral___registers___bits___definition_gaf511f21a8de5b0b66c862915eee8bf75}{DBGMCU\_CR\_DBG\_STOP}});}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00540}00540\ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00541}00541\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00542}00542\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00543}00543\ \textcolor{comment}{\ \ *\ @brief\ \ Disable\ the\ Debug\ Module\ during\ STOP\ mode}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00544}00544\ \textcolor{comment}{\ \ *\ Note:\ On\ devices\ STM32F10xx8\ and\ STM32F10xxB,}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00545}00545\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ STM32F101xC/D/E\ and\ STM32F103xC/D/E,}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00546}00546\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ STM32F101xF/G\ and\ STM32F103xF/G}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00547}00547\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ STM32F10xx4\ and\ STM32F10xx6}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00548}00548\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ Debug\ registers\ DBGMCU\_IDCODE\ and\ DBGMCU\_CR\ are\ accessible\ only\ in}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00549}00549\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ debug\ mode\ (not\ accessible\ by\ the\ user\ software\ in\ normal\ mode).}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00550}00550\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ Refer\ to\ errata\ sheet\ of\ these\ devices\ for\ more\ details.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00551}00551\ \textcolor{comment}{\ \ *\ @retval\ None}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00552}00552\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00553}\doxymbox{\hyperlink{group___h_a_l___exported___functions___group2_ga2c93dcee35e5983d74f1000de7c042d5}{00553}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{group___h_a_l___exported___functions___group2_ga2c93dcee35e5983d74f1000de7c042d5}{HAL\_DBGMCU\_DisableDBGStopMode}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00554}00554\ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00555}00555\ \ \ \doxymbox{\hyperlink{group___exported__macros_ga133aae6fc0d41bffab39ab223a7001de}{CLEAR\_BIT}}(\doxymbox{\hyperlink{group___peripheral__declaration_ga92ec6d9ec2251fda7d4ce09748cd74b4}{DBGMCU}}-\/>CR,\ \doxymbox{\hyperlink{group___peripheral___registers___bits___definition_gaf511f21a8de5b0b66c862915eee8bf75}{DBGMCU\_CR\_DBG\_STOP}});}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00556}00556\ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00557}00557\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00558}00558\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00559}00559\ \textcolor{comment}{\ \ *\ @brief\ \ Enable\ the\ Debug\ Module\ during\ STANDBY\ mode}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00560}00560\ \textcolor{comment}{\ \ *\ Note:\ On\ devices\ STM32F10xx8\ and\ STM32F10xxB,}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00561}00561\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ STM32F101xC/D/E\ and\ STM32F103xC/D/E,}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00562}00562\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ STM32F101xF/G\ and\ STM32F103xF/G}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00563}00563\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ STM32F10xx4\ and\ STM32F10xx6}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00564}00564\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ Debug\ registers\ DBGMCU\_IDCODE\ and\ DBGMCU\_CR\ are\ accessible\ only\ in}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00565}00565\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ debug\ mode\ (not\ accessible\ by\ the\ user\ software\ in\ normal\ mode).}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00566}00566\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ Refer\ to\ errata\ sheet\ of\ these\ devices\ for\ more\ details.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00567}00567\ \textcolor{comment}{\ \ *\ @retval\ None}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00568}00568\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00569}\doxymbox{\hyperlink{group___h_a_l___exported___functions___group2_ga28a1323b2eeb0a408c1cfdbfa0db5ead}{00569}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{group___h_a_l___exported___functions___group2_ga28a1323b2eeb0a408c1cfdbfa0db5ead}{HAL\_DBGMCU\_EnableDBGStandbyMode}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00570}00570\ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00571}00571\ \ \ \doxymbox{\hyperlink{group___exported__macros_ga26474f43799fbade9cf300e21dd3a91a}{SET\_BIT}}(\doxymbox{\hyperlink{group___peripheral__declaration_ga92ec6d9ec2251fda7d4ce09748cd74b4}{DBGMCU}}-\/>CR,\ \doxymbox{\hyperlink{group___peripheral___registers___bits___definition_ga107a9396d63c892a8e614897c9d0b132}{DBGMCU\_CR\_DBG\_STANDBY}});}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00572}00572\ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00573}00573\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00574}00574\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00575}00575\ \textcolor{comment}{\ \ *\ @brief\ \ Disable\ the\ Debug\ Module\ during\ STANDBY\ mode}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00576}00576\ \textcolor{comment}{\ \ *\ Note:\ On\ devices\ STM32F10xx8\ and\ STM32F10xxB,}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00577}00577\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ STM32F101xC/D/E\ and\ STM32F103xC/D/E,}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00578}00578\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ STM32F101xF/G\ and\ STM32F103xF/G}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00579}00579\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ STM32F10xx4\ and\ STM32F10xx6}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00580}00580\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ Debug\ registers\ DBGMCU\_IDCODE\ and\ DBGMCU\_CR\ are\ accessible\ only\ in}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00581}00581\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ debug\ mode\ (not\ accessible\ by\ the\ user\ software\ in\ normal\ mode).}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00582}00582\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ Refer\ to\ errata\ sheet\ of\ these\ devices\ for\ more\ details.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00583}00583\ \textcolor{comment}{\ \ *\ @retval\ None}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00584}00584\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00585}\doxymbox{\hyperlink{group___h_a_l___exported___functions___group2_ga7faa58d8508ea3123b9f247a70379779}{00585}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{group___h_a_l___exported___functions___group2_ga7faa58d8508ea3123b9f247a70379779}{HAL\_DBGMCU\_DisableDBGStandbyMode}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00586}00586\ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00587}00587\ \ \ \doxymbox{\hyperlink{group___exported__macros_ga133aae6fc0d41bffab39ab223a7001de}{CLEAR\_BIT}}(\doxymbox{\hyperlink{group___peripheral__declaration_ga92ec6d9ec2251fda7d4ce09748cd74b4}{DBGMCU}}-\/>CR,\ \doxymbox{\hyperlink{group___peripheral___registers___bits___definition_ga107a9396d63c892a8e614897c9d0b132}{DBGMCU\_CR\_DBG\_STANDBY}});}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00588}00588\ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00589}00589\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00590}00590\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00591}00591\ \textcolor{comment}{\ \ *\ @\}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00592}00592\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00593}00593\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00594}00594\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00595}00595\ \textcolor{comment}{\ \ *\ @\}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00596}00596\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00597}00597\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00598}00598\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HAL\_MODULE\_ENABLED\ */}\textcolor{preprocessor}{}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00599}00599\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00600}00600\ \textcolor{comment}{\ \ *\ @\}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00601}00601\ \textcolor{comment}{\ \ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00602}00602\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00603}00603\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00604}00604\ \textcolor{comment}{\ \ *\ @\}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00605}00605\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00606}00606\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal_8c_source_l00607}00607\ }
+
+\end{DoxyCode}

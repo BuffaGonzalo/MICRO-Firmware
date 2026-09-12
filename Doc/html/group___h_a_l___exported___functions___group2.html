@@ -1,0 +1,1285 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>MICRO-Firmware: HAL Control functions</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="codefolding.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  extensions: ["tex2jax.js"],
+  jax: ["input/TeX","output/HTML-CSS"],
+});
+</script>
+<script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">MICRO-Firmware<span id="projectnumber">&#160;EX100923v01</span>
+   </div>
+   <div id="projectbrief">Firmware de Péndulo Invertido Autónomo de Dos Ruedas (STM32F103C8T6 - ARM Cortex-M3)</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Buscar" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('group___h_a_l___exported___functions___group2.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">HAL Control functions <div class="ingroups"><a class="el" href="group___s_t_m32_f1xx___h_a_l___driver.html">STM32F1xx_HAL_Driver</a> &raquo; <a class="el" href="group___h_a_l.html">HAL</a> &#124; <a class="el" href="group___s_t_m32_f1xx___h_a_l___driver.html">STM32F1xx_HAL_Driver</a> &raquo; <a class="el" href="group___h_a_l.html">HAL</a> &raquo; <a class="el" href="group___h_a_l___exported___macros.html">HAL Exported Macros</a> &raquo; <a class="el" href="group___h_a_l___exported___functions.html">HAL Exported Functions</a></div></div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>HAL Control functions.  
+<a href="#details">Más...</a></p>
+<div id="dynsection-0" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Diagrama de colaboración de HAL Control functions:</div>
+<div id="dynsection-0-summary" class="dynsummary">
+</div>
+<div id="dynsection-0-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___h_a_l___exported___functions___group2.svg" width="374" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Funciones</h2></td></tr>
+<tr class="memitem:gac7820d0561f19999a68d714655b901b5" id="r_gac7820d0561f19999a68d714655b901b5"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#gac7820d0561f19999a68d714655b901b5">HAL_DBGMCU_DisableDBGSleepMode</a> (void)</td></tr>
+<tr class="memdesc:gac7820d0561f19999a68d714655b901b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable the Debug Module during SLEEP mode Note: On devices STM32F10xx8 and STM32F10xxB, STM32F101xC/D/E and STM32F103xC/D/E, STM32F101xF/G and STM32F103xF/G STM32F10xx4 and STM32F10xx6 Debug registers DBGMCU_IDCODE and DBGMCU_CR are accessible only in debug mode (not accessible by the user software in normal mode).  <br /></td></tr>
+<tr class="memitem:ga7faa58d8508ea3123b9f247a70379779" id="r_ga7faa58d8508ea3123b9f247a70379779"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ga7faa58d8508ea3123b9f247a70379779">HAL_DBGMCU_DisableDBGStandbyMode</a> (void)</td></tr>
+<tr class="memdesc:ga7faa58d8508ea3123b9f247a70379779"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable the Debug Module during STANDBY mode Note: On devices STM32F10xx8 and STM32F10xxB, STM32F101xC/D/E and STM32F103xC/D/E, STM32F101xF/G and STM32F103xF/G STM32F10xx4 and STM32F10xx6 Debug registers DBGMCU_IDCODE and DBGMCU_CR are accessible only in debug mode (not accessible by the user software in normal mode).  <br /></td></tr>
+<tr class="memitem:ga2c93dcee35e5983d74f1000de7c042d5" id="r_ga2c93dcee35e5983d74f1000de7c042d5"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ga2c93dcee35e5983d74f1000de7c042d5">HAL_DBGMCU_DisableDBGStopMode</a> (void)</td></tr>
+<tr class="memdesc:ga2c93dcee35e5983d74f1000de7c042d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable the Debug Module during STOP mode Note: On devices STM32F10xx8 and STM32F10xxB, STM32F101xC/D/E and STM32F103xC/D/E, STM32F101xF/G and STM32F103xF/G STM32F10xx4 and STM32F10xx6 Debug registers DBGMCU_IDCODE and DBGMCU_CR are accessible only in debug mode (not accessible by the user software in normal mode).  <br /></td></tr>
+<tr class="memitem:gaf031bcc71ebad9b7edf405547efd762b" id="r_gaf031bcc71ebad9b7edf405547efd762b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#gaf031bcc71ebad9b7edf405547efd762b">HAL_DBGMCU_EnableDBGSleepMode</a> (void)</td></tr>
+<tr class="memdesc:gaf031bcc71ebad9b7edf405547efd762b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable the Debug Module during SLEEP mode.  <br /></td></tr>
+<tr class="memitem:ga28a1323b2eeb0a408c1cfdbfa0db5ead" id="r_ga28a1323b2eeb0a408c1cfdbfa0db5ead"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ga28a1323b2eeb0a408c1cfdbfa0db5ead">HAL_DBGMCU_EnableDBGStandbyMode</a> (void)</td></tr>
+<tr class="memdesc:ga28a1323b2eeb0a408c1cfdbfa0db5ead"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable the Debug Module during STANDBY mode Note: On devices STM32F10xx8 and STM32F10xxB, STM32F101xC/D/E and STM32F103xC/D/E, STM32F101xF/G and STM32F103xF/G STM32F10xx4 and STM32F10xx6 Debug registers DBGMCU_IDCODE and DBGMCU_CR are accessible only in debug mode (not accessible by the user software in normal mode).  <br /></td></tr>
+<tr class="memitem:gadf25043b17de4bef38a95a75fd03e5c4" id="r_gadf25043b17de4bef38a95a75fd03e5c4"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#gadf25043b17de4bef38a95a75fd03e5c4">HAL_DBGMCU_EnableDBGStopMode</a> (void)</td></tr>
+<tr class="memdesc:gadf25043b17de4bef38a95a75fd03e5c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable the Debug Module during STOP mode Note: On devices STM32F10xx8 and STM32F10xxB, STM32F101xC/D/E and STM32F103xC/D/E, STM32F101xF/G and STM32F103xF/G STM32F10xx4 and STM32F10xx6 Debug registers DBGMCU_IDCODE and DBGMCU_CR are accessible only in debug mode (not accessible by the user software in normal mode).  <br /></td></tr>
+<tr class="memitem:gab1dc1e6b438daacfe38a312a90221330" id="r_gab1dc1e6b438daacfe38a312a90221330"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#gab1dc1e6b438daacfe38a312a90221330">HAL_Delay</a> (uint32_t Delay)</td></tr>
+<tr class="memdesc:gab1dc1e6b438daacfe38a312a90221330"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function provides minimum delay (in milliseconds) based on variable incremented.  <br /></td></tr>
+<tr class="memitem:gaff785f069ed650de77ff82ac407f7c84" id="r_gaff785f069ed650de77ff82ac407f7c84"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#gaff785f069ed650de77ff82ac407f7c84">HAL_GetDEVID</a> (void)</td></tr>
+<tr class="memdesc:gaff785f069ed650de77ff82ac407f7c84"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the device identifier.  <br /></td></tr>
+<tr class="memitem:gafb139b375512ad2a234e4619b129b966" id="r_gafb139b375512ad2a234e4619b129b966"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#gafb139b375512ad2a234e4619b129b966">HAL_GetHalVersion</a> (void)</td></tr>
+<tr class="memdesc:gafb139b375512ad2a234e4619b129b966"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the HAL revision.  <br /></td></tr>
+<tr class="memitem:gae051ef9e932404b21f5877c7186406b8" id="r_gae051ef9e932404b21f5877c7186406b8"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#gae051ef9e932404b21f5877c7186406b8">HAL_GetREVID</a> (void)</td></tr>
+<tr class="memdesc:gae051ef9e932404b21f5877c7186406b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the device revision identifier.  <br /></td></tr>
+<tr class="memitem:gac9b3a85a73735ac840d0dcb59bc0fdd6" id="r_gac9b3a85a73735ac840d0dcb59bc0fdd6"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#gac9b3a85a73735ac840d0dcb59bc0fdd6">HAL_GetTick</a> (void)</td></tr>
+<tr class="memdesc:gac9b3a85a73735ac840d0dcb59bc0fdd6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides a tick value in millisecond.  <br /></td></tr>
+<tr class="memitem:ga803cdbcc0883bcf5f5c98c50024c97e6" id="r_ga803cdbcc0883bcf5f5c98c50024c97e6"><td class="memItemLeft"><a class="el" href="group___h_a_l___t_i_c_k___f_r_e_q.html#gab36ec81674817249c46734772ff3b73a">HAL_TickFreqTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="#ga803cdbcc0883bcf5f5c98c50024c97e6">HAL_GetTickFreq</a> (void)</td></tr>
+<tr class="memdesc:ga803cdbcc0883bcf5f5c98c50024c97e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return tick frequency.  <br /></td></tr>
+<tr class="memitem:gacdcc8b5d33b9f97fe1b0abd6a86a3d4b" id="r_gacdcc8b5d33b9f97fe1b0abd6a86a3d4b"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#gacdcc8b5d33b9f97fe1b0abd6a86a3d4b">HAL_GetTickPrio</a> (void)</td></tr>
+<tr class="memdesc:gacdcc8b5d33b9f97fe1b0abd6a86a3d4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns a tick priority.  <br /></td></tr>
+<tr class="memitem:gaf982aa0a575eef3758c0840a24077506" id="r_gaf982aa0a575eef3758c0840a24077506"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#gaf982aa0a575eef3758c0840a24077506">HAL_GetUIDw0</a> (void)</td></tr>
+<tr class="memdesc:gaf982aa0a575eef3758c0840a24077506"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns first word of the unique device identifier (UID based on 96 bits).  <br /></td></tr>
+<tr class="memitem:ga52720dd92ed2bd4314a2a129855d766c" id="r_ga52720dd92ed2bd4314a2a129855d766c"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ga52720dd92ed2bd4314a2a129855d766c">HAL_GetUIDw1</a> (void)</td></tr>
+<tr class="memdesc:ga52720dd92ed2bd4314a2a129855d766c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns second word of the unique device identifier (UID based on 96 bits).  <br /></td></tr>
+<tr class="memitem:ga5785ae5ec8d4c5a7dadb1359f0778700" id="r_ga5785ae5ec8d4c5a7dadb1359f0778700"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ga5785ae5ec8d4c5a7dadb1359f0778700">HAL_GetUIDw2</a> (void)</td></tr>
+<tr class="memdesc:ga5785ae5ec8d4c5a7dadb1359f0778700"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns third word of the unique device identifier (UID based on 96 bits).  <br /></td></tr>
+<tr class="memitem:gaba5b726bfedd013bf7bb5a51d5c4f188" id="r_gaba5b726bfedd013bf7bb5a51d5c4f188"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#gaba5b726bfedd013bf7bb5a51d5c4f188">HAL_IncTick</a> (void)</td></tr>
+<tr class="memdesc:gaba5b726bfedd013bf7bb5a51d5c4f188"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is called to increment a global variable "uwTick" used as application time base.  <br /></td></tr>
+<tr class="memitem:gac3fa17aa85e357e3f1af56ad110d2e97" id="r_gac3fa17aa85e357e3f1af56ad110d2e97"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#gac3fa17aa85e357e3f1af56ad110d2e97">HAL_ResumeTick</a> (void)</td></tr>
+<tr class="memdesc:gac3fa17aa85e357e3f1af56ad110d2e97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resume Tick increment.  <br /></td></tr>
+<tr class="memitem:ga47f2dd240b2aed823a76b11496f37690" id="r_ga47f2dd240b2aed823a76b11496f37690"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="#ga47f2dd240b2aed823a76b11496f37690">HAL_SetTickFreq</a> (<a class="el" href="group___h_a_l___t_i_c_k___f_r_e_q.html#gab36ec81674817249c46734772ff3b73a">HAL_TickFreqTypeDef</a> Freq)</td></tr>
+<tr class="memdesc:ga47f2dd240b2aed823a76b11496f37690"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set new tick Freq.  <br /></td></tr>
+<tr class="memitem:ga84ae4b045c45d49d96b2b02e2dc516b6" id="r_ga84ae4b045c45d49d96b2b02e2dc516b6"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ga84ae4b045c45d49d96b2b02e2dc516b6">HAL_SuspendTick</a> (void)</td></tr>
+<tr class="memdesc:ga84ae4b045c45d49d96b2b02e2dc516b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Suspend Tick increment.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Descripción detallada</h2>
+<div class="textblock"><p>HAL Control functions. </p>
+<pre class="fragment"> ===============================================================================
+                      ##### HAL Control functions #####
+ ===============================================================================
+    [..]  This section provides functions allowing to:
+      (+) Provide a tick value in millisecond
+      (+) Provide a blocking delay in millisecond
+      (+) Suspend the time base source interrupt
+      (+) Resume the time base source interrupt
+      (+) Get the HAL API driver version
+      (+) Get the device identifier
+      (+) Get the device revision identifier
+      (+) Enable/Disable Debug module during SLEEP mode
+      (+) Enable/Disable Debug module during STOP mode
+      (+) Enable/Disable Debug module during STANDBY mode
+</pre> </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Documentación de funciones</h2>
+<a id="gac7820d0561f19999a68d714655b901b5" name="gac7820d0561f19999a68d714655b901b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac7820d0561f19999a68d714655b901b5">&#9670;&#160;</a></span>HAL_DBGMCU_DisableDBGSleepMode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void HAL_DBGMCU_DisableDBGSleepMode </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal_8h.html">stm32f1xx_hal.h</a>&quot;</code></p>
+
+<p>Disable the Debug Module during SLEEP mode Note: On devices STM32F10xx8 and STM32F10xxB, STM32F101xC/D/E and STM32F103xC/D/E, STM32F101xF/G and STM32F103xF/G STM32F10xx4 and STM32F10xx6 Debug registers DBGMCU_IDCODE and DBGMCU_CR are accessible only in debug mode (not accessible by the user software in normal mode). </p>
+<p>Refer to errata sheet of these devices for more details. </p><dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; Debug MCU registers base address</p>
+<p>&lt; 0x00000001</p>
+<p>&lt; Debug Sleep Mode</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal_8c_source.html#l00507">507</a> del archivo <a class="el" href="stm32f1xx__hal_8c_source.html">stm32f1xx_hal.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  508</span>{</div>
+<div class="line"><span class="lineno">  509</span>  <a class="code hl_define" href="group___exported__macros.html#ga133aae6fc0d41bffab39ab223a7001de">CLEAR_BIT</a>(<a class="code hl_define" href="group___peripheral__declaration.html#ga92ec6d9ec2251fda7d4ce09748cd74b4">DBGMCU</a>-&gt;CR, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga037c80fe1d7308cee68245715ef6cd9a">DBGMCU_CR_DBG_SLEEP</a>);</div>
+<div class="line"><span class="lineno">  510</span>}</div>
+<div class="ttc" id="agroup___exported__macros_html_ga133aae6fc0d41bffab39ab223a7001de"><div class="ttname"><a href="group___exported__macros.html#ga133aae6fc0d41bffab39ab223a7001de">CLEAR_BIT</a></div><div class="ttdeci">#define CLEAR_BIT(REG, BIT)</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx_8h_source.html#l00179">stm32f1xx.h:179</a></div></div>
+<div class="ttc" id="agroup___peripheral___registers___bits___definition_html_ga037c80fe1d7308cee68245715ef6cd9a"><div class="ttname"><a href="group___peripheral___registers___bits___definition.html#ga037c80fe1d7308cee68245715ef6cd9a">DBGMCU_CR_DBG_SLEEP</a></div><div class="ttdeci">#define DBGMCU_CR_DBG_SLEEP</div><div class="ttdoc">Debug Sleep Mode.</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l09633">stm32f103xb.h:9633</a></div></div>
+<div class="ttc" id="agroup___peripheral__declaration_html_ga92ec6d9ec2251fda7d4ce09748cd74b4"><div class="ttname"><a href="group___peripheral__declaration.html#ga92ec6d9ec2251fda7d4ce09748cd74b4">DBGMCU</a></div><div class="ttdeci">#define DBGMCU</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l00687">stm32f103xb.h:687</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx_8h_source.html#l00179">CLEAR_BIT</a>, <a class="el" href="stm32f103xb_8h_source.html#l00687">DBGMCU</a>, <a class="el" href="stm32f103xb_8h_source.html#l09633">DBGMCU_CR_DBG_SLEEP</a> y <a class="el" href="stm32f1xx__hal_8c_source.html#l00507">HAL_DBGMCU_DisableDBGSleepMode()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal_8c_source.html#l00507">HAL_DBGMCU_DisableDBGSleepMode()</a>.</p>
+<div id="dynsection-1" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-1-summary" class="dynsummary">
+</div>
+<div id="dynsection-1-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___h_a_l___exported___functions___group2_gac7820d0561f19999a68d714655b901b5_cgraph.svg" width="271" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-2" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-2-summary" class="dynsummary">
+</div>
+<div id="dynsection-2-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___h_a_l___exported___functions___group2_gac7820d0561f19999a68d714655b901b5_icgraph.svg" width="271" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ga7faa58d8508ea3123b9f247a70379779" name="ga7faa58d8508ea3123b9f247a70379779"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7faa58d8508ea3123b9f247a70379779">&#9670;&#160;</a></span>HAL_DBGMCU_DisableDBGStandbyMode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void HAL_DBGMCU_DisableDBGStandbyMode </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal_8h.html">stm32f1xx_hal.h</a>&quot;</code></p>
+
+<p>Disable the Debug Module during STANDBY mode Note: On devices STM32F10xx8 and STM32F10xxB, STM32F101xC/D/E and STM32F103xC/D/E, STM32F101xF/G and STM32F103xF/G STM32F10xx4 and STM32F10xx6 Debug registers DBGMCU_IDCODE and DBGMCU_CR are accessible only in debug mode (not accessible by the user software in normal mode). </p>
+<p>Refer to errata sheet of these devices for more details. </p><dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; Debug MCU registers base address</p>
+<p>&lt; 0x00000004</p>
+<p>&lt; Debug Standby mode</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal_8c_source.html#l00585">585</a> del archivo <a class="el" href="stm32f1xx__hal_8c_source.html">stm32f1xx_hal.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  586</span>{</div>
+<div class="line"><span class="lineno">  587</span>  <a class="code hl_define" href="group___exported__macros.html#ga133aae6fc0d41bffab39ab223a7001de">CLEAR_BIT</a>(<a class="code hl_define" href="group___peripheral__declaration.html#ga92ec6d9ec2251fda7d4ce09748cd74b4">DBGMCU</a>-&gt;CR, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga107a9396d63c892a8e614897c9d0b132">DBGMCU_CR_DBG_STANDBY</a>);</div>
+<div class="line"><span class="lineno">  588</span>}</div>
+<div class="ttc" id="agroup___peripheral___registers___bits___definition_html_ga107a9396d63c892a8e614897c9d0b132"><div class="ttname"><a href="group___peripheral___registers___bits___definition.html#ga107a9396d63c892a8e614897c9d0b132">DBGMCU_CR_DBG_STANDBY</a></div><div class="ttdeci">#define DBGMCU_CR_DBG_STANDBY</div><div class="ttdoc">Debug Standby mode.</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l09639">stm32f103xb.h:9639</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx_8h_source.html#l00179">CLEAR_BIT</a>, <a class="el" href="stm32f103xb_8h_source.html#l00687">DBGMCU</a>, <a class="el" href="stm32f103xb_8h_source.html#l09639">DBGMCU_CR_DBG_STANDBY</a> y <a class="el" href="stm32f1xx__hal_8c_source.html#l00585">HAL_DBGMCU_DisableDBGStandbyMode()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal_8c_source.html#l00585">HAL_DBGMCU_DisableDBGStandbyMode()</a>.</p>
+<div id="dynsection-3" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-3-summary" class="dynsummary">
+</div>
+<div id="dynsection-3-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___h_a_l___exported___functions___group2_ga7faa58d8508ea3123b9f247a70379779_cgraph.svg" width="286" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-4" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-4-summary" class="dynsummary">
+</div>
+<div id="dynsection-4-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___h_a_l___exported___functions___group2_ga7faa58d8508ea3123b9f247a70379779_icgraph.svg" width="286" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ga2c93dcee35e5983d74f1000de7c042d5" name="ga2c93dcee35e5983d74f1000de7c042d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2c93dcee35e5983d74f1000de7c042d5">&#9670;&#160;</a></span>HAL_DBGMCU_DisableDBGStopMode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void HAL_DBGMCU_DisableDBGStopMode </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal_8h.html">stm32f1xx_hal.h</a>&quot;</code></p>
+
+<p>Disable the Debug Module during STOP mode Note: On devices STM32F10xx8 and STM32F10xxB, STM32F101xC/D/E and STM32F103xC/D/E, STM32F101xF/G and STM32F103xF/G STM32F10xx4 and STM32F10xx6 Debug registers DBGMCU_IDCODE and DBGMCU_CR are accessible only in debug mode (not accessible by the user software in normal mode). </p>
+<p>Refer to errata sheet of these devices for more details. </p><dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; Debug MCU registers base address</p>
+<p>&lt; 0x00000002</p>
+<p>&lt; Debug Stop Mode</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal_8c_source.html#l00553">553</a> del archivo <a class="el" href="stm32f1xx__hal_8c_source.html">stm32f1xx_hal.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  554</span>{</div>
+<div class="line"><span class="lineno">  555</span>  <a class="code hl_define" href="group___exported__macros.html#ga133aae6fc0d41bffab39ab223a7001de">CLEAR_BIT</a>(<a class="code hl_define" href="group___peripheral__declaration.html#ga92ec6d9ec2251fda7d4ce09748cd74b4">DBGMCU</a>-&gt;CR, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#gaf511f21a8de5b0b66c862915eee8bf75">DBGMCU_CR_DBG_STOP</a>);</div>
+<div class="line"><span class="lineno">  556</span>}</div>
+<div class="ttc" id="agroup___peripheral___registers___bits___definition_html_gaf511f21a8de5b0b66c862915eee8bf75"><div class="ttname"><a href="group___peripheral___registers___bits___definition.html#gaf511f21a8de5b0b66c862915eee8bf75">DBGMCU_CR_DBG_STOP</a></div><div class="ttdeci">#define DBGMCU_CR_DBG_STOP</div><div class="ttdoc">Debug Stop Mode.</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l09636">stm32f103xb.h:9636</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx_8h_source.html#l00179">CLEAR_BIT</a>, <a class="el" href="stm32f103xb_8h_source.html#l00687">DBGMCU</a>, <a class="el" href="stm32f103xb_8h_source.html#l09636">DBGMCU_CR_DBG_STOP</a> y <a class="el" href="stm32f1xx__hal_8c_source.html#l00553">HAL_DBGMCU_DisableDBGStopMode()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal_8c_source.html#l00553">HAL_DBGMCU_DisableDBGStopMode()</a>.</p>
+<div id="dynsection-5" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-5-summary" class="dynsummary">
+</div>
+<div id="dynsection-5-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___h_a_l___exported___functions___group2_ga2c93dcee35e5983d74f1000de7c042d5_cgraph.svg" width="264" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-6" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-6-summary" class="dynsummary">
+</div>
+<div id="dynsection-6-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___h_a_l___exported___functions___group2_ga2c93dcee35e5983d74f1000de7c042d5_icgraph.svg" width="264" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="gaf031bcc71ebad9b7edf405547efd762b" name="gaf031bcc71ebad9b7edf405547efd762b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf031bcc71ebad9b7edf405547efd762b">&#9670;&#160;</a></span>HAL_DBGMCU_EnableDBGSleepMode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void HAL_DBGMCU_EnableDBGSleepMode </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal_8h.html">stm32f1xx_hal.h</a>&quot;</code></p>
+
+<p>Enable the Debug Module during SLEEP mode. </p>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; Debug MCU registers base address</p>
+<p>&lt; 0x00000001</p>
+<p>&lt; Debug Sleep Mode</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal_8c_source.html#l00491">491</a> del archivo <a class="el" href="stm32f1xx__hal_8c_source.html">stm32f1xx_hal.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  492</span>{</div>
+<div class="line"><span class="lineno">  493</span>  <a class="code hl_define" href="group___exported__macros.html#ga26474f43799fbade9cf300e21dd3a91a">SET_BIT</a>(<a class="code hl_define" href="group___peripheral__declaration.html#ga92ec6d9ec2251fda7d4ce09748cd74b4">DBGMCU</a>-&gt;CR, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga037c80fe1d7308cee68245715ef6cd9a">DBGMCU_CR_DBG_SLEEP</a>);</div>
+<div class="line"><span class="lineno">  494</span>}</div>
+<div class="ttc" id="agroup___exported__macros_html_ga26474f43799fbade9cf300e21dd3a91a"><div class="ttname"><a href="group___exported__macros.html#ga26474f43799fbade9cf300e21dd3a91a">SET_BIT</a></div><div class="ttdeci">#define SET_BIT(REG, BIT)</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx_8h_source.html#l00177">stm32f1xx.h:177</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f103xb_8h_source.html#l00687">DBGMCU</a>, <a class="el" href="stm32f103xb_8h_source.html#l09633">DBGMCU_CR_DBG_SLEEP</a>, <a class="el" href="stm32f1xx__hal_8c_source.html#l00491">HAL_DBGMCU_EnableDBGSleepMode()</a> y <a class="el" href="stm32f1xx_8h_source.html#l00177">SET_BIT</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal_8c_source.html#l00491">HAL_DBGMCU_EnableDBGSleepMode()</a>.</p>
+<div id="dynsection-7" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-7-summary" class="dynsummary">
+</div>
+<div id="dynsection-7-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___h_a_l___exported___functions___group2_gaf031bcc71ebad9b7edf405547efd762b_cgraph.svg" width="267" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-8" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-8-summary" class="dynsummary">
+</div>
+<div id="dynsection-8-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___h_a_l___exported___functions___group2_gaf031bcc71ebad9b7edf405547efd762b_icgraph.svg" width="267" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ga28a1323b2eeb0a408c1cfdbfa0db5ead" name="ga28a1323b2eeb0a408c1cfdbfa0db5ead"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga28a1323b2eeb0a408c1cfdbfa0db5ead">&#9670;&#160;</a></span>HAL_DBGMCU_EnableDBGStandbyMode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void HAL_DBGMCU_EnableDBGStandbyMode </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal_8h.html">stm32f1xx_hal.h</a>&quot;</code></p>
+
+<p>Enable the Debug Module during STANDBY mode Note: On devices STM32F10xx8 and STM32F10xxB, STM32F101xC/D/E and STM32F103xC/D/E, STM32F101xF/G and STM32F103xF/G STM32F10xx4 and STM32F10xx6 Debug registers DBGMCU_IDCODE and DBGMCU_CR are accessible only in debug mode (not accessible by the user software in normal mode). </p>
+<p>Refer to errata sheet of these devices for more details. </p><dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; Debug MCU registers base address</p>
+<p>&lt; 0x00000004</p>
+<p>&lt; Debug Standby mode</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal_8c_source.html#l00569">569</a> del archivo <a class="el" href="stm32f1xx__hal_8c_source.html">stm32f1xx_hal.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  570</span>{</div>
+<div class="line"><span class="lineno">  571</span>  <a class="code hl_define" href="group___exported__macros.html#ga26474f43799fbade9cf300e21dd3a91a">SET_BIT</a>(<a class="code hl_define" href="group___peripheral__declaration.html#ga92ec6d9ec2251fda7d4ce09748cd74b4">DBGMCU</a>-&gt;CR, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga107a9396d63c892a8e614897c9d0b132">DBGMCU_CR_DBG_STANDBY</a>);</div>
+<div class="line"><span class="lineno">  572</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f103xb_8h_source.html#l00687">DBGMCU</a>, <a class="el" href="stm32f103xb_8h_source.html#l09639">DBGMCU_CR_DBG_STANDBY</a>, <a class="el" href="stm32f1xx__hal_8c_source.html#l00569">HAL_DBGMCU_EnableDBGStandbyMode()</a> y <a class="el" href="stm32f1xx_8h_source.html#l00177">SET_BIT</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal_8c_source.html#l00569">HAL_DBGMCU_EnableDBGStandbyMode()</a>.</p>
+<div id="dynsection-9" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-9-summary" class="dynsummary">
+</div>
+<div id="dynsection-9-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___h_a_l___exported___functions___group2_ga28a1323b2eeb0a408c1cfdbfa0db5ead_cgraph.svg" width="282" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-10" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-10-summary" class="dynsummary">
+</div>
+<div id="dynsection-10-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___h_a_l___exported___functions___group2_ga28a1323b2eeb0a408c1cfdbfa0db5ead_icgraph.svg" width="282" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="gadf25043b17de4bef38a95a75fd03e5c4" name="gadf25043b17de4bef38a95a75fd03e5c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gadf25043b17de4bef38a95a75fd03e5c4">&#9670;&#160;</a></span>HAL_DBGMCU_EnableDBGStopMode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void HAL_DBGMCU_EnableDBGStopMode </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal_8h.html">stm32f1xx_hal.h</a>&quot;</code></p>
+
+<p>Enable the Debug Module during STOP mode Note: On devices STM32F10xx8 and STM32F10xxB, STM32F101xC/D/E and STM32F103xC/D/E, STM32F101xF/G and STM32F103xF/G STM32F10xx4 and STM32F10xx6 Debug registers DBGMCU_IDCODE and DBGMCU_CR are accessible only in debug mode (not accessible by the user software in normal mode). </p>
+<p>Refer to errata sheet of these devices for more details. Note: On all STM32F1 devices: If the system tick timer interrupt is enabled during the Stop mode debug (DBG_STOP bit set in the DBGMCU_CR register ), it will wakeup the system from Stop mode. Workaround: To debug the Stop mode, disable the system tick timer interrupt. Refer to errata sheet of these devices for more details. Note: On all STM32F1 devices: If the system tick timer interrupt is enabled during the Stop mode debug (DBG_STOP bit set in the DBGMCU_CR register ), it will wakeup the system from Stop mode. Workaround: To debug the Stop mode, disable the system tick timer interrupt. Refer to errata sheet of these devices for more details. </p><dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; Debug MCU registers base address</p>
+<p>&lt; 0x00000002</p>
+<p>&lt; Debug Stop Mode</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal_8c_source.html#l00537">537</a> del archivo <a class="el" href="stm32f1xx__hal_8c_source.html">stm32f1xx_hal.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  538</span>{</div>
+<div class="line"><span class="lineno">  539</span>  <a class="code hl_define" href="group___exported__macros.html#ga26474f43799fbade9cf300e21dd3a91a">SET_BIT</a>(<a class="code hl_define" href="group___peripheral__declaration.html#ga92ec6d9ec2251fda7d4ce09748cd74b4">DBGMCU</a>-&gt;CR, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#gaf511f21a8de5b0b66c862915eee8bf75">DBGMCU_CR_DBG_STOP</a>);</div>
+<div class="line"><span class="lineno">  540</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f103xb_8h_source.html#l00687">DBGMCU</a>, <a class="el" href="stm32f103xb_8h_source.html#l09636">DBGMCU_CR_DBG_STOP</a>, <a class="el" href="stm32f1xx__hal_8c_source.html#l00537">HAL_DBGMCU_EnableDBGStopMode()</a> y <a class="el" href="stm32f1xx_8h_source.html#l00177">SET_BIT</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal_8c_source.html#l00537">HAL_DBGMCU_EnableDBGStopMode()</a>.</p>
+<div id="dynsection-11" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-11-summary" class="dynsummary">
+</div>
+<div id="dynsection-11-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___h_a_l___exported___functions___group2_gadf25043b17de4bef38a95a75fd03e5c4_cgraph.svg" width="260" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-12" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-12-summary" class="dynsummary">
+</div>
+<div id="dynsection-12-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___h_a_l___exported___functions___group2_gadf25043b17de4bef38a95a75fd03e5c4_icgraph.svg" width="260" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="gab1dc1e6b438daacfe38a312a90221330" name="gab1dc1e6b438daacfe38a312a90221330"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab1dc1e6b438daacfe38a312a90221330">&#9670;&#160;</a></span>HAL_Delay()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group___u_s_b_d___d_e_f___exported___macros.html#ga5181eb756a197a06d1c4ed1f40a065bc">__weak</a> void HAL_Delay </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>Delay</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal_8h.html">stm32f1xx_hal.h</a>&quot;</code></p>
+
+<p>This function provides minimum delay (in milliseconds) based on variable incremented. </p>
+<dl class="section note"><dt>Nota</dt><dd>In the default implementation , SysTick timer is the source of time base. It is used to generate interrupts at regular time intervals where uwTick is incremented. </dd>
+<dd>
+This function is declared as __weak to be overwritten in case of other implementations in user file. </dd></dl>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Delay</td><td>specifies the delay time length, in milliseconds. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal_8c_source.html#l00371">371</a> del archivo <a class="el" href="stm32f1xx__hal_8c_source.html">stm32f1xx_hal.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  372</span>{</div>
+<div class="line"><span class="lineno">  373</span>  uint32_t tickstart = <a class="code hl_function" href="#gac9b3a85a73735ac840d0dcb59bc0fdd6">HAL_GetTick</a>();</div>
+<div class="line"><span class="lineno">  374</span>  uint32_t wait = Delay;</div>
+<div class="line"><span class="lineno">  375</span> </div>
+<div class="line"><span class="lineno">  376</span>  <span class="comment">/* Add a freq to guarantee minimum wait */</span></div>
+<div class="line"><span class="lineno">  377</span>  <span class="keywordflow">if</span> (wait &lt; <a class="code hl_define" href="stm32f1xx__hal__def_8h.html#aad28bc64749c50dcedd6bf819fdc6974">HAL_MAX_DELAY</a>)</div>
+<div class="line"><span class="lineno">  378</span>  {</div>
+<div class="line"><span class="lineno">  379</span>    wait += (uint32_t)(<a class="code hl_variable" href="group___h_a_l___exported___constants.html#ga84a0c55c4d0bff06a085b4fcfd6531cd">uwTickFreq</a>);</div>
+<div class="line"><span class="lineno">  380</span>  }</div>
+<div class="line"><span class="lineno">  381</span> </div>
+<div class="line"><span class="lineno">  382</span>  <span class="keywordflow">while</span> ((<a class="code hl_function" href="#gac9b3a85a73735ac840d0dcb59bc0fdd6">HAL_GetTick</a>() - tickstart) &lt; wait)</div>
+<div class="line"><span class="lineno">  383</span>  {</div>
+<div class="line"><span class="lineno">  384</span>  }</div>
+<div class="line"><span class="lineno">  385</span>}</div>
+<div class="ttc" id="agroup___h_a_l___exported___constants_html_ga84a0c55c4d0bff06a085b4fcfd6531cd"><div class="ttname"><a href="group___h_a_l___exported___constants.html#ga84a0c55c4d0bff06a085b4fcfd6531cd">uwTickFreq</a></div><div class="ttdeci">HAL_TickFreqTypeDef uwTickFreq</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal_8c_source.html#l00081">stm32f1xx_hal.c:81</a></div></div>
+<div class="ttc" id="agroup___h_a_l___exported___functions___group2_html_gac9b3a85a73735ac840d0dcb59bc0fdd6"><div class="ttname"><a href="#gac9b3a85a73735ac840d0dcb59bc0fdd6">HAL_GetTick</a></div><div class="ttdeci">uint32_t HAL_GetTick(void)</div><div class="ttdoc">Provides a tick value in millisecond.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal_8c_source.html#l00304">stm32f1xx_hal.c:304</a></div></div>
+<div class="ttc" id="astm32f1xx__hal__def_8h_html_aad28bc64749c50dcedd6bf819fdc6974"><div class="ttname"><a href="stm32f1xx__hal__def_8h.html#aad28bc64749c50dcedd6bf819fdc6974">HAL_MAX_DELAY</a></div><div class="ttdeci">#define HAL_MAX_DELAY</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__def_8h_source.html#l00056">stm32f1xx_hal_def.h:56</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="usbd__def_8h_source.html#l00283">__weak</a>, <a class="el" href="stm32f1xx__hal_8c_source.html#l00371">HAL_Delay()</a>, <a class="el" href="stm32f1xx__hal_8c_source.html#l00304">HAL_GetTick()</a>, <a class="el" href="stm32f1xx__hal__def_8h_source.html#l00056">HAL_MAX_DELAY</a> y <a class="el" href="stm32f1xx__hal_8c_source.html#l00081">uwTickFreq</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal_8c_source.html#l00371">HAL_Delay()</a>, <a class="el" href="main_8c_source.html#l01623">i2cTask()</a>, <a class="el" href="ssd1306_8c_source.html#l00116">ssd1306_Init()</a> y <a class="el" href="usbd__conf_8c_source.html#l00585">USBD_LL_Delay()</a>.</p>
+<div id="dynsection-13" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-13-summary" class="dynsummary">
+</div>
+<div id="dynsection-13-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___h_a_l___exported___functions___group2_gab1dc1e6b438daacfe38a312a90221330_cgraph.svg" width="248" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-14" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-14-summary" class="dynsummary">
+</div>
+<div id="dynsection-14-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___h_a_l___exported___functions___group2_gab1dc1e6b438daacfe38a312a90221330_icgraph.svg" width="394" height="211"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="gaff785f069ed650de77ff82ac407f7c84" name="gaff785f069ed650de77ff82ac407f7c84"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaff785f069ed650de77ff82ac407f7c84">&#9670;&#160;</a></span>HAL_GetDEVID()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t HAL_GetDEVID </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal_8h.html">stm32f1xx_hal.h</a>&quot;</code></p>
+
+<p>Returns the device identifier. </p>
+<p>Note: On devices STM32F10xx8 and STM32F10xxB, STM32F101xC/D/E and STM32F103xC/D/E, STM32F101xF/G and STM32F103xF/G STM32F10xx4 and STM32F10xx6 Debug registers DBGMCU_IDCODE and DBGMCU_CR are accessible only in debug mode (not accessible by the user software in normal mode). Refer to errata sheet of these devices for more details. </p><dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">Device</td><td>identifier </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; Debug MCU registers base address</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal_8c_source.html#l00455">455</a> del archivo <a class="el" href="stm32f1xx__hal_8c_source.html">stm32f1xx_hal.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  456</span>{</div>
+<div class="line"><span class="lineno">  457</span>  <span class="keywordflow">return</span> ((<a class="code hl_define" href="group___peripheral__declaration.html#ga92ec6d9ec2251fda7d4ce09748cd74b4">DBGMCU</a>-&gt;IDCODE) &amp; <a class="code hl_define" href="group___h_a_l___private___constants.html#gaeeece10cca80f3c632d3d77c3f2917b6">IDCODE_DEVID_MASK</a>);</div>
+<div class="line"><span class="lineno">  458</span>}</div>
+<div class="ttc" id="agroup___h_a_l___private___constants_html_gaeeece10cca80f3c632d3d77c3f2917b6"><div class="ttname"><a href="group___h_a_l___private___constants.html#gaeeece10cca80f3c632d3d77c3f2917b6">IDCODE_DEVID_MASK</a></div><div class="ttdeci">#define IDCODE_DEVID_MASK</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal_8c_source.html#l00067">stm32f1xx_hal.c:67</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f103xb_8h_source.html#l00687">DBGMCU</a>, <a class="el" href="stm32f1xx__hal_8c_source.html#l00455">HAL_GetDEVID()</a> y <a class="el" href="stm32f1xx__hal_8c_source.html#l00067">IDCODE_DEVID_MASK</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal_8c_source.html#l00455">HAL_GetDEVID()</a>.</p>
+<div id="dynsection-15" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-15-summary" class="dynsummary">
+</div>
+<div id="dynsection-15-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___h_a_l___exported___functions___group2_gaff785f069ed650de77ff82ac407f7c84_cgraph.svg" width="128" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-16" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-16-summary" class="dynsummary">
+</div>
+<div id="dynsection-16-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___h_a_l___exported___functions___group2_gaff785f069ed650de77ff82ac407f7c84_icgraph.svg" width="128" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="gafb139b375512ad2a234e4619b129b966" name="gafb139b375512ad2a234e4619b129b966"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gafb139b375512ad2a234e4619b129b966">&#9670;&#160;</a></span>HAL_GetHalVersion()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t HAL_GetHalVersion </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal_8h.html">stm32f1xx_hal.h</a>&quot;</code></p>
+
+<p>Returns the HAL revision. </p>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">version</td><td>0xXYZR (8bits for each decimal, R for RC) </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; [31:24] main version</p>
+<p>&lt; [23:16] sub1 version</p>
+<p>&lt; [15:8] sub2 version</p>
+<p>&lt; [7:0] release candidate</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal_8c_source.html#l00423">423</a> del archivo <a class="el" href="stm32f1xx__hal_8c_source.html">stm32f1xx_hal.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  424</span>{</div>
+<div class="line"><span class="lineno">  425</span>  <span class="keywordflow">return</span> <a class="code hl_define" href="group___h_a_l___private___constants.html#ga8cca10f7badbb87034fe0046704136dd">__STM32F1xx_HAL_VERSION</a>;</div>
+<div class="line"><span class="lineno">  426</span>}</div>
+<div class="ttc" id="agroup___h_a_l___private___constants_html_ga8cca10f7badbb87034fe0046704136dd"><div class="ttname"><a href="group___h_a_l___private___constants.html#ga8cca10f7badbb87034fe0046704136dd">__STM32F1xx_HAL_VERSION</a></div><div class="ttdeci">#define __STM32F1xx_HAL_VERSION</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal_8c_source.html#l00062">stm32f1xx_hal.c:62</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__hal_8c_source.html#l00062">__STM32F1xx_HAL_VERSION</a> y <a class="el" href="stm32f1xx__hal_8c_source.html#l00423">HAL_GetHalVersion()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal_8c_source.html#l00423">HAL_GetHalVersion()</a>.</p>
+<div id="dynsection-17" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-17-summary" class="dynsummary">
+</div>
+<div id="dynsection-17-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___h_a_l___exported___functions___group2_gafb139b375512ad2a234e4619b129b966_cgraph.svg" width="150" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-18" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-18-summary" class="dynsummary">
+</div>
+<div id="dynsection-18-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___h_a_l___exported___functions___group2_gafb139b375512ad2a234e4619b129b966_icgraph.svg" width="150" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="gae051ef9e932404b21f5877c7186406b8" name="gae051ef9e932404b21f5877c7186406b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae051ef9e932404b21f5877c7186406b8">&#9670;&#160;</a></span>HAL_GetREVID()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t HAL_GetREVID </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal_8h.html">stm32f1xx_hal.h</a>&quot;</code></p>
+
+<p>Returns the device revision identifier. </p>
+<p>Note: On devices STM32F10xx8 and STM32F10xxB, STM32F101xC/D/E and STM32F103xC/D/E, STM32F101xF/G and STM32F103xF/G STM32F10xx4 and STM32F10xx6 Debug registers DBGMCU_IDCODE and DBGMCU_CR are accessible only in debug mode (not accessible by the user software in normal mode). Refer to errata sheet of these devices for more details. </p><dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">Device</td><td>revision identifier </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; Debug MCU registers base address</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal_8c_source.html#l00439">439</a> del archivo <a class="el" href="stm32f1xx__hal_8c_source.html">stm32f1xx_hal.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  440</span>{</div>
+<div class="line"><span class="lineno">  441</span>  <span class="keywordflow">return</span> ((<a class="code hl_define" href="group___peripheral__declaration.html#ga92ec6d9ec2251fda7d4ce09748cd74b4">DBGMCU</a>-&gt;IDCODE) &gt;&gt; <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga6e98f7579d16c36cbf6a09b04f2ee170">DBGMCU_IDCODE_REV_ID_Pos</a>);</div>
+<div class="line"><span class="lineno">  442</span>}</div>
+<div class="ttc" id="agroup___peripheral___registers___bits___definition_html_ga6e98f7579d16c36cbf6a09b04f2ee170"><div class="ttname"><a href="group___peripheral___registers___bits___definition.html#ga6e98f7579d16c36cbf6a09b04f2ee170">DBGMCU_IDCODE_REV_ID_Pos</a></div><div class="ttdeci">#define DBGMCU_IDCODE_REV_ID_Pos</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l09610">stm32f103xb.h:9610</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f103xb_8h_source.html#l00687">DBGMCU</a>, <a class="el" href="stm32f103xb_8h_source.html#l09610">DBGMCU_IDCODE_REV_ID_Pos</a> y <a class="el" href="stm32f1xx__hal_8c_source.html#l00439">HAL_GetREVID()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal_8c_source.html#l00439">HAL_GetREVID()</a>.</p>
+<div id="dynsection-19" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-19-summary" class="dynsummary">
+</div>
+<div id="dynsection-19-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___h_a_l___exported___functions___group2_gae051ef9e932404b21f5877c7186406b8_cgraph.svg" width="128" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-20" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-20-summary" class="dynsummary">
+</div>
+<div id="dynsection-20-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___h_a_l___exported___functions___group2_gae051ef9e932404b21f5877c7186406b8_icgraph.svg" width="128" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="gac9b3a85a73735ac840d0dcb59bc0fdd6" name="gac9b3a85a73735ac840d0dcb59bc0fdd6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac9b3a85a73735ac840d0dcb59bc0fdd6">&#9670;&#160;</a></span>HAL_GetTick()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group___u_s_b_d___d_e_f___exported___macros.html#ga5181eb756a197a06d1c4ed1f40a065bc">__weak</a> uint32_t HAL_GetTick </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal_8h.html">stm32f1xx_hal.h</a>&quot;</code></p>
+
+<p>Provides a tick value in millisecond. </p>
+<dl class="section note"><dt>Nota</dt><dd>This function is declared as __weak to be overwritten in case of other implementations in user file. </dd></dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">tick</td><td>value </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal_8c_source.html#l00304">304</a> del archivo <a class="el" href="stm32f1xx__hal_8c_source.html">stm32f1xx_hal.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  305</span>{</div>
+<div class="line"><span class="lineno">  306</span>  <span class="keywordflow">return</span> <a class="code hl_variable" href="group___h_a_l___exported___constants.html#ga972b5e502ca83659e949d74b45b9ba1e">uwTick</a>;</div>
+<div class="line"><span class="lineno">  307</span>}</div>
+<div class="ttc" id="agroup___h_a_l___exported___constants_html_ga972b5e502ca83659e949d74b45b9ba1e"><div class="ttname"><a href="group___h_a_l___exported___constants.html#ga972b5e502ca83659e949d74b45b9ba1e">uwTick</a></div><div class="ttdeci">volatile uint32_t uwTick</div><div class="ttdoc">&lt; Defines &#39;read / write&#39; permissions</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal_8c_source.html#l00079">stm32f1xx_hal.c:79</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="usbd__def_8h_source.html#l00283">__weak</a>, <a class="el" href="stm32f1xx__hal_8c_source.html#l00304">HAL_GetTick()</a> y <a class="el" href="stm32f1xx__hal_8c_source.html#l00079">uwTick</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal__adc_8c_source.html#l02214">ADC_Enable()</a>, <a class="el" href="stm32f1xx__hal__flash_8c_source.html#l00819">FLASH_WaitForLastOperation()</a>, <a class="el" href="stm32f1xx__hal__adc_8c_source.html#l01183">HAL_ADC_PollForConversion()</a>, <a class="el" href="stm32f1xx__hal__adc_8c_source.html#l01322">HAL_ADC_PollForEvent()</a>, <a class="el" href="stm32f1xx__hal__adc__ex_8c_source.html#l00119">HAL_ADCEx_Calibration_Start()</a>, <a class="el" href="stm32f1xx__hal_8c_source.html#l00371">HAL_Delay()</a>, <a class="el" href="stm32f1xx__hal__dma_8c_source.html#l00501">HAL_DMA_PollForTransfer()</a>, <a class="el" href="stm32f1xx__hal_8c_source.html#l00304">HAL_GetTick()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l03534">HAL_I2C_IsDeviceReady()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l01195">HAL_I2C_Master_Receive()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l01074">HAL_I2C_Master_Transmit()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l02683">HAL_I2C_Mem_Read()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l03340">HAL_I2C_Mem_Read_DMA()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l02560">HAL_I2C_Mem_Write()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l03160">HAL_I2C_Mem_Write_DMA()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l01623">HAL_I2C_Slave_Receive()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l01493">HAL_I2C_Slave_Transmit()</a>, <a class="el" href="stm32f1xx__hal__rcc_8c_source.html#l00811">HAL_RCC_ClockConfig()</a>, <a class="el" href="stm32f1xx__hal__rcc_8c_source.html#l00200">HAL_RCC_DeInit()</a>, <a class="el" href="stm32f1xx__hal__rcc_8c_source.html#l00345">HAL_RCC_OscConfig()</a>, <a class="el" href="stm32f1xx__hal__rcc__ex_8c_source.html#l00098">HAL_RCCEx_PeriphCLKConfig()</a>, <a class="el" href="stm32f1xx__hal__uart_8c_source.html#l01224">HAL_UART_Receive()</a>, <a class="el" href="stm32f1xx__hal__uart_8c_source.html#l01138">HAL_UART_Transmit()</a>, <a class="el" href="stm32f1xx__hal__uart_8c_source.html#l01591">HAL_UARTEx_ReceiveToIdle()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l07455">I2C_WaitOnBTFFlagUntilTimeout()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l07323">I2C_WaitOnFlagUntilTimeout()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l07360">I2C_WaitOnMasterAddressFlagUntilTimeout()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l07561">I2C_WaitOnRXNEFlagUntilTimeout()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l07496">I2C_WaitOnSTOPFlagUntilTimeout()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l07414">I2C_WaitOnTXEFlagUntilTimeout()</a>, <a class="el" href="stm32f1xx__hal__uart_8c_source.html#l03185">UART_WaitOnFlagUntilTimeout()</a>, <a class="el" href="wiregfx_8c_source.html#l00293">WIREGFX_DisplayTask()</a> y <a class="el" href="wiregfx_8c_source.html#l00288">WIREGFX_ResetCycle()</a>.</p>
+<div id="dynsection-21" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-21-summary" class="dynsummary">
+</div>
+<div id="dynsection-21-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___h_a_l___exported___functions___group2_gac9b3a85a73735ac840d0dcb59bc0fdd6_cgraph.svg" width="111" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-22" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-22-summary" class="dynsummary">
+</div>
+<div id="dynsection-22-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___h_a_l___exported___functions___group2_gac9b3a85a73735ac840d0dcb59bc0fdd6_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="ga803cdbcc0883bcf5f5c98c50024c97e6" name="ga803cdbcc0883bcf5f5c98c50024c97e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga803cdbcc0883bcf5f5c98c50024c97e6">&#9670;&#160;</a></span>HAL_GetTickFreq()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group___h_a_l___t_i_c_k___f_r_e_q.html#gab36ec81674817249c46734772ff3b73a">HAL_TickFreqTypeDef</a> HAL_GetTickFreq </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal_8h.html">stm32f1xx_hal.h</a>&quot;</code></p>
+
+<p>Return tick frequency. </p>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">Tick</td><td>frequency. Value of <a class="el" href="group___h_a_l___t_i_c_k___f_r_e_q.html#gab36ec81674817249c46734772ff3b73a" title="HAL_TickFreqTypeDef">HAL_TickFreqTypeDef</a>. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal_8c_source.html#l00355">355</a> del archivo <a class="el" href="stm32f1xx__hal_8c_source.html">stm32f1xx_hal.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  356</span>{</div>
+<div class="line"><span class="lineno">  357</span>  <span class="keywordflow">return</span> <a class="code hl_variable" href="group___h_a_l___exported___constants.html#ga84a0c55c4d0bff06a085b4fcfd6531cd">uwTickFreq</a>;</div>
+<div class="line"><span class="lineno">  358</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__hal_8c_source.html#l00355">HAL_GetTickFreq()</a> y <a class="el" href="stm32f1xx__hal_8c_source.html#l00081">uwTickFreq</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal_8c_source.html#l00355">HAL_GetTickFreq()</a>.</p>
+<div id="dynsection-23" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-23-summary" class="dynsummary">
+</div>
+<div id="dynsection-23-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___h_a_l___exported___functions___group2_ga803cdbcc0883bcf5f5c98c50024c97e6_cgraph.svg" width="138" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-24" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-24-summary" class="dynsummary">
+</div>
+<div id="dynsection-24-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___h_a_l___exported___functions___group2_ga803cdbcc0883bcf5f5c98c50024c97e6_icgraph.svg" width="138" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="gacdcc8b5d33b9f97fe1b0abd6a86a3d4b" name="gacdcc8b5d33b9f97fe1b0abd6a86a3d4b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gacdcc8b5d33b9f97fe1b0abd6a86a3d4b">&#9670;&#160;</a></span>HAL_GetTickPrio()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t HAL_GetTickPrio </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal_8h.html">stm32f1xx_hal.h</a>&quot;</code></p>
+
+<p>This function returns a tick priority. </p>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">tick</td><td>priority </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal_8c_source.html#l00313">313</a> del archivo <a class="el" href="stm32f1xx__hal_8c_source.html">stm32f1xx_hal.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  314</span>{</div>
+<div class="line"><span class="lineno">  315</span>  <span class="keywordflow">return</span> <a class="code hl_variable" href="group___h_a_l___exported___constants.html#ga3000c5e83924ed2debb1849c738d4be2">uwTickPrio</a>;</div>
+<div class="line"><span class="lineno">  316</span>}</div>
+<div class="ttc" id="agroup___h_a_l___exported___constants_html_ga3000c5e83924ed2debb1849c738d4be2"><div class="ttname"><a href="group___h_a_l___exported___constants.html#ga3000c5e83924ed2debb1849c738d4be2">uwTickPrio</a></div><div class="ttdeci">uint32_t uwTickPrio</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal_8c_source.html#l00080">stm32f1xx_hal.c:80</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__hal_8c_source.html#l00313">HAL_GetTickPrio()</a> y <a class="el" href="stm32f1xx__hal_8c_source.html#l00080">uwTickPrio</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal_8c_source.html#l00313">HAL_GetTickPrio()</a>.</p>
+<div id="dynsection-25" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-25-summary" class="dynsummary">
+</div>
+<div id="dynsection-25-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___h_a_l___exported___functions___group2_gacdcc8b5d33b9f97fe1b0abd6a86a3d4b_cgraph.svg" width="135" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-26" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-26-summary" class="dynsummary">
+</div>
+<div id="dynsection-26-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___h_a_l___exported___functions___group2_gacdcc8b5d33b9f97fe1b0abd6a86a3d4b_icgraph.svg" width="135" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="gaf982aa0a575eef3758c0840a24077506" name="gaf982aa0a575eef3758c0840a24077506"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf982aa0a575eef3758c0840a24077506">&#9670;&#160;</a></span>HAL_GetUIDw0()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t HAL_GetUIDw0 </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal_8h.html">stm32f1xx_hal.h</a>&quot;</code></p>
+
+<p>Returns first word of the unique device identifier (UID based on 96 bits). </p>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">Device</td><td>identifier </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; Unique device ID register base address</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal_8c_source.html#l00464">464</a> del archivo <a class="el" href="stm32f1xx__hal_8c_source.html">stm32f1xx_hal.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  465</span>{</div>
+<div class="line"><span class="lineno">  466</span>   <span class="keywordflow">return</span>(<a class="code hl_define" href="group___exported__macros.html#gae7f188a4d26c9e713a48414783421071">READ_REG</a>(*((uint32_t *)<a class="code hl_define" href="group___peripheral__memory__map.html#ga664eda42b83c919b153b07b23348be67">UID_BASE</a>)));</div>
+<div class="line"><span class="lineno">  467</span>}</div>
+<div class="ttc" id="agroup___exported__macros_html_gae7f188a4d26c9e713a48414783421071"><div class="ttname"><a href="group___exported__macros.html#gae7f188a4d26c9e713a48414783421071">READ_REG</a></div><div class="ttdeci">#define READ_REG(REG)</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx_8h_source.html#l00187">stm32f1xx.h:187</a></div></div>
+<div class="ttc" id="agroup___peripheral__memory__map_html_ga664eda42b83c919b153b07b23348be67"><div class="ttname"><a href="group___peripheral__memory__map.html#ga664eda42b83c919b153b07b23348be67">UID_BASE</a></div><div class="ttdeci">#define UID_BASE</div><div class="ttdoc">Unique device ID register base address.</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l00627">stm32f103xb.h:627</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__hal_8c_source.html#l00464">HAL_GetUIDw0()</a>, <a class="el" href="stm32f1xx_8h_source.html#l00187">READ_REG</a> y <a class="el" href="stm32f103xb_8h_source.html#l00627">UID_BASE</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal_8c_source.html#l00464">HAL_GetUIDw0()</a>.</p>
+<div id="dynsection-27" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-27-summary" class="dynsummary">
+</div>
+<div id="dynsection-27-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___h_a_l___exported___functions___group2_gaf982aa0a575eef3758c0840a24077506_cgraph.svg" width="127" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-28" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-28-summary" class="dynsummary">
+</div>
+<div id="dynsection-28-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___h_a_l___exported___functions___group2_gaf982aa0a575eef3758c0840a24077506_icgraph.svg" width="127" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ga52720dd92ed2bd4314a2a129855d766c" name="ga52720dd92ed2bd4314a2a129855d766c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga52720dd92ed2bd4314a2a129855d766c">&#9670;&#160;</a></span>HAL_GetUIDw1()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t HAL_GetUIDw1 </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal_8h.html">stm32f1xx_hal.h</a>&quot;</code></p>
+
+<p>Returns second word of the unique device identifier (UID based on 96 bits). </p>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">Device</td><td>identifier </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; Unique device ID register base address</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal_8c_source.html#l00473">473</a> del archivo <a class="el" href="stm32f1xx__hal_8c_source.html">stm32f1xx_hal.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  474</span>{</div>
+<div class="line"><span class="lineno">  475</span>   <span class="keywordflow">return</span>(<a class="code hl_define" href="group___exported__macros.html#gae7f188a4d26c9e713a48414783421071">READ_REG</a>(*((uint32_t *)(<a class="code hl_define" href="group___peripheral__memory__map.html#ga664eda42b83c919b153b07b23348be67">UID_BASE</a> + 4U))));</div>
+<div class="line"><span class="lineno">  476</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__hal_8c_source.html#l00473">HAL_GetUIDw1()</a>, <a class="el" href="stm32f1xx_8h_source.html#l00187">READ_REG</a> y <a class="el" href="stm32f103xb_8h_source.html#l00627">UID_BASE</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal_8c_source.html#l00473">HAL_GetUIDw1()</a>.</p>
+<div id="dynsection-29" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-29-summary" class="dynsummary">
+</div>
+<div id="dynsection-29-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___h_a_l___exported___functions___group2_ga52720dd92ed2bd4314a2a129855d766c_cgraph.svg" width="127" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-30" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-30-summary" class="dynsummary">
+</div>
+<div id="dynsection-30-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___h_a_l___exported___functions___group2_ga52720dd92ed2bd4314a2a129855d766c_icgraph.svg" width="127" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ga5785ae5ec8d4c5a7dadb1359f0778700" name="ga5785ae5ec8d4c5a7dadb1359f0778700"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5785ae5ec8d4c5a7dadb1359f0778700">&#9670;&#160;</a></span>HAL_GetUIDw2()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t HAL_GetUIDw2 </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal_8h.html">stm32f1xx_hal.h</a>&quot;</code></p>
+
+<p>Returns third word of the unique device identifier (UID based on 96 bits). </p>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">Device</td><td>identifier </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; Unique device ID register base address</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal_8c_source.html#l00482">482</a> del archivo <a class="el" href="stm32f1xx__hal_8c_source.html">stm32f1xx_hal.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  483</span>{</div>
+<div class="line"><span class="lineno">  484</span>   <span class="keywordflow">return</span>(<a class="code hl_define" href="group___exported__macros.html#gae7f188a4d26c9e713a48414783421071">READ_REG</a>(*((uint32_t *)(<a class="code hl_define" href="group___peripheral__memory__map.html#ga664eda42b83c919b153b07b23348be67">UID_BASE</a> + 8U))));</div>
+<div class="line"><span class="lineno">  485</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__hal_8c_source.html#l00482">HAL_GetUIDw2()</a>, <a class="el" href="stm32f1xx_8h_source.html#l00187">READ_REG</a> y <a class="el" href="stm32f103xb_8h_source.html#l00627">UID_BASE</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal_8c_source.html#l00482">HAL_GetUIDw2()</a>.</p>
+<div id="dynsection-31" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-31-summary" class="dynsummary">
+</div>
+<div id="dynsection-31-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___h_a_l___exported___functions___group2_ga5785ae5ec8d4c5a7dadb1359f0778700_cgraph.svg" width="127" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-32" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-32-summary" class="dynsummary">
+</div>
+<div id="dynsection-32-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___h_a_l___exported___functions___group2_ga5785ae5ec8d4c5a7dadb1359f0778700_icgraph.svg" width="127" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="gaba5b726bfedd013bf7bb5a51d5c4f188" name="gaba5b726bfedd013bf7bb5a51d5c4f188"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaba5b726bfedd013bf7bb5a51d5c4f188">&#9670;&#160;</a></span>HAL_IncTick()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group___u_s_b_d___d_e_f___exported___macros.html#ga5181eb756a197a06d1c4ed1f40a065bc">__weak</a> void HAL_IncTick </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal_8h.html">stm32f1xx_hal.h</a>&quot;</code></p>
+
+<p>This function is called to increment a global variable "uwTick" used as application time base. </p>
+<dl class="section note"><dt>Nota</dt><dd>In the default implementation, this variable is incremented each 1ms in SysTick ISR. </dd>
+<dd>
+This function is declared as __weak to be overwritten in case of other implementations in user file. </dd></dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal_8c_source.html#l00293">293</a> del archivo <a class="el" href="stm32f1xx__hal_8c_source.html">stm32f1xx_hal.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  294</span>{</div>
+<div class="line"><span class="lineno">  295</span>  <a class="code hl_variable" href="group___h_a_l___exported___constants.html#ga972b5e502ca83659e949d74b45b9ba1e">uwTick</a> += <a class="code hl_variable" href="group___h_a_l___exported___constants.html#ga84a0c55c4d0bff06a085b4fcfd6531cd">uwTickFreq</a>;</div>
+<div class="line"><span class="lineno">  296</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="usbd__def_8h_source.html#l00283">__weak</a>, <a class="el" href="stm32f1xx__hal_8c_source.html#l00293">HAL_IncTick()</a>, <a class="el" href="stm32f1xx__hal_8c_source.html#l00079">uwTick</a> y <a class="el" href="stm32f1xx__hal_8c_source.html#l00081">uwTickFreq</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal_8c_source.html#l00293">HAL_IncTick()</a> y <a class="el" href="stm32f1xx__it_8c_source.html#l00184">SysTick_Handler()</a>.</p>
+<div id="dynsection-33" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-33-summary" class="dynsummary">
+</div>
+<div id="dynsection-33-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___h_a_l___exported___functions___group2_gaba5b726bfedd013bf7bb5a51d5c4f188_cgraph.svg" width="108" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-34" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-34-summary" class="dynsummary">
+</div>
+<div id="dynsection-34-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___h_a_l___exported___functions___group2_gaba5b726bfedd013bf7bb5a51d5c4f188_icgraph.svg" width="278" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="gac3fa17aa85e357e3f1af56ad110d2e97" name="gac3fa17aa85e357e3f1af56ad110d2e97"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac3fa17aa85e357e3f1af56ad110d2e97">&#9670;&#160;</a></span>HAL_ResumeTick()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group___u_s_b_d___d_e_f___exported___macros.html#ga5181eb756a197a06d1c4ed1f40a065bc">__weak</a> void HAL_ResumeTick </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal_8h.html">stm32f1xx_hal.h</a>&quot;</code></p>
+
+<p>Resume Tick increment. </p>
+<dl class="section note"><dt>Nota</dt><dd>In the default implementation , SysTick timer is the source of time base. It is used to generate interrupts at regular time intervals. Once <a class="el" href="#gac3fa17aa85e357e3f1af56ad110d2e97" title="Resume Tick increment.">HAL_ResumeTick()</a> is called, the SysTick interrupt will be enabled and so Tick increment is resumed. </dd>
+<dd>
+This function is declared as __weak to be overwritten in case of other implementations in user file. </dd></dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; System Control Space Base Address</p>
+<p>&lt; SysTick Base Address</p>
+<p>&lt; SysTick configuration struct</p>
+<p>&lt; SysTick CTRL: TICKINT Position</p>
+<p>&lt; SysTick CTRL: TICKINT Mask</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal_8c_source.html#l00413">413</a> del archivo <a class="el" href="stm32f1xx__hal_8c_source.html">stm32f1xx_hal.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  414</span>{</div>
+<div class="line"><span class="lineno">  415</span>  <span class="comment">/* Enable SysTick Interrupt */</span></div>
+<div class="line"><span class="lineno">  416</span>  <a class="code hl_define" href="group___exported__macros.html#ga26474f43799fbade9cf300e21dd3a91a">SET_BIT</a>(SysTick-&gt;CTRL, SysTick_CTRL_TICKINT_Msk);</div>
+<div class="line"><span class="lineno">  417</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="usbd__def_8h_source.html#l00283">__weak</a>, <a class="el" href="stm32f1xx__hal_8c_source.html#l00413">HAL_ResumeTick()</a> y <a class="el" href="stm32f1xx_8h_source.html#l00177">SET_BIT</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal_8c_source.html#l00413">HAL_ResumeTick()</a>.</p>
+<div id="dynsection-35" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-35-summary" class="dynsummary">
+</div>
+<div id="dynsection-35-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___h_a_l___exported___functions___group2_gac3fa17aa85e357e3f1af56ad110d2e97_cgraph.svg" width="139" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-36" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-36-summary" class="dynsummary">
+</div>
+<div id="dynsection-36-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___h_a_l___exported___functions___group2_gac3fa17aa85e357e3f1af56ad110d2e97_icgraph.svg" width="139" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ga47f2dd240b2aed823a76b11496f37690" name="ga47f2dd240b2aed823a76b11496f37690"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga47f2dd240b2aed823a76b11496f37690">&#9670;&#160;</a></span>HAL_SetTickFreq()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a> HAL_SetTickFreq </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group___h_a_l___t_i_c_k___f_r_e_q.html#gab36ec81674817249c46734772ff3b73a">HAL_TickFreqTypeDef</a></td>          <td class="paramname"><span class="paramname"><em>Freq</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal_8h.html">stm32f1xx_hal.h</a>&quot;</code></p>
+
+<p>Set new tick Freq. </p>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">status</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal_8c_source.html#l00322">322</a> del archivo <a class="el" href="stm32f1xx__hal_8c_source.html">stm32f1xx_hal.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  323</span>{</div>
+<div class="line"><span class="lineno">  324</span>  <a class="code hl_enumeration" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a> status  = <a class="code hl_enumvalue" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632">HAL_OK</a>;</div>
+<div class="line"><span class="lineno">  325</span>  <a class="code hl_enumeration" href="group___h_a_l___t_i_c_k___f_r_e_q.html#gab36ec81674817249c46734772ff3b73a">HAL_TickFreqTypeDef</a> prevTickFreq;</div>
+<div class="line"><span class="lineno">  326</span> </div>
+<div class="line"><span class="lineno">  327</span>  <a class="code hl_define" href="stm32f1xx__hal__conf_8h.html#a631dea7b230e600555f979c62af1de21">assert_param</a>(<a class="code hl_define" href="group___h_a_l___private___macros.html#ga2a86bf8a89ad75716cd92e932a8ae71e">IS_TICKFREQ</a>(Freq));</div>
+<div class="line"><span class="lineno">  328</span> </div>
+<div class="line"><span class="lineno">  329</span>  <span class="keywordflow">if</span> (<a class="code hl_variable" href="group___h_a_l___exported___constants.html#ga84a0c55c4d0bff06a085b4fcfd6531cd">uwTickFreq</a> != Freq)</div>
+<div class="line"><span class="lineno">  330</span>  {</div>
+<div class="line"><span class="lineno">  331</span>    <span class="comment">/* Back up uwTickFreq frequency */</span></div>
+<div class="line"><span class="lineno">  332</span>    prevTickFreq = <a class="code hl_variable" href="group___h_a_l___exported___constants.html#ga84a0c55c4d0bff06a085b4fcfd6531cd">uwTickFreq</a>;</div>
+<div class="line"><span class="lineno">  333</span> </div>
+<div class="line"><span class="lineno">  334</span>    <span class="comment">/* Update uwTickFreq global variable used by HAL_InitTick() */</span></div>
+<div class="line"><span class="lineno">  335</span>    <a class="code hl_variable" href="group___h_a_l___exported___constants.html#ga84a0c55c4d0bff06a085b4fcfd6531cd">uwTickFreq</a> = Freq;</div>
+<div class="line"><span class="lineno">  336</span> </div>
+<div class="line"><span class="lineno">  337</span>    <span class="comment">/* Apply the new tick Freq  */</span></div>
+<div class="line"><span class="lineno">  338</span>    status = <a class="code hl_function" href="group___h_a_l___exported___functions___group1.html#ga44d1542f9985b2243b14a41070cc41cc">HAL_InitTick</a>(<a class="code hl_variable" href="group___h_a_l___exported___constants.html#ga3000c5e83924ed2debb1849c738d4be2">uwTickPrio</a>);</div>
+<div class="line"><span class="lineno">  339</span> </div>
+<div class="line"><span class="lineno">  340</span>    <span class="keywordflow">if</span> (status != <a class="code hl_enumvalue" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632">HAL_OK</a>)</div>
+<div class="line"><span class="lineno">  341</span>    {</div>
+<div class="line"><span class="lineno">  342</span>      <span class="comment">/* Restore previous tick frequency */</span></div>
+<div class="line"><span class="lineno">  343</span>      <a class="code hl_variable" href="group___h_a_l___exported___constants.html#ga84a0c55c4d0bff06a085b4fcfd6531cd">uwTickFreq</a> = prevTickFreq;</div>
+<div class="line"><span class="lineno">  344</span>    }</div>
+<div class="line"><span class="lineno">  345</span>  }</div>
+<div class="line"><span class="lineno">  346</span> </div>
+<div class="line"><span class="lineno">  347</span>  <span class="keywordflow">return</span> status;</div>
+<div class="line"><span class="lineno">  348</span>}</div>
+<div class="ttc" id="agroup___h_a_l___exported___functions___group1_html_ga44d1542f9985b2243b14a41070cc41cc"><div class="ttname"><a href="group___h_a_l___exported___functions___group1.html#ga44d1542f9985b2243b14a41070cc41cc">HAL_InitTick</a></div><div class="ttdeci">HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)</div><div class="ttdoc">This function configures the source of the time base.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal_8c_source.html#l00234">stm32f1xx_hal.c:234</a></div></div>
+<div class="ttc" id="agroup___h_a_l___private___macros_html_ga2a86bf8a89ad75716cd92e932a8ae71e"><div class="ttname"><a href="group___h_a_l___private___macros.html#ga2a86bf8a89ad75716cd92e932a8ae71e">IS_TICKFREQ</a></div><div class="ttdeci">#define IS_TICKFREQ(FREQ)</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal_8h_source.html#l00267">stm32f1xx_hal.h:267</a></div></div>
+<div class="ttc" id="agroup___h_a_l___t_i_c_k___f_r_e_q_html_gab36ec81674817249c46734772ff3b73a"><div class="ttname"><a href="group___h_a_l___t_i_c_k___f_r_e_q.html#gab36ec81674817249c46734772ff3b73a">HAL_TickFreqTypeDef</a></div><div class="ttdeci">HAL_TickFreqTypeDef</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal_8h_source.html#l00048">stm32f1xx_hal.h:49</a></div></div>
+<div class="ttc" id="astm32f1xx__hal__conf_8h_html_a631dea7b230e600555f979c62af1de21"><div class="ttname"><a href="stm32f1xx__hal__conf_8h.html#a631dea7b230e600555f979c62af1de21">assert_param</a></div><div class="ttdeci">#define assert_param(expr)</div><div class="ttdoc">Include module&#39;s header file.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__conf_8h_source.html#l00373">stm32f1xx_hal_conf.h:373</a></div></div>
+<div class="ttc" id="astm32f1xx__hal__def_8h_html_a63c0679d1cb8b8c684fbb0632743478f"><div class="ttname"><a href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a></div><div class="ttdeci">HAL_StatusTypeDef</div><div class="ttdoc">HAL Status structures definition.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__def_8h_source.html#l00038">stm32f1xx_hal_def.h:39</a></div></div>
+<div class="ttc" id="astm32f1xx__hal__def_8h_html_a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632"><div class="ttname"><a href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632">HAL_OK</a></div><div class="ttdeci">@ HAL_OK</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__def_8h_source.html#l00040">stm32f1xx_hal_def.h:40</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__hal__conf_8h_source.html#l00373">assert_param</a>, <a class="el" href="stm32f1xx__hal_8c_source.html#l00234">HAL_InitTick()</a>, <a class="el" href="stm32f1xx__hal__def_8h_source.html#l00040">HAL_OK</a>, <a class="el" href="stm32f1xx__hal_8c_source.html#l00322">HAL_SetTickFreq()</a>, <a class="el" href="stm32f1xx__hal_8h_source.html#l00267">IS_TICKFREQ</a>, <a class="el" href="stm32f1xx__hal_8c_source.html#l00081">uwTickFreq</a> y <a class="el" href="stm32f1xx__hal_8c_source.html#l00080">uwTickPrio</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal_8c_source.html#l00322">HAL_SetTickFreq()</a>.</p>
+<div id="dynsection-37" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-37-summary" class="dynsummary">
+</div>
+<div id="dynsection-37-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___h_a_l___exported___functions___group2_ga47f2dd240b2aed823a76b11496f37690_cgraph.svg" width="487" height="136"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-38" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-38-summary" class="dynsummary">
+</div>
+<div id="dynsection-38-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___h_a_l___exported___functions___group2_ga47f2dd240b2aed823a76b11496f37690_icgraph.svg" width="136" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ga84ae4b045c45d49d96b2b02e2dc516b6" name="ga84ae4b045c45d49d96b2b02e2dc516b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga84ae4b045c45d49d96b2b02e2dc516b6">&#9670;&#160;</a></span>HAL_SuspendTick()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group___u_s_b_d___d_e_f___exported___macros.html#ga5181eb756a197a06d1c4ed1f40a065bc">__weak</a> void HAL_SuspendTick </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal_8h.html">stm32f1xx_hal.h</a>&quot;</code></p>
+
+<p>Suspend Tick increment. </p>
+<dl class="section note"><dt>Nota</dt><dd>In the default implementation , SysTick timer is the source of time base. It is used to generate interrupts at regular time intervals. Once <a class="el" href="#ga84ae4b045c45d49d96b2b02e2dc516b6" title="Suspend Tick increment.">HAL_SuspendTick()</a> is called, the SysTick interrupt will be disabled and so Tick increment is suspended. </dd>
+<dd>
+This function is declared as __weak to be overwritten in case of other implementations in user file. </dd></dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; System Control Space Base Address</p>
+<p>&lt; SysTick Base Address</p>
+<p>&lt; SysTick configuration struct</p>
+<p>&lt; SysTick CTRL: TICKINT Position</p>
+<p>&lt; SysTick CTRL: TICKINT Mask</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal_8c_source.html#l00397">397</a> del archivo <a class="el" href="stm32f1xx__hal_8c_source.html">stm32f1xx_hal.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  398</span>{</div>
+<div class="line"><span class="lineno">  399</span>  <span class="comment">/* Disable SysTick Interrupt */</span></div>
+<div class="line"><span class="lineno">  400</span>  <a class="code hl_define" href="group___exported__macros.html#ga133aae6fc0d41bffab39ab223a7001de">CLEAR_BIT</a>(SysTick-&gt;CTRL, SysTick_CTRL_TICKINT_Msk);</div>
+<div class="line"><span class="lineno">  401</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="usbd__def_8h_source.html#l00283">__weak</a>, <a class="el" href="stm32f1xx_8h_source.html#l00179">CLEAR_BIT</a> y <a class="el" href="stm32f1xx__hal_8c_source.html#l00397">HAL_SuspendTick()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal_8c_source.html#l00397">HAL_SuspendTick()</a>.</p>
+<div id="dynsection-39" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-39-summary" class="dynsummary">
+</div>
+<div id="dynsection-39-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___h_a_l___exported___functions___group2_ga84ae4b045c45d49d96b2b02e2dc516b6_cgraph.svg" width="142" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-40" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-40-summary" class="dynsummary">
+</div>
+<div id="dynsection-40-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___h_a_l___exported___functions___group2_ga84ae4b045c45d49d96b2b02e2dc516b6_icgraph.svg" width="142" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generado el <span class="timestamp"></span> para MICRO-Firmware por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,560 @@
+\doxysubsubsubsubsection{Extended Peripheral Control functions }
+\hypertarget{group___a_d_c_ex___exported___functions___group2}{}\label{group___a_d_c_ex___exported___functions___group2}\index{Extended Peripheral Control functions@{Extended Peripheral Control functions}}
+
+
+Extended Peripheral Control functions.  
+
+
+Diagrama de colaboración de Extended Peripheral Control functions:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group___a_d_c_ex___exported___functions___group2}
+\end{center}
+\end{figure}
+\doxysubsubsubsubsubsubsection*{Funciones}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \doxymbox{\hyperlink{group___a_d_c_ex___exported___functions___group2_ga5736a78398eb51ddeb09dd83d1243045}{HAL\+\_\+\+ADCEx\+\_\+\+Injected\+Config\+Channel}} (\doxymbox{\hyperlink{group___a_d_c___exported___types_ga46483fcdb7a528252920c304ec59d006}{ADC\+\_\+\+Handle\+Type\+Def}} \texorpdfstring{$\ast$}{*}hadc, \doxymbox{\hyperlink{struct_a_d_c___injection_conf_type_def}{ADC\+\_\+\+Injection\+Conf\+Type\+Def}} \texorpdfstring{$\ast$}{*}s\+Config\+Injected)
+\begin{DoxyCompactList}\small\item\em Configures the ADC injected group and the selected channel to be linked to the injected group. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \doxymbox{\hyperlink{group___a_d_c_ex___exported___functions___group2_gabfe8b04f9cfda94bc8aad912470122f5}{HAL\+\_\+\+ADCEx\+\_\+\+Multi\+Mode\+Config\+Channel}} (\doxymbox{\hyperlink{group___a_d_c___exported___types_ga46483fcdb7a528252920c304ec59d006}{ADC\+\_\+\+Handle\+Type\+Def}} \texorpdfstring{$\ast$}{*}hadc, \doxymbox{\hyperlink{struct_a_d_c___multi_mode_type_def}{ADC\+\_\+\+Multi\+Mode\+Type\+Def}} \texorpdfstring{$\ast$}{*}multimode)
+\begin{DoxyCompactList}\small\item\em Enable ADC multimode and configure multimode parameters. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsubsubsubsubsection{Descripción detallada}
+Extended Peripheral Control functions. 
+
+\begin{DoxyVerb} ===============================================================================
+             ##### Peripheral Control functions #####
+ ===============================================================================  
+    [..]  This section provides functions allowing to:
+      (+) Configure channels on injected group
+      (+) Configure multimode
+\end{DoxyVerb}
+ 
+
+\label{group___a_d_c_ex___exported___functions___group2_doc-func-members}
+\Hypertarget{group___a_d_c_ex___exported___functions___group2_doc-func-members}
+\doxysubsubsubsubsubsection{Documentación de funciones}
+\Hypertarget{group___a_d_c_ex___exported___functions___group2_ga5736a78398eb51ddeb09dd83d1243045}\index{Extended Peripheral Control functions@{Extended Peripheral Control functions}!HAL\_ADCEx\_InjectedConfigChannel@{HAL\_ADCEx\_InjectedConfigChannel}}
+\index{HAL\_ADCEx\_InjectedConfigChannel@{HAL\_ADCEx\_InjectedConfigChannel}!Extended Peripheral Control functions@{Extended Peripheral Control functions}}
+\doxyparagraph{\texorpdfstring{HAL\_ADCEx\_InjectedConfigChannel()}{HAL\_ADCEx\_InjectedConfigChannel()}}
+{\footnotesize\ttfamily \label{group___a_d_c_ex___exported___functions___group2_ga5736a78398eb51ddeb09dd83d1243045} 
+\doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} HAL\+\_\+\+ADCEx\+\_\+\+Injected\+Config\+Channel (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group___a_d_c___exported___types_ga46483fcdb7a528252920c304ec59d006}{ADC\+\_\+\+Handle\+Type\+Def}} \texorpdfstring{$\ast$}{*}}]{hadc}{, }\item[{\doxymbox{\hyperlink{struct_a_d_c___injection_conf_type_def}{ADC\+\_\+\+Injection\+Conf\+Type\+Def}} \texorpdfstring{$\ast$}{*}}]{s\+Config\+Injected}{}\end{DoxyParamCaption})}
+
+
+
+{\ttfamily \+\#include "{}\doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h}{stm32f1xx\+\_\+hal\+\_\+adc\+\_\+ex.\+h}}"{}}
+
+
+
+Configures the ADC injected group and the selected channel to be linked to the injected group. 
+
+\begin{DoxyNote}{Nota}
+Possibility to update parameters on the fly: This function initializes injected group, following calls to this function can be used to reconfigure some parameters of structure "{}\+ADC\+\_\+\+Injection\+Conf\+Type\+Def"{} on the fly, without resetting the ADC. The setting of these parameters is conditioned to ADC state: this function must be called when ADC is not under conversion. 
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parámetros}
+{\em hadc} & ADC handle \\
+\hline
+{\em s\+Config\+Injected} & Structure of ADC injected group and ADC channel for injected group. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Valores devueltos}
+{\em None} & \\
+\hline
+\end{DoxyRetVals}
+\texorpdfstring{$<$}{<} Defines \textquotesingle{}read / write\textquotesingle{} permissions
+
+\texorpdfstring{$<$}{<} 0x00300000
+
+\texorpdfstring{$<$}{<} ADC group injected sequencer scan length
+
+\texorpdfstring{$<$}{<} 0x000\+F8000
+
+\texorpdfstring{$<$}{<} ADC group injected sequencer rank 4
+
+\texorpdfstring{$<$}{<} 0x00007\+C00
+
+\texorpdfstring{$<$}{<} ADC group injected sequencer rank 3
+
+\texorpdfstring{$<$}{<} 0x000003\+E0
+
+\texorpdfstring{$<$}{<} ADC group injected sequencer rank 2
+
+\texorpdfstring{$<$}{<} 0x0000001F
+
+\texorpdfstring{$<$}{<} ADC group injected sequencer rank 1
+
+\texorpdfstring{$<$}{<} Configuration error occurrence
+
+\texorpdfstring{$<$}{<} 0x00300000
+
+\texorpdfstring{$<$}{<} ADC group injected sequencer scan length
+
+\texorpdfstring{$<$}{<} 0x0000001F
+
+\texorpdfstring{$<$}{<} ADC group injected sequencer rank 1
+
+\texorpdfstring{$<$}{<} 0x00300000
+
+\texorpdfstring{$<$}{<} ADC group injected sequencer scan length
+
+\texorpdfstring{$<$}{<} 0x0000001F
+
+\texorpdfstring{$<$}{<} ADC group injected sequencer rank 1
+
+\texorpdfstring{$<$}{<} 0x00000001
+
+\texorpdfstring{$<$}{<} ADC enable
+
+\texorpdfstring{$<$}{<} 0x00000001
+
+\texorpdfstring{$<$}{<} ADC enable
+
+\texorpdfstring{$<$}{<} 0x00007000
+
+\texorpdfstring{$<$}{<} ADC group injected external trigger source
+
+\texorpdfstring{$<$}{<} 0x00000001
+
+\texorpdfstring{$<$}{<} ADC enable
+
+\texorpdfstring{$<$}{<} 0x00004000
+
+\texorpdfstring{$<$}{<} 0x00002000
+
+\texorpdfstring{$<$}{<} 0x00001000
+
+\texorpdfstring{$<$}{<} 0x00000400
+
+\texorpdfstring{$<$}{<} ADC group injected automatic trigger mode
+
+\texorpdfstring{$<$}{<} Configuration error occurrence
+
+\texorpdfstring{$<$}{<} 0x00001000
+
+\texorpdfstring{$<$}{<} ADC group injected sequencer discontinuous mode
+
+\texorpdfstring{$<$}{<} Configuration error occurrence
+
+\texorpdfstring{$<$}{<} 0x00000008
+
+\texorpdfstring{$<$}{<} 0x00000002
+
+\texorpdfstring{$<$}{<} 0x00000007
+
+\texorpdfstring{$<$}{<} ADC channel 10 sampling time selection ~\newline
+
+
+\texorpdfstring{$<$}{<} 0x00000007
+
+\texorpdfstring{$<$}{<} ADC channel 0 sampling time selection ~\newline
+
+
+\texorpdfstring{$<$}{<} 0x00000010
+
+\texorpdfstring{$<$}{<} 0x00000010
+
+\texorpdfstring{$<$}{<} 0x00000001
+
+\texorpdfstring{$<$}{<} 0x00800000
+
+\texorpdfstring{$<$}{<} ADC internal path to Vref\+Int and temperature sensor enable
+
+\texorpdfstring{$<$}{<} 0x00000\+FFF
+
+\texorpdfstring{$<$}{<} ADC group injected sequencer rank 1 offset value
+
+\texorpdfstring{$<$}{<} 0x00000\+FFF
+
+\texorpdfstring{$<$}{<} ADC group injected sequencer rank 2 offset value
+
+\texorpdfstring{$<$}{<} 0x00000\+FFF
+
+\texorpdfstring{$<$}{<} ADC group injected sequencer rank 3 offset value
+
+\texorpdfstring{$<$}{<} 0x00000\+FFF
+
+\texorpdfstring{$<$}{<} ADC group injected sequencer rank 4 offset value
+
+\texorpdfstring{$<$}{<} 0x00000010
+
+\texorpdfstring{$<$}{<} 0x00000010
+
+\texorpdfstring{$<$}{<} 0x00000001
+
+\texorpdfstring{$<$}{<} Peripheral base address in the alias region
+
+\texorpdfstring{$<$}{<} 0x00800000
+
+\texorpdfstring{$<$}{<} ADC internal path to Vref\+Int and temperature sensor enable
+
+\texorpdfstring{$<$}{<} 0x00800000
+
+\texorpdfstring{$<$}{<} ADC internal path to Vref\+Int and temperature sensor enable
+
+\texorpdfstring{$<$}{<} 0x00000010
+
+\texorpdfstring{$<$}{<} Configuration error occurrence
+
+Definición en la línea \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8c_source_l00980}{980}} del archivo \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8c_source}{stm32f1xx\+\_\+hal\+\_\+adc\+\_\+ex.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00983\ \ \ \ \ \ \{}
+\DoxyCodeLine{00984\ \ \ */}
+\DoxyCodeLine{00985\ \textcolor{comment}{}}
+\DoxyCodeLine{00986\ \textcolor{comment}{/**}}
+\DoxyCodeLine{00987\ \textcolor{comment}{\ \ *\ @brief\ \ Configures\ the\ ADC\ injected\ group\ and\ the\ selected\ channel\ to\ be}}
+\DoxyCodeLine{00988\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ linked\ to\ the\ injected\ group.}}
+\DoxyCodeLine{00989\ \textcolor{comment}{\ \ *\ @note\ \ \ Possibility\ to\ update\ parameters\ on\ the\ fly:}}
+\DoxyCodeLine{00990\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ This\ function\ initializes\ injected\ group,\ following\ calls\ to\ this\ }}
+\DoxyCodeLine{00991\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ function\ can\ be\ used\ to\ reconfigure\ some\ parameters\ of\ structure}}
+\DoxyCodeLine{00992\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ "{}ADC\_InjectionConfTypeDef"{}\ on\ the\ fly,\ without\ resetting\ the\ ADC.}}
+\DoxyCodeLine{00993\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ The\ setting\ of\ these\ parameters\ is\ conditioned\ to\ ADC\ state:\ }}
+\DoxyCodeLine{00994\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ this\ function\ must\ be\ called\ when\ ADC\ is\ not\ under\ conversion.}}
+\DoxyCodeLine{00995\ \textcolor{comment}{\ \ *\ @param\ \ hadc:\ ADC\ handle}}
+\DoxyCodeLine{00996\ \textcolor{comment}{\ \ *\ @param\ \ sConfigInjected:\ Structure\ of\ ADC\ injected\ group\ and\ ADC\ channel\ for}}
+\DoxyCodeLine{00997\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ injected\ group.}}
+\DoxyCodeLine{00998\ \textcolor{comment}{\ \ *\ @retval\ None}}
+\DoxyCodeLine{00999\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{01000\ \doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\_StatusTypeDef}}\ \doxymbox{\hyperlink{group___a_d_c_ex___exported___functions___group2_ga5736a78398eb51ddeb09dd83d1243045}{HAL\_ADCEx\_InjectedConfigChannel}}(\doxymbox{\hyperlink{group___a_d_c___exported___types_ga46483fcdb7a528252920c304ec59d006}{ADC\_HandleTypeDef}}*\ hadc,\ \doxymbox{\hyperlink{struct_a_d_c___injection_conf_type_def}{ADC\_InjectionConfTypeDef}}*\ sConfigInjected)}
+\DoxyCodeLine{01001\ \{}
+\DoxyCodeLine{01002\ \ \ \doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\_StatusTypeDef}}\ tmp\_hal\_status\ =\ \doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632}{HAL\_OK}};}
+\DoxyCodeLine{01003\ \ \ \_\_IO\ uint32\_t\ wait\_loop\_index\ =\ 0U;}
+\DoxyCodeLine{01004\ \ \ }
+\DoxyCodeLine{01005\ \ \ \textcolor{comment}{/*\ Check\ the\ parameters\ */}}
+\DoxyCodeLine{01006\ \ \ \doxymbox{\hyperlink{stm32f1xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\doxymbox{\hyperlink{group___exported__macro_ga2204b62b378bcf08b3b9006c184c7c23}{IS\_ADC\_ALL\_INSTANCE}}(hadc-\/>\doxymbox{\hyperlink{struct_____a_d_c___handle_type_def_ab714dd7f1dd9599b8115e24d0fa85add}{Instance}}));}
+\DoxyCodeLine{01007\ \ \ \doxymbox{\hyperlink{stm32f1xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\doxymbox{\hyperlink{group___a_d_c___private___macros_gaba41910dcb2b449c613a5ef638862e77}{IS\_ADC\_CHANNEL}}(sConfigInjected-\/>\doxymbox{\hyperlink{struct_a_d_c___injection_conf_type_def_aad0cab6ed3f66e8ffa4bd0490298b715}{InjectedChannel}}));}
+\DoxyCodeLine{01008\ \ \ \doxymbox{\hyperlink{stm32f1xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\doxymbox{\hyperlink{group___a_d_c___private___macros_ga30e0307fa009e1c383d3047b48e94644}{IS\_ADC\_SAMPLE\_TIME}}(sConfigInjected-\/>\doxymbox{\hyperlink{struct_a_d_c___injection_conf_type_def_a3d15c0590dbafc9e99e21ea4df5b0c6b}{InjectedSamplingTime}}));}
+\DoxyCodeLine{01009\ \ \ \doxymbox{\hyperlink{stm32f1xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\doxymbox{\hyperlink{group___exported__types_gaffaf7c3f537d7a3370b1bbdda67a2bf6}{IS\_FUNCTIONAL\_STATE}}(sConfigInjected-\/>\doxymbox{\hyperlink{struct_a_d_c___injection_conf_type_def_a39b2ddf75be46eb2d474e261e7b1c875}{AutoInjectedConv}}));}
+\DoxyCodeLine{01010\ \ \ \doxymbox{\hyperlink{stm32f1xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\doxymbox{\hyperlink{group___a_d_c_ex___private___macro_ga29b3772b6f1a051e2d72dda74d7787ac}{IS\_ADC\_EXTTRIGINJEC}}(sConfigInjected-\/>\doxymbox{\hyperlink{struct_a_d_c___injection_conf_type_def_ac3431d4d3e3089f0db271bfb06dbffc0}{ExternalTrigInjecConv}}));}
+\DoxyCodeLine{01011\ \ \ \doxymbox{\hyperlink{stm32f1xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\doxymbox{\hyperlink{group___a_d_c__range__verification_gaeb31ee1528be1bee3768ff81e4e644d9}{IS\_ADC\_RANGE}}(sConfigInjected-\/>\doxymbox{\hyperlink{struct_a_d_c___injection_conf_type_def_ac7d28d71ec3aec4d1587ee04fc585f09}{InjectedOffset}}));}
+\DoxyCodeLine{01012\ \ \ }
+\DoxyCodeLine{01013\ \ \ \textcolor{keywordflow}{if}(hadc-\/>\doxymbox{\hyperlink{struct_____a_d_c___handle_type_def_a8b8e5224f15359298d706b3da0a2bd87}{Init}}.\doxymbox{\hyperlink{struct_a_d_c___init_type_def_a47cd689a52562a2481059a5d8ed82788}{ScanConvMode}}\ !=\ \doxymbox{\hyperlink{group___a_d_c___scan__mode_ga6e269121b26e999155863ce52c522883}{ADC\_SCAN\_DISABLE}})}
+\DoxyCodeLine{01014\ \ \ \{}
+\DoxyCodeLine{01015\ \ \ \ \ \doxymbox{\hyperlink{stm32f1xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\doxymbox{\hyperlink{group___a_d_c_ex___private___macro_ga564b54a7fa3c47f3b8ca74f67866d139}{IS\_ADC\_INJECTED\_RANK}}(sConfigInjected-\/>\doxymbox{\hyperlink{struct_a_d_c___injection_conf_type_def_af8a1717c0f5a5d0c7a705224f28a844f}{InjectedRank}}));}
+\DoxyCodeLine{01016\ \ \ \ \ \doxymbox{\hyperlink{stm32f1xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\doxymbox{\hyperlink{group___a_d_c_ex__injected__nb__conv__verification_ga4fa3b4cff7cfd5045f5430b80ca58edc}{IS\_ADC\_INJECTED\_NB\_CONV}}(sConfigInjected-\/>\doxymbox{\hyperlink{struct_a_d_c___injection_conf_type_def_ac59f9795b1b8c4ce6745d99f8231b768}{InjectedNbrOfConversion}}));}
+\DoxyCodeLine{01017\ \ \ \ \ \doxymbox{\hyperlink{stm32f1xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\doxymbox{\hyperlink{group___exported__types_gaffaf7c3f537d7a3370b1bbdda67a2bf6}{IS\_FUNCTIONAL\_STATE}}(sConfigInjected-\/>\doxymbox{\hyperlink{struct_a_d_c___injection_conf_type_def_ab842abce605e1eaf11077fd3825379e0}{InjectedDiscontinuousConvMode}}));}
+\DoxyCodeLine{01018\ \ \ \}}
+\DoxyCodeLine{01019\ \ \ }
+\DoxyCodeLine{01020\ \ \ \textcolor{comment}{/*\ Process\ locked\ */}}
+\DoxyCodeLine{01021\ \ \ \doxymbox{\hyperlink{stm32f1xx__hal__def_8h_ad3d96e1b9022ba76b69eeda91027b36c}{\_\_HAL\_LOCK}}(hadc);}
+\DoxyCodeLine{01022\ \ \ }
+\DoxyCodeLine{01023\ \ \ \textcolor{comment}{/*\ Configuration\ of\ injected\ group\ sequencer:\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{01024\ \ \ \textcolor{comment}{/*\ -\/\ if\ scan\ mode\ is\ disabled,\ injected\ channels\ sequence\ length\ is\ set\ to\ \ */}}
+\DoxyCodeLine{01025\ \ \ \textcolor{comment}{/*\ \ \ 0x00:\ 1\ channel\ converted\ (channel\ on\ regular\ rank\ 1)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{01026\ \ \ \textcolor{comment}{/*\ \ \ Parameter\ "{}InjectedNbrOfConversion"{}\ is\ discarded.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{01027\ \ \ \textcolor{comment}{/*\ \ \ Note:\ Scan\ mode\ is\ present\ by\ hardware\ on\ this\ device\ and,\ if\ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{01028\ \ \ \textcolor{comment}{/*\ \ \ disabled,\ discards\ automatically\ nb\ of\ conversions.\ Anyway,\ nb\ of\ \ \ \ \ \ */}}
+\DoxyCodeLine{01029\ \ \ \textcolor{comment}{/*\ \ \ conversions\ is\ forced\ to\ 0x00\ for\ alignment\ over\ all\ STM32\ devices.\ \ \ \ */}}
+\DoxyCodeLine{01030\ \ \ \textcolor{comment}{/*\ -\/\ if\ scan\ mode\ is\ enabled,\ injected\ channels\ sequence\ length\ is\ set\ to\ \ \ */}}
+\DoxyCodeLine{01031\ \ \ \textcolor{comment}{/*\ \ \ parameter\ "{}InjectedNbrOfConversion"{}.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{01032\ \ \ \textcolor{keywordflow}{if}\ (hadc-\/>\doxymbox{\hyperlink{struct_____a_d_c___handle_type_def_a8b8e5224f15359298d706b3da0a2bd87}{Init}}.\doxymbox{\hyperlink{struct_a_d_c___init_type_def_a47cd689a52562a2481059a5d8ed82788}{ScanConvMode}}\ ==\ \doxymbox{\hyperlink{group___a_d_c___scan__mode_ga6e269121b26e999155863ce52c522883}{ADC\_SCAN\_DISABLE}})}
+\DoxyCodeLine{01033\ \ \ \{}
+\DoxyCodeLine{01034\ \ \ \ \ \textcolor{keywordflow}{if}\ (sConfigInjected-\/>\doxymbox{\hyperlink{struct_a_d_c___injection_conf_type_def_af8a1717c0f5a5d0c7a705224f28a844f}{InjectedRank}}\ ==\ \doxymbox{\hyperlink{group___a_d_c_ex__injected__rank_gabe6252325fda6b22c794ea7b0e974ee3}{ADC\_INJECTED\_RANK\_1}})}
+\DoxyCodeLine{01035\ \ \ \ \ \{}
+\DoxyCodeLine{01036\ \ \ \ \ \ \ \textcolor{comment}{/*\ Clear\ the\ old\ SQx\ bits\ for\ all\ injected\ ranks\ */}}
+\DoxyCodeLine{01037\ \ \ \ \ \ \ \doxymbox{\hyperlink{group___exported__macros_ga6553c99f510c3bab8cc0a91602053247}{MODIFY\_REG}}(hadc-\/>\doxymbox{\hyperlink{struct_____a_d_c___handle_type_def_ab714dd7f1dd9599b8115e24d0fa85add}{Instance}}-\/>\doxymbox{\hyperlink{struct_a_d_c___type_def_a845714f0943d62b573055e7651b2e391}{JSQR}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ,}
+\DoxyCodeLine{01038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___peripheral___registers___bits___definition_gaa624d1fe34014b88873e2dfa91f79232}{ADC\_JSQR\_JL}}\ \ \ |}
+\DoxyCodeLine{01039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___peripheral___registers___bits___definition_ga39a279051ef198ee34cad73743b996f4}{ADC\_JSQR\_JSQ4}}\ |}
+\DoxyCodeLine{01040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___peripheral___registers___bits___definition_gae2fbdc1b854a54c4288402c2d3a7fca9}{ADC\_JSQR\_JSQ3}}\ |}
+\DoxyCodeLine{01041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___peripheral___registers___bits___definition_ga3e8446a5857e5379cff8cadf822e15d4}{ADC\_JSQR\_JSQ2}}\ |}
+\DoxyCodeLine{01042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___peripheral___registers___bits___definition_gad7fa15dfe51b084b36cb5df2fbf44bb2}{ADC\_JSQR\_JSQ1}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ,}
+\DoxyCodeLine{01043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___a_d_c___private___macros_gaa7218626a8bbabdc160a2c5cbe6fb0ab}{ADC\_JSQR\_RK\_JL}}(sConfigInjected-\/>\doxymbox{\hyperlink{struct_a_d_c___injection_conf_type_def_aad0cab6ed3f66e8ffa4bd0490298b715}{InjectedChannel}},}
+\DoxyCodeLine{01044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___a_d_c_ex__injected__rank_gabe6252325fda6b22c794ea7b0e974ee3}{ADC\_INJECTED\_RANK\_1}},}
+\DoxyCodeLine{01045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x01U));}
+\DoxyCodeLine{01046\ \ \ \ \ \}}
+\DoxyCodeLine{01047\ \ \ \ \ \textcolor{comment}{/*\ If\ another\ injected\ rank\ than\ rank1\ was\ intended\ to\ be\ set,\ and\ could\ \ */}}
+\DoxyCodeLine{01048\ \ \ \ \ \textcolor{comment}{/*\ not\ due\ to\ ScanConvMode\ disabled,\ error\ is\ reported.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{01049\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{01050\ \ \ \ \ \{}
+\DoxyCodeLine{01051\ \ \ \ \ \ \ \textcolor{comment}{/*\ Update\ ADC\ state\ machine\ to\ error\ */}}
+\DoxyCodeLine{01052\ \ \ \ \ \ \ \doxymbox{\hyperlink{group___exported__macros_ga26474f43799fbade9cf300e21dd3a91a}{SET\_BIT}}(hadc-\/>\doxymbox{\hyperlink{struct_____a_d_c___handle_type_def_a9eb04e7e29ef7e1f3facc16dfd8f7c50}{State}},\ \doxymbox{\hyperlink{group___a_d_c___exported___types_ga22d43a637ce63e13e33f5a0f1d4564fd}{HAL\_ADC\_STATE\_ERROR\_CONFIG}});}
+\DoxyCodeLine{01053\ \ \ \ \ \ \ }
+\DoxyCodeLine{01054\ \ \ \ \ \ \ tmp\_hal\_status\ =\ \doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa5a04e395e501e4e400172c610478c4a4}{HAL\_ERROR}};}
+\DoxyCodeLine{01055\ \ \ \ \ \}}
+\DoxyCodeLine{01056\ \ \ \}}
+\DoxyCodeLine{01057\ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{01058\ \ \ \{}
+\DoxyCodeLine{01059\ \ \ \ \ \textcolor{comment}{/*\ Since\ injected\ channels\ rank\ conv.\ order\ depends\ on\ total\ number\ of\ \ \ */}}
+\DoxyCodeLine{01060\ \ \ \ \ \textcolor{comment}{/*\ injected\ conversions,\ selected\ rank\ must\ be\ below\ or\ equal\ to\ total\ \ \ */}}
+\DoxyCodeLine{01061\ \ \ \ \ \textcolor{comment}{/*\ number\ of\ injected\ conversions\ to\ be\ updated.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{01062\ \ \ \ \ \textcolor{keywordflow}{if}\ (sConfigInjected-\/>\doxymbox{\hyperlink{struct_a_d_c___injection_conf_type_def_af8a1717c0f5a5d0c7a705224f28a844f}{InjectedRank}}\ <=\ sConfigInjected-\/>\doxymbox{\hyperlink{struct_a_d_c___injection_conf_type_def_ac59f9795b1b8c4ce6745d99f8231b768}{InjectedNbrOfConversion}})}
+\DoxyCodeLine{01063\ \ \ \ \ \{}
+\DoxyCodeLine{01064\ \ \ \ \ \ \ \textcolor{comment}{/*\ Clear\ the\ old\ SQx\ bits\ for\ the\ selected\ rank\ */}}
+\DoxyCodeLine{01065\ \ \ \ \ \ \ \textcolor{comment}{/*\ Set\ the\ SQx\ bits\ for\ the\ selected\ rank\ */}}
+\DoxyCodeLine{01066\ \ \ \ \ \ \ \doxymbox{\hyperlink{group___exported__macros_ga6553c99f510c3bab8cc0a91602053247}{MODIFY\_REG}}(hadc-\/>\doxymbox{\hyperlink{struct_____a_d_c___handle_type_def_ab714dd7f1dd9599b8115e24d0fa85add}{Instance}}-\/>\doxymbox{\hyperlink{struct_a_d_c___type_def_a845714f0943d62b573055e7651b2e391}{JSQR}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ,}
+\DoxyCodeLine{01067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___peripheral___registers___bits___definition_gaa624d1fe34014b88873e2dfa91f79232}{ADC\_JSQR\_JL}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |}
+\DoxyCodeLine{01069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___a_d_c___private___macros_gaa7218626a8bbabdc160a2c5cbe6fb0ab}{ADC\_JSQR\_RK\_JL}}(\doxymbox{\hyperlink{group___peripheral___registers___bits___definition_gad7fa15dfe51b084b36cb5df2fbf44bb2}{ADC\_JSQR\_JSQ1}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sConfigInjected-\/>\doxymbox{\hyperlink{struct_a_d_c___injection_conf_type_def_af8a1717c0f5a5d0c7a705224f28a844f}{InjectedRank}},\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sConfigInjected-\/>\doxymbox{\hyperlink{struct_a_d_c___injection_conf_type_def_ac59f9795b1b8c4ce6745d99f8231b768}{InjectedNbrOfConversion}})\ \ \ ,}
+\DoxyCodeLine{01072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___a_d_c___private___macros_gafac7dc7cf0679da43a697df5ca1b79fd}{ADC\_JSQR\_JL\_SHIFT}}(sConfigInjected-\/>\doxymbox{\hyperlink{struct_a_d_c___injection_conf_type_def_ac59f9795b1b8c4ce6745d99f8231b768}{InjectedNbrOfConversion}})\ |}
+\DoxyCodeLine{01074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___a_d_c___private___macros_gaa7218626a8bbabdc160a2c5cbe6fb0ab}{ADC\_JSQR\_RK\_JL}}(sConfigInjected-\/>\doxymbox{\hyperlink{struct_a_d_c___injection_conf_type_def_aad0cab6ed3f66e8ffa4bd0490298b715}{InjectedChannel}},\ \ \ \ \ \ }
+\DoxyCodeLine{01075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sConfigInjected-\/>\doxymbox{\hyperlink{struct_a_d_c___injection_conf_type_def_af8a1717c0f5a5d0c7a705224f28a844f}{InjectedRank}},\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sConfigInjected-\/>\doxymbox{\hyperlink{struct_a_d_c___injection_conf_type_def_ac59f9795b1b8c4ce6745d99f8231b768}{InjectedNbrOfConversion}})\ \ \ \ );}
+\DoxyCodeLine{01077\ \ \ \ \ \}}
+\DoxyCodeLine{01078\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{01079\ \ \ \ \ \{}
+\DoxyCodeLine{01080\ \ \ \ \ \ \ \textcolor{comment}{/*\ Clear\ the\ old\ SQx\ bits\ for\ the\ selected\ rank\ */}}
+\DoxyCodeLine{01081\ \ \ \ \ \ \ \doxymbox{\hyperlink{group___exported__macros_ga6553c99f510c3bab8cc0a91602053247}{MODIFY\_REG}}(hadc-\/>\doxymbox{\hyperlink{struct_____a_d_c___handle_type_def_ab714dd7f1dd9599b8115e24d0fa85add}{Instance}}-\/>\doxymbox{\hyperlink{struct_a_d_c___type_def_a845714f0943d62b573055e7651b2e391}{JSQR}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ,}
+\DoxyCodeLine{01082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___peripheral___registers___bits___definition_gaa624d1fe34014b88873e2dfa91f79232}{ADC\_JSQR\_JL}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |}
+\DoxyCodeLine{01084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___a_d_c___private___macros_gaa7218626a8bbabdc160a2c5cbe6fb0ab}{ADC\_JSQR\_RK\_JL}}(\doxymbox{\hyperlink{group___peripheral___registers___bits___definition_gad7fa15dfe51b084b36cb5df2fbf44bb2}{ADC\_JSQR\_JSQ1}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sConfigInjected-\/>\doxymbox{\hyperlink{struct_a_d_c___injection_conf_type_def_af8a1717c0f5a5d0c7a705224f28a844f}{InjectedRank}},\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01086\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sConfigInjected-\/>\doxymbox{\hyperlink{struct_a_d_c___injection_conf_type_def_ac59f9795b1b8c4ce6745d99f8231b768}{InjectedNbrOfConversion}})\ ,}
+\DoxyCodeLine{01087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x00000000U);}
+\DoxyCodeLine{01089\ \ \ \ \ \}}
+\DoxyCodeLine{01090\ \ \ \}\ }
+\DoxyCodeLine{01091\ \ \ \ \ }
+\DoxyCodeLine{01092\ \ \ \textcolor{comment}{/*\ Configuration\ of\ injected\ group\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{01093\ \ \ \textcolor{comment}{/*\ Parameters\ update\ conditioned\ to\ ADC\ state:\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{01094\ \ \ \textcolor{comment}{/*\ Parameters\ that\ can\ be\ updated\ only\ when\ ADC\ is\ disabled:\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{01095\ \ \ \textcolor{comment}{/*\ \ -\/\ external\ trigger\ to\ start\ conversion\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{01096\ \ \ \textcolor{comment}{/*\ Parameters\ update\ not\ conditioned\ to\ ADC\ state:\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{01097\ \ \ \textcolor{comment}{/*\ \ -\/\ Automatic\ injected\ conversion\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{01098\ \ \ \textcolor{comment}{/*\ \ -\/\ Injected\ discontinuous\ mode\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{01099\ \ \ \textcolor{comment}{/*\ Note:\ In\ case\ of\ ADC\ already\ enabled,\ caution\ to\ not\ launch\ an\ unwanted\ \ */}}
+\DoxyCodeLine{01100\ \ \ \textcolor{comment}{/*\ \ \ \ \ \ \ conversion\ while\ modifying\ register\ CR2\ by\ writing\ 1\ to\ bit\ ADON.\ \ */}}
+\DoxyCodeLine{01101\ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{group___a_d_c___private___macros_gafe3a7a04ff078c62ae98b19403f696c7}{ADC\_IS\_ENABLE}}(hadc)\ ==\ \doxymbox{\hyperlink{group___exported__types_gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05}{RESET}})}
+\DoxyCodeLine{01102\ \ \ \{\ \ \ \ }
+\DoxyCodeLine{01103\ \ \ \ \ \doxymbox{\hyperlink{group___exported__macros_ga6553c99f510c3bab8cc0a91602053247}{MODIFY\_REG}}(hadc-\/>\doxymbox{\hyperlink{struct_____a_d_c___handle_type_def_ab714dd7f1dd9599b8115e24d0fa85add}{Instance}}-\/>\doxymbox{\hyperlink{struct_a_d_c___type_def_a86ed892643ccec7b52474d7bbc841224}{CR2}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ,}
+\DoxyCodeLine{01104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___peripheral___registers___bits___definition_gaab3aa5d0e2a4b77960ec8f3b425a3eac}{ADC\_CR2\_JEXTSEL}}\ |}
+\DoxyCodeLine{01105\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___peripheral___registers___bits___definition_ga89b646f092b052d8488d2016f6290f0e}{ADC\_CR2\_ADON}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ,}
+\DoxyCodeLine{01106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___a_d_c_ex___private___macro_gafe312b4271f46a1a24243e3021dc9e2a}{ADC\_CFGR\_JEXTSEL}}(hadc,\ sConfigInjected-\/>\doxymbox{\hyperlink{struct_a_d_c___injection_conf_type_def_ac3431d4d3e3089f0db271bfb06dbffc0}{ExternalTrigInjecConv}})\ );}
+\DoxyCodeLine{01107\ \ \ \}}
+\DoxyCodeLine{01108\ \ \ }
+\DoxyCodeLine{01109\ \ \ }
+\DoxyCodeLine{01110\ \ \ \textcolor{comment}{/*\ Configuration\ of\ injected\ group\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{01111\ \ \ \textcolor{comment}{/*\ \ -\/\ Automatic\ injected\ conversion\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{01112\ \ \ \textcolor{comment}{/*\ \ -\/\ Injected\ discontinuous\ mode\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{01113\ \ \ }
+\DoxyCodeLine{01114\ \ \ \ \ \textcolor{comment}{/*\ Automatic\ injected\ conversion\ can\ be\ enabled\ if\ injected\ group\ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{01115\ \ \ \ \ \textcolor{comment}{/*\ external\ triggers\ are\ disabled.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{01116\ \ \ \ \ \textcolor{keywordflow}{if}\ (sConfigInjected-\/>\doxymbox{\hyperlink{struct_a_d_c___injection_conf_type_def_a39b2ddf75be46eb2d474e261e7b1c875}{AutoInjectedConv}}\ ==\ \doxymbox{\hyperlink{group___exported__types_ggac9a7e9a35d2513ec15c3b537aaa4fba1a7d46875fa3ebd2c34d2756950eda83bf}{ENABLE}})}
+\DoxyCodeLine{01117\ \ \ \ \ \{}
+\DoxyCodeLine{01118\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (sConfigInjected-\/>\doxymbox{\hyperlink{struct_a_d_c___injection_conf_type_def_ac3431d4d3e3089f0db271bfb06dbffc0}{ExternalTrigInjecConv}}\ ==\ \doxymbox{\hyperlink{group___a_d_c_ex___external__trigger__source___injected_gae90a9b5e1ae0cb2ef2c711d90b0b382b}{ADC\_INJECTED\_SOFTWARE\_START}})}
+\DoxyCodeLine{01119\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01120\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___exported__macros_ga26474f43799fbade9cf300e21dd3a91a}{SET\_BIT}}(hadc-\/>\doxymbox{\hyperlink{struct_____a_d_c___handle_type_def_ab714dd7f1dd9599b8115e24d0fa85add}{Instance}}-\/>\doxymbox{\hyperlink{struct_a_d_c___type_def_a29fed74ebdf1224d19d6d3006b47374c}{CR1}},\ \doxymbox{\hyperlink{group___peripheral___registers___bits___definition_ga6353cb0d564410358b3a086dd0241f8c}{ADC\_CR1\_JAUTO}});}
+\DoxyCodeLine{01121\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01122\ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{01123\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01124\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Update\ ADC\ state\ machine\ to\ error\ */}}
+\DoxyCodeLine{01125\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___exported__macros_ga26474f43799fbade9cf300e21dd3a91a}{SET\_BIT}}(hadc-\/>\doxymbox{\hyperlink{struct_____a_d_c___handle_type_def_a9eb04e7e29ef7e1f3facc16dfd8f7c50}{State}},\ \doxymbox{\hyperlink{group___a_d_c___exported___types_ga22d43a637ce63e13e33f5a0f1d4564fd}{HAL\_ADC\_STATE\_ERROR\_CONFIG}});}
+\DoxyCodeLine{01126\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01127\ \ \ \ \ \ \ \ \ tmp\_hal\_status\ =\ \doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa5a04e395e501e4e400172c610478c4a4}{HAL\_ERROR}};}
+\DoxyCodeLine{01128\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01129\ \ \ \ \ \}}
+\DoxyCodeLine{01130\ \ \ \ \ }
+\DoxyCodeLine{01131\ \ \ \ \ \textcolor{comment}{/*\ Injected\ discontinuous\ can\ be\ enabled\ only\ if\ auto-\/injected\ mode\ is\ \ \ \ */}}
+\DoxyCodeLine{01132\ \ \ \ \ \textcolor{comment}{/*\ disabled.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}\ \ }
+\DoxyCodeLine{01133\ \ \ \ \ \textcolor{keywordflow}{if}\ (sConfigInjected-\/>\doxymbox{\hyperlink{struct_a_d_c___injection_conf_type_def_ab842abce605e1eaf11077fd3825379e0}{InjectedDiscontinuousConvMode}}\ ==\ \doxymbox{\hyperlink{group___exported__types_ggac9a7e9a35d2513ec15c3b537aaa4fba1a7d46875fa3ebd2c34d2756950eda83bf}{ENABLE}})}
+\DoxyCodeLine{01134\ \ \ \ \ \{}
+\DoxyCodeLine{01135\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (sConfigInjected-\/>\doxymbox{\hyperlink{struct_a_d_c___injection_conf_type_def_a39b2ddf75be46eb2d474e261e7b1c875}{AutoInjectedConv}}\ ==\ \doxymbox{\hyperlink{group___exported__types_ggac9a7e9a35d2513ec15c3b537aaa4fba1ad3a9df141be0ccf10389b640f492b26d}{DISABLE}})}
+\DoxyCodeLine{01136\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01137\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___exported__macros_ga26474f43799fbade9cf300e21dd3a91a}{SET\_BIT}}(hadc-\/>\doxymbox{\hyperlink{struct_____a_d_c___handle_type_def_ab714dd7f1dd9599b8115e24d0fa85add}{Instance}}-\/>\doxymbox{\hyperlink{struct_a_d_c___type_def_a29fed74ebdf1224d19d6d3006b47374c}{CR1}},\ \doxymbox{\hyperlink{group___peripheral___registers___bits___definition_gacd06a2840346bf45ff335707db0b6e30}{ADC\_CR1\_JDISCEN}});}
+\DoxyCodeLine{01138\ \ \ \ \ \ \ \}\ }
+\DoxyCodeLine{01139\ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{01140\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01141\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Update\ ADC\ state\ machine\ to\ error\ */}}
+\DoxyCodeLine{01142\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___exported__macros_ga26474f43799fbade9cf300e21dd3a91a}{SET\_BIT}}(hadc-\/>\doxymbox{\hyperlink{struct_____a_d_c___handle_type_def_a9eb04e7e29ef7e1f3facc16dfd8f7c50}{State}},\ \doxymbox{\hyperlink{group___a_d_c___exported___types_ga22d43a637ce63e13e33f5a0f1d4564fd}{HAL\_ADC\_STATE\_ERROR\_CONFIG}});}
+\DoxyCodeLine{01143\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01144\ \ \ \ \ \ \ \ \ tmp\_hal\_status\ =\ \doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa5a04e395e501e4e400172c610478c4a4}{HAL\_ERROR}};}
+\DoxyCodeLine{01145\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01146\ \ \ \ \ \}}
+\DoxyCodeLine{01147\ }
+\DoxyCodeLine{01148\ }
+\DoxyCodeLine{01149\ \ \ \textcolor{comment}{/*\ InjectedChannel\ sampling\ time\ configuration\ */}}
+\DoxyCodeLine{01150\ \ \ \textcolor{comment}{/*\ For\ channels\ 10\ to\ 17\ */}}
+\DoxyCodeLine{01151\ \ \ \textcolor{keywordflow}{if}\ (sConfigInjected-\/>\doxymbox{\hyperlink{struct_a_d_c___injection_conf_type_def_aad0cab6ed3f66e8ffa4bd0490298b715}{InjectedChannel}}\ >=\ \doxymbox{\hyperlink{group___a_d_c__channels_gaa55df8c97225d32b495959896897567c}{ADC\_CHANNEL\_10}})}
+\DoxyCodeLine{01152\ \ \ \{}
+\DoxyCodeLine{01153\ \ \ \ \ \doxymbox{\hyperlink{group___exported__macros_ga6553c99f510c3bab8cc0a91602053247}{MODIFY\_REG}}(hadc-\/>\doxymbox{\hyperlink{struct_____a_d_c___handle_type_def_ab714dd7f1dd9599b8115e24d0fa85add}{Instance}}-\/>\doxymbox{\hyperlink{struct_a_d_c___type_def_acff404d17eb4c3810bc164f9d7965dcd}{SMPR1}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ,}
+\DoxyCodeLine{01154\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___a_d_c___private___macros_ga29f7414128fbbdb81db6ea6ede449f4b}{ADC\_SMPR1}}(\doxymbox{\hyperlink{group___peripheral___registers___bits___definition_ga32242a2c2156a012a7343bcb43d490d0}{ADC\_SMPR1\_SMP10}},\ sConfigInjected-\/>\doxymbox{\hyperlink{struct_a_d_c___injection_conf_type_def_aad0cab6ed3f66e8ffa4bd0490298b715}{InjectedChannel}})\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ,}
+\DoxyCodeLine{01155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___a_d_c___private___macros_ga29f7414128fbbdb81db6ea6ede449f4b}{ADC\_SMPR1}}(sConfigInjected-\/>\doxymbox{\hyperlink{struct_a_d_c___injection_conf_type_def_a3d15c0590dbafc9e99e21ea4df5b0c6b}{InjectedSamplingTime}},\ sConfigInjected-\/>\doxymbox{\hyperlink{struct_a_d_c___injection_conf_type_def_aad0cab6ed3f66e8ffa4bd0490298b715}{InjectedChannel}})\ );}
+\DoxyCodeLine{01156\ \ \ \}}
+\DoxyCodeLine{01157\ \ \ \textcolor{keywordflow}{else}\ \textcolor{comment}{/*\ For\ channels\ 0\ to\ 9\ */}}
+\DoxyCodeLine{01158\ \ \ \{}
+\DoxyCodeLine{01159\ \ \ \ \ \doxymbox{\hyperlink{group___exported__macros_ga6553c99f510c3bab8cc0a91602053247}{MODIFY\_REG}}(hadc-\/>\doxymbox{\hyperlink{struct_____a_d_c___handle_type_def_ab714dd7f1dd9599b8115e24d0fa85add}{Instance}}-\/>\doxymbox{\hyperlink{struct_a_d_c___type_def_a2db4d359308ba387ab0d956ff7708b12}{SMPR2}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ,}
+\DoxyCodeLine{01160\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___a_d_c___private___macros_gaeb66714538d978d4d336a4a6ef0d58bc}{ADC\_SMPR2}}(\doxymbox{\hyperlink{group___peripheral___registers___bits___definition_ga5a13b3c652e5759e2d8bc7e38889bc5e}{ADC\_SMPR2\_SMP0}},\ sConfigInjected-\/>\doxymbox{\hyperlink{struct_a_d_c___injection_conf_type_def_aad0cab6ed3f66e8ffa4bd0490298b715}{InjectedChannel}})\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ,}
+\DoxyCodeLine{01161\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___a_d_c___private___macros_gaeb66714538d978d4d336a4a6ef0d58bc}{ADC\_SMPR2}}(sConfigInjected-\/>\doxymbox{\hyperlink{struct_a_d_c___injection_conf_type_def_a3d15c0590dbafc9e99e21ea4df5b0c6b}{InjectedSamplingTime}},\ sConfigInjected-\/>\doxymbox{\hyperlink{struct_a_d_c___injection_conf_type_def_aad0cab6ed3f66e8ffa4bd0490298b715}{InjectedChannel}})\ );}
+\DoxyCodeLine{01162\ \ \ \}}
+\DoxyCodeLine{01163\ \ \ }
+\DoxyCodeLine{01164\ \ \ \textcolor{comment}{/*\ If\ ADC1\ InjectedChannel\_16\ or\ InjectedChannel\_17\ is\ selected,\ enable\ Temperature\ sensor\ \ */}}
+\DoxyCodeLine{01165\ \ \ \textcolor{comment}{/*\ and\ VREFINT\ measurement\ path.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{01166\ \ \ \textcolor{keywordflow}{if}\ ((sConfigInjected-\/>\doxymbox{\hyperlink{struct_a_d_c___injection_conf_type_def_aad0cab6ed3f66e8ffa4bd0490298b715}{InjectedChannel}}\ ==\ \doxymbox{\hyperlink{group___a_d_c__channels_ga8f0da1e8fa8504c92a368f6eb8e229b3}{ADC\_CHANNEL\_TEMPSENSOR}})\ ||}
+\DoxyCodeLine{01167\ \ \ \ \ \ \ (sConfigInjected-\/>\doxymbox{\hyperlink{struct_a_d_c___injection_conf_type_def_aad0cab6ed3f66e8ffa4bd0490298b715}{InjectedChannel}}\ ==\ \doxymbox{\hyperlink{group___a_d_c__channels_ga2647a044275a295693e8fb01db3172f9}{ADC\_CHANNEL\_VREFINT}})\ \ \ \ \ \ )}
+\DoxyCodeLine{01168\ \ \ \{}
+\DoxyCodeLine{01169\ \ \ \ \ \doxymbox{\hyperlink{group___exported__macros_ga26474f43799fbade9cf300e21dd3a91a}{SET\_BIT}}(hadc-\/>\doxymbox{\hyperlink{struct_____a_d_c___handle_type_def_ab714dd7f1dd9599b8115e24d0fa85add}{Instance}}-\/>\doxymbox{\hyperlink{struct_a_d_c___type_def_a86ed892643ccec7b52474d7bbc841224}{CR2}},\ \doxymbox{\hyperlink{group___peripheral___registers___bits___definition_gae97d1f61aa9d8c2279557f18e7303308}{ADC\_CR2\_TSVREFE}});}
+\DoxyCodeLine{01170\ \ \ \}}
+\DoxyCodeLine{01171\ \ \ }
+\DoxyCodeLine{01172\ \ \ }
+\DoxyCodeLine{01173\ \ \ \textcolor{comment}{/*\ Configure\ the\ offset:\ offset\ enable/disable,\ InjectedChannel,\ offset\ value\ */}}
+\DoxyCodeLine{01174\ \ \ \textcolor{keywordflow}{switch}(sConfigInjected-\/>\doxymbox{\hyperlink{struct_a_d_c___injection_conf_type_def_af8a1717c0f5a5d0c7a705224f28a844f}{InjectedRank}})}
+\DoxyCodeLine{01175\ \ \ \{}
+\DoxyCodeLine{01176\ \ \ \ \ \textcolor{keywordflow}{case}\ 1:}
+\DoxyCodeLine{01177\ \ \ \ \ \ \ \textcolor{comment}{/*\ Set\ injected\ channel\ 1\ offset\ */}}
+\DoxyCodeLine{01178\ \ \ \ \ \ \ \doxymbox{\hyperlink{group___exported__macros_ga6553c99f510c3bab8cc0a91602053247}{MODIFY\_REG}}(hadc-\/>\doxymbox{\hyperlink{struct_____a_d_c___handle_type_def_ab714dd7f1dd9599b8115e24d0fa85add}{Instance}}-\/>\doxymbox{\hyperlink{struct_a_d_c___type_def_a0c4d16d25c6e36626ca0a6625b4f5918}{JOFR1}},}
+\DoxyCodeLine{01179\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___peripheral___registers___bits___definition_gad76f97130b391455094605a6c803026c}{ADC\_JOFR1\_JOFFSET1}},}
+\DoxyCodeLine{01180\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sConfigInjected-\/>\doxymbox{\hyperlink{struct_a_d_c___injection_conf_type_def_ac7d28d71ec3aec4d1587ee04fc585f09}{InjectedOffset}});}
+\DoxyCodeLine{01181\ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{01182\ \ \ \ \ \textcolor{keywordflow}{case}\ 2:}
+\DoxyCodeLine{01183\ \ \ \ \ \ \ \textcolor{comment}{/*\ Set\ injected\ channel\ 2\ offset\ */}}
+\DoxyCodeLine{01184\ \ \ \ \ \ \ \doxymbox{\hyperlink{group___exported__macros_ga6553c99f510c3bab8cc0a91602053247}{MODIFY\_REG}}(hadc-\/>\doxymbox{\hyperlink{struct_____a_d_c___handle_type_def_ab714dd7f1dd9599b8115e24d0fa85add}{Instance}}-\/>\doxymbox{\hyperlink{struct_a_d_c___type_def_a2ebf2efec73f1724c2a4b97fb21aebca}{JOFR2}},}
+\DoxyCodeLine{01185\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___peripheral___registers___bits___definition_ga1b15a9e9ce10303e233059c1de6d956c}{ADC\_JOFR2\_JOFFSET2}},}
+\DoxyCodeLine{01186\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sConfigInjected-\/>\doxymbox{\hyperlink{struct_a_d_c___injection_conf_type_def_ac7d28d71ec3aec4d1587ee04fc585f09}{InjectedOffset}});}
+\DoxyCodeLine{01187\ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{01188\ \ \ \ \ \textcolor{keywordflow}{case}\ 3:}
+\DoxyCodeLine{01189\ \ \ \ \ \ \ \textcolor{comment}{/*\ Set\ injected\ channel\ 3\ offset\ */}}
+\DoxyCodeLine{01190\ \ \ \ \ \ \ \doxymbox{\hyperlink{group___exported__macros_ga6553c99f510c3bab8cc0a91602053247}{MODIFY\_REG}}(hadc-\/>\doxymbox{\hyperlink{struct_____a_d_c___handle_type_def_ab714dd7f1dd9599b8115e24d0fa85add}{Instance}}-\/>\doxymbox{\hyperlink{struct_a_d_c___type_def_a485bee31847f63911c75d38d2fb781db}{JOFR3}},}
+\DoxyCodeLine{01191\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___peripheral___registers___bits___definition_ga743e4c3a7cefc1a193146e77791c3985}{ADC\_JOFR3\_JOFFSET3}},}
+\DoxyCodeLine{01192\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sConfigInjected-\/>\doxymbox{\hyperlink{struct_a_d_c___injection_conf_type_def_ac7d28d71ec3aec4d1587ee04fc585f09}{InjectedOffset}});}
+\DoxyCodeLine{01193\ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{01194\ \ \ \ \ \textcolor{keywordflow}{case}\ 4:}
+\DoxyCodeLine{01195\ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{01196\ \ \ \ \ \ \ \doxymbox{\hyperlink{group___exported__macros_ga6553c99f510c3bab8cc0a91602053247}{MODIFY\_REG}}(hadc-\/>\doxymbox{\hyperlink{struct_____a_d_c___handle_type_def_ab714dd7f1dd9599b8115e24d0fa85add}{Instance}}-\/>\doxymbox{\hyperlink{struct_a_d_c___type_def_a595ed7f2bc1c19437288984daf5f04c1}{JOFR4}},}
+\DoxyCodeLine{01197\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___peripheral___registers___bits___definition_gada0937f2f6a64bd6b7531ad553471b8d}{ADC\_JOFR4\_JOFFSET4}},}
+\DoxyCodeLine{01198\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sConfigInjected-\/>\doxymbox{\hyperlink{struct_a_d_c___injection_conf_type_def_ac7d28d71ec3aec4d1587ee04fc585f09}{InjectedOffset}});}
+\DoxyCodeLine{01199\ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{01200\ \ \ \}}
+\DoxyCodeLine{01201\ \ \ }
+\DoxyCodeLine{01202\ \ \ \textcolor{comment}{/*\ If\ ADC1\ Channel\_16\ or\ Channel\_17\ is\ selected,\ enable\ Temperature\ sensor\ \ */}}
+\DoxyCodeLine{01203\ \ \ \textcolor{comment}{/*\ and\ VREFINT\ measurement\ path.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{01204\ \ \ \textcolor{keywordflow}{if}\ ((sConfigInjected-\/>\doxymbox{\hyperlink{struct_a_d_c___injection_conf_type_def_aad0cab6ed3f66e8ffa4bd0490298b715}{InjectedChannel}}\ ==\ \doxymbox{\hyperlink{group___a_d_c__channels_ga8f0da1e8fa8504c92a368f6eb8e229b3}{ADC\_CHANNEL\_TEMPSENSOR}})\ ||}
+\DoxyCodeLine{01205\ \ \ \ \ \ \ (sConfigInjected-\/>\doxymbox{\hyperlink{struct_a_d_c___injection_conf_type_def_aad0cab6ed3f66e8ffa4bd0490298b715}{InjectedChannel}}\ ==\ \doxymbox{\hyperlink{group___a_d_c__channels_ga2647a044275a295693e8fb01db3172f9}{ADC\_CHANNEL\_VREFINT}})\ \ \ \ \ \ )}
+\DoxyCodeLine{01206\ \ \ \{}
+\DoxyCodeLine{01207\ \ \ \ \ \textcolor{comment}{/*\ For\ STM32F1\ devices\ with\ several\ ADC:\ Only\ ADC1\ can\ access\ internal\ \ \ \ */}}
+\DoxyCodeLine{01208\ \ \ \ \ \textcolor{comment}{/*\ measurement\ channels\ (VrefInt/TempSensor).\ If\ these\ channels\ are\ \ \ \ \ \ \ */}}
+\DoxyCodeLine{01209\ \ \ \ \ \textcolor{comment}{/*\ intended\ to\ be\ set\ on\ other\ ADC\ instances,\ an\ error\ is\ reported.\ \ \ \ \ \ \ */}}
+\DoxyCodeLine{01210\ \ \ \ \ \textcolor{keywordflow}{if}\ (hadc-\/>\doxymbox{\hyperlink{struct_____a_d_c___handle_type_def_ab714dd7f1dd9599b8115e24d0fa85add}{Instance}}\ ==\ \doxymbox{\hyperlink{group___peripheral__declaration_ga90d2d5c526ce5c0a551f533eccbee71a}{ADC1}})}
+\DoxyCodeLine{01211\ \ \ \ \ \{}
+\DoxyCodeLine{01212\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{group___exported__macros_ga822bb1bb9710d5f2fa6396b84e583c33}{READ\_BIT}}(hadc-\/>\doxymbox{\hyperlink{struct_____a_d_c___handle_type_def_ab714dd7f1dd9599b8115e24d0fa85add}{Instance}}-\/>\doxymbox{\hyperlink{struct_a_d_c___type_def_a86ed892643ccec7b52474d7bbc841224}{CR2}},\ \doxymbox{\hyperlink{group___peripheral___registers___bits___definition_gae97d1f61aa9d8c2279557f18e7303308}{ADC\_CR2\_TSVREFE}})\ ==\ \doxymbox{\hyperlink{group___exported__types_gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05}{RESET}})}
+\DoxyCodeLine{01213\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01214\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___exported__macros_ga26474f43799fbade9cf300e21dd3a91a}{SET\_BIT}}(hadc-\/>\doxymbox{\hyperlink{struct_____a_d_c___handle_type_def_ab714dd7f1dd9599b8115e24d0fa85add}{Instance}}-\/>\doxymbox{\hyperlink{struct_a_d_c___type_def_a86ed892643ccec7b52474d7bbc841224}{CR2}},\ \doxymbox{\hyperlink{group___peripheral___registers___bits___definition_gae97d1f61aa9d8c2279557f18e7303308}{ADC\_CR2\_TSVREFE}});}
+\DoxyCodeLine{01215\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01216\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((sConfigInjected-\/>\doxymbox{\hyperlink{struct_a_d_c___injection_conf_type_def_aad0cab6ed3f66e8ffa4bd0490298b715}{InjectedChannel}}\ ==\ \doxymbox{\hyperlink{group___a_d_c__channels_ga8f0da1e8fa8504c92a368f6eb8e229b3}{ADC\_CHANNEL\_TEMPSENSOR}}))}
+\DoxyCodeLine{01217\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01218\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Delay\ for\ temperature\ sensor\ stabilization\ time\ */}}
+\DoxyCodeLine{01219\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Compute\ number\ of\ CPU\ cycles\ to\ wait\ for\ */}}
+\DoxyCodeLine{01220\ \ \ \ \ \ \ \ \ \ \ wait\_loop\_index\ =\ (\doxymbox{\hyperlink{group___a_d_c___private___constants_gab57114ba262a4b64193617b22da005b0}{ADC\_TEMPSENSOR\_DELAY\_US}}\ *\ (\doxymbox{\hyperlink{group___s_t_m32_f1xx___system___private___variables_gaa3cd3e43291e81e795d642b79b6088e6}{SystemCoreClock}}\ /\ 1000000U));}
+\DoxyCodeLine{01221\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(wait\_loop\_index\ !=\ 0U)}
+\DoxyCodeLine{01222\ \ \ \ \ \ \ \ \ \ \ \{}
+
+\end{DoxyCode}
+
+
+Hace referencia a \doxymbox{\hyperlink{stm32f1xx__hal__def_8h_source_l00092}{\+\_\+\+\_\+\+HAL\+\_\+\+LOCK}}, \doxymbox{\hyperlink{stm32f1xx__hal__def_8h_source_l00104}{\+\_\+\+\_\+\+HAL\+\_\+\+UNLOCK}}, \doxymbox{\hyperlink{stm32f103xb_8h_source_l00669}{ADC1}}, \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h_source_l00422}{ADC\+\_\+\+CFGR\+\_\+\+JEXTSEL}}, \doxymbox{\hyperlink{stm32f1xx__hal__adc_8h_source_l00296}{ADC\+\_\+\+CHANNEL\+\_\+10}}, \doxymbox{\hyperlink{stm32f1xx__hal__adc_8h_source_l00305}{ADC\+\_\+\+CHANNEL\+\_\+\+TEMPSENSOR}}, \doxymbox{\hyperlink{stm32f1xx__hal__adc_8h_source_l00306}{ADC\+\_\+\+CHANNEL\+\_\+\+VREFINT}}, \doxymbox{\hyperlink{stm32f103xb_8h_source_l03336}{ADC\+\_\+\+CR1\+\_\+\+JAUTO}}, \doxymbox{\hyperlink{stm32f103xb_8h_source_l03342}{ADC\+\_\+\+CR1\+\_\+\+JDISCEN}}, \doxymbox{\hyperlink{stm32f103xb_8h_source_l03373}{ADC\+\_\+\+CR2\+\_\+\+ADON}}, \doxymbox{\hyperlink{stm32f103xb_8h_source_l03392}{ADC\+\_\+\+CR2\+\_\+\+JEXTSEL}}, \doxymbox{\hyperlink{stm32f103xb_8h_source_l03419}{ADC\+\_\+\+CR2\+\_\+\+TSVREFE}}, \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h_source_l00145}{ADC\+\_\+\+INJECTED\+\_\+\+RANK\+\_\+1}}, \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h_source_l00246}{ADC\+\_\+\+INJECTED\+\_\+\+SOFTWARE\+\_\+\+START}}, \doxymbox{\hyperlink{stm32f1xx__hal__adc_8h_source_l00615}{ADC\+\_\+\+IS\+\_\+\+ENABLE}}, \doxymbox{\hyperlink{stm32f103xb_8h_source_l03552}{ADC\+\_\+\+JOFR1\+\_\+\+JOFFSET1}}, \doxymbox{\hyperlink{stm32f103xb_8h_source_l03557}{ADC\+\_\+\+JOFR2\+\_\+\+JOFFSET2}}, \doxymbox{\hyperlink{stm32f103xb_8h_source_l03562}{ADC\+\_\+\+JOFR3\+\_\+\+JOFFSET3}}, \doxymbox{\hyperlink{stm32f103xb_8h_source_l03567}{ADC\+\_\+\+JOFR4\+\_\+\+JOFFSET4}}, \doxymbox{\hyperlink{stm32f103xb_8h_source_l03773}{ADC\+\_\+\+JSQR\+\_\+\+JL}}, \doxymbox{\hyperlink{stm32f1xx__hal__adc_8h_source_l00712}{ADC\+\_\+\+JSQR\+\_\+\+JL\+\_\+\+SHIFT}}, \doxymbox{\hyperlink{stm32f103xb_8h_source_l03737}{ADC\+\_\+\+JSQR\+\_\+\+JSQ1}}, \doxymbox{\hyperlink{stm32f103xb_8h_source_l03746}{ADC\+\_\+\+JSQR\+\_\+\+JSQ2}}, \doxymbox{\hyperlink{stm32f103xb_8h_source_l03755}{ADC\+\_\+\+JSQR\+\_\+\+JSQ3}}, \doxymbox{\hyperlink{stm32f103xb_8h_source_l03764}{ADC\+\_\+\+JSQR\+\_\+\+JSQ4}}, \doxymbox{\hyperlink{stm32f1xx__hal__adc_8h_source_l00725}{ADC\+\_\+\+JSQR\+\_\+\+RK\+\_\+\+JL}}, \doxymbox{\hyperlink{stm32f1xx__hal__adc_8h_source_l00266}{ADC\+\_\+\+SCAN\+\_\+\+DISABLE}}, \doxymbox{\hyperlink{stm32f1xx__hal__adc_8h_source_l00668}{ADC\+\_\+\+SMPR1}}, \doxymbox{\hyperlink{stm32f103xb_8h_source_l03424}{ADC\+\_\+\+SMPR1\+\_\+\+SMP10}}, \doxymbox{\hyperlink{stm32f1xx__hal__adc_8h_source_l00677}{ADC\+\_\+\+SMPR2}}, \doxymbox{\hyperlink{stm32f103xb_8h_source_l03481}{ADC\+\_\+\+SMPR2\+\_\+\+SMP0}}, \doxymbox{\hyperlink{stm32f1xx__hal__adc_8c_source_l00351}{ADC\+\_\+\+TEMPSENSOR\+\_\+\+DELAY\+\_\+\+US}}, \doxymbox{\hyperlink{stm32f1xx__hal__conf_8h_source_l00373}{assert\+\_\+param}}, \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h_source_l00091}{ADC\+\_\+\+Injection\+Conf\+Type\+Def::\+\+Auto\+Injected\+Conv}}, \doxymbox{\hyperlink{stm32f103xb_8h_source_l00146}{ADC\+\_\+\+Type\+Def::\+\+CR1}}, \doxymbox{\hyperlink{stm32f103xb_8h_source_l00147}{ADC\+\_\+\+Type\+Def::\+\+CR2}}, \doxymbox{\hyperlink{stm32f1xx_8h_source_l00158}{DISABLE}}, \doxymbox{\hyperlink{stm32f1xx_8h_source_l00159}{ENABLE}}, \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h_source_l00099}{ADC\+\_\+\+Injection\+Conf\+Type\+Def::\+\+External\+Trig\+Injec\+Conv}}, \doxymbox{\hyperlink{stm32f1xx__hal__adc_8h_source_l00146}{HAL\+\_\+\+ADC\+\_\+\+STATE\+\_\+\+ERROR\+\_\+\+CONFIG}}, \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8c_source_l00980}{HAL\+\_\+\+ADCEx\+\_\+\+Injected\+Config\+Channel()}}, \doxymbox{\hyperlink{stm32f1xx__hal__def_8h_source_l00041}{HAL\+\_\+\+ERROR}}, \doxymbox{\hyperlink{stm32f1xx__hal__def_8h_source_l00040}{HAL\+\_\+\+OK}}, \doxymbox{\hyperlink{stm32f1xx__hal__adc_8h_source_l00178}{\+\_\+\+\_\+\+ADC\+\_\+\+Handle\+Type\+Def::\+\+Init}}, \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h_source_l00056}{ADC\+\_\+\+Injection\+Conf\+Type\+Def::\+\+Injected\+Channel}}, \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h_source_l00084}{ADC\+\_\+\+Injection\+Conf\+Type\+Def::\+\+Injected\+Discontinuous\+Conv\+Mode}}, \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h_source_l00079}{ADC\+\_\+\+Injection\+Conf\+Type\+Def::\+\+Injected\+Nbr\+Of\+Conversion}}, \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h_source_l00075}{ADC\+\_\+\+Injection\+Conf\+Type\+Def::\+\+Injected\+Offset}}, \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h_source_l00063}{ADC\+\_\+\+Injection\+Conf\+Type\+Def::\+\+Injected\+Rank}}, \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h_source_l00066}{ADC\+\_\+\+Injection\+Conf\+Type\+Def::\+\+Injected\+Sampling\+Time}}, \doxymbox{\hyperlink{stm32f1xx__hal__adc_8h_source_l00176}{\+\_\+\+\_\+\+ADC\+\_\+\+Handle\+Type\+Def::\+\+Instance}}, \doxymbox{\hyperlink{stm32f103xb_8h_source_l09888}{IS\+\_\+\+ADC\+\_\+\+ALL\+\_\+\+INSTANCE}}, \doxymbox{\hyperlink{stm32f1xx__hal__adc_8h_source_l00792}{IS\+\_\+\+ADC\+\_\+\+CHANNEL}}, \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h_source_l00566}{IS\+\_\+\+ADC\+\_\+\+EXTTRIGINJEC}}, \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h_source_l00515}{IS\+\_\+\+ADC\+\_\+\+INJECTED\+\_\+\+NB\+\_\+\+CONV}}, \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h_source_l00504}{IS\+\_\+\+ADC\+\_\+\+INJECTED\+\_\+\+RANK}}, \doxymbox{\hyperlink{stm32f1xx__hal__adc_8h_source_l00856}{IS\+\_\+\+ADC\+\_\+\+RANGE}}, \doxymbox{\hyperlink{stm32f1xx__hal__adc_8h_source_l00811}{IS\+\_\+\+ADC\+\_\+\+SAMPLE\+\_\+\+TIME}}, \doxymbox{\hyperlink{stm32f1xx_8h_source_l00161}{IS\+\_\+\+FUNCTIONAL\+\_\+\+STATE}}, \doxymbox{\hyperlink{stm32f103xb_8h_source_l00150}{ADC\+\_\+\+Type\+Def::\+\+JOFR1}}, \doxymbox{\hyperlink{stm32f103xb_8h_source_l00151}{ADC\+\_\+\+Type\+Def::\+\+JOFR2}}, \doxymbox{\hyperlink{stm32f103xb_8h_source_l00152}{ADC\+\_\+\+Type\+Def::\+\+JOFR3}}, \doxymbox{\hyperlink{stm32f103xb_8h_source_l00153}{ADC\+\_\+\+Type\+Def::\+\+JOFR4}}, \doxymbox{\hyperlink{stm32f103xb_8h_source_l00159}{ADC\+\_\+\+Type\+Def::\+\+JSQR}}, \doxymbox{\hyperlink{stm32f1xx_8h_source_l00189}{MODIFY\+\_\+\+REG}}, \doxymbox{\hyperlink{stm32f1xx_8h_source_l00181}{READ\+\_\+\+BIT}}, \doxymbox{\hyperlink{stm32f1xx_8h_source_l00152}{RESET}}, \doxymbox{\hyperlink{stm32f1xx__hal__adc_8h_source_l00056}{ADC\+\_\+\+Init\+Type\+Def::\+\+Scan\+Conv\+Mode}}, \doxymbox{\hyperlink{stm32f1xx_8h_source_l00177}{SET\+\_\+\+BIT}}, \doxymbox{\hyperlink{stm32f103xb_8h_source_l00148}{ADC\+\_\+\+Type\+Def::\+\+SMPR1}}, \doxymbox{\hyperlink{stm32f103xb_8h_source_l00149}{ADC\+\_\+\+Type\+Def::\+\+SMPR2}}, \doxymbox{\hyperlink{stm32f1xx__hal__adc_8h_source_l00184}{\+\_\+\+\_\+\+ADC\+\_\+\+Handle\+Type\+Def::\+\+State}} y \doxymbox{\hyperlink{system__stm32f1xx_8c_source_l00114}{System\+Core\+Clock}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8c_source_l00980}{HAL\+\_\+\+ADCEx\+\_\+\+Injected\+Config\+Channel()}}.
+
+Gráfico de llamadas de esta función:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=223pt]{group___a_d_c_ex___exported___functions___group2_ga5736a78398eb51ddeb09dd83d1243045_cgraph}
+\end{center}
+\end{figure}
+Gráfico de llamadas a esta función:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=223pt]{group___a_d_c_ex___exported___functions___group2_ga5736a78398eb51ddeb09dd83d1243045_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group___a_d_c_ex___exported___functions___group2_gabfe8b04f9cfda94bc8aad912470122f5}\index{Extended Peripheral Control functions@{Extended Peripheral Control functions}!HAL\_ADCEx\_MultiModeConfigChannel@{HAL\_ADCEx\_MultiModeConfigChannel}}
+\index{HAL\_ADCEx\_MultiModeConfigChannel@{HAL\_ADCEx\_MultiModeConfigChannel}!Extended Peripheral Control functions@{Extended Peripheral Control functions}}
+\doxyparagraph{\texorpdfstring{HAL\_ADCEx\_MultiModeConfigChannel()}{HAL\_ADCEx\_MultiModeConfigChannel()}}
+{\footnotesize\ttfamily \label{group___a_d_c_ex___exported___functions___group2_gabfe8b04f9cfda94bc8aad912470122f5} 
+\doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} HAL\+\_\+\+ADCEx\+\_\+\+Multi\+Mode\+Config\+Channel (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group___a_d_c___exported___types_ga46483fcdb7a528252920c304ec59d006}{ADC\+\_\+\+Handle\+Type\+Def}} \texorpdfstring{$\ast$}{*}}]{hadc}{, }\item[{\doxymbox{\hyperlink{struct_a_d_c___multi_mode_type_def}{ADC\+\_\+\+Multi\+Mode\+Type\+Def}} \texorpdfstring{$\ast$}{*}}]{multimode}{}\end{DoxyParamCaption})}
+
+
+
+{\ttfamily \+\#include "{}\doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h}{stm32f1xx\+\_\+hal\+\_\+adc\+\_\+ex.\+h}}"{}}
+
+
+
+Enable ADC multimode and configure multimode parameters. 
+
+\begin{DoxyNote}{Nota}
+Possibility to update parameters on the fly: This function initializes multimode parameters, following ~\newline
+ calls to this function can be used to reconfigure some parameters of structure "{}\+ADC\+\_\+\+Multi\+Mode\+Type\+Def"{} on the fly, without resetting the ADCs (both ADCs of the common group). The setting of these parameters is conditioned to ADC state. For parameters constraints, see comments of structure "{}\+ADC\+\_\+\+Multi\+Mode\+Type\+Def"{}. 
+
+To change back configuration from multimode to single mode, ADC must be reset (using function \doxylink{group___a_d_c___exported___functions___group1_ga33ddb73d4880bd425aaa43c5c52bb13a}{HAL\+\_\+\+ADC\+\_\+\+Init()} ). 
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parámetros}
+{\em hadc} & ADC handle \\
+\hline
+{\em multimode} & Structure of ADC multimode configuration \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Valores devueltos}
+{\em \doxylink{group___h_a_l}{HAL}} & status \\
+\hline
+\end{DoxyRetVals}
+\texorpdfstring{$<$}{<} Peripheral base address in the alias region
+
+\texorpdfstring{$<$}{<} 0x00000001
+
+\texorpdfstring{$<$}{<} ADC enable
+
+\texorpdfstring{$<$}{<} 0x00000001
+
+\texorpdfstring{$<$}{<} ADC enable
+
+\texorpdfstring{$<$}{<} 0x00000001
+
+\texorpdfstring{$<$}{<} ADC enable
+
+\texorpdfstring{$<$}{<} 0x00000001
+
+\texorpdfstring{$<$}{<} ADC enable
+
+\texorpdfstring{$<$}{<} Peripheral base address in the alias region
+
+\texorpdfstring{$<$}{<} 0x000\+F0000
+
+\texorpdfstring{$<$}{<} ADC multimode mode selection
+
+\texorpdfstring{$<$}{<} Configuration error occurrence
+
+Definición en la línea \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8c_source_l01241}{1241}} del archivo \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8c_source}{stm32f1xx\+\_\+hal\+\_\+adc\+\_\+ex.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01262\ \{}
+\DoxyCodeLine{01263\ \ \ \doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\_StatusTypeDef}}\ tmp\_hal\_status\ =\ \doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632}{HAL\_OK}};}
+\DoxyCodeLine{01264\ \ \ \doxymbox{\hyperlink{group___a_d_c___exported___types_ga46483fcdb7a528252920c304ec59d006}{ADC\_HandleTypeDef}}\ tmphadcSlave=\{0\};}
+\DoxyCodeLine{01265\ \ \ }
+\DoxyCodeLine{01266\ \ \ \textcolor{comment}{/*\ Check\ the\ parameters\ */}}
+\DoxyCodeLine{01267\ \ \ \doxymbox{\hyperlink{stm32f1xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\doxymbox{\hyperlink{group___exported__macro_ga26b4e299ac54d09082645a70f889c143}{IS\_ADC\_MULTIMODE\_MASTER\_INSTANCE}}(hadc-\/>\doxymbox{\hyperlink{struct_____a_d_c___handle_type_def_ab714dd7f1dd9599b8115e24d0fa85add}{Instance}}));}
+\DoxyCodeLine{01268\ \ \ \doxymbox{\hyperlink{stm32f1xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\doxymbox{\hyperlink{group___a_d_c_ex___private___macro_ga4abf4c7de28a42d7b124c9e403a6e537}{IS\_ADC\_MODE}}(multimode-\/>\doxymbox{\hyperlink{struct_a_d_c___multi_mode_type_def_a424b5606c9d5dfbfdc850080d34552ff}{Mode}}));}
+\DoxyCodeLine{01269\ \ \ }
+\DoxyCodeLine{01270\ \ \ \textcolor{comment}{/*\ Process\ locked\ */}}
+\DoxyCodeLine{01271\ \ \ \doxymbox{\hyperlink{stm32f1xx__hal__def_8h_ad3d96e1b9022ba76b69eeda91027b36c}{\_\_HAL\_LOCK}}(hadc);}
+\DoxyCodeLine{01272\ \ \ }
+\DoxyCodeLine{01273\ \ \ \textcolor{comment}{/*\ Set\ a\ temporary\ handle\ of\ the\ ADC\ slave\ associated\ to\ the\ ADC\ master\ \ \ \ \ */}}
+\DoxyCodeLine{01274\ \ \ \doxymbox{\hyperlink{group___a_d_c_ex___private___macro_ga74d9b5d54f3d9f70e6b82b052b3d1407}{ADC\_MULTI\_SLAVE}}(hadc,\ \&tmphadcSlave);}
+\DoxyCodeLine{01275\ \ \ }
+\DoxyCodeLine{01276\ \ \ \textcolor{comment}{/*\ Parameters\ update\ conditioned\ to\ ADC\ state:\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{01277\ \ \ \textcolor{comment}{/*\ Parameters\ that\ can\ be\ updated\ when\ ADC\ is\ disabled\ or\ enabled\ without\ \ \ */}}
+\DoxyCodeLine{01278\ \ \ \textcolor{comment}{/*\ conversion\ on\ going\ on\ regular\ group:\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{01279\ \ \ \textcolor{comment}{/*\ \ -\/\ ADC\ master\ and\ ADC\ slave\ DMA\ configuration\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{01280\ \ \ \textcolor{comment}{/*\ Parameters\ that\ can\ be\ updated\ only\ when\ ADC\ is\ disabled:\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{01281\ \ \ \textcolor{comment}{/*\ \ -\/\ Multimode\ mode\ selection\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{01282\ \ \ \textcolor{comment}{/*\ To\ optimize\ code,\ all\ multimode\ settings\ can\ be\ set\ when\ both\ ADCs\ of\ \ \ \ */}}
+\DoxyCodeLine{01283\ \ \ \textcolor{comment}{/*\ the\ common\ group\ are\ in\ state:\ disabled.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{01284\ \ \ \textcolor{keywordflow}{if}\ ((\doxymbox{\hyperlink{group___a_d_c___private___macros_gafe3a7a04ff078c62ae98b19403f696c7}{ADC\_IS\_ENABLE}}(hadc)\ ==\ \doxymbox{\hyperlink{group___exported__types_gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05}{RESET}})\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&\&}
+\DoxyCodeLine{01285\ \ \ \ \ \ \ (\doxymbox{\hyperlink{group___a_d_c___private___macros_gafe3a7a04ff078c62ae98b19403f696c7}{ADC\_IS\_ENABLE}}(\&tmphadcSlave)\ ==\ \doxymbox{\hyperlink{group___exported__types_gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05}{RESET}})\ \ \ \ \ \ \ \ \ \ \ \ \&\&}
+\DoxyCodeLine{01286\ \ \ \ \ \ \ (\doxymbox{\hyperlink{group___exported__macro_ga26b4e299ac54d09082645a70f889c143}{IS\_ADC\_MULTIMODE\_MASTER\_INSTANCE}}(hadc-\/>\doxymbox{\hyperlink{struct_____a_d_c___handle_type_def_ab714dd7f1dd9599b8115e24d0fa85add}{Instance}}))\ \ \ )}
+\DoxyCodeLine{01287\ \ \ \{}
+\DoxyCodeLine{01288\ \ \ \ \ \doxymbox{\hyperlink{group___exported__macros_ga6553c99f510c3bab8cc0a91602053247}{MODIFY\_REG}}(hadc-\/>\doxymbox{\hyperlink{struct_____a_d_c___handle_type_def_ab714dd7f1dd9599b8115e24d0fa85add}{Instance}}-\/>\doxymbox{\hyperlink{struct_a_d_c___type_def_a29fed74ebdf1224d19d6d3006b47374c}{CR1}},}
+
+\end{DoxyCode}

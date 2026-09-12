@@ -1,0 +1,215 @@
+\doxysubsection{Referencia de la estructura ADC\+\_\+\+Injection\+Conf\+Type\+Def}
+\hypertarget{struct_a_d_c___injection_conf_type_def}{}\label{struct_a_d_c___injection_conf_type_def}\index{ADC\_InjectionConfTypeDef@{ADC\_InjectionConfTypeDef}}
+
+
+ADC Configuration injected Channel structure definition.  
+
+
+
+
+{\ttfamily \+\#include "{}stm32f1xx\+\_\+hal\+\_\+adc\+\_\+ex.\+h"{}}
+
+
+
+Diagrama de colaboración de ADC\+\_\+\+Injection\+Conf\+Type\+Def:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=242pt]{struct_a_d_c___injection_conf_type_def__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsubsection*{Campos de datos}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{group___exported__types_gac9a7e9a35d2513ec15c3b537aaa4fba1}{Functional\+State}} \doxymbox{\hyperlink{struct_a_d_c___injection_conf_type_def_a39b2ddf75be46eb2d474e261e7b1c875}{Auto\+Injected\+Conv}}
+\begin{DoxyCompactList}\small\item\em Enables or disables the selected ADC automatic injected group conversion after regular one This parameter can be set to ENABLE or DISABLE. \end{DoxyCompactList}\item 
+uint32\+\_\+t \doxymbox{\hyperlink{struct_a_d_c___injection_conf_type_def_ac3431d4d3e3089f0db271bfb06dbffc0}{External\+Trig\+Injec\+Conv}}
+\begin{DoxyCompactList}\small\item\em Selects the external event used to trigger the conversion start of injected group. \end{DoxyCompactList}\item 
+uint32\+\_\+t \doxymbox{\hyperlink{struct_a_d_c___injection_conf_type_def_aad0cab6ed3f66e8ffa4bd0490298b715}{Injected\+Channel}}
+\begin{DoxyCompactList}\small\item\em Selection of ADC channel to configure This parameter can be a value of \doxylink{group___a_d_c__channels}{ADC channels} Note: Depending on devices, some channels may not be available on package pins. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group___exported__types_gac9a7e9a35d2513ec15c3b537aaa4fba1}{Functional\+State}} \doxymbox{\hyperlink{struct_a_d_c___injection_conf_type_def_ab842abce605e1eaf11077fd3825379e0}{Injected\+Discontinuous\+Conv\+Mode}}
+\begin{DoxyCompactList}\small\item\em Specifies whether the conversions sequence of injected group is performed in Complete-\/sequence/\+\+Discontinuous-\/sequence (main sequence subdivided in successive parts). \end{DoxyCompactList}\item 
+uint32\+\_\+t \doxymbox{\hyperlink{struct_a_d_c___injection_conf_type_def_ac59f9795b1b8c4ce6745d99f8231b768}{Injected\+Nbr\+Of\+Conversion}}
+\begin{DoxyCompactList}\small\item\em Specifies the number of ranks that will be converted within the injected group sequencer. \end{DoxyCompactList}\item 
+uint32\+\_\+t \doxymbox{\hyperlink{struct_a_d_c___injection_conf_type_def_ac7d28d71ec3aec4d1587ee04fc585f09}{Injected\+Offset}}
+\begin{DoxyCompactList}\small\item\em Defines the offset to be subtracted from the raw converted data (for channels set on injected group only). \end{DoxyCompactList}\item 
+uint32\+\_\+t \doxymbox{\hyperlink{struct_a_d_c___injection_conf_type_def_af8a1717c0f5a5d0c7a705224f28a844f}{Injected\+Rank}}
+\begin{DoxyCompactList}\small\item\em Rank in the injected group sequencer This parameter must be a value of \doxylink{group___a_d_c_ex__injected__rank}{ADCEx rank into injected group} Note: In case of need to disable a channel or change order of conversion sequencer, rank containing a previous channel setting can be overwritten by the new channel setting (or parameter number of conversions can be adjusted). \end{DoxyCompactList}\item 
+uint32\+\_\+t \doxymbox{\hyperlink{struct_a_d_c___injection_conf_type_def_a3d15c0590dbafc9e99e21ea4df5b0c6b}{Injected\+Sampling\+Time}}
+\begin{DoxyCompactList}\small\item\em Sampling time value to be set for the selected channel. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Descripción detallada}
+ADC Configuration injected Channel structure definition. 
+
+\begin{DoxyNote}{Nota}
+Parameters of this structure are shared within 2 scopes:
+\begin{DoxyItemize}
+\item Scope channel: Injected\+Channel, Injected\+Rank, Injected\+Sampling\+Time, Injected\+Offset
+\item Scope injected group (affects all channels of injected group): Injected\+Nbr\+Of\+Conversion, Injected\+Discontinuous\+Conv\+Mode, Auto\+Injected\+Conv, External\+Trig\+Injec\+Conv\+Edge, External\+Trig\+Injec\+Conv. 
+\end{DoxyItemize}
+
+The setting of these parameters with function \doxylink{group___a_d_c_ex___exported___functions___group2_ga5736a78398eb51ddeb09dd83d1243045}{HAL\+\_\+\+ADCEx\+\_\+\+Injected\+Config\+Channel()} is conditioned to ADC state. ADC state can be either:
+\begin{DoxyItemize}
+\item For all parameters: ADC disabled (this is the only possible ADC state to modify parameter \textquotesingle{}External\+Trig\+Injec\+Conv\textquotesingle{})
+\item For all except parameters \textquotesingle{}External\+Trig\+Injec\+Conv\textquotesingle{}: ADC enabled without conversion on going on injected group. 
+\end{DoxyItemize}
+\end{DoxyNote}
+
+
+Definición en la línea \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h_source_l00054}{54}} del archivo \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h_source}{stm32f1xx\+\_\+hal\+\_\+adc\+\_\+ex.\+h}}.
+
+
+
+\label{struct_a_d_c___injection_conf_type_def_doc-variable-members}
+\Hypertarget{struct_a_d_c___injection_conf_type_def_doc-variable-members}
+\doxysubsubsection{Documentación de campos}
+\Hypertarget{struct_a_d_c___injection_conf_type_def_a39b2ddf75be46eb2d474e261e7b1c875}\index{ADC\_InjectionConfTypeDef@{ADC\_InjectionConfTypeDef}!AutoInjectedConv@{AutoInjectedConv}}
+\index{AutoInjectedConv@{AutoInjectedConv}!ADC\_InjectionConfTypeDef@{ADC\_InjectionConfTypeDef}}
+\doxyparagraph{\texorpdfstring{AutoInjectedConv}{AutoInjectedConv}}
+{\footnotesize\ttfamily \label{struct_a_d_c___injection_conf_type_def_a39b2ddf75be46eb2d474e261e7b1c875} 
+\doxymbox{\hyperlink{group___exported__types_gac9a7e9a35d2513ec15c3b537aaa4fba1}{Functional\+State}} ADC\+\_\+\+Injection\+Conf\+Type\+Def::\+\+Auto\+Injected\+Conv}
+
+
+
+Enables or disables the selected ADC automatic injected group conversion after regular one This parameter can be set to ENABLE or DISABLE. 
+
+Note: To use Automatic injected conversion, discontinuous mode must be disabled (\textquotesingle{}Discontinuous\+Conv\+Mode\textquotesingle{} and \textquotesingle{}Injected\+Discontinuous\+Conv\+Mode\textquotesingle{} set to DISABLE) Note: To use Automatic injected conversion, injected group external triggers must be disabled (\textquotesingle{}External\+Trig\+Injec\+Conv\textquotesingle{} set to ADC\+\_\+\+SOFTWARE\+\_\+\+START) Note: In case of DMA used with regular group: if DMA configured in normal mode (single shot) JAUTO will be stopped upon DMA transfer complete. To maintain JAUTO always enabled, DMA must be configured in circular mode. Caution: this setting impacts the entire injected group. Therefore, call of \doxylink{group___a_d_c_ex___exported___functions___group2_ga5736a78398eb51ddeb09dd83d1243045}{HAL\+\_\+\+ADCEx\+\_\+\+Injected\+Config\+Channel()} to configure a channel on injected group can impact the configuration of other channels previously set. 
+
+Definición en la línea \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h_source_l00091}{91}} del archivo \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h_source}{stm32f1xx\+\_\+hal\+\_\+adc\+\_\+ex.\+h}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8c_source_l00980}{HAL\+\_\+\+ADCEx\+\_\+\+Injected\+Config\+Channel()}}.
+
+\Hypertarget{struct_a_d_c___injection_conf_type_def_ac3431d4d3e3089f0db271bfb06dbffc0}\index{ADC\_InjectionConfTypeDef@{ADC\_InjectionConfTypeDef}!ExternalTrigInjecConv@{ExternalTrigInjecConv}}
+\index{ExternalTrigInjecConv@{ExternalTrigInjecConv}!ADC\_InjectionConfTypeDef@{ADC\_InjectionConfTypeDef}}
+\doxyparagraph{\texorpdfstring{ExternalTrigInjecConv}{ExternalTrigInjecConv}}
+{\footnotesize\ttfamily \label{struct_a_d_c___injection_conf_type_def_ac3431d4d3e3089f0db271bfb06dbffc0} 
+uint32\+\_\+t ADC\+\_\+\+Injection\+Conf\+Type\+Def::\+\+External\+Trig\+Injec\+Conv}
+
+
+
+Selects the external event used to trigger the conversion start of injected group. 
+
+If set to ADC\+\_\+\+INJECTED\+\_\+\+SOFTWARE\+\_\+\+START, external triggers are disabled. If set to external trigger source, triggering is on event rising edge. This parameter can be a value of \doxylink{group___a_d_c_ex___external__trigger__source___injected}{ADCEx External trigger selection for injected group} Note: This parameter must be modified when ADC is disabled (before ADC start conversion or after ADC stop conversion). If ADC is enabled, this parameter setting is bypassed without error reporting (as it can be the expected behaviour in case of another parameter update on the fly) Caution: this setting impacts the entire injected group. Therefore, call of \doxylink{group___a_d_c_ex___exported___functions___group2_ga5736a78398eb51ddeb09dd83d1243045}{HAL\+\_\+\+ADCEx\+\_\+\+Injected\+Config\+Channel()} to configure a channel on injected group can impact the configuration of other channels previously set. 
+
+Definición en la línea \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h_source_l00099}{99}} del archivo \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h_source}{stm32f1xx\+\_\+hal\+\_\+adc\+\_\+ex.\+h}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8c_source_l00980}{HAL\+\_\+\+ADCEx\+\_\+\+Injected\+Config\+Channel()}}.
+
+\Hypertarget{struct_a_d_c___injection_conf_type_def_aad0cab6ed3f66e8ffa4bd0490298b715}\index{ADC\_InjectionConfTypeDef@{ADC\_InjectionConfTypeDef}!InjectedChannel@{InjectedChannel}}
+\index{InjectedChannel@{InjectedChannel}!ADC\_InjectionConfTypeDef@{ADC\_InjectionConfTypeDef}}
+\doxyparagraph{\texorpdfstring{InjectedChannel}{InjectedChannel}}
+{\footnotesize\ttfamily \label{struct_a_d_c___injection_conf_type_def_aad0cab6ed3f66e8ffa4bd0490298b715} 
+uint32\+\_\+t ADC\+\_\+\+Injection\+Conf\+Type\+Def::\+\+Injected\+Channel}
+
+
+
+Selection of ADC channel to configure This parameter can be a value of \doxylink{group___a_d_c__channels}{ADC channels} Note: Depending on devices, some channels may not be available on package pins. 
+
+Refer to device datasheet for channels availability. Note: On STM32\+F1 devices with several ADC: Only ADC1 can access internal measurement channels (Vref\+Int/\+\+Temp\+Sensor) Note: On STM32\+F10xx8 and STM32\+F10xxB devices: A low-\/amplitude voltage glitch may be generated (on ADC input 0) on the PA0 pin, when the ADC is converting with injection trigger. It is advised to distribute the analog channels so that Channel 0 is configured as an injected channel. Refer to errata sheet of these devices for more details. 
+
+Definición en la línea \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h_source_l00056}{56}} del archivo \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h_source}{stm32f1xx\+\_\+hal\+\_\+adc\+\_\+ex.\+h}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8c_source_l00980}{HAL\+\_\+\+ADCEx\+\_\+\+Injected\+Config\+Channel()}}.
+
+\Hypertarget{struct_a_d_c___injection_conf_type_def_ab842abce605e1eaf11077fd3825379e0}\index{ADC\_InjectionConfTypeDef@{ADC\_InjectionConfTypeDef}!InjectedDiscontinuousConvMode@{InjectedDiscontinuousConvMode}}
+\index{InjectedDiscontinuousConvMode@{InjectedDiscontinuousConvMode}!ADC\_InjectionConfTypeDef@{ADC\_InjectionConfTypeDef}}
+\doxyparagraph{\texorpdfstring{InjectedDiscontinuousConvMode}{InjectedDiscontinuousConvMode}}
+{\footnotesize\ttfamily \label{struct_a_d_c___injection_conf_type_def_ab842abce605e1eaf11077fd3825379e0} 
+\doxymbox{\hyperlink{group___exported__types_gac9a7e9a35d2513ec15c3b537aaa4fba1}{Functional\+State}} ADC\+\_\+\+Injection\+Conf\+Type\+Def::\+\+Injected\+Discontinuous\+Conv\+Mode}
+
+
+
+Specifies whether the conversions sequence of injected group is performed in Complete-\/sequence/\+\+Discontinuous-\/sequence (main sequence subdivided in successive parts). 
+
+Discontinuous mode is used only if sequencer is enabled (parameter \textquotesingle{}Scan\+Conv\+Mode\textquotesingle{}). If sequencer is disabled, this parameter is discarded. Discontinuous mode can be enabled only if continuous mode is disabled. If continuous mode is enabled, this parameter setting is discarded. This parameter can be set to ENABLE or DISABLE. Note: For injected group, number of discontinuous ranks increment is fixed to one-\/by-\/one. Caution: this setting impacts the entire injected group. Therefore, call of \doxylink{group___a_d_c_ex___exported___functions___group2_ga5736a78398eb51ddeb09dd83d1243045}{HAL\+\_\+\+ADCEx\+\_\+\+Injected\+Config\+Channel()} to configure a channel on injected group can impact the configuration of other channels previously set. 
+
+Definición en la línea \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h_source_l00084}{84}} del archivo \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h_source}{stm32f1xx\+\_\+hal\+\_\+adc\+\_\+ex.\+h}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8c_source_l00980}{HAL\+\_\+\+ADCEx\+\_\+\+Injected\+Config\+Channel()}}.
+
+\Hypertarget{struct_a_d_c___injection_conf_type_def_ac59f9795b1b8c4ce6745d99f8231b768}\index{ADC\_InjectionConfTypeDef@{ADC\_InjectionConfTypeDef}!InjectedNbrOfConversion@{InjectedNbrOfConversion}}
+\index{InjectedNbrOfConversion@{InjectedNbrOfConversion}!ADC\_InjectionConfTypeDef@{ADC\_InjectionConfTypeDef}}
+\doxyparagraph{\texorpdfstring{InjectedNbrOfConversion}{InjectedNbrOfConversion}}
+{\footnotesize\ttfamily \label{struct_a_d_c___injection_conf_type_def_ac59f9795b1b8c4ce6745d99f8231b768} 
+uint32\+\_\+t ADC\+\_\+\+Injection\+Conf\+Type\+Def::\+\+Injected\+Nbr\+Of\+Conversion}
+
+
+
+Specifies the number of ranks that will be converted within the injected group sequencer. 
+
+To use the injected group sequencer and convert several ranks, parameter \textquotesingle{}Scan\+Conv\+Mode\textquotesingle{} must be enabled. This parameter must be a number between Min\+\_\+\+Data = 1 and Max\+\_\+\+Data = 4. Caution: this setting impacts the entire injected group. Therefore, call of \doxylink{group___a_d_c_ex___exported___functions___group2_ga5736a78398eb51ddeb09dd83d1243045}{HAL\+\_\+\+ADCEx\+\_\+\+Injected\+Config\+Channel()} to configure a channel on injected group can impact the configuration of other channels previously set. 
+
+Definición en la línea \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h_source_l00079}{79}} del archivo \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h_source}{stm32f1xx\+\_\+hal\+\_\+adc\+\_\+ex.\+h}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8c_source_l00980}{HAL\+\_\+\+ADCEx\+\_\+\+Injected\+Config\+Channel()}}.
+
+\Hypertarget{struct_a_d_c___injection_conf_type_def_ac7d28d71ec3aec4d1587ee04fc585f09}\index{ADC\_InjectionConfTypeDef@{ADC\_InjectionConfTypeDef}!InjectedOffset@{InjectedOffset}}
+\index{InjectedOffset@{InjectedOffset}!ADC\_InjectionConfTypeDef@{ADC\_InjectionConfTypeDef}}
+\doxyparagraph{\texorpdfstring{InjectedOffset}{InjectedOffset}}
+{\footnotesize\ttfamily \label{struct_a_d_c___injection_conf_type_def_ac7d28d71ec3aec4d1587ee04fc585f09} 
+uint32\+\_\+t ADC\+\_\+\+Injection\+Conf\+Type\+Def::\+\+Injected\+Offset}
+
+
+
+Defines the offset to be subtracted from the raw converted data (for channels set on injected group only). 
+
+Offset value must be a positive number. Depending of ADC resolution selected (12, 10, 8 or 6 bits), this parameter must be a number between Min\+\_\+\+Data = 0x000 and Max\+\_\+\+Data = 0x\+FFF, 0x3\+FF, 0x\+FF or 0x3F respectively. 
+
+Definición en la línea \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h_source_l00075}{75}} del archivo \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h_source}{stm32f1xx\+\_\+hal\+\_\+adc\+\_\+ex.\+h}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8c_source_l00980}{HAL\+\_\+\+ADCEx\+\_\+\+Injected\+Config\+Channel()}}.
+
+\Hypertarget{struct_a_d_c___injection_conf_type_def_af8a1717c0f5a5d0c7a705224f28a844f}\index{ADC\_InjectionConfTypeDef@{ADC\_InjectionConfTypeDef}!InjectedRank@{InjectedRank}}
+\index{InjectedRank@{InjectedRank}!ADC\_InjectionConfTypeDef@{ADC\_InjectionConfTypeDef}}
+\doxyparagraph{\texorpdfstring{InjectedRank}{InjectedRank}}
+{\footnotesize\ttfamily \label{struct_a_d_c___injection_conf_type_def_af8a1717c0f5a5d0c7a705224f28a844f} 
+uint32\+\_\+t ADC\+\_\+\+Injection\+Conf\+Type\+Def::\+\+Injected\+Rank}
+
+
+
+Rank in the injected group sequencer This parameter must be a value of \doxylink{group___a_d_c_ex__injected__rank}{ADCEx rank into injected group} Note: In case of need to disable a channel or change order of conversion sequencer, rank containing a previous channel setting can be overwritten by the new channel setting (or parameter number of conversions can be adjusted). 
+
+
+
+Definición en la línea \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h_source_l00063}{63}} del archivo \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h_source}{stm32f1xx\+\_\+hal\+\_\+adc\+\_\+ex.\+h}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8c_source_l00980}{HAL\+\_\+\+ADCEx\+\_\+\+Injected\+Config\+Channel()}}.
+
+\Hypertarget{struct_a_d_c___injection_conf_type_def_a3d15c0590dbafc9e99e21ea4df5b0c6b}\index{ADC\_InjectionConfTypeDef@{ADC\_InjectionConfTypeDef}!InjectedSamplingTime@{InjectedSamplingTime}}
+\index{InjectedSamplingTime@{InjectedSamplingTime}!ADC\_InjectionConfTypeDef@{ADC\_InjectionConfTypeDef}}
+\doxyparagraph{\texorpdfstring{InjectedSamplingTime}{InjectedSamplingTime}}
+{\footnotesize\ttfamily \label{struct_a_d_c___injection_conf_type_def_a3d15c0590dbafc9e99e21ea4df5b0c6b} 
+uint32\+\_\+t ADC\+\_\+\+Injection\+Conf\+Type\+Def::\+\+Injected\+Sampling\+Time}
+
+
+
+Sampling time value to be set for the selected channel. 
+
+Unit: ADC clock cycles Conversion time is the addition of sampling time and processing time (12.\+5 ADC clock cycles at ADC resolution 12 bits). This parameter can be a value of \doxylink{group___a_d_c__sampling__times}{ADC sampling times} Caution: This parameter updates the parameter property of the channel, that can be used into regular and/\+or injected groups. If this same channel has been previously configured in the other group (regular/\+injected), it will be updated to last setting. Note: In case of usage of internal measurement channels (Vref\+Int/\+\+Temp\+Sensor), sampling time constraints must be respected (sampling time can be adjusted in function of ADC clock frequency and sampling time setting) Refer to device datasheet for timings values, parameters TS\+\_\+vrefint, TS\+\_\+temp (values rough order: 5us to 17.\+1us min). 
+
+Definición en la línea \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h_source_l00066}{66}} del archivo \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h_source}{stm32f1xx\+\_\+hal\+\_\+adc\+\_\+ex.\+h}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8c_source_l00980}{HAL\+\_\+\+ADCEx\+\_\+\+Injected\+Config\+Channel()}}.
+
+
+
+La documentación de esta estructura está generada del siguiente archivo:\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h}{stm32f1xx\+\_\+hal\+\_\+adc\+\_\+ex.\+h}}\end{DoxyCompactItemize}

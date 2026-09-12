@@ -1,0 +1,581 @@
+  % Handle batch mode
+  % to overcome problems with too many open files
+  \let\mypdfximage\pdfximage\def\pdfximage{\immediate\mypdfximage}
+  \RequirePackage{iftex}
+  \ifLuaTeX
+    \directlua{pdf.setminorversion(7)}
+  \fi
+  \ifXeTeX
+    \special{pdf:minorversion 7}
+  \fi
+  \ifPDFTeX
+    \pdfminorversion=7
+  \fi
+  % Set document class depending on configuration
+  \documentclass[twoside]{article}
+  % Packages required by doxygen
+  \makeatletter
+  \providecommand\IfFormatAtLeastTF{\@ifl@t@r\fmtversion}
+  % suppress package identification of infwarerr as it contains the word "warning"
+  \let\@@protected@wlog\protected@wlog
+  \def\protected@wlog#1{\wlog{package info suppressed}}
+  \RequirePackage{infwarerr}
+  \let\protected@wlog\@@protected@wlog
+  \makeatother
+  \IfFormatAtLeastTF{2016/01/01}{}{\usepackage{fixltx2e}} % for \textsubscript
+  \ifPDFTeX
+    \IfFormatAtLeastTF{2015/01/01}{\pdfsuppresswarningpagegroup=1}{}
+  \fi
+  \usepackage{doxygen}
+  \usepackage{graphicx}
+  \iftutex
+    \usepackage{fontspec}
+    \defaultfontfeatures{Ligatures={TeX}}
+    \usepackage{unicode-math}
+  \else
+    \usepackage[utf8]{inputenc}
+  \fi
+  \usepackage{makeidx}
+  \PassOptionsToPackage{warn}{textcomp}
+  \usepackage{textcomp}
+  \usepackage[nointegrals]{wasysym}
+  \usepackage{ifxetex}
+  % NLS support packages
+  \usepackage[spanish, es-noshorthands, shorthands=off]{babel}
+  % Define default fonts
+  % Font selection
+  \iftutex
+  \else
+    \usepackage[T1]{fontenc}
+  \fi
+  % set main and monospaced font
+  \usepackage[scaled=.90]{helvet}
+\usepackage{courier}
+\renewcommand{\familydefault}{\sfdefault}
+  \doxyallsectionsfont{%
+    \fontseries{bc}\selectfont%
+    \color{darkgray}%
+  }
+  \renewcommand{\DoxyLabelFont}{%
+    \fontseries{bc}\selectfont%
+    \color{darkgray}%
+  }
+  \newcommand{\+}{\discretionary{\mbox{\scriptsize$\hookleftarrow$}}{}{}}
+   % Arguments of doxygenemoji:
+   % 1) ':<text>:' form of the emoji, already LaTeX-escaped
+   % 2) file with the name of the emoji without the .png extension
+   % in case image exist use this otherwise use the ':<text>:' form
+   \newcommand{\doxygenemoji}[2]{%
+     \IfFileExists{./#2.png}{\raisebox{-0.1em}{\includegraphics[height=0.9em]{./#2.png}}}{#1}%
+   }
+  % Page & text layout
+  \usepackage{geometry}
+  \geometry{%
+    a4paper,%
+    top=2.5cm,%
+    bottom=2.5cm,%
+    left=2.5cm,%
+    right=2.5cm%
+  }
+  \usepackage{changepage}
+  % Allow a bit of overflow to go unnoticed by other means
+  \tolerance=750
+  \hfuzz=15pt
+  \hbadness=750
+  \setlength{\emergencystretch}{15pt}
+  \setlength{\parindent}{0cm}
+  \newcommand{\doxynormalparskip}{\setlength{\parskip}{3ex plus 2ex minus 2ex}}
+  \newcommand{\doxytocparskip}{\setlength{\parskip}{1ex plus 0ex minus 0ex}}
+  \doxynormalparskip
+  % Redefine paragraph/subparagraph environments, using sectsty fonts
+  \makeatletter
+  \renewcommand{\paragraph}{%
+    \@startsection{paragraph}{4}{0ex}{-1.0ex}{1.0ex}{%
+      \normalfont\normalsize\bfseries\SS@parafont%
+    }%
+  }
+  \renewcommand{\subparagraph}{%
+    \@startsection{subparagraph}{5}{0ex}{-1.0ex}{1.0ex}{%
+      \normalfont\normalsize\bfseries\SS@subparafont%
+    }%
+  }
+  \makeatother
+  \makeatletter
+  \newcommand\hrulefilll{\leavevmode\leaders\hrule\hskip 0pt plus 1filll\kern\z@}
+  \makeatother
+  % Headers & footers
+  \usepackage{fancyhdr}
+  \pagestyle{fancyplain}
+  \renewcommand{\footrulewidth}{0.4pt}
+  \fancypagestyle{fancyplain}{
+    \fancyhf{}
+    \fancyhead[LE, RO]{\bfseries\thepage}
+    \fancyhead[LO]{\bfseries\rightmark}
+    \fancyhead[RE]{\bfseries\leftmark}
+    \fancyfoot[LO, RE]{\bfseries\scriptsize Generado el Viernes, 11 de septiembre de 2026 15:\+18:\+53 para MICRO-\/\+Firmware por Doxygen }
+  }
+  \fancypagestyle{plain}{
+    \fancyhf{}
+    \fancyfoot[LO, RE]{\bfseries\scriptsize Generado el Viernes, 11 de septiembre de 2026 15:\+18:\+53 para MICRO-\/\+Firmware por Doxygen }
+    \renewcommand{\headrulewidth}{0pt}
+  }
+  \pagestyle{fancyplain}
+  \renewcommand{\sectionmark}[1]{%
+    \markright{\thesection\ #1}%
+  }
+  % ToC, LoF, LoT, bibliography, and index
+  % Indices & bibliography
+  \usepackage[numbers]{natbib}
+  \usepackage[titles]{tocloft}
+  \setcounter{tocdepth}{3}
+  \setcounter{secnumdepth}{5}
+  % creating indexes
+  \makeindex
+  % Packages requested by user
+\usepackage{amsmath}
+\usepackage{amssymb}
+  \ifPDFTeX
+\usepackage{newunicodechar}
+  \makeatletter
+    \def\doxynewunicodechar#1#2{%
+    \@tempswafalse
+    \edef\nuc@tempa{\detokenize{#1}}%
+    \if\relax\nuc@tempa\relax
+      \nuc@emptyargerr
+    \else
+      \edef\@tempb{\expandafter\@car\nuc@tempa\@nil}%
+      \nuc@check
+      \if@tempswa
+        \@namedef{u8:\nuc@tempa}{#2}%
+      \fi
+    \fi
+  }
+  \makeatother
+  \doxynewunicodechar{⁻}{${}^{-}$}% Superscript minus
+  \doxynewunicodechar{²}{${}^{2}$}% Superscript two
+  \doxynewunicodechar{³}{${}^{3}$}% Superscript three
+\fi
+  % Hyperlinks
+    % Hyperlinks (required, but should be loaded last)
+    \ifPDFTeX
+      \usepackage[pdftex,pagebackref=true]{hyperref}
+    \else
+      \ifXeTeX
+        \usepackage[xetex,pagebackref=true]{hyperref}
+      \else
+        \ifLuaTeX
+          \usepackage[luatex,pagebackref=true]{hyperref}
+        \else
+          \usepackage[ps2pdf,pagebackref=true]{hyperref}
+        \fi
+      \fi
+    \fi
+    \hypersetup{%
+      colorlinks=true,%
+      linkcolor=blue,%
+      citecolor=blue,%
+      unicode,%
+      pdftitle={MICRO-\/\+Firmware},%
+      pdfsubject={Firmware de Péndulo Invertido Autónomo de Dos Ruedas (\+STM32\+F103\+C8\+T6 -\/ ARM Cortex-\/\+M3)}%
+    }
+  % Custom commands used by the header
+  % Custom commands
+  \newcommand{\clearemptydoublepage}{%
+    \newpage{\pagestyle{empty}\cleardoublepage}%
+  }
+  % caption style definition
+  \usepackage{caption}
+  \captionsetup{labelsep=space,justification=centering,font={bf},singlelinecheck=off,skip=4pt,position=top}
+  % in page table of contents
+  \IfFormatAtLeastTF{2023/05/01}{\usepackage[deeplevels]{etoc}}{\usepackage[deeplevels]{etoc_doxygen}}
+  \etocsettocstyle{\doxytocparskip}{\doxynormalparskip}
+  \etocsetlevel{subsubsubsection}{4}
+  \etocsetlevel{subsubsubsubsection}{5}
+  \etocsetlevel{subsubsubsubsubsection}{6}
+  \etocsetlevel{subsubsubsubsubsubsection}{7}
+  \etocsetlevel{paragraph}{8}
+  \etocsetlevel{subparagraph}{9}
+  % prevent numbers overlap the titles in toc
+  \renewcommand{\numberline}[1]{#1~}
+% End of preamble, now comes the document contents
+%===== C O N T E N T S =====
+\begin{document}
+  \raggedbottom
+  % Titlepage & ToC
+    % To avoid duplicate page anchors due to reuse of same numbers for
+    % the index (be it as roman numbers)
+    \hypersetup{pageanchor=false,
+                bookmarksnumbered=true,
+                pdfencoding=unicode
+               }
+  \pagenumbering{alph}
+  \begin{titlepage}
+  \vspace*{7cm}
+  \begin{center}%
+  {\Large MICRO-\/\+Firmware}\\
+  [1ex]\large EX100923v01 \\
+  \vspace*{1cm}
+  {\large Generado el Viernes, 11 de septiembre de 2026 15:\+18:\+53 para MICRO-\/\+Firmware por Doxygen 1.18.0}\\
+    \vspace*{0.5cm}
+    {\small Viernes, 11 de septiembre de 2026 15:18:53}
+  \end{center}
+  \end{titlepage}
+  \pagenumbering{roman}
+  \tableofcontents
+  \pagenumbering{arabic}
+  % re-enable anchors again
+  \hypersetup{pageanchor=true}
+%--- Begin generated contents ---
+\input{md__r_e_a_d_m_e}
+\doxysection{Índice de temas}
+\input{topics}
+\doxysection{Jerarquía de directorios}
+\input{dirs}
+\doxysection{Índice de estructuras de datos}
+\input{annotated}
+\doxysection{Índice de archivos}
+\input{files}
+\doxysection{Documentación de temas}
+\input{group__group__sensors}
+\input{group___c_m_s_i_s}
+\input{group__group__comm}
+\input{group__group__ui__graphics}
+\input{group__group__control}
+\input{group__group__main}
+\input{group___s_t_m32_f1xx___h_a_l___driver}
+\input{group___s_t_m32_f1xx___l_l___driver}
+\input{group___s_t_m32_f1xx___l_l___u_s_b___d_r_i_v_e_r}
+\input{group___s_t_m32___u_s_b_d___d_e_v_i_c_e___l_i_b_r_a_r_y}
+\input{group___s_t_m32___u_s_b_d___s_t_a_t_e___d_e_v_i_c_e___l_i_b_r_a_r_y}
+\input{group___s_t_m32___u_s_b___d_e_v_i_c_e___l_i_b_r_a_r_y}
+\input{group___s_t_m32___u_s_b___o_t_g___d_e_v_i_c_e___l_i_b_r_a_r_y}
+\input{group___u_s_b_d___o_t_g___d_r_i_v_e_r}
+\doxysection{Documentación de directorios}
+\input{dir_b9591a4df859e1c8b6022a1118223511}
+\input{dir_06381c90a14b1364f523be398e64bc34}
+\input{dir_eb045976e932b48ad260f2cdb604404c}
+\input{dir_bd09ff09a9c7d83a4c030dbdaee94d76}
+\input{dir_c6310732a22f63c0c2fc5595561e68f1}
+\input{dir_b855bb5e426b3b994b21c389222e14df}
+\input{dir_d21952a90114fc86c250d1e94e45c8f9}
+\input{dir_60925fc218da8ca7908795bf5f624060}
+\input{dir_e2489e887f17afa3cbc07a4ec152cdd2}
+\input{dir_1a1855b043853774b7feae02fcb02080}
+\input{dir_58c9c45ef1a87ccb0789876d93d45ff0}
+\input{dir_ea50b0a4cba59064712b846c49898b42}
+\input{dir_019642185d9939c9e843e72378e9d0b7}
+\input{dir_18d39804a75e1fcb1deadc3198692f5c}
+\input{dir_b596f468b52957496e4f78b80e029268}
+\input{dir_934d29f6e99d76aa15686823274a01c7}
+\input{dir_3eaa47d32336f9513ff20775979ab66e}
+\input{dir_7c0b0880f4bfb9f793b7785b093fa4ec}
+\input{dir_ea9cefa8af0ea91d7388c22d57deabc7}
+\input{dir_0d4e7aba86dbe6d2cd1e6eea82503c8e}
+\input{dir_863f1a9b262748bc5f9e7769e71e3a55}
+\input{dir_7844be63775b82f7837a4888e568d9b6}
+\input{dir_abd4f9b8172cc3112c241dc9c58dda71}
+\input{dir_bb6a392354d207333b00bd1cb9328973}
+\input{dir_2b3d25d3aff4b4c33c2f3f2247d6460c}
+\input{dir_b484bb5bfad2a7c15a6c5b169ba0e52c}
+\doxysection{Documentación de estructuras de datos}
+\input{struct__u_flag_1_1_0fstruct_0e_8bits}
+\input{struct_0fstruct_0e_8esp01_flags_8bit}
+\input{union_0funion_0e_8esp01_flags}
+\input{struct_____a_d_c___handle_type_def}
+\input{struct_____d_m_a___handle_type_def}
+\input{struct_____u_a_r_t___handle_type_def}
+\input{struct___device__cb}
+\input{struct__s_button}
+\input{struct__s_comm}
+\input{struct__s_e_s_p01_handle}
+\input{struct__s_wi_fi_network}
+\input{union__u_flag}
+\input{struct___u_s_b_d___c_d_c___itf}
+\input{struct___u_s_b_d___handle_type_def}
+\input{union__u_word}
+\input{struct_a_d_c___analog_w_d_g_conf_type_def}
+\input{struct_a_d_c___channel_conf_type_def}
+\input{struct_a_d_c___common___type_def}
+\input{struct_a_d_c___init_type_def}
+\input{struct_a_d_c___injection_conf_type_def}
+\input{struct_a_d_c___multi_mode_type_def}
+\input{struct_a_d_c___type_def}
+\input{struct_a_f_i_o___type_def}
+\input{struct_b_k_p___type_def}
+\input{struct_c_a_n___f_i_f_o_mail_box___type_def}
+\input{struct_c_a_n___filter_register___type_def}
+\input{struct_c_a_n___tx_mail_box___type_def}
+\input{struct_c_a_n___type_def}
+\input{struct_c_r_c___type_def}
+\input{struct_d_b_g_m_c_u___type_def}
+\input{struct_d_m_a___channel___type_def}
+\input{struct_d_m_a___init_type_def}
+\input{struct_d_m_a___type_def}
+\input{struct_e_x_t_i___config_type_def}
+\input{struct_e_x_t_i___handle_type_def}
+\input{struct_e_x_t_i___type_def}
+\input{struct_f_l_a_s_h___erase_init_type_def}
+\input{struct_f_l_a_s_h___o_b_program_init_type_def}
+\input{struct_f_l_a_s_h___process_type_def}
+\input{struct_f_l_a_s_h___type_def}
+\input{struct_g_p_i_o___init_type_def}
+\input{struct_g_p_i_o___type_def}
+\input{struct_i2_c___handle_type_def}
+\input{struct_i2_c___init_type_def}
+\input{struct_i2_c___type_def}
+\input{struct_i_w_d_g___type_def}
+\input{struct_l_l___u_t_i_l_s___clk_init_type_def}
+\input{struct_l_l___u_t_i_l_s___p_l_l_init_type_def}
+\input{struct_o_b___type_def}
+\input{struct_p_c_d___handle_type_def}
+\input{struct_point2_d}
+\input{struct_point3_d}
+\input{struct_point4_d}
+\input{struct_p_w_r___p_v_d_type_def}
+\input{struct_p_w_r___type_def}
+\input{struct_r_c_c___clk_init_type_def}
+\input{struct_r_c_c___osc_init_type_def}
+\input{struct_r_c_c___periph_c_l_k_init_type_def}
+\input{struct_r_c_c___p_l_l_init_type_def}
+\input{struct_r_c_c___type_def}
+\input{struct_r_t_c___type_def}
+\input{struct_s_p_i___type_def}
+\input{struct_s_s_d1306___font__t}
+\input{struct_s_s_d1306__t}
+\input{struct_s_s_d1306___v_e_r_t_e_x}
+\input{struct_t_i_m___base___init_type_def}
+\input{struct_t_i_m___break_dead_time_config_type_def}
+\input{struct_t_i_m___clear_input_config_type_def}
+\input{struct_t_i_m___clock_config_type_def}
+\input{struct_t_i_m___encoder___init_type_def}
+\input{struct_t_i_m___hall_sensor___init_type_def}
+\input{struct_t_i_m___handle_type_def}
+\input{struct_t_i_m___i_c___init_type_def}
+\input{struct_t_i_m___master_config_type_def}
+\input{struct_t_i_m___o_c___init_type_def}
+\input{struct_t_i_m___one_pulse___init_type_def}
+\input{struct_t_i_m___slave_config_type_def}
+\input{struct_t_i_m___type_def}
+\input{struct_u_a_r_t___init_type_def}
+\input{struct_u_s_a_r_t___type_def}
+\input{struct_u_s_b___cfg_type_def}
+\input{struct_u_s_b___e_p_type_def}
+\input{struct_u_s_b___h_c_type_def}
+\input{structusb__setup__req}
+\input{struct_u_s_b___type_def}
+\input{struct_u_s_b_d___c_d_c___handle_type_def}
+\input{struct_u_s_b_d___c_d_c___line_coding_type_def}
+\input{struct_u_s_b_d___descriptors_type_def}
+\input{struct_u_s_b_d___endpoint_type_def}
+\input{struct_w_w_d_g___type_def}
+\doxysection{Documentación de archivos}
+\input{esp01_8h}
+\input{esp01_8h_source}
+\input{fonts_8h}
+\input{fonts_8h_source}
+\input{img_8h}
+\input{img_8h_source}
+\input{main_8h}
+\input{main_8h_source}
+\input{mpu6050_8h}
+\input{mpu6050_8h_source}
+\input{ssd1306_8h}
+\input{ssd1306_8h_source}
+\input{ssd1306__conf_8h}
+\input{ssd1306__conf_8h_source}
+\input{stm32f1xx__hal__conf_8h}
+\input{stm32f1xx__hal__conf_8h_source}
+\input{stm32f1xx__it_8h}
+\input{stm32f1xx__it_8h_source}
+\input{uner_prtcl_8h}
+\input{uner_prtcl_8h_source}
+\input{util_8h}
+\input{util_8h_source}
+\input{wiregfx_8h}
+\input{wiregfx_8h_source}
+\input{esp01_8c}
+\input{esp01_8c_source}
+\input{fonts_8c}
+\input{fonts_8c_source}
+\input{main_8c}
+\input{main_8c_source}
+\input{mpu6050_8c}
+\input{mpu6050_8c_source}
+\input{ssd1306_8c}
+\input{ssd1306_8c_source}
+\input{stm32f1xx__hal__msp_8c}
+\input{stm32f1xx__hal__msp_8c_source}
+\input{stm32f1xx__it_8c}
+\input{stm32f1xx__it_8c_source}
+\input{syscalls_8c}
+\input{syscalls_8c_source}
+\input{sysmem_8c}
+\input{sysmem_8c_source}
+\input{system__stm32f1xx_8c}
+\input{system__stm32f1xx_8c_source}
+\input{uner_prtcl_8c}
+\input{uner_prtcl_8c_source}
+\input{wiregfx_8c}
+\input{wiregfx_8c_source}
+\input{startup__stm32f103c8tx_8s}
+\input{startup__stm32f103c8tx_8s_source}
+\input{stm32f103xb_8h}
+\input{stm32f103xb_8h_source}
+\input{stm32f1xx_8h}
+\input{stm32f1xx_8h_source}
+\input{system__stm32f1xx_8h}
+\input{system__stm32f1xx_8h_source}
+\input{stm32f1xx__hal_8h}
+\input{stm32f1xx__hal_8h_source}
+\input{stm32f1xx__hal__adc_8h}
+\input{stm32f1xx__hal__adc_8h_source}
+\input{stm32f1xx__hal__adc__ex_8h}
+\input{stm32f1xx__hal__adc__ex_8h_source}
+\input{stm32f1xx__hal__cortex_8h}
+\input{stm32f1xx__hal__cortex_8h_source}
+\input{stm32f1xx__hal__def_8h}
+\input{stm32f1xx__hal__def_8h_source}
+\input{stm32f1xx__hal__dma_8h}
+\input{stm32f1xx__hal__dma_8h_source}
+\input{stm32f1xx__hal__dma__ex_8h}
+\input{stm32f1xx__hal__dma__ex_8h_source}
+\input{stm32f1xx__hal__exti_8h}
+\input{stm32f1xx__hal__exti_8h_source}
+\input{stm32f1xx__hal__flash_8h}
+\input{stm32f1xx__hal__flash_8h_source}
+\input{stm32f1xx__hal__flash__ex_8h}
+\input{stm32f1xx__hal__flash__ex_8h_source}
+\input{stm32f1xx__hal__gpio_8h}
+\input{stm32f1xx__hal__gpio_8h_source}
+\input{stm32f1xx__hal__gpio__ex_8h}
+\input{stm32f1xx__hal__gpio__ex_8h_source}
+\input{stm32f1xx__hal__i2c_8h}
+\input{stm32f1xx__hal__i2c_8h_source}
+\input{stm32f1xx__hal__pcd_8h}
+\input{stm32f1xx__hal__pcd_8h_source}
+\input{stm32f1xx__hal__pcd__ex_8h}
+\input{stm32f1xx__hal__pcd__ex_8h_source}
+\input{stm32f1xx__hal__pwr_8h}
+\input{stm32f1xx__hal__pwr_8h_source}
+\input{stm32f1xx__hal__rcc_8h}
+\input{stm32f1xx__hal__rcc_8h_source}
+\input{stm32f1xx__hal__rcc__ex_8h}
+\input{stm32f1xx__hal__rcc__ex_8h_source}
+\input{stm32f1xx__hal__tim_8h}
+\input{stm32f1xx__hal__tim_8h_source}
+\input{stm32f1xx__hal__tim__ex_8h}
+\input{stm32f1xx__hal__tim__ex_8h_source}
+\input{stm32f1xx__hal__uart_8h}
+\input{stm32f1xx__hal__uart_8h_source}
+\input{stm32f1xx__ll__adc_8h}
+\input{stm32f1xx__ll__adc_8h_source}
+\input{stm32f1xx__ll__bus_8h}
+\input{stm32f1xx__ll__bus_8h_source}
+\input{stm32f1xx__ll__cortex_8h}
+\input{stm32f1xx__ll__cortex_8h_source}
+\input{stm32f1xx__ll__dma_8h}
+\input{stm32f1xx__ll__dma_8h_source}
+\input{stm32f1xx__ll__exti_8h}
+\input{stm32f1xx__ll__exti_8h_source}
+\input{stm32f1xx__ll__gpio_8h}
+\input{stm32f1xx__ll__gpio_8h_source}
+\input{stm32f1xx__ll__i2c_8h}
+\input{stm32f1xx__ll__i2c_8h_source}
+\input{stm32f1xx__ll__pwr_8h}
+\input{stm32f1xx__ll__pwr_8h_source}
+\input{stm32f1xx__ll__rcc_8h}
+\input{stm32f1xx__ll__rcc_8h_source}
+\input{stm32f1xx__ll__system_8h}
+\input{stm32f1xx__ll__system_8h_source}
+\input{stm32f1xx__ll__tim_8h}
+\input{stm32f1xx__ll__tim_8h_source}
+\input{stm32f1xx__ll__usart_8h}
+\input{stm32f1xx__ll__usart_8h_source}
+\input{stm32f1xx__ll__usb_8h}
+\input{stm32f1xx__ll__usb_8h_source}
+\input{stm32f1xx__ll__utils_8h}
+\input{stm32f1xx__ll__utils_8h_source}
+\input{stm32f1xx__hal_8c}
+\input{stm32f1xx__hal_8c_source}
+\input{stm32f1xx__hal__adc_8c}
+\input{stm32f1xx__hal__adc_8c_source}
+\input{stm32f1xx__hal__adc__ex_8c}
+\input{stm32f1xx__hal__adc__ex_8c_source}
+\input{stm32f1xx__hal__cortex_8c}
+\input{stm32f1xx__hal__cortex_8c_source}
+\input{stm32f1xx__hal__dma_8c}
+\input{stm32f1xx__hal__dma_8c_source}
+\input{stm32f1xx__hal__exti_8c}
+\input{stm32f1xx__hal__exti_8c_source}
+\input{stm32f1xx__hal__flash_8c}
+\input{stm32f1xx__hal__flash_8c_source}
+\input{stm32f1xx__hal__flash__ex_8c}
+\input{stm32f1xx__hal__flash__ex_8c_source}
+\input{stm32f1xx__hal__gpio_8c}
+\input{stm32f1xx__hal__gpio_8c_source}
+\input{stm32f1xx__hal__gpio__ex_8c}
+\input{stm32f1xx__hal__gpio__ex_8c_source}
+\input{stm32f1xx__hal__i2c_8c}
+\input{stm32f1xx__hal__i2c_8c_source}
+\input{stm32f1xx__hal__pcd_8c}
+\input{stm32f1xx__hal__pcd_8c_source}
+\input{stm32f1xx__hal__pcd__ex_8c}
+\input{stm32f1xx__hal__pcd__ex_8c_source}
+\input{stm32f1xx__hal__pwr_8c}
+\input{stm32f1xx__hal__pwr_8c_source}
+\input{stm32f1xx__hal__rcc_8c}
+\input{stm32f1xx__hal__rcc_8c_source}
+\input{stm32f1xx__hal__rcc__ex_8c}
+\input{stm32f1xx__hal__rcc__ex_8c_source}
+\input{stm32f1xx__hal__tim_8c}
+\input{stm32f1xx__hal__tim_8c_source}
+\input{stm32f1xx__hal__tim__ex_8c}
+\input{stm32f1xx__hal__tim__ex_8c_source}
+\input{stm32f1xx__hal__uart_8c}
+\input{stm32f1xx__hal__uart_8c_source}
+\input{stm32f1xx__ll__usb_8c}
+\input{stm32f1xx__ll__usb_8c_source}
+\input{usbd__cdc_8h}
+\input{usbd__cdc_8h_source}
+\input{usbd__cdc_8c}
+\input{usbd__cdc_8c_source}
+\input{usbd__core_8h}
+\input{usbd__core_8h_source}
+\input{usbd__ctlreq_8h}
+\input{usbd__ctlreq_8h_source}
+\input{usbd__def_8h}
+\input{usbd__def_8h_source}
+\input{usbd__ioreq_8h}
+\input{usbd__ioreq_8h_source}
+\input{usbd__core_8c}
+\input{usbd__core_8c_source}
+\input{usbd__ctlreq_8c}
+\input{usbd__ctlreq_8c_source}
+\input{usbd__ioreq_8c}
+\input{usbd__ioreq_8c_source}
+\input{_r_e_a_d_m_e_8md}
+\input{usb__device_8c}
+\input{usb__device_8c_source}
+\input{usb__device_8h}
+\input{usb__device_8h_source}
+\input{usbd__cdc__if_8c}
+\input{usbd__cdc__if_8c_source}
+\input{usbd__cdc__if_8h}
+\input{usbd__cdc__if_8h_source}
+\input{usbd__desc_8c}
+\input{usbd__desc_8c_source}
+\input{usbd__desc_8h}
+\input{usbd__desc_8h_source}
+\input{usbd__conf_8c}
+\input{usbd__conf_8c_source}
+\input{usbd__conf_8h}
+\input{usbd__conf_8h_source}
+%--- End generated contents ---
+% Index
+  \newpage
+  \phantomsection
+  \clearemptydoublepage
+  \addcontentsline{toc}{section}{\indexname}
+  \printindex
+% Required for some languages (in combination with latexdocumentpre from the header)
+\end{document}

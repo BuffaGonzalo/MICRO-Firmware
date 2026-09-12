@@ -1,0 +1,963 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>MICRO-Firmware: Option Bytes Write Protection</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="codefolding.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  extensions: ["tex2jax.js"],
+  jax: ["input/TeX","output/HTML-CSS"],
+});
+</script>
+<script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">MICRO-Firmware<span id="projectnumber">&#160;EX100923v01</span>
+   </div>
+   <div id="projectbrief">Firmware de Péndulo Invertido Autónomo de Dos Ruedas (STM32F103C8T6 - ARM Cortex-M3)</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Buscar" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('group___f_l_a_s_h_ex___o_b___write___protection.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">Option Bytes Write Protection <div class="ingroups"><a class="el" href="group___s_t_m32_f1xx___h_a_l___driver.html">STM32F1xx_HAL_Driver</a> &raquo; <a class="el" href="group___f_l_a_s_h_ex.html">FLASHEx</a> &raquo; <a class="el" href="group___f_l_a_s_h_ex___exported___constants.html">FLASHEx Exported Constants</a> &raquo; <a class="el" href="group___f_l_a_s_h_ex___option_byte___constants.html">Option Byte Constants</a></div></div></div>
+</div><!--header-->
+<div class="contents">
+<div id="dynsection-0" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Diagrama de colaboración de Option Bytes Write Protection:</div>
+<div id="dynsection-0-summary" class="dynsummary">
+</div>
+<div id="dynsection-0-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___f_l_a_s_h_ex___o_b___write___protection.svg" width="344" height="54"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
+defines</h2></td></tr>
+<tr class="memitem:ga0cc7fc37c49d200418353f977e35139c" id="r_ga0cc7fc37c49d200418353f977e35139c"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga0cc7fc37c49d200418353f977e35139c">OB_WRP_ALLPAGES</a>&#160;&#160;&#160;0xFFFFFFFFU</td></tr>
+<tr class="memdesc:ga0cc7fc37c49d200418353f977e35139c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write protection of all Pages.  <br /></td></tr>
+<tr class="memitem:ga646ed3fd969888eaef350f7bdd4126fb" id="r_ga646ed3fd969888eaef350f7bdd4126fb"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga646ed3fd969888eaef350f7bdd4126fb">OB_WRP_PAGES0TO3</a>&#160;&#160;&#160;0x00000001U</td></tr>
+<tr class="memdesc:ga646ed3fd969888eaef350f7bdd4126fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write protection of page 0 to 3.  <br /></td></tr>
+<tr class="memitem:ga1c7bcead4496bd011c66d79c6740d7d7" id="r_ga1c7bcead4496bd011c66d79c6740d7d7"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga1c7bcead4496bd011c66d79c6740d7d7">OB_WRP_PAGES0TO31MASK</a>&#160;&#160;&#160;0x000000FFU</td></tr>
+<tr class="memitem:gaafdcd35bb0c18e1c6d9cfc55faeb205c" id="r_gaafdcd35bb0c18e1c6d9cfc55faeb205c"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaafdcd35bb0c18e1c6d9cfc55faeb205c">OB_WRP_PAGES100TO103</a>&#160;&#160;&#160;0x02000000U</td></tr>
+<tr class="memdesc:gaafdcd35bb0c18e1c6d9cfc55faeb205c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write protection of page 100 to 103.  <br /></td></tr>
+<tr class="memitem:gad96a8afd19b3d2f52d7d1d61544115be" id="r_gad96a8afd19b3d2f52d7d1d61544115be"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gad96a8afd19b3d2f52d7d1d61544115be">OB_WRP_PAGES104TO107</a>&#160;&#160;&#160;0x04000000U</td></tr>
+<tr class="memdesc:gad96a8afd19b3d2f52d7d1d61544115be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write protection of page 104 to 107.  <br /></td></tr>
+<tr class="memitem:gafa747cf00e50b1235fef504108a9bc8c" id="r_gafa747cf00e50b1235fef504108a9bc8c"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gafa747cf00e50b1235fef504108a9bc8c">OB_WRP_PAGES108TO111</a>&#160;&#160;&#160;0x08000000U</td></tr>
+<tr class="memdesc:gafa747cf00e50b1235fef504108a9bc8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write protection of page 108 to 111.  <br /></td></tr>
+<tr class="memitem:ga3599f24efb1250731b399991003cd94c" id="r_ga3599f24efb1250731b399991003cd94c"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga3599f24efb1250731b399991003cd94c">OB_WRP_PAGES112TO115</a>&#160;&#160;&#160;0x10000000U</td></tr>
+<tr class="memdesc:ga3599f24efb1250731b399991003cd94c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write protection of page 112 to 115.  <br /></td></tr>
+<tr class="memitem:ga9c82f6a42c9c0f0ba5b77322944db557" id="r_ga9c82f6a42c9c0f0ba5b77322944db557"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga9c82f6a42c9c0f0ba5b77322944db557">OB_WRP_PAGES116TO119</a>&#160;&#160;&#160;0x20000000U</td></tr>
+<tr class="memdesc:ga9c82f6a42c9c0f0ba5b77322944db557"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write protection of page 115 to 119.  <br /></td></tr>
+<tr class="memitem:gaf25a916568579c3d807a76d555ce582d" id="r_gaf25a916568579c3d807a76d555ce582d"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaf25a916568579c3d807a76d555ce582d">OB_WRP_PAGES120TO123</a>&#160;&#160;&#160;0x40000000U</td></tr>
+<tr class="memdesc:gaf25a916568579c3d807a76d555ce582d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write protection of page 120 to 123.  <br /></td></tr>
+<tr class="memitem:ga3d6aeb9a27ac6705abc901fae0673fa5" id="r_ga3d6aeb9a27ac6705abc901fae0673fa5"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga3d6aeb9a27ac6705abc901fae0673fa5">OB_WRP_PAGES124TO127</a>&#160;&#160;&#160;0x80000000U</td></tr>
+<tr class="memdesc:ga3d6aeb9a27ac6705abc901fae0673fa5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write protection of page 124 to 127.  <br /></td></tr>
+<tr class="memitem:ga6376038f4b7eb5528e4c9cf9ff744d24" id="r_ga6376038f4b7eb5528e4c9cf9ff744d24"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga6376038f4b7eb5528e4c9cf9ff744d24">OB_WRP_PAGES12TO15</a>&#160;&#160;&#160;0x00000008U</td></tr>
+<tr class="memdesc:ga6376038f4b7eb5528e4c9cf9ff744d24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write protection of page 12 to 15.  <br /></td></tr>
+<tr class="memitem:ga6a5f436d8ebf0eeae3bd5319721f4f7b" id="r_ga6a5f436d8ebf0eeae3bd5319721f4f7b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga6a5f436d8ebf0eeae3bd5319721f4f7b">OB_WRP_PAGES16TO19</a>&#160;&#160;&#160;0x00000010U</td></tr>
+<tr class="memdesc:ga6a5f436d8ebf0eeae3bd5319721f4f7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write protection of page 16 to 19.  <br /></td></tr>
+<tr class="memitem:ga555cc11a2c0cefd265aadd8d9bfc0923" id="r_ga555cc11a2c0cefd265aadd8d9bfc0923"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga555cc11a2c0cefd265aadd8d9bfc0923">OB_WRP_PAGES20TO23</a>&#160;&#160;&#160;0x00000020U</td></tr>
+<tr class="memdesc:ga555cc11a2c0cefd265aadd8d9bfc0923"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write protection of page 20 to 23.  <br /></td></tr>
+<tr class="memitem:gaa97a0dafdb9a27ce22352af06072a756" id="r_gaa97a0dafdb9a27ce22352af06072a756"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaa97a0dafdb9a27ce22352af06072a756">OB_WRP_PAGES24TO27</a>&#160;&#160;&#160;0x00000040U</td></tr>
+<tr class="memdesc:gaa97a0dafdb9a27ce22352af06072a756"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write protection of page 24 to 27.  <br /></td></tr>
+<tr class="memitem:ga5c30ae66e0e3292d57d4e9499744bad8" id="r_ga5c30ae66e0e3292d57d4e9499744bad8"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga5c30ae66e0e3292d57d4e9499744bad8">OB_WRP_PAGES28TO31</a>&#160;&#160;&#160;0x00000080U</td></tr>
+<tr class="memdesc:ga5c30ae66e0e3292d57d4e9499744bad8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write protection of page 28 to 31.  <br /></td></tr>
+<tr class="memitem:ga023beeb4f60189ee0c5dd3c1ed866041" id="r_ga023beeb4f60189ee0c5dd3c1ed866041"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga023beeb4f60189ee0c5dd3c1ed866041">OB_WRP_PAGES32TO35</a>&#160;&#160;&#160;0x00000100U</td></tr>
+<tr class="memdesc:ga023beeb4f60189ee0c5dd3c1ed866041"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write protection of page 32 to 35.  <br /></td></tr>
+<tr class="memitem:ga06b1666694d0f9d172fcfac8ed630b87" id="r_ga06b1666694d0f9d172fcfac8ed630b87"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga06b1666694d0f9d172fcfac8ed630b87">OB_WRP_PAGES32TO63MASK</a>&#160;&#160;&#160;0x0000FF00U</td></tr>
+<tr class="memitem:ga920ed55da0f143ff5af9c913066a5435" id="r_ga920ed55da0f143ff5af9c913066a5435"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga920ed55da0f143ff5af9c913066a5435">OB_WRP_PAGES36TO39</a>&#160;&#160;&#160;0x00000200U</td></tr>
+<tr class="memdesc:ga920ed55da0f143ff5af9c913066a5435"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write protection of page 36 to 39.  <br /></td></tr>
+<tr class="memitem:ga71ed911429bfa1ddbd6eaff8481a048f" id="r_ga71ed911429bfa1ddbd6eaff8481a048f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga71ed911429bfa1ddbd6eaff8481a048f">OB_WRP_PAGES40TO43</a>&#160;&#160;&#160;0x00000400U</td></tr>
+<tr class="memdesc:ga71ed911429bfa1ddbd6eaff8481a048f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write protection of page 40 to 43.  <br /></td></tr>
+<tr class="memitem:ga9a14faf28359873bd5a57674548ade1a" id="r_ga9a14faf28359873bd5a57674548ade1a"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga9a14faf28359873bd5a57674548ade1a">OB_WRP_PAGES44TO47</a>&#160;&#160;&#160;0x00000800U</td></tr>
+<tr class="memdesc:ga9a14faf28359873bd5a57674548ade1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write protection of page 44 to 47.  <br /></td></tr>
+<tr class="memitem:gabc18100a63afe4f47f156231e7872ec6" id="r_gabc18100a63afe4f47f156231e7872ec6"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gabc18100a63afe4f47f156231e7872ec6">OB_WRP_PAGES48TO51</a>&#160;&#160;&#160;0x00001000U</td></tr>
+<tr class="memdesc:gabc18100a63afe4f47f156231e7872ec6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write protection of page 48 to 51.  <br /></td></tr>
+<tr class="memitem:ga1d58cb74f104368e56326bfe9d6e6d27" id="r_ga1d58cb74f104368e56326bfe9d6e6d27"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga1d58cb74f104368e56326bfe9d6e6d27">OB_WRP_PAGES4TO7</a>&#160;&#160;&#160;0x00000002U</td></tr>
+<tr class="memdesc:ga1d58cb74f104368e56326bfe9d6e6d27"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write protection of page 4 to 7.  <br /></td></tr>
+<tr class="memitem:gaf9e9f42eacaac1b1fbd33d1b92de34bc" id="r_gaf9e9f42eacaac1b1fbd33d1b92de34bc"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaf9e9f42eacaac1b1fbd33d1b92de34bc">OB_WRP_PAGES52TO55</a>&#160;&#160;&#160;0x00002000U</td></tr>
+<tr class="memdesc:gaf9e9f42eacaac1b1fbd33d1b92de34bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write protection of page 52 to 55.  <br /></td></tr>
+<tr class="memitem:ga0eb36f24d5fee13c5e7a6b617ed30c36" id="r_ga0eb36f24d5fee13c5e7a6b617ed30c36"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga0eb36f24d5fee13c5e7a6b617ed30c36">OB_WRP_PAGES56TO59</a>&#160;&#160;&#160;0x00004000U</td></tr>
+<tr class="memdesc:ga0eb36f24d5fee13c5e7a6b617ed30c36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write protection of page 56 to 59.  <br /></td></tr>
+<tr class="memitem:gaf3f1bedfb399e0f771fbbbfb2b3a7338" id="r_gaf3f1bedfb399e0f771fbbbfb2b3a7338"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaf3f1bedfb399e0f771fbbbfb2b3a7338">OB_WRP_PAGES60TO63</a>&#160;&#160;&#160;0x00008000U</td></tr>
+<tr class="memdesc:gaf3f1bedfb399e0f771fbbbfb2b3a7338"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write protection of page 60 to 63.  <br /></td></tr>
+<tr class="memitem:ga789f0bdc68c6592ab133d33d465628f4" id="r_ga789f0bdc68c6592ab133d33d465628f4"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga789f0bdc68c6592ab133d33d465628f4">OB_WRP_PAGES64TO67</a>&#160;&#160;&#160;0x00010000U</td></tr>
+<tr class="memdesc:ga789f0bdc68c6592ab133d33d465628f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write protection of page 64 to 67.  <br /></td></tr>
+<tr class="memitem:ga5441570333511e8236fb98c57f789637" id="r_ga5441570333511e8236fb98c57f789637"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga5441570333511e8236fb98c57f789637">OB_WRP_PAGES64TO95MASK</a>&#160;&#160;&#160;0x00FF0000U</td></tr>
+<tr class="memitem:ga0a29fd118f5c095b63d4c1f2e5eade6c" id="r_ga0a29fd118f5c095b63d4c1f2e5eade6c"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga0a29fd118f5c095b63d4c1f2e5eade6c">OB_WRP_PAGES68TO71</a>&#160;&#160;&#160;0x00020000U</td></tr>
+<tr class="memdesc:ga0a29fd118f5c095b63d4c1f2e5eade6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write protection of page 68 to 71.  <br /></td></tr>
+<tr class="memitem:ga1ea64e0454920f4174967db73333cbb0" id="r_ga1ea64e0454920f4174967db73333cbb0"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga1ea64e0454920f4174967db73333cbb0">OB_WRP_PAGES72TO75</a>&#160;&#160;&#160;0x00040000U</td></tr>
+<tr class="memdesc:ga1ea64e0454920f4174967db73333cbb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write protection of page 72 to 75.  <br /></td></tr>
+<tr class="memitem:gacb2edc778fa8eb2cd2c42271be062ee0" id="r_gacb2edc778fa8eb2cd2c42271be062ee0"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gacb2edc778fa8eb2cd2c42271be062ee0">OB_WRP_PAGES76TO79</a>&#160;&#160;&#160;0x00080000U</td></tr>
+<tr class="memdesc:gacb2edc778fa8eb2cd2c42271be062ee0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write protection of page 76 to 79.  <br /></td></tr>
+<tr class="memitem:ga2e6ea50c77c156ed7db98bb3eb9b37f2" id="r_ga2e6ea50c77c156ed7db98bb3eb9b37f2"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga2e6ea50c77c156ed7db98bb3eb9b37f2">OB_WRP_PAGES80TO83</a>&#160;&#160;&#160;0x00100000U</td></tr>
+<tr class="memdesc:ga2e6ea50c77c156ed7db98bb3eb9b37f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write protection of page 80 to 83.  <br /></td></tr>
+<tr class="memitem:gab3a8de0a6437e794bacf779c24c808c2" id="r_gab3a8de0a6437e794bacf779c24c808c2"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gab3a8de0a6437e794bacf779c24c808c2">OB_WRP_PAGES84TO87</a>&#160;&#160;&#160;0x00200000U</td></tr>
+<tr class="memdesc:gab3a8de0a6437e794bacf779c24c808c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write protection of page 84 to 87.  <br /></td></tr>
+<tr class="memitem:ga2b5387224bd86b0fbb0b5b9aac44e4ac" id="r_ga2b5387224bd86b0fbb0b5b9aac44e4ac"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga2b5387224bd86b0fbb0b5b9aac44e4ac">OB_WRP_PAGES88TO91</a>&#160;&#160;&#160;0x00400000U</td></tr>
+<tr class="memdesc:ga2b5387224bd86b0fbb0b5b9aac44e4ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write protection of page 88 to 91.  <br /></td></tr>
+<tr class="memitem:gaf7327bb020eefac05c350aeadd1716e9" id="r_gaf7327bb020eefac05c350aeadd1716e9"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaf7327bb020eefac05c350aeadd1716e9">OB_WRP_PAGES8TO11</a>&#160;&#160;&#160;0x00000004U</td></tr>
+<tr class="memdesc:gaf7327bb020eefac05c350aeadd1716e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write protection of page 8 to 11.  <br /></td></tr>
+<tr class="memitem:ga7ec3f70e5450435035ef19fb54118189" id="r_ga7ec3f70e5450435035ef19fb54118189"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga7ec3f70e5450435035ef19fb54118189">OB_WRP_PAGES92TO95</a>&#160;&#160;&#160;0x00800000U</td></tr>
+<tr class="memdesc:ga7ec3f70e5450435035ef19fb54118189"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write protection of page 92 to 95.  <br /></td></tr>
+<tr class="memitem:gaf30804e3b3595154330088860516f539" id="r_gaf30804e3b3595154330088860516f539"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaf30804e3b3595154330088860516f539">OB_WRP_PAGES96TO127MASK</a>&#160;&#160;&#160;0xFF000000U</td></tr>
+<tr class="memitem:ga961a807d1721eaf2f019bcbfbcd7d122" id="r_ga961a807d1721eaf2f019bcbfbcd7d122"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga961a807d1721eaf2f019bcbfbcd7d122">OB_WRP_PAGES96TO99</a>&#160;&#160;&#160;0x01000000U</td></tr>
+<tr class="memdesc:ga961a807d1721eaf2f019bcbfbcd7d122"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write protection of page 96 to 99.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Descripción detallada</h2>
+<div class="textblock"></div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Documentación de «define»</h2>
+<a id="ga0cc7fc37c49d200418353f977e35139c" name="ga0cc7fc37c49d200418353f977e35139c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga0cc7fc37c49d200418353f977e35139c">&#9670;&#160;</a></span>OB_WRP_ALLPAGES</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define OB_WRP_ALLPAGES&#160;&#160;&#160;0xFFFFFFFFU</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__flash__ex_8h.html">stm32f1xx_hal_flash_ex.h</a>&quot;</code></p>
+
+<p>Write protection of all Pages. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html#l00399">399</a> del archivo <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html">stm32f1xx_hal_flash_ex.h</a>.</p>
+
+</div>
+</div>
+<a id="ga646ed3fd969888eaef350f7bdd4126fb" name="ga646ed3fd969888eaef350f7bdd4126fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga646ed3fd969888eaef350f7bdd4126fb">&#9670;&#160;</a></span>OB_WRP_PAGES0TO3</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define OB_WRP_PAGES0TO3&#160;&#160;&#160;0x00000001U</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__flash__ex_8h.html">stm32f1xx_hal_flash_ex.h</a>&quot;</code></p>
+
+<p>Write protection of page 0 to 3. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html#l00317">317</a> del archivo <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html">stm32f1xx_hal_flash_ex.h</a>.</p>
+
+</div>
+</div>
+<a id="ga1c7bcead4496bd011c66d79c6740d7d7" name="ga1c7bcead4496bd011c66d79c6740d7d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga1c7bcead4496bd011c66d79c6740d7d7">&#9670;&#160;</a></span>OB_WRP_PAGES0TO31MASK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define OB_WRP_PAGES0TO31MASK&#160;&#160;&#160;0x000000FFU</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__flash__ex_8h.html">stm32f1xx_hal_flash_ex.h</a>&quot;</code></p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html#l00408">408</a> del archivo <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html">stm32f1xx_hal_flash_ex.h</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html#l00762">FLASH_OB_DisableWRP()</a> y <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html#l00639">FLASH_OB_EnableWRP()</a>.</p>
+
+</div>
+</div>
+<a id="gaafdcd35bb0c18e1c6d9cfc55faeb205c" name="gaafdcd35bb0c18e1c6d9cfc55faeb205c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaafdcd35bb0c18e1c6d9cfc55faeb205c">&#9670;&#160;</a></span>OB_WRP_PAGES100TO103</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define OB_WRP_PAGES100TO103&#160;&#160;&#160;0x02000000U</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__flash__ex_8h.html">stm32f1xx_hal_flash_ex.h</a>&quot;</code></p>
+
+<p>Write protection of page 100 to 103. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html#l00347">347</a> del archivo <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html">stm32f1xx_hal_flash_ex.h</a>.</p>
+
+</div>
+</div>
+<a id="gad96a8afd19b3d2f52d7d1d61544115be" name="gad96a8afd19b3d2f52d7d1d61544115be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad96a8afd19b3d2f52d7d1d61544115be">&#9670;&#160;</a></span>OB_WRP_PAGES104TO107</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define OB_WRP_PAGES104TO107&#160;&#160;&#160;0x04000000U</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__flash__ex_8h.html">stm32f1xx_hal_flash_ex.h</a>&quot;</code></p>
+
+<p>Write protection of page 104 to 107. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html#l00348">348</a> del archivo <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html">stm32f1xx_hal_flash_ex.h</a>.</p>
+
+</div>
+</div>
+<a id="gafa747cf00e50b1235fef504108a9bc8c" name="gafa747cf00e50b1235fef504108a9bc8c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gafa747cf00e50b1235fef504108a9bc8c">&#9670;&#160;</a></span>OB_WRP_PAGES108TO111</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define OB_WRP_PAGES108TO111&#160;&#160;&#160;0x08000000U</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__flash__ex_8h.html">stm32f1xx_hal_flash_ex.h</a>&quot;</code></p>
+
+<p>Write protection of page 108 to 111. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html#l00349">349</a> del archivo <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html">stm32f1xx_hal_flash_ex.h</a>.</p>
+
+</div>
+</div>
+<a id="ga3599f24efb1250731b399991003cd94c" name="ga3599f24efb1250731b399991003cd94c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3599f24efb1250731b399991003cd94c">&#9670;&#160;</a></span>OB_WRP_PAGES112TO115</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define OB_WRP_PAGES112TO115&#160;&#160;&#160;0x10000000U</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__flash__ex_8h.html">stm32f1xx_hal_flash_ex.h</a>&quot;</code></p>
+
+<p>Write protection of page 112 to 115. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html#l00350">350</a> del archivo <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html">stm32f1xx_hal_flash_ex.h</a>.</p>
+
+</div>
+</div>
+<a id="ga9c82f6a42c9c0f0ba5b77322944db557" name="ga9c82f6a42c9c0f0ba5b77322944db557"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9c82f6a42c9c0f0ba5b77322944db557">&#9670;&#160;</a></span>OB_WRP_PAGES116TO119</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define OB_WRP_PAGES116TO119&#160;&#160;&#160;0x20000000U</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__flash__ex_8h.html">stm32f1xx_hal_flash_ex.h</a>&quot;</code></p>
+
+<p>Write protection of page 115 to 119. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html#l00351">351</a> del archivo <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html">stm32f1xx_hal_flash_ex.h</a>.</p>
+
+</div>
+</div>
+<a id="gaf25a916568579c3d807a76d555ce582d" name="gaf25a916568579c3d807a76d555ce582d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf25a916568579c3d807a76d555ce582d">&#9670;&#160;</a></span>OB_WRP_PAGES120TO123</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define OB_WRP_PAGES120TO123&#160;&#160;&#160;0x40000000U</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__flash__ex_8h.html">stm32f1xx_hal_flash_ex.h</a>&quot;</code></p>
+
+<p>Write protection of page 120 to 123. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html#l00352">352</a> del archivo <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html">stm32f1xx_hal_flash_ex.h</a>.</p>
+
+</div>
+</div>
+<a id="ga3d6aeb9a27ac6705abc901fae0673fa5" name="ga3d6aeb9a27ac6705abc901fae0673fa5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3d6aeb9a27ac6705abc901fae0673fa5">&#9670;&#160;</a></span>OB_WRP_PAGES124TO127</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define OB_WRP_PAGES124TO127&#160;&#160;&#160;0x80000000U</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__flash__ex_8h.html">stm32f1xx_hal_flash_ex.h</a>&quot;</code></p>
+
+<p>Write protection of page 124 to 127. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html#l00353">353</a> del archivo <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html">stm32f1xx_hal_flash_ex.h</a>.</p>
+
+</div>
+</div>
+<a id="ga6376038f4b7eb5528e4c9cf9ff744d24" name="ga6376038f4b7eb5528e4c9cf9ff744d24"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6376038f4b7eb5528e4c9cf9ff744d24">&#9670;&#160;</a></span>OB_WRP_PAGES12TO15</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define OB_WRP_PAGES12TO15&#160;&#160;&#160;0x00000008U</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__flash__ex_8h.html">stm32f1xx_hal_flash_ex.h</a>&quot;</code></p>
+
+<p>Write protection of page 12 to 15. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html#l00320">320</a> del archivo <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html">stm32f1xx_hal_flash_ex.h</a>.</p>
+
+</div>
+</div>
+<a id="ga6a5f436d8ebf0eeae3bd5319721f4f7b" name="ga6a5f436d8ebf0eeae3bd5319721f4f7b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6a5f436d8ebf0eeae3bd5319721f4f7b">&#9670;&#160;</a></span>OB_WRP_PAGES16TO19</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define OB_WRP_PAGES16TO19&#160;&#160;&#160;0x00000010U</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__flash__ex_8h.html">stm32f1xx_hal_flash_ex.h</a>&quot;</code></p>
+
+<p>Write protection of page 16 to 19. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html#l00321">321</a> del archivo <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html">stm32f1xx_hal_flash_ex.h</a>.</p>
+
+</div>
+</div>
+<a id="ga555cc11a2c0cefd265aadd8d9bfc0923" name="ga555cc11a2c0cefd265aadd8d9bfc0923"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga555cc11a2c0cefd265aadd8d9bfc0923">&#9670;&#160;</a></span>OB_WRP_PAGES20TO23</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define OB_WRP_PAGES20TO23&#160;&#160;&#160;0x00000020U</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__flash__ex_8h.html">stm32f1xx_hal_flash_ex.h</a>&quot;</code></p>
+
+<p>Write protection of page 20 to 23. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html#l00322">322</a> del archivo <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html">stm32f1xx_hal_flash_ex.h</a>.</p>
+
+</div>
+</div>
+<a id="gaa97a0dafdb9a27ce22352af06072a756" name="gaa97a0dafdb9a27ce22352af06072a756"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa97a0dafdb9a27ce22352af06072a756">&#9670;&#160;</a></span>OB_WRP_PAGES24TO27</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define OB_WRP_PAGES24TO27&#160;&#160;&#160;0x00000040U</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__flash__ex_8h.html">stm32f1xx_hal_flash_ex.h</a>&quot;</code></p>
+
+<p>Write protection of page 24 to 27. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html#l00323">323</a> del archivo <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html">stm32f1xx_hal_flash_ex.h</a>.</p>
+
+</div>
+</div>
+<a id="ga5c30ae66e0e3292d57d4e9499744bad8" name="ga5c30ae66e0e3292d57d4e9499744bad8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5c30ae66e0e3292d57d4e9499744bad8">&#9670;&#160;</a></span>OB_WRP_PAGES28TO31</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define OB_WRP_PAGES28TO31&#160;&#160;&#160;0x00000080U</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__flash__ex_8h.html">stm32f1xx_hal_flash_ex.h</a>&quot;</code></p>
+
+<p>Write protection of page 28 to 31. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html#l00324">324</a> del archivo <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html">stm32f1xx_hal_flash_ex.h</a>.</p>
+
+</div>
+</div>
+<a id="ga023beeb4f60189ee0c5dd3c1ed866041" name="ga023beeb4f60189ee0c5dd3c1ed866041"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga023beeb4f60189ee0c5dd3c1ed866041">&#9670;&#160;</a></span>OB_WRP_PAGES32TO35</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define OB_WRP_PAGES32TO35&#160;&#160;&#160;0x00000100U</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__flash__ex_8h.html">stm32f1xx_hal_flash_ex.h</a>&quot;</code></p>
+
+<p>Write protection of page 32 to 35. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html#l00330">330</a> del archivo <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html">stm32f1xx_hal_flash_ex.h</a>.</p>
+
+</div>
+</div>
+<a id="ga06b1666694d0f9d172fcfac8ed630b87" name="ga06b1666694d0f9d172fcfac8ed630b87"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga06b1666694d0f9d172fcfac8ed630b87">&#9670;&#160;</a></span>OB_WRP_PAGES32TO63MASK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define OB_WRP_PAGES32TO63MASK&#160;&#160;&#160;0x0000FF00U</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__flash__ex_8h.html">stm32f1xx_hal_flash_ex.h</a>&quot;</code></p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html#l00409">409</a> del archivo <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html">stm32f1xx_hal_flash_ex.h</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html#l00762">FLASH_OB_DisableWRP()</a> y <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html#l00639">FLASH_OB_EnableWRP()</a>.</p>
+
+</div>
+</div>
+<a id="ga920ed55da0f143ff5af9c913066a5435" name="ga920ed55da0f143ff5af9c913066a5435"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga920ed55da0f143ff5af9c913066a5435">&#9670;&#160;</a></span>OB_WRP_PAGES36TO39</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define OB_WRP_PAGES36TO39&#160;&#160;&#160;0x00000200U</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__flash__ex_8h.html">stm32f1xx_hal_flash_ex.h</a>&quot;</code></p>
+
+<p>Write protection of page 36 to 39. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html#l00331">331</a> del archivo <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html">stm32f1xx_hal_flash_ex.h</a>.</p>
+
+</div>
+</div>
+<a id="ga71ed911429bfa1ddbd6eaff8481a048f" name="ga71ed911429bfa1ddbd6eaff8481a048f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga71ed911429bfa1ddbd6eaff8481a048f">&#9670;&#160;</a></span>OB_WRP_PAGES40TO43</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define OB_WRP_PAGES40TO43&#160;&#160;&#160;0x00000400U</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__flash__ex_8h.html">stm32f1xx_hal_flash_ex.h</a>&quot;</code></p>
+
+<p>Write protection of page 40 to 43. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html#l00332">332</a> del archivo <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html">stm32f1xx_hal_flash_ex.h</a>.</p>
+
+</div>
+</div>
+<a id="ga9a14faf28359873bd5a57674548ade1a" name="ga9a14faf28359873bd5a57674548ade1a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9a14faf28359873bd5a57674548ade1a">&#9670;&#160;</a></span>OB_WRP_PAGES44TO47</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define OB_WRP_PAGES44TO47&#160;&#160;&#160;0x00000800U</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__flash__ex_8h.html">stm32f1xx_hal_flash_ex.h</a>&quot;</code></p>
+
+<p>Write protection of page 44 to 47. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html#l00333">333</a> del archivo <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html">stm32f1xx_hal_flash_ex.h</a>.</p>
+
+</div>
+</div>
+<a id="gabc18100a63afe4f47f156231e7872ec6" name="gabc18100a63afe4f47f156231e7872ec6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gabc18100a63afe4f47f156231e7872ec6">&#9670;&#160;</a></span>OB_WRP_PAGES48TO51</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define OB_WRP_PAGES48TO51&#160;&#160;&#160;0x00001000U</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__flash__ex_8h.html">stm32f1xx_hal_flash_ex.h</a>&quot;</code></p>
+
+<p>Write protection of page 48 to 51. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html#l00334">334</a> del archivo <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html">stm32f1xx_hal_flash_ex.h</a>.</p>
+
+</div>
+</div>
+<a id="ga1d58cb74f104368e56326bfe9d6e6d27" name="ga1d58cb74f104368e56326bfe9d6e6d27"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga1d58cb74f104368e56326bfe9d6e6d27">&#9670;&#160;</a></span>OB_WRP_PAGES4TO7</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define OB_WRP_PAGES4TO7&#160;&#160;&#160;0x00000002U</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__flash__ex_8h.html">stm32f1xx_hal_flash_ex.h</a>&quot;</code></p>
+
+<p>Write protection of page 4 to 7. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html#l00318">318</a> del archivo <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html">stm32f1xx_hal_flash_ex.h</a>.</p>
+
+</div>
+</div>
+<a id="gaf9e9f42eacaac1b1fbd33d1b92de34bc" name="gaf9e9f42eacaac1b1fbd33d1b92de34bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf9e9f42eacaac1b1fbd33d1b92de34bc">&#9670;&#160;</a></span>OB_WRP_PAGES52TO55</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define OB_WRP_PAGES52TO55&#160;&#160;&#160;0x00002000U</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__flash__ex_8h.html">stm32f1xx_hal_flash_ex.h</a>&quot;</code></p>
+
+<p>Write protection of page 52 to 55. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html#l00335">335</a> del archivo <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html">stm32f1xx_hal_flash_ex.h</a>.</p>
+
+</div>
+</div>
+<a id="ga0eb36f24d5fee13c5e7a6b617ed30c36" name="ga0eb36f24d5fee13c5e7a6b617ed30c36"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga0eb36f24d5fee13c5e7a6b617ed30c36">&#9670;&#160;</a></span>OB_WRP_PAGES56TO59</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define OB_WRP_PAGES56TO59&#160;&#160;&#160;0x00004000U</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__flash__ex_8h.html">stm32f1xx_hal_flash_ex.h</a>&quot;</code></p>
+
+<p>Write protection of page 56 to 59. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html#l00336">336</a> del archivo <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html">stm32f1xx_hal_flash_ex.h</a>.</p>
+
+</div>
+</div>
+<a id="gaf3f1bedfb399e0f771fbbbfb2b3a7338" name="gaf3f1bedfb399e0f771fbbbfb2b3a7338"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf3f1bedfb399e0f771fbbbfb2b3a7338">&#9670;&#160;</a></span>OB_WRP_PAGES60TO63</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define OB_WRP_PAGES60TO63&#160;&#160;&#160;0x00008000U</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__flash__ex_8h.html">stm32f1xx_hal_flash_ex.h</a>&quot;</code></p>
+
+<p>Write protection of page 60 to 63. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html#l00337">337</a> del archivo <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html">stm32f1xx_hal_flash_ex.h</a>.</p>
+
+</div>
+</div>
+<a id="ga789f0bdc68c6592ab133d33d465628f4" name="ga789f0bdc68c6592ab133d33d465628f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga789f0bdc68c6592ab133d33d465628f4">&#9670;&#160;</a></span>OB_WRP_PAGES64TO67</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define OB_WRP_PAGES64TO67&#160;&#160;&#160;0x00010000U</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__flash__ex_8h.html">stm32f1xx_hal_flash_ex.h</a>&quot;</code></p>
+
+<p>Write protection of page 64 to 67. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html#l00338">338</a> del archivo <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html">stm32f1xx_hal_flash_ex.h</a>.</p>
+
+</div>
+</div>
+<a id="ga5441570333511e8236fb98c57f789637" name="ga5441570333511e8236fb98c57f789637"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5441570333511e8236fb98c57f789637">&#9670;&#160;</a></span>OB_WRP_PAGES64TO95MASK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define OB_WRP_PAGES64TO95MASK&#160;&#160;&#160;0x00FF0000U</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__flash__ex_8h.html">stm32f1xx_hal_flash_ex.h</a>&quot;</code></p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html#l00410">410</a> del archivo <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html">stm32f1xx_hal_flash_ex.h</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html#l00762">FLASH_OB_DisableWRP()</a> y <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html#l00639">FLASH_OB_EnableWRP()</a>.</p>
+
+</div>
+</div>
+<a id="ga0a29fd118f5c095b63d4c1f2e5eade6c" name="ga0a29fd118f5c095b63d4c1f2e5eade6c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga0a29fd118f5c095b63d4c1f2e5eade6c">&#9670;&#160;</a></span>OB_WRP_PAGES68TO71</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define OB_WRP_PAGES68TO71&#160;&#160;&#160;0x00020000U</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__flash__ex_8h.html">stm32f1xx_hal_flash_ex.h</a>&quot;</code></p>
+
+<p>Write protection of page 68 to 71. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html#l00339">339</a> del archivo <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html">stm32f1xx_hal_flash_ex.h</a>.</p>
+
+</div>
+</div>
+<a id="ga1ea64e0454920f4174967db73333cbb0" name="ga1ea64e0454920f4174967db73333cbb0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga1ea64e0454920f4174967db73333cbb0">&#9670;&#160;</a></span>OB_WRP_PAGES72TO75</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define OB_WRP_PAGES72TO75&#160;&#160;&#160;0x00040000U</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__flash__ex_8h.html">stm32f1xx_hal_flash_ex.h</a>&quot;</code></p>
+
+<p>Write protection of page 72 to 75. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html#l00340">340</a> del archivo <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html">stm32f1xx_hal_flash_ex.h</a>.</p>
+
+</div>
+</div>
+<a id="gacb2edc778fa8eb2cd2c42271be062ee0" name="gacb2edc778fa8eb2cd2c42271be062ee0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gacb2edc778fa8eb2cd2c42271be062ee0">&#9670;&#160;</a></span>OB_WRP_PAGES76TO79</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define OB_WRP_PAGES76TO79&#160;&#160;&#160;0x00080000U</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__flash__ex_8h.html">stm32f1xx_hal_flash_ex.h</a>&quot;</code></p>
+
+<p>Write protection of page 76 to 79. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html#l00341">341</a> del archivo <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html">stm32f1xx_hal_flash_ex.h</a>.</p>
+
+</div>
+</div>
+<a id="ga2e6ea50c77c156ed7db98bb3eb9b37f2" name="ga2e6ea50c77c156ed7db98bb3eb9b37f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2e6ea50c77c156ed7db98bb3eb9b37f2">&#9670;&#160;</a></span>OB_WRP_PAGES80TO83</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define OB_WRP_PAGES80TO83&#160;&#160;&#160;0x00100000U</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__flash__ex_8h.html">stm32f1xx_hal_flash_ex.h</a>&quot;</code></p>
+
+<p>Write protection of page 80 to 83. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html#l00342">342</a> del archivo <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html">stm32f1xx_hal_flash_ex.h</a>.</p>
+
+</div>
+</div>
+<a id="gab3a8de0a6437e794bacf779c24c808c2" name="gab3a8de0a6437e794bacf779c24c808c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab3a8de0a6437e794bacf779c24c808c2">&#9670;&#160;</a></span>OB_WRP_PAGES84TO87</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define OB_WRP_PAGES84TO87&#160;&#160;&#160;0x00200000U</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__flash__ex_8h.html">stm32f1xx_hal_flash_ex.h</a>&quot;</code></p>
+
+<p>Write protection of page 84 to 87. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html#l00343">343</a> del archivo <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html">stm32f1xx_hal_flash_ex.h</a>.</p>
+
+</div>
+</div>
+<a id="ga2b5387224bd86b0fbb0b5b9aac44e4ac" name="ga2b5387224bd86b0fbb0b5b9aac44e4ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2b5387224bd86b0fbb0b5b9aac44e4ac">&#9670;&#160;</a></span>OB_WRP_PAGES88TO91</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define OB_WRP_PAGES88TO91&#160;&#160;&#160;0x00400000U</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__flash__ex_8h.html">stm32f1xx_hal_flash_ex.h</a>&quot;</code></p>
+
+<p>Write protection of page 88 to 91. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html#l00344">344</a> del archivo <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html">stm32f1xx_hal_flash_ex.h</a>.</p>
+
+</div>
+</div>
+<a id="gaf7327bb020eefac05c350aeadd1716e9" name="gaf7327bb020eefac05c350aeadd1716e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf7327bb020eefac05c350aeadd1716e9">&#9670;&#160;</a></span>OB_WRP_PAGES8TO11</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define OB_WRP_PAGES8TO11&#160;&#160;&#160;0x00000004U</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__flash__ex_8h.html">stm32f1xx_hal_flash_ex.h</a>&quot;</code></p>
+
+<p>Write protection of page 8 to 11. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html#l00319">319</a> del archivo <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html">stm32f1xx_hal_flash_ex.h</a>.</p>
+
+</div>
+</div>
+<a id="ga7ec3f70e5450435035ef19fb54118189" name="ga7ec3f70e5450435035ef19fb54118189"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7ec3f70e5450435035ef19fb54118189">&#9670;&#160;</a></span>OB_WRP_PAGES92TO95</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define OB_WRP_PAGES92TO95&#160;&#160;&#160;0x00800000U</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__flash__ex_8h.html">stm32f1xx_hal_flash_ex.h</a>&quot;</code></p>
+
+<p>Write protection of page 92 to 95. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html#l00345">345</a> del archivo <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html">stm32f1xx_hal_flash_ex.h</a>.</p>
+
+</div>
+</div>
+<a id="gaf30804e3b3595154330088860516f539" name="gaf30804e3b3595154330088860516f539"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf30804e3b3595154330088860516f539">&#9670;&#160;</a></span>OB_WRP_PAGES96TO127MASK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define OB_WRP_PAGES96TO127MASK&#160;&#160;&#160;0xFF000000U</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__flash__ex_8h.html">stm32f1xx_hal_flash_ex.h</a>&quot;</code></p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html#l00411">411</a> del archivo <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html">stm32f1xx_hal_flash_ex.h</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html#l00762">FLASH_OB_DisableWRP()</a> y <a class="el" href="stm32f1xx__hal__flash__ex_8c_source.html#l00639">FLASH_OB_EnableWRP()</a>.</p>
+
+</div>
+</div>
+<a id="ga961a807d1721eaf2f019bcbfbcd7d122" name="ga961a807d1721eaf2f019bcbfbcd7d122"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga961a807d1721eaf2f019bcbfbcd7d122">&#9670;&#160;</a></span>OB_WRP_PAGES96TO99</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define OB_WRP_PAGES96TO99&#160;&#160;&#160;0x01000000U</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__flash__ex_8h.html">stm32f1xx_hal_flash_ex.h</a>&quot;</code></p>
+
+<p>Write protection of page 96 to 99. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html#l00346">346</a> del archivo <a class="el" href="stm32f1xx__hal__flash__ex_8h_source.html">stm32f1xx_hal_flash_ex.h</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generado el <span class="timestamp"></span> para MICRO-Firmware por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

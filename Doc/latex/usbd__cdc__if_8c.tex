@@ -1,0 +1,63 @@
+\doxysubsection{Referencia del archivo usbd\+\_\+cdc\+\_\+if.\+c}
+\hypertarget{usbd__cdc__if_8c}{}\label{usbd__cdc__if_8c}\index{usbd\_cdc\_if.c@{usbd\_cdc\_if.c}}
+
+
+: Usb device for Virtual Com Port.  
+
+
+{\ttfamily \+\#include "{}usbd\+\_\+cdc\+\_\+if.\+h"{}}\newline
+Gráfico de dependencias incluidas en usbd\+\_\+cdc\+\_\+if.\+c:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{usbd__cdc__if_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsubsection*{Funciones}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f_ga5f6e89de6e72d5c63eef973c7a288f04}{CDC\+\_\+\+Attach\+\_\+\+Rx}} (void(\texorpdfstring{$\ast$}{*}Ptr\+Rx)(uint8\+\_\+t \texorpdfstring{$\ast$}{*}buf, uint32\+\_\+t Len))
+\item 
+static int8\+\_\+t \doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f___private___function_prototypes_ga617e289cd860bc4c6831e01c7f2893a2}{CDC\+\_\+\+Control\+\_\+\+FS}} (uint8\+\_\+t cmd, uint8\+\_\+t \texorpdfstring{$\ast$}{*}pbuf, uint16\+\_\+t length)
+\begin{DoxyCompactList}\small\item\em Manage the CDC class requests. \end{DoxyCompactList}\item 
+static int8\+\_\+t \doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f___private___function_prototypes_ga3aaa6d7ac8cd77d9aed892348d83a8a8}{CDC\+\_\+\+De\+Init\+\_\+\+FS}} (void)
+\begin{DoxyCompactList}\small\item\em De\+Initializes the CDC media low layer. \end{DoxyCompactList}\item 
+static int8\+\_\+t \doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f___private___function_prototypes_ga400c7977253a3ee946cf2a1197bc940d}{CDC\+\_\+\+Init\+\_\+\+FS}} (void)
+\begin{DoxyCompactList}\small\item\em Initializes the CDC media low layer over the FS USB IP. \end{DoxyCompactList}\item 
+static int8\+\_\+t \doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f___private___function_prototypes_ga89250023659c1f485873b20514959f0a}{CDC\+\_\+\+Receive\+\_\+\+FS}} (uint8\+\_\+t \texorpdfstring{$\ast$}{*}Buf, uint32\+\_\+t \texorpdfstring{$\ast$}{*}Len)
+\begin{DoxyCompactList}\small\item\em Data received over USB OUT endpoint are sent over CDC interface through this function. \end{DoxyCompactList}\item 
+uint8\+\_\+t \doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f_ga5137d6201dbdef2bf351c5b4941c24f4}{CDC\+\_\+\+Transmit\+\_\+\+FS}} (uint8\+\_\+t \texorpdfstring{$\ast$}{*}Buf, uint16\+\_\+t Len)
+\begin{DoxyCompactList}\small\item\em CDC\+\_\+\+Transmit\+\_\+\+FS Data to send over USB IN endpoint are sent over CDC interface through this function. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{group___u_s_b_d___d_e_f___exported___types_definitions_ga08827834e2e564cea191282b65ce06f7}{USBD\+\_\+\+Handle\+Type\+Def}} \doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f___exported___variables_gafe8a2d9e10b33d5e7906f9f04f95358e}{h\+Usb\+Device\+FS}}
+\item 
+\doxymbox{\hyperlink{struct_u_s_b_d___c_d_c___line_coding_type_def}{USBD\+\_\+\+CDC\+\_\+\+Line\+Coding\+Type\+Def}} \doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f___private___variables_gae3a3c94208e83963003dd17497952344}{Line\+Coding}}
+\item 
+static void(\texorpdfstring{$\ast$}{*}) \doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f___private___variables_ga249341bc16b465a55f87efa56839efcb}{My\+Ptr\+Rx}} (uint8\+\_\+t \texorpdfstring{$\ast$}{*}buf, uint32\+\_\+t Len)=0U
+\item 
+\doxymbox{\hyperlink{group__usbd__cdc_ga61c7c06f80adff14be2358af5e6971f4}{USBD\+\_\+\+CDC\+\_\+\+Itf\+Type\+Def}} \doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f_ga99394ed19b774f171df96c2848c411ed}{USBD\+\_\+\+Interface\+\_\+fops\+\_\+\+FS}}
+\begin{DoxyCompactList}\small\item\em CDC Interface callback. \end{DoxyCompactList}\item 
+uint8\+\_\+t \doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f___private___variables_ga2e85d51c3cc8ebdcb70f1428efc09ff2}{User\+Rx\+Buffer\+FS}} \+[1024]
+\begin{DoxyCompactList}\small\item\em Received data over USB are stored in this buffer. \end{DoxyCompactList}\item 
+uint8\+\_\+t \doxymbox{\hyperlink{group___u_s_b_d___c_d_c___i_f___private___variables_ga373c85fcb2972f31bdf4d9ae5d403250}{User\+Tx\+Buffer\+FS}} \+[1024]
+\begin{DoxyCompactList}\small\item\em Data to send over USB CDC are stored in this buffer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Descripción detallada}
+: Usb device for Virtual Com Port. 
+
+\begin{DoxyVersion}{Versión}
+: v1.\+0\+\_\+\+Cube 
+\end{DoxyVersion}
+\begin{DoxyAttention}{Atención}
+
+\end{DoxyAttention}
+Copyright (c) 2025 STMicroelectronics. All rights reserved.
+
+This software is licensed under terms that can be found in the LICENSE file in the root directory of this software component. If no LICENSE file comes with this software, it is provided AS-\/\+IS. 
+
+Definición en el archivo \doxymbox{\hyperlink{usbd__cdc__if_8c_source}{usbd\+\_\+cdc\+\_\+if.\+c}}.
+

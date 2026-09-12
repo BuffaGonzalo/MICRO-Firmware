@@ -1,0 +1,1038 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>MICRO-Firmware: ADC flag management</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="codefolding.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  extensions: ["tex2jax.js"],
+  jax: ["input/TeX","output/HTML-CSS"],
+});
+</script>
+<script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">MICRO-Firmware<span id="projectnumber">&#160;EX100923v01</span>
+   </div>
+   <div id="projectbrief">Firmware de Péndulo Invertido Autónomo de Dos Ruedas (STM32F103C8T6 - ARM Cortex-M3)</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Buscar" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('group___a_d_c___l_l___e_f___f_l_a_g___management.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">ADC flag management <div class="ingroups"><a class="el" href="group___s_t_m32_f1xx___l_l___driver.html">STM32F1xx_LL_Driver</a> &raquo; <a class="el" href="group___a_d_c___l_l.html">ADC</a> &raquo; <a class="el" href="group___a_d_c___l_l___exported___functions.html">ADC Exported Functions</a></div></div></div>
+</div><!--header-->
+<div class="contents">
+<div id="dynsection-0" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Diagrama de colaboración de ADC flag management:</div>
+<div id="dynsection-0-summary" class="dynsummary">
+</div>
+<div id="dynsection-0-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___a_d_c___l_l___e_f___f_l_a_g___management.svg" width="380" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Funciones</h2></td></tr>
+<tr class="memitem:gabbeb999175c1665ca17d5758a0f53dd7" id="r_gabbeb999175c1665ca17d5758a0f53dd7"><td class="memItemLeft">static __inline void&#160;</td><td class="memItemRight"><a class="el" href="#gabbeb999175c1665ca17d5758a0f53dd7">LL_ADC_ClearFlag_AWD1</a> (<a class="el" href="struct_a_d_c___type_def.html">ADC_TypeDef</a> *ADCx)</td></tr>
+<tr class="memdesc:gabbeb999175c1665ca17d5758a0f53dd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear flag ADC analog watchdog 1.  <br /></td></tr>
+<tr class="memitem:ga061744e003e2016e00541cbc1fdc7914" id="r_ga061744e003e2016e00541cbc1fdc7914"><td class="memItemLeft">static __inline void&#160;</td><td class="memItemRight"><a class="el" href="#ga061744e003e2016e00541cbc1fdc7914">LL_ADC_ClearFlag_EOS</a> (<a class="el" href="struct_a_d_c___type_def.html">ADC_TypeDef</a> *ADCx)</td></tr>
+<tr class="memdesc:ga061744e003e2016e00541cbc1fdc7914"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear flag ADC group regular end of sequence conversions.  <br /></td></tr>
+<tr class="memitem:ga812e13f101a359baf3169173fe4c277d" id="r_ga812e13f101a359baf3169173fe4c277d"><td class="memItemLeft">static __inline void&#160;</td><td class="memItemRight"><a class="el" href="#ga812e13f101a359baf3169173fe4c277d">LL_ADC_ClearFlag_JEOS</a> (<a class="el" href="struct_a_d_c___type_def.html">ADC_TypeDef</a> *ADCx)</td></tr>
+<tr class="memdesc:ga812e13f101a359baf3169173fe4c277d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear flag ADC group injected end of sequence conversions.  <br /></td></tr>
+<tr class="memitem:ga6b89709482dcf2f0ce0c3384938f3e30" id="r_ga6b89709482dcf2f0ce0c3384938f3e30"><td class="memItemLeft">static __inline uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ga6b89709482dcf2f0ce0c3384938f3e30">LL_ADC_IsActiveFlag_AWD1</a> (<a class="el" href="struct_a_d_c___type_def.html">ADC_TypeDef</a> *ADCx)</td></tr>
+<tr class="memdesc:ga6b89709482dcf2f0ce0c3384938f3e30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get flag ADC analog watchdog 1 flag @rmtoll SR AWD LL_ADC_IsActiveFlag_AWD1.  <br /></td></tr>
+<tr class="memitem:ga02b39d5bc11cbf08dfde9dbd4a177952" id="r_ga02b39d5bc11cbf08dfde9dbd4a177952"><td class="memItemLeft">static __inline uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ga02b39d5bc11cbf08dfde9dbd4a177952">LL_ADC_IsActiveFlag_EOS</a> (<a class="el" href="struct_a_d_c___type_def.html">ADC_TypeDef</a> *ADCx)</td></tr>
+<tr class="memdesc:ga02b39d5bc11cbf08dfde9dbd4a177952"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get flag ADC group regular end of sequence conversions.  <br /></td></tr>
+<tr class="memitem:gad8880ef56e09b99fbe1cd202881f830a" id="r_gad8880ef56e09b99fbe1cd202881f830a"><td class="memItemLeft">static __inline uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#gad8880ef56e09b99fbe1cd202881f830a">LL_ADC_IsActiveFlag_JEOS</a> (<a class="el" href="struct_a_d_c___type_def.html">ADC_TypeDef</a> *ADCx)</td></tr>
+<tr class="memdesc:gad8880ef56e09b99fbe1cd202881f830a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get flag ADC group injected end of sequence conversions.  <br /></td></tr>
+<tr class="memitem:gaaf2fa9be8336831202b8de903b5c6103" id="r_gaaf2fa9be8336831202b8de903b5c6103"><td class="memItemLeft">static __inline uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#gaaf2fa9be8336831202b8de903b5c6103">LL_ADC_IsActiveFlag_MST_AWD1</a> (<a class="el" href="struct_a_d_c___common___type_def.html">ADC_Common_TypeDef</a> *ADCxy_COMMON)</td></tr>
+<tr class="memdesc:gaaf2fa9be8336831202b8de903b5c6103"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get flag multimode ADC analog watchdog 1 of the ADC master.  <br /></td></tr>
+<tr class="memitem:ga4b438eda91d61dcbf77b30097ccd2d09" id="r_ga4b438eda91d61dcbf77b30097ccd2d09"><td class="memItemLeft">static __inline uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ga4b438eda91d61dcbf77b30097ccd2d09">LL_ADC_IsActiveFlag_MST_EOS</a> (<a class="el" href="struct_a_d_c___common___type_def.html">ADC_Common_TypeDef</a> *ADCxy_COMMON)</td></tr>
+<tr class="memdesc:ga4b438eda91d61dcbf77b30097ccd2d09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get flag multimode ADC group regular end of sequence conversions of the ADC master.  <br /></td></tr>
+<tr class="memitem:ga4eed82db8d93fff1b5daec0a922fe2f6" id="r_ga4eed82db8d93fff1b5daec0a922fe2f6"><td class="memItemLeft">static __inline uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ga4eed82db8d93fff1b5daec0a922fe2f6">LL_ADC_IsActiveFlag_MST_JEOS</a> (<a class="el" href="struct_a_d_c___common___type_def.html">ADC_Common_TypeDef</a> *ADCxy_COMMON)</td></tr>
+<tr class="memdesc:ga4eed82db8d93fff1b5daec0a922fe2f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get flag multimode ADC group injected end of sequence conversions of the ADC master.  <br /></td></tr>
+<tr class="memitem:ga1af2f874a1e2fab7ffe87638900dc5e0" id="r_ga1af2f874a1e2fab7ffe87638900dc5e0"><td class="memItemLeft">static __inline uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ga1af2f874a1e2fab7ffe87638900dc5e0">LL_ADC_IsActiveFlag_SLV_AWD1</a> (<a class="el" href="struct_a_d_c___common___type_def.html">ADC_Common_TypeDef</a> *ADCxy_COMMON)</td></tr>
+<tr class="memdesc:ga1af2f874a1e2fab7ffe87638900dc5e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get flag multimode analog watchdog 1 of the ADC slave.  <br /></td></tr>
+<tr class="memitem:ga11efc34634f9087e45e9f44af292e87b" id="r_ga11efc34634f9087e45e9f44af292e87b"><td class="memItemLeft">static __inline uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ga11efc34634f9087e45e9f44af292e87b">LL_ADC_IsActiveFlag_SLV_EOS</a> (<a class="el" href="struct_a_d_c___common___type_def.html">ADC_Common_TypeDef</a> *ADCxy_COMMON)</td></tr>
+<tr class="memdesc:ga11efc34634f9087e45e9f44af292e87b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get flag multimode ADC group regular end of sequence conversions of the ADC slave.  <br /></td></tr>
+<tr class="memitem:ga26686763afb38c59d1d4bb9f0e867220" id="r_ga26686763afb38c59d1d4bb9f0e867220"><td class="memItemLeft">static __inline uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ga26686763afb38c59d1d4bb9f0e867220">LL_ADC_IsActiveFlag_SLV_JEOS</a> (<a class="el" href="struct_a_d_c___common___type_def.html">ADC_Common_TypeDef</a> *ADCxy_COMMON)</td></tr>
+<tr class="memdesc:ga26686763afb38c59d1d4bb9f0e867220"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get flag multimode ADC group injected end of sequence conversions of the ADC slave.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Descripción detallada</h2>
+<div class="textblock"></div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Documentación de funciones</h2>
+<a id="gabbeb999175c1665ca17d5758a0f53dd7" name="gabbeb999175c1665ca17d5758a0f53dd7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gabbeb999175c1665ca17d5758a0f53dd7">&#9670;&#160;</a></span>LL_ADC_ClearFlag_AWD1()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline void LL_ADC_ClearFlag_AWD1 </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_a_d_c___type_def.html">ADC_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>ADCx</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__adc_8h.html">stm32f1xx_ll_adc.h</a>&quot;</code></p>
+
+<p>Clear flag ADC analog watchdog 1. </p>
+<p>@rmtoll SR AWD LL_ADC_ClearFlag_AWD1 </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ADCx</td><td>ADC instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; 0x00000001</p>
+<p>&lt; ADC analog watchdog 1 flag</p>
+<p>&lt; ADC flag ADC analog watchdog 1</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__adc_8h_source.html#l03634">3634</a> del archivo <a class="el" href="stm32f1xx__ll__adc_8h_source.html">stm32f1xx_ll_adc.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3635</span>{</div>
+<div class="line"><span class="lineno"> 3636</span>  <a class="code hl_define" href="group___exported__macros.html#ga32f78bffcaf6d13023dcd7f05e0c4d57">WRITE_REG</a>(ADCx-&gt;<a class="code hl_variable" href="struct_a_d_c___type_def.html#a0c1b55bc0f0e5157ceffa52545ee6bcd">SR</a>, ~<a class="code hl_define" href="group___a_d_c___l_l___e_c___f_l_a_g.html#gacb7440f3b658b2628e340655b099f868">LL_ADC_FLAG_AWD1</a>);</div>
+<div class="line"><span class="lineno"> 3637</span>}</div>
+<div class="ttc" id="agroup___a_d_c___l_l___e_c___f_l_a_g_html_gacb7440f3b658b2628e340655b099f868"><div class="ttname"><a href="group___a_d_c___l_l___e_c___f_l_a_g.html#gacb7440f3b658b2628e340655b099f868">LL_ADC_FLAG_AWD1</a></div><div class="ttdeci">#define LL_ADC_FLAG_AWD1</div><div class="ttdoc">ADC flag ADC analog watchdog 1.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__ll__adc_8h_source.html#l00413">stm32f1xx_ll_adc.h:413</a></div></div>
+<div class="ttc" id="agroup___exported__macros_html_ga32f78bffcaf6d13023dcd7f05e0c4d57"><div class="ttname"><a href="group___exported__macros.html#ga32f78bffcaf6d13023dcd7f05e0c4d57">WRITE_REG</a></div><div class="ttdeci">#define WRITE_REG(REG, VAL)</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx_8h_source.html#l00185">stm32f1xx.h:185</a></div></div>
+<div class="ttc" id="astruct_a_d_c___type_def_html_a0c1b55bc0f0e5157ceffa52545ee6bcd"><div class="ttname"><a href="struct_a_d_c___type_def.html#a0c1b55bc0f0e5157ceffa52545ee6bcd">ADC_TypeDef::SR</a></div><div class="ttdeci">volatile uint32_t SR</div><div class="ttdoc">&lt; Defines &#39;read / write&#39; permissions</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l00145">stm32f103xb.h:145</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__ll__adc_8h_source.html#l03634">LL_ADC_ClearFlag_AWD1()</a>, <a class="el" href="stm32f1xx__ll__adc_8h_source.html#l00413">LL_ADC_FLAG_AWD1</a>, <a class="el" href="stm32f103xb_8h_source.html#l00145">ADC_TypeDef::SR</a> y <a class="el" href="stm32f1xx_8h_source.html#l00185">WRITE_REG</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__adc_8h_source.html#l03634">LL_ADC_ClearFlag_AWD1()</a>.</p>
+<div id="dynsection-1" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-1-summary" class="dynsummary">
+</div>
+<div id="dynsection-1-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___a_d_c___l_l___e_f___f_l_a_g___management_gabbeb999175c1665ca17d5758a0f53dd7_cgraph.svg" width="191" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-2" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-2-summary" class="dynsummary">
+</div>
+<div id="dynsection-2-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___a_d_c___l_l___e_f___f_l_a_g___management_gabbeb999175c1665ca17d5758a0f53dd7_icgraph.svg" width="191" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ga061744e003e2016e00541cbc1fdc7914" name="ga061744e003e2016e00541cbc1fdc7914"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga061744e003e2016e00541cbc1fdc7914">&#9670;&#160;</a></span>LL_ADC_ClearFlag_EOS()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline void LL_ADC_ClearFlag_EOS </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_a_d_c___type_def.html">ADC_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>ADCx</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__adc_8h.html">stm32f1xx_ll_adc.h</a>&quot;</code></p>
+
+<p>Clear flag ADC group regular end of sequence conversions. </p>
+<p>@rmtoll SR EOC LL_ADC_ClearFlag_EOS </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ADCx</td><td>ADC instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; 0x00000002</p>
+<p>&lt; ADC group regular end of sequence conversions flag</p>
+<p>&lt; ADC flag ADC group regular end of sequence conversions (Note: on this STM32 series, there is no flag ADC group regular end of unitary conversion. Flag noted as "EOC" is corresponding to flag "EOS" in other STM32 families)</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__adc_8h_source.html#l03603">3603</a> del archivo <a class="el" href="stm32f1xx__ll__adc_8h_source.html">stm32f1xx_ll_adc.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3604</span>{</div>
+<div class="line"><span class="lineno"> 3605</span>  <span class="comment">/* Note: on this STM32 series, there is no flag ADC group regular           */</span></div>
+<div class="line"><span class="lineno"> 3606</span>  <span class="comment">/*       end of unitary conversion.                                         */</span></div>
+<div class="line"><span class="lineno"> 3607</span>  <span class="comment">/*       Flag noted as &quot;EOC&quot; is corresponding to flag &quot;EOS&quot;                 */</span></div>
+<div class="line"><span class="lineno"> 3608</span>  <span class="comment">/*       in other STM32 families).                                          */</span></div>
+<div class="line"><span class="lineno"> 3609</span>  <a class="code hl_define" href="group___exported__macros.html#ga32f78bffcaf6d13023dcd7f05e0c4d57">WRITE_REG</a>(ADCx-&gt;<a class="code hl_variable" href="struct_a_d_c___type_def.html#a0c1b55bc0f0e5157ceffa52545ee6bcd">SR</a>, ~<a class="code hl_define" href="group___a_d_c___l_l___e_c___f_l_a_g.html#ga769f70361a80b7d226dc8c81f2919b27">LL_ADC_FLAG_EOS</a>);</div>
+<div class="line"><span class="lineno"> 3610</span>}</div>
+<div class="ttc" id="agroup___a_d_c___l_l___e_c___f_l_a_g_html_ga769f70361a80b7d226dc8c81f2919b27"><div class="ttname"><a href="group___a_d_c___l_l___e_c___f_l_a_g.html#ga769f70361a80b7d226dc8c81f2919b27">LL_ADC_FLAG_EOS</a></div><div class="ttdeci">#define LL_ADC_FLAG_EOS</div><div class="ttdoc">ADC flag ADC group regular end of sequence conversions (Note: on this STM32 series,...</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__ll__adc_8h_source.html#l00410">stm32f1xx_ll_adc.h:410</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__ll__adc_8h_source.html#l03603">LL_ADC_ClearFlag_EOS()</a>, <a class="el" href="stm32f1xx__ll__adc_8h_source.html#l00410">LL_ADC_FLAG_EOS</a>, <a class="el" href="stm32f103xb_8h_source.html#l00145">ADC_TypeDef::SR</a> y <a class="el" href="stm32f1xx_8h_source.html#l00185">WRITE_REG</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__adc_8h_source.html#l03603">LL_ADC_ClearFlag_EOS()</a>.</p>
+<div id="dynsection-3" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-3-summary" class="dynsummary">
+</div>
+<div id="dynsection-3-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___a_d_c___l_l___e_f___f_l_a_g___management_ga061744e003e2016e00541cbc1fdc7914_cgraph.svg" width="180" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-4" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-4-summary" class="dynsummary">
+</div>
+<div id="dynsection-4-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___a_d_c___l_l___e_f___f_l_a_g___management_ga061744e003e2016e00541cbc1fdc7914_icgraph.svg" width="180" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ga812e13f101a359baf3169173fe4c277d" name="ga812e13f101a359baf3169173fe4c277d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga812e13f101a359baf3169173fe4c277d">&#9670;&#160;</a></span>LL_ADC_ClearFlag_JEOS()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline void LL_ADC_ClearFlag_JEOS </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_a_d_c___type_def.html">ADC_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>ADCx</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__adc_8h.html">stm32f1xx_ll_adc.h</a>&quot;</code></p>
+
+<p>Clear flag ADC group injected end of sequence conversions. </p>
+<p>@rmtoll SR JEOC LL_ADC_ClearFlag_JEOS </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ADCx</td><td>ADC instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; 0x00000004</p>
+<p>&lt; ADC group injected end of sequence conversions flag</p>
+<p>&lt; ADC flag ADC group injected end of sequence conversions (Note: on this STM32 series, there is no flag ADC group injected end of unitary conversion. Flag noted as "JEOC" is corresponding to flag "JEOS" in other STM32 families)</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__adc_8h_source.html#l03619">3619</a> del archivo <a class="el" href="stm32f1xx__ll__adc_8h_source.html">stm32f1xx_ll_adc.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3620</span>{</div>
+<div class="line"><span class="lineno"> 3621</span>  <span class="comment">/* Note: on this STM32 series, there is no flag ADC group injected          */</span></div>
+<div class="line"><span class="lineno"> 3622</span>  <span class="comment">/*       end of unitary conversion.                                         */</span></div>
+<div class="line"><span class="lineno"> 3623</span>  <span class="comment">/*       Flag noted as &quot;JEOC&quot; is corresponding to flag &quot;JEOS&quot;               */</span></div>
+<div class="line"><span class="lineno"> 3624</span>  <span class="comment">/*       in other STM32 families).                                          */</span></div>
+<div class="line"><span class="lineno"> 3625</span>  <a class="code hl_define" href="group___exported__macros.html#ga32f78bffcaf6d13023dcd7f05e0c4d57">WRITE_REG</a>(ADCx-&gt;<a class="code hl_variable" href="struct_a_d_c___type_def.html#a0c1b55bc0f0e5157ceffa52545ee6bcd">SR</a>, ~<a class="code hl_define" href="group___a_d_c___l_l___e_c___f_l_a_g.html#ga2554751824e0d4697fbaaf650d3daa59">LL_ADC_FLAG_JEOS</a>);</div>
+<div class="line"><span class="lineno"> 3626</span>}</div>
+<div class="ttc" id="agroup___a_d_c___l_l___e_c___f_l_a_g_html_ga2554751824e0d4697fbaaf650d3daa59"><div class="ttname"><a href="group___a_d_c___l_l___e_c___f_l_a_g.html#ga2554751824e0d4697fbaaf650d3daa59">LL_ADC_FLAG_JEOS</a></div><div class="ttdeci">#define LL_ADC_FLAG_JEOS</div><div class="ttdoc">ADC flag ADC group injected end of sequence conversions (Note: on this STM32 series,...</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__ll__adc_8h_source.html#l00412">stm32f1xx_ll_adc.h:412</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__ll__adc_8h_source.html#l03619">LL_ADC_ClearFlag_JEOS()</a>, <a class="el" href="stm32f1xx__ll__adc_8h_source.html#l00412">LL_ADC_FLAG_JEOS</a>, <a class="el" href="stm32f103xb_8h_source.html#l00145">ADC_TypeDef::SR</a> y <a class="el" href="stm32f1xx_8h_source.html#l00185">WRITE_REG</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__adc_8h_source.html#l03619">LL_ADC_ClearFlag_JEOS()</a>.</p>
+<div id="dynsection-5" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-5-summary" class="dynsummary">
+</div>
+<div id="dynsection-5-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___a_d_c___l_l___e_f___f_l_a_g___management_ga812e13f101a359baf3169173fe4c277d_cgraph.svg" width="187" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-6" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-6-summary" class="dynsummary">
+</div>
+<div id="dynsection-6-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___a_d_c___l_l___e_f___f_l_a_g___management_ga812e13f101a359baf3169173fe4c277d_icgraph.svg" width="187" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ga6b89709482dcf2f0ce0c3384938f3e30" name="ga6b89709482dcf2f0ce0c3384938f3e30"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6b89709482dcf2f0ce0c3384938f3e30">&#9670;&#160;</a></span>LL_ADC_IsActiveFlag_AWD1()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline uint32_t LL_ADC_IsActiveFlag_AWD1 </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_a_d_c___type_def.html">ADC_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>ADCx</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__adc_8h.html">stm32f1xx_ll_adc.h</a>&quot;</code></p>
+
+<p>Get flag ADC analog watchdog 1 flag @rmtoll SR AWD LL_ADC_IsActiveFlag_AWD1. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ADCx</td><td>ADC instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">State</td><td>of bit (1 or 0). </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; 0x00000001</p>
+<p>&lt; ADC analog watchdog 1 flag</p>
+<p>&lt; ADC flag ADC analog watchdog 1</p>
+<p>&lt; 0x00000001</p>
+<p>&lt; ADC analog watchdog 1 flag</p>
+<p>&lt; ADC flag ADC analog watchdog 1</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__adc_8h_source.html#l03592">3592</a> del archivo <a class="el" href="stm32f1xx__ll__adc_8h_source.html">stm32f1xx_ll_adc.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3593</span>{</div>
+<div class="line"><span class="lineno"> 3594</span>  <span class="keywordflow">return</span> (<a class="code hl_define" href="group___exported__macros.html#ga822bb1bb9710d5f2fa6396b84e583c33">READ_BIT</a>(ADCx-&gt;<a class="code hl_variable" href="struct_a_d_c___type_def.html#a0c1b55bc0f0e5157ceffa52545ee6bcd">SR</a>, <a class="code hl_define" href="group___a_d_c___l_l___e_c___f_l_a_g.html#gacb7440f3b658b2628e340655b099f868">LL_ADC_FLAG_AWD1</a>) == (<a class="code hl_define" href="group___a_d_c___l_l___e_c___f_l_a_g.html#gacb7440f3b658b2628e340655b099f868">LL_ADC_FLAG_AWD1</a>));</div>
+<div class="line"><span class="lineno"> 3595</span>}</div>
+<div class="ttc" id="agroup___exported__macros_html_ga822bb1bb9710d5f2fa6396b84e583c33"><div class="ttname"><a href="group___exported__macros.html#ga822bb1bb9710d5f2fa6396b84e583c33">READ_BIT</a></div><div class="ttdeci">#define READ_BIT(REG, BIT)</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx_8h_source.html#l00181">stm32f1xx.h:181</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__ll__adc_8h_source.html#l00413">LL_ADC_FLAG_AWD1</a>, <a class="el" href="stm32f1xx__ll__adc_8h_source.html#l03592">LL_ADC_IsActiveFlag_AWD1()</a>, <a class="el" href="stm32f1xx_8h_source.html#l00181">READ_BIT</a> y <a class="el" href="stm32f103xb_8h_source.html#l00145">ADC_TypeDef::SR</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__adc_8h_source.html#l03592">LL_ADC_IsActiveFlag_AWD1()</a>.</p>
+<div id="dynsection-7" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-7-summary" class="dynsummary">
+</div>
+<div id="dynsection-7-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___a_d_c___l_l___e_f___f_l_a_g___management_ga6b89709482dcf2f0ce0c3384938f3e30_cgraph.svg" width="207" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-8" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-8-summary" class="dynsummary">
+</div>
+<div id="dynsection-8-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___a_d_c___l_l___e_f___f_l_a_g___management_ga6b89709482dcf2f0ce0c3384938f3e30_icgraph.svg" width="207" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ga02b39d5bc11cbf08dfde9dbd4a177952" name="ga02b39d5bc11cbf08dfde9dbd4a177952"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga02b39d5bc11cbf08dfde9dbd4a177952">&#9670;&#160;</a></span>LL_ADC_IsActiveFlag_EOS()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline uint32_t LL_ADC_IsActiveFlag_EOS </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_a_d_c___type_def.html">ADC_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>ADCx</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__adc_8h.html">stm32f1xx_ll_adc.h</a>&quot;</code></p>
+
+<p>Get flag ADC group regular end of sequence conversions. </p>
+<p>@rmtoll SR EOC LL_ADC_IsActiveFlag_EOS </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ADCx</td><td>ADC instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">State</td><td>of bit (1 or 0). </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; 0x00000002</p>
+<p>&lt; ADC group regular end of sequence conversions flag</p>
+<p>&lt; ADC flag ADC group regular end of sequence conversions (Note: on this STM32 series, there is no flag ADC group regular end of unitary conversion. Flag noted as "EOC" is corresponding to flag "EOS" in other STM32 families)</p>
+<p>&lt; 0x00000002</p>
+<p>&lt; ADC group regular end of sequence conversions flag</p>
+<p>&lt; ADC flag ADC group regular end of sequence conversions (Note: on this STM32 series, there is no flag ADC group regular end of unitary conversion. Flag noted as "EOC" is corresponding to flag "EOS" in other STM32 families)</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__adc_8h_source.html#l03561">3561</a> del archivo <a class="el" href="stm32f1xx__ll__adc_8h_source.html">stm32f1xx_ll_adc.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3562</span>{</div>
+<div class="line"><span class="lineno"> 3563</span>  <span class="comment">/* Note: on this STM32 series, there is no flag ADC group regular           */</span></div>
+<div class="line"><span class="lineno"> 3564</span>  <span class="comment">/*       end of unitary conversion.                                         */</span></div>
+<div class="line"><span class="lineno"> 3565</span>  <span class="comment">/*       Flag noted as &quot;EOC&quot; is corresponding to flag &quot;EOS&quot;                 */</span></div>
+<div class="line"><span class="lineno"> 3566</span>  <span class="comment">/*       in other STM32 families).                                          */</span></div>
+<div class="line"><span class="lineno"> 3567</span>  <span class="keywordflow">return</span> (<a class="code hl_define" href="group___exported__macros.html#ga822bb1bb9710d5f2fa6396b84e583c33">READ_BIT</a>(ADCx-&gt;<a class="code hl_variable" href="struct_a_d_c___type_def.html#a0c1b55bc0f0e5157ceffa52545ee6bcd">SR</a>, <a class="code hl_define" href="group___a_d_c___l_l___e_c___f_l_a_g.html#ga769f70361a80b7d226dc8c81f2919b27">LL_ADC_FLAG_EOS</a>) == (<a class="code hl_define" href="group___a_d_c___l_l___e_c___f_l_a_g.html#ga769f70361a80b7d226dc8c81f2919b27">LL_ADC_FLAG_EOS</a>));</div>
+<div class="line"><span class="lineno"> 3568</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__ll__adc_8h_source.html#l00410">LL_ADC_FLAG_EOS</a>, <a class="el" href="stm32f1xx__ll__adc_8h_source.html#l03561">LL_ADC_IsActiveFlag_EOS()</a>, <a class="el" href="stm32f1xx_8h_source.html#l00181">READ_BIT</a> y <a class="el" href="stm32f103xb_8h_source.html#l00145">ADC_TypeDef::SR</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__adc_8h_source.html#l03561">LL_ADC_IsActiveFlag_EOS()</a>.</p>
+<div id="dynsection-9" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-9-summary" class="dynsummary">
+</div>
+<div id="dynsection-9-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___a_d_c___l_l___e_f___f_l_a_g___management_ga02b39d5bc11cbf08dfde9dbd4a177952_cgraph.svg" width="198" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-10" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-10-summary" class="dynsummary">
+</div>
+<div id="dynsection-10-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___a_d_c___l_l___e_f___f_l_a_g___management_ga02b39d5bc11cbf08dfde9dbd4a177952_icgraph.svg" width="198" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="gad8880ef56e09b99fbe1cd202881f830a" name="gad8880ef56e09b99fbe1cd202881f830a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad8880ef56e09b99fbe1cd202881f830a">&#9670;&#160;</a></span>LL_ADC_IsActiveFlag_JEOS()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline uint32_t LL_ADC_IsActiveFlag_JEOS </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_a_d_c___type_def.html">ADC_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>ADCx</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__adc_8h.html">stm32f1xx_ll_adc.h</a>&quot;</code></p>
+
+<p>Get flag ADC group injected end of sequence conversions. </p>
+<p>@rmtoll SR JEOC LL_ADC_IsActiveFlag_JEOS </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ADCx</td><td>ADC instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">State</td><td>of bit (1 or 0). </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; 0x00000004</p>
+<p>&lt; ADC group injected end of sequence conversions flag</p>
+<p>&lt; ADC flag ADC group injected end of sequence conversions (Note: on this STM32 series, there is no flag ADC group injected end of unitary conversion. Flag noted as "JEOC" is corresponding to flag "JEOS" in other STM32 families)</p>
+<p>&lt; 0x00000004</p>
+<p>&lt; ADC group injected end of sequence conversions flag</p>
+<p>&lt; ADC flag ADC group injected end of sequence conversions (Note: on this STM32 series, there is no flag ADC group injected end of unitary conversion. Flag noted as "JEOC" is corresponding to flag "JEOS" in other STM32 families)</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__adc_8h_source.html#l03577">3577</a> del archivo <a class="el" href="stm32f1xx__ll__adc_8h_source.html">stm32f1xx_ll_adc.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3578</span>{</div>
+<div class="line"><span class="lineno"> 3579</span>  <span class="comment">/* Note: on this STM32 series, there is no flag ADC group injected          */</span></div>
+<div class="line"><span class="lineno"> 3580</span>  <span class="comment">/*       end of unitary conversion.                                         */</span></div>
+<div class="line"><span class="lineno"> 3581</span>  <span class="comment">/*       Flag noted as &quot;JEOC&quot; is corresponding to flag &quot;JEOS&quot;               */</span></div>
+<div class="line"><span class="lineno"> 3582</span>  <span class="comment">/*       in other STM32 families).                                          */</span></div>
+<div class="line"><span class="lineno"> 3583</span>  <span class="keywordflow">return</span> (<a class="code hl_define" href="group___exported__macros.html#ga822bb1bb9710d5f2fa6396b84e583c33">READ_BIT</a>(ADCx-&gt;<a class="code hl_variable" href="struct_a_d_c___type_def.html#a0c1b55bc0f0e5157ceffa52545ee6bcd">SR</a>, <a class="code hl_define" href="group___a_d_c___l_l___e_c___f_l_a_g.html#ga2554751824e0d4697fbaaf650d3daa59">LL_ADC_FLAG_JEOS</a>) == (<a class="code hl_define" href="group___a_d_c___l_l___e_c___f_l_a_g.html#ga2554751824e0d4697fbaaf650d3daa59">LL_ADC_FLAG_JEOS</a>));</div>
+<div class="line"><span class="lineno"> 3584</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__ll__adc_8h_source.html#l00412">LL_ADC_FLAG_JEOS</a>, <a class="el" href="stm32f1xx__ll__adc_8h_source.html#l03577">LL_ADC_IsActiveFlag_JEOS()</a>, <a class="el" href="stm32f1xx_8h_source.html#l00181">READ_BIT</a> y <a class="el" href="stm32f103xb_8h_source.html#l00145">ADC_TypeDef::SR</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__adc_8h_source.html#l03577">LL_ADC_IsActiveFlag_JEOS()</a>.</p>
+<div id="dynsection-11" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-11-summary" class="dynsummary">
+</div>
+<div id="dynsection-11-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___a_d_c___l_l___e_f___f_l_a_g___management_gad8880ef56e09b99fbe1cd202881f830a_cgraph.svg" width="204" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-12" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-12-summary" class="dynsummary">
+</div>
+<div id="dynsection-12-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___a_d_c___l_l___e_f___f_l_a_g___management_gad8880ef56e09b99fbe1cd202881f830a_icgraph.svg" width="204" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="gaaf2fa9be8336831202b8de903b5c6103" name="gaaf2fa9be8336831202b8de903b5c6103"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaaf2fa9be8336831202b8de903b5c6103">&#9670;&#160;</a></span>LL_ADC_IsActiveFlag_MST_AWD1()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline uint32_t LL_ADC_IsActiveFlag_MST_AWD1 </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_a_d_c___common___type_def.html">ADC_Common_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>ADCxy_COMMON</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__adc_8h.html">stm32f1xx_ll_adc.h</a>&quot;</code></p>
+
+<p>Get flag multimode ADC analog watchdog 1 of the ADC master. </p>
+<p>@rmtoll SR AWD LL_ADC_IsActiveFlag_MST_AWD1 </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ADCxy_COMMON</td><td>ADC common instance (can be set directly from CMSIS definition or by using helper macro <a class="el" href="group___a_d_c___l_l___e_m___h_e_l_p_e_r___m_a_c_r_o.html#ga06222c0a27b40e8317cb67befccb7403" title="__LL_ADC_COMMON_INSTANCE()">__LL_ADC_COMMON_INSTANCE()</a> ) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">State</td><td>of bit (1 or 0). </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; 0x00000001</p>
+<p>&lt; ADC analog watchdog 1 flag</p>
+<p>&lt; ADC flag ADC analog watchdog 1</p>
+<p>&lt; 0x00000001</p>
+<p>&lt; ADC analog watchdog 1 flag</p>
+<p>&lt; ADC flag ADC analog watchdog 1</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__adc_8h_source.html#l03718">3718</a> del archivo <a class="el" href="stm32f1xx__ll__adc_8h_source.html">stm32f1xx_ll_adc.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3719</span>{</div>
+<div class="line"><span class="lineno"> 3720</span>  <span class="keywordflow">return</span> (<a class="code hl_define" href="group___exported__macros.html#ga822bb1bb9710d5f2fa6396b84e583c33">READ_BIT</a>(ADCxy_COMMON-&gt;<a class="code hl_variable" href="struct_a_d_c___common___type_def.html#aeb57383bd4df7a7fbc6dc0043bf9f94f">SR</a>, <a class="code hl_define" href="group___a_d_c___l_l___e_c___f_l_a_g.html#gacb7440f3b658b2628e340655b099f868">LL_ADC_FLAG_AWD1</a>) == (<a class="code hl_define" href="group___a_d_c___l_l___e_c___f_l_a_g.html#gacb7440f3b658b2628e340655b099f868">LL_ADC_FLAG_AWD1</a>));</div>
+<div class="line"><span class="lineno"> 3721</span>}</div>
+<div class="ttc" id="astruct_a_d_c___common___type_def_html_aeb57383bd4df7a7fbc6dc0043bf9f94f"><div class="ttname"><a href="struct_a_d_c___common___type_def.html#aeb57383bd4df7a7fbc6dc0043bf9f94f">ADC_Common_TypeDef::SR</a></div><div class="ttdeci">volatile uint32_t SR</div><div class="ttdoc">&lt; Defines &#39;read / write&#39; permissions</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l00169">stm32f103xb.h:169</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__ll__adc_8h_source.html#l00413">LL_ADC_FLAG_AWD1</a>, <a class="el" href="stm32f1xx__ll__adc_8h_source.html#l03718">LL_ADC_IsActiveFlag_MST_AWD1()</a>, <a class="el" href="stm32f1xx_8h_source.html#l00181">READ_BIT</a> y <a class="el" href="stm32f103xb_8h_source.html#l00169">ADC_Common_TypeDef::SR</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__adc_8h_source.html#l03718">LL_ADC_IsActiveFlag_MST_AWD1()</a>.</p>
+<div id="dynsection-13" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-13-summary" class="dynsummary">
+</div>
+<div id="dynsection-13-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___a_d_c___l_l___e_f___f_l_a_g___management_gaaf2fa9be8336831202b8de903b5c6103_cgraph.svg" width="163" height="78"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-14" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-14-summary" class="dynsummary">
+</div>
+<div id="dynsection-14-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___a_d_c___l_l___e_f___f_l_a_g___management_gaaf2fa9be8336831202b8de903b5c6103_icgraph.svg" width="163" height="78"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ga4b438eda91d61dcbf77b30097ccd2d09" name="ga4b438eda91d61dcbf77b30097ccd2d09"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4b438eda91d61dcbf77b30097ccd2d09">&#9670;&#160;</a></span>LL_ADC_IsActiveFlag_MST_EOS()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline uint32_t LL_ADC_IsActiveFlag_MST_EOS </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_a_d_c___common___type_def.html">ADC_Common_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>ADCxy_COMMON</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__adc_8h.html">stm32f1xx_ll_adc.h</a>&quot;</code></p>
+
+<p>Get flag multimode ADC group regular end of sequence conversions of the ADC master. </p>
+<p>@rmtoll SR EOC LL_ADC_IsActiveFlag_MST_EOS </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ADCxy_COMMON</td><td>ADC common instance (can be set directly from CMSIS definition or by using helper macro <a class="el" href="group___a_d_c___l_l___e_m___h_e_l_p_e_r___m_a_c_r_o.html#ga06222c0a27b40e8317cb67befccb7403" title="__LL_ADC_COMMON_INSTANCE()">__LL_ADC_COMMON_INSTANCE()</a> ) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">State</td><td>of bit (1 or 0). </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; 0x00000002</p>
+<p>&lt; ADC group regular end of sequence conversions flag</p>
+<p>&lt; 0x00000002</p>
+<p>&lt; ADC group regular end of sequence conversions flag</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__adc_8h_source.html#l03647">3647</a> del archivo <a class="el" href="stm32f1xx__ll__adc_8h_source.html">stm32f1xx_ll_adc.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3648</span>{</div>
+<div class="line"><span class="lineno"> 3649</span>  <span class="comment">/* Note: on this STM32 series, there is no flag ADC group regular           */</span></div>
+<div class="line"><span class="lineno"> 3650</span>  <span class="comment">/*       end of unitary conversion.                                         */</span></div>
+<div class="line"><span class="lineno"> 3651</span>  <span class="comment">/*       Flag noted as &quot;EOC&quot; is corresponding to flag &quot;EOS&quot;                 */</span></div>
+<div class="line"><span class="lineno"> 3652</span>  <span class="comment">/*       in other STM32 families).                                          */</span></div>
+<div class="line"><span class="lineno"> 3653</span>  <span class="keywordflow">return</span> (<a class="code hl_define" href="group___exported__macros.html#ga822bb1bb9710d5f2fa6396b84e583c33">READ_BIT</a>(ADCxy_COMMON-&gt;<a class="code hl_variable" href="struct_a_d_c___common___type_def.html#aeb57383bd4df7a7fbc6dc0043bf9f94f">SR</a>, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga3dc295c5253743aeb2cda582953b7b53">ADC_SR_EOC</a>) == (<a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga3dc295c5253743aeb2cda582953b7b53">ADC_SR_EOC</a>));</div>
+<div class="line"><span class="lineno"> 3654</span>}</div>
+<div class="ttc" id="agroup___peripheral___registers___bits___definition_html_ga3dc295c5253743aeb2cda582953b7b53"><div class="ttname"><a href="group___peripheral___registers___bits___definition.html#ga3dc295c5253743aeb2cda582953b7b53">ADC_SR_EOC</a></div><div class="ttdeci">#define ADC_SR_EOC</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l03306">stm32f103xb.h:3306</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f103xb_8h_source.html#l03306">ADC_SR_EOC</a>, <a class="el" href="stm32f1xx__ll__adc_8h_source.html#l03647">LL_ADC_IsActiveFlag_MST_EOS()</a>, <a class="el" href="stm32f1xx_8h_source.html#l00181">READ_BIT</a> y <a class="el" href="stm32f103xb_8h_source.html#l00169">ADC_Common_TypeDef::SR</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__adc_8h_source.html#l03647">LL_ADC_IsActiveFlag_MST_EOS()</a>.</p>
+<div id="dynsection-15" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-15-summary" class="dynsummary">
+</div>
+<div id="dynsection-15-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___a_d_c___l_l___e_f___f_l_a_g___management_ga4b438eda91d61dcbf77b30097ccd2d09_cgraph.svg" width="163" height="78"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-16" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-16-summary" class="dynsummary">
+</div>
+<div id="dynsection-16-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___a_d_c___l_l___e_f___f_l_a_g___management_ga4b438eda91d61dcbf77b30097ccd2d09_icgraph.svg" width="163" height="78"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ga4eed82db8d93fff1b5daec0a922fe2f6" name="ga4eed82db8d93fff1b5daec0a922fe2f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4eed82db8d93fff1b5daec0a922fe2f6">&#9670;&#160;</a></span>LL_ADC_IsActiveFlag_MST_JEOS()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline uint32_t LL_ADC_IsActiveFlag_MST_JEOS </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_a_d_c___common___type_def.html">ADC_Common_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>ADCxy_COMMON</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__adc_8h.html">stm32f1xx_ll_adc.h</a>&quot;</code></p>
+
+<p>Get flag multimode ADC group injected end of sequence conversions of the ADC master. </p>
+<p>@rmtoll SR JEOC LL_ADC_IsActiveFlag_MST_JEOS </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ADCxy_COMMON</td><td>ADC common instance (can be set directly from CMSIS definition or by using helper macro <a class="el" href="group___a_d_c___l_l___e_m___h_e_l_p_e_r___m_a_c_r_o.html#ga06222c0a27b40e8317cb67befccb7403" title="__LL_ADC_COMMON_INSTANCE()">__LL_ADC_COMMON_INSTANCE()</a> ) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">State</td><td>of bit (1 or 0). </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; 0x00000004</p>
+<p>&lt; ADC group injected end of sequence conversions flag</p>
+<p>&lt; 0x00000004</p>
+<p>&lt; ADC group injected end of sequence conversions flag</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__adc_8h_source.html#l03683">3683</a> del archivo <a class="el" href="stm32f1xx__ll__adc_8h_source.html">stm32f1xx_ll_adc.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3684</span>{</div>
+<div class="line"><span class="lineno"> 3685</span>  <span class="comment">/* Note: on this STM32 series, there is no flag ADC group injected          */</span></div>
+<div class="line"><span class="lineno"> 3686</span>  <span class="comment">/*       end of unitary conversion.                                         */</span></div>
+<div class="line"><span class="lineno"> 3687</span>  <span class="comment">/*       Flag noted as &quot;JEOC&quot; is corresponding to flag &quot;JEOS&quot;               */</span></div>
+<div class="line"><span class="lineno"> 3688</span>  <span class="comment">/*       in other STM32 families).                                          */</span></div>
+<div class="line"><span class="lineno"> 3689</span>  <span class="keywordflow">return</span> (<a class="code hl_define" href="group___exported__macros.html#ga822bb1bb9710d5f2fa6396b84e583c33">READ_BIT</a>(ADCxy_COMMON-&gt;<a class="code hl_variable" href="struct_a_d_c___common___type_def.html#aeb57383bd4df7a7fbc6dc0043bf9f94f">SR</a>, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#gabc9f07589bb1a4e398781df372389b56">ADC_SR_JEOC</a>) == (<a class="code hl_define" href="group___peripheral___registers___bits___definition.html#gabc9f07589bb1a4e398781df372389b56">ADC_SR_JEOC</a>));</div>
+<div class="line"><span class="lineno"> 3690</span>}</div>
+<div class="ttc" id="agroup___peripheral___registers___bits___definition_html_gabc9f07589bb1a4e398781df372389b56"><div class="ttname"><a href="group___peripheral___registers___bits___definition.html#gabc9f07589bb1a4e398781df372389b56">ADC_SR_JEOC</a></div><div class="ttdeci">#define ADC_SR_JEOC</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l03307">stm32f103xb.h:3307</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f103xb_8h_source.html#l03307">ADC_SR_JEOC</a>, <a class="el" href="stm32f1xx__ll__adc_8h_source.html#l03683">LL_ADC_IsActiveFlag_MST_JEOS()</a>, <a class="el" href="stm32f1xx_8h_source.html#l00181">READ_BIT</a> y <a class="el" href="stm32f103xb_8h_source.html#l00169">ADC_Common_TypeDef::SR</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__adc_8h_source.html#l03683">LL_ADC_IsActiveFlag_MST_JEOS()</a>.</p>
+<div id="dynsection-17" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-17-summary" class="dynsummary">
+</div>
+<div id="dynsection-17-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___a_d_c___l_l___e_f___f_l_a_g___management_ga4eed82db8d93fff1b5daec0a922fe2f6_cgraph.svg" width="163" height="78"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-18" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-18-summary" class="dynsummary">
+</div>
+<div id="dynsection-18-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___a_d_c___l_l___e_f___f_l_a_g___management_ga4eed82db8d93fff1b5daec0a922fe2f6_icgraph.svg" width="163" height="78"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ga1af2f874a1e2fab7ffe87638900dc5e0" name="ga1af2f874a1e2fab7ffe87638900dc5e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga1af2f874a1e2fab7ffe87638900dc5e0">&#9670;&#160;</a></span>LL_ADC_IsActiveFlag_SLV_AWD1()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline uint32_t LL_ADC_IsActiveFlag_SLV_AWD1 </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_a_d_c___common___type_def.html">ADC_Common_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>ADCxy_COMMON</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__adc_8h.html">stm32f1xx_ll_adc.h</a>&quot;</code></p>
+
+<p>Get flag multimode analog watchdog 1 of the ADC slave. </p>
+<p>@rmtoll SR AWD LL_ADC_IsActiveFlag_SLV_AWD1 </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ADCxy_COMMON</td><td>ADC common instance (can be set directly from CMSIS definition or by using helper macro <a class="el" href="group___a_d_c___l_l___e_m___h_e_l_p_e_r___m_a_c_r_o.html#ga06222c0a27b40e8317cb67befccb7403" title="__LL_ADC_COMMON_INSTANCE()">__LL_ADC_COMMON_INSTANCE()</a> ) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">State</td><td>of bit (1 or 0). </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; Defines 'read / write' permissions</p>
+<p>&lt; Defines 'read / write' permissions</p>
+<p>&lt; 0x00000001</p>
+<p>&lt; ADC analog watchdog 1 flag</p>
+<p>&lt; ADC flag ADC analog watchdog 1</p>
+<p>&lt; 0x00000001</p>
+<p>&lt; ADC analog watchdog 1 flag</p>
+<p>&lt; ADC flag ADC analog watchdog 1</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__adc_8h_source.html#l03730">3730</a> del archivo <a class="el" href="stm32f1xx__ll__adc_8h_source.html">stm32f1xx_ll_adc.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3731</span>{</div>
+<div class="line"><span class="lineno"> 3732</span>  __IO uint32_t *preg = <a class="code hl_define" href="group___a_d_c___l_l___private___macros.html#ga592d1b4673f3094d03f3fe01848cea41">__ADC_PTR_REG_OFFSET</a>(ADCxy_COMMON-&gt;<a class="code hl_variable" href="struct_a_d_c___common___type_def.html#aeb57383bd4df7a7fbc6dc0043bf9f94f">SR</a>, 1U);</div>
+<div class="line"><span class="lineno"> 3733</span>  </div>
+<div class="line"><span class="lineno"> 3734</span>  <span class="keywordflow">return</span> (<a class="code hl_define" href="group___exported__macros.html#ga822bb1bb9710d5f2fa6396b84e583c33">READ_BIT</a>(*preg, <a class="code hl_define" href="group___a_d_c___l_l___e_c___f_l_a_g.html#gacb7440f3b658b2628e340655b099f868">LL_ADC_FLAG_AWD1</a>) == (<a class="code hl_define" href="group___a_d_c___l_l___e_c___f_l_a_g.html#gacb7440f3b658b2628e340655b099f868">LL_ADC_FLAG_AWD1</a>));</div>
+<div class="line"><span class="lineno"> 3735</span>}</div>
+<div class="ttc" id="agroup___a_d_c___l_l___private___macros_html_ga592d1b4673f3094d03f3fe01848cea41"><div class="ttname"><a href="group___a_d_c___l_l___private___macros.html#ga592d1b4673f3094d03f3fe01848cea41">__ADC_PTR_REG_OFFSET</a></div><div class="ttdeci">#define __ADC_PTR_REG_OFFSET(__REG__, __REG_OFFFSET__)</div><div class="ttdoc">Driver macro reserved for internal use: set a pointer to a register from a register basis from which ...</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__ll__adc_8h_source.html#l00227">stm32f1xx_ll_adc.h:227</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__ll__adc_8h_source.html#l00227">__ADC_PTR_REG_OFFSET</a>, <a class="el" href="stm32f1xx__ll__adc_8h_source.html#l00413">LL_ADC_FLAG_AWD1</a>, <a class="el" href="stm32f1xx__ll__adc_8h_source.html#l03730">LL_ADC_IsActiveFlag_SLV_AWD1()</a>, <a class="el" href="stm32f1xx_8h_source.html#l00181">READ_BIT</a> y <a class="el" href="stm32f103xb_8h_source.html#l00169">ADC_Common_TypeDef::SR</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__adc_8h_source.html#l03730">LL_ADC_IsActiveFlag_SLV_AWD1()</a>.</p>
+<div id="dynsection-19" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-19-summary" class="dynsummary">
+</div>
+<div id="dynsection-19-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___a_d_c___l_l___e_f___f_l_a_g___management_ga1af2f874a1e2fab7ffe87638900dc5e0_cgraph.svg" width="163" height="78"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-20" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-20-summary" class="dynsummary">
+</div>
+<div id="dynsection-20-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___a_d_c___l_l___e_f___f_l_a_g___management_ga1af2f874a1e2fab7ffe87638900dc5e0_icgraph.svg" width="163" height="78"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ga11efc34634f9087e45e9f44af292e87b" name="ga11efc34634f9087e45e9f44af292e87b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga11efc34634f9087e45e9f44af292e87b">&#9670;&#160;</a></span>LL_ADC_IsActiveFlag_SLV_EOS()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline uint32_t LL_ADC_IsActiveFlag_SLV_EOS </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_a_d_c___common___type_def.html">ADC_Common_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>ADCxy_COMMON</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__adc_8h.html">stm32f1xx_ll_adc.h</a>&quot;</code></p>
+
+<p>Get flag multimode ADC group regular end of sequence conversions of the ADC slave. </p>
+<p>@rmtoll SR EOC LL_ADC_IsActiveFlag_SLV_EOS </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ADCxy_COMMON</td><td>ADC common instance (can be set directly from CMSIS definition or by using helper macro <a class="el" href="group___a_d_c___l_l___e_m___h_e_l_p_e_r___m_a_c_r_o.html#ga06222c0a27b40e8317cb67befccb7403" title="__LL_ADC_COMMON_INSTANCE()">__LL_ADC_COMMON_INSTANCE()</a> ) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">State</td><td>of bit (1 or 0). </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; Defines 'read / write' permissions</p>
+<p>&lt; Defines 'read / write' permissions</p>
+<p>&lt; 0x00000002</p>
+<p>&lt; ADC group regular end of sequence conversions flag</p>
+<p>&lt; ADC flag ADC multimode slave group regular end of sequence conversions (Note: on this STM32 series, there is no flag ADC group regular end of unitary conversion. Flag noted as "EOC" is corresponding to flag "EOS" in other STM32 families) (on STM32F1, this flag must be read from ADC instance slave: ADC2)</p>
+<p>&lt; 0x00000002</p>
+<p>&lt; ADC group regular end of sequence conversions flag</p>
+<p>&lt; ADC flag ADC multimode slave group regular end of sequence conversions (Note: on this STM32 series, there is no flag ADC group regular end of unitary conversion. Flag noted as "EOC" is corresponding to flag "EOS" in other STM32 families) (on STM32F1, this flag must be read from ADC instance slave: ADC2)</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__adc_8h_source.html#l03663">3663</a> del archivo <a class="el" href="stm32f1xx__ll__adc_8h_source.html">stm32f1xx_ll_adc.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3664</span>{</div>
+<div class="line"><span class="lineno"> 3665</span>  <span class="comment">/* Note: on this STM32 series, there is no flag ADC group regular           */</span></div>
+<div class="line"><span class="lineno"> 3666</span>  <span class="comment">/*       end of unitary conversion.                                         */</span></div>
+<div class="line"><span class="lineno"> 3667</span>  <span class="comment">/*       Flag noted as &quot;EOC&quot; is corresponding to flag &quot;EOS&quot;                 */</span></div>
+<div class="line"><span class="lineno"> 3668</span>  <span class="comment">/*       in other STM32 families).                                          */</span></div>
+<div class="line"><span class="lineno"> 3669</span>  </div>
+<div class="line"><span class="lineno"> 3670</span>  __IO uint32_t *preg = <a class="code hl_define" href="group___a_d_c___l_l___private___macros.html#ga592d1b4673f3094d03f3fe01848cea41">__ADC_PTR_REG_OFFSET</a>(ADCxy_COMMON-&gt;<a class="code hl_variable" href="struct_a_d_c___common___type_def.html#aeb57383bd4df7a7fbc6dc0043bf9f94f">SR</a>, 1U);</div>
+<div class="line"><span class="lineno"> 3671</span>  </div>
+<div class="line"><span class="lineno"> 3672</span>  <span class="keywordflow">return</span> (<a class="code hl_define" href="group___exported__macros.html#ga822bb1bb9710d5f2fa6396b84e583c33">READ_BIT</a>(*preg, <a class="code hl_define" href="group___a_d_c___l_l___e_c___f_l_a_g.html#gab05a8c8ab66899a1bc28fcdd5d189851">LL_ADC_FLAG_EOS_SLV</a>) == (<a class="code hl_define" href="group___a_d_c___l_l___e_c___f_l_a_g.html#gab05a8c8ab66899a1bc28fcdd5d189851">LL_ADC_FLAG_EOS_SLV</a>));</div>
+<div class="line"><span class="lineno"> 3673</span>}</div>
+<div class="ttc" id="agroup___a_d_c___l_l___e_c___f_l_a_g_html_gab05a8c8ab66899a1bc28fcdd5d189851"><div class="ttname"><a href="group___a_d_c___l_l___e_c___f_l_a_g.html#gab05a8c8ab66899a1bc28fcdd5d189851">LL_ADC_FLAG_EOS_SLV</a></div><div class="ttdeci">#define LL_ADC_FLAG_EOS_SLV</div><div class="ttdoc">ADC flag ADC multimode slave group regular end of sequence conversions (Note: on this STM32 series,...</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__ll__adc_8h_source.html#l00416">stm32f1xx_ll_adc.h:416</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__ll__adc_8h_source.html#l00227">__ADC_PTR_REG_OFFSET</a>, <a class="el" href="stm32f1xx__ll__adc_8h_source.html#l00416">LL_ADC_FLAG_EOS_SLV</a>, <a class="el" href="stm32f1xx__ll__adc_8h_source.html#l03663">LL_ADC_IsActiveFlag_SLV_EOS()</a>, <a class="el" href="stm32f1xx_8h_source.html#l00181">READ_BIT</a> y <a class="el" href="stm32f103xb_8h_source.html#l00169">ADC_Common_TypeDef::SR</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__adc_8h_source.html#l03663">LL_ADC_IsActiveFlag_SLV_EOS()</a>.</p>
+<div id="dynsection-21" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-21-summary" class="dynsummary">
+</div>
+<div id="dynsection-21-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___a_d_c___l_l___e_f___f_l_a_g___management_ga11efc34634f9087e45e9f44af292e87b_cgraph.svg" width="163" height="78"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-22" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-22-summary" class="dynsummary">
+</div>
+<div id="dynsection-22-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___a_d_c___l_l___e_f___f_l_a_g___management_ga11efc34634f9087e45e9f44af292e87b_icgraph.svg" width="163" height="78"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ga26686763afb38c59d1d4bb9f0e867220" name="ga26686763afb38c59d1d4bb9f0e867220"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga26686763afb38c59d1d4bb9f0e867220">&#9670;&#160;</a></span>LL_ADC_IsActiveFlag_SLV_JEOS()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline uint32_t LL_ADC_IsActiveFlag_SLV_JEOS </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_a_d_c___common___type_def.html">ADC_Common_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>ADCxy_COMMON</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__adc_8h.html">stm32f1xx_ll_adc.h</a>&quot;</code></p>
+
+<p>Get flag multimode ADC group injected end of sequence conversions of the ADC slave. </p>
+<p>@rmtoll SR JEOC LL_ADC_IsActiveFlag_SLV_JEOS </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ADCxy_COMMON</td><td>ADC common instance (can be set directly from CMSIS definition or by using helper macro <a class="el" href="group___a_d_c___l_l___e_m___h_e_l_p_e_r___m_a_c_r_o.html#ga06222c0a27b40e8317cb67befccb7403" title="__LL_ADC_COMMON_INSTANCE()">__LL_ADC_COMMON_INSTANCE()</a> ) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">State</td><td>of bit (1 or 0). </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; Defines 'read / write' permissions</p>
+<p>&lt; Defines 'read / write' permissions</p>
+<p>&lt; 0x00000004</p>
+<p>&lt; ADC group injected end of sequence conversions flag</p>
+<p>&lt; ADC flag ADC multimode slave group injected end of sequence conversions (Note: on this STM32 series, there is no flag ADC group injected end of unitary conversion. Flag noted as "JEOC" is corresponding to flag "JEOS" in other STM32 families) (on STM32F1, this flag must be read from ADC instance slave: ADC2)</p>
+<p>&lt; 0x00000004</p>
+<p>&lt; ADC group injected end of sequence conversions flag</p>
+<p>&lt; ADC flag ADC multimode slave group injected end of sequence conversions (Note: on this STM32 series, there is no flag ADC group injected end of unitary conversion. Flag noted as "JEOC" is corresponding to flag "JEOS" in other STM32 families) (on STM32F1, this flag must be read from ADC instance slave: ADC2)</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__adc_8h_source.html#l03699">3699</a> del archivo <a class="el" href="stm32f1xx__ll__adc_8h_source.html">stm32f1xx_ll_adc.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3700</span>{</div>
+<div class="line"><span class="lineno"> 3701</span>  <span class="comment">/* Note: on this STM32 series, there is no flag ADC group injected          */</span></div>
+<div class="line"><span class="lineno"> 3702</span>  <span class="comment">/*       end of unitary conversion.                                         */</span></div>
+<div class="line"><span class="lineno"> 3703</span>  <span class="comment">/*       Flag noted as &quot;JEOC&quot; is corresponding to flag &quot;JEOS&quot;               */</span></div>
+<div class="line"><span class="lineno"> 3704</span>  <span class="comment">/*       in other STM32 families).                                          */</span></div>
+<div class="line"><span class="lineno"> 3705</span>  </div>
+<div class="line"><span class="lineno"> 3706</span>  __IO uint32_t *preg = <a class="code hl_define" href="group___a_d_c___l_l___private___macros.html#ga592d1b4673f3094d03f3fe01848cea41">__ADC_PTR_REG_OFFSET</a>(ADCxy_COMMON-&gt;<a class="code hl_variable" href="struct_a_d_c___common___type_def.html#aeb57383bd4df7a7fbc6dc0043bf9f94f">SR</a>, 1U);</div>
+<div class="line"><span class="lineno"> 3707</span>  </div>
+<div class="line"><span class="lineno"> 3708</span>  <span class="keywordflow">return</span> (<a class="code hl_define" href="group___exported__macros.html#ga822bb1bb9710d5f2fa6396b84e583c33">READ_BIT</a>(*preg, <a class="code hl_define" href="group___a_d_c___l_l___e_c___f_l_a_g.html#gad8bda76eb8de2f72fc15e0634e9f5c65">LL_ADC_FLAG_JEOS_SLV</a>) == (<a class="code hl_define" href="group___a_d_c___l_l___e_c___f_l_a_g.html#gad8bda76eb8de2f72fc15e0634e9f5c65">LL_ADC_FLAG_JEOS_SLV</a>));</div>
+<div class="line"><span class="lineno"> 3709</span>}</div>
+<div class="ttc" id="agroup___a_d_c___l_l___e_c___f_l_a_g_html_gad8bda76eb8de2f72fc15e0634e9f5c65"><div class="ttname"><a href="group___a_d_c___l_l___e_c___f_l_a_g.html#gad8bda76eb8de2f72fc15e0634e9f5c65">LL_ADC_FLAG_JEOS_SLV</a></div><div class="ttdeci">#define LL_ADC_FLAG_JEOS_SLV</div><div class="ttdoc">ADC flag ADC multimode slave group injected end of sequence conversions (Note: on this STM32 series,...</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__ll__adc_8h_source.html#l00418">stm32f1xx_ll_adc.h:418</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__ll__adc_8h_source.html#l00227">__ADC_PTR_REG_OFFSET</a>, <a class="el" href="stm32f1xx__ll__adc_8h_source.html#l00418">LL_ADC_FLAG_JEOS_SLV</a>, <a class="el" href="stm32f1xx__ll__adc_8h_source.html#l03699">LL_ADC_IsActiveFlag_SLV_JEOS()</a>, <a class="el" href="stm32f1xx_8h_source.html#l00181">READ_BIT</a> y <a class="el" href="stm32f103xb_8h_source.html#l00169">ADC_Common_TypeDef::SR</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__adc_8h_source.html#l03699">LL_ADC_IsActiveFlag_SLV_JEOS()</a>.</p>
+<div id="dynsection-23" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-23-summary" class="dynsummary">
+</div>
+<div id="dynsection-23-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___a_d_c___l_l___e_f___f_l_a_g___management_ga26686763afb38c59d1d4bb9f0e867220_cgraph.svg" width="163" height="78"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-24" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-24-summary" class="dynsummary">
+</div>
+<div id="dynsection-24-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___a_d_c___l_l___e_f___f_l_a_g___management_ga26686763afb38c59d1d4bb9f0e867220_icgraph.svg" width="163" height="78"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generado el <span class="timestamp"></span> para MICRO-Firmware por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,390 @@
+\doxysubsubsubsubsection{FLASHEx Memory Erasing functions }
+\hypertarget{group___f_l_a_s_h_ex___exported___functions___group1}{}\label{group___f_l_a_s_h_ex___exported___functions___group1}\index{FLASHEx Memory Erasing functions@{FLASHEx Memory Erasing functions}}
+
+
+FLASH Memory Erasing functions.  
+
+
+Diagrama de colaboración de FLASHEx Memory Erasing functions:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group___f_l_a_s_h_ex___exported___functions___group1}
+\end{center}
+\end{figure}
+\doxysubsubsubsubsubsubsection*{Funciones}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \doxymbox{\hyperlink{group___f_l_a_s_h_ex___exported___functions___group1_ga9c4e0c7b4f528b7cccae6ad610eb5953}{HAL\+\_\+\+FLASHEx\+\_\+\+Erase}} (\doxymbox{\hyperlink{struct_f_l_a_s_h___erase_init_type_def}{FLASH\+\_\+\+Erase\+Init\+Type\+Def}} \texorpdfstring{$\ast$}{*}p\+Erase\+Init, uint32\+\_\+t \texorpdfstring{$\ast$}{*}Page\+Error)
+\begin{DoxyCompactList}\small\item\em Perform a mass erase or erase the specified FLASH memory pages. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \doxymbox{\hyperlink{group___f_l_a_s_h_ex___exported___functions___group1_gaf58c6764859e4febc21abe462dfb2615}{HAL\+\_\+\+FLASHEx\+\_\+\+Erase\+\_\+\+IT}} (\doxymbox{\hyperlink{struct_f_l_a_s_h___erase_init_type_def}{FLASH\+\_\+\+Erase\+Init\+Type\+Def}} \texorpdfstring{$\ast$}{*}p\+Erase\+Init)
+\begin{DoxyCompactList}\small\item\em Perform a mass erase or erase the specified FLASH memory pages with interrupt enabled. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsubsubsubsubsection{Descripción detallada}
+FLASH Memory Erasing functions. 
+
+\begin{DoxyVerb}  ==============================================================================
+                ##### FLASH Erasing Programming functions ##### 
+  ==============================================================================
+
+    [..] The FLASH Memory Erasing functions, includes the following functions:
+    (+) HAL_FLASHEx_Erase: return only when erase has been done
+    (+) HAL_FLASHEx_Erase_IT: end of erase is done when HAL_FLASH_EndOfOperationCallback 
+        is called with parameter 0xFFFFFFFF
+
+    [..] Any operation of erase should follow these steps:
+    (#) Call the HAL_FLASH_Unlock() function to enable the flash control register and 
+        program memory access.
+    (#) Call the desired function to erase page.
+    (#) Call the HAL_FLASH_Lock() to disable the flash program memory access 
+       (recommended to protect the FLASH memory against possible unwanted operation).
+\end{DoxyVerb}
+ 
+
+\label{group___f_l_a_s_h_ex___exported___functions___group1_doc-func-members}
+\Hypertarget{group___f_l_a_s_h_ex___exported___functions___group1_doc-func-members}
+\doxysubsubsubsubsubsection{Documentación de funciones}
+\Hypertarget{group___f_l_a_s_h_ex___exported___functions___group1_ga9c4e0c7b4f528b7cccae6ad610eb5953}\index{FLASHEx Memory Erasing functions@{FLASHEx Memory Erasing functions}!HAL\_FLASHEx\_Erase@{HAL\_FLASHEx\_Erase}}
+\index{HAL\_FLASHEx\_Erase@{HAL\_FLASHEx\_Erase}!FLASHEx Memory Erasing functions@{FLASHEx Memory Erasing functions}}
+\doxyparagraph{\texorpdfstring{HAL\_FLASHEx\_Erase()}{HAL\_FLASHEx\_Erase()}}
+{\footnotesize\ttfamily \label{group___f_l_a_s_h_ex___exported___functions___group1_ga9c4e0c7b4f528b7cccae6ad610eb5953} 
+\doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} HAL\+\_\+\+FLASHEx\+\_\+\+Erase (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{struct_f_l_a_s_h___erase_init_type_def}{FLASH\+\_\+\+Erase\+Init\+Type\+Def}} \texorpdfstring{$\ast$}{*}}]{p\+Erase\+Init}{, }\item[{uint32\+\_\+t \texorpdfstring{$\ast$}{*}}]{Page\+Error}{}\end{DoxyParamCaption})}
+
+
+
+{\ttfamily \+\#include "{}\doxymbox{\hyperlink{stm32f1xx__hal__flash__ex_8h}{stm32f1xx\+\_\+hal\+\_\+flash\+\_\+ex.\+h}}"{}}
+
+
+
+Perform a mass erase or erase the specified FLASH memory pages. 
+
+\begin{DoxyNote}{Nota}
+To correctly run this function, the \doxylink{group___f_l_a_s_h___exported___functions___group2_ga23d4ff42a8873bac585c92ce4f633747}{HAL\+\_\+\+FLASH\+\_\+\+Unlock()} function must be called before. Call the \doxylink{group___f_l_a_s_h___exported___functions___group2_gae07eeca0b0aa9d5047f8df88d82f4bcd}{HAL\+\_\+\+FLASH\+\_\+\+Lock()} to disable the flash memory access (recommended to protect the FLASH memory against possible unwanted operation) 
+\end{DoxyNote}
+
+\begin{DoxyParams}[1]{Parámetros}
+\doxymbox{\texttt{in}}  & {\em p\+Erase\+Init} & pointer to an \doxylink{struct_f_l_a_s_h___erase_init_type_def}{FLASH\+\_\+\+Erase\+Init\+Type\+Def} structure that contains the configuration information for the erasing.\\
+\hline
+\doxymbox{\texttt{out}}  & {\em Page\+Error} & pointer to variable that contains the configuration information on faulty page in case of error (0x\+FFFFFFFF means that all the pages have been correctly erased)\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Valores devueltos}
+{\em \doxylink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} & HAL Status \\
+\hline
+\end{DoxyRetVals}
+\texorpdfstring{$<$}{<}Flash mass erase activation
+
+\texorpdfstring{$<$}{<} Bank 1 ~\newline
+
+
+\texorpdfstring{$<$}{<} Peripheral base address in the alias region
+
+\texorpdfstring{$<$}{<} Flash registers base address
+
+\texorpdfstring{$<$}{<} 0x00000004
+
+\texorpdfstring{$<$}{<} Mass Erase
+
+\texorpdfstring{$<$}{<} Peripheral base address in the alias region
+
+\texorpdfstring{$<$}{<} Flash registers base address
+
+\texorpdfstring{$<$}{<} 0x00000002
+
+\texorpdfstring{$<$}{<} Page Erase
+
+Definición en la línea \doxymbox{\hyperlink{stm32f1xx__hal__flash__ex_8c_source_l00157}{157}} del archivo \doxymbox{\hyperlink{stm32f1xx__hal__flash__ex_8c_source}{stm32f1xx\+\_\+hal\+\_\+flash\+\_\+ex.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00158\ \{}
+\DoxyCodeLine{00159\ \ \ \doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\_StatusTypeDef}}\ status\ =\ \doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa5a04e395e501e4e400172c610478c4a4}{HAL\_ERROR}};}
+\DoxyCodeLine{00160\ \ \ uint32\_t\ address\ =\ 0U;}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ \ \ \textcolor{comment}{/*\ Process\ Locked\ */}}
+\DoxyCodeLine{00163\ \ \ \doxymbox{\hyperlink{stm32f1xx__hal__def_8h_ad3d96e1b9022ba76b69eeda91027b36c}{\_\_HAL\_LOCK}}(\&\doxymbox{\hyperlink{group___f_l_a_s_h___private___variables_ga165f289b9549ab9094501a388afe9742}{pFlash}});}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00165\ \ \ \textcolor{comment}{/*\ Check\ the\ parameters\ */}}
+\DoxyCodeLine{00166\ \ \ \doxymbox{\hyperlink{stm32f1xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\doxymbox{\hyperlink{group___f_l_a_s_h_ex___private___macros_gaf15a6822d2421a33b6857059348ab476}{IS\_FLASH\_TYPEERASE}}(pEraseInit-\/>\doxymbox{\hyperlink{struct_f_l_a_s_h___erase_init_type_def_a5d08471046a663db76d2252848a7d66c}{TypeErase}}));}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00168\ \ \ \textcolor{keywordflow}{if}\ (pEraseInit-\/>\doxymbox{\hyperlink{struct_f_l_a_s_h___erase_init_type_def_a5d08471046a663db76d2252848a7d66c}{TypeErase}}\ ==\ \doxymbox{\hyperlink{group___f_l_a_s_h_ex___type___erase_ga9bc03534e69c625e1b4f0f05c3852243}{FLASH\_TYPEERASE\_MASSERASE}})}
+\DoxyCodeLine{00169\ \ \ \{}
+\DoxyCodeLine{00170\ \textcolor{preprocessor}{\#if\ defined(FLASH\_BANK2\_END)}}
+\DoxyCodeLine{00171\ \ \ \ \ \textcolor{keywordflow}{if}\ (pEraseInit-\/>\doxymbox{\hyperlink{struct_f_l_a_s_h___erase_init_type_def_a9590db921fb8d36daf38e097f68fc14f}{Banks}}\ ==\ FLASH\_BANK\_BOTH)}
+\DoxyCodeLine{00172\ \ \ \ \ \{}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \textcolor{comment}{/*\ Mass\ Erase\ requested\ for\ Bank1\ and\ Bank2\ */}}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \textcolor{comment}{/*\ Wait\ for\ last\ operation\ to\ be\ completed\ */}}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((\doxymbox{\hyperlink{group___f_l_a_s_h___private___functions_gaf89afc110a32ac9dcf0d06b89ffd9224}{FLASH\_WaitForLastOperation}}((uint32\_t)\doxymbox{\hyperlink{group___f_l_a_s_h___private___constants_ga76e8ea58ef37913dcdb61efae2d6ab8f}{FLASH\_TIMEOUT\_VALUE}})\ ==\ \doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632}{HAL\_OK}})\ \&\&\ \(\backslash\)}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ (FLASH\_WaitForLastOperationBank2((uint32\_t)\doxymbox{\hyperlink{group___f_l_a_s_h___private___constants_ga76e8ea58ef37913dcdb61efae2d6ab8f}{FLASH\_TIMEOUT\_VALUE}})\ ==\ \doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632}{HAL\_OK}}))}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*Mass\ erase\ to\ be\ done*/}}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___f_l_a_s_h_ex___private___functions_gaa300a694929be042b75ca73d2812de54}{FLASH\_MassErase}}(FLASH\_BANK\_BOTH);}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Wait\ for\ last\ operation\ to\ be\ completed\ */}}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((\doxymbox{\hyperlink{group___f_l_a_s_h___private___functions_gaf89afc110a32ac9dcf0d06b89ffd9224}{FLASH\_WaitForLastOperation}}((uint32\_t)\doxymbox{\hyperlink{group___f_l_a_s_h___private___constants_ga76e8ea58ef37913dcdb61efae2d6ab8f}{FLASH\_TIMEOUT\_VALUE}})\ ==\ \doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632}{HAL\_OK}})\ \&\&\ \(\backslash\)}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \ \ \ \ (FLASH\_WaitForLastOperationBank2((uint32\_t)\doxymbox{\hyperlink{group___f_l_a_s_h___private___constants_ga76e8ea58ef37913dcdb61efae2d6ab8f}{FLASH\_TIMEOUT\_VALUE}})\ ==\ \doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632}{HAL\_OK}}))}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \ \ status\ =\ \doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632}{HAL\_OK}};}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ If\ the\ erase\ operation\ is\ completed,\ disable\ the\ MER\ Bit\ */}}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___exported__macros_ga133aae6fc0d41bffab39ab223a7001de}{CLEAR\_BIT}}(\doxymbox{\hyperlink{group___peripheral__declaration_ga844ea28ba1e0a5a0e497f16b61ea306b}{FLASH}}-\/>CR,\ \doxymbox{\hyperlink{group___peripheral___registers___bits___definition_ga4a287aa5a625125301306a02fb69c53a}{FLASH\_CR\_MER}});}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___exported__macros_ga133aae6fc0d41bffab39ab223a7001de}{CLEAR\_BIT}}(\doxymbox{\hyperlink{group___peripheral__declaration_ga844ea28ba1e0a5a0e497f16b61ea306b}{FLASH}}-\/>CR2,\ FLASH\_CR2\_MER);}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00192\ \ \ \ \ \}}
+\DoxyCodeLine{00193\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (pEraseInit-\/>\doxymbox{\hyperlink{struct_f_l_a_s_h___erase_init_type_def_a9590db921fb8d36daf38e097f68fc14f}{Banks}}\ ==\ FLASH\_BANK\_2)}
+\DoxyCodeLine{00194\ \ \ \ \ \{}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \textcolor{comment}{/*\ Mass\ Erase\ requested\ for\ Bank2\ */}}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \textcolor{comment}{/*\ Wait\ for\ last\ operation\ to\ be\ completed\ */}}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (FLASH\_WaitForLastOperationBank2((uint32\_t)\doxymbox{\hyperlink{group___f_l_a_s_h___private___constants_ga76e8ea58ef37913dcdb61efae2d6ab8f}{FLASH\_TIMEOUT\_VALUE}})\ ==\ \doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632}{HAL\_OK}})}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*Mass\ erase\ to\ be\ done*/}}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___f_l_a_s_h_ex___private___functions_gaa300a694929be042b75ca73d2812de54}{FLASH\_MassErase}}(FLASH\_BANK\_2);}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Wait\ for\ last\ operation\ to\ be\ completed\ */}}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ status\ =\ FLASH\_WaitForLastOperationBank2((uint32\_t)\doxymbox{\hyperlink{group___f_l_a_s_h___private___constants_ga76e8ea58ef37913dcdb61efae2d6ab8f}{FLASH\_TIMEOUT\_VALUE}});}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ If\ the\ erase\ operation\ is\ completed,\ disable\ the\ MER\ Bit\ */}}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___exported__macros_ga133aae6fc0d41bffab39ab223a7001de}{CLEAR\_BIT}}(\doxymbox{\hyperlink{group___peripheral__declaration_ga844ea28ba1e0a5a0e497f16b61ea306b}{FLASH}}-\/>CR2,\ FLASH\_CR2\_MER);}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00208\ \ \ \ \ \}}
+\DoxyCodeLine{00209\ \ \ \ \ \textcolor{keywordflow}{else}\ }
+\DoxyCodeLine{00210\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ FLASH\_BANK2\_END\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00211\ \ \ \ \ \{}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \textcolor{comment}{/*\ Mass\ Erase\ requested\ for\ Bank1\ */}}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \textcolor{comment}{/*\ Wait\ for\ last\ operation\ to\ be\ completed\ */}}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{group___f_l_a_s_h___private___functions_gaf89afc110a32ac9dcf0d06b89ffd9224}{FLASH\_WaitForLastOperation}}((uint32\_t)\doxymbox{\hyperlink{group___f_l_a_s_h___private___constants_ga76e8ea58ef37913dcdb61efae2d6ab8f}{FLASH\_TIMEOUT\_VALUE}})\ ==\ \doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632}{HAL\_OK}})}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*Mass\ erase\ to\ be\ done*/}}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___f_l_a_s_h_ex___private___functions_gaa300a694929be042b75ca73d2812de54}{FLASH\_MassErase}}(\doxymbox{\hyperlink{group___f_l_a_s_h_ex___banks_ga8ac3f24496e5de6a2f6bd3ff77f0ca53}{FLASH\_BANK\_1}});}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Wait\ for\ last\ operation\ to\ be\ completed\ */}}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ status\ =\ \doxymbox{\hyperlink{group___f_l_a_s_h___private___functions_gaf89afc110a32ac9dcf0d06b89ffd9224}{FLASH\_WaitForLastOperation}}((uint32\_t)\doxymbox{\hyperlink{group___f_l_a_s_h___private___constants_ga76e8ea58ef37913dcdb61efae2d6ab8f}{FLASH\_TIMEOUT\_VALUE}});}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ If\ the\ erase\ operation\ is\ completed,\ disable\ the\ MER\ Bit\ */}}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___exported__macros_ga133aae6fc0d41bffab39ab223a7001de}{CLEAR\_BIT}}(\doxymbox{\hyperlink{group___peripheral__declaration_ga844ea28ba1e0a5a0e497f16b61ea306b}{FLASH}}-\/>CR,\ \doxymbox{\hyperlink{group___peripheral___registers___bits___definition_ga4a287aa5a625125301306a02fb69c53a}{FLASH\_CR\_MER}});}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00225\ \ \ \ \ \}}
+\DoxyCodeLine{00226\ \ \ \}}
+\DoxyCodeLine{00227\ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00228\ \ \ \{}
+\DoxyCodeLine{00229\ \ \ \ \ \textcolor{comment}{/*\ Page\ Erase\ is\ requested\ */}}
+\DoxyCodeLine{00230\ \ \ \ \ \textcolor{comment}{/*\ Check\ the\ parameters\ */}}
+\DoxyCodeLine{00231\ \ \ \ \ \doxymbox{\hyperlink{stm32f1xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\doxymbox{\hyperlink{group___f_l_a_s_h_ex___private___macros_ga90c8441d56b937cea616856695a8a20a}{IS\_FLASH\_PROGRAM\_ADDRESS}}(pEraseInit-\/>\doxymbox{\hyperlink{struct_f_l_a_s_h___erase_init_type_def_ab078898fc3e86294ce8335f6c03387b1}{PageAddress}}));}
+\DoxyCodeLine{00232\ \ \ \ \ \doxymbox{\hyperlink{stm32f1xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\doxymbox{\hyperlink{group___f_l_a_s_h_ex___private___macros_gaba549bf655e360311b0cd69878ba5bc1}{IS\_FLASH\_NB\_PAGES}}(pEraseInit-\/>\doxymbox{\hyperlink{struct_f_l_a_s_h___erase_init_type_def_ab078898fc3e86294ce8335f6c03387b1}{PageAddress}},\ pEraseInit-\/>\doxymbox{\hyperlink{struct_f_l_a_s_h___erase_init_type_def_ad18bd4b3caaccd0d51a4faf3c6b3b57f}{NbPages}}));}
+\DoxyCodeLine{00233\ \ \ \ \ }
+\DoxyCodeLine{00234\ \textcolor{preprocessor}{\#if\ defined(FLASH\_BANK2\_END)}}
+\DoxyCodeLine{00235\ \ \ \ \ \textcolor{comment}{/*\ Page\ Erase\ requested\ on\ address\ located\ on\ bank2\ */}}
+\DoxyCodeLine{00236\ \ \ \ \ \textcolor{keywordflow}{if}(pEraseInit-\/>\doxymbox{\hyperlink{struct_f_l_a_s_h___erase_init_type_def_ab078898fc3e86294ce8335f6c03387b1}{PageAddress}}\ >\ \doxymbox{\hyperlink{group___peripheral__memory__map_ga443a2786535d83e32dfdc2b29e379332}{FLASH\_BANK1\_END}})}
+\DoxyCodeLine{00237\ \ \ \ \ \{\ \ \ }
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \textcolor{comment}{/*\ Wait\ for\ last\ operation\ to\ be\ completed\ */}}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (FLASH\_WaitForLastOperationBank2((uint32\_t)\doxymbox{\hyperlink{group___f_l_a_s_h___private___constants_ga76e8ea58ef37913dcdb61efae2d6ab8f}{FLASH\_TIMEOUT\_VALUE}})\ ==\ \doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632}{HAL\_OK}})}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*Initialization\ of\ PageError\ variable*/}}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ *PageError\ =\ 0xFFFFFFFFU;}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Erase\ by\ page\ by\ page\ to\ be\ done*/}}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(address\ =\ pEraseInit-\/>\doxymbox{\hyperlink{struct_f_l_a_s_h___erase_init_type_def_ab078898fc3e86294ce8335f6c03387b1}{PageAddress}};}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \ \ \ \ address\ <\ (pEraseInit-\/>\doxymbox{\hyperlink{struct_f_l_a_s_h___erase_init_type_def_ab078898fc3e86294ce8335f6c03387b1}{PageAddress}}\ +\ (pEraseInit-\/>\doxymbox{\hyperlink{struct_f_l_a_s_h___erase_init_type_def_ad18bd4b3caaccd0d51a4faf3c6b3b57f}{NbPages}})*\doxymbox{\hyperlink{group___f_l_a_s_h_ex___page___size_ga4cc14e2c99ae7f8e5a8e371d03c8532c}{FLASH\_PAGE\_SIZE}});}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \ \ \ \ address\ +=\ \doxymbox{\hyperlink{group___f_l_a_s_h_ex___page___size_ga4cc14e2c99ae7f8e5a8e371d03c8532c}{FLASH\_PAGE\_SIZE}})}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___f_l_a_s_h___private___functions_ga35fd7dd876d296b20c2733f55dde7da7}{FLASH\_PageErase}}(address);}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Wait\ for\ last\ operation\ to\ be\ completed\ */}}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \ \ status\ =\ FLASH\_WaitForLastOperationBank2((uint32\_t)\doxymbox{\hyperlink{group___f_l_a_s_h___private___constants_ga76e8ea58ef37913dcdb61efae2d6ab8f}{FLASH\_TIMEOUT\_VALUE}});}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ If\ the\ erase\ operation\ is\ completed,\ disable\ the\ PER\ Bit\ */}}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___exported__macros_ga133aae6fc0d41bffab39ab223a7001de}{CLEAR\_BIT}}(\doxymbox{\hyperlink{group___peripheral__declaration_ga844ea28ba1e0a5a0e497f16b61ea306b}{FLASH}}-\/>CR2,\ FLASH\_CR2\_PER);}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (status\ !=\ \doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632}{HAL\_OK}})}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ In\ case\ of\ error,\ stop\ erase\ procedure\ and\ return\ the\ faulty\ address\ */}}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \ \ \ \ *PageError\ =\ address;}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00265\ \ \ \ \ \}}
+\DoxyCodeLine{00266\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00267\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ FLASH\_BANK2\_END\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00268\ \ \ \ \{}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \textcolor{comment}{/*\ Page\ Erase\ requested\ on\ address\ located\ on\ bank1\ */}}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \textcolor{comment}{/*\ Wait\ for\ last\ operation\ to\ be\ completed\ */}}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{group___f_l_a_s_h___private___functions_gaf89afc110a32ac9dcf0d06b89ffd9224}{FLASH\_WaitForLastOperation}}((uint32\_t)\doxymbox{\hyperlink{group___f_l_a_s_h___private___constants_ga76e8ea58ef37913dcdb61efae2d6ab8f}{FLASH\_TIMEOUT\_VALUE}})\ ==\ \doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632}{HAL\_OK}})}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*Initialization\ of\ PageError\ variable*/}}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ *PageError\ =\ 0xFFFFFFFFU;}
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Erase\ page\ by\ page\ to\ be\ done*/}}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(address\ =\ pEraseInit-\/>\doxymbox{\hyperlink{struct_f_l_a_s_h___erase_init_type_def_ab078898fc3e86294ce8335f6c03387b1}{PageAddress}};}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \ \ \ \ address\ <\ ((pEraseInit-\/>\doxymbox{\hyperlink{struct_f_l_a_s_h___erase_init_type_def_ad18bd4b3caaccd0d51a4faf3c6b3b57f}{NbPages}}\ *\ \doxymbox{\hyperlink{group___f_l_a_s_h_ex___page___size_ga4cc14e2c99ae7f8e5a8e371d03c8532c}{FLASH\_PAGE\_SIZE}})\ +\ pEraseInit-\/>\doxymbox{\hyperlink{struct_f_l_a_s_h___erase_init_type_def_ab078898fc3e86294ce8335f6c03387b1}{PageAddress}});}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ \ \ \ \ address\ +=\ \doxymbox{\hyperlink{group___f_l_a_s_h_ex___page___size_ga4cc14e2c99ae7f8e5a8e371d03c8532c}{FLASH\_PAGE\_SIZE}})}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___f_l_a_s_h___private___functions_ga35fd7dd876d296b20c2733f55dde7da7}{FLASH\_PageErase}}(address);}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Wait\ for\ last\ operation\ to\ be\ completed\ */}}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \ \ status\ =\ \doxymbox{\hyperlink{group___f_l_a_s_h___private___functions_gaf89afc110a32ac9dcf0d06b89ffd9224}{FLASH\_WaitForLastOperation}}((uint32\_t)\doxymbox{\hyperlink{group___f_l_a_s_h___private___constants_ga76e8ea58ef37913dcdb61efae2d6ab8f}{FLASH\_TIMEOUT\_VALUE}});}
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ If\ the\ erase\ operation\ is\ completed,\ disable\ the\ PER\ Bit\ */}}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___exported__macros_ga133aae6fc0d41bffab39ab223a7001de}{CLEAR\_BIT}}(\doxymbox{\hyperlink{group___peripheral__declaration_ga844ea28ba1e0a5a0e497f16b61ea306b}{FLASH}}-\/>CR,\ \doxymbox{\hyperlink{group___peripheral___registers___bits___definition_gad845355ade49d56cf70ad0ff09595a23}{FLASH\_CR\_PER}});}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (status\ !=\ \doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632}{HAL\_OK}})}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ In\ case\ of\ error,\ stop\ erase\ procedure\ and\ return\ the\ faulty\ address\ */}}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \ \ \ \ *PageError\ =\ address;}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00297\ \ \ \ \ \}}
+\DoxyCodeLine{00298\ \ \ \}}
+\DoxyCodeLine{00299\ }
+\DoxyCodeLine{00300\ \ \ \textcolor{comment}{/*\ Process\ Unlocked\ */}}
+\DoxyCodeLine{00301\ \ \ \doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a7c2c23627aed2bb71d8c1ad071cda004}{\_\_HAL\_UNLOCK}}(\&\doxymbox{\hyperlink{group___f_l_a_s_h___private___variables_ga165f289b9549ab9094501a388afe9742}{pFlash}});}
+\DoxyCodeLine{00302\ }
+\DoxyCodeLine{00303\ \ \ \textcolor{keywordflow}{return}\ status;}
+\DoxyCodeLine{00304\ \}}
+
+\end{DoxyCode}
+
+
+Hace referencia a \doxymbox{\hyperlink{stm32f1xx__hal__def_8h_source_l00092}{\+\_\+\+\_\+\+HAL\+\_\+\+LOCK}}, \doxymbox{\hyperlink{stm32f1xx__hal__def_8h_source_l00104}{\+\_\+\+\_\+\+HAL\+\_\+\+UNLOCK}}, \doxymbox{\hyperlink{stm32f1xx__hal__conf_8h_source_l00373}{assert\+\_\+param}}, \doxymbox{\hyperlink{stm32f1xx__hal__flash__ex_8h_source_l00173}{FLASH\+\_\+\+Erase\+Init\+Type\+Def::\+\+Banks}}, \doxymbox{\hyperlink{stm32f1xx_8h_source_l00179}{CLEAR\+\_\+\+BIT}}, \doxymbox{\hyperlink{stm32f103xb_8h_source_l00685}{FLASH}}, \doxymbox{\hyperlink{stm32f103xb_8h_source_l00573}{FLASH\+\_\+\+BANK1\+\_\+\+END}}, \doxymbox{\hyperlink{stm32f1xx__hal__flash__ex_8h_source_l00274}{FLASH\+\_\+\+BANK\+\_\+1}}, \doxymbox{\hyperlink{stm32f103xb_8h_source_l09747}{FLASH\+\_\+\+CR\+\_\+\+MER}}, \doxymbox{\hyperlink{stm32f103xb_8h_source_l09744}{FLASH\+\_\+\+CR\+\_\+\+PER}}, \doxymbox{\hyperlink{stm32f1xx__hal__flash__ex_8c_source_l00590}{FLASH\+\_\+\+Mass\+Erase()}}, \doxymbox{\hyperlink{stm32f1xx__hal__flash__ex_8h_source_l00241}{FLASH\+\_\+\+PAGE\+\_\+\+SIZE}}, \doxymbox{\hyperlink{stm32f1xx__hal__flash__ex_8c_source_l01084}{FLASH\+\_\+\+Page\+Erase()}}, \doxymbox{\hyperlink{stm32f1xx__hal__flash_8h_source_l00040}{FLASH\+\_\+\+TIMEOUT\+\_\+\+VALUE}}, \doxymbox{\hyperlink{stm32f1xx__hal__flash__ex_8h_source_l00259}{FLASH\+\_\+\+TYPEERASE\+\_\+\+MASSERASE}}, \doxymbox{\hyperlink{stm32f1xx__hal__flash_8c_source_l00819}{FLASH\+\_\+\+Wait\+For\+Last\+Operation()}}, \doxymbox{\hyperlink{stm32f1xx__hal__def_8h_source_l00041}{HAL\+\_\+\+ERROR}}, \doxymbox{\hyperlink{stm32f1xx__hal__flash__ex_8c_source_l00157}{HAL\+\_\+\+FLASHEx\+\_\+\+Erase()}}, \doxymbox{\hyperlink{stm32f1xx__hal__def_8h_source_l00040}{HAL\+\_\+\+OK}}, \doxymbox{\hyperlink{stm32f1xx__hal__flash__ex_8h_source_l00081}{IS\+\_\+\+FLASH\+\_\+\+NB\+\_\+\+PAGES}}, \doxymbox{\hyperlink{stm32f1xx__hal__flash__ex_8h_source_l00126}{IS\+\_\+\+FLASH\+\_\+\+PROGRAM\+\_\+\+ADDRESS}}, \doxymbox{\hyperlink{stm32f1xx__hal__flash__ex_8h_source_l00053}{IS\+\_\+\+FLASH\+\_\+\+TYPEERASE}}, \doxymbox{\hyperlink{stm32f1xx__hal__flash__ex_8h_source_l00180}{FLASH\+\_\+\+Erase\+Init\+Type\+Def::\+\+Nb\+Pages}}, \doxymbox{\hyperlink{stm32f1xx__hal__flash__ex_8h_source_l00176}{FLASH\+\_\+\+Erase\+Init\+Type\+Def::\+\+Page\+Address}}, \doxymbox{\hyperlink{stm32f1xx__hal__flash_8c_source_l00119}{p\+Flash}} y \doxymbox{\hyperlink{stm32f1xx__hal__flash__ex_8h_source_l00170}{FLASH\+\_\+\+Erase\+Init\+Type\+Def::\+\+Type\+Erase}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{stm32f1xx__hal__flash__ex_8c_source_l00157}{HAL\+\_\+\+FLASHEx\+\_\+\+Erase()}}.
+
+Gráfico de llamadas de esta función:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group___f_l_a_s_h_ex___exported___functions___group1_ga9c4e0c7b4f528b7cccae6ad610eb5953_cgraph}
+\end{center}
+\end{figure}
+Gráfico de llamadas a esta función:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=196pt]{group___f_l_a_s_h_ex___exported___functions___group1_ga9c4e0c7b4f528b7cccae6ad610eb5953_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group___f_l_a_s_h_ex___exported___functions___group1_gaf58c6764859e4febc21abe462dfb2615}\index{FLASHEx Memory Erasing functions@{FLASHEx Memory Erasing functions}!HAL\_FLASHEx\_Erase\_IT@{HAL\_FLASHEx\_Erase\_IT}}
+\index{HAL\_FLASHEx\_Erase\_IT@{HAL\_FLASHEx\_Erase\_IT}!FLASHEx Memory Erasing functions@{FLASHEx Memory Erasing functions}}
+\doxyparagraph{\texorpdfstring{HAL\_FLASHEx\_Erase\_IT()}{HAL\_FLASHEx\_Erase\_IT()}}
+{\footnotesize\ttfamily \label{group___f_l_a_s_h_ex___exported___functions___group1_gaf58c6764859e4febc21abe462dfb2615} 
+\doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} HAL\+\_\+\+FLASHEx\+\_\+\+Erase\+\_\+\+IT (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{struct_f_l_a_s_h___erase_init_type_def}{FLASH\+\_\+\+Erase\+Init\+Type\+Def}} \texorpdfstring{$\ast$}{*}}]{p\+Erase\+Init}{}\end{DoxyParamCaption})}
+
+
+
+{\ttfamily \+\#include "{}\doxymbox{\hyperlink{stm32f1xx__hal__flash__ex_8h}{stm32f1xx\+\_\+hal\+\_\+flash\+\_\+ex.\+h}}"{}}
+
+
+
+Perform a mass erase or erase the specified FLASH memory pages with interrupt enabled. 
+
+\begin{DoxyNote}{Nota}
+To correctly run this function, the \doxylink{group___f_l_a_s_h___exported___functions___group2_ga23d4ff42a8873bac585c92ce4f633747}{HAL\+\_\+\+FLASH\+\_\+\+Unlock()} function must be called before. Call the \doxylink{group___f_l_a_s_h___exported___functions___group2_gae07eeca0b0aa9d5047f8df88d82f4bcd}{HAL\+\_\+\+FLASH\+\_\+\+Lock()} to disable the flash memory access (recommended to protect the FLASH memory against possible unwanted operation) 
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parámetros}
+{\em p\+Erase\+Init} & pointer to an \doxylink{struct_f_l_a_s_h___erase_init_type_def}{FLASH\+\_\+\+Erase\+Init\+Type\+Def} structure that contains the configuration information for the erasing.\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Valores devueltos}
+{\em \doxylink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} & HAL Status \\
+\hline
+\end{DoxyRetVals}
+\texorpdfstring{$<$}{<} Peripheral base address in the alias region
+
+\texorpdfstring{$<$}{<} Flash registers base address
+
+\texorpdfstring{$<$}{<} 0x00001000
+
+\texorpdfstring{$<$}{<} End of operation interrupt enable
+
+\texorpdfstring{$<$}{<} End of FLASH Operation Interrupt source
+
+\texorpdfstring{$<$}{<} 0x00000400
+
+\texorpdfstring{$<$}{<} Error Interrupt Enable
+
+\texorpdfstring{$<$}{<} Error Interrupt source ~\newline
+
+
+\texorpdfstring{$<$}{<}Flash mass erase activation
+
+Definición en la línea \doxymbox{\hyperlink{stm32f1xx__hal__flash__ex_8c_source_l00317}{317}} del archivo \doxymbox{\hyperlink{stm32f1xx__hal__flash__ex_8c_source}{stm32f1xx\+\_\+hal\+\_\+flash\+\_\+ex.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00318\ \{}
+\DoxyCodeLine{00319\ \ \ \doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\_StatusTypeDef}}\ status\ =\ \doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632}{HAL\_OK}};}
+\DoxyCodeLine{00320\ }
+\DoxyCodeLine{00321\ \ \ \textcolor{comment}{/*\ If\ procedure\ already\ ongoing,\ reject\ the\ next\ one\ */}}
+\DoxyCodeLine{00322\ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{group___f_l_a_s_h___private___variables_ga165f289b9549ab9094501a388afe9742}{pFlash}}.\doxymbox{\hyperlink{struct_f_l_a_s_h___process_type_def_a9e4f55ad96cefbf568bfcb84ccca965b}{ProcedureOnGoing}}\ !=\ \doxymbox{\hyperlink{group___f_l_a_s_h___exported___types_gga2b0268387bc11bcab76be9ce7c43eaafa8d1dcf61f621d71484d13ac02f651b3d}{FLASH\_PROC\_NONE}})}
+\DoxyCodeLine{00323\ \ \ \{}
+\DoxyCodeLine{00324\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa5a04e395e501e4e400172c610478c4a4}{HAL\_ERROR}};}
+\DoxyCodeLine{00325\ \ \ \}}
+\DoxyCodeLine{00326\ \ \ }
+\DoxyCodeLine{00327\ \ \ \textcolor{comment}{/*\ Check\ the\ parameters\ */}}
+\DoxyCodeLine{00328\ \ \ \doxymbox{\hyperlink{stm32f1xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\doxymbox{\hyperlink{group___f_l_a_s_h_ex___private___macros_gaf15a6822d2421a33b6857059348ab476}{IS\_FLASH\_TYPEERASE}}(pEraseInit-\/>\doxymbox{\hyperlink{struct_f_l_a_s_h___erase_init_type_def_a5d08471046a663db76d2252848a7d66c}{TypeErase}}));}
+\DoxyCodeLine{00329\ }
+\DoxyCodeLine{00330\ \ \ \textcolor{comment}{/*\ Enable\ End\ of\ FLASH\ Operation\ and\ Error\ source\ interrupts\ */}}
+\DoxyCodeLine{00331\ \ \ \doxymbox{\hyperlink{group___f_l_a_s_h___interrupt_ga13fa137a911f02a2f94fb9fb0762a340}{\_\_HAL\_FLASH\_ENABLE\_IT}}(\doxymbox{\hyperlink{group___f_l_a_s_h___interrupt__definition_gaea20e80e1806d58a7544cfe8659e7f11}{FLASH\_IT\_EOP}}\ |\ \doxymbox{\hyperlink{group___f_l_a_s_h___interrupt__definition_ga4e2c23ab8c1b9a5ee49bf6d695d9ae8c}{FLASH\_IT\_ERR}});}
+\DoxyCodeLine{00332\ }
+\DoxyCodeLine{00333\ \textcolor{preprocessor}{\#if\ defined(FLASH\_BANK2\_END)}}
+\DoxyCodeLine{00334\ \ \ \textcolor{comment}{/*\ Enable\ End\ of\ FLASH\ Operation\ and\ Error\ source\ interrupts\ */}}
+\DoxyCodeLine{00335\ \ \ \doxymbox{\hyperlink{group___f_l_a_s_h___interrupt_ga13fa137a911f02a2f94fb9fb0762a340}{\_\_HAL\_FLASH\_ENABLE\_IT}}(FLASH\_IT\_EOP\_BANK2\ |\ FLASH\_IT\_ERR\_BANK2);}
+\DoxyCodeLine{00336\ \ \ }
+\DoxyCodeLine{00337\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00338\ \ \ \textcolor{keywordflow}{if}\ (pEraseInit-\/>\doxymbox{\hyperlink{struct_f_l_a_s_h___erase_init_type_def_a5d08471046a663db76d2252848a7d66c}{TypeErase}}\ ==\ \doxymbox{\hyperlink{group___f_l_a_s_h_ex___type___erase_ga9bc03534e69c625e1b4f0f05c3852243}{FLASH\_TYPEERASE\_MASSERASE}})}
+\DoxyCodeLine{00339\ \ \ \{}
+\DoxyCodeLine{00340\ \ \ \ \ \textcolor{comment}{/*Mass\ erase\ to\ be\ done*/}}
+\DoxyCodeLine{00341\ \ \ \ \ \doxymbox{\hyperlink{group___f_l_a_s_h___private___variables_ga165f289b9549ab9094501a388afe9742}{pFlash}}.\doxymbox{\hyperlink{struct_f_l_a_s_h___process_type_def_a9e4f55ad96cefbf568bfcb84ccca965b}{ProcedureOnGoing}}\ =\ \doxymbox{\hyperlink{group___f_l_a_s_h___exported___types_gga2b0268387bc11bcab76be9ce7c43eaafa1b046d01356b498d6675040f17362f0b}{FLASH\_PROC\_MASSERASE}};}
+\DoxyCodeLine{00342\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___f_l_a_s_h_ex___private___functions_gaa300a694929be042b75ca73d2812de54}{FLASH\_MassErase}}(pEraseInit-\/>\doxymbox{\hyperlink{struct_f_l_a_s_h___erase_init_type_def_a9590db921fb8d36daf38e097f68fc14f}{Banks}});}
+\DoxyCodeLine{00343\ \ \ \}}
+\DoxyCodeLine{00344\ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00345\ \ \ \{}
+\DoxyCodeLine{00346\ \ \ \ \ \textcolor{comment}{/*\ Erase\ by\ page\ to\ be\ done*/}}
+\DoxyCodeLine{00347\ }
+\DoxyCodeLine{00348\ \ \ \ \ \textcolor{comment}{/*\ Check\ the\ parameters\ */}}
+\DoxyCodeLine{00349\ \ \ \ \ \doxymbox{\hyperlink{stm32f1xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\doxymbox{\hyperlink{group___f_l_a_s_h_ex___private___macros_ga90c8441d56b937cea616856695a8a20a}{IS\_FLASH\_PROGRAM\_ADDRESS}}(pEraseInit-\/>\doxymbox{\hyperlink{struct_f_l_a_s_h___erase_init_type_def_ab078898fc3e86294ce8335f6c03387b1}{PageAddress}}));}
+\DoxyCodeLine{00350\ \ \ \ \ \doxymbox{\hyperlink{stm32f1xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\doxymbox{\hyperlink{group___f_l_a_s_h_ex___private___macros_gaba549bf655e360311b0cd69878ba5bc1}{IS\_FLASH\_NB\_PAGES}}(pEraseInit-\/>\doxymbox{\hyperlink{struct_f_l_a_s_h___erase_init_type_def_ab078898fc3e86294ce8335f6c03387b1}{PageAddress}},\ pEraseInit-\/>\doxymbox{\hyperlink{struct_f_l_a_s_h___erase_init_type_def_ad18bd4b3caaccd0d51a4faf3c6b3b57f}{NbPages}}));}
+\DoxyCodeLine{00351\ }
+\DoxyCodeLine{00352\ \ \ \ \ \doxymbox{\hyperlink{group___f_l_a_s_h___private___variables_ga165f289b9549ab9094501a388afe9742}{pFlash}}.\doxymbox{\hyperlink{struct_f_l_a_s_h___process_type_def_a9e4f55ad96cefbf568bfcb84ccca965b}{ProcedureOnGoing}}\ =\ \doxymbox{\hyperlink{group___f_l_a_s_h___exported___types_gga2b0268387bc11bcab76be9ce7c43eaafa60f5b29ffaa88e477958199c079f945f}{FLASH\_PROC\_PAGEERASE}};}
+\DoxyCodeLine{00353\ \ \ \ \ \doxymbox{\hyperlink{group___f_l_a_s_h___private___variables_ga165f289b9549ab9094501a388afe9742}{pFlash}}.\doxymbox{\hyperlink{struct_f_l_a_s_h___process_type_def_a30af7cbd6377273c9a90b9737f267e9c}{DataRemaining}}\ =\ pEraseInit-\/>\doxymbox{\hyperlink{struct_f_l_a_s_h___erase_init_type_def_ad18bd4b3caaccd0d51a4faf3c6b3b57f}{NbPages}};}
+\DoxyCodeLine{00354\ \ \ \ \ \doxymbox{\hyperlink{group___f_l_a_s_h___private___variables_ga165f289b9549ab9094501a388afe9742}{pFlash}}.\doxymbox{\hyperlink{struct_f_l_a_s_h___process_type_def_aa64cc6f747f41fa9f03846858324bb3b}{Address}}\ =\ pEraseInit-\/>\doxymbox{\hyperlink{struct_f_l_a_s_h___erase_init_type_def_ab078898fc3e86294ce8335f6c03387b1}{PageAddress}};}
+\DoxyCodeLine{00355\ }
+\DoxyCodeLine{00356\ \ \ \ \ \textcolor{comment}{/*Erase\ 1st\ page\ and\ wait\ for\ IT*/}}
+\DoxyCodeLine{00357\ \ \ \ \ \doxymbox{\hyperlink{group___f_l_a_s_h___private___functions_ga35fd7dd876d296b20c2733f55dde7da7}{FLASH\_PageErase}}(pEraseInit-\/>\doxymbox{\hyperlink{struct_f_l_a_s_h___erase_init_type_def_ab078898fc3e86294ce8335f6c03387b1}{PageAddress}});}
+\DoxyCodeLine{00358\ \ \ \}}
+\DoxyCodeLine{00359\ }
+\DoxyCodeLine{00360\ \ \ \textcolor{keywordflow}{return}\ status;}
+\DoxyCodeLine{00361\ \}}
+
+\end{DoxyCode}
+
+
+Hace referencia a \doxymbox{\hyperlink{stm32f1xx__hal__flash__ex_8h_source_l00681}{\+\_\+\+\_\+\+HAL\+\_\+\+FLASH\+\_\+\+ENABLE\+\_\+\+IT}}, \doxymbox{\hyperlink{stm32f1xx__hal__flash_8h_source_l00092}{FLASH\+\_\+\+Process\+Type\+Def::\+\+Address}}, \doxymbox{\hyperlink{stm32f1xx__hal__conf_8h_source_l00373}{assert\+\_\+param}}, \doxymbox{\hyperlink{stm32f1xx__hal__flash__ex_8h_source_l00173}{FLASH\+\_\+\+Erase\+Init\+Type\+Def::\+\+Banks}}, \doxymbox{\hyperlink{stm32f1xx__hal__flash_8h_source_l00090}{FLASH\+\_\+\+Process\+Type\+Def::\+\+Data\+Remaining}}, \doxymbox{\hyperlink{stm32f1xx__hal__flash__ex_8h_source_l00555}{FLASH\+\_\+\+IT\+\_\+\+EOP}}, \doxymbox{\hyperlink{stm32f1xx__hal__flash__ex_8h_source_l00556}{FLASH\+\_\+\+IT\+\_\+\+ERR}}, \doxymbox{\hyperlink{stm32f1xx__hal__flash__ex_8c_source_l00590}{FLASH\+\_\+\+Mass\+Erase()}}, \doxymbox{\hyperlink{stm32f1xx__hal__flash__ex_8c_source_l01084}{FLASH\+\_\+\+Page\+Erase()}}, \doxymbox{\hyperlink{stm32f1xx__hal__flash_8h_source_l00077}{FLASH\+\_\+\+PROC\+\_\+\+MASSERASE}}, \doxymbox{\hyperlink{stm32f1xx__hal__flash_8h_source_l00075}{FLASH\+\_\+\+PROC\+\_\+\+NONE}}, \doxymbox{\hyperlink{stm32f1xx__hal__flash_8h_source_l00076}{FLASH\+\_\+\+PROC\+\_\+\+PAGEERASE}}, \doxymbox{\hyperlink{stm32f1xx__hal__flash__ex_8h_source_l00259}{FLASH\+\_\+\+TYPEERASE\+\_\+\+MASSERASE}}, \doxymbox{\hyperlink{stm32f1xx__hal__def_8h_source_l00041}{HAL\+\_\+\+ERROR}}, \doxymbox{\hyperlink{stm32f1xx__hal__flash__ex_8c_source_l00317}{HAL\+\_\+\+FLASHEx\+\_\+\+Erase\+\_\+\+IT()}}, \doxymbox{\hyperlink{stm32f1xx__hal__def_8h_source_l00040}{HAL\+\_\+\+OK}}, \doxymbox{\hyperlink{stm32f1xx__hal__flash__ex_8h_source_l00081}{IS\+\_\+\+FLASH\+\_\+\+NB\+\_\+\+PAGES}}, \doxymbox{\hyperlink{stm32f1xx__hal__flash__ex_8h_source_l00126}{IS\+\_\+\+FLASH\+\_\+\+PROGRAM\+\_\+\+ADDRESS}}, \doxymbox{\hyperlink{stm32f1xx__hal__flash__ex_8h_source_l00053}{IS\+\_\+\+FLASH\+\_\+\+TYPEERASE}}, \doxymbox{\hyperlink{stm32f1xx__hal__flash__ex_8h_source_l00180}{FLASH\+\_\+\+Erase\+Init\+Type\+Def::\+\+Nb\+Pages}}, \doxymbox{\hyperlink{stm32f1xx__hal__flash__ex_8h_source_l00176}{FLASH\+\_\+\+Erase\+Init\+Type\+Def::\+\+Page\+Address}}, \doxymbox{\hyperlink{stm32f1xx__hal__flash_8c_source_l00119}{p\+Flash}}, \doxymbox{\hyperlink{stm32f1xx__hal__flash_8h_source_l00088}{FLASH\+\_\+\+Process\+Type\+Def::\+\+Procedure\+On\+Going}} y \doxymbox{\hyperlink{stm32f1xx__hal__flash__ex_8h_source_l00170}{FLASH\+\_\+\+Erase\+Init\+Type\+Def::\+\+Type\+Erase}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{stm32f1xx__hal__flash__ex_8c_source_l00317}{HAL\+\_\+\+FLASHEx\+\_\+\+Erase\+\_\+\+IT()}}.
+
+Gráfico de llamadas de esta función:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=349pt]{group___f_l_a_s_h_ex___exported___functions___group1_gaf58c6764859e4febc21abe462dfb2615_cgraph}
+\end{center}
+\end{figure}
+Gráfico de llamadas a esta función:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=210pt]{group___f_l_a_s_h_ex___exported___functions___group1_gaf58c6764859e4febc21abe462dfb2615_icgraph}
+\end{center}
+\end{figure}

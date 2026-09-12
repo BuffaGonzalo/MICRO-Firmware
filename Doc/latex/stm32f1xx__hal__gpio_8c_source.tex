@@ -1,0 +1,592 @@
+\doxysubsection{stm32f1xx\+\_\+hal\+\_\+gpio.\+c}
+\hypertarget{stm32f1xx__hal__gpio_8c_source}{}\label{stm32f1xx__hal__gpio_8c_source}\index{stm32f1xx\_hal\_gpio.c@{stm32f1xx\_hal\_gpio.c}}
+\doxymbox{\hyperlink{stm32f1xx__hal__gpio_8c}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00001}00001\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00002}00002\ \textcolor{comment}{\ \ ******************************************************************************}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00003}00003\ \textcolor{comment}{\ \ *\ @file\ \ \ \ stm32f1xx\_hal\_gpio.c}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00004}00004\ \textcolor{comment}{\ \ *\ @author\ \ MCD\ Application\ Team}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00005}00005\ \textcolor{comment}{\ \ *\ @brief\ \ \ GPIO\ HAL\ module\ driver.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00006}00006\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ This\ file\ provides\ firmware\ functions\ to\ manage\ the\ following}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00007}00007\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ functionalities\ of\ the\ General\ Purpose\ Input/Output\ (GPIO)\ peripheral:}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00008}00008\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ +\ Initialization\ and\ de-\/initialization\ functions}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00009}00009\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ +\ IO\ operation\ functions}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00010}00010\ \textcolor{comment}{\ \ *}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00011}00011\ \textcolor{comment}{\ \ ******************************************************************************}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00012}00012\ \textcolor{comment}{\ \ *\ @attention}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00013}00013\ \textcolor{comment}{\ \ *}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00014}00014\ \textcolor{comment}{\ \ *\ Copyright\ (c)\ 2016\ STMicroelectronics.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00015}00015\ \textcolor{comment}{\ \ *\ All\ rights\ reserved.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00016}00016\ \textcolor{comment}{\ \ *}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00017}00017\ \textcolor{comment}{\ \ *\ This\ software\ is\ licensed\ under\ terms\ that\ can\ be\ found\ in\ the\ LICENSE\ file}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00018}00018\ \textcolor{comment}{\ \ *\ in\ the\ root\ directory\ of\ this\ software\ component.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00019}00019\ \textcolor{comment}{\ \ *\ If\ no\ LICENSE\ file\ comes\ with\ this\ software,\ it\ is\ provided\ AS-\/IS.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00020}00020\ \textcolor{comment}{\ \ *}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00021}00021\ \textcolor{comment}{\ \ ******************************************************************************}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00022}00022\ \textcolor{comment}{\ \ @verbatim}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00023}00023\ \textcolor{comment}{\ \ ==============================================================================}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00024}00024\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\#\#\#\#\ GPIO\ Peripheral\ features\ \#\#\#\#\#}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00025}00025\ \textcolor{comment}{\ \ ==============================================================================}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00026}00026\ \textcolor{comment}{\ \ [..]}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00027}00027\ \textcolor{comment}{\ \ Subject\ to\ the\ specific\ hardware\ characteristics\ of\ each\ I/O\ port\ listed\ in\ the\ datasheet,\ each}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00028}00028\ \textcolor{comment}{\ \ port\ bit\ of\ the\ General\ Purpose\ IO\ (GPIO)\ Ports,\ can\ be\ individually\ configured\ by\ software}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00029}00029\ \textcolor{comment}{\ \ in\ several\ modes:}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00030}00030\ \textcolor{comment}{\ \ (+)\ Input\ mode}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00031}00031\ \textcolor{comment}{\ \ (+)\ Analog\ mode}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00032}00032\ \textcolor{comment}{\ \ (+)\ Output\ mode}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00033}00033\ \textcolor{comment}{\ \ (+)\ Alternate\ function\ mode}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00034}00034\ \textcolor{comment}{\ \ (+)\ External\ interrupt/event\ lines}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00035}00035\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00036}00036\ \textcolor{comment}{\ \ [..]}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00037}00037\ \textcolor{comment}{\ \ During\ and\ just\ after\ reset,\ the\ alternate\ functions\ and\ external\ interrupt}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00038}00038\ \textcolor{comment}{\ \ lines\ are\ not\ active\ and\ the\ I/O\ ports\ are\ configured\ in\ input\ floating\ mode.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00039}00039\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00040}00040\ \textcolor{comment}{\ \ [..]}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00041}00041\ \textcolor{comment}{\ \ All\ GPIO\ pins\ have\ weak\ internal\ pull-\/up\ and\ pull-\/down\ resistors,\ which\ can\ be}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00042}00042\ \textcolor{comment}{\ \ activated\ or\ not.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00043}00043\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00044}00044\ \textcolor{comment}{\ \ [..]}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00045}00045\ \textcolor{comment}{\ \ In\ Output\ or\ Alternate\ mode,\ each\ IO\ can\ be\ configured\ on\ open-\/drain\ or\ push-\/pull}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00046}00046\ \textcolor{comment}{\ \ type\ and\ the\ IO\ speed\ can\ be\ selected\ depending\ on\ the\ VDD\ value.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00047}00047\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00048}00048\ \textcolor{comment}{\ \ [..]}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00049}00049\ \textcolor{comment}{\ \ All\ ports\ have\ external\ interrupt/event\ capability.\ To\ use\ external\ interrupt}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00050}00050\ \textcolor{comment}{\ \ lines,\ the\ port\ must\ be\ configured\ in\ input\ mode.\ All\ available\ GPIO\ pins\ are}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00051}00051\ \textcolor{comment}{\ \ connected\ to\ the\ 16\ external\ interrupt/event\ lines\ from\ EXTI0\ to\ EXTI15.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00052}00052\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00053}00053\ \textcolor{comment}{\ \ [..]}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00054}00054\ \textcolor{comment}{\ \ The\ external\ interrupt/event\ controller\ consists\ of\ up\ to\ 20\ edge\ detectors\ in\ connectivity}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00055}00055\ \textcolor{comment}{\ \ line\ devices,\ or\ 19\ edge\ detectors\ in\ other\ devices\ for\ generating\ event/interrupt\ requests.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00056}00056\ \textcolor{comment}{\ \ Each\ input\ line\ can\ be\ independently\ configured\ to\ select\ the\ type\ (event\ or\ interrupt)\ and}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00057}00057\ \textcolor{comment}{\ \ the\ corresponding\ trigger\ event\ (rising\ or\ falling\ or\ both).\ Each\ line\ can\ also\ masked}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00058}00058\ \textcolor{comment}{\ \ independently.\ A\ pending\ register\ maintains\ the\ status\ line\ of\ the\ interrupt\ requests}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00059}00059\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00060}00060\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\#\#\#\#\ How\ to\ use\ this\ driver\ \#\#\#\#\#}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00061}00061\ \textcolor{comment}{\ \ ==============================================================================}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00062}00062\ \textcolor{comment}{\ [..]}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00063}00063\ \textcolor{comment}{\ \ \ (\#)\ Enable\ the\ GPIO\ APB2\ clock\ using\ the\ following\ function\ :\ \_\_HAL\_RCC\_GPIOx\_CLK\_ENABLE().}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00064}00064\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00065}00065\ \textcolor{comment}{\ \ \ (\#)\ Configure\ the\ GPIO\ pin(s)\ using\ HAL\_GPIO\_Init().}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00066}00066\ \textcolor{comment}{\ \ \ \ \ \ \ (++)\ Configure\ the\ IO\ mode\ using\ "{}Mode"{}\ member\ from\ GPIO\_InitTypeDef\ structure}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00067}00067\ \textcolor{comment}{\ \ \ \ \ \ \ (++)\ Activate\ Pull-\/up,\ Pull-\/down\ resistor\ using\ "{}Pull"{}\ member\ from\ GPIO\_InitTypeDef}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00068}00068\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ structure.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00069}00069\ \textcolor{comment}{\ \ \ \ \ \ \ (++)\ In\ case\ of\ Output\ or\ alternate\ function\ mode\ selection:\ the\ speed\ is}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00070}00070\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ configured\ through\ "{}Speed"{}\ member\ from\ GPIO\_InitTypeDef\ structure}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00071}00071\ \textcolor{comment}{\ \ \ \ \ \ \ (++)\ Analog\ mode\ is\ required\ when\ a\ pin\ is\ to\ be\ used\ as\ ADC\ channel}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00072}00072\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ or\ DAC\ output.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00073}00073\ \textcolor{comment}{\ \ \ \ \ \ \ (++)\ In\ case\ of\ external\ interrupt/event\ selection\ the\ "{}Mode"{}\ member\ from}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00074}00074\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ GPIO\_InitTypeDef\ structure\ select\ the\ type\ (interrupt\ or\ event)\ and}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00075}00075\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ the\ corresponding\ trigger\ event\ (rising\ or\ falling\ or\ both).}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00076}00076\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00077}00077\ \textcolor{comment}{\ \ \ (\#)\ In\ case\ of\ external\ interrupt/event\ mode\ selection,\ configure\ NVIC\ IRQ\ priority}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00078}00078\ \textcolor{comment}{\ \ \ \ \ \ \ mapped\ to\ the\ EXTI\ line\ using\ HAL\_NVIC\_SetPriority()\ and\ enable\ it\ using}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00079}00079\ \textcolor{comment}{\ \ \ \ \ \ \ HAL\_NVIC\_EnableIRQ().}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00080}00080\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00081}00081\ \textcolor{comment}{\ \ \ (\#)\ To\ get\ the\ level\ of\ a\ pin\ configured\ in\ input\ mode\ use\ HAL\_GPIO\_ReadPin().}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00082}00082\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00083}00083\ \textcolor{comment}{\ \ \ (\#)\ To\ set/reset\ the\ level\ of\ a\ pin\ configured\ in\ output\ mode\ use}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00084}00084\ \textcolor{comment}{\ \ \ \ \ \ \ HAL\_GPIO\_WritePin()/HAL\_GPIO\_TogglePin().}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00085}00085\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00086}00086\ \textcolor{comment}{\ \ \ (\#)\ To\ lock\ pin\ configuration\ until\ next\ reset\ use\ HAL\_GPIO\_LockPin().}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00087}00087\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00088}00088\ \textcolor{comment}{\ \ \ (\#)\ During\ and\ just\ after\ reset,\ the\ alternate\ functions\ are\ not}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00089}00089\ \textcolor{comment}{\ \ \ \ \ \ \ active\ and\ the\ GPIO\ pins\ are\ configured\ in\ input\ floating\ mode\ (except\ JTAG}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00090}00090\ \textcolor{comment}{\ \ \ \ \ \ \ pins).}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00091}00091\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00092}00092\ \textcolor{comment}{\ \ \ (\#)\ The\ LSE\ oscillator\ pins\ OSC32\_IN\ and\ OSC32\_OUT\ can\ be\ used\ as\ general\ purpose}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00093}00093\ \textcolor{comment}{\ \ \ \ \ \ \ (PC14\ and\ PC15,\ respectively)\ when\ the\ LSE\ oscillator\ is\ off.\ The\ LSE\ has}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00094}00094\ \textcolor{comment}{\ \ \ \ \ \ \ priority\ over\ the\ GPIO\ function.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00095}00095\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00096}00096\ \textcolor{comment}{\ \ \ (\#)\ The\ HSE\ oscillator\ pins\ OSC\_IN/OSC\_OUT\ can\ be\ used\ as}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00097}00097\ \textcolor{comment}{\ \ \ \ \ \ \ general\ purpose\ PD0\ and\ PD1,\ respectively,\ when\ the\ HSE\ oscillator\ is\ off.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00098}00098\ \textcolor{comment}{\ \ \ \ \ \ \ The\ HSE\ has\ priority\ over\ the\ GPIO\ function.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00099}00099\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00100}00100\ \textcolor{comment}{\ \ @endverbatim}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00101}00101\ \textcolor{comment}{\ \ ******************************************************************************}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00102}00102\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00103}00103\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00104}00104\ \textcolor{comment}{/*\ Includes\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00105}00105\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{stm32f1xx__hal_8h}{stm32f1xx\_hal.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00106}00106\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00107}00107\ \textcolor{comment}{/**\ @addtogroup\ STM32F1xx\_HAL\_Driver}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00108}00108\ \textcolor{comment}{\ \ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00109}00109\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00110}00110\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00111}00111\ \textcolor{comment}{/**\ @defgroup\ GPIO\ GPIO}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00112}00112\ \textcolor{comment}{\ \ *\ @brief\ GPIO\ HAL\ module\ driver}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00113}00113\ \textcolor{comment}{\ \ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00114}00114\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00115}00115\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00116}00116\ \textcolor{preprocessor}{\#ifdef\ HAL\_GPIO\_MODULE\_ENABLED}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00117}00117\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00118}00118\ \textcolor{comment}{/*\ Private\ typedef\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00119}00119\ \textcolor{comment}{/*\ Private\ define\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00120}00120\ \textcolor{comment}{/**\ @addtogroup\ GPIO\_Private\_Constants\ GPIO\ Private\ Constants}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00121}00121\ \textcolor{comment}{\ \ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00122}00122\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00123}\doxymbox{\hyperlink{group___g_p_i_o___private___constants_ga9f30425211b75e4ab36c4e7cbea06a41}{00123}}\ \textcolor{preprocessor}{\#define\ GPIO\_MODE\ \ \ \ \ \ \ \ \ \ \ \ \ 0x00000003u}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00124}\doxymbox{\hyperlink{group___g_p_i_o___private___constants_ga50756019598a98c1dd294fb6c54da638}{00124}}\ \textcolor{preprocessor}{\#define\ EXTI\_MODE\ \ \ \ \ \ \ \ \ \ \ \ \ 0x10000000u}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00125}\doxymbox{\hyperlink{group___g_p_i_o___private___constants_ga5283b76e07c6eba042342aa3eaec9a0f}{00125}}\ \textcolor{preprocessor}{\#define\ GPIO\_MODE\_IT\ \ \ \ \ \ \ \ \ \ 0x00010000u}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00126}\doxymbox{\hyperlink{group___g_p_i_o___private___constants_gaab555136b933ff2f44c3bf39738dd79e}{00126}}\ \textcolor{preprocessor}{\#define\ GPIO\_MODE\_EVT\ \ \ \ \ \ \ \ \ 0x00020000u}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00127}\doxymbox{\hyperlink{group___g_p_i_o___private___constants_gaf13ff90bb3a97b9d46ae59f02c515b67}{00127}}\ \textcolor{preprocessor}{\#define\ RISING\_EDGE\ \ \ \ \ \ \ \ \ \ \ 0x00100000u}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00128}\doxymbox{\hyperlink{group___g_p_i_o___private___constants_ga159ba045d627097f4f2d351bec51afe1}{00128}}\ \textcolor{preprocessor}{\#define\ FALLING\_EDGE\ \ \ \ \ \ \ \ \ \ 0x00200000u}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00129}\doxymbox{\hyperlink{group___g_p_i_o___private___constants_ga06c7b107fa4038d08dd564f48ca44646}{00129}}\ \textcolor{preprocessor}{\#define\ GPIO\_OUTPUT\_TYPE\ \ \ \ \ \ 0x00000010u}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00130}00130\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00131}\doxymbox{\hyperlink{group___g_p_i_o___private___constants_gae8e9740a0d9ca9a179cb4fd05a2cd3d9}{00131}}\ \textcolor{preprocessor}{\#define\ GPIO\_NUMBER\ \ \ \ \ \ \ \ \ \ \ 16u}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00132}00132\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00133}00133\ \textcolor{comment}{/*\ Definitions\ for\ bit\ manipulation\ of\ CRL\ and\ CRH\ register\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00134}\doxymbox{\hyperlink{group___g_p_i_o___private___constants_gab82a622fa0256ce7d9eb3d76a28bc4e3}{00134}}\ \textcolor{preprocessor}{\#define\ \ GPIO\_CR\_MODE\_INPUT\ \ \ \ \ \ \ \ \ 0x00000000u\ }\textcolor{comment}{/*!<\ 00:\ Input\ mode\ (reset\ state)\ \ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00135}\doxymbox{\hyperlink{group___g_p_i_o___private___constants_ga41f2512f0f101cc8d64914232b2bea7f}{00135}}\ \textcolor{preprocessor}{\#define\ \ GPIO\_CR\_CNF\_ANALOG\ \ \ \ \ \ \ \ \ 0x00000000u\ }\textcolor{comment}{/*!<\ 00:\ Analog\ mode\ \ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00136}\doxymbox{\hyperlink{group___g_p_i_o___private___constants_gae0b8bea89b586e495827ca063db81f27}{00136}}\ \textcolor{preprocessor}{\#define\ \ GPIO\_CR\_CNF\_INPUT\_FLOATING\ 0x00000004u\ }\textcolor{comment}{/*!<\ 01:\ Floating\ input\ (reset\ state)\ \ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00137}\doxymbox{\hyperlink{group___g_p_i_o___private___constants_ga7424a481a0f6ad2f4d032e4db8732aa0}{00137}}\ \textcolor{preprocessor}{\#define\ \ GPIO\_CR\_CNF\_INPUT\_PU\_PD\ \ \ \ 0x00000008u\ }\textcolor{comment}{/*!<\ 10:\ Input\ with\ pull-\/up\ /\ pull-\/down\ \ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00138}\doxymbox{\hyperlink{group___g_p_i_o___private___constants_ga9493bcf8c4e4e232c8ecb97b47e4011a}{00138}}\ \textcolor{preprocessor}{\#define\ \ GPIO\_CR\_CNF\_GP\_OUTPUT\_PP\ \ \ 0x00000000u\ }\textcolor{comment}{/*!<\ 00:\ General\ purpose\ output\ push-\/pull\ \ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00139}\doxymbox{\hyperlink{group___g_p_i_o___private___constants_ga842302ba043484ff2d0486742a617847}{00139}}\ \textcolor{preprocessor}{\#define\ \ GPIO\_CR\_CNF\_GP\_OUTPUT\_OD\ \ \ 0x00000004u\ }\textcolor{comment}{/*!<\ 01:\ General\ purpose\ output\ Open-\/drain\ \ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00140}\doxymbox{\hyperlink{group___g_p_i_o___private___constants_ga929894f2f31ebbb7b4fb1d6b9067b931}{00140}}\ \textcolor{preprocessor}{\#define\ \ GPIO\_CR\_CNF\_AF\_OUTPUT\_PP\ \ \ 0x00000008u\ }\textcolor{comment}{/*!<\ 10:\ Alternate\ function\ output\ Push-\/pull\ \ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00141}\doxymbox{\hyperlink{group___g_p_i_o___private___constants_gad9f4bacaf7843ec9466ab437690edba9}{00141}}\ \textcolor{preprocessor}{\#define\ \ GPIO\_CR\_CNF\_AF\_OUTPUT\_OD\ \ \ 0x0000000Cu\ }\textcolor{comment}{/*!<\ 11:\ Alternate\ function\ output\ Open-\/drain\ \ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00142}00142\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00143}00143\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00144}00144\ \textcolor{comment}{\ \ *\ @\}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00145}00145\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00146}00146\ \textcolor{comment}{/*\ Private\ macro\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00147}00147\ \textcolor{comment}{/*\ Private\ variables\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00148}00148\ \textcolor{comment}{/*\ Private\ function\ prototypes\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00149}00149\ \textcolor{comment}{/*\ Private\ functions\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00150}00150\ \textcolor{comment}{/*\ Exported\ functions\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00151}00151\ \textcolor{comment}{/**\ @defgroup\ GPIO\_Exported\_Functions\ GPIO\ Exported\ Functions}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00152}00152\ \textcolor{comment}{\ \ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00153}00153\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00154}00154\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00155}00155\ \textcolor{comment}{/**\ @defgroup\ GPIO\_Exported\_Functions\_Group1\ Initialization\ and\ de-\/initialization\ functions}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00156}00156\ \textcolor{comment}{\ *\ \ @brief\ \ \ \ Initialization\ and\ Configuration\ functions}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00157}00157\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00158}00158\ \textcolor{comment}{@verbatim}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00159}00159\ \textcolor{comment}{\ ===============================================================================}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00160}00160\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\#\#\#\#\ Initialization\ and\ de-\/initialization\ functions\ \#\#\#\#\#}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00161}00161\ \textcolor{comment}{\ ===============================================================================}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00162}00162\ \textcolor{comment}{\ \ [..]}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00163}00163\ \textcolor{comment}{\ \ \ \ This\ section\ provides\ functions\ allowing\ to\ initialize\ and\ de-\/initialize\ the\ GPIOs}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00164}00164\ \textcolor{comment}{\ \ \ \ to\ be\ ready\ for\ use.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00165}00165\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00166}00166\ \textcolor{comment}{@endverbatim}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00167}00167\ \textcolor{comment}{\ \ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00168}00168\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00169}00169\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00170}00170\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00171}00171\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00172}00172\ \textcolor{comment}{\ \ *\ @brief\ \ Initializes\ the\ GPIOx\ peripheral\ according\ to\ the\ specified\ parameters\ in\ the\ GPIO\_Init.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00173}00173\ \textcolor{comment}{\ \ *\ @param\ \ GPIOx:\ where\ x\ can\ be\ (A..G\ depending\ on\ device\ used)\ to\ select\ the\ GPIO\ peripheral}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00174}00174\ \textcolor{comment}{\ \ *\ @param\ \ GPIO\_Init:\ pointer\ to\ a\ GPIO\_InitTypeDef\ structure\ that\ contains}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00175}00175\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ the\ configuration\ information\ for\ the\ specified\ GPIO\ peripheral.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00176}00176\ \textcolor{comment}{\ \ *\ @retval\ None}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00177}00177\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00178}\doxymbox{\hyperlink{group___g_p_i_o___exported___functions___group1_ga41bda93b6dd639e4905fdb1454eff98e}{00178}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{group___g_p_i_o___exported___functions___group1_ga41bda93b6dd639e4905fdb1454eff98e}{HAL\_GPIO\_Init}}(\doxymbox{\hyperlink{struct_g_p_i_o___type_def}{GPIO\_TypeDef}}\ \ *GPIOx,\ \doxymbox{\hyperlink{struct_g_p_i_o___init_type_def}{GPIO\_InitTypeDef}}\ *GPIO\_Init)}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00179}00179\ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00180}00180\ \ \ uint32\_t\ position\ =\ 0x00u;}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00181}00181\ \ \ uint32\_t\ ioposition;}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00182}00182\ \ \ uint32\_t\ iocurrent;}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00183}00183\ \ \ uint32\_t\ temp;}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00184}00184\ \ \ uint32\_t\ config\ =\ 0x00u;}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00185}00185\ \ \ \_\_IO\ uint32\_t\ *configregister;\ \textcolor{comment}{/*\ Store\ the\ address\ of\ CRL\ or\ CRH\ register\ based\ on\ pin\ number\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00186}00186\ \ \ uint32\_t\ registeroffset;\ \ \ \ \ \ \ \textcolor{comment}{/*\ offset\ used\ during\ computation\ of\ CNF\ and\ MODE\ bits\ placement\ inside\ CRL\ or\ CRH\ register\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00187}00187\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00188}00188\ \ \ \textcolor{comment}{/*\ Check\ the\ parameters\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00189}00189\ \ \ \doxymbox{\hyperlink{stm32f1xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\doxymbox{\hyperlink{group___exported__macro_ga783626dd2431afebea836a102e318957}{IS\_GPIO\_ALL\_INSTANCE}}(GPIOx));}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00190}00190\ \ \ \doxymbox{\hyperlink{stm32f1xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\doxymbox{\hyperlink{group___g_p_i_o___private___macros_gad6ec74e33360395535ad5d91ba6d4781}{IS\_GPIO\_PIN}}(GPIO\_Init-\/>\doxymbox{\hyperlink{struct_g_p_i_o___init_type_def_aa807fb62b2b2cf937092abba81370b87}{Pin}}));}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00191}00191\ \ \ \doxymbox{\hyperlink{stm32f1xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\doxymbox{\hyperlink{group___g_p_i_o___private___macros_gacc5fde3eef57ec3c558c11d0011d900c}{IS\_GPIO\_MODE}}(GPIO\_Init-\/>\doxymbox{\hyperlink{struct_g_p_i_o___init_type_def_a3731d84343e65a98fdf51056a8d30321}{Mode}}));}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00192}00192\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00193}00193\ \ \ \textcolor{comment}{/*\ Configure\ the\ port\ pins\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00194}00194\ \ \ \textcolor{keywordflow}{while}\ (((GPIO\_Init-\/>\doxymbox{\hyperlink{struct_g_p_i_o___init_type_def_aa807fb62b2b2cf937092abba81370b87}{Pin}})\ >>\ position)\ !=\ 0x00u)}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00195}00195\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00196}00196\ \ \ \ \ \textcolor{comment}{/*\ Get\ the\ IO\ position\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00197}00197\ \ \ \ \ ioposition\ =\ (0x01uL\ <<\ position);}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00198}00198\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00199}00199\ \ \ \ \ \textcolor{comment}{/*\ Get\ the\ current\ IO\ position\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00200}00200\ \ \ \ \ iocurrent\ =\ (uint32\_t)(GPIO\_Init-\/>\doxymbox{\hyperlink{struct_g_p_i_o___init_type_def_aa807fb62b2b2cf937092abba81370b87}{Pin}})\ \&\ ioposition;}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00201}00201\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00202}00202\ \ \ \ \ \textcolor{keywordflow}{if}\ (iocurrent\ ==\ ioposition)}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00203}00203\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00204}00204\ \ \ \ \ \ \ \textcolor{comment}{/*\ Check\ the\ Alternate\ function\ parameters\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00205}00205\ \ \ \ \ \ \ \doxymbox{\hyperlink{stm32f1xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\doxymbox{\hyperlink{group___exported__macro_ga9d2e0c4bb80b983730a3a5d98d56f535}{IS\_GPIO\_AF\_INSTANCE}}(GPIOx));}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00206}00206\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00207}00207\ \ \ \ \ \ \ \textcolor{comment}{/*\ Based\ on\ the\ required\ mode,\ filling\ config\ variable\ with\ MODEy[1:0]\ and\ CNFy[3:2]\ corresponding\ bits\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00208}00208\ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (GPIO\_Init-\/>\doxymbox{\hyperlink{struct_g_p_i_o___init_type_def_a3731d84343e65a98fdf51056a8d30321}{Mode}})}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00209}00209\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00210}00210\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ If\ we\ are\ configuring\ the\ pin\ in\ OUTPUT\ push-\/pull\ mode\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00211}00211\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{group___g_p_i_o__mode__define_ga1013838a64cec2f8c88f079c449d1982}{GPIO\_MODE\_OUTPUT\_PP}}:}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00212}00212\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Check\ the\ GPIO\ speed\ parameter\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00213}00213\ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{stm32f1xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\doxymbox{\hyperlink{group___g_p_i_o___private___macros_ga888e1f951df2fe9dbf827528051a3a56}{IS\_GPIO\_SPEED}}(GPIO\_Init-\/>\doxymbox{\hyperlink{struct_g_p_i_o___init_type_def_aae3b8ba407fb4f974cbce9cc03fc189d}{Speed}}));}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00214}00214\ \ \ \ \ \ \ \ \ \ \ config\ =\ GPIO\_Init-\/>\doxymbox{\hyperlink{struct_g_p_i_o___init_type_def_aae3b8ba407fb4f974cbce9cc03fc189d}{Speed}}\ +\ \doxymbox{\hyperlink{group___g_p_i_o___private___constants_ga9493bcf8c4e4e232c8ecb97b47e4011a}{GPIO\_CR\_CNF\_GP\_OUTPUT\_PP}};}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00215}00215\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00216}00216\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00217}00217\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ If\ we\ are\ configuring\ the\ pin\ in\ OUTPUT\ open-\/drain\ mode\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00218}00218\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{group___g_p_i_o__mode__define_ga2f91757829f6e9505ec386b840941929}{GPIO\_MODE\_OUTPUT\_OD}}:}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00219}00219\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Check\ the\ GPIO\ speed\ parameter\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00220}00220\ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{stm32f1xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\doxymbox{\hyperlink{group___g_p_i_o___private___macros_ga888e1f951df2fe9dbf827528051a3a56}{IS\_GPIO\_SPEED}}(GPIO\_Init-\/>\doxymbox{\hyperlink{struct_g_p_i_o___init_type_def_aae3b8ba407fb4f974cbce9cc03fc189d}{Speed}}));}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00221}00221\ \ \ \ \ \ \ \ \ \ \ config\ =\ GPIO\_Init-\/>\doxymbox{\hyperlink{struct_g_p_i_o___init_type_def_aae3b8ba407fb4f974cbce9cc03fc189d}{Speed}}\ +\ \doxymbox{\hyperlink{group___g_p_i_o___private___constants_ga842302ba043484ff2d0486742a617847}{GPIO\_CR\_CNF\_GP\_OUTPUT\_OD}};}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00222}00222\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00223}00223\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00224}00224\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ If\ we\ are\ configuring\ the\ pin\ in\ ALTERNATE\ FUNCTION\ push-\/pull\ mode\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00225}00225\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{group___g_p_i_o__mode__define_ga526c72c5264316fc05c775b6cad4aa6a}{GPIO\_MODE\_AF\_PP}}:}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00226}00226\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Check\ the\ GPIO\ speed\ parameter\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00227}00227\ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{stm32f1xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\doxymbox{\hyperlink{group___g_p_i_o___private___macros_ga888e1f951df2fe9dbf827528051a3a56}{IS\_GPIO\_SPEED}}(GPIO\_Init-\/>\doxymbox{\hyperlink{struct_g_p_i_o___init_type_def_aae3b8ba407fb4f974cbce9cc03fc189d}{Speed}}));}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00228}00228\ \ \ \ \ \ \ \ \ \ \ config\ =\ GPIO\_Init-\/>\doxymbox{\hyperlink{struct_g_p_i_o___init_type_def_aae3b8ba407fb4f974cbce9cc03fc189d}{Speed}}\ +\ \doxymbox{\hyperlink{group___g_p_i_o___private___constants_ga929894f2f31ebbb7b4fb1d6b9067b931}{GPIO\_CR\_CNF\_AF\_OUTPUT\_PP}};}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00229}00229\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00230}00230\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00231}00231\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ If\ we\ are\ configuring\ the\ pin\ in\ ALTERNATE\ FUNCTION\ open-\/drain\ mode\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00232}00232\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{group___g_p_i_o__mode__define_ga282b9fd37c8ef31daba314ffae6bf023}{GPIO\_MODE\_AF\_OD}}:}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00233}00233\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Check\ the\ GPIO\ speed\ parameter\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00234}00234\ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{stm32f1xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\doxymbox{\hyperlink{group___g_p_i_o___private___macros_ga888e1f951df2fe9dbf827528051a3a56}{IS\_GPIO\_SPEED}}(GPIO\_Init-\/>\doxymbox{\hyperlink{struct_g_p_i_o___init_type_def_aae3b8ba407fb4f974cbce9cc03fc189d}{Speed}}));}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00235}00235\ \ \ \ \ \ \ \ \ \ \ config\ =\ GPIO\_Init-\/>\doxymbox{\hyperlink{struct_g_p_i_o___init_type_def_aae3b8ba407fb4f974cbce9cc03fc189d}{Speed}}\ +\ \doxymbox{\hyperlink{group___g_p_i_o___private___constants_gad9f4bacaf7843ec9466ab437690edba9}{GPIO\_CR\_CNF\_AF\_OUTPUT\_OD}};}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00236}00236\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00237}00237\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00238}00238\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ If\ we\ are\ configuring\ the\ pin\ in\ INPUT\ (also\ applicable\ to\ EVENT\ and\ IT\ mode)\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00239}00239\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{group___g_p_i_o__mode__define_gaf40bec3146810028a84b628d37d3b391}{GPIO\_MODE\_INPUT}}:}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00240}00240\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{group___g_p_i_o__mode__define_ga088659562e68426d9a72821ea4fd8d50}{GPIO\_MODE\_IT\_RISING}}:}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00241}00241\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{group___g_p_i_o__mode__define_gaa166210a6da3ac7e8d7504702520e522}{GPIO\_MODE\_IT\_FALLING}}:}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00242}00242\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{group___g_p_i_o__mode__define_ga0678e61090ed61e91a6496f22ddfb3d1}{GPIO\_MODE\_IT\_RISING\_FALLING}}:}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00243}00243\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{group___g_p_i_o__mode__define_ga97d78b82ea178ff7a4c35aa60b4e9338}{GPIO\_MODE\_EVT\_RISING}}:}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00244}00244\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{group___g_p_i_o__mode__define_gadbfa532b3566783ac6c0e07c2e0ffe5e}{GPIO\_MODE\_EVT\_FALLING}}:}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00245}00245\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{group___g_p_i_o__mode__define_ga1b760771297ed2fc55a6b13071188491}{GPIO\_MODE\_EVT\_RISING\_FALLING}}:}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00246}00246\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Check\ the\ GPIO\ pull\ parameter\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00247}00247\ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{stm32f1xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\doxymbox{\hyperlink{group___g_p_i_o___private___macros_ga1cb9706d23fb79584aae41e5e503f3cd}{IS\_GPIO\_PULL}}(GPIO\_Init-\/>\doxymbox{\hyperlink{struct_g_p_i_o___init_type_def_aa2d3a6b0c4e10ac20882b4a37799ced1}{Pull}}));}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00248}00248\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (GPIO\_Init-\/>\doxymbox{\hyperlink{struct_g_p_i_o___init_type_def_aa2d3a6b0c4e10ac20882b4a37799ced1}{Pull}}\ ==\ \doxymbox{\hyperlink{group___g_p_i_o__pull__define_ga5c2862579882c1cc64e36d38fbd07a4c}{GPIO\_NOPULL}})}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00249}00249\ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00250}00250\ \ \ \ \ \ \ \ \ \ \ \ \ config\ =\ \doxymbox{\hyperlink{group___g_p_i_o___private___constants_gab82a622fa0256ce7d9eb3d76a28bc4e3}{GPIO\_CR\_MODE\_INPUT}}\ +\ \doxymbox{\hyperlink{group___g_p_i_o___private___constants_gae0b8bea89b586e495827ca063db81f27}{GPIO\_CR\_CNF\_INPUT\_FLOATING}};}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00251}00251\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00252}00252\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (GPIO\_Init-\/>\doxymbox{\hyperlink{struct_g_p_i_o___init_type_def_aa2d3a6b0c4e10ac20882b4a37799ced1}{Pull}}\ ==\ \doxymbox{\hyperlink{group___g_p_i_o__pull__define_gae689bc8f5c42d6df7bd54a8dd372e072}{GPIO\_PULLUP}})}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00253}00253\ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00254}00254\ \ \ \ \ \ \ \ \ \ \ \ \ config\ =\ \doxymbox{\hyperlink{group___g_p_i_o___private___constants_gab82a622fa0256ce7d9eb3d76a28bc4e3}{GPIO\_CR\_MODE\_INPUT}}\ +\ \doxymbox{\hyperlink{group___g_p_i_o___private___constants_ga7424a481a0f6ad2f4d032e4db8732aa0}{GPIO\_CR\_CNF\_INPUT\_PU\_PD}};}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00255}00255\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00256}00256\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Set\ the\ corresponding\ ODR\ bit\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00257}00257\ \ \ \ \ \ \ \ \ \ \ \ \ GPIOx-\/>\doxymbox{\hyperlink{struct_g_p_i_o___type_def_a339be3e24fd21a4dbe815ffa6908e3ff}{BSRR}}\ =\ ioposition;}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00258}00258\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00259}00259\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{comment}{/*\ GPIO\_PULLDOWN\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00260}00260\ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00261}00261\ \ \ \ \ \ \ \ \ \ \ \ \ config\ =\ \doxymbox{\hyperlink{group___g_p_i_o___private___constants_gab82a622fa0256ce7d9eb3d76a28bc4e3}{GPIO\_CR\_MODE\_INPUT}}\ +\ \doxymbox{\hyperlink{group___g_p_i_o___private___constants_ga7424a481a0f6ad2f4d032e4db8732aa0}{GPIO\_CR\_CNF\_INPUT\_PU\_PD}};}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00262}00262\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00263}00263\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Reset\ the\ corresponding\ ODR\ bit\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00264}00264\ \ \ \ \ \ \ \ \ \ \ \ \ GPIOx-\/>\doxymbox{\hyperlink{struct_g_p_i_o___type_def_a847c88a81b1e0acfbdd053bc70d12d8f}{BRR}}\ =\ ioposition;}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00265}00265\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00266}00266\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00267}00267\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00268}00268\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ If\ we\ are\ configuring\ the\ pin\ in\ INPUT\ analog\ mode\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00269}00269\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{group___g_p_i_o__mode__define_ga7a04f9ab65ad572ad20791a35009220c}{GPIO\_MODE\_ANALOG}}:}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00270}00270\ \ \ \ \ \ \ \ \ \ \ config\ =\ \doxymbox{\hyperlink{group___g_p_i_o___private___constants_gab82a622fa0256ce7d9eb3d76a28bc4e3}{GPIO\_CR\_MODE\_INPUT}}\ +\ \doxymbox{\hyperlink{group___g_p_i_o___private___constants_ga41f2512f0f101cc8d64914232b2bea7f}{GPIO\_CR\_CNF\_ANALOG}};}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00271}00271\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00272}00272\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00273}00273\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Parameters\ are\ checked\ with\ assert\_param\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00274}00274\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00275}00275\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00276}00276\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00277}00277\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00278}00278\ \ \ \ \ \ \ \textcolor{comment}{/*\ Check\ if\ the\ current\ bit\ belongs\ to\ first\ half\ or\ last\ half\ of\ the\ pin\ count\ number}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00279}00279\ \textcolor{comment}{\ \ \ \ \ \ \ in\ order\ to\ address\ CRH\ or\ CRL\ register*/}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00280}00280\ \ \ \ \ \ \ configregister\ =\ (iocurrent\ <\ \doxymbox{\hyperlink{group___g_p_i_o__pins__define_gaf5eb6a42a4428e236bd4fd08ade71e7a}{GPIO\_PIN\_8}})\ ?\ \&GPIOx-\/>\doxymbox{\hyperlink{struct_g_p_i_o___type_def_a2f3bd454399de93c3ea175d5a6f7114e}{CRL}}\ \ \ \ \ :\ \&GPIOx-\/>\doxymbox{\hyperlink{struct_g_p_i_o___type_def_a155672eb45405323dfd75a8185c4ec31}{CRH}};}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00281}00281\ \ \ \ \ \ \ registeroffset\ =\ (iocurrent\ <\ \doxymbox{\hyperlink{group___g_p_i_o__pins__define_gaf5eb6a42a4428e236bd4fd08ade71e7a}{GPIO\_PIN\_8}})\ ?\ (position\ <<\ 2u)\ :\ ((position\ -\/\ 8u)\ <<\ 2u);}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00282}00282\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00283}00283\ \ \ \ \ \ \ \textcolor{comment}{/*\ Apply\ the\ new\ configuration\ of\ the\ pin\ to\ the\ register\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00284}00284\ \ \ \ \ \ \ \doxymbox{\hyperlink{group___exported__macros_ga6553c99f510c3bab8cc0a91602053247}{MODIFY\_REG}}((*configregister),\ ((\doxymbox{\hyperlink{group___peripheral___registers___bits___definition_ga2cdd3f5cad389fbe7c96458fb115035b}{GPIO\_CRL\_MODE0}}\ |\ \doxymbox{\hyperlink{group___peripheral___registers___bits___definition_ga58c66290c450d7078597125c0e127903}{GPIO\_CRL\_CNF0}})\ <<\ registeroffset),\ (config\ <<\ registeroffset));}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00285}00285\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00286}00286\ \ \ \ \ \ \ \textcolor{comment}{/*-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ EXTI\ Mode\ Configuration\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00287}00287\ \ \ \ \ \ \ \textcolor{comment}{/*\ Configure\ the\ External\ Interrupt\ or\ event\ for\ the\ current\ IO\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00288}00288\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((GPIO\_Init-\/>\doxymbox{\hyperlink{struct_g_p_i_o___init_type_def_a3731d84343e65a98fdf51056a8d30321}{Mode}}\ \&\ \doxymbox{\hyperlink{group___g_p_i_o___private___constants_ga50756019598a98c1dd294fb6c54da638}{EXTI\_MODE}})\ ==\ \doxymbox{\hyperlink{group___g_p_i_o___private___constants_ga50756019598a98c1dd294fb6c54da638}{EXTI\_MODE}})}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00289}00289\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00290}00290\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Enable\ AFIO\ Clock\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00291}00291\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___r_c_c___a_p_b2___clock___enable___disable_ga045c3af72300d80014bbd1bdc9d40797}{\_\_HAL\_RCC\_AFIO\_CLK\_ENABLE}}();}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00292}00292\ \ \ \ \ \ \ \ \ temp\ =\ \doxymbox{\hyperlink{group___peripheral__declaration_ga582e09473429414015b1de90cf767fa8}{AFIO}}-\/>EXTICR[position\ >>\ 2u];}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00293}00293\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___exported__macros_ga133aae6fc0d41bffab39ab223a7001de}{CLEAR\_BIT}}(temp,\ (0x0Fu)\ <<\ (4u\ *\ (position\ \&\ 0x03u)));}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00294}00294\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___exported__macros_ga26474f43799fbade9cf300e21dd3a91a}{SET\_BIT}}(temp,\ (\doxymbox{\hyperlink{group___g_p_i_o_ex___private___macros_ga3830db89326a2268d296a6498fd31384}{GPIO\_GET\_INDEX}}(GPIOx))\ <<\ (4u\ *\ (position\ \&\ 0x03u)));}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00295}00295\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___peripheral__declaration_ga582e09473429414015b1de90cf767fa8}{AFIO}}-\/>EXTICR[position\ >>\ 2u]\ =\ temp;}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00296}00296\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00297}00297\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00298}00298\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Enable\ or\ disable\ the\ rising\ trigger\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00299}00299\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((GPIO\_Init-\/>\doxymbox{\hyperlink{struct_g_p_i_o___init_type_def_a3731d84343e65a98fdf51056a8d30321}{Mode}}\ \&\ \doxymbox{\hyperlink{group___g_p_i_o___private___constants_gaf13ff90bb3a97b9d46ae59f02c515b67}{RISING\_EDGE}})\ ==\ \doxymbox{\hyperlink{group___g_p_i_o___private___constants_gaf13ff90bb3a97b9d46ae59f02c515b67}{RISING\_EDGE}})}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00300}00300\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00301}00301\ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___exported__macros_ga26474f43799fbade9cf300e21dd3a91a}{SET\_BIT}}(\doxymbox{\hyperlink{group___peripheral__declaration_ga9189e770cd9b63dadd36683eb9843cac}{EXTI}}-\/>RTSR,\ iocurrent);}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00302}00302\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00303}00303\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00304}00304\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00305}00305\ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___exported__macros_ga133aae6fc0d41bffab39ab223a7001de}{CLEAR\_BIT}}(\doxymbox{\hyperlink{group___peripheral__declaration_ga9189e770cd9b63dadd36683eb9843cac}{EXTI}}-\/>RTSR,\ iocurrent);}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00306}00306\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00307}00307\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00308}00308\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Enable\ or\ disable\ the\ falling\ trigger\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00309}00309\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((GPIO\_Init-\/>\doxymbox{\hyperlink{struct_g_p_i_o___init_type_def_a3731d84343e65a98fdf51056a8d30321}{Mode}}\ \&\ \doxymbox{\hyperlink{group___g_p_i_o___private___constants_ga159ba045d627097f4f2d351bec51afe1}{FALLING\_EDGE}})\ ==\ \doxymbox{\hyperlink{group___g_p_i_o___private___constants_ga159ba045d627097f4f2d351bec51afe1}{FALLING\_EDGE}})}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00310}00310\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00311}00311\ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___exported__macros_ga26474f43799fbade9cf300e21dd3a91a}{SET\_BIT}}(\doxymbox{\hyperlink{group___peripheral__declaration_ga9189e770cd9b63dadd36683eb9843cac}{EXTI}}-\/>FTSR,\ iocurrent);}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00312}00312\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00313}00313\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00314}00314\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00315}00315\ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___exported__macros_ga133aae6fc0d41bffab39ab223a7001de}{CLEAR\_BIT}}(\doxymbox{\hyperlink{group___peripheral__declaration_ga9189e770cd9b63dadd36683eb9843cac}{EXTI}}-\/>FTSR,\ iocurrent);}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00316}00316\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00317}00317\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00318}00318\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Configure\ the\ event\ mask\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00319}00319\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((GPIO\_Init-\/>\doxymbox{\hyperlink{struct_g_p_i_o___init_type_def_a3731d84343e65a98fdf51056a8d30321}{Mode}}\ \&\ \doxymbox{\hyperlink{group___g_p_i_o___private___constants_gaab555136b933ff2f44c3bf39738dd79e}{GPIO\_MODE\_EVT}})\ ==\ \doxymbox{\hyperlink{group___g_p_i_o___private___constants_gaab555136b933ff2f44c3bf39738dd79e}{GPIO\_MODE\_EVT}})}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00320}00320\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00321}00321\ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___exported__macros_ga26474f43799fbade9cf300e21dd3a91a}{SET\_BIT}}(\doxymbox{\hyperlink{group___peripheral__declaration_ga9189e770cd9b63dadd36683eb9843cac}{EXTI}}-\/>EMR,\ iocurrent);}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00322}00322\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00323}00323\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00324}00324\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00325}00325\ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___exported__macros_ga133aae6fc0d41bffab39ab223a7001de}{CLEAR\_BIT}}(\doxymbox{\hyperlink{group___peripheral__declaration_ga9189e770cd9b63dadd36683eb9843cac}{EXTI}}-\/>EMR,\ iocurrent);}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00326}00326\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00327}00327\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00328}00328\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Configure\ the\ interrupt\ mask\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00329}00329\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((GPIO\_Init-\/>\doxymbox{\hyperlink{struct_g_p_i_o___init_type_def_a3731d84343e65a98fdf51056a8d30321}{Mode}}\ \&\ \doxymbox{\hyperlink{group___g_p_i_o___private___constants_ga5283b76e07c6eba042342aa3eaec9a0f}{GPIO\_MODE\_IT}})\ ==\ \doxymbox{\hyperlink{group___g_p_i_o___private___constants_ga5283b76e07c6eba042342aa3eaec9a0f}{GPIO\_MODE\_IT}})}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00330}00330\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00331}00331\ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___exported__macros_ga26474f43799fbade9cf300e21dd3a91a}{SET\_BIT}}(\doxymbox{\hyperlink{group___peripheral__declaration_ga9189e770cd9b63dadd36683eb9843cac}{EXTI}}-\/>IMR,\ iocurrent);}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00332}00332\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00333}00333\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00334}00334\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00335}00335\ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___exported__macros_ga133aae6fc0d41bffab39ab223a7001de}{CLEAR\_BIT}}(\doxymbox{\hyperlink{group___peripheral__declaration_ga9189e770cd9b63dadd36683eb9843cac}{EXTI}}-\/>IMR,\ iocurrent);}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00336}00336\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00337}00337\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00338}00338\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00339}00339\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00340}00340\ \ \ \ \ position++;}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00341}00341\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00342}00342\ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00343}00343\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00344}00344\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00345}00345\ \textcolor{comment}{\ \ *\ @brief\ \ De-\/initializes\ the\ GPIOx\ peripheral\ registers\ to\ their\ default\ reset\ values.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00346}00346\ \textcolor{comment}{\ \ *\ @param\ \ GPIOx:\ where\ x\ can\ be\ (A..G\ depending\ on\ device\ used)\ to\ select\ the\ GPIO\ peripheral}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00347}00347\ \textcolor{comment}{\ \ *\ @param\ \ GPIO\_Pin:\ specifies\ the\ port\ bit\ to\ be\ written.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00348}00348\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ This\ parameter\ can\ be\ one\ of\ GPIO\_PIN\_x\ where\ x\ can\ be\ (0..15).}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00349}00349\ \textcolor{comment}{\ \ *\ @retval\ None}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00350}00350\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00351}\doxymbox{\hyperlink{group___g_p_i_o___exported___functions___group1_gafe9c756b5aa18961032a3f8aa572959b}{00351}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{group___g_p_i_o___exported___functions___group1_gafe9c756b5aa18961032a3f8aa572959b}{HAL\_GPIO\_DeInit}}(\doxymbox{\hyperlink{struct_g_p_i_o___type_def}{GPIO\_TypeDef}}\ \ *GPIOx,\ uint32\_t\ GPIO\_Pin)}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00352}00352\ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00353}00353\ \ \ uint32\_t\ position\ =\ 0x00u;}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00354}00354\ \ \ uint32\_t\ iocurrent;}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00355}00355\ \ \ uint32\_t\ tmp;}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00356}00356\ \ \ \_\_IO\ uint32\_t\ *configregister;\ \textcolor{comment}{/*\ Store\ the\ address\ of\ CRL\ or\ CRH\ register\ based\ on\ pin\ number\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00357}00357\ \ \ uint32\_t\ registeroffset;}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00358}00358\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00359}00359\ \ \ \textcolor{comment}{/*\ Check\ the\ parameters\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00360}00360\ \ \ \doxymbox{\hyperlink{stm32f1xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\doxymbox{\hyperlink{group___exported__macro_ga783626dd2431afebea836a102e318957}{IS\_GPIO\_ALL\_INSTANCE}}(GPIOx));}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00361}00361\ \ \ \doxymbox{\hyperlink{stm32f1xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\doxymbox{\hyperlink{group___g_p_i_o___private___macros_gad6ec74e33360395535ad5d91ba6d4781}{IS\_GPIO\_PIN}}(GPIO\_Pin));}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00362}00362\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00363}00363\ \ \ \textcolor{comment}{/*\ Configure\ the\ port\ pins\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00364}00364\ \ \ \textcolor{keywordflow}{while}\ ((GPIO\_Pin\ >>\ position)\ !=\ 0u)}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00365}00365\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00366}00366\ \ \ \ \ \textcolor{comment}{/*\ Get\ current\ io\ position\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00367}00367\ \ \ \ \ iocurrent\ =\ (GPIO\_Pin)\ \&\ (1uL\ <<\ position);}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00368}00368\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00369}00369\ \ \ \ \ \textcolor{keywordflow}{if}\ (iocurrent)}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00370}00370\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00371}00371\ \ \ \ \ \ \ \textcolor{comment}{/*-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ EXTI\ Mode\ Configuration\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00372}00372\ \ \ \ \ \ \ \textcolor{comment}{/*\ Clear\ the\ External\ Interrupt\ or\ Event\ for\ the\ current\ IO\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00373}00373\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00374}00374\ \ \ \ \ \ \ tmp\ =\ \doxymbox{\hyperlink{group___peripheral__declaration_ga582e09473429414015b1de90cf767fa8}{AFIO}}-\/>EXTICR[position\ >>\ 2u];}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00375}00375\ \ \ \ \ \ \ tmp\ \&=\ 0x0FuL\ <<\ (4u\ *\ (position\ \&\ 0x03u));}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00376}00376\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (tmp\ ==\ (\doxymbox{\hyperlink{group___g_p_i_o_ex___private___macros_ga3830db89326a2268d296a6498fd31384}{GPIO\_GET\_INDEX}}(GPIOx)\ <<\ (4u\ *\ (position\ \&\ 0x03u))))}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00377}00377\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00378}00378\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Clear\ EXTI\ line\ configuration\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00379}00379\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___exported__macros_ga133aae6fc0d41bffab39ab223a7001de}{CLEAR\_BIT}}(\doxymbox{\hyperlink{group___peripheral__declaration_ga9189e770cd9b63dadd36683eb9843cac}{EXTI}}-\/>IMR,\ (uint32\_t)iocurrent);}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00380}00380\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___exported__macros_ga133aae6fc0d41bffab39ab223a7001de}{CLEAR\_BIT}}(\doxymbox{\hyperlink{group___peripheral__declaration_ga9189e770cd9b63dadd36683eb9843cac}{EXTI}}-\/>EMR,\ (uint32\_t)iocurrent);}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00381}00381\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00382}00382\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Clear\ Rising\ Falling\ edge\ configuration\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00383}00383\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___exported__macros_ga133aae6fc0d41bffab39ab223a7001de}{CLEAR\_BIT}}(\doxymbox{\hyperlink{group___peripheral__declaration_ga9189e770cd9b63dadd36683eb9843cac}{EXTI}}-\/>FTSR,\ (uint32\_t)iocurrent);}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00384}00384\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___exported__macros_ga133aae6fc0d41bffab39ab223a7001de}{CLEAR\_BIT}}(\doxymbox{\hyperlink{group___peripheral__declaration_ga9189e770cd9b63dadd36683eb9843cac}{EXTI}}-\/>RTSR,\ (uint32\_t)iocurrent);}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00385}00385\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00386}00386\ \ \ \ \ \ \ \ \ tmp\ =\ 0x0FuL\ <<\ (4u\ *\ (position\ \&\ 0x03u));}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00387}00387\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___exported__macros_ga133aae6fc0d41bffab39ab223a7001de}{CLEAR\_BIT}}(\doxymbox{\hyperlink{group___peripheral__declaration_ga582e09473429414015b1de90cf767fa8}{AFIO}}-\/>EXTICR[position\ >>\ 2u],\ tmp);}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00388}00388\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00389}00389\ \ \ \ \ \ \ \textcolor{comment}{/*-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ GPIO\ Mode\ Configuration\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00390}00390\ \ \ \ \ \ \ \textcolor{comment}{/*\ Check\ if\ the\ current\ bit\ belongs\ to\ first\ half\ or\ last\ half\ of\ the\ pin\ count\ number}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00391}00391\ \textcolor{comment}{\ \ \ \ \ \ \ in\ order\ to\ address\ CRH\ or\ CRL\ register\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00392}00392\ \ \ \ \ \ \ configregister\ =\ (iocurrent\ <\ \doxymbox{\hyperlink{group___g_p_i_o__pins__define_gaf5eb6a42a4428e236bd4fd08ade71e7a}{GPIO\_PIN\_8}})\ ?\ \&GPIOx-\/>\doxymbox{\hyperlink{struct_g_p_i_o___type_def_a2f3bd454399de93c3ea175d5a6f7114e}{CRL}}\ \ \ \ \ :\ \&GPIOx-\/>\doxymbox{\hyperlink{struct_g_p_i_o___type_def_a155672eb45405323dfd75a8185c4ec31}{CRH}};}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00393}00393\ \ \ \ \ \ \ registeroffset\ =\ (iocurrent\ <\ \doxymbox{\hyperlink{group___g_p_i_o__pins__define_gaf5eb6a42a4428e236bd4fd08ade71e7a}{GPIO\_PIN\_8}})\ ?\ (position\ <<\ 2u)\ :\ ((position\ -\/\ 8u)\ <<\ 2u);}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00394}00394\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00395}00395\ \ \ \ \ \ \ \textcolor{comment}{/*\ CRL/CRH\ default\ value\ is\ floating\ input(0x04)\ shifted\ to\ correct\ position\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00396}00396\ \ \ \ \ \ \ \doxymbox{\hyperlink{group___exported__macros_ga6553c99f510c3bab8cc0a91602053247}{MODIFY\_REG}}(*configregister,\ ((\doxymbox{\hyperlink{group___peripheral___registers___bits___definition_ga2cdd3f5cad389fbe7c96458fb115035b}{GPIO\_CRL\_MODE0}}\ |\ \doxymbox{\hyperlink{group___peripheral___registers___bits___definition_ga58c66290c450d7078597125c0e127903}{GPIO\_CRL\_CNF0}})\ <<\ registeroffset),\ \doxymbox{\hyperlink{group___peripheral___registers___bits___definition_ga0bf8a6e162d564a0f69b580d417acae8}{GPIO\_CRL\_CNF0\_0}}\ <<\ registeroffset);}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00397}00397\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00398}00398\ \ \ \ \ \ \ \textcolor{comment}{/*\ ODR\ default\ value\ is\ 0\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00399}00399\ \ \ \ \ \ \ \doxymbox{\hyperlink{group___exported__macros_ga133aae6fc0d41bffab39ab223a7001de}{CLEAR\_BIT}}(GPIOx-\/>\doxymbox{\hyperlink{struct_g_p_i_o___type_def_a845e01039cf7ad8cc6439c58748e42e5}{ODR}},\ iocurrent);}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00400}00400\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00401}00401\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00402}00402\ \ \ \ \ position++;}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00403}00403\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00404}00404\ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00405}00405\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00406}00406\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00407}00407\ \textcolor{comment}{\ \ *\ @\}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00408}00408\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00409}00409\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00410}00410\ \textcolor{comment}{/**\ @defgroup\ GPIO\_Exported\_Functions\_Group2\ IO\ operation\ functions}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00411}00411\ \textcolor{comment}{\ *\ \ @brief\ \ \ GPIO\ Read\ and\ Write}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00412}00412\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00413}00413\ \textcolor{comment}{@verbatim}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00414}00414\ \textcolor{comment}{\ ===============================================================================}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00415}00415\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\#\#\#\#\ IO\ operation\ functions\ \#\#\#\#\#}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00416}00416\ \textcolor{comment}{\ ===============================================================================}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00417}00417\ \textcolor{comment}{\ \ [..]}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00418}00418\ \textcolor{comment}{\ \ \ \ This\ subsection\ provides\ a\ set\ of\ functions\ allowing\ to\ manage\ the\ GPIOs.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00419}00419\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00420}00420\ \textcolor{comment}{@endverbatim}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00421}00421\ \textcolor{comment}{\ \ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00422}00422\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00423}00423\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00424}00424\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00425}00425\ \textcolor{comment}{\ \ *\ @brief\ \ Reads\ the\ specified\ input\ port\ pin.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00426}00426\ \textcolor{comment}{\ \ *\ @param\ \ GPIOx:\ where\ x\ can\ be\ (A..G\ depending\ on\ device\ used)\ to\ select\ the\ GPIO\ peripheral}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00427}00427\ \textcolor{comment}{\ \ *\ @param\ \ GPIO\_Pin:\ specifies\ the\ port\ bit\ to\ read.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00428}00428\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ This\ parameter\ can\ be\ GPIO\_PIN\_x\ where\ x\ can\ be\ (0..15).}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00429}00429\ \textcolor{comment}{\ \ *\ @retval\ The\ input\ port\ pin\ value.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00430}00430\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00431}\doxymbox{\hyperlink{group___g_p_i_o___exported___functions___group2_gaf2b819ea6551319ddd5670db318d2e4e}{00431}}\ \doxymbox{\hyperlink{group___g_p_i_o___exported___types_ga5b3ef0486b179415581eb342e0ea6b43}{GPIO\_PinState}}\ \doxymbox{\hyperlink{group___g_p_i_o___exported___functions___group2_gaf2b819ea6551319ddd5670db318d2e4e}{HAL\_GPIO\_ReadPin}}(\doxymbox{\hyperlink{struct_g_p_i_o___type_def}{GPIO\_TypeDef}}\ *GPIOx,\ uint16\_t\ GPIO\_Pin)}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00432}00432\ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00433}00433\ \ \ \doxymbox{\hyperlink{group___g_p_i_o___exported___types_ga5b3ef0486b179415581eb342e0ea6b43}{GPIO\_PinState}}\ bitstatus;}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00434}00434\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00435}00435\ \ \ \textcolor{comment}{/*\ Check\ the\ parameters\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00436}00436\ \ \ \doxymbox{\hyperlink{stm32f1xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\doxymbox{\hyperlink{group___g_p_i_o___private___macros_gad6ec74e33360395535ad5d91ba6d4781}{IS\_GPIO\_PIN}}(GPIO\_Pin));}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00437}00437\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00438}00438\ \ \ \textcolor{keywordflow}{if}\ ((GPIOx-\/>\doxymbox{\hyperlink{struct_g_p_i_o___type_def_aaeb10779e90965a31fd21e6a929a6597}{IDR}}\ \&\ GPIO\_Pin)\ !=\ (uint32\_t)\doxymbox{\hyperlink{group___g_p_i_o___exported___types_gga5b3ef0486b179415581eb342e0ea6b43a90af2af95004ea61d76950ff3f2f6ec2}{GPIO\_PIN\_RESET}})}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00439}00439\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00440}00440\ \ \ \ \ bitstatus\ =\ \doxymbox{\hyperlink{group___g_p_i_o___exported___types_gga5b3ef0486b179415581eb342e0ea6b43a746c062509db3ad1e47beed7527f9f8a}{GPIO\_PIN\_SET}};}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00441}00441\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00442}00442\ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00443}00443\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00444}00444\ \ \ \ \ bitstatus\ =\ \doxymbox{\hyperlink{group___g_p_i_o___exported___types_gga5b3ef0486b179415581eb342e0ea6b43a90af2af95004ea61d76950ff3f2f6ec2}{GPIO\_PIN\_RESET}};}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00445}00445\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00446}00446\ \ \ \textcolor{keywordflow}{return}\ bitstatus;}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00447}00447\ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00448}00448\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00449}00449\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00450}00450\ \textcolor{comment}{\ \ *\ @brief\ \ Sets\ or\ clears\ the\ selected\ data\ port\ bit.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00451}00451\ \textcolor{comment}{\ \ *}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00452}00452\ \textcolor{comment}{\ \ *\ @note\ \ \ This\ function\ uses\ GPIOx\_BSRR\ register\ to\ allow\ atomic\ read/modify}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00453}00453\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ accesses.\ In\ this\ way,\ there\ is\ no\ risk\ of\ an\ IRQ\ occurring\ between}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00454}00454\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ the\ read\ and\ the\ modify\ access.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00455}00455\ \textcolor{comment}{\ \ *}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00456}00456\ \textcolor{comment}{\ \ *\ @param\ \ GPIOx:\ where\ x\ can\ be\ (A..G\ depending\ on\ device\ used)\ to\ select\ the\ GPIO\ peripheral}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00457}00457\ \textcolor{comment}{\ \ *\ @param\ \ GPIO\_Pin:\ specifies\ the\ port\ bit\ to\ be\ written.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00458}00458\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ This\ parameter\ can\ be\ one\ of\ GPIO\_PIN\_x\ where\ x\ can\ be\ (0..15).}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00459}00459\ \textcolor{comment}{\ \ *\ @param\ \ PinState:\ specifies\ the\ value\ to\ be\ written\ to\ the\ selected\ bit.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00460}00460\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ This\ parameter\ can\ be\ one\ of\ the\ GPIO\_PinState\ enum\ values:}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00461}00461\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ \ @arg\ GPIO\_PIN\_RESET:\ to\ clear\ the\ port\ pin}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00462}00462\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ \ @arg\ GPIO\_PIN\_SET:\ to\ set\ the\ port\ pin}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00463}00463\ \textcolor{comment}{\ \ *\ @retval\ None}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00464}00464\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00465}\doxymbox{\hyperlink{group___g_p_i_o___exported___functions___group2_gaf4b97bdf533a02f51ef696d43b6da5c4}{00465}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{group___g_p_i_o___exported___functions___group2_gaf4b97bdf533a02f51ef696d43b6da5c4}{HAL\_GPIO\_WritePin}}(\doxymbox{\hyperlink{struct_g_p_i_o___type_def}{GPIO\_TypeDef}}\ *GPIOx,\ uint16\_t\ GPIO\_Pin,\ \doxymbox{\hyperlink{group___g_p_i_o___exported___types_ga5b3ef0486b179415581eb342e0ea6b43}{GPIO\_PinState}}\ PinState)}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00466}00466\ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00467}00467\ \ \ \textcolor{comment}{/*\ Check\ the\ parameters\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00468}00468\ \ \ \doxymbox{\hyperlink{stm32f1xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\doxymbox{\hyperlink{group___g_p_i_o___private___macros_gad6ec74e33360395535ad5d91ba6d4781}{IS\_GPIO\_PIN}}(GPIO\_Pin));}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00469}00469\ \ \ \doxymbox{\hyperlink{stm32f1xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\doxymbox{\hyperlink{group___g_p_i_o___private___macros_ga6da646a4924c5cfae3024c660476f26f}{IS\_GPIO\_PIN\_ACTION}}(PinState));}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00470}00470\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00471}00471\ \ \ \textcolor{keywordflow}{if}\ (PinState\ !=\ \doxymbox{\hyperlink{group___g_p_i_o___exported___types_gga5b3ef0486b179415581eb342e0ea6b43a90af2af95004ea61d76950ff3f2f6ec2}{GPIO\_PIN\_RESET}})}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00472}00472\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00473}00473\ \ \ \ \ GPIOx-\/>\doxymbox{\hyperlink{struct_g_p_i_o___type_def_a339be3e24fd21a4dbe815ffa6908e3ff}{BSRR}}\ =\ GPIO\_Pin;}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00474}00474\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00475}00475\ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00476}00476\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00477}00477\ \ \ \ \ GPIOx-\/>\doxymbox{\hyperlink{struct_g_p_i_o___type_def_a339be3e24fd21a4dbe815ffa6908e3ff}{BSRR}}\ =\ (uint32\_t)GPIO\_Pin\ <<\ 16u;}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00478}00478\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00479}00479\ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00480}00480\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00481}00481\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00482}00482\ \textcolor{comment}{\ \ *\ @brief\ \ Toggles\ the\ specified\ GPIO\ pin}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00483}00483\ \textcolor{comment}{\ \ *\ @param\ \ GPIOx:\ where\ x\ can\ be\ (A..G\ depending\ on\ device\ used)\ to\ select\ the\ GPIO\ peripheral}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00484}00484\ \textcolor{comment}{\ \ *\ @param\ \ GPIO\_Pin:\ Specifies\ the\ pins\ to\ be\ toggled.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00485}00485\ \textcolor{comment}{\ \ *\ @retval\ None}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00486}00486\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00487}\doxymbox{\hyperlink{group___g_p_i_o___exported___functions___group2_gaf5e0c89f752de5cdedcc30db068133f6}{00487}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{group___g_p_i_o___exported___functions___group2_gaf5e0c89f752de5cdedcc30db068133f6}{HAL\_GPIO\_TogglePin}}(\doxymbox{\hyperlink{struct_g_p_i_o___type_def}{GPIO\_TypeDef}}\ *GPIOx,\ uint16\_t\ GPIO\_Pin)}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00488}00488\ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00489}00489\ \ \ uint32\_t\ odr;}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00490}00490\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00491}00491\ \ \ \textcolor{comment}{/*\ Check\ the\ parameters\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00492}00492\ \ \ \doxymbox{\hyperlink{stm32f1xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\doxymbox{\hyperlink{group___g_p_i_o___private___macros_gad6ec74e33360395535ad5d91ba6d4781}{IS\_GPIO\_PIN}}(GPIO\_Pin));}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00493}00493\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00494}00494\ \ \ \textcolor{comment}{/*\ get\ current\ Output\ Data\ Register\ value\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00495}00495\ \ \ odr\ =\ GPIOx-\/>\doxymbox{\hyperlink{struct_g_p_i_o___type_def_a845e01039cf7ad8cc6439c58748e42e5}{ODR}};}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00496}00496\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00497}00497\ \ \ \textcolor{comment}{/*\ Set\ selected\ pins\ that\ were\ at\ low\ level,\ and\ reset\ ones\ that\ were\ high\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00498}00498\ \ \ GPIOx-\/>\doxymbox{\hyperlink{struct_g_p_i_o___type_def_a339be3e24fd21a4dbe815ffa6908e3ff}{BSRR}}\ =\ ((odr\ \&\ GPIO\_Pin)\ <<\ \doxymbox{\hyperlink{group___g_p_i_o___private___constants_gae8e9740a0d9ca9a179cb4fd05a2cd3d9}{GPIO\_NUMBER}})\ |\ (\string~odr\ \&\ GPIO\_Pin);}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00499}00499\ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00500}00500\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00501}00501\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00502}00502\ \textcolor{comment}{*\ @brief\ \ Locks\ GPIO\ Pins\ configuration\ registers.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00503}00503\ \textcolor{comment}{*\ @note\ \ \ The\ locking\ mechanism\ allows\ the\ IO\ configuration\ to\ be\ frozen.\ When\ the\ LOCK\ sequence}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00504}00504\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ has\ been\ applied\ on\ a\ port\ bit,\ it\ is\ no\ longer\ possible\ to\ modify\ the\ value\ of\ the\ port\ bit\ until}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00505}00505\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ the\ next\ reset.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00506}00506\ \textcolor{comment}{*\ @param\ \ GPIOx:\ where\ x\ can\ be\ (A..G\ depending\ on\ device\ used)\ to\ select\ the\ GPIO\ peripheral}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00507}00507\ \textcolor{comment}{*\ @param\ \ GPIO\_Pin:\ specifies\ the\ port\ bit\ to\ be\ locked.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00508}00508\ \textcolor{comment}{*\ \ \ \ \ \ \ \ \ This\ parameter\ can\ be\ any\ combination\ of\ GPIO\_PIN\_x\ where\ x\ can\ be\ (0..15).}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00509}00509\ \textcolor{comment}{*\ @retval\ None}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00510}00510\ \textcolor{comment}{*/}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00511}\doxymbox{\hyperlink{group___g_p_i_o___exported___functions___group2_gad03c868b4a4fb25883c1bb86d0c7e9ca}{00511}}\ \doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\_StatusTypeDef}}\ \doxymbox{\hyperlink{group___g_p_i_o___exported___functions___group2_gad03c868b4a4fb25883c1bb86d0c7e9ca}{HAL\_GPIO\_LockPin}}(\doxymbox{\hyperlink{struct_g_p_i_o___type_def}{GPIO\_TypeDef}}\ *GPIOx,\ uint16\_t\ GPIO\_Pin)}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00512}00512\ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00513}00513\ \ \ \_\_IO\ uint32\_t\ tmp\ =\ \doxymbox{\hyperlink{group___peripheral___registers___bits___definition_gafa2a83bf31ef76ee3857c7cb0a90c4d9}{GPIO\_LCKR\_LCKK}};}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00514}00514\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00515}00515\ \ \ \textcolor{comment}{/*\ Check\ the\ parameters\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00516}00516\ \ \ \doxymbox{\hyperlink{stm32f1xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\doxymbox{\hyperlink{group___exported__macro_gaa84537785f7bf8425db6e392187ea2e6}{IS\_GPIO\_LOCK\_INSTANCE}}(GPIOx));}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00517}00517\ \ \ \doxymbox{\hyperlink{stm32f1xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\doxymbox{\hyperlink{group___g_p_i_o___private___macros_gad6ec74e33360395535ad5d91ba6d4781}{IS\_GPIO\_PIN}}(GPIO\_Pin));}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00518}00518\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00519}00519\ \ \ \textcolor{comment}{/*\ Apply\ lock\ key\ write\ sequence\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00520}00520\ \ \ \doxymbox{\hyperlink{group___exported__macros_ga26474f43799fbade9cf300e21dd3a91a}{SET\_BIT}}(tmp,\ GPIO\_Pin);}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00521}00521\ \ \ \textcolor{comment}{/*\ Set\ LCKx\ bit(s):\ LCKK='1'\ +\ LCK[15-\/0]\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00522}00522\ \ \ GPIOx-\/>\doxymbox{\hyperlink{struct_g_p_i_o___type_def_a688cba9da61c7a2b121ad3e25862dd91}{LCKR}}\ =\ tmp;}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00523}00523\ \ \ \textcolor{comment}{/*\ Reset\ LCKx\ bit(s):\ LCKK='0'\ +\ LCK[15-\/0]\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00524}00524\ \ \ GPIOx-\/>\doxymbox{\hyperlink{struct_g_p_i_o___type_def_a688cba9da61c7a2b121ad3e25862dd91}{LCKR}}\ =\ GPIO\_Pin;}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00525}00525\ \ \ \textcolor{comment}{/*\ Set\ LCKx\ bit(s):\ LCKK='1'\ +\ LCK[15-\/0]\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00526}00526\ \ \ GPIOx-\/>\doxymbox{\hyperlink{struct_g_p_i_o___type_def_a688cba9da61c7a2b121ad3e25862dd91}{LCKR}}\ =\ tmp;}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00527}00527\ \ \ \textcolor{comment}{/*\ Read\ LCKK\ register.\ This\ read\ is\ mandatory\ to\ complete\ key\ lock\ sequence\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00528}00528\ \ \ tmp\ =\ GPIOx-\/>\doxymbox{\hyperlink{struct_g_p_i_o___type_def_a688cba9da61c7a2b121ad3e25862dd91}{LCKR}};}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00529}00529\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00530}00530\ \ \ \textcolor{comment}{/*\ read\ again\ in\ order\ to\ confirm\ lock\ is\ active\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00531}00531\ \ \ \textcolor{keywordflow}{if}\ ((uint32\_t)(GPIOx-\/>\doxymbox{\hyperlink{struct_g_p_i_o___type_def_a688cba9da61c7a2b121ad3e25862dd91}{LCKR}}\ \&\ \doxymbox{\hyperlink{group___peripheral___registers___bits___definition_gafa2a83bf31ef76ee3857c7cb0a90c4d9}{GPIO\_LCKR\_LCKK}}))}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00532}00532\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00533}00533\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632}{HAL\_OK}};}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00534}00534\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00535}00535\ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00536}00536\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00537}00537\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478fa5a04e395e501e4e400172c610478c4a4}{HAL\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00538}00538\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00539}00539\ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00540}00540\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00541}00541\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00542}00542\ \textcolor{comment}{\ \ *\ @brief\ \ This\ function\ handles\ EXTI\ interrupt\ request.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00543}00543\ \textcolor{comment}{\ \ *\ @param\ \ GPIO\_Pin:\ Specifies\ the\ pins\ connected\ EXTI\ line}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00544}00544\ \textcolor{comment}{\ \ *\ @retval\ None}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00545}00545\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00546}\doxymbox{\hyperlink{group___g_p_i_o___exported___functions___group2_gaa5de1ec4ebdd47e3e2b786224adaa9d0}{00546}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{group___g_p_i_o___exported___functions___group2_gaa5de1ec4ebdd47e3e2b786224adaa9d0}{HAL\_GPIO\_EXTI\_IRQHandler}}(uint16\_t\ GPIO\_Pin)}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00547}00547\ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00548}00548\ \ \ \textcolor{comment}{/*\ EXTI\ line\ interrupt\ detected\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00549}00549\ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{group___g_p_i_o___exported___macros_ga27f0e1f6c38745169d74620f6a178a94}{\_\_HAL\_GPIO\_EXTI\_GET\_IT}}(GPIO\_Pin)\ !=\ 0x00u)}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00550}00550\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00551}00551\ \ \ \ \ \doxymbox{\hyperlink{group___g_p_i_o___exported___macros_ga2a086506eec826f49b200fba64beb9f1}{\_\_HAL\_GPIO\_EXTI\_CLEAR\_IT}}(GPIO\_Pin);}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00552}00552\ \ \ \ \ \doxymbox{\hyperlink{group___g_p_i_o___exported___functions___group2_ga56028562a930db41dec5a34a2be6c708}{HAL\_GPIO\_EXTI\_Callback}}(GPIO\_Pin);}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00553}00553\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00554}00554\ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00555}00555\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00556}00556\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00557}00557\ \textcolor{comment}{\ \ *\ @brief\ \ EXTI\ line\ detection\ callbacks.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00558}00558\ \textcolor{comment}{\ \ *\ @param\ \ GPIO\_Pin:\ Specifies\ the\ pins\ connected\ EXTI\ line}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00559}00559\ \textcolor{comment}{\ \ *\ @retval\ None}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00560}00560\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00561}\doxymbox{\hyperlink{group___g_p_i_o___exported___functions___group2_ga56028562a930db41dec5a34a2be6c708}{00561}}\ \doxymbox{\hyperlink{group___u_s_b_d___d_e_f___exported___macros_ga5181eb756a197a06d1c4ed1f40a065bc}{\_\_weak}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{group___g_p_i_o___exported___functions___group2_ga56028562a930db41dec5a34a2be6c708}{HAL\_GPIO\_EXTI\_Callback}}(uint16\_t\ GPIO\_Pin)}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00562}00562\ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00563}00563\ \ \ \textcolor{comment}{/*\ Prevent\ unused\ argument(s)\ compilation\ warning\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00564}00564\ \ \ UNUSED(GPIO\_Pin);}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00565}00565\ \ \ \textcolor{comment}{/*\ NOTE:\ This\ function\ Should\ not\ be\ modified,\ when\ the\ callback\ is\ needed,}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00566}00566\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ the\ HAL\_GPIO\_EXTI\_Callback\ could\ be\ implemented\ in\ the\ user\ file}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00567}00567\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00568}00568\ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00569}00569\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00570}00570\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00571}00571\ \textcolor{comment}{\ \ *\ @\}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00572}00572\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00573}00573\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00574}00574\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00575}00575\ \textcolor{comment}{\ \ *\ @\}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00576}00576\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00577}00577\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00578}00578\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HAL\_GPIO\_MODULE\_ENABLED\ */}\textcolor{preprocessor}{}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00579}00579\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00580}00580\ \textcolor{comment}{\ \ *\ @\}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00581}00581\ \textcolor{comment}{\ \ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00582}00582\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00583}00583\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00584}00584\ \textcolor{comment}{\ \ *\ @\}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00585}00585\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__gpio_8c_source_l00586}00586\ }
+
+\end{DoxyCode}

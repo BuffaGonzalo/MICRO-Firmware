@@ -1,0 +1,1776 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>MICRO-Firmware: FLAG-Management</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="codefolding.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  extensions: ["tex2jax.js"],
+  jax: ["input/TeX","output/HTML-CSS"],
+});
+</script>
+<script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">MICRO-Firmware<span id="projectnumber">&#160;EX100923v01</span>
+   </div>
+   <div id="projectbrief">Firmware de Péndulo Invertido Autónomo de Dos Ruedas (STM32F103C8T6 - ARM Cortex-M3)</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Buscar" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('group___t_i_m___l_l___e_f___f_l_a_g___management.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">FLAG-Management <div class="ingroups"><a class="el" href="group___s_t_m32_f1xx___l_l___driver.html">STM32F1xx_LL_Driver</a> &raquo; <a class="el" href="group___t_i_m___l_l.html">TIM</a> &raquo; <a class="el" href="group___t_i_m___l_l___exported___functions.html">TIM Exported Functions</a></div></div></div>
+</div><!--header-->
+<div class="contents">
+<div id="dynsection-0" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Diagrama de colaboración de FLAG-Management:</div>
+<div id="dynsection-0-summary" class="dynsummary">
+</div>
+<div id="dynsection-0-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___f_l_a_g___management.svg" width="355" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Funciones</h2></td></tr>
+<tr class="memitem:ga382ed827d7b0443ade2ff1ccf8be5595" id="r_ga382ed827d7b0443ade2ff1ccf8be5595"><td class="memItemLeft">static __inline void&#160;</td><td class="memItemRight"><a class="el" href="#ga382ed827d7b0443ade2ff1ccf8be5595">LL_TIM_ClearFlag_BRK</a> (<a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *TIMx)</td></tr>
+<tr class="memdesc:ga382ed827d7b0443ade2ff1ccf8be5595"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear the break interrupt flag (BIF).  <br /></td></tr>
+<tr class="memitem:ga9cc64f9591b2207a3b25d59d4b22edf2" id="r_ga9cc64f9591b2207a3b25d59d4b22edf2"><td class="memItemLeft">static __inline void&#160;</td><td class="memItemRight"><a class="el" href="#ga9cc64f9591b2207a3b25d59d4b22edf2">LL_TIM_ClearFlag_CC1</a> (<a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *TIMx)</td></tr>
+<tr class="memdesc:ga9cc64f9591b2207a3b25d59d4b22edf2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear the Capture/Compare 1 interrupt flag (CC1F).  <br /></td></tr>
+<tr class="memitem:ga9377c6a99e81ad5e67dde4ca8f02e6b2" id="r_ga9377c6a99e81ad5e67dde4ca8f02e6b2"><td class="memItemLeft">static __inline void&#160;</td><td class="memItemRight"><a class="el" href="#ga9377c6a99e81ad5e67dde4ca8f02e6b2">LL_TIM_ClearFlag_CC1OVR</a> (<a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *TIMx)</td></tr>
+<tr class="memdesc:ga9377c6a99e81ad5e67dde4ca8f02e6b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear the Capture/Compare 1 over-capture interrupt flag (CC1OF).  <br /></td></tr>
+<tr class="memitem:gad3ba0c8fdc7a44d25d28df75a33ff3b0" id="r_gad3ba0c8fdc7a44d25d28df75a33ff3b0"><td class="memItemLeft">static __inline void&#160;</td><td class="memItemRight"><a class="el" href="#gad3ba0c8fdc7a44d25d28df75a33ff3b0">LL_TIM_ClearFlag_CC2</a> (<a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *TIMx)</td></tr>
+<tr class="memdesc:gad3ba0c8fdc7a44d25d28df75a33ff3b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear the Capture/Compare 2 interrupt flag (CC2F).  <br /></td></tr>
+<tr class="memitem:ga084f063be7d8b4f5e4fee414c9ad4436" id="r_ga084f063be7d8b4f5e4fee414c9ad4436"><td class="memItemLeft">static __inline void&#160;</td><td class="memItemRight"><a class="el" href="#ga084f063be7d8b4f5e4fee414c9ad4436">LL_TIM_ClearFlag_CC2OVR</a> (<a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *TIMx)</td></tr>
+<tr class="memdesc:ga084f063be7d8b4f5e4fee414c9ad4436"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear the Capture/Compare 2 over-capture interrupt flag (CC2OF).  <br /></td></tr>
+<tr class="memitem:ga567eb69cee15c3a3e9bafbb06673ad53" id="r_ga567eb69cee15c3a3e9bafbb06673ad53"><td class="memItemLeft">static __inline void&#160;</td><td class="memItemRight"><a class="el" href="#ga567eb69cee15c3a3e9bafbb06673ad53">LL_TIM_ClearFlag_CC3</a> (<a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *TIMx)</td></tr>
+<tr class="memdesc:ga567eb69cee15c3a3e9bafbb06673ad53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear the Capture/Compare 3 interrupt flag (CC3F).  <br /></td></tr>
+<tr class="memitem:ga21847605659e423e609495327a7d8d4a" id="r_ga21847605659e423e609495327a7d8d4a"><td class="memItemLeft">static __inline void&#160;</td><td class="memItemRight"><a class="el" href="#ga21847605659e423e609495327a7d8d4a">LL_TIM_ClearFlag_CC3OVR</a> (<a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *TIMx)</td></tr>
+<tr class="memdesc:ga21847605659e423e609495327a7d8d4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear the Capture/Compare 3 over-capture interrupt flag (CC3OF).  <br /></td></tr>
+<tr class="memitem:gab61f09bb529a62356c81ab7ec5bf7f7b" id="r_gab61f09bb529a62356c81ab7ec5bf7f7b"><td class="memItemLeft">static __inline void&#160;</td><td class="memItemRight"><a class="el" href="#gab61f09bb529a62356c81ab7ec5bf7f7b">LL_TIM_ClearFlag_CC4</a> (<a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *TIMx)</td></tr>
+<tr class="memdesc:gab61f09bb529a62356c81ab7ec5bf7f7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear the Capture/Compare 4 interrupt flag (CC4F).  <br /></td></tr>
+<tr class="memitem:ga376d72469bf98e09cf8063b3d2abe45f" id="r_ga376d72469bf98e09cf8063b3d2abe45f"><td class="memItemLeft">static __inline void&#160;</td><td class="memItemRight"><a class="el" href="#ga376d72469bf98e09cf8063b3d2abe45f">LL_TIM_ClearFlag_CC4OVR</a> (<a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *TIMx)</td></tr>
+<tr class="memdesc:ga376d72469bf98e09cf8063b3d2abe45f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear the Capture/Compare 4 over-capture interrupt flag (CC4OF).  <br /></td></tr>
+<tr class="memitem:ga4ecc9c78b589aeb8d3c1e64d5fbe5d37" id="r_ga4ecc9c78b589aeb8d3c1e64d5fbe5d37"><td class="memItemLeft">static __inline void&#160;</td><td class="memItemRight"><a class="el" href="#ga4ecc9c78b589aeb8d3c1e64d5fbe5d37">LL_TIM_ClearFlag_COM</a> (<a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *TIMx)</td></tr>
+<tr class="memdesc:ga4ecc9c78b589aeb8d3c1e64d5fbe5d37"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear the commutation interrupt flag (COMIF).  <br /></td></tr>
+<tr class="memitem:gacdb14d6ab2371673cc246852ba2b675f" id="r_gacdb14d6ab2371673cc246852ba2b675f"><td class="memItemLeft">static __inline void&#160;</td><td class="memItemRight"><a class="el" href="#gacdb14d6ab2371673cc246852ba2b675f">LL_TIM_ClearFlag_TRIG</a> (<a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *TIMx)</td></tr>
+<tr class="memdesc:gacdb14d6ab2371673cc246852ba2b675f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear the trigger interrupt flag (TIF).  <br /></td></tr>
+<tr class="memitem:gaff16d3ad968f568f46dda038cf935505" id="r_gaff16d3ad968f568f46dda038cf935505"><td class="memItemLeft">static __inline void&#160;</td><td class="memItemRight"><a class="el" href="#gaff16d3ad968f568f46dda038cf935505">LL_TIM_ClearFlag_UPDATE</a> (<a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *TIMx)</td></tr>
+<tr class="memdesc:gaff16d3ad968f568f46dda038cf935505"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear the update interrupt flag (UIF).  <br /></td></tr>
+<tr class="memitem:ga052c3fd2d0241c1e37a3408216488332" id="r_ga052c3fd2d0241c1e37a3408216488332"><td class="memItemLeft">static __inline uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ga052c3fd2d0241c1e37a3408216488332">LL_TIM_IsActiveFlag_BRK</a> (const <a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *TIMx)</td></tr>
+<tr class="memdesc:ga052c3fd2d0241c1e37a3408216488332"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicate whether break interrupt flag (BIF) is set (break interrupt is pending).  <br /></td></tr>
+<tr class="memitem:gad45955a3c1f0c05376b0a3d5c67dea5f" id="r_gad45955a3c1f0c05376b0a3d5c67dea5f"><td class="memItemLeft">static __inline uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#gad45955a3c1f0c05376b0a3d5c67dea5f">LL_TIM_IsActiveFlag_CC1</a> (const <a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *TIMx)</td></tr>
+<tr class="memdesc:gad45955a3c1f0c05376b0a3d5c67dea5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicate whether Capture/Compare 1 interrupt flag (CC1F) is set (Capture/Compare 1 interrupt is pending).  <br /></td></tr>
+<tr class="memitem:ga93e113932b895f587f992e4b94281bf7" id="r_ga93e113932b895f587f992e4b94281bf7"><td class="memItemLeft">static __inline uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ga93e113932b895f587f992e4b94281bf7">LL_TIM_IsActiveFlag_CC1OVR</a> (const <a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *TIMx)</td></tr>
+<tr class="memdesc:ga93e113932b895f587f992e4b94281bf7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicate whether Capture/Compare 1 over-capture interrupt flag (CC1OF) is set (Capture/Compare 1 interrupt is pending).  <br /></td></tr>
+<tr class="memitem:gaee5822fb04b85daf83feaa384c0baaf0" id="r_gaee5822fb04b85daf83feaa384c0baaf0"><td class="memItemLeft">static __inline uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#gaee5822fb04b85daf83feaa384c0baaf0">LL_TIM_IsActiveFlag_CC2</a> (const <a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *TIMx)</td></tr>
+<tr class="memdesc:gaee5822fb04b85daf83feaa384c0baaf0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicate whether Capture/Compare 2 interrupt flag (CC2F) is set (Capture/Compare 2 interrupt is pending).  <br /></td></tr>
+<tr class="memitem:ga02152d7a1d92328c6bb6b767db8c3b90" id="r_ga02152d7a1d92328c6bb6b767db8c3b90"><td class="memItemLeft">static __inline uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ga02152d7a1d92328c6bb6b767db8c3b90">LL_TIM_IsActiveFlag_CC2OVR</a> (const <a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *TIMx)</td></tr>
+<tr class="memdesc:ga02152d7a1d92328c6bb6b767db8c3b90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicate whether Capture/Compare 2 over-capture interrupt flag (CC2OF) is set (Capture/Compare 2 over-capture interrupt is pending).  <br /></td></tr>
+<tr class="memitem:gaf785455d606e6727bf133e623e8dab6b" id="r_gaf785455d606e6727bf133e623e8dab6b"><td class="memItemLeft">static __inline uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#gaf785455d606e6727bf133e623e8dab6b">LL_TIM_IsActiveFlag_CC3</a> (const <a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *TIMx)</td></tr>
+<tr class="memdesc:gaf785455d606e6727bf133e623e8dab6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicate whether Capture/Compare 3 interrupt flag (CC3F) is set (Capture/Compare 3 interrupt is pending).  <br /></td></tr>
+<tr class="memitem:ga2784b43c5f425bdf9e31cdbbdf5a5ca6" id="r_ga2784b43c5f425bdf9e31cdbbdf5a5ca6"><td class="memItemLeft">static __inline uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ga2784b43c5f425bdf9e31cdbbdf5a5ca6">LL_TIM_IsActiveFlag_CC3OVR</a> (const <a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *TIMx)</td></tr>
+<tr class="memdesc:ga2784b43c5f425bdf9e31cdbbdf5a5ca6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicate whether Capture/Compare 3 over-capture interrupt flag (CC3OF) is set (Capture/Compare 3 over-capture interrupt is pending).  <br /></td></tr>
+<tr class="memitem:gad1d80440e2e7330c70304aa5d4ad21fe" id="r_gad1d80440e2e7330c70304aa5d4ad21fe"><td class="memItemLeft">static __inline uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#gad1d80440e2e7330c70304aa5d4ad21fe">LL_TIM_IsActiveFlag_CC4</a> (const <a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *TIMx)</td></tr>
+<tr class="memdesc:gad1d80440e2e7330c70304aa5d4ad21fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicate whether Capture/Compare 4 interrupt flag (CC4F) is set (Capture/Compare 4 interrupt is pending).  <br /></td></tr>
+<tr class="memitem:ga34302871cf7ca3e9f73595dfccc25d10" id="r_ga34302871cf7ca3e9f73595dfccc25d10"><td class="memItemLeft">static __inline uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ga34302871cf7ca3e9f73595dfccc25d10">LL_TIM_IsActiveFlag_CC4OVR</a> (const <a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *TIMx)</td></tr>
+<tr class="memdesc:ga34302871cf7ca3e9f73595dfccc25d10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicate whether Capture/Compare 4 over-capture interrupt flag (CC4OF) is set (Capture/Compare 4 over-capture interrupt is pending).  <br /></td></tr>
+<tr class="memitem:ga9cd124fb774d352b7c7b0f48ceeabeb9" id="r_ga9cd124fb774d352b7c7b0f48ceeabeb9"><td class="memItemLeft">static __inline uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ga9cd124fb774d352b7c7b0f48ceeabeb9">LL_TIM_IsActiveFlag_COM</a> (const <a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *TIMx)</td></tr>
+<tr class="memdesc:ga9cd124fb774d352b7c7b0f48ceeabeb9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicate whether commutation interrupt flag (COMIF) is set (commutation interrupt is pending).  <br /></td></tr>
+<tr class="memitem:ga517fde8e3fd0429ecbbd6c029323fd9a" id="r_ga517fde8e3fd0429ecbbd6c029323fd9a"><td class="memItemLeft">static __inline uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ga517fde8e3fd0429ecbbd6c029323fd9a">LL_TIM_IsActiveFlag_TRIG</a> (const <a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *TIMx)</td></tr>
+<tr class="memdesc:ga517fde8e3fd0429ecbbd6c029323fd9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicate whether trigger interrupt flag (TIF) is set (trigger interrupt is pending).  <br /></td></tr>
+<tr class="memitem:ga215c9a6572acbbf254e5fe9b35e85f2c" id="r_ga215c9a6572acbbf254e5fe9b35e85f2c"><td class="memItemLeft">static __inline uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ga215c9a6572acbbf254e5fe9b35e85f2c">LL_TIM_IsActiveFlag_UPDATE</a> (const <a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *TIMx)</td></tr>
+<tr class="memdesc:ga215c9a6572acbbf254e5fe9b35e85f2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicate whether update interrupt flag (UIF) is set (update interrupt is pending).  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Descripción detallada</h2>
+<div class="textblock"></div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Documentación de funciones</h2>
+<a id="ga382ed827d7b0443ade2ff1ccf8be5595" name="ga382ed827d7b0443ade2ff1ccf8be5595"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga382ed827d7b0443ade2ff1ccf8be5595">&#9670;&#160;</a></span>LL_TIM_ClearFlag_BRK()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline void LL_TIM_ClearFlag_BRK </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>TIMx</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__tim_8h.html">stm32f1xx_ll_tim.h</a>&quot;</code></p>
+
+<p>Clear the break interrupt flag (BIF). </p>
+<p>@rmtoll SR BIF LL_TIM_ClearFlag_BRK </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">TIMx</td><td>Timer instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; 0x00000080</p>
+<p>&lt;Break interrupt Flag</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03144">3144</a> del archivo <a class="el" href="stm32f1xx__ll__tim_8h_source.html">stm32f1xx_ll_tim.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3145</span>{</div>
+<div class="line"><span class="lineno"> 3146</span>  <a class="code hl_define" href="group___exported__macros.html#ga32f78bffcaf6d13023dcd7f05e0c4d57">WRITE_REG</a>(TIMx-&gt;<a class="code hl_variable" href="struct_t_i_m___type_def.html#ad4c239c905a84b69f7bc24d1cf63512e">SR</a>, ~(<a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga6d52cd5a57c9a26b0d993c93d9875097">TIM_SR_BIF</a>));</div>
+<div class="line"><span class="lineno"> 3147</span>}</div>
+<div class="ttc" id="agroup___exported__macros_html_ga32f78bffcaf6d13023dcd7f05e0c4d57"><div class="ttname"><a href="group___exported__macros.html#ga32f78bffcaf6d13023dcd7f05e0c4d57">WRITE_REG</a></div><div class="ttdeci">#define WRITE_REG(REG, VAL)</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx_8h_source.html#l00185">stm32f1xx.h:185</a></div></div>
+<div class="ttc" id="agroup___peripheral___registers___bits___definition_html_ga6d52cd5a57c9a26b0d993c93d9875097"><div class="ttname"><a href="group___peripheral___registers___bits___definition.html#ga6d52cd5a57c9a26b0d993c93d9875097">TIM_SR_BIF</a></div><div class="ttdeci">#define TIM_SR_BIF</div><div class="ttdoc">Break interrupt Flag.</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l03998">stm32f103xb.h:3998</a></div></div>
+<div class="ttc" id="astruct_t_i_m___type_def_html_ad4c239c905a84b69f7bc24d1cf63512e"><div class="ttname"><a href="struct_t_i_m___type_def.html#ad4c239c905a84b69f7bc24d1cf63512e">TIM_TypeDef::SR</a></div><div class="ttdeci">volatile uint32_t SR</div><div class="ttdoc">&lt; Defines &#39;read / write&#39; permissions</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l00482">stm32f103xb.h:482</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03144">LL_TIM_ClearFlag_BRK()</a>, <a class="el" href="stm32f103xb_8h_source.html#l00482">TIM_TypeDef::SR</a>, <a class="el" href="stm32f103xb_8h_source.html#l03998">TIM_SR_BIF</a> y <a class="el" href="stm32f1xx_8h_source.html#l00185">WRITE_REG</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03144">LL_TIM_ClearFlag_BRK()</a>.</p>
+<div id="dynsection-1" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-1-summary" class="dynsummary">
+</div>
+<div id="dynsection-1-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___f_l_a_g___management_ga382ed827d7b0443ade2ff1ccf8be5595_cgraph.svg" width="175" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-2" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-2-summary" class="dynsummary">
+</div>
+<div id="dynsection-2-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___f_l_a_g___management_ga382ed827d7b0443ade2ff1ccf8be5595_icgraph.svg" width="175" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ga9cc64f9591b2207a3b25d59d4b22edf2" name="ga9cc64f9591b2207a3b25d59d4b22edf2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9cc64f9591b2207a3b25d59d4b22edf2">&#9670;&#160;</a></span>LL_TIM_ClearFlag_CC1()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline void LL_TIM_ClearFlag_CC1 </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>TIMx</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__tim_8h.html">stm32f1xx_ll_tim.h</a>&quot;</code></p>
+
+<p>Clear the Capture/Compare 1 interrupt flag (CC1F). </p>
+<p>@rmtoll SR CC1IF LL_TIM_ClearFlag_CC1 </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">TIMx</td><td>Timer instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; 0x00000002</p>
+<p>&lt;Capture/Compare 1 interrupt Flag</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03012">3012</a> del archivo <a class="el" href="stm32f1xx__ll__tim_8h_source.html">stm32f1xx_ll_tim.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3013</span>{</div>
+<div class="line"><span class="lineno"> 3014</span>  <a class="code hl_define" href="group___exported__macros.html#ga32f78bffcaf6d13023dcd7f05e0c4d57">WRITE_REG</a>(TIMx-&gt;<a class="code hl_variable" href="struct_t_i_m___type_def.html#ad4c239c905a84b69f7bc24d1cf63512e">SR</a>, ~(<a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga449a61344a97608d85384c29f003c0e9">TIM_SR_CC1IF</a>));</div>
+<div class="line"><span class="lineno"> 3015</span>}</div>
+<div class="ttc" id="agroup___peripheral___registers___bits___definition_html_ga449a61344a97608d85384c29f003c0e9"><div class="ttname"><a href="group___peripheral___registers___bits___definition.html#ga449a61344a97608d85384c29f003c0e9">TIM_SR_CC1IF</a></div><div class="ttdeci">#define TIM_SR_CC1IF</div><div class="ttdoc">Capture/Compare 1 interrupt Flag.</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l03980">stm32f103xb.h:3980</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03012">LL_TIM_ClearFlag_CC1()</a>, <a class="el" href="stm32f103xb_8h_source.html#l00482">TIM_TypeDef::SR</a>, <a class="el" href="stm32f103xb_8h_source.html#l03980">TIM_SR_CC1IF</a> y <a class="el" href="stm32f1xx_8h_source.html#l00185">WRITE_REG</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03012">LL_TIM_ClearFlag_CC1()</a>.</p>
+<div id="dynsection-3" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-3-summary" class="dynsummary">
+</div>
+<div id="dynsection-3-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___f_l_a_g___management_ga9cc64f9591b2207a3b25d59d4b22edf2_cgraph.svg" width="174" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-4" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-4-summary" class="dynsummary">
+</div>
+<div id="dynsection-4-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___f_l_a_g___management_ga9cc64f9591b2207a3b25d59d4b22edf2_icgraph.svg" width="174" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ga9377c6a99e81ad5e67dde4ca8f02e6b2" name="ga9377c6a99e81ad5e67dde4ca8f02e6b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9377c6a99e81ad5e67dde4ca8f02e6b2">&#9670;&#160;</a></span>LL_TIM_ClearFlag_CC1OVR()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline void LL_TIM_ClearFlag_CC1OVR </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>TIMx</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__tim_8h.html">stm32f1xx_ll_tim.h</a>&quot;</code></p>
+
+<p>Clear the Capture/Compare 1 over-capture interrupt flag (CC1OF). </p>
+<p>@rmtoll SR CC1OF LL_TIM_ClearFlag_CC1OVR </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">TIMx</td><td>Timer instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; 0x00000200</p>
+<p>&lt;Capture/Compare 1 Overcapture Flag</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03166">3166</a> del archivo <a class="el" href="stm32f1xx__ll__tim_8h_source.html">stm32f1xx_ll_tim.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3167</span>{</div>
+<div class="line"><span class="lineno"> 3168</span>  <a class="code hl_define" href="group___exported__macros.html#ga32f78bffcaf6d13023dcd7f05e0c4d57">WRITE_REG</a>(TIMx-&gt;<a class="code hl_variable" href="struct_t_i_m___type_def.html#ad4c239c905a84b69f7bc24d1cf63512e">SR</a>, ~(<a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga819c4b27f8fa99b537c4407521f9780c">TIM_SR_CC1OF</a>));</div>
+<div class="line"><span class="lineno"> 3169</span>}</div>
+<div class="ttc" id="agroup___peripheral___registers___bits___definition_html_ga819c4b27f8fa99b537c4407521f9780c"><div class="ttname"><a href="group___peripheral___registers___bits___definition.html#ga819c4b27f8fa99b537c4407521f9780c">TIM_SR_CC1OF</a></div><div class="ttdeci">#define TIM_SR_CC1OF</div><div class="ttdoc">Capture/Compare 1 Overcapture Flag.</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l04001">stm32f103xb.h:4001</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03166">LL_TIM_ClearFlag_CC1OVR()</a>, <a class="el" href="stm32f103xb_8h_source.html#l00482">TIM_TypeDef::SR</a>, <a class="el" href="stm32f103xb_8h_source.html#l04001">TIM_SR_CC1OF</a> y <a class="el" href="stm32f1xx_8h_source.html#l00185">WRITE_REG</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03166">LL_TIM_ClearFlag_CC1OVR()</a>.</p>
+<div id="dynsection-5" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-5-summary" class="dynsummary">
+</div>
+<div id="dynsection-5-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___f_l_a_g___management_ga9377c6a99e81ad5e67dde4ca8f02e6b2_cgraph.svg" width="203" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-6" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-6-summary" class="dynsummary">
+</div>
+<div id="dynsection-6-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___f_l_a_g___management_ga9377c6a99e81ad5e67dde4ca8f02e6b2_icgraph.svg" width="203" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="gad3ba0c8fdc7a44d25d28df75a33ff3b0" name="gad3ba0c8fdc7a44d25d28df75a33ff3b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad3ba0c8fdc7a44d25d28df75a33ff3b0">&#9670;&#160;</a></span>LL_TIM_ClearFlag_CC2()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline void LL_TIM_ClearFlag_CC2 </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>TIMx</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__tim_8h.html">stm32f1xx_ll_tim.h</a>&quot;</code></p>
+
+<p>Clear the Capture/Compare 2 interrupt flag (CC2F). </p>
+<p>@rmtoll SR CC2IF LL_TIM_ClearFlag_CC2 </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">TIMx</td><td>Timer instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; 0x00000004</p>
+<p>&lt;Capture/Compare 2 interrupt Flag</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03034">3034</a> del archivo <a class="el" href="stm32f1xx__ll__tim_8h_source.html">stm32f1xx_ll_tim.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3035</span>{</div>
+<div class="line"><span class="lineno"> 3036</span>  <a class="code hl_define" href="group___exported__macros.html#ga32f78bffcaf6d13023dcd7f05e0c4d57">WRITE_REG</a>(TIMx-&gt;<a class="code hl_variable" href="struct_t_i_m___type_def.html#ad4c239c905a84b69f7bc24d1cf63512e">SR</a>, ~(<a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga25a48bf099467169aa50464fbf462bd8">TIM_SR_CC2IF</a>));</div>
+<div class="line"><span class="lineno"> 3037</span>}</div>
+<div class="ttc" id="agroup___peripheral___registers___bits___definition_html_ga25a48bf099467169aa50464fbf462bd8"><div class="ttname"><a href="group___peripheral___registers___bits___definition.html#ga25a48bf099467169aa50464fbf462bd8">TIM_SR_CC2IF</a></div><div class="ttdeci">#define TIM_SR_CC2IF</div><div class="ttdoc">Capture/Compare 2 interrupt Flag.</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l03983">stm32f103xb.h:3983</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03034">LL_TIM_ClearFlag_CC2()</a>, <a class="el" href="stm32f103xb_8h_source.html#l00482">TIM_TypeDef::SR</a>, <a class="el" href="stm32f103xb_8h_source.html#l03983">TIM_SR_CC2IF</a> y <a class="el" href="stm32f1xx_8h_source.html#l00185">WRITE_REG</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03034">LL_TIM_ClearFlag_CC2()</a>.</p>
+<div id="dynsection-7" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-7-summary" class="dynsummary">
+</div>
+<div id="dynsection-7-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___f_l_a_g___management_gad3ba0c8fdc7a44d25d28df75a33ff3b0_cgraph.svg" width="174" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-8" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-8-summary" class="dynsummary">
+</div>
+<div id="dynsection-8-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___f_l_a_g___management_gad3ba0c8fdc7a44d25d28df75a33ff3b0_icgraph.svg" width="174" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ga084f063be7d8b4f5e4fee414c9ad4436" name="ga084f063be7d8b4f5e4fee414c9ad4436"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga084f063be7d8b4f5e4fee414c9ad4436">&#9670;&#160;</a></span>LL_TIM_ClearFlag_CC2OVR()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline void LL_TIM_ClearFlag_CC2OVR </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>TIMx</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__tim_8h.html">stm32f1xx_ll_tim.h</a>&quot;</code></p>
+
+<p>Clear the Capture/Compare 2 over-capture interrupt flag (CC2OF). </p>
+<p>@rmtoll SR CC2OF LL_TIM_ClearFlag_CC2OVR </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">TIMx</td><td>Timer instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; 0x00000400</p>
+<p>&lt;Capture/Compare 2 Overcapture Flag</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03189">3189</a> del archivo <a class="el" href="stm32f1xx__ll__tim_8h_source.html">stm32f1xx_ll_tim.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3190</span>{</div>
+<div class="line"><span class="lineno"> 3191</span>  <a class="code hl_define" href="group___exported__macros.html#ga32f78bffcaf6d13023dcd7f05e0c4d57">WRITE_REG</a>(TIMx-&gt;<a class="code hl_variable" href="struct_t_i_m___type_def.html#ad4c239c905a84b69f7bc24d1cf63512e">SR</a>, ~(<a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga3b7798da5863d559ea9a642af6658050">TIM_SR_CC2OF</a>));</div>
+<div class="line"><span class="lineno"> 3192</span>}</div>
+<div class="ttc" id="agroup___peripheral___registers___bits___definition_html_ga3b7798da5863d559ea9a642af6658050"><div class="ttname"><a href="group___peripheral___registers___bits___definition.html#ga3b7798da5863d559ea9a642af6658050">TIM_SR_CC2OF</a></div><div class="ttdeci">#define TIM_SR_CC2OF</div><div class="ttdoc">Capture/Compare 2 Overcapture Flag.</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l04004">stm32f103xb.h:4004</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03189">LL_TIM_ClearFlag_CC2OVR()</a>, <a class="el" href="stm32f103xb_8h_source.html#l00482">TIM_TypeDef::SR</a>, <a class="el" href="stm32f103xb_8h_source.html#l04004">TIM_SR_CC2OF</a> y <a class="el" href="stm32f1xx_8h_source.html#l00185">WRITE_REG</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03189">LL_TIM_ClearFlag_CC2OVR()</a>.</p>
+<div id="dynsection-9" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-9-summary" class="dynsummary">
+</div>
+<div id="dynsection-9-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___f_l_a_g___management_ga084f063be7d8b4f5e4fee414c9ad4436_cgraph.svg" width="203" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-10" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-10-summary" class="dynsummary">
+</div>
+<div id="dynsection-10-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___f_l_a_g___management_ga084f063be7d8b4f5e4fee414c9ad4436_icgraph.svg" width="203" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ga567eb69cee15c3a3e9bafbb06673ad53" name="ga567eb69cee15c3a3e9bafbb06673ad53"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga567eb69cee15c3a3e9bafbb06673ad53">&#9670;&#160;</a></span>LL_TIM_ClearFlag_CC3()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline void LL_TIM_ClearFlag_CC3 </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>TIMx</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__tim_8h.html">stm32f1xx_ll_tim.h</a>&quot;</code></p>
+
+<p>Clear the Capture/Compare 3 interrupt flag (CC3F). </p>
+<p>@rmtoll SR CC3IF LL_TIM_ClearFlag_CC3 </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">TIMx</td><td>Timer instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; 0x00000008</p>
+<p>&lt;Capture/Compare 3 interrupt Flag</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03056">3056</a> del archivo <a class="el" href="stm32f1xx__ll__tim_8h_source.html">stm32f1xx_ll_tim.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3057</span>{</div>
+<div class="line"><span class="lineno"> 3058</span>  <a class="code hl_define" href="group___exported__macros.html#ga32f78bffcaf6d13023dcd7f05e0c4d57">WRITE_REG</a>(TIMx-&gt;<a class="code hl_variable" href="struct_t_i_m___type_def.html#ad4c239c905a84b69f7bc24d1cf63512e">SR</a>, ~(<a class="code hl_define" href="group___peripheral___registers___bits___definition.html#gad3cf234a1059c0a04799e88382cdc0f2">TIM_SR_CC3IF</a>));</div>
+<div class="line"><span class="lineno"> 3059</span>}</div>
+<div class="ttc" id="agroup___peripheral___registers___bits___definition_html_gad3cf234a1059c0a04799e88382cdc0f2"><div class="ttname"><a href="group___peripheral___registers___bits___definition.html#gad3cf234a1059c0a04799e88382cdc0f2">TIM_SR_CC3IF</a></div><div class="ttdeci">#define TIM_SR_CC3IF</div><div class="ttdoc">Capture/Compare 3 interrupt Flag.</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l03986">stm32f103xb.h:3986</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03056">LL_TIM_ClearFlag_CC3()</a>, <a class="el" href="stm32f103xb_8h_source.html#l00482">TIM_TypeDef::SR</a>, <a class="el" href="stm32f103xb_8h_source.html#l03986">TIM_SR_CC3IF</a> y <a class="el" href="stm32f1xx_8h_source.html#l00185">WRITE_REG</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03056">LL_TIM_ClearFlag_CC3()</a>.</p>
+<div id="dynsection-11" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-11-summary" class="dynsummary">
+</div>
+<div id="dynsection-11-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___f_l_a_g___management_ga567eb69cee15c3a3e9bafbb06673ad53_cgraph.svg" width="174" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-12" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-12-summary" class="dynsummary">
+</div>
+<div id="dynsection-12-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___f_l_a_g___management_ga567eb69cee15c3a3e9bafbb06673ad53_icgraph.svg" width="174" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ga21847605659e423e609495327a7d8d4a" name="ga21847605659e423e609495327a7d8d4a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga21847605659e423e609495327a7d8d4a">&#9670;&#160;</a></span>LL_TIM_ClearFlag_CC3OVR()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline void LL_TIM_ClearFlag_CC3OVR </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>TIMx</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__tim_8h.html">stm32f1xx_ll_tim.h</a>&quot;</code></p>
+
+<p>Clear the Capture/Compare 3 over-capture interrupt flag (CC3OF). </p>
+<p>@rmtoll SR CC3OF LL_TIM_ClearFlag_CC3OVR </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">TIMx</td><td>Timer instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; 0x00000800</p>
+<p>&lt;Capture/Compare 3 Overcapture Flag</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03212">3212</a> del archivo <a class="el" href="stm32f1xx__ll__tim_8h_source.html">stm32f1xx_ll_tim.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3213</span>{</div>
+<div class="line"><span class="lineno"> 3214</span>  <a class="code hl_define" href="group___exported__macros.html#ga32f78bffcaf6d13023dcd7f05e0c4d57">WRITE_REG</a>(TIMx-&gt;<a class="code hl_variable" href="struct_t_i_m___type_def.html#ad4c239c905a84b69f7bc24d1cf63512e">SR</a>, ~(<a class="code hl_define" href="group___peripheral___registers___bits___definition.html#gaf7a2d4c831eb641ba082156e41d03358">TIM_SR_CC3OF</a>));</div>
+<div class="line"><span class="lineno"> 3215</span>}</div>
+<div class="ttc" id="agroup___peripheral___registers___bits___definition_html_gaf7a2d4c831eb641ba082156e41d03358"><div class="ttname"><a href="group___peripheral___registers___bits___definition.html#gaf7a2d4c831eb641ba082156e41d03358">TIM_SR_CC3OF</a></div><div class="ttdeci">#define TIM_SR_CC3OF</div><div class="ttdoc">Capture/Compare 3 Overcapture Flag.</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l04007">stm32f103xb.h:4007</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03212">LL_TIM_ClearFlag_CC3OVR()</a>, <a class="el" href="stm32f103xb_8h_source.html#l00482">TIM_TypeDef::SR</a>, <a class="el" href="stm32f103xb_8h_source.html#l04007">TIM_SR_CC3OF</a> y <a class="el" href="stm32f1xx_8h_source.html#l00185">WRITE_REG</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03212">LL_TIM_ClearFlag_CC3OVR()</a>.</p>
+<div id="dynsection-13" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-13-summary" class="dynsummary">
+</div>
+<div id="dynsection-13-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___f_l_a_g___management_ga21847605659e423e609495327a7d8d4a_cgraph.svg" width="203" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-14" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-14-summary" class="dynsummary">
+</div>
+<div id="dynsection-14-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___f_l_a_g___management_ga21847605659e423e609495327a7d8d4a_icgraph.svg" width="203" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="gab61f09bb529a62356c81ab7ec5bf7f7b" name="gab61f09bb529a62356c81ab7ec5bf7f7b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab61f09bb529a62356c81ab7ec5bf7f7b">&#9670;&#160;</a></span>LL_TIM_ClearFlag_CC4()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline void LL_TIM_ClearFlag_CC4 </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>TIMx</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__tim_8h.html">stm32f1xx_ll_tim.h</a>&quot;</code></p>
+
+<p>Clear the Capture/Compare 4 interrupt flag (CC4F). </p>
+<p>@rmtoll SR CC4IF LL_TIM_ClearFlag_CC4 </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">TIMx</td><td>Timer instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; 0x00000010</p>
+<p>&lt;Capture/Compare 4 interrupt Flag</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03078">3078</a> del archivo <a class="el" href="stm32f1xx__ll__tim_8h_source.html">stm32f1xx_ll_tim.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3079</span>{</div>
+<div class="line"><span class="lineno"> 3080</span>  <a class="code hl_define" href="group___exported__macros.html#ga32f78bffcaf6d13023dcd7f05e0c4d57">WRITE_REG</a>(TIMx-&gt;<a class="code hl_variable" href="struct_t_i_m___type_def.html#ad4c239c905a84b69f7bc24d1cf63512e">SR</a>, ~(<a class="code hl_define" href="group___peripheral___registers___bits___definition.html#gacade8a06303bf216bfb03140c7e16cac">TIM_SR_CC4IF</a>));</div>
+<div class="line"><span class="lineno"> 3081</span>}</div>
+<div class="ttc" id="agroup___peripheral___registers___bits___definition_html_gacade8a06303bf216bfb03140c7e16cac"><div class="ttname"><a href="group___peripheral___registers___bits___definition.html#gacade8a06303bf216bfb03140c7e16cac">TIM_SR_CC4IF</a></div><div class="ttdeci">#define TIM_SR_CC4IF</div><div class="ttdoc">Capture/Compare 4 interrupt Flag.</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l03989">stm32f103xb.h:3989</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03078">LL_TIM_ClearFlag_CC4()</a>, <a class="el" href="stm32f103xb_8h_source.html#l00482">TIM_TypeDef::SR</a>, <a class="el" href="stm32f103xb_8h_source.html#l03989">TIM_SR_CC4IF</a> y <a class="el" href="stm32f1xx_8h_source.html#l00185">WRITE_REG</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03078">LL_TIM_ClearFlag_CC4()</a>.</p>
+<div id="dynsection-15" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-15-summary" class="dynsummary">
+</div>
+<div id="dynsection-15-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___f_l_a_g___management_gab61f09bb529a62356c81ab7ec5bf7f7b_cgraph.svg" width="174" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-16" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-16-summary" class="dynsummary">
+</div>
+<div id="dynsection-16-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___f_l_a_g___management_gab61f09bb529a62356c81ab7ec5bf7f7b_icgraph.svg" width="174" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ga376d72469bf98e09cf8063b3d2abe45f" name="ga376d72469bf98e09cf8063b3d2abe45f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga376d72469bf98e09cf8063b3d2abe45f">&#9670;&#160;</a></span>LL_TIM_ClearFlag_CC4OVR()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline void LL_TIM_ClearFlag_CC4OVR </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>TIMx</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__tim_8h.html">stm32f1xx_ll_tim.h</a>&quot;</code></p>
+
+<p>Clear the Capture/Compare 4 over-capture interrupt flag (CC4OF). </p>
+<p>@rmtoll SR CC4OF LL_TIM_ClearFlag_CC4OVR </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">TIMx</td><td>Timer instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; 0x00001000</p>
+<p>&lt;Capture/Compare 4 Overcapture Flag</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03235">3235</a> del archivo <a class="el" href="stm32f1xx__ll__tim_8h_source.html">stm32f1xx_ll_tim.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3236</span>{</div>
+<div class="line"><span class="lineno"> 3237</span>  <a class="code hl_define" href="group___exported__macros.html#ga32f78bffcaf6d13023dcd7f05e0c4d57">WRITE_REG</a>(TIMx-&gt;<a class="code hl_variable" href="struct_t_i_m___type_def.html#ad4c239c905a84b69f7bc24d1cf63512e">SR</a>, ~(<a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga81ba979e8309b66808e06e4de34bc740">TIM_SR_CC4OF</a>));</div>
+<div class="line"><span class="lineno"> 3238</span>}</div>
+<div class="ttc" id="agroup___peripheral___registers___bits___definition_html_ga81ba979e8309b66808e06e4de34bc740"><div class="ttname"><a href="group___peripheral___registers___bits___definition.html#ga81ba979e8309b66808e06e4de34bc740">TIM_SR_CC4OF</a></div><div class="ttdeci">#define TIM_SR_CC4OF</div><div class="ttdoc">Capture/Compare 4 Overcapture Flag.</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l04010">stm32f103xb.h:4010</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03235">LL_TIM_ClearFlag_CC4OVR()</a>, <a class="el" href="stm32f103xb_8h_source.html#l00482">TIM_TypeDef::SR</a>, <a class="el" href="stm32f103xb_8h_source.html#l04010">TIM_SR_CC4OF</a> y <a class="el" href="stm32f1xx_8h_source.html#l00185">WRITE_REG</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03235">LL_TIM_ClearFlag_CC4OVR()</a>.</p>
+<div id="dynsection-17" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-17-summary" class="dynsummary">
+</div>
+<div id="dynsection-17-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___f_l_a_g___management_ga376d72469bf98e09cf8063b3d2abe45f_cgraph.svg" width="203" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-18" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-18-summary" class="dynsummary">
+</div>
+<div id="dynsection-18-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___f_l_a_g___management_ga376d72469bf98e09cf8063b3d2abe45f_icgraph.svg" width="203" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ga4ecc9c78b589aeb8d3c1e64d5fbe5d37" name="ga4ecc9c78b589aeb8d3c1e64d5fbe5d37"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4ecc9c78b589aeb8d3c1e64d5fbe5d37">&#9670;&#160;</a></span>LL_TIM_ClearFlag_COM()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline void LL_TIM_ClearFlag_COM </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>TIMx</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__tim_8h.html">stm32f1xx_ll_tim.h</a>&quot;</code></p>
+
+<p>Clear the commutation interrupt flag (COMIF). </p>
+<p>@rmtoll SR COMIF LL_TIM_ClearFlag_COM </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">TIMx</td><td>Timer instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; 0x00000020</p>
+<p>&lt;COM interrupt Flag</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03100">3100</a> del archivo <a class="el" href="stm32f1xx__ll__tim_8h_source.html">stm32f1xx_ll_tim.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3101</span>{</div>
+<div class="line"><span class="lineno"> 3102</span>  <a class="code hl_define" href="group___exported__macros.html#ga32f78bffcaf6d13023dcd7f05e0c4d57">WRITE_REG</a>(TIMx-&gt;<a class="code hl_variable" href="struct_t_i_m___type_def.html#ad4c239c905a84b69f7bc24d1cf63512e">SR</a>, ~(<a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga91775c029171c4585e9cca6ebf1cd57a">TIM_SR_COMIF</a>));</div>
+<div class="line"><span class="lineno"> 3103</span>}</div>
+<div class="ttc" id="agroup___peripheral___registers___bits___definition_html_ga91775c029171c4585e9cca6ebf1cd57a"><div class="ttname"><a href="group___peripheral___registers___bits___definition.html#ga91775c029171c4585e9cca6ebf1cd57a">TIM_SR_COMIF</a></div><div class="ttdeci">#define TIM_SR_COMIF</div><div class="ttdoc">COM interrupt Flag.</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l03992">stm32f103xb.h:3992</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03100">LL_TIM_ClearFlag_COM()</a>, <a class="el" href="stm32f103xb_8h_source.html#l00482">TIM_TypeDef::SR</a>, <a class="el" href="stm32f103xb_8h_source.html#l03992">TIM_SR_COMIF</a> y <a class="el" href="stm32f1xx_8h_source.html#l00185">WRITE_REG</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03100">LL_TIM_ClearFlag_COM()</a>.</p>
+<div id="dynsection-19" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-19-summary" class="dynsummary">
+</div>
+<div id="dynsection-19-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___f_l_a_g___management_ga4ecc9c78b589aeb8d3c1e64d5fbe5d37_cgraph.svg" width="178" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-20" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-20-summary" class="dynsummary">
+</div>
+<div id="dynsection-20-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___f_l_a_g___management_ga4ecc9c78b589aeb8d3c1e64d5fbe5d37_icgraph.svg" width="178" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="gacdb14d6ab2371673cc246852ba2b675f" name="gacdb14d6ab2371673cc246852ba2b675f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gacdb14d6ab2371673cc246852ba2b675f">&#9670;&#160;</a></span>LL_TIM_ClearFlag_TRIG()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline void LL_TIM_ClearFlag_TRIG </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>TIMx</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__tim_8h.html">stm32f1xx_ll_tim.h</a>&quot;</code></p>
+
+<p>Clear the trigger interrupt flag (TIF). </p>
+<p>@rmtoll SR TIF LL_TIM_ClearFlag_TRIG </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">TIMx</td><td>Timer instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; 0x00000040</p>
+<p>&lt;Trigger interrupt Flag</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03122">3122</a> del archivo <a class="el" href="stm32f1xx__ll__tim_8h_source.html">stm32f1xx_ll_tim.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3123</span>{</div>
+<div class="line"><span class="lineno"> 3124</span>  <a class="code hl_define" href="group___exported__macros.html#ga32f78bffcaf6d13023dcd7f05e0c4d57">WRITE_REG</a>(TIMx-&gt;<a class="code hl_variable" href="struct_t_i_m___type_def.html#ad4c239c905a84b69f7bc24d1cf63512e">SR</a>, ~(<a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga7c8b16f3ced6ec03e9001276b134846e">TIM_SR_TIF</a>));</div>
+<div class="line"><span class="lineno"> 3125</span>}</div>
+<div class="ttc" id="agroup___peripheral___registers___bits___definition_html_ga7c8b16f3ced6ec03e9001276b134846e"><div class="ttname"><a href="group___peripheral___registers___bits___definition.html#ga7c8b16f3ced6ec03e9001276b134846e">TIM_SR_TIF</a></div><div class="ttdeci">#define TIM_SR_TIF</div><div class="ttdoc">Trigger interrupt Flag.</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l03995">stm32f103xb.h:3995</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03122">LL_TIM_ClearFlag_TRIG()</a>, <a class="el" href="stm32f103xb_8h_source.html#l00482">TIM_TypeDef::SR</a>, <a class="el" href="stm32f103xb_8h_source.html#l03995">TIM_SR_TIF</a> y <a class="el" href="stm32f1xx_8h_source.html#l00185">WRITE_REG</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03122">LL_TIM_ClearFlag_TRIG()</a>.</p>
+<div id="dynsection-21" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-21-summary" class="dynsummary">
+</div>
+<div id="dynsection-21-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___f_l_a_g___management_gacdb14d6ab2371673cc246852ba2b675f_cgraph.svg" width="179" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-22" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-22-summary" class="dynsummary">
+</div>
+<div id="dynsection-22-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___f_l_a_g___management_gacdb14d6ab2371673cc246852ba2b675f_icgraph.svg" width="179" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="gaff16d3ad968f568f46dda038cf935505" name="gaff16d3ad968f568f46dda038cf935505"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaff16d3ad968f568f46dda038cf935505">&#9670;&#160;</a></span>LL_TIM_ClearFlag_UPDATE()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline void LL_TIM_ClearFlag_UPDATE </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>TIMx</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__tim_8h.html">stm32f1xx_ll_tim.h</a>&quot;</code></p>
+
+<p>Clear the update interrupt flag (UIF). </p>
+<p>@rmtoll SR UIF LL_TIM_ClearFlag_UPDATE </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">TIMx</td><td>Timer instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; 0x00000001</p>
+<p>&lt;Update interrupt Flag</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l02990">2990</a> del archivo <a class="el" href="stm32f1xx__ll__tim_8h_source.html">stm32f1xx_ll_tim.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2991</span>{</div>
+<div class="line"><span class="lineno"> 2992</span>  <a class="code hl_define" href="group___exported__macros.html#ga32f78bffcaf6d13023dcd7f05e0c4d57">WRITE_REG</a>(TIMx-&gt;<a class="code hl_variable" href="struct_t_i_m___type_def.html#ad4c239c905a84b69f7bc24d1cf63512e">SR</a>, ~(<a class="code hl_define" href="group___peripheral___registers___bits___definition.html#gac8c03fabc10654d2a3f76ea40fcdbde6">TIM_SR_UIF</a>));</div>
+<div class="line"><span class="lineno"> 2993</span>}</div>
+<div class="ttc" id="agroup___peripheral___registers___bits___definition_html_gac8c03fabc10654d2a3f76ea40fcdbde6"><div class="ttname"><a href="group___peripheral___registers___bits___definition.html#gac8c03fabc10654d2a3f76ea40fcdbde6">TIM_SR_UIF</a></div><div class="ttdeci">#define TIM_SR_UIF</div><div class="ttdoc">Update interrupt Flag.</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l03977">stm32f103xb.h:3977</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l02990">LL_TIM_ClearFlag_UPDATE()</a>, <a class="el" href="stm32f103xb_8h_source.html#l00482">TIM_TypeDef::SR</a>, <a class="el" href="stm32f103xb_8h_source.html#l03977">TIM_SR_UIF</a> y <a class="el" href="stm32f1xx_8h_source.html#l00185">WRITE_REG</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l02990">LL_TIM_ClearFlag_UPDATE()</a>.</p>
+<div id="dynsection-23" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-23-summary" class="dynsummary">
+</div>
+<div id="dynsection-23-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___f_l_a_g___management_gaff16d3ad968f568f46dda038cf935505_cgraph.svg" width="200" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-24" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-24-summary" class="dynsummary">
+</div>
+<div id="dynsection-24-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___f_l_a_g___management_gaff16d3ad968f568f46dda038cf935505_icgraph.svg" width="200" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ga052c3fd2d0241c1e37a3408216488332" name="ga052c3fd2d0241c1e37a3408216488332"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga052c3fd2d0241c1e37a3408216488332">&#9670;&#160;</a></span>LL_TIM_IsActiveFlag_BRK()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline uint32_t LL_TIM_IsActiveFlag_BRK </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>TIMx</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__tim_8h.html">stm32f1xx_ll_tim.h</a>&quot;</code></p>
+
+<p>Indicate whether break interrupt flag (BIF) is set (break interrupt is pending). </p>
+<p>@rmtoll SR BIF LL_TIM_IsActiveFlag_BRK </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">TIMx</td><td>Timer instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">State</td><td>of bit (1 or 0). </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; 0x00000080</p>
+<p>&lt;Break interrupt Flag</p>
+<p>&lt; 0x00000080</p>
+<p>&lt;Break interrupt Flag</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03155">3155</a> del archivo <a class="el" href="stm32f1xx__ll__tim_8h_source.html">stm32f1xx_ll_tim.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3156</span>{</div>
+<div class="line"><span class="lineno"> 3157</span>  <span class="keywordflow">return</span> ((<a class="code hl_define" href="group___exported__macros.html#ga822bb1bb9710d5f2fa6396b84e583c33">READ_BIT</a>(TIMx-&gt;<a class="code hl_variable" href="struct_t_i_m___type_def.html#ad4c239c905a84b69f7bc24d1cf63512e">SR</a>, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga6d52cd5a57c9a26b0d993c93d9875097">TIM_SR_BIF</a>) == (<a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga6d52cd5a57c9a26b0d993c93d9875097">TIM_SR_BIF</a>)) ? 1UL : 0UL);</div>
+<div class="line"><span class="lineno"> 3158</span>}</div>
+<div class="ttc" id="agroup___exported__macros_html_ga822bb1bb9710d5f2fa6396b84e583c33"><div class="ttname"><a href="group___exported__macros.html#ga822bb1bb9710d5f2fa6396b84e583c33">READ_BIT</a></div><div class="ttdeci">#define READ_BIT(REG, BIT)</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx_8h_source.html#l00181">stm32f1xx.h:181</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03155">LL_TIM_IsActiveFlag_BRK()</a>, <a class="el" href="stm32f1xx_8h_source.html#l00181">READ_BIT</a>, <a class="el" href="stm32f103xb_8h_source.html#l00482">TIM_TypeDef::SR</a> y <a class="el" href="stm32f103xb_8h_source.html#l03998">TIM_SR_BIF</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03155">LL_TIM_IsActiveFlag_BRK()</a>.</p>
+<div id="dynsection-25" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-25-summary" class="dynsummary">
+</div>
+<div id="dynsection-25-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___f_l_a_g___management_ga052c3fd2d0241c1e37a3408216488332_cgraph.svg" width="191" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-26" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-26-summary" class="dynsummary">
+</div>
+<div id="dynsection-26-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___f_l_a_g___management_ga052c3fd2d0241c1e37a3408216488332_icgraph.svg" width="191" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="gad45955a3c1f0c05376b0a3d5c67dea5f" name="gad45955a3c1f0c05376b0a3d5c67dea5f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad45955a3c1f0c05376b0a3d5c67dea5f">&#9670;&#160;</a></span>LL_TIM_IsActiveFlag_CC1()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline uint32_t LL_TIM_IsActiveFlag_CC1 </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>TIMx</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__tim_8h.html">stm32f1xx_ll_tim.h</a>&quot;</code></p>
+
+<p>Indicate whether Capture/Compare 1 interrupt flag (CC1F) is set (Capture/Compare 1 interrupt is pending). </p>
+<p>@rmtoll SR CC1IF LL_TIM_IsActiveFlag_CC1 </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">TIMx</td><td>Timer instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">State</td><td>of bit (1 or 0). </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; 0x00000002</p>
+<p>&lt;Capture/Compare 1 interrupt Flag</p>
+<p>&lt; 0x00000002</p>
+<p>&lt;Capture/Compare 1 interrupt Flag</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03023">3023</a> del archivo <a class="el" href="stm32f1xx__ll__tim_8h_source.html">stm32f1xx_ll_tim.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3024</span>{</div>
+<div class="line"><span class="lineno"> 3025</span>  <span class="keywordflow">return</span> ((<a class="code hl_define" href="group___exported__macros.html#ga822bb1bb9710d5f2fa6396b84e583c33">READ_BIT</a>(TIMx-&gt;<a class="code hl_variable" href="struct_t_i_m___type_def.html#ad4c239c905a84b69f7bc24d1cf63512e">SR</a>, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga449a61344a97608d85384c29f003c0e9">TIM_SR_CC1IF</a>) == (<a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga449a61344a97608d85384c29f003c0e9">TIM_SR_CC1IF</a>)) ? 1UL : 0UL);</div>
+<div class="line"><span class="lineno"> 3026</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03023">LL_TIM_IsActiveFlag_CC1()</a>, <a class="el" href="stm32f1xx_8h_source.html#l00181">READ_BIT</a>, <a class="el" href="stm32f103xb_8h_source.html#l00482">TIM_TypeDef::SR</a> y <a class="el" href="stm32f103xb_8h_source.html#l03980">TIM_SR_CC1IF</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03023">LL_TIM_IsActiveFlag_CC1()</a>.</p>
+<div id="dynsection-27" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-27-summary" class="dynsummary">
+</div>
+<div id="dynsection-27-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___f_l_a_g___management_gad45955a3c1f0c05376b0a3d5c67dea5f_cgraph.svg" width="191" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-28" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-28-summary" class="dynsummary">
+</div>
+<div id="dynsection-28-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___f_l_a_g___management_gad45955a3c1f0c05376b0a3d5c67dea5f_icgraph.svg" width="191" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ga93e113932b895f587f992e4b94281bf7" name="ga93e113932b895f587f992e4b94281bf7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga93e113932b895f587f992e4b94281bf7">&#9670;&#160;</a></span>LL_TIM_IsActiveFlag_CC1OVR()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline uint32_t LL_TIM_IsActiveFlag_CC1OVR </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>TIMx</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__tim_8h.html">stm32f1xx_ll_tim.h</a>&quot;</code></p>
+
+<p>Indicate whether Capture/Compare 1 over-capture interrupt flag (CC1OF) is set (Capture/Compare 1 interrupt is pending). </p>
+<p>@rmtoll SR CC1OF LL_TIM_IsActiveFlag_CC1OVR </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">TIMx</td><td>Timer instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">State</td><td>of bit (1 or 0). </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; 0x00000200</p>
+<p>&lt;Capture/Compare 1 Overcapture Flag</p>
+<p>&lt; 0x00000200</p>
+<p>&lt;Capture/Compare 1 Overcapture Flag</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03178">3178</a> del archivo <a class="el" href="stm32f1xx__ll__tim_8h_source.html">stm32f1xx_ll_tim.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3179</span>{</div>
+<div class="line"><span class="lineno"> 3180</span>  <span class="keywordflow">return</span> ((<a class="code hl_define" href="group___exported__macros.html#ga822bb1bb9710d5f2fa6396b84e583c33">READ_BIT</a>(TIMx-&gt;<a class="code hl_variable" href="struct_t_i_m___type_def.html#ad4c239c905a84b69f7bc24d1cf63512e">SR</a>, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga819c4b27f8fa99b537c4407521f9780c">TIM_SR_CC1OF</a>) == (<a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga819c4b27f8fa99b537c4407521f9780c">TIM_SR_CC1OF</a>)) ? 1UL : 0UL);</div>
+<div class="line"><span class="lineno"> 3181</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03178">LL_TIM_IsActiveFlag_CC1OVR()</a>, <a class="el" href="stm32f1xx_8h_source.html#l00181">READ_BIT</a>, <a class="el" href="stm32f103xb_8h_source.html#l00482">TIM_TypeDef::SR</a> y <a class="el" href="stm32f103xb_8h_source.html#l04001">TIM_SR_CC1OF</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03178">LL_TIM_IsActiveFlag_CC1OVR()</a>.</p>
+<div id="dynsection-29" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-29-summary" class="dynsummary">
+</div>
+<div id="dynsection-29-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___f_l_a_g___management_ga93e113932b895f587f992e4b94281bf7_cgraph.svg" width="156" height="78"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-30" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-30-summary" class="dynsummary">
+</div>
+<div id="dynsection-30-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___f_l_a_g___management_ga93e113932b895f587f992e4b94281bf7_icgraph.svg" width="156" height="78"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="gaee5822fb04b85daf83feaa384c0baaf0" name="gaee5822fb04b85daf83feaa384c0baaf0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaee5822fb04b85daf83feaa384c0baaf0">&#9670;&#160;</a></span>LL_TIM_IsActiveFlag_CC2()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline uint32_t LL_TIM_IsActiveFlag_CC2 </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>TIMx</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__tim_8h.html">stm32f1xx_ll_tim.h</a>&quot;</code></p>
+
+<p>Indicate whether Capture/Compare 2 interrupt flag (CC2F) is set (Capture/Compare 2 interrupt is pending). </p>
+<p>@rmtoll SR CC2IF LL_TIM_IsActiveFlag_CC2 </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">TIMx</td><td>Timer instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">State</td><td>of bit (1 or 0). </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; 0x00000004</p>
+<p>&lt;Capture/Compare 2 interrupt Flag</p>
+<p>&lt; 0x00000004</p>
+<p>&lt;Capture/Compare 2 interrupt Flag</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03045">3045</a> del archivo <a class="el" href="stm32f1xx__ll__tim_8h_source.html">stm32f1xx_ll_tim.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3046</span>{</div>
+<div class="line"><span class="lineno"> 3047</span>  <span class="keywordflow">return</span> ((<a class="code hl_define" href="group___exported__macros.html#ga822bb1bb9710d5f2fa6396b84e583c33">READ_BIT</a>(TIMx-&gt;<a class="code hl_variable" href="struct_t_i_m___type_def.html#ad4c239c905a84b69f7bc24d1cf63512e">SR</a>, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga25a48bf099467169aa50464fbf462bd8">TIM_SR_CC2IF</a>) == (<a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga25a48bf099467169aa50464fbf462bd8">TIM_SR_CC2IF</a>)) ? 1UL : 0UL);</div>
+<div class="line"><span class="lineno"> 3048</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03045">LL_TIM_IsActiveFlag_CC2()</a>, <a class="el" href="stm32f1xx_8h_source.html#l00181">READ_BIT</a>, <a class="el" href="stm32f103xb_8h_source.html#l00482">TIM_TypeDef::SR</a> y <a class="el" href="stm32f103xb_8h_source.html#l03983">TIM_SR_CC2IF</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03045">LL_TIM_IsActiveFlag_CC2()</a>.</p>
+<div id="dynsection-31" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-31-summary" class="dynsummary">
+</div>
+<div id="dynsection-31-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___f_l_a_g___management_gaee5822fb04b85daf83feaa384c0baaf0_cgraph.svg" width="191" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-32" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-32-summary" class="dynsummary">
+</div>
+<div id="dynsection-32-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___f_l_a_g___management_gaee5822fb04b85daf83feaa384c0baaf0_icgraph.svg" width="191" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ga02152d7a1d92328c6bb6b767db8c3b90" name="ga02152d7a1d92328c6bb6b767db8c3b90"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga02152d7a1d92328c6bb6b767db8c3b90">&#9670;&#160;</a></span>LL_TIM_IsActiveFlag_CC2OVR()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline uint32_t LL_TIM_IsActiveFlag_CC2OVR </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>TIMx</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__tim_8h.html">stm32f1xx_ll_tim.h</a>&quot;</code></p>
+
+<p>Indicate whether Capture/Compare 2 over-capture interrupt flag (CC2OF) is set (Capture/Compare 2 over-capture interrupt is pending). </p>
+<p>@rmtoll SR CC2OF LL_TIM_IsActiveFlag_CC2OVR </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">TIMx</td><td>Timer instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">State</td><td>of bit (1 or 0). </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; 0x00000400</p>
+<p>&lt;Capture/Compare 2 Overcapture Flag</p>
+<p>&lt; 0x00000400</p>
+<p>&lt;Capture/Compare 2 Overcapture Flag</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03201">3201</a> del archivo <a class="el" href="stm32f1xx__ll__tim_8h_source.html">stm32f1xx_ll_tim.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3202</span>{</div>
+<div class="line"><span class="lineno"> 3203</span>  <span class="keywordflow">return</span> ((<a class="code hl_define" href="group___exported__macros.html#ga822bb1bb9710d5f2fa6396b84e583c33">READ_BIT</a>(TIMx-&gt;<a class="code hl_variable" href="struct_t_i_m___type_def.html#ad4c239c905a84b69f7bc24d1cf63512e">SR</a>, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga3b7798da5863d559ea9a642af6658050">TIM_SR_CC2OF</a>) == (<a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga3b7798da5863d559ea9a642af6658050">TIM_SR_CC2OF</a>)) ? 1UL : 0UL);</div>
+<div class="line"><span class="lineno"> 3204</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03201">LL_TIM_IsActiveFlag_CC2OVR()</a>, <a class="el" href="stm32f1xx_8h_source.html#l00181">READ_BIT</a>, <a class="el" href="stm32f103xb_8h_source.html#l00482">TIM_TypeDef::SR</a> y <a class="el" href="stm32f103xb_8h_source.html#l04004">TIM_SR_CC2OF</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03201">LL_TIM_IsActiveFlag_CC2OVR()</a>.</p>
+<div id="dynsection-33" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-33-summary" class="dynsummary">
+</div>
+<div id="dynsection-33-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___f_l_a_g___management_ga02152d7a1d92328c6bb6b767db8c3b90_cgraph.svg" width="156" height="78"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-34" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-34-summary" class="dynsummary">
+</div>
+<div id="dynsection-34-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___f_l_a_g___management_ga02152d7a1d92328c6bb6b767db8c3b90_icgraph.svg" width="156" height="78"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="gaf785455d606e6727bf133e623e8dab6b" name="gaf785455d606e6727bf133e623e8dab6b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf785455d606e6727bf133e623e8dab6b">&#9670;&#160;</a></span>LL_TIM_IsActiveFlag_CC3()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline uint32_t LL_TIM_IsActiveFlag_CC3 </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>TIMx</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__tim_8h.html">stm32f1xx_ll_tim.h</a>&quot;</code></p>
+
+<p>Indicate whether Capture/Compare 3 interrupt flag (CC3F) is set (Capture/Compare 3 interrupt is pending). </p>
+<p>@rmtoll SR CC3IF LL_TIM_IsActiveFlag_CC3 </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">TIMx</td><td>Timer instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">State</td><td>of bit (1 or 0). </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; 0x00000008</p>
+<p>&lt;Capture/Compare 3 interrupt Flag</p>
+<p>&lt; 0x00000008</p>
+<p>&lt;Capture/Compare 3 interrupt Flag</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03067">3067</a> del archivo <a class="el" href="stm32f1xx__ll__tim_8h_source.html">stm32f1xx_ll_tim.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3068</span>{</div>
+<div class="line"><span class="lineno"> 3069</span>  <span class="keywordflow">return</span> ((<a class="code hl_define" href="group___exported__macros.html#ga822bb1bb9710d5f2fa6396b84e583c33">READ_BIT</a>(TIMx-&gt;<a class="code hl_variable" href="struct_t_i_m___type_def.html#ad4c239c905a84b69f7bc24d1cf63512e">SR</a>, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#gad3cf234a1059c0a04799e88382cdc0f2">TIM_SR_CC3IF</a>) == (<a class="code hl_define" href="group___peripheral___registers___bits___definition.html#gad3cf234a1059c0a04799e88382cdc0f2">TIM_SR_CC3IF</a>)) ? 1UL : 0UL);</div>
+<div class="line"><span class="lineno"> 3070</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03067">LL_TIM_IsActiveFlag_CC3()</a>, <a class="el" href="stm32f1xx_8h_source.html#l00181">READ_BIT</a>, <a class="el" href="stm32f103xb_8h_source.html#l00482">TIM_TypeDef::SR</a> y <a class="el" href="stm32f103xb_8h_source.html#l03986">TIM_SR_CC3IF</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03067">LL_TIM_IsActiveFlag_CC3()</a>.</p>
+<div id="dynsection-35" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-35-summary" class="dynsummary">
+</div>
+<div id="dynsection-35-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___f_l_a_g___management_gaf785455d606e6727bf133e623e8dab6b_cgraph.svg" width="191" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-36" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-36-summary" class="dynsummary">
+</div>
+<div id="dynsection-36-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___f_l_a_g___management_gaf785455d606e6727bf133e623e8dab6b_icgraph.svg" width="191" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ga2784b43c5f425bdf9e31cdbbdf5a5ca6" name="ga2784b43c5f425bdf9e31cdbbdf5a5ca6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2784b43c5f425bdf9e31cdbbdf5a5ca6">&#9670;&#160;</a></span>LL_TIM_IsActiveFlag_CC3OVR()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline uint32_t LL_TIM_IsActiveFlag_CC3OVR </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>TIMx</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__tim_8h.html">stm32f1xx_ll_tim.h</a>&quot;</code></p>
+
+<p>Indicate whether Capture/Compare 3 over-capture interrupt flag (CC3OF) is set (Capture/Compare 3 over-capture interrupt is pending). </p>
+<p>@rmtoll SR CC3OF LL_TIM_IsActiveFlag_CC3OVR </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">TIMx</td><td>Timer instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">State</td><td>of bit (1 or 0). </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; 0x00000800</p>
+<p>&lt;Capture/Compare 3 Overcapture Flag</p>
+<p>&lt; 0x00000800</p>
+<p>&lt;Capture/Compare 3 Overcapture Flag</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03224">3224</a> del archivo <a class="el" href="stm32f1xx__ll__tim_8h_source.html">stm32f1xx_ll_tim.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3225</span>{</div>
+<div class="line"><span class="lineno"> 3226</span>  <span class="keywordflow">return</span> ((<a class="code hl_define" href="group___exported__macros.html#ga822bb1bb9710d5f2fa6396b84e583c33">READ_BIT</a>(TIMx-&gt;<a class="code hl_variable" href="struct_t_i_m___type_def.html#ad4c239c905a84b69f7bc24d1cf63512e">SR</a>, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#gaf7a2d4c831eb641ba082156e41d03358">TIM_SR_CC3OF</a>) == (<a class="code hl_define" href="group___peripheral___registers___bits___definition.html#gaf7a2d4c831eb641ba082156e41d03358">TIM_SR_CC3OF</a>)) ? 1UL : 0UL);</div>
+<div class="line"><span class="lineno"> 3227</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03224">LL_TIM_IsActiveFlag_CC3OVR()</a>, <a class="el" href="stm32f1xx_8h_source.html#l00181">READ_BIT</a>, <a class="el" href="stm32f103xb_8h_source.html#l00482">TIM_TypeDef::SR</a> y <a class="el" href="stm32f103xb_8h_source.html#l04007">TIM_SR_CC3OF</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03224">LL_TIM_IsActiveFlag_CC3OVR()</a>.</p>
+<div id="dynsection-37" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-37-summary" class="dynsummary">
+</div>
+<div id="dynsection-37-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___f_l_a_g___management_ga2784b43c5f425bdf9e31cdbbdf5a5ca6_cgraph.svg" width="156" height="78"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-38" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-38-summary" class="dynsummary">
+</div>
+<div id="dynsection-38-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___f_l_a_g___management_ga2784b43c5f425bdf9e31cdbbdf5a5ca6_icgraph.svg" width="156" height="78"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="gad1d80440e2e7330c70304aa5d4ad21fe" name="gad1d80440e2e7330c70304aa5d4ad21fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad1d80440e2e7330c70304aa5d4ad21fe">&#9670;&#160;</a></span>LL_TIM_IsActiveFlag_CC4()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline uint32_t LL_TIM_IsActiveFlag_CC4 </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>TIMx</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__tim_8h.html">stm32f1xx_ll_tim.h</a>&quot;</code></p>
+
+<p>Indicate whether Capture/Compare 4 interrupt flag (CC4F) is set (Capture/Compare 4 interrupt is pending). </p>
+<p>@rmtoll SR CC4IF LL_TIM_IsActiveFlag_CC4 </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">TIMx</td><td>Timer instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">State</td><td>of bit (1 or 0). </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; 0x00000010</p>
+<p>&lt;Capture/Compare 4 interrupt Flag</p>
+<p>&lt; 0x00000010</p>
+<p>&lt;Capture/Compare 4 interrupt Flag</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03089">3089</a> del archivo <a class="el" href="stm32f1xx__ll__tim_8h_source.html">stm32f1xx_ll_tim.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3090</span>{</div>
+<div class="line"><span class="lineno"> 3091</span>  <span class="keywordflow">return</span> ((<a class="code hl_define" href="group___exported__macros.html#ga822bb1bb9710d5f2fa6396b84e583c33">READ_BIT</a>(TIMx-&gt;<a class="code hl_variable" href="struct_t_i_m___type_def.html#ad4c239c905a84b69f7bc24d1cf63512e">SR</a>, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#gacade8a06303bf216bfb03140c7e16cac">TIM_SR_CC4IF</a>) == (<a class="code hl_define" href="group___peripheral___registers___bits___definition.html#gacade8a06303bf216bfb03140c7e16cac">TIM_SR_CC4IF</a>)) ? 1UL : 0UL);</div>
+<div class="line"><span class="lineno"> 3092</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03089">LL_TIM_IsActiveFlag_CC4()</a>, <a class="el" href="stm32f1xx_8h_source.html#l00181">READ_BIT</a>, <a class="el" href="stm32f103xb_8h_source.html#l00482">TIM_TypeDef::SR</a> y <a class="el" href="stm32f103xb_8h_source.html#l03989">TIM_SR_CC4IF</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03089">LL_TIM_IsActiveFlag_CC4()</a>.</p>
+<div id="dynsection-39" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-39-summary" class="dynsummary">
+</div>
+<div id="dynsection-39-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___f_l_a_g___management_gad1d80440e2e7330c70304aa5d4ad21fe_cgraph.svg" width="191" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-40" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-40-summary" class="dynsummary">
+</div>
+<div id="dynsection-40-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___f_l_a_g___management_gad1d80440e2e7330c70304aa5d4ad21fe_icgraph.svg" width="191" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ga34302871cf7ca3e9f73595dfccc25d10" name="ga34302871cf7ca3e9f73595dfccc25d10"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga34302871cf7ca3e9f73595dfccc25d10">&#9670;&#160;</a></span>LL_TIM_IsActiveFlag_CC4OVR()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline uint32_t LL_TIM_IsActiveFlag_CC4OVR </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>TIMx</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__tim_8h.html">stm32f1xx_ll_tim.h</a>&quot;</code></p>
+
+<p>Indicate whether Capture/Compare 4 over-capture interrupt flag (CC4OF) is set (Capture/Compare 4 over-capture interrupt is pending). </p>
+<p>@rmtoll SR CC4OF LL_TIM_IsActiveFlag_CC4OVR </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">TIMx</td><td>Timer instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">State</td><td>of bit (1 or 0). </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; 0x00001000</p>
+<p>&lt;Capture/Compare 4 Overcapture Flag</p>
+<p>&lt; 0x00001000</p>
+<p>&lt;Capture/Compare 4 Overcapture Flag</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03247">3247</a> del archivo <a class="el" href="stm32f1xx__ll__tim_8h_source.html">stm32f1xx_ll_tim.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3248</span>{</div>
+<div class="line"><span class="lineno"> 3249</span>  <span class="keywordflow">return</span> ((<a class="code hl_define" href="group___exported__macros.html#ga822bb1bb9710d5f2fa6396b84e583c33">READ_BIT</a>(TIMx-&gt;<a class="code hl_variable" href="struct_t_i_m___type_def.html#ad4c239c905a84b69f7bc24d1cf63512e">SR</a>, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga81ba979e8309b66808e06e4de34bc740">TIM_SR_CC4OF</a>) == (<a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga81ba979e8309b66808e06e4de34bc740">TIM_SR_CC4OF</a>)) ? 1UL : 0UL);</div>
+<div class="line"><span class="lineno"> 3250</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03247">LL_TIM_IsActiveFlag_CC4OVR()</a>, <a class="el" href="stm32f1xx_8h_source.html#l00181">READ_BIT</a>, <a class="el" href="stm32f103xb_8h_source.html#l00482">TIM_TypeDef::SR</a> y <a class="el" href="stm32f103xb_8h_source.html#l04010">TIM_SR_CC4OF</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03247">LL_TIM_IsActiveFlag_CC4OVR()</a>.</p>
+<div id="dynsection-41" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-41-summary" class="dynsummary">
+</div>
+<div id="dynsection-41-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___f_l_a_g___management_ga34302871cf7ca3e9f73595dfccc25d10_cgraph.svg" width="156" height="78"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-42" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-42-summary" class="dynsummary">
+</div>
+<div id="dynsection-42-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___f_l_a_g___management_ga34302871cf7ca3e9f73595dfccc25d10_icgraph.svg" width="156" height="78"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ga9cd124fb774d352b7c7b0f48ceeabeb9" name="ga9cd124fb774d352b7c7b0f48ceeabeb9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9cd124fb774d352b7c7b0f48ceeabeb9">&#9670;&#160;</a></span>LL_TIM_IsActiveFlag_COM()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline uint32_t LL_TIM_IsActiveFlag_COM </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>TIMx</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__tim_8h.html">stm32f1xx_ll_tim.h</a>&quot;</code></p>
+
+<p>Indicate whether commutation interrupt flag (COMIF) is set (commutation interrupt is pending). </p>
+<p>@rmtoll SR COMIF LL_TIM_IsActiveFlag_COM </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">TIMx</td><td>Timer instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">State</td><td>of bit (1 or 0). </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; 0x00000020</p>
+<p>&lt;COM interrupt Flag</p>
+<p>&lt; 0x00000020</p>
+<p>&lt;COM interrupt Flag</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03111">3111</a> del archivo <a class="el" href="stm32f1xx__ll__tim_8h_source.html">stm32f1xx_ll_tim.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3112</span>{</div>
+<div class="line"><span class="lineno"> 3113</span>  <span class="keywordflow">return</span> ((<a class="code hl_define" href="group___exported__macros.html#ga822bb1bb9710d5f2fa6396b84e583c33">READ_BIT</a>(TIMx-&gt;<a class="code hl_variable" href="struct_t_i_m___type_def.html#ad4c239c905a84b69f7bc24d1cf63512e">SR</a>, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga91775c029171c4585e9cca6ebf1cd57a">TIM_SR_COMIF</a>) == (<a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga91775c029171c4585e9cca6ebf1cd57a">TIM_SR_COMIF</a>)) ? 1UL : 0UL);</div>
+<div class="line"><span class="lineno"> 3114</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03111">LL_TIM_IsActiveFlag_COM()</a>, <a class="el" href="stm32f1xx_8h_source.html#l00181">READ_BIT</a>, <a class="el" href="stm32f103xb_8h_source.html#l00482">TIM_TypeDef::SR</a> y <a class="el" href="stm32f103xb_8h_source.html#l03992">TIM_SR_COMIF</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03111">LL_TIM_IsActiveFlag_COM()</a>.</p>
+<div id="dynsection-43" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-43-summary" class="dynsummary">
+</div>
+<div id="dynsection-43-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___f_l_a_g___management_ga9cd124fb774d352b7c7b0f48ceeabeb9_cgraph.svg" width="195" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-44" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-44-summary" class="dynsummary">
+</div>
+<div id="dynsection-44-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___f_l_a_g___management_ga9cd124fb774d352b7c7b0f48ceeabeb9_icgraph.svg" width="195" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ga517fde8e3fd0429ecbbd6c029323fd9a" name="ga517fde8e3fd0429ecbbd6c029323fd9a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga517fde8e3fd0429ecbbd6c029323fd9a">&#9670;&#160;</a></span>LL_TIM_IsActiveFlag_TRIG()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline uint32_t LL_TIM_IsActiveFlag_TRIG </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>TIMx</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__tim_8h.html">stm32f1xx_ll_tim.h</a>&quot;</code></p>
+
+<p>Indicate whether trigger interrupt flag (TIF) is set (trigger interrupt is pending). </p>
+<p>@rmtoll SR TIF LL_TIM_IsActiveFlag_TRIG </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">TIMx</td><td>Timer instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">State</td><td>of bit (1 or 0). </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; 0x00000040</p>
+<p>&lt;Trigger interrupt Flag</p>
+<p>&lt; 0x00000040</p>
+<p>&lt;Trigger interrupt Flag</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03133">3133</a> del archivo <a class="el" href="stm32f1xx__ll__tim_8h_source.html">stm32f1xx_ll_tim.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3134</span>{</div>
+<div class="line"><span class="lineno"> 3135</span>  <span class="keywordflow">return</span> ((<a class="code hl_define" href="group___exported__macros.html#ga822bb1bb9710d5f2fa6396b84e583c33">READ_BIT</a>(TIMx-&gt;<a class="code hl_variable" href="struct_t_i_m___type_def.html#ad4c239c905a84b69f7bc24d1cf63512e">SR</a>, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga7c8b16f3ced6ec03e9001276b134846e">TIM_SR_TIF</a>) == (<a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga7c8b16f3ced6ec03e9001276b134846e">TIM_SR_TIF</a>)) ? 1UL : 0UL);</div>
+<div class="line"><span class="lineno"> 3136</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03133">LL_TIM_IsActiveFlag_TRIG()</a>, <a class="el" href="stm32f1xx_8h_source.html#l00181">READ_BIT</a>, <a class="el" href="stm32f103xb_8h_source.html#l00482">TIM_TypeDef::SR</a> y <a class="el" href="stm32f103xb_8h_source.html#l03995">TIM_SR_TIF</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03133">LL_TIM_IsActiveFlag_TRIG()</a>.</p>
+<div id="dynsection-45" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-45-summary" class="dynsummary">
+</div>
+<div id="dynsection-45-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___f_l_a_g___management_ga517fde8e3fd0429ecbbd6c029323fd9a_cgraph.svg" width="195" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-46" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-46-summary" class="dynsummary">
+</div>
+<div id="dynsection-46-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___f_l_a_g___management_ga517fde8e3fd0429ecbbd6c029323fd9a_icgraph.svg" width="195" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ga215c9a6572acbbf254e5fe9b35e85f2c" name="ga215c9a6572acbbf254e5fe9b35e85f2c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga215c9a6572acbbf254e5fe9b35e85f2c">&#9670;&#160;</a></span>LL_TIM_IsActiveFlag_UPDATE()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline uint32_t LL_TIM_IsActiveFlag_UPDATE </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>TIMx</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__tim_8h.html">stm32f1xx_ll_tim.h</a>&quot;</code></p>
+
+<p>Indicate whether update interrupt flag (UIF) is set (update interrupt is pending). </p>
+<p>@rmtoll SR UIF LL_TIM_IsActiveFlag_UPDATE </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">TIMx</td><td>Timer instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">State</td><td>of bit (1 or 0). </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; 0x00000001</p>
+<p>&lt;Update interrupt Flag</p>
+<p>&lt; 0x00000001</p>
+<p>&lt;Update interrupt Flag</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03001">3001</a> del archivo <a class="el" href="stm32f1xx__ll__tim_8h_source.html">stm32f1xx_ll_tim.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3002</span>{</div>
+<div class="line"><span class="lineno"> 3003</span>  <span class="keywordflow">return</span> ((<a class="code hl_define" href="group___exported__macros.html#ga822bb1bb9710d5f2fa6396b84e583c33">READ_BIT</a>(TIMx-&gt;<a class="code hl_variable" href="struct_t_i_m___type_def.html#ad4c239c905a84b69f7bc24d1cf63512e">SR</a>, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#gac8c03fabc10654d2a3f76ea40fcdbde6">TIM_SR_UIF</a>) == (<a class="code hl_define" href="group___peripheral___registers___bits___definition.html#gac8c03fabc10654d2a3f76ea40fcdbde6">TIM_SR_UIF</a>)) ? 1UL : 0UL);</div>
+<div class="line"><span class="lineno"> 3004</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03001">LL_TIM_IsActiveFlag_UPDATE()</a>, <a class="el" href="stm32f1xx_8h_source.html#l00181">READ_BIT</a>, <a class="el" href="stm32f103xb_8h_source.html#l00482">TIM_TypeDef::SR</a> y <a class="el" href="stm32f103xb_8h_source.html#l03977">TIM_SR_UIF</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03001">LL_TIM_IsActiveFlag_UPDATE()</a>.</p>
+<div id="dynsection-47" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-47-summary" class="dynsummary">
+</div>
+<div id="dynsection-47-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___f_l_a_g___management_ga215c9a6572acbbf254e5fe9b35e85f2c_cgraph.svg" width="156" height="78"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-48" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-48-summary" class="dynsummary">
+</div>
+<div id="dynsection-48-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___f_l_a_g___management_ga215c9a6572acbbf254e5fe9b35e85f2c_icgraph.svg" width="156" height="78"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generado el <span class="timestamp"></span> para MICRO-Firmware por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

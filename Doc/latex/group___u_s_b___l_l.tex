@@ -1,0 +1,323 @@
+\doxysubsubsection{Device Speed }
+\hypertarget{group___u_s_b___l_l}{}\label{group___u_s_b___l_l}\index{Device Speed@{Device Speed}}
+Diagrama de colaboración de Device Speed:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group___u_s_b___l_l}
+\end{center}
+\end{figure}
+\doxysubsubsubsubsection*{Temas}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{group___p_c_d___exported___constants}{PCD Exported Constants}}
+\item 
+\doxymbox{\hyperlink{group___u_s_b___l_l___exported___functions}{USB Low Layer Exported Functions}}
+\begin{DoxyCompactList}\small\item\em \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group___u_s_b___l_l___exported___macros}{USB Low Layer Exported Macros}}
+\end{DoxyCompactItemize}
+\doxysubsubsubsubsection*{Estructuras de datos}
+\begin{DoxyCompactItemize}
+\item 
+struct \doxymbox{\hyperlink{struct_u_s_b___cfg_type_def}{USB\+\_\+\+Cfg\+Type\+Def}}
+\begin{DoxyCompactList}\small\item\em USB Instance Initialization Structure definition. \end{DoxyCompactList}\item 
+struct \doxymbox{\hyperlink{struct_u_s_b___e_p_type_def}{USB\+\_\+\+EPType\+Def}}
+\item 
+struct \doxymbox{\hyperlink{struct_u_s_b___h_c_type_def}{USB\+\_\+\+HCType\+Def}}
+\end{DoxyCompactItemize}
+\doxysubsubsubsubsection*{defines}
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{group___u_s_b___l_l_gac2eca9e90c95d0cbb05439bbc55579c4}{USBD\+\_\+\+FS\+\_\+\+SPEED}}~2U
+\item 
+\+\#define \doxymbox{\hyperlink{group___u_s_b___l_l_ga69fe3c681e4c7895d32fc96ba5023bbe}{USBH\+\_\+\+FSLS\+\_\+\+SPEED}}~1U
+\end{DoxyCompactItemize}
+\doxysubsubsubsubsection*{Enumeraciones}
+\begin{DoxyCompactItemize}
+\item 
+enum \doxymbox{\hyperlink{group___u_s_b___l_l_ga174e279d637247e8486fa88997825af9}{USB\+\_\+\+HCState\+Type\+Def}} \{ \newline
+\doxymbox{\hyperlink{group___u_s_b___l_l_gga174e279d637247e8486fa88997825af9af636bb8335a7bd4b2cd57dc41d105d9c}{HC\+\_\+\+IDLE}} = 0
+, \doxymbox{\hyperlink{group___u_s_b___l_l_gga174e279d637247e8486fa88997825af9a323751d52ea7fde5b0399b480666b3eb}{HC\+\_\+\+XFRC}}
+, \doxymbox{\hyperlink{group___u_s_b___l_l_gga174e279d637247e8486fa88997825af9ad3806642bc9a2a49bf930f44a8a01918}{HC\+\_\+\+HALTED}}
+, \doxymbox{\hyperlink{group___u_s_b___l_l_gga174e279d637247e8486fa88997825af9a904f80ecab288205e098361c612e6369}{HC\+\_\+\+ACK}}
+, \newline
+\doxymbox{\hyperlink{group___u_s_b___l_l_gga174e279d637247e8486fa88997825af9aead6a914271aec37bb91e63949567391}{HC\+\_\+\+NAK}}
+, \doxymbox{\hyperlink{group___u_s_b___l_l_gga174e279d637247e8486fa88997825af9ac7a2e369496480be172bc2b290d65c24}{HC\+\_\+\+NYET}}
+, \doxymbox{\hyperlink{group___u_s_b___l_l_gga174e279d637247e8486fa88997825af9a007bef68e5e5170ea5055d553c64ec87}{HC\+\_\+\+STALL}}
+, \doxymbox{\hyperlink{group___u_s_b___l_l_gga174e279d637247e8486fa88997825af9a13ced3cf247e734c6be97235e18cfa33}{HC\+\_\+\+XACTERR}}
+, \newline
+\doxymbox{\hyperlink{group___u_s_b___l_l_gga174e279d637247e8486fa88997825af9a557e1dbc3f7c65270c2bc42784299a13}{HC\+\_\+\+BBLERR}}
+, \doxymbox{\hyperlink{group___u_s_b___l_l_gga174e279d637247e8486fa88997825af9a3b001e51f8c3d77947867fb1a9b959be}{HC\+\_\+\+DATATGLERR}}
+ \}
+\begin{DoxyCompactList}\small\item\em Host channel States definition. \end{DoxyCompactList}\item 
+enum \doxymbox{\hyperlink{group___u_s_b___l_l_ga98900f70f92fcf797cd616aed53fc9de}{USB\+\_\+\+Mode\+Type\+Def}} \{ \doxymbox{\hyperlink{group___u_s_b___l_l_gga98900f70f92fcf797cd616aed53fc9deaeeaed6848b639f7608b4a3df5b7256a3}{USB\+\_\+\+DEVICE\+\_\+\+MODE}} = 0
+, \doxymbox{\hyperlink{group___u_s_b___l_l_gga98900f70f92fcf797cd616aed53fc9dea142f736df9dbdc48900865328d62ced4}{USB\+\_\+\+HOST\+\_\+\+MODE}} = 1
+, \doxymbox{\hyperlink{group___u_s_b___l_l_gga98900f70f92fcf797cd616aed53fc9dea42ac547e62fe002f2bad0a2d30a14a72}{USB\+\_\+\+DRD\+\_\+\+MODE}} = 2
+ \}
+\begin{DoxyCompactList}\small\item\em USB Mode definition. \end{DoxyCompactList}\item 
+enum \doxymbox{\hyperlink{group___u_s_b___l_l_ga65839765282fcf8da70ed98f620e6b3f}{USB\+\_\+\+URBState\+Type\+Def}} \{ \newline
+\doxymbox{\hyperlink{group___u_s_b___l_l_gga65839765282fcf8da70ed98f620e6b3fa3d62a44f8c2ff61d32e014eeb68ca1ad}{URB\+\_\+\+IDLE}} = 0
+, \doxymbox{\hyperlink{group___u_s_b___l_l_gga65839765282fcf8da70ed98f620e6b3fa89b831c73a03df3adb1db9f9ea6dd383}{URB\+\_\+\+DONE}}
+, \doxymbox{\hyperlink{group___u_s_b___l_l_gga65839765282fcf8da70ed98f620e6b3fafc9be95cae97851083c29fba7a76c429}{URB\+\_\+\+NOTREADY}}
+, \doxymbox{\hyperlink{group___u_s_b___l_l_gga65839765282fcf8da70ed98f620e6b3fa53a167498a0a71be87d46ed17a8b3a1f}{URB\+\_\+\+NYET}}
+, \newline
+\doxymbox{\hyperlink{group___u_s_b___l_l_gga65839765282fcf8da70ed98f620e6b3fac64ce5e59f99b31274ebbec86d33afb2}{URB\+\_\+\+ERROR}}
+, \doxymbox{\hyperlink{group___u_s_b___l_l_gga65839765282fcf8da70ed98f620e6b3faf19023a3840fc87352f2c7108feb4f8e}{URB\+\_\+\+STALL}}
+ \}
+\begin{DoxyCompactList}\small\item\em URB States definition. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsubsubsection{Descripción detallada}
+
+
+
+
+\label{group___u_s_b___l_l_doc-define-members}
+\Hypertarget{group___u_s_b___l_l_doc-define-members}
+\doxysubsubsubsection{Documentación de «define»}
+\Hypertarget{group___u_s_b___l_l_gac2eca9e90c95d0cbb05439bbc55579c4}\index{Device Speed@{Device Speed}!USBD\_FS\_SPEED@{USBD\_FS\_SPEED}}
+\index{USBD\_FS\_SPEED@{USBD\_FS\_SPEED}!Device Speed@{Device Speed}}
+\doxyparagraph{\texorpdfstring{USBD\_FS\_SPEED}{USBD\_FS\_SPEED}}
+{\footnotesize\ttfamily \label{group___u_s_b___l_l_gac2eca9e90c95d0cbb05439bbc55579c4} 
+\+\#define USBD\+\_\+\+FS\+\_\+\+SPEED~2U}
+
+
+
+{\ttfamily \+\#include "{}\doxymbox{\hyperlink{stm32f1xx__ll__usb_8h}{stm32f1xx\+\_\+ll\+\_\+usb.\+h}}"{}}
+
+
+
+Definición en la línea \doxymbox{\hyperlink{stm32f1xx__ll__usb_8h_source_l00394}{394}} del archivo \doxymbox{\hyperlink{stm32f1xx__ll__usb_8h_source}{stm32f1xx\+\_\+ll\+\_\+usb.\+h}}.
+
+\Hypertarget{group___u_s_b___l_l_ga69fe3c681e4c7895d32fc96ba5023bbe}\index{Device Speed@{Device Speed}!USBH\_FSLS\_SPEED@{USBH\_FSLS\_SPEED}}
+\index{USBH\_FSLS\_SPEED@{USBH\_FSLS\_SPEED}!Device Speed@{Device Speed}}
+\doxyparagraph{\texorpdfstring{USBH\_FSLS\_SPEED}{USBH\_FSLS\_SPEED}}
+{\footnotesize\ttfamily \label{group___u_s_b___l_l_ga69fe3c681e4c7895d32fc96ba5023bbe} 
+\+\#define USBH\+\_\+\+FSLS\+\_\+\+SPEED~1U}
+
+
+
+{\ttfamily \+\#include "{}\doxymbox{\hyperlink{stm32f1xx__ll__usb_8h}{stm32f1xx\+\_\+ll\+\_\+usb.\+h}}"{}}
+
+
+
+Definición en la línea \doxymbox{\hyperlink{stm32f1xx__ll__usb_8h_source_l00395}{395}} del archivo \doxymbox{\hyperlink{stm32f1xx__ll__usb_8h_source}{stm32f1xx\+\_\+ll\+\_\+usb.\+h}}.
+
+
+
+\label{group___u_s_b___l_l_doc-enum-members}
+\Hypertarget{group___u_s_b___l_l_doc-enum-members}
+\doxysubsubsubsection{Documentación de enumeraciones}
+\Hypertarget{group___u_s_b___l_l_ga174e279d637247e8486fa88997825af9}\index{Device Speed@{Device Speed}!USB\_HCStateTypeDef@{USB\_HCStateTypeDef}}
+\index{USB\_HCStateTypeDef@{USB\_HCStateTypeDef}!Device Speed@{Device Speed}}
+\doxyparagraph{\texorpdfstring{USB\_HCStateTypeDef}{USB\_HCStateTypeDef}}
+{\footnotesize\ttfamily \label{group___u_s_b___l_l_ga174e279d637247e8486fa88997825af9} 
+enum \doxymbox{\hyperlink{group___u_s_b___l_l_ga174e279d637247e8486fa88997825af9}{USB\+\_\+\+HCState\+Type\+Def}}}
+
+
+
+{\ttfamily \+\#include "{}\doxymbox{\hyperlink{stm32f1xx__ll__usb_8h}{stm32f1xx\+\_\+ll\+\_\+usb.\+h}}"{}}
+
+
+
+Host channel States definition. 
+
+\begin{DoxyEnumFields}[2]{Valores de enumeraciones}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{HC\_IDLE@{HC\_IDLE}!Device Speed@{Device Speed}}
+\index{Device Speed@{Device Speed}!HC\_IDLE@{HC\_IDLE}}
+}\Hypertarget{group___u_s_b___l_l_gga174e279d637247e8486fa88997825af9af636bb8335a7bd4b2cd57dc41d105d9c}\label{group___u_s_b___l_l_gga174e279d637247e8486fa88997825af9af636bb8335a7bd4b2cd57dc41d105d9c} 
+HC\+\_\+\+IDLE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{HC\_XFRC@{HC\_XFRC}!Device Speed@{Device Speed}}
+\index{Device Speed@{Device Speed}!HC\_XFRC@{HC\_XFRC}}
+}\Hypertarget{group___u_s_b___l_l_gga174e279d637247e8486fa88997825af9a323751d52ea7fde5b0399b480666b3eb}\label{group___u_s_b___l_l_gga174e279d637247e8486fa88997825af9a323751d52ea7fde5b0399b480666b3eb} 
+HC\+\_\+\+XFRC&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{HC\_HALTED@{HC\_HALTED}!Device Speed@{Device Speed}}
+\index{Device Speed@{Device Speed}!HC\_HALTED@{HC\_HALTED}}
+}\Hypertarget{group___u_s_b___l_l_gga174e279d637247e8486fa88997825af9ad3806642bc9a2a49bf930f44a8a01918}\label{group___u_s_b___l_l_gga174e279d637247e8486fa88997825af9ad3806642bc9a2a49bf930f44a8a01918} 
+HC\+\_\+\+HALTED&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{HC\_ACK@{HC\_ACK}!Device Speed@{Device Speed}}
+\index{Device Speed@{Device Speed}!HC\_ACK@{HC\_ACK}}
+}\Hypertarget{group___u_s_b___l_l_gga174e279d637247e8486fa88997825af9a904f80ecab288205e098361c612e6369}\label{group___u_s_b___l_l_gga174e279d637247e8486fa88997825af9a904f80ecab288205e098361c612e6369} 
+HC\+\_\+\+ACK&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{HC\_NAK@{HC\_NAK}!Device Speed@{Device Speed}}
+\index{Device Speed@{Device Speed}!HC\_NAK@{HC\_NAK}}
+}\Hypertarget{group___u_s_b___l_l_gga174e279d637247e8486fa88997825af9aead6a914271aec37bb91e63949567391}\label{group___u_s_b___l_l_gga174e279d637247e8486fa88997825af9aead6a914271aec37bb91e63949567391} 
+HC\+\_\+\+NAK&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{HC\_NYET@{HC\_NYET}!Device Speed@{Device Speed}}
+\index{Device Speed@{Device Speed}!HC\_NYET@{HC\_NYET}}
+}\Hypertarget{group___u_s_b___l_l_gga174e279d637247e8486fa88997825af9ac7a2e369496480be172bc2b290d65c24}\label{group___u_s_b___l_l_gga174e279d637247e8486fa88997825af9ac7a2e369496480be172bc2b290d65c24} 
+HC\+\_\+\+NYET&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{HC\_STALL@{HC\_STALL}!Device Speed@{Device Speed}}
+\index{Device Speed@{Device Speed}!HC\_STALL@{HC\_STALL}}
+}\Hypertarget{group___u_s_b___l_l_gga174e279d637247e8486fa88997825af9a007bef68e5e5170ea5055d553c64ec87}\label{group___u_s_b___l_l_gga174e279d637247e8486fa88997825af9a007bef68e5e5170ea5055d553c64ec87} 
+HC\+\_\+\+STALL&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{HC\_XACTERR@{HC\_XACTERR}!Device Speed@{Device Speed}}
+\index{Device Speed@{Device Speed}!HC\_XACTERR@{HC\_XACTERR}}
+}\Hypertarget{group___u_s_b___l_l_gga174e279d637247e8486fa88997825af9a13ced3cf247e734c6be97235e18cfa33}\label{group___u_s_b___l_l_gga174e279d637247e8486fa88997825af9a13ced3cf247e734c6be97235e18cfa33} 
+HC\+\_\+\+XACTERR&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{HC\_BBLERR@{HC\_BBLERR}!Device Speed@{Device Speed}}
+\index{Device Speed@{Device Speed}!HC\_BBLERR@{HC\_BBLERR}}
+}\Hypertarget{group___u_s_b___l_l_gga174e279d637247e8486fa88997825af9a557e1dbc3f7c65270c2bc42784299a13}\label{group___u_s_b___l_l_gga174e279d637247e8486fa88997825af9a557e1dbc3f7c65270c2bc42784299a13} 
+HC\+\_\+\+BBLERR&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{HC\_DATATGLERR@{HC\_DATATGLERR}!Device Speed@{Device Speed}}
+\index{Device Speed@{Device Speed}!HC\_DATATGLERR@{HC\_DATATGLERR}}
+}\Hypertarget{group___u_s_b___l_l_gga174e279d637247e8486fa88997825af9a3b001e51f8c3d77947867fb1a9b959be}\label{group___u_s_b___l_l_gga174e279d637247e8486fa88997825af9a3b001e51f8c3d77947867fb1a9b959be} 
+HC\+\_\+\+DATATGLERR&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definición en la línea \doxymbox{\hyperlink{stm32f1xx__ll__usb_8h_source_l00075}{75}} del archivo \doxymbox{\hyperlink{stm32f1xx__ll__usb_8h_source}{stm32f1xx\+\_\+ll\+\_\+usb.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00076\ \{}
+\DoxyCodeLine{00077\ \ \ \doxymbox{\hyperlink{group___u_s_b___l_l_gga174e279d637247e8486fa88997825af9af636bb8335a7bd4b2cd57dc41d105d9c}{HC\_IDLE}}\ =\ 0,}
+\DoxyCodeLine{00078\ \ \ \doxymbox{\hyperlink{group___u_s_b___l_l_gga174e279d637247e8486fa88997825af9a323751d52ea7fde5b0399b480666b3eb}{HC\_XFRC}},}
+\DoxyCodeLine{00079\ \ \ \doxymbox{\hyperlink{group___u_s_b___l_l_gga174e279d637247e8486fa88997825af9ad3806642bc9a2a49bf930f44a8a01918}{HC\_HALTED}},}
+\DoxyCodeLine{00080\ \ \ \doxymbox{\hyperlink{group___u_s_b___l_l_gga174e279d637247e8486fa88997825af9a904f80ecab288205e098361c612e6369}{HC\_ACK}},}
+\DoxyCodeLine{00081\ \ \ \doxymbox{\hyperlink{group___u_s_b___l_l_gga174e279d637247e8486fa88997825af9aead6a914271aec37bb91e63949567391}{HC\_NAK}},}
+\DoxyCodeLine{00082\ \ \ \doxymbox{\hyperlink{group___u_s_b___l_l_gga174e279d637247e8486fa88997825af9ac7a2e369496480be172bc2b290d65c24}{HC\_NYET}},}
+\DoxyCodeLine{00083\ \ \ \doxymbox{\hyperlink{group___u_s_b___l_l_gga174e279d637247e8486fa88997825af9a007bef68e5e5170ea5055d553c64ec87}{HC\_STALL}},}
+\DoxyCodeLine{00084\ \ \ \doxymbox{\hyperlink{group___u_s_b___l_l_gga174e279d637247e8486fa88997825af9a13ced3cf247e734c6be97235e18cfa33}{HC\_XACTERR}},}
+\DoxyCodeLine{00085\ \ \ \doxymbox{\hyperlink{group___u_s_b___l_l_gga174e279d637247e8486fa88997825af9a557e1dbc3f7c65270c2bc42784299a13}{HC\_BBLERR}},}
+\DoxyCodeLine{00086\ \ \ \doxymbox{\hyperlink{group___u_s_b___l_l_gga174e279d637247e8486fa88997825af9a3b001e51f8c3d77947867fb1a9b959be}{HC\_DATATGLERR}}}
+\DoxyCodeLine{00087\ \}\ \doxymbox{\hyperlink{group___u_s_b___l_l_ga174e279d637247e8486fa88997825af9}{USB\_HCStateTypeDef}};}
+
+\end{DoxyCode}
+\Hypertarget{group___u_s_b___l_l_ga98900f70f92fcf797cd616aed53fc9de}\index{Device Speed@{Device Speed}!USB\_ModeTypeDef@{USB\_ModeTypeDef}}
+\index{USB\_ModeTypeDef@{USB\_ModeTypeDef}!Device Speed@{Device Speed}}
+\doxyparagraph{\texorpdfstring{USB\_ModeTypeDef}{USB\_ModeTypeDef}}
+{\footnotesize\ttfamily \label{group___u_s_b___l_l_ga98900f70f92fcf797cd616aed53fc9de} 
+enum \doxymbox{\hyperlink{group___u_s_b___l_l_ga98900f70f92fcf797cd616aed53fc9de}{USB\+\_\+\+Mode\+Type\+Def}}}
+
+
+
+{\ttfamily \+\#include "{}\doxymbox{\hyperlink{stm32f1xx__ll__usb_8h}{stm32f1xx\+\_\+ll\+\_\+usb.\+h}}"{}}
+
+
+
+USB Mode definition. 
+
+\begin{DoxyEnumFields}[2]{Valores de enumeraciones}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{USB\_DEVICE\_MODE@{USB\_DEVICE\_MODE}!Device Speed@{Device Speed}}
+\index{Device Speed@{Device Speed}!USB\_DEVICE\_MODE@{USB\_DEVICE\_MODE}}
+}\Hypertarget{group___u_s_b___l_l_gga98900f70f92fcf797cd616aed53fc9deaeeaed6848b639f7608b4a3df5b7256a3}\label{group___u_s_b___l_l_gga98900f70f92fcf797cd616aed53fc9deaeeaed6848b639f7608b4a3df5b7256a3} 
+USB\+\_\+\+DEVICE\+\_\+\+MODE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{USB\_HOST\_MODE@{USB\_HOST\_MODE}!Device Speed@{Device Speed}}
+\index{Device Speed@{Device Speed}!USB\_HOST\_MODE@{USB\_HOST\_MODE}}
+}\Hypertarget{group___u_s_b___l_l_gga98900f70f92fcf797cd616aed53fc9dea142f736df9dbdc48900865328d62ced4}\label{group___u_s_b___l_l_gga98900f70f92fcf797cd616aed53fc9dea142f736df9dbdc48900865328d62ced4} 
+USB\+\_\+\+HOST\+\_\+\+MODE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{USB\_DRD\_MODE@{USB\_DRD\_MODE}!Device Speed@{Device Speed}}
+\index{Device Speed@{Device Speed}!USB\_DRD\_MODE@{USB\_DRD\_MODE}}
+}\Hypertarget{group___u_s_b___l_l_gga98900f70f92fcf797cd616aed53fc9dea42ac547e62fe002f2bad0a2d30a14a72}\label{group___u_s_b___l_l_gga98900f70f92fcf797cd616aed53fc9dea42ac547e62fe002f2bad0a2d30a14a72} 
+USB\+\_\+\+DRD\+\_\+\+MODE&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definición en la línea \doxymbox{\hyperlink{stm32f1xx__ll__usb_8h_source_l00052}{52}} del archivo \doxymbox{\hyperlink{stm32f1xx__ll__usb_8h_source}{stm32f1xx\+\_\+ll\+\_\+usb.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00053\ \{}
+\DoxyCodeLine{00054\ \ \ \doxymbox{\hyperlink{group___u_s_b___l_l_gga98900f70f92fcf797cd616aed53fc9deaeeaed6848b639f7608b4a3df5b7256a3}{USB\_DEVICE\_MODE}}\ =\ 0,}
+\DoxyCodeLine{00055\ \ \ \doxymbox{\hyperlink{group___u_s_b___l_l_gga98900f70f92fcf797cd616aed53fc9dea142f736df9dbdc48900865328d62ced4}{USB\_HOST\_MODE}}\ \ \ =\ 1,}
+\DoxyCodeLine{00056\ \ \ \doxymbox{\hyperlink{group___u_s_b___l_l_gga98900f70f92fcf797cd616aed53fc9dea42ac547e62fe002f2bad0a2d30a14a72}{USB\_DRD\_MODE}}\ \ \ \ =\ 2}
+\DoxyCodeLine{00057\ \}\ \doxymbox{\hyperlink{group___u_s_b___l_l_ga98900f70f92fcf797cd616aed53fc9de}{USB\_ModeTypeDef}};}
+
+\end{DoxyCode}
+\Hypertarget{group___u_s_b___l_l_ga65839765282fcf8da70ed98f620e6b3f}\index{Device Speed@{Device Speed}!USB\_URBStateTypeDef@{USB\_URBStateTypeDef}}
+\index{USB\_URBStateTypeDef@{USB\_URBStateTypeDef}!Device Speed@{Device Speed}}
+\doxyparagraph{\texorpdfstring{USB\_URBStateTypeDef}{USB\_URBStateTypeDef}}
+{\footnotesize\ttfamily \label{group___u_s_b___l_l_ga65839765282fcf8da70ed98f620e6b3f} 
+enum \doxymbox{\hyperlink{group___u_s_b___l_l_ga65839765282fcf8da70ed98f620e6b3f}{USB\+\_\+\+URBState\+Type\+Def}}}
+
+
+
+{\ttfamily \+\#include "{}\doxymbox{\hyperlink{stm32f1xx__ll__usb_8h}{stm32f1xx\+\_\+ll\+\_\+usb.\+h}}"{}}
+
+
+
+URB States definition. 
+
+\begin{DoxyEnumFields}[2]{Valores de enumeraciones}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{URB\_IDLE@{URB\_IDLE}!Device Speed@{Device Speed}}
+\index{Device Speed@{Device Speed}!URB\_IDLE@{URB\_IDLE}}
+}\Hypertarget{group___u_s_b___l_l_gga65839765282fcf8da70ed98f620e6b3fa3d62a44f8c2ff61d32e014eeb68ca1ad}\label{group___u_s_b___l_l_gga65839765282fcf8da70ed98f620e6b3fa3d62a44f8c2ff61d32e014eeb68ca1ad} 
+URB\+\_\+\+IDLE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{URB\_DONE@{URB\_DONE}!Device Speed@{Device Speed}}
+\index{Device Speed@{Device Speed}!URB\_DONE@{URB\_DONE}}
+}\Hypertarget{group___u_s_b___l_l_gga65839765282fcf8da70ed98f620e6b3fa89b831c73a03df3adb1db9f9ea6dd383}\label{group___u_s_b___l_l_gga65839765282fcf8da70ed98f620e6b3fa89b831c73a03df3adb1db9f9ea6dd383} 
+URB\+\_\+\+DONE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{URB\_NOTREADY@{URB\_NOTREADY}!Device Speed@{Device Speed}}
+\index{Device Speed@{Device Speed}!URB\_NOTREADY@{URB\_NOTREADY}}
+}\Hypertarget{group___u_s_b___l_l_gga65839765282fcf8da70ed98f620e6b3fafc9be95cae97851083c29fba7a76c429}\label{group___u_s_b___l_l_gga65839765282fcf8da70ed98f620e6b3fafc9be95cae97851083c29fba7a76c429} 
+URB\+\_\+\+NOTREADY&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{URB\_NYET@{URB\_NYET}!Device Speed@{Device Speed}}
+\index{Device Speed@{Device Speed}!URB\_NYET@{URB\_NYET}}
+}\Hypertarget{group___u_s_b___l_l_gga65839765282fcf8da70ed98f620e6b3fa53a167498a0a71be87d46ed17a8b3a1f}\label{group___u_s_b___l_l_gga65839765282fcf8da70ed98f620e6b3fa53a167498a0a71be87d46ed17a8b3a1f} 
+URB\+\_\+\+NYET&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{URB\_ERROR@{URB\_ERROR}!Device Speed@{Device Speed}}
+\index{Device Speed@{Device Speed}!URB\_ERROR@{URB\_ERROR}}
+}\Hypertarget{group___u_s_b___l_l_gga65839765282fcf8da70ed98f620e6b3fac64ce5e59f99b31274ebbec86d33afb2}\label{group___u_s_b___l_l_gga65839765282fcf8da70ed98f620e6b3fac64ce5e59f99b31274ebbec86d33afb2} 
+URB\+\_\+\+ERROR&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{URB\_STALL@{URB\_STALL}!Device Speed@{Device Speed}}
+\index{Device Speed@{Device Speed}!URB\_STALL@{URB\_STALL}}
+}\Hypertarget{group___u_s_b___l_l_gga65839765282fcf8da70ed98f620e6b3faf19023a3840fc87352f2c7108feb4f8e}\label{group___u_s_b___l_l_gga65839765282fcf8da70ed98f620e6b3faf19023a3840fc87352f2c7108feb4f8e} 
+URB\+\_\+\+STALL&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definición en la línea \doxymbox{\hyperlink{stm32f1xx__ll__usb_8h_source_l00062}{62}} del archivo \doxymbox{\hyperlink{stm32f1xx__ll__usb_8h_source}{stm32f1xx\+\_\+ll\+\_\+usb.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00063\ \{}
+\DoxyCodeLine{00064\ \ \ \doxymbox{\hyperlink{group___u_s_b___l_l_gga65839765282fcf8da70ed98f620e6b3fa3d62a44f8c2ff61d32e014eeb68ca1ad}{URB\_IDLE}}\ =\ 0,}
+\DoxyCodeLine{00065\ \ \ \doxymbox{\hyperlink{group___u_s_b___l_l_gga65839765282fcf8da70ed98f620e6b3fa89b831c73a03df3adb1db9f9ea6dd383}{URB\_DONE}},}
+\DoxyCodeLine{00066\ \ \ \doxymbox{\hyperlink{group___u_s_b___l_l_gga65839765282fcf8da70ed98f620e6b3fafc9be95cae97851083c29fba7a76c429}{URB\_NOTREADY}},}
+\DoxyCodeLine{00067\ \ \ \doxymbox{\hyperlink{group___u_s_b___l_l_gga65839765282fcf8da70ed98f620e6b3fa53a167498a0a71be87d46ed17a8b3a1f}{URB\_NYET}},}
+\DoxyCodeLine{00068\ \ \ \doxymbox{\hyperlink{group___u_s_b___l_l_gga65839765282fcf8da70ed98f620e6b3fac64ce5e59f99b31274ebbec86d33afb2}{URB\_ERROR}},}
+\DoxyCodeLine{00069\ \ \ \doxymbox{\hyperlink{group___u_s_b___l_l_gga65839765282fcf8da70ed98f620e6b3faf19023a3840fc87352f2c7108feb4f8e}{URB\_STALL}}}
+\DoxyCodeLine{00070\ \}\ \doxymbox{\hyperlink{group___u_s_b___l_l_ga65839765282fcf8da70ed98f620e6b3f}{USB\_URBStateTypeDef}};}
+
+\end{DoxyCode}
+\input{group___u_s_b___l_l___exported___functions}
+\input{group___u_s_b___l_l___exported___macros}

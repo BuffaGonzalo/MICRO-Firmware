@@ -1,0 +1,1119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>MICRO-Firmware: Referencia del archivo usbd_conf.c</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="codefolding.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  extensions: ["tex2jax.js"],
+  jax: ["input/TeX","output/HTML-CSS"],
+});
+</script>
+<script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">MICRO-Firmware<span id="projectnumber">&#160;EX100923v01</span>
+   </div>
+   <div id="projectbrief">Firmware de Péndulo Invertido Autónomo de Dos Ruedas (STM32F103C8T6 - ARM Cortex-M3)</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Buscar" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('usbd__conf_8c.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">Referencia del archivo usbd_conf.c</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>: This file implements the board support package for the USB device library  
+<a href="#details">Más...</a></p>
+<div class="textblock"><code>#include &quot;<a class="el" href="stm32f1xx_8h_source.html">stm32f1xx.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="stm32f1xx__hal_8h_source.html">stm32f1xx_hal.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="usbd__def_8h_source.html">usbd_def.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="usbd__core_8h_source.html">usbd_core.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="usbd__cdc_8h_source.html">usbd_cdc.h</a>&quot;</code><br />
+</div><div class="textblock"><div id="dynsection-0" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de dependencias incluidas en usbd_conf.c:</div>
+<div id="dynsection-0-summary" class="dynsummary">
+</div>
+<div id="dynsection-0-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="usbd__conf_8c__incl.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+</div>
+<p><a href="usbd__conf_8c_source.html">Ir al código fuente de este archivo.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Funciones</h2></td></tr>
+<tr class="memitem:a1730ffe1e560465665eb47d9264826f9" id="r_a1730ffe1e560465665eb47d9264826f9"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a1730ffe1e560465665eb47d9264826f9">Error_Handler</a> (void)</td></tr>
+<tr class="memdesc:a1730ffe1e560465665eb47d9264826f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is executed in case of error occurrence.  <br /></td></tr>
+<tr class="memitem:a0c449541523759cf62be9c9d47540c5d" id="r_a0c449541523759cf62be9c9d47540c5d"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0c449541523759cf62be9c9d47540c5d">HAL_PCD_ConnectCallback</a> (<a class="el" href="struct_p_c_d___handle_type_def.html">PCD_HandleTypeDef</a> *hpcd)</td></tr>
+<tr class="memdesc:a0c449541523759cf62be9c9d47540c5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Connect callback.  <br /></td></tr>
+<tr class="memitem:a1679f5c50539a3dfca1391557e7a757b" id="r_a1679f5c50539a3dfca1391557e7a757b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a1679f5c50539a3dfca1391557e7a757b">HAL_PCD_DataInStageCallback</a> (<a class="el" href="struct_p_c_d___handle_type_def.html">PCD_HandleTypeDef</a> *hpcd, uint8_t epnum)</td></tr>
+<tr class="memdesc:a1679f5c50539a3dfca1391557e7a757b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data In stage callback.  <br /></td></tr>
+<tr class="memitem:a2f1ac834d9677dcae7d8973828f81149" id="r_a2f1ac834d9677dcae7d8973828f81149"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a2f1ac834d9677dcae7d8973828f81149">HAL_PCD_DataOutStageCallback</a> (<a class="el" href="struct_p_c_d___handle_type_def.html">PCD_HandleTypeDef</a> *hpcd, uint8_t epnum)</td></tr>
+<tr class="memdesc:a2f1ac834d9677dcae7d8973828f81149"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data Out stage callback.  <br /></td></tr>
+<tr class="memitem:a25f930b5fe696224f8e71dacf5f324b4" id="r_a25f930b5fe696224f8e71dacf5f324b4"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a25f930b5fe696224f8e71dacf5f324b4">HAL_PCD_DisconnectCallback</a> (<a class="el" href="struct_p_c_d___handle_type_def.html">PCD_HandleTypeDef</a> *hpcd)</td></tr>
+<tr class="memdesc:a25f930b5fe696224f8e71dacf5f324b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disconnect callback.  <br /></td></tr>
+<tr class="memitem:a8f4041d553ef2fb326c6e483797f99a8" id="r_a8f4041d553ef2fb326c6e483797f99a8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a8f4041d553ef2fb326c6e483797f99a8">HAL_PCD_ISOINIncompleteCallback</a> (<a class="el" href="struct_p_c_d___handle_type_def.html">PCD_HandleTypeDef</a> *hpcd, uint8_t epnum)</td></tr>
+<tr class="memdesc:a8f4041d553ef2fb326c6e483797f99a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">ISOINIncomplete callback.  <br /></td></tr>
+<tr class="memitem:a4274f129d782f0a3c9a10b5bbe022cd4" id="r_a4274f129d782f0a3c9a10b5bbe022cd4"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a4274f129d782f0a3c9a10b5bbe022cd4">HAL_PCD_ISOOUTIncompleteCallback</a> (<a class="el" href="struct_p_c_d___handle_type_def.html">PCD_HandleTypeDef</a> *hpcd, uint8_t epnum)</td></tr>
+<tr class="memdesc:a4274f129d782f0a3c9a10b5bbe022cd4"><td class="mdescLeft">&#160;</td><td class="mdescRight">ISOOUTIncomplete callback.  <br /></td></tr>
+<tr class="memitem:a0a53f3c7c744fcfa7bdba6e9badc70d4" id="r_a0a53f3c7c744fcfa7bdba6e9badc70d4"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0a53f3c7c744fcfa7bdba6e9badc70d4">HAL_PCD_MspDeInit</a> (<a class="el" href="struct_p_c_d___handle_type_def.html">PCD_HandleTypeDef</a> *pcdHandle)</td></tr>
+<tr class="memitem:ab88e6d72062dc5d478ab12b435695ccb" id="r_ab88e6d72062dc5d478ab12b435695ccb"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ab88e6d72062dc5d478ab12b435695ccb">HAL_PCD_MspInit</a> (<a class="el" href="struct_p_c_d___handle_type_def.html">PCD_HandleTypeDef</a> *pcdHandle)</td></tr>
+<tr class="memitem:af4fbef977092aa525c6b1668ffbec77b" id="r_af4fbef977092aa525c6b1668ffbec77b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#af4fbef977092aa525c6b1668ffbec77b">HAL_PCD_ResetCallback</a> (<a class="el" href="struct_p_c_d___handle_type_def.html">PCD_HandleTypeDef</a> *hpcd)</td></tr>
+<tr class="memdesc:af4fbef977092aa525c6b1668ffbec77b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset callback.  <br /></td></tr>
+<tr class="memitem:a0386a36b921cd51dd6e50103c3cd33b1" id="r_a0386a36b921cd51dd6e50103c3cd33b1"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0386a36b921cd51dd6e50103c3cd33b1">HAL_PCD_ResumeCallback</a> (<a class="el" href="struct_p_c_d___handle_type_def.html">PCD_HandleTypeDef</a> *hpcd)</td></tr>
+<tr class="memdesc:a0386a36b921cd51dd6e50103c3cd33b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resume callback.  <br /></td></tr>
+<tr class="memitem:a9d72aa4d3d984b164047b081d4566f6d" id="r_a9d72aa4d3d984b164047b081d4566f6d"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a9d72aa4d3d984b164047b081d4566f6d">HAL_PCD_SetupStageCallback</a> (<a class="el" href="struct_p_c_d___handle_type_def.html">PCD_HandleTypeDef</a> *hpcd)</td></tr>
+<tr class="memdesc:a9d72aa4d3d984b164047b081d4566f6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setup stage callback.  <br /></td></tr>
+<tr class="memitem:a85c99eeb4aa17d8ff5298efff92ac28e" id="r_a85c99eeb4aa17d8ff5298efff92ac28e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a85c99eeb4aa17d8ff5298efff92ac28e">HAL_PCD_SOFCallback</a> (<a class="el" href="struct_p_c_d___handle_type_def.html">PCD_HandleTypeDef</a> *hpcd)</td></tr>
+<tr class="memdesc:a85c99eeb4aa17d8ff5298efff92ac28e"><td class="mdescLeft">&#160;</td><td class="mdescRight">SOF callback.  <br /></td></tr>
+<tr class="memitem:a0e14acd4564979743bc0a89aa5f15428" id="r_a0e14acd4564979743bc0a89aa5f15428"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0e14acd4564979743bc0a89aa5f15428">HAL_PCD_SuspendCallback</a> (<a class="el" href="struct_p_c_d___handle_type_def.html">PCD_HandleTypeDef</a> *hpcd)</td></tr>
+<tr class="memdesc:a0e14acd4564979743bc0a89aa5f15428"><td class="mdescLeft">&#160;</td><td class="mdescRight">Suspend callback.  <br /></td></tr>
+<tr class="memitem:a3d04e2831c0a46d0e6719c1a2caba5b1" id="r_a3d04e2831c0a46d0e6719c1a2caba5b1"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a3d04e2831c0a46d0e6719c1a2caba5b1">HAL_PCDEx_SetConnectionState</a> (<a class="el" href="struct_p_c_d___handle_type_def.html">PCD_HandleTypeDef</a> *hpcd, uint8_t state)</td></tr>
+<tr class="memdesc:a3d04e2831c0a46d0e6719c1a2caba5b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Software Device Connection.  <br /></td></tr>
+<tr class="memitem:a71e72e29fe464c7f3be4edf36806355e" id="r_a71e72e29fe464c7f3be4edf36806355e"><td class="memItemLeft">static <a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#gaebc658c200e50399361e7901f0a57e95">USBD_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="#a71e72e29fe464c7f3be4edf36806355e">USBD_Get_USB_Status</a> (<a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a> hal_status)</td></tr>
+<tr class="memdesc:a71e72e29fe464c7f3be4edf36806355e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the USB status depending on the HAL status:  <br /></td></tr>
+<tr class="memitem:gad4fa6f2eeefe95d07148c6c53d111eae" id="r_gad4fa6f2eeefe95d07148c6c53d111eae"><td class="memItemLeft"><a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#gaebc658c200e50399361e7901f0a57e95">USBD_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___u_s_b_d___c_o_r_e___exported___functions_prototype.html#gad4fa6f2eeefe95d07148c6c53d111eae">USBD_LL_ClearStallEP</a> (<a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ga08827834e2e564cea191282b65ce06f7">USBD_HandleTypeDef</a> *pdev, uint8_t ep_addr)</td></tr>
+<tr class="memdesc:gad4fa6f2eeefe95d07148c6c53d111eae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears a Stall condition on an endpoint of the Low Level Driver.  <br /></td></tr>
+<tr class="memitem:gae12e7de3c398d5663976bf11faa63572" id="r_gae12e7de3c398d5663976bf11faa63572"><td class="memItemLeft"><a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#gaebc658c200e50399361e7901f0a57e95">USBD_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___u_s_b_d___c_o_r_e___exported___functions_prototype.html#gae12e7de3c398d5663976bf11faa63572">USBD_LL_CloseEP</a> (<a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ga08827834e2e564cea191282b65ce06f7">USBD_HandleTypeDef</a> *pdev, uint8_t ep_addr)</td></tr>
+<tr class="memdesc:gae12e7de3c398d5663976bf11faa63572"><td class="mdescLeft">&#160;</td><td class="mdescRight">Closes an endpoint of the low level driver.  <br /></td></tr>
+<tr class="memitem:gaae9bfb6a27b11f232fc55a1d1b28be24" id="r_gaae9bfb6a27b11f232fc55a1d1b28be24"><td class="memItemLeft"><a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#gaebc658c200e50399361e7901f0a57e95">USBD_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___u_s_b_d___c_o_r_e___exported___functions_prototype.html#gaae9bfb6a27b11f232fc55a1d1b28be24">USBD_LL_DeInit</a> (<a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ga08827834e2e564cea191282b65ce06f7">USBD_HandleTypeDef</a> *pdev)</td></tr>
+<tr class="memdesc:gaae9bfb6a27b11f232fc55a1d1b28be24"><td class="mdescLeft">&#160;</td><td class="mdescRight">De-Initializes the low level portion of the device driver.  <br /></td></tr>
+<tr class="memitem:ga383d9a41089cf426cdc61b5b24e2ca0a" id="r_ga383d9a41089cf426cdc61b5b24e2ca0a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group___u_s_b_d___c_o_r_e___exported___functions_prototype.html#ga383d9a41089cf426cdc61b5b24e2ca0a">USBD_LL_Delay</a> (uint32_t Delay)</td></tr>
+<tr class="memdesc:ga383d9a41089cf426cdc61b5b24e2ca0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delays routine for the USB device library.  <br /></td></tr>
+<tr class="memitem:ga10080ed9555110afba809de968314985" id="r_ga10080ed9555110afba809de968314985"><td class="memItemLeft"><a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#gaebc658c200e50399361e7901f0a57e95">USBD_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___u_s_b_d___c_o_r_e___exported___functions_prototype.html#ga10080ed9555110afba809de968314985">USBD_LL_FlushEP</a> (<a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ga08827834e2e564cea191282b65ce06f7">USBD_HandleTypeDef</a> *pdev, uint8_t ep_addr)</td></tr>
+<tr class="memdesc:ga10080ed9555110afba809de968314985"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flushes an endpoint of the Low Level Driver.  <br /></td></tr>
+<tr class="memitem:gaeb80f50482e04c046ba41f5ea58a1b2b" id="r_gaeb80f50482e04c046ba41f5ea58a1b2b"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="group___u_s_b_d___c_o_r_e___exported___functions_prototype.html#gaeb80f50482e04c046ba41f5ea58a1b2b">USBD_LL_GetRxDataSize</a> (<a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ga08827834e2e564cea191282b65ce06f7">USBD_HandleTypeDef</a> *pdev, uint8_t ep_addr)</td></tr>
+<tr class="memdesc:gaeb80f50482e04c046ba41f5ea58a1b2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the last transferred packet size.  <br /></td></tr>
+<tr class="memitem:ga24b61e95db7e4c7ad30a835e8d905943" id="r_ga24b61e95db7e4c7ad30a835e8d905943"><td class="memItemLeft"><a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#gaebc658c200e50399361e7901f0a57e95">USBD_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___u_s_b_d___c_o_r_e___exported___functions_prototype.html#ga24b61e95db7e4c7ad30a835e8d905943">USBD_LL_Init</a> (<a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ga08827834e2e564cea191282b65ce06f7">USBD_HandleTypeDef</a> *pdev)</td></tr>
+<tr class="memdesc:ga24b61e95db7e4c7ad30a835e8d905943"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the low level portion of the device driver.  <br /></td></tr>
+<tr class="memitem:ga2a0f10f93cc4246272b63661051a64b7" id="r_ga2a0f10f93cc4246272b63661051a64b7"><td class="memItemLeft">uint8_t&#160;</td><td class="memItemRight"><a class="el" href="group___u_s_b_d___c_o_r_e___exported___functions_prototype.html#ga2a0f10f93cc4246272b63661051a64b7">USBD_LL_IsStallEP</a> (<a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ga08827834e2e564cea191282b65ce06f7">USBD_HandleTypeDef</a> *pdev, uint8_t ep_addr)</td></tr>
+<tr class="memdesc:ga2a0f10f93cc4246272b63661051a64b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns Stall condition.  <br /></td></tr>
+<tr class="memitem:gad96254d74d95496ffb5f6f2248585cb0" id="r_gad96254d74d95496ffb5f6f2248585cb0"><td class="memItemLeft"><a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#gaebc658c200e50399361e7901f0a57e95">USBD_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___u_s_b_d___c_o_r_e___exported___functions_prototype.html#gad96254d74d95496ffb5f6f2248585cb0">USBD_LL_OpenEP</a> (<a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ga08827834e2e564cea191282b65ce06f7">USBD_HandleTypeDef</a> *pdev, uint8_t ep_addr, uint8_t ep_type, uint16_t ep_mps)</td></tr>
+<tr class="memdesc:gad96254d74d95496ffb5f6f2248585cb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opens an endpoint of the low level driver.  <br /></td></tr>
+<tr class="memitem:ga259b00707b333065b66be515dd019428" id="r_ga259b00707b333065b66be515dd019428"><td class="memItemLeft"><a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#gaebc658c200e50399361e7901f0a57e95">USBD_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___u_s_b_d___c_o_r_e___exported___functions_prototype.html#ga259b00707b333065b66be515dd019428">USBD_LL_PrepareReceive</a> (<a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ga08827834e2e564cea191282b65ce06f7">USBD_HandleTypeDef</a> *pdev, uint8_t ep_addr, uint8_t *pbuf, uint16_t size)</td></tr>
+<tr class="memdesc:ga259b00707b333065b66be515dd019428"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prepares an endpoint for reception.  <br /></td></tr>
+<tr class="memitem:gad3674ea3c4a9c4bbe7c73192727f922f" id="r_gad3674ea3c4a9c4bbe7c73192727f922f"><td class="memItemLeft"><a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#gaebc658c200e50399361e7901f0a57e95">USBD_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___u_s_b_d___c_o_r_e___exported___functions_prototype.html#gad3674ea3c4a9c4bbe7c73192727f922f">USBD_LL_SetUSBAddress</a> (<a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ga08827834e2e564cea191282b65ce06f7">USBD_HandleTypeDef</a> *pdev, uint8_t dev_addr)</td></tr>
+<tr class="memdesc:gad3674ea3c4a9c4bbe7c73192727f922f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assigns a USB address to the device.  <br /></td></tr>
+<tr class="memitem:gabc2b4a7c8307e04955b015fd32057ec7" id="r_gabc2b4a7c8307e04955b015fd32057ec7"><td class="memItemLeft"><a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#gaebc658c200e50399361e7901f0a57e95">USBD_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___u_s_b_d___c_o_r_e___exported___functions_prototype.html#gabc2b4a7c8307e04955b015fd32057ec7">USBD_LL_StallEP</a> (<a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ga08827834e2e564cea191282b65ce06f7">USBD_HandleTypeDef</a> *pdev, uint8_t ep_addr)</td></tr>
+<tr class="memdesc:gabc2b4a7c8307e04955b015fd32057ec7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a Stall condition on an endpoint of the Low Level Driver.  <br /></td></tr>
+<tr class="memitem:ga43e53e424e9850d8261e1f9a1be53348" id="r_ga43e53e424e9850d8261e1f9a1be53348"><td class="memItemLeft"><a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#gaebc658c200e50399361e7901f0a57e95">USBD_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___u_s_b_d___c_o_r_e___exported___functions_prototype.html#ga43e53e424e9850d8261e1f9a1be53348">USBD_LL_Start</a> (<a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ga08827834e2e564cea191282b65ce06f7">USBD_HandleTypeDef</a> *pdev)</td></tr>
+<tr class="memdesc:ga43e53e424e9850d8261e1f9a1be53348"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts the low level portion of the device driver.  <br /></td></tr>
+<tr class="memitem:gac522b28139c1868a2e24d044fc8288fd" id="r_gac522b28139c1868a2e24d044fc8288fd"><td class="memItemLeft"><a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#gaebc658c200e50399361e7901f0a57e95">USBD_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___u_s_b_d___c_o_r_e___exported___functions_prototype.html#gac522b28139c1868a2e24d044fc8288fd">USBD_LL_Stop</a> (<a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ga08827834e2e564cea191282b65ce06f7">USBD_HandleTypeDef</a> *pdev)</td></tr>
+<tr class="memdesc:gac522b28139c1868a2e24d044fc8288fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stops the low level portion of the device driver.  <br /></td></tr>
+<tr class="memitem:gab87eb9f3d4d9f8956d2c6b77230f265c" id="r_gab87eb9f3d4d9f8956d2c6b77230f265c"><td class="memItemLeft"><a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#gaebc658c200e50399361e7901f0a57e95">USBD_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___u_s_b_d___c_o_r_e___exported___functions_prototype.html#gab87eb9f3d4d9f8956d2c6b77230f265c">USBD_LL_Transmit</a> (<a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ga08827834e2e564cea191282b65ce06f7">USBD_HandleTypeDef</a> *pdev, uint8_t ep_addr, uint8_t *pbuf, uint16_t size)</td></tr>
+<tr class="memdesc:gab87eb9f3d4d9f8956d2c6b77230f265c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transmits data over an endpoint.  <br /></td></tr>
+<tr class="memitem:ga92ed1214efe53f54b3586a6233cfa5a6" id="r_ga92ed1214efe53f54b3586a6233cfa5a6"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group___u_s_b_d___c_o_n_f___exported___macros.html#ga92ed1214efe53f54b3586a6233cfa5a6">USBD_static_free</a> (void *p)</td></tr>
+<tr class="memdesc:ga92ed1214efe53f54b3586a6233cfa5a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dummy memory free.  <br /></td></tr>
+<tr class="memitem:gace052001a973567f8789fec6d6923df5" id="r_gace052001a973567f8789fec6d6923df5"><td class="memItemLeft">void *&#160;</td><td class="memItemRight"><a class="el" href="group___u_s_b_d___c_o_n_f___exported___macros.html#gace052001a973567f8789fec6d6923df5">USBD_static_malloc</a> (uint32_t size)</td></tr>
+<tr class="memdesc:gace052001a973567f8789fec6d6923df5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Static single allocation.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:afabb8e1d05154a3b694f4f4d150b194f" id="r_afabb8e1d05154a3b694f4f4d150b194f"><td class="memItemLeft"><a class="el" href="struct_p_c_d___handle_type_def.html">PCD_HandleTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="#afabb8e1d05154a3b694f4f4d150b194f">hpcd_USB_FS</a></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Descripción detallada</h2>
+<div class="textblock"><p>: This file implements the board support package for the USB device library </p>
+<dl class="section version"><dt>Versión</dt><dd>: v1.0_Cube </dd></dl>
+<dl class="section attention"><dt>Atención</dt><dd></dd></dl>
+<p>Copyright (c) 2025 STMicroelectronics. All rights reserved.</p>
+<p>This software is licensed under terms that can be found in the LICENSE file in the root directory of this software component. If no LICENSE file comes with this software, it is provided AS-IS. </p>
+
+<p class="definition">Definición en el archivo <a class="el" href="usbd__conf_8c_source.html">usbd_conf.c</a>.</p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Documentación de funciones</h2>
+<a id="a1730ffe1e560465665eb47d9264826f9" name="a1730ffe1e560465665eb47d9264826f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1730ffe1e560465665eb47d9264826f9">&#9670;&#160;</a></span>Error_Handler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Error_Handler </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function is executed in case of error occurrence. </p>
+<p>Manejador central de fallas críticas de inicialización de periféricos HAL.</p>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<p>This function is executed in case of error occurrence.</p>
+<p>Entra en un bucle infinito de bloqueo en caso de fallo irrecuperable de reloj o bus. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="main_8c_source.html#l03902">3902</a> del archivo <a class="el" href="main_8c_source.html">main.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3903</span>{</div>
+<div class="line"><span class="lineno"> 3904</span>  <span class="comment">/* USER CODE BEGIN Error_Handler_Debug */</span></div>
+<div class="line"><span class="lineno"> 3905</span>  <span class="comment">/* User can add his own implementation to report the HAL error return state */</span></div>
+<div class="line"><span class="lineno"> 3906</span>  __disable_irq();</div>
+<div class="line"><span class="lineno"> 3907</span>  <span class="keywordflow">while</span> (1)</div>
+<div class="line"><span class="lineno"> 3908</span>  {</div>
+<div class="line"><span class="lineno"> 3909</span>  }</div>
+<div class="line"><span class="lineno"> 3910</span>  <span class="comment">/* USER CODE END Error_Handler_Debug */</span></div>
+<div class="line"><span class="lineno"> 3911</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a0c449541523759cf62be9c9d47540c5d" name="a0c449541523759cf62be9c9d47540c5d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c449541523759cf62be9c9d47540c5d">&#9670;&#160;</a></span>HAL_PCD_ConnectCallback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void HAL_PCD_ConnectCallback </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_p_c_d___handle_type_def.html">PCD_HandleTypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>hpcd</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Connect callback. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">hpcd</td><td>PCD handle </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="usbd__conf_8c_source.html#l00274">274</a> del archivo <a class="el" href="usbd__conf_8c_source.html">usbd_conf.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  276</span>{</div>
+<div class="line"><span class="lineno">  277</span>  <a class="code hl_function" href="group___u_s_b_d___c_o_r_e___exported___functions_prototype.html#gaaf76b06413044241868c6828ec7fc51c">USBD_LL_DevConnected</a>((<a class="code hl_typedef" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ga08827834e2e564cea191282b65ce06f7">USBD_HandleTypeDef</a>*)hpcd-&gt;<a class="code hl_variable" href="struct_p_c_d___handle_type_def.html#a936f1eff2cdf03ccbbf1443b18204311">pData</a>);</div>
+<div class="line"><span class="lineno">  278</span>}</div>
+<div class="ttc" id="agroup___u_s_b_d___c_o_r_e___exported___functions_prototype_html_gaaf76b06413044241868c6828ec7fc51c"><div class="ttname"><a href="group___u_s_b_d___c_o_r_e___exported___functions_prototype.html#gaaf76b06413044241868c6828ec7fc51c">USBD_LL_DevConnected</a></div><div class="ttdeci">USBD_StatusTypeDef USBD_LL_DevConnected(USBD_HandleTypeDef *pdev)</div><div class="ttdoc">USBD_DevConnected Handle device connection event.</div><div class="ttdef"><b>Definición</b> <a href="usbd__core_8c_source.html#l00574">usbd_core.c:574</a></div></div>
+<div class="ttc" id="agroup___u_s_b_d___d_e_f___exported___types_definitions_html_ga08827834e2e564cea191282b65ce06f7"><div class="ttname"><a href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ga08827834e2e564cea191282b65ce06f7">USBD_HandleTypeDef</a></div><div class="ttdeci">struct _USBD_HandleTypeDef USBD_HandleTypeDef</div></div>
+<div class="ttc" id="astruct_p_c_d___handle_type_def_html_a936f1eff2cdf03ccbbf1443b18204311"><div class="ttname"><a href="struct_p_c_d___handle_type_def.html#a936f1eff2cdf03ccbbf1443b18204311">PCD_HandleTypeDef::pData</a></div><div class="ttdeci">void * pData</div><div class="ttdoc">Pointer to upper stack Handler.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__pcd_8h_source.html#l00125">stm32f1xx_hal_pcd.h:125</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__hal__pcd_8c_source.html#l01610">HAL_PCD_ConnectCallback()</a>, <a class="el" href="stm32f1xx__hal__pcd_8h_source.html#l00125">PCD_HandleTypeDef::pData</a> y <a class="el" href="usbd__core_8c_source.html#l00574">USBD_LL_DevConnected()</a>.</p>
+<div id="dynsection-1" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-1-summary" class="dynsummary">
+</div>
+<div id="dynsection-1-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="usbd__conf_8c_a0c449541523759cf62be9c9d47540c5d_cgraph.svg" width="440" height="136"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a1679f5c50539a3dfca1391557e7a757b" name="a1679f5c50539a3dfca1391557e7a757b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1679f5c50539a3dfca1391557e7a757b">&#9670;&#160;</a></span>HAL_PCD_DataInStageCallback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void HAL_PCD_DataInStageCallback </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_p_c_d___handle_type_def.html">PCD_HandleTypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>hpcd</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>epnum</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Data In stage callback. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">hpcd</td><td>PCD handle </td></tr>
+    <tr><td class="paramname">epnum</td><td>Endpoint number </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="usbd__conf_8c_source.html#l00150">150</a> del archivo <a class="el" href="usbd__conf_8c_source.html">usbd_conf.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  152</span>{</div>
+<div class="line"><span class="lineno">  153</span>  <a class="code hl_function" href="group___u_s_b_d___c_o_r_e___exported___functions_prototype.html#ga09597f0a303e0148d9f291477f7c4439">USBD_LL_DataInStage</a>((<a class="code hl_typedef" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ga08827834e2e564cea191282b65ce06f7">USBD_HandleTypeDef</a>*)hpcd-&gt;<a class="code hl_variable" href="struct_p_c_d___handle_type_def.html#a936f1eff2cdf03ccbbf1443b18204311">pData</a>, epnum, hpcd-&gt;<a class="code hl_variable" href="struct_p_c_d___handle_type_def.html#a8b97be96cb8c2765f61c50c373b0aef4">IN_ep</a>[epnum].<a class="code hl_variable" href="struct_u_s_b___e_p_type_def.html#a808ef6914cea485fde00980b7a3779fb">xfer_buff</a>);</div>
+<div class="line"><span class="lineno">  154</span>}</div>
+<div class="ttc" id="agroup___u_s_b_d___c_o_r_e___exported___functions_prototype_html_ga09597f0a303e0148d9f291477f7c4439"><div class="ttname"><a href="group___u_s_b_d___c_o_r_e___exported___functions_prototype.html#ga09597f0a303e0148d9f291477f7c4439">USBD_LL_DataInStage</a></div><div class="ttdeci">USBD_StatusTypeDef USBD_LL_DataInStage(USBD_HandleTypeDef *pdev, uint8_t epnum, uint8_t *pdata)</div><div class="ttdoc">USBD_DataInStage Handle data in stage.</div><div class="ttdef"><b>Definición</b> <a href="usbd__core_8c_source.html#l00361">usbd_core.c:361</a></div></div>
+<div class="ttc" id="astruct_p_c_d___handle_type_def_html_a8b97be96cb8c2765f61c50c373b0aef4"><div class="ttname"><a href="struct_p_c_d___handle_type_def.html#a8b97be96cb8c2765f61c50c373b0aef4">PCD_HandleTypeDef::IN_ep</a></div><div class="ttdeci">PCD_EPTypeDef IN_ep[8]</div><div class="ttdoc">IN endpoint parameters.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__pcd_8h_source.html#l00114">stm32f1xx_hal_pcd.h:114</a></div></div>
+<div class="ttc" id="astruct_u_s_b___e_p_type_def_html_a808ef6914cea485fde00980b7a3779fb"><div class="ttname"><a href="struct_u_s_b___e_p_type_def.html#a808ef6914cea485fde00980b7a3779fb">USB_EPTypeDef::xfer_buff</a></div><div class="ttdeci">uint8_t * xfer_buff</div><div class="ttdoc">Pointer to transfer buffer.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__ll__usb_8h_source.html#l00173">stm32f1xx_ll_usb.h:173</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__hal__pcd_8c_source.html#l01486">HAL_PCD_DataInStageCallback()</a>, <a class="el" href="stm32f1xx__hal__pcd_8h_source.html#l00114">PCD_HandleTypeDef::IN_ep</a>, <a class="el" href="stm32f1xx__hal__pcd_8h_source.html#l00125">PCD_HandleTypeDef::pData</a>, <a class="el" href="usbd__core_8c_source.html#l00361">USBD_LL_DataInStage()</a> y <a class="el" href="stm32f1xx__ll__usb_8h_source.html#l00173">USB_EPTypeDef::xfer_buff</a>.</p>
+<div id="dynsection-2" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-2-summary" class="dynsummary">
+</div>
+<div id="dynsection-2-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="usbd__conf_8c_a1679f5c50539a3dfca1391557e7a757b_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a2f1ac834d9677dcae7d8973828f81149" name="a2f1ac834d9677dcae7d8973828f81149"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f1ac834d9677dcae7d8973828f81149">&#9670;&#160;</a></span>HAL_PCD_DataOutStageCallback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void HAL_PCD_DataOutStageCallback </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_p_c_d___handle_type_def.html">PCD_HandleTypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>hpcd</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>epnum</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Data Out stage callback. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">hpcd</td><td>PCD handle </td></tr>
+    <tr><td class="paramname">epnum</td><td>Endpoint number </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="usbd__conf_8c_source.html#l00135">135</a> del archivo <a class="el" href="usbd__conf_8c_source.html">usbd_conf.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  137</span>{</div>
+<div class="line"><span class="lineno">  138</span>  <a class="code hl_function" href="group___u_s_b_d___c_o_r_e___exported___functions_prototype.html#ga1ab0439714328647692719a2b1c9e689">USBD_LL_DataOutStage</a>((<a class="code hl_typedef" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ga08827834e2e564cea191282b65ce06f7">USBD_HandleTypeDef</a>*)hpcd-&gt;<a class="code hl_variable" href="struct_p_c_d___handle_type_def.html#a936f1eff2cdf03ccbbf1443b18204311">pData</a>, epnum, hpcd-&gt;<a class="code hl_variable" href="struct_p_c_d___handle_type_def.html#a2715e9254d360b384153353cc620cb46">OUT_ep</a>[epnum].<a class="code hl_variable" href="struct_u_s_b___e_p_type_def.html#a808ef6914cea485fde00980b7a3779fb">xfer_buff</a>);</div>
+<div class="line"><span class="lineno">  139</span>}</div>
+<div class="ttc" id="agroup___u_s_b_d___c_o_r_e___exported___functions_prototype_html_ga1ab0439714328647692719a2b1c9e689"><div class="ttname"><a href="group___u_s_b_d___c_o_r_e___exported___functions_prototype.html#ga1ab0439714328647692719a2b1c9e689">USBD_LL_DataOutStage</a></div><div class="ttdeci">USBD_StatusTypeDef USBD_LL_DataOutStage(USBD_HandleTypeDef *pdev, uint8_t epnum, uint8_t *pdata)</div><div class="ttdoc">USBD_DataOutStage Handle data OUT stage.</div><div class="ttdef"><b>Definición</b> <a href="usbd__core_8c_source.html#l00300">usbd_core.c:300</a></div></div>
+<div class="ttc" id="astruct_p_c_d___handle_type_def_html_a2715e9254d360b384153353cc620cb46"><div class="ttname"><a href="struct_p_c_d___handle_type_def.html#a2715e9254d360b384153353cc620cb46">PCD_HandleTypeDef::OUT_ep</a></div><div class="ttdeci">PCD_EPTypeDef OUT_ep[8]</div><div class="ttdoc">OUT endpoint parameters.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__pcd_8h_source.html#l00115">stm32f1xx_hal_pcd.h:115</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__hal__pcd_8c_source.html#l01469">HAL_PCD_DataOutStageCallback()</a>, <a class="el" href="stm32f1xx__hal__pcd_8h_source.html#l00115">PCD_HandleTypeDef::OUT_ep</a>, <a class="el" href="stm32f1xx__hal__pcd_8h_source.html#l00125">PCD_HandleTypeDef::pData</a>, <a class="el" href="usbd__core_8c_source.html#l00300">USBD_LL_DataOutStage()</a> y <a class="el" href="stm32f1xx__ll__usb_8h_source.html#l00173">USB_EPTypeDef::xfer_buff</a>.</p>
+<div id="dynsection-3" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-3-summary" class="dynsummary">
+</div>
+<div id="dynsection-3-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="usbd__conf_8c_a2f1ac834d9677dcae7d8973828f81149_cgraph.svg" width="100%" height="570"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a25f930b5fe696224f8e71dacf5f324b4" name="a25f930b5fe696224f8e71dacf5f324b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a25f930b5fe696224f8e71dacf5f324b4">&#9670;&#160;</a></span>HAL_PCD_DisconnectCallback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void HAL_PCD_DisconnectCallback </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_p_c_d___handle_type_def.html">PCD_HandleTypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>hpcd</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Disconnect callback. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">hpcd</td><td>PCD handle </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="usbd__conf_8c_source.html#l00288">288</a> del archivo <a class="el" href="usbd__conf_8c_source.html">usbd_conf.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  290</span>{</div>
+<div class="line"><span class="lineno">  291</span>  <a class="code hl_function" href="group___u_s_b_d___c_o_r_e___exported___functions_prototype.html#ga07b5fe60c6f1cf9f485e0191a605b9a1">USBD_LL_DevDisconnected</a>((<a class="code hl_typedef" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ga08827834e2e564cea191282b65ce06f7">USBD_HandleTypeDef</a>*)hpcd-&gt;<a class="code hl_variable" href="struct_p_c_d___handle_type_def.html#a936f1eff2cdf03ccbbf1443b18204311">pData</a>);</div>
+<div class="line"><span class="lineno">  292</span>}</div>
+<div class="ttc" id="agroup___u_s_b_d___c_o_r_e___exported___functions_prototype_html_ga07b5fe60c6f1cf9f485e0191a605b9a1"><div class="ttname"><a href="group___u_s_b_d___c_o_r_e___exported___functions_prototype.html#ga07b5fe60c6f1cf9f485e0191a605b9a1">USBD_LL_DevDisconnected</a></div><div class="ttdeci">USBD_StatusTypeDef USBD_LL_DevDisconnected(USBD_HandleTypeDef *pdev)</div><div class="ttdoc">USBD_DevDisconnected Handle device disconnection event.</div><div class="ttdef"><b>Definición</b> <a href="usbd__core_8c_source.html#l00588">usbd_core.c:588</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__hal__pcd_8c_source.html#l01625">HAL_PCD_DisconnectCallback()</a>, <a class="el" href="stm32f1xx__hal__pcd_8h_source.html#l00125">PCD_HandleTypeDef::pData</a> y <a class="el" href="usbd__core_8c_source.html#l00588">USBD_LL_DevDisconnected()</a>.</p>
+<div id="dynsection-4" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-4-summary" class="dynsummary">
+</div>
+<div id="dynsection-4-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="usbd__conf_8c_a25f930b5fe696224f8e71dacf5f324b4_cgraph.svg" width="474" height="136"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a8f4041d553ef2fb326c6e483797f99a8" name="a8f4041d553ef2fb326c6e483797f99a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f4041d553ef2fb326c6e483797f99a8">&#9670;&#160;</a></span>HAL_PCD_ISOINIncompleteCallback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void HAL_PCD_ISOINIncompleteCallback </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_p_c_d___handle_type_def.html">PCD_HandleTypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>hpcd</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>epnum</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ISOINIncomplete callback. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">hpcd</td><td>PCD handle </td></tr>
+    <tr><td class="paramname">epnum</td><td>Endpoint number </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="usbd__conf_8c_source.html#l00260">260</a> del archivo <a class="el" href="usbd__conf_8c_source.html">usbd_conf.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  262</span>{</div>
+<div class="line"><span class="lineno">  263</span>  <a class="code hl_function" href="group___u_s_b_d___c_o_r_e___exported___functions_prototype.html#ga8f70c097aa7377ec6841d2581bccfa7e">USBD_LL_IsoINIncomplete</a>((<a class="code hl_typedef" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ga08827834e2e564cea191282b65ce06f7">USBD_HandleTypeDef</a>*)hpcd-&gt;<a class="code hl_variable" href="struct_p_c_d___handle_type_def.html#a936f1eff2cdf03ccbbf1443b18204311">pData</a>, epnum);</div>
+<div class="line"><span class="lineno">  264</span>}</div>
+<div class="ttc" id="agroup___u_s_b_d___c_o_r_e___exported___functions_prototype_html_ga8f70c097aa7377ec6841d2581bccfa7e"><div class="ttname"><a href="group___u_s_b_d___c_o_r_e___exported___functions_prototype.html#ga8f70c097aa7377ec6841d2581bccfa7e">USBD_LL_IsoINIncomplete</a></div><div class="ttdeci">USBD_StatusTypeDef USBD_LL_IsoINIncomplete(USBD_HandleTypeDef *pdev, uint8_t epnum)</div><div class="ttdoc">USBD_IsoINIncomplete Handle iso in incomplete event.</div><div class="ttdef"><b>Definición</b> <a href="usbd__core_8c_source.html#l00542">usbd_core.c:542</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__hal__pcd_8c_source.html#l01594">HAL_PCD_ISOINIncompleteCallback()</a>, <a class="el" href="stm32f1xx__hal__pcd_8h_source.html#l00125">PCD_HandleTypeDef::pData</a> y <a class="el" href="usbd__core_8c_source.html#l00542">USBD_LL_IsoINIncomplete()</a>.</p>
+<div id="dynsection-5" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-5-summary" class="dynsummary">
+</div>
+<div id="dynsection-5-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="usbd__conf_8c_a8f4041d553ef2fb326c6e483797f99a8_cgraph.svg" width="544" height="136"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a4274f129d782f0a3c9a10b5bbe022cd4" name="a4274f129d782f0a3c9a10b5bbe022cd4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4274f129d782f0a3c9a10b5bbe022cd4">&#9670;&#160;</a></span>HAL_PCD_ISOOUTIncompleteCallback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void HAL_PCD_ISOOUTIncompleteCallback </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_p_c_d___handle_type_def.html">PCD_HandleTypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>hpcd</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>epnum</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ISOOUTIncomplete callback. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">hpcd</td><td>PCD handle </td></tr>
+    <tr><td class="paramname">epnum</td><td>Endpoint number </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="usbd__conf_8c_source.html#l00245">245</a> del archivo <a class="el" href="usbd__conf_8c_source.html">usbd_conf.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  247</span>{</div>
+<div class="line"><span class="lineno">  248</span>  <a class="code hl_function" href="group___u_s_b_d___c_o_r_e___exported___functions_prototype.html#ga1b6905ac966d81f6a2ce165e57dacd80">USBD_LL_IsoOUTIncomplete</a>((<a class="code hl_typedef" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ga08827834e2e564cea191282b65ce06f7">USBD_HandleTypeDef</a>*)hpcd-&gt;<a class="code hl_variable" href="struct_p_c_d___handle_type_def.html#a936f1eff2cdf03ccbbf1443b18204311">pData</a>, epnum);</div>
+<div class="line"><span class="lineno">  249</span>}</div>
+<div class="ttc" id="agroup___u_s_b_d___c_o_r_e___exported___functions_prototype_html_ga1b6905ac966d81f6a2ce165e57dacd80"><div class="ttname"><a href="group___u_s_b_d___c_o_r_e___exported___functions_prototype.html#ga1b6905ac966d81f6a2ce165e57dacd80">USBD_LL_IsoOUTIncomplete</a></div><div class="ttdeci">USBD_StatusTypeDef USBD_LL_IsoOUTIncomplete(USBD_HandleTypeDef *pdev, uint8_t epnum)</div><div class="ttdoc">USBD_IsoOUTIncomplete Handle iso out incomplete event.</div><div class="ttdef"><b>Definición</b> <a href="usbd__core_8c_source.html#l00558">usbd_core.c:558</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__hal__pcd_8c_source.html#l01577">HAL_PCD_ISOOUTIncompleteCallback()</a>, <a class="el" href="stm32f1xx__hal__pcd_8h_source.html#l00125">PCD_HandleTypeDef::pData</a> y <a class="el" href="usbd__core_8c_source.html#l00558">USBD_LL_IsoOUTIncomplete()</a>.</p>
+<div id="dynsection-6" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-6-summary" class="dynsummary">
+</div>
+<div id="dynsection-6-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="usbd__conf_8c_a4274f129d782f0a3c9a10b5bbe022cd4_cgraph.svg" width="470" height="152"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a0a53f3c7c744fcfa7bdba6e9badc70d4" name="a0a53f3c7c744fcfa7bdba6e9badc70d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a53f3c7c744fcfa7bdba6e9badc70d4">&#9670;&#160;</a></span>HAL_PCD_MspDeInit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void HAL_PCD_MspDeInit </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_p_c_d___handle_type_def.html">PCD_HandleTypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>pcdHandle</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>&lt; Peripheral base address in the alias region</p>
+<p>&lt; USB_IP Peripheral Registers base address</p>
+<p>&lt; Peripheral base address in the alias region</p>
+<p>&lt; 0x00800000</p>
+<p>&lt; USB Device clock enable</p>
+
+<p class="definition">Definición en la línea <a class="el" href="usbd__conf_8c_source.html#l00091">91</a> del archivo <a class="el" href="usbd__conf_8c_source.html">usbd_conf.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   92</span>{</div>
+<div class="line"><span class="lineno">   93</span>  <span class="keywordflow">if</span>(pcdHandle-&gt;<a class="code hl_variable" href="struct_p_c_d___handle_type_def.html#afd50525fd795b4f93a09a0e606ec6b2c">Instance</a>==<a class="code hl_define" href="group___peripheral__declaration.html#ga779bf099075a999d1074357fccbd466b">USB</a>)</div>
+<div class="line"><span class="lineno">   94</span>  {</div>
+<div class="line"><span class="lineno">   95</span>  <span class="comment">/* USER CODE BEGIN USB_MspDeInit 0 */</span></div>
+<div class="line"><span class="lineno">   96</span> </div>
+<div class="line"><span class="lineno">   97</span>  <span class="comment">/* USER CODE END USB_MspDeInit 0 */</span></div>
+<div class="line"><span class="lineno">   98</span>    <span class="comment">/* Peripheral clock disable */</span></div>
+<div class="line"><span class="lineno">   99</span>    <a class="code hl_define" href="group___r_c_c_ex___a_p_b1___clock___enable___disable.html#ga248a0f9f8b79b169d2e5ba5bd87b03c7">__HAL_RCC_USB_CLK_DISABLE</a>();</div>
+<div class="line"><span class="lineno">  100</span> </div>
+<div class="line"><span class="lineno">  101</span>    <span class="comment">/* Peripheral interrupt Deinit*/</span></div>
+<div class="line"><span class="lineno">  102</span>    <a class="code hl_function" href="group___c_o_r_t_e_x___exported___functions___group1.html#ga50ca6290e068821cb84aa168f3e13967">HAL_NVIC_DisableIRQ</a>(<a class="code hl_enumvalue" href="group___peripheral__interrupt__number__definition.html#gga7e1129cd8a196f4284d41db3e82ad5c8a6baa609f83561f41f7715ff14eeb7d0f">USB_HP_CAN1_TX_IRQn</a>);</div>
+<div class="line"><span class="lineno">  103</span> </div>
+<div class="line"><span class="lineno">  104</span>    <a class="code hl_function" href="group___c_o_r_t_e_x___exported___functions___group1.html#ga50ca6290e068821cb84aa168f3e13967">HAL_NVIC_DisableIRQ</a>(<a class="code hl_enumvalue" href="group___peripheral__interrupt__number__definition.html#gga7e1129cd8a196f4284d41db3e82ad5c8a44d80f3b50a6e2526b806ddc87c4ce86">USB_LP_CAN1_RX0_IRQn</a>);</div>
+<div class="line"><span class="lineno">  105</span> </div>
+<div class="line"><span class="lineno">  106</span>  <span class="comment">/* USER CODE BEGIN USB_MspDeInit 1 */</span></div>
+<div class="line"><span class="lineno">  107</span> </div>
+<div class="line"><span class="lineno">  108</span>  <span class="comment">/* USER CODE END USB_MspDeInit 1 */</span></div>
+<div class="line"><span class="lineno">  109</span>  }</div>
+<div class="line"><span class="lineno">  110</span>}</div>
+<div class="ttc" id="agroup___c_o_r_t_e_x___exported___functions___group1_html_ga50ca6290e068821cb84aa168f3e13967"><div class="ttname"><a href="group___c_o_r_t_e_x___exported___functions___group1.html#ga50ca6290e068821cb84aa168f3e13967">HAL_NVIC_DisableIRQ</a></div><div class="ttdeci">void HAL_NVIC_DisableIRQ(IRQn_Type IRQn)</div><div class="ttdoc">Disables a device specific interrupt in the NVIC interrupt controller.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__cortex_8c_source.html#l00202">stm32f1xx_hal_cortex.c:202</a></div></div>
+<div class="ttc" id="agroup___peripheral__declaration_html_ga779bf099075a999d1074357fccbd466b"><div class="ttname"><a href="group___peripheral__declaration.html#ga779bf099075a999d1074357fccbd466b">USB</a></div><div class="ttdeci">#define USB</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l00658">stm32f103xb.h:658</a></div></div>
+<div class="ttc" id="agroup___peripheral__interrupt__number__definition_html_gga7e1129cd8a196f4284d41db3e82ad5c8a44d80f3b50a6e2526b806ddc87c4ce86"><div class="ttname"><a href="group___peripheral__interrupt__number__definition.html#gga7e1129cd8a196f4284d41db3e82ad5c8a44d80f3b50a6e2526b806ddc87c4ce86">USB_LP_CAN1_RX0_IRQn</a></div><div class="ttdeci">@ USB_LP_CAN1_RX0_IRQn</div><div class="ttdoc">USB Device Low Priority or CAN1 RX0 Interrupts.</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l00102">stm32f103xb.h:102</a></div></div>
+<div class="ttc" id="agroup___peripheral__interrupt__number__definition_html_gga7e1129cd8a196f4284d41db3e82ad5c8a6baa609f83561f41f7715ff14eeb7d0f"><div class="ttname"><a href="group___peripheral__interrupt__number__definition.html#gga7e1129cd8a196f4284d41db3e82ad5c8a6baa609f83561f41f7715ff14eeb7d0f">USB_HP_CAN1_TX_IRQn</a></div><div class="ttdeci">@ USB_HP_CAN1_TX_IRQn</div><div class="ttdoc">USB Device High Priority or CAN1 TX Interrupts.</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l00101">stm32f103xb.h:101</a></div></div>
+<div class="ttc" id="agroup___r_c_c_ex___a_p_b1___clock___enable___disable_html_ga248a0f9f8b79b169d2e5ba5bd87b03c7"><div class="ttname"><a href="group___r_c_c_ex___a_p_b1___clock___enable___disable.html#ga248a0f9f8b79b169d2e5ba5bd87b03c7">__HAL_RCC_USB_CLK_DISABLE</a></div><div class="ttdeci">#define __HAL_RCC_USB_CLK_DISABLE()</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__rcc__ex_8h_source.html#l00842">stm32f1xx_hal_rcc_ex.h:842</a></div></div>
+<div class="ttc" id="astruct_p_c_d___handle_type_def_html_afd50525fd795b4f93a09a0e606ec6b2c"><div class="ttname"><a href="struct_p_c_d___handle_type_def.html#afd50525fd795b4f93a09a0e606ec6b2c">PCD_HandleTypeDef::Instance</a></div><div class="ttdeci">PCD_TypeDef * Instance</div><div class="ttdoc">Register base address.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__pcd_8h_source.html#l00106">stm32f1xx_hal_pcd.h:106</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__hal__rcc__ex_8h_source.html#l00842">__HAL_RCC_USB_CLK_DISABLE</a>, <a class="el" href="stm32f1xx__hal__cortex_8c_source.html#l00202">HAL_NVIC_DisableIRQ()</a>, <a class="el" href="stm32f1xx__hal__pcd_8c_source.html#l00297">HAL_PCD_MspDeInit()</a>, <a class="el" href="stm32f1xx__hal__pcd_8h_source.html#l00106">PCD_HandleTypeDef::Instance</a>, <a class="el" href="stm32f103xb_8h_source.html#l00658">USB</a>, <a class="el" href="stm32f103xb_8h_source.html#l00101">USB_HP_CAN1_TX_IRQn</a> y <a class="el" href="stm32f103xb_8h_source.html#l00102">USB_LP_CAN1_RX0_IRQn</a>.</p>
+<div id="dynsection-7" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-7-summary" class="dynsummary">
+</div>
+<div id="dynsection-7-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="usbd__conf_8c_a0a53f3c7c744fcfa7bdba6e9badc70d4_cgraph.svg" width="372" height="136"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ab88e6d72062dc5d478ab12b435695ccb" name="ab88e6d72062dc5d478ab12b435695ccb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab88e6d72062dc5d478ab12b435695ccb">&#9670;&#160;</a></span>HAL_PCD_MspInit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void HAL_PCD_MspInit </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_p_c_d___handle_type_def.html">PCD_HandleTypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>pcdHandle</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>&lt; Peripheral base address in the alias region</p>
+<p>&lt; USB_IP Peripheral Registers base address</p>
+<p>&lt; Defines 'read / write' permissions</p>
+<p>&lt; Peripheral base address in the alias region</p>
+<p>&lt; 0x00800000</p>
+<p>&lt; USB Device clock enable</p>
+<p>&lt; Peripheral base address in the alias region</p>
+<p>&lt; 0x00800000</p>
+<p>&lt; USB Device clock enable</p>
+
+<p class="definition">Definición en la línea <a class="el" href="usbd__conf_8c_source.html#l00070">70</a> del archivo <a class="el" href="usbd__conf_8c_source.html">usbd_conf.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   71</span>{</div>
+<div class="line"><span class="lineno">   72</span>  <span class="keywordflow">if</span>(pcdHandle-&gt;<a class="code hl_variable" href="struct_p_c_d___handle_type_def.html#afd50525fd795b4f93a09a0e606ec6b2c">Instance</a>==<a class="code hl_define" href="group___peripheral__declaration.html#ga779bf099075a999d1074357fccbd466b">USB</a>)</div>
+<div class="line"><span class="lineno">   73</span>  {</div>
+<div class="line"><span class="lineno">   74</span>  <span class="comment">/* USER CODE BEGIN USB_MspInit 0 */</span></div>
+<div class="line"><span class="lineno">   75</span> </div>
+<div class="line"><span class="lineno">   76</span>  <span class="comment">/* USER CODE END USB_MspInit 0 */</span></div>
+<div class="line"><span class="lineno">   77</span>    <span class="comment">/* Peripheral clock enable */</span></div>
+<div class="line"><span class="lineno">   78</span>    <a class="code hl_define" href="group___r_c_c_ex___a_p_b1___clock___enable___disable.html#gacba2aebfe03cd3fd174f5c37a1d62769">__HAL_RCC_USB_CLK_ENABLE</a>();</div>
+<div class="line"><span class="lineno">   79</span> </div>
+<div class="line"><span class="lineno">   80</span>    <span class="comment">/* Peripheral interrupt init */</span></div>
+<div class="line"><span class="lineno">   81</span>    <a class="code hl_function" href="group___c_o_r_t_e_x___exported___functions___group1.html#ga8581a82025a4780efd00876a66e3e91b">HAL_NVIC_SetPriority</a>(<a class="code hl_enumvalue" href="group___peripheral__interrupt__number__definition.html#gga7e1129cd8a196f4284d41db3e82ad5c8a6baa609f83561f41f7715ff14eeb7d0f">USB_HP_CAN1_TX_IRQn</a>, 0, 0);</div>
+<div class="line"><span class="lineno">   82</span>    <a class="code hl_function" href="group___c_o_r_t_e_x___exported___functions___group1.html#gaaad4492c1b25e006d69948a15790352a">HAL_NVIC_EnableIRQ</a>(<a class="code hl_enumvalue" href="group___peripheral__interrupt__number__definition.html#gga7e1129cd8a196f4284d41db3e82ad5c8a6baa609f83561f41f7715ff14eeb7d0f">USB_HP_CAN1_TX_IRQn</a>);</div>
+<div class="line"><span class="lineno">   83</span>    <a class="code hl_function" href="group___c_o_r_t_e_x___exported___functions___group1.html#ga8581a82025a4780efd00876a66e3e91b">HAL_NVIC_SetPriority</a>(<a class="code hl_enumvalue" href="group___peripheral__interrupt__number__definition.html#gga7e1129cd8a196f4284d41db3e82ad5c8a44d80f3b50a6e2526b806ddc87c4ce86">USB_LP_CAN1_RX0_IRQn</a>, 0, 0);</div>
+<div class="line"><span class="lineno">   84</span>    <a class="code hl_function" href="group___c_o_r_t_e_x___exported___functions___group1.html#gaaad4492c1b25e006d69948a15790352a">HAL_NVIC_EnableIRQ</a>(<a class="code hl_enumvalue" href="group___peripheral__interrupt__number__definition.html#gga7e1129cd8a196f4284d41db3e82ad5c8a44d80f3b50a6e2526b806ddc87c4ce86">USB_LP_CAN1_RX0_IRQn</a>);</div>
+<div class="line"><span class="lineno">   85</span>  <span class="comment">/* USER CODE BEGIN USB_MspInit 1 */</span></div>
+<div class="line"><span class="lineno">   86</span> </div>
+<div class="line"><span class="lineno">   87</span>  <span class="comment">/* USER CODE END USB_MspInit 1 */</span></div>
+<div class="line"><span class="lineno">   88</span>  }</div>
+<div class="line"><span class="lineno">   89</span>}</div>
+<div class="ttc" id="agroup___c_o_r_t_e_x___exported___functions___group1_html_ga8581a82025a4780efd00876a66e3e91b"><div class="ttname"><a href="group___c_o_r_t_e_x___exported___functions___group1.html#ga8581a82025a4780efd00876a66e3e91b">HAL_NVIC_SetPriority</a></div><div class="ttdeci">void HAL_NVIC_SetPriority(IRQn_Type IRQn, uint32_t PreemptPriority, uint32_t SubPriority)</div><div class="ttdoc">Sets the priority of an interrupt.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__cortex_8c_source.html#l00164">stm32f1xx_hal_cortex.c:164</a></div></div>
+<div class="ttc" id="agroup___c_o_r_t_e_x___exported___functions___group1_html_gaaad4492c1b25e006d69948a15790352a"><div class="ttname"><a href="group___c_o_r_t_e_x___exported___functions___group1.html#gaaad4492c1b25e006d69948a15790352a">HAL_NVIC_EnableIRQ</a></div><div class="ttdeci">void HAL_NVIC_EnableIRQ(IRQn_Type IRQn)</div><div class="ttdoc">Enables a device specific interrupt in the NVIC interrupt controller.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__cortex_8c_source.html#l00186">stm32f1xx_hal_cortex.c:186</a></div></div>
+<div class="ttc" id="agroup___r_c_c_ex___a_p_b1___clock___enable___disable_html_gacba2aebfe03cd3fd174f5c37a1d62769"><div class="ttname"><a href="group___r_c_c_ex___a_p_b1___clock___enable___disable.html#gacba2aebfe03cd3fd174f5c37a1d62769">__HAL_RCC_USB_CLK_ENABLE</a></div><div class="ttdeci">#define __HAL_RCC_USB_CLK_ENABLE()</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__rcc__ex_8h_source.html#l00834">stm32f1xx_hal_rcc_ex.h:834</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__hal__rcc__ex_8h_source.html#l00834">__HAL_RCC_USB_CLK_ENABLE</a>, <a class="el" href="stm32f1xx__hal__cortex_8c_source.html#l00186">HAL_NVIC_EnableIRQ()</a>, <a class="el" href="stm32f1xx__hal__cortex_8c_source.html#l00164">HAL_NVIC_SetPriority()</a>, <a class="el" href="stm32f1xx__hal__pcd_8c_source.html#l00282">HAL_PCD_MspInit()</a>, <a class="el" href="stm32f1xx__hal__pcd_8h_source.html#l00106">PCD_HandleTypeDef::Instance</a>, <a class="el" href="stm32f103xb_8h_source.html#l00658">USB</a>, <a class="el" href="stm32f103xb_8h_source.html#l00101">USB_HP_CAN1_TX_IRQn</a> y <a class="el" href="stm32f103xb_8h_source.html#l00102">USB_LP_CAN1_RX0_IRQn</a>.</p>
+<div id="dynsection-8" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-8-summary" class="dynsummary">
+</div>
+<div id="dynsection-8-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="usbd__conf_8c_ab88e6d72062dc5d478ab12b435695ccb_cgraph.svg" width="351" height="211"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="af4fbef977092aa525c6b1668ffbec77b" name="af4fbef977092aa525c6b1668ffbec77b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af4fbef977092aa525c6b1668ffbec77b">&#9670;&#160;</a></span>HAL_PCD_ResetCallback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void HAL_PCD_ResetCallback </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_p_c_d___handle_type_def.html">PCD_HandleTypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>hpcd</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reset callback. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">hpcd</td><td>PCD handle </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="usbd__conf_8c_source.html#l00178">178</a> del archivo <a class="el" href="usbd__conf_8c_source.html">usbd_conf.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  180</span>{</div>
+<div class="line"><span class="lineno">  181</span>  <a class="code hl_enumeration" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#gaa62cd3d2fb69a537ae7a5a94bdd6ae93">USBD_SpeedTypeDef</a> <a class="code hl_variable" href="main_8c.html#ad9c150973095da1138f52924679cd2e6">speed</a> = <a class="code hl_enumvalue" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ggaa62cd3d2fb69a537ae7a5a94bdd6ae93a0549585df28ba0c8054381aa686bc6b7">USBD_SPEED_FULL</a>;</div>
+<div class="line"><span class="lineno">  182</span> </div>
+<div class="line"><span class="lineno">  183</span>  <span class="keywordflow">if</span> ( hpcd-&gt;<a class="code hl_variable" href="struct_p_c_d___handle_type_def.html#af610ca87ae079aa8aef6734862ef2485">Init</a>.<a class="code hl_variable" href="struct_u_s_b___cfg_type_def.html#acc1335b7bc75bdc9c9df0279c53ff6e0">speed</a> != <a class="code hl_define" href="group___p_c_d___speed.html#gac705382b159290e7fa729dcd263b9208">PCD_SPEED_FULL</a>)</div>
+<div class="line"><span class="lineno">  184</span>  {</div>
+<div class="line"><span class="lineno">  185</span>    <a class="code hl_function" href="main_8h.html#a1730ffe1e560465665eb47d9264826f9">Error_Handler</a>();</div>
+<div class="line"><span class="lineno">  186</span>  }</div>
+<div class="line"><span class="lineno">  187</span>    <span class="comment">/* Set Speed. */</span></div>
+<div class="line"><span class="lineno">  188</span>  <a class="code hl_function" href="group___u_s_b_d___c_o_r_e___exported___functions_prototype.html#gaaf2f9695af26bad9d0f66746fcca3243">USBD_LL_SetSpeed</a>((<a class="code hl_typedef" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ga08827834e2e564cea191282b65ce06f7">USBD_HandleTypeDef</a>*)hpcd-&gt;<a class="code hl_variable" href="struct_p_c_d___handle_type_def.html#a936f1eff2cdf03ccbbf1443b18204311">pData</a>, <a class="code hl_variable" href="main_8c.html#ad9c150973095da1138f52924679cd2e6">speed</a>);</div>
+<div class="line"><span class="lineno">  189</span> </div>
+<div class="line"><span class="lineno">  190</span>  <span class="comment">/* Reset Device. */</span></div>
+<div class="line"><span class="lineno">  191</span>  <a class="code hl_function" href="group___u_s_b_d___c_o_r_e___exported___functions_prototype.html#ga9cd02ae070a18ea3395346c56639412b">USBD_LL_Reset</a>((<a class="code hl_typedef" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ga08827834e2e564cea191282b65ce06f7">USBD_HandleTypeDef</a>*)hpcd-&gt;<a class="code hl_variable" href="struct_p_c_d___handle_type_def.html#a936f1eff2cdf03ccbbf1443b18204311">pData</a>);</div>
+<div class="line"><span class="lineno">  192</span>}</div>
+<div class="ttc" id="agroup___p_c_d___speed_html_gac705382b159290e7fa729dcd263b9208"><div class="ttname"><a href="group___p_c_d___speed.html#gac705382b159290e7fa729dcd263b9208">PCD_SPEED_FULL</a></div><div class="ttdeci">#define PCD_SPEED_FULL</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__pcd_8h_source.html#l00161">stm32f1xx_hal_pcd.h:161</a></div></div>
+<div class="ttc" id="agroup___u_s_b_d___c_o_r_e___exported___functions_prototype_html_ga9cd02ae070a18ea3395346c56639412b"><div class="ttname"><a href="group___u_s_b_d___c_o_r_e___exported___functions_prototype.html#ga9cd02ae070a18ea3395346c56639412b">USBD_LL_Reset</a></div><div class="ttdeci">USBD_StatusTypeDef USBD_LL_Reset(USBD_HandleTypeDef *pdev)</div><div class="ttdoc">USBD_LL_Reset Handle Reset event.</div><div class="ttdef"><b>Definición</b> <a href="usbd__core_8c_source.html#l00442">usbd_core.c:442</a></div></div>
+<div class="ttc" id="agroup___u_s_b_d___c_o_r_e___exported___functions_prototype_html_gaaf2f9695af26bad9d0f66746fcca3243"><div class="ttname"><a href="group___u_s_b_d___c_o_r_e___exported___functions_prototype.html#gaaf2f9695af26bad9d0f66746fcca3243">USBD_LL_SetSpeed</a></div><div class="ttdeci">USBD_StatusTypeDef USBD_LL_SetSpeed(USBD_HandleTypeDef *pdev, USBD_SpeedTypeDef speed)</div><div class="ttdoc">USBD_LL_Reset Handle Reset event.</div><div class="ttdef"><b>Definición</b> <a href="usbd__core_8c_source.html#l00476">usbd_core.c:476</a></div></div>
+<div class="ttc" id="agroup___u_s_b_d___d_e_f___exported___types_definitions_html_gaa62cd3d2fb69a537ae7a5a94bdd6ae93"><div class="ttname"><a href="group___u_s_b_d___d_e_f___exported___types_definitions.html#gaa62cd3d2fb69a537ae7a5a94bdd6ae93">USBD_SpeedTypeDef</a></div><div class="ttdeci">USBD_SpeedTypeDef</div><div class="ttdef"><b>Definición</b> <a href="usbd__def_8h_source.html#l00196">usbd_def.h:197</a></div></div>
+<div class="ttc" id="agroup___u_s_b_d___d_e_f___exported___types_definitions_html_ggaa62cd3d2fb69a537ae7a5a94bdd6ae93a0549585df28ba0c8054381aa686bc6b7"><div class="ttname"><a href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ggaa62cd3d2fb69a537ae7a5a94bdd6ae93a0549585df28ba0c8054381aa686bc6b7">USBD_SPEED_FULL</a></div><div class="ttdeci">@ USBD_SPEED_FULL</div><div class="ttdef"><b>Definición</b> <a href="usbd__def_8h_source.html#l00199">usbd_def.h:199</a></div></div>
+<div class="ttc" id="amain_8c_html_ad9c150973095da1138f52924679cd2e6"><div class="ttname"><a href="main_8c.html#ad9c150973095da1138f52924679cd2e6">speed</a></div><div class="ttdeci">volatile int32_t speed</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00290">main.c:290</a></div></div>
+<div class="ttc" id="amain_8h_html_a1730ffe1e560465665eb47d9264826f9"><div class="ttname"><a href="main_8h.html#a1730ffe1e560465665eb47d9264826f9">Error_Handler</a></div><div class="ttdeci">void Error_Handler(void)</div><div class="ttdoc">Manejador central de fallas críticas de inicialización de periféricos HAL.</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l03902">main.c:3902</a></div></div>
+<div class="ttc" id="astruct_p_c_d___handle_type_def_html_af610ca87ae079aa8aef6734862ef2485"><div class="ttname"><a href="struct_p_c_d___handle_type_def.html#af610ca87ae079aa8aef6734862ef2485">PCD_HandleTypeDef::Init</a></div><div class="ttdeci">PCD_InitTypeDef Init</div><div class="ttdoc">PCD required parameters.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__pcd_8h_source.html#l00107">stm32f1xx_hal_pcd.h:107</a></div></div>
+<div class="ttc" id="astruct_u_s_b___cfg_type_def_html_acc1335b7bc75bdc9c9df0279c53ff6e0"><div class="ttname"><a href="struct_u_s_b___cfg_type_def.html#acc1335b7bc75bdc9c9df0279c53ff6e0">USB_CfgTypeDef::speed</a></div><div class="ttdeci">uint8_t speed</div><div class="ttdoc">USB Core speed.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__ll__usb_8h_source.html#l00108">stm32f1xx_ll_usb.h:108</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="main_8c_source.html#l03902">Error_Handler()</a>, <a class="el" href="stm32f1xx__hal__pcd_8c_source.html#l01531">HAL_PCD_ResetCallback()</a>, <a class="el" href="stm32f1xx__hal__pcd_8h_source.html#l00107">PCD_HandleTypeDef::Init</a>, <a class="el" href="stm32f1xx__hal__pcd_8h_source.html#l00161">PCD_SPEED_FULL</a>, <a class="el" href="stm32f1xx__hal__pcd_8h_source.html#l00125">PCD_HandleTypeDef::pData</a>, <a class="el" href="main_8c_source.html#l00290">speed</a>, <a class="el" href="stm32f1xx__ll__usb_8h_source.html#l00108">USB_CfgTypeDef::speed</a>, <a class="el" href="usbd__core_8c_source.html#l00442">USBD_LL_Reset()</a>, <a class="el" href="usbd__core_8c_source.html#l00476">USBD_LL_SetSpeed()</a> y <a class="el" href="usbd__def_8h_source.html#l00199">USBD_SPEED_FULL</a>.</p>
+<div id="dynsection-9" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-9-summary" class="dynsummary">
+</div>
+<div id="dynsection-9-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="usbd__conf_8c_af4fbef977092aa525c6b1668ffbec77b_cgraph.svg" width="100%" height="514"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a0386a36b921cd51dd6e50103c3cd33b1" name="a0386a36b921cd51dd6e50103c3cd33b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0386a36b921cd51dd6e50103c3cd33b1">&#9670;&#160;</a></span>HAL_PCD_ResumeCallback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void HAL_PCD_ResumeCallback </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_p_c_d___handle_type_def.html">PCD_HandleTypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>hpcd</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Resume callback. </p>
+<p>When Low power mode is enabled the debug cannot be used (IAR, Keil doesn't support it) </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">hpcd</td><td>PCD handle </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="usbd__conf_8c_source.html#l00227">227</a> del archivo <a class="el" href="usbd__conf_8c_source.html">usbd_conf.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  229</span>{</div>
+<div class="line"><span class="lineno">  230</span>  <span class="comment">/* USER CODE BEGIN 3 */</span></div>
+<div class="line"><span class="lineno">  231</span> </div>
+<div class="line"><span class="lineno">  232</span>  <span class="comment">/* USER CODE END 3 */</span></div>
+<div class="line"><span class="lineno">  233</span>  <a class="code hl_function" href="group___u_s_b_d___c_o_r_e___exported___functions_prototype.html#gacfd270cf295f13943dd6a591b366246c">USBD_LL_Resume</a>((<a class="code hl_typedef" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ga08827834e2e564cea191282b65ce06f7">USBD_HandleTypeDef</a>*)hpcd-&gt;<a class="code hl_variable" href="struct_p_c_d___handle_type_def.html#a936f1eff2cdf03ccbbf1443b18204311">pData</a>);</div>
+<div class="line"><span class="lineno">  234</span>}</div>
+<div class="ttc" id="agroup___u_s_b_d___c_o_r_e___exported___functions_prototype_html_gacfd270cf295f13943dd6a591b366246c"><div class="ttname"><a href="group___u_s_b_d___c_o_r_e___exported___functions_prototype.html#gacfd270cf295f13943dd6a591b366246c">USBD_LL_Resume</a></div><div class="ttdeci">USBD_StatusTypeDef USBD_LL_Resume(USBD_HandleTypeDef *pdev)</div><div class="ttdoc">USBD_Resume Handle Resume event.</div><div class="ttdef"><b>Definición</b> <a href="usbd__core_8c_source.html#l00506">usbd_core.c:506</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__hal__pcd_8c_source.html#l01561">HAL_PCD_ResumeCallback()</a>, <a class="el" href="stm32f1xx__hal__pcd_8h_source.html#l00125">PCD_HandleTypeDef::pData</a> y <a class="el" href="usbd__core_8c_source.html#l00506">USBD_LL_Resume()</a>.</p>
+<div id="dynsection-10" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-10-summary" class="dynsummary">
+</div>
+<div id="dynsection-10-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="usbd__conf_8c_a0386a36b921cd51dd6e50103c3cd33b1_cgraph.svg" width="440" height="136"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a9d72aa4d3d984b164047b081d4566f6d" name="a9d72aa4d3d984b164047b081d4566f6d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d72aa4d3d984b164047b081d4566f6d">&#9670;&#160;</a></span>HAL_PCD_SetupStageCallback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void HAL_PCD_SetupStageCallback </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_p_c_d___handle_type_def.html">PCD_HandleTypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>hpcd</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Setup stage callback. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">hpcd</td><td>PCD handle </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="usbd__conf_8c_source.html#l00120">120</a> del archivo <a class="el" href="usbd__conf_8c_source.html">usbd_conf.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  122</span>{</div>
+<div class="line"><span class="lineno">  123</span>  <a class="code hl_function" href="group___u_s_b_d___c_o_r_e___exported___functions_prototype.html#gabdcdfefaffa1651c77a38d08eb3a82ce">USBD_LL_SetupStage</a>((<a class="code hl_typedef" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ga08827834e2e564cea191282b65ce06f7">USBD_HandleTypeDef</a>*)hpcd-&gt;<a class="code hl_variable" href="struct_p_c_d___handle_type_def.html#a936f1eff2cdf03ccbbf1443b18204311">pData</a>, (uint8_t *)hpcd-&gt;<a class="code hl_variable" href="struct_p_c_d___handle_type_def.html#a1b0969b24339de5dd49515ef1282743c">Setup</a>);</div>
+<div class="line"><span class="lineno">  124</span>}</div>
+<div class="ttc" id="agroup___u_s_b_d___c_o_r_e___exported___functions_prototype_html_gabdcdfefaffa1651c77a38d08eb3a82ce"><div class="ttname"><a href="group___u_s_b_d___c_o_r_e___exported___functions_prototype.html#gabdcdfefaffa1651c77a38d08eb3a82ce">USBD_LL_SetupStage</a></div><div class="ttdeci">USBD_StatusTypeDef USBD_LL_SetupStage(USBD_HandleTypeDef *pdev, uint8_t *psetup)</div><div class="ttdoc">USBD_SetupStage Handle the setup stage.</div><div class="ttdef"><b>Definición</b> <a href="usbd__core_8c_source.html#l00263">usbd_core.c:263</a></div></div>
+<div class="ttc" id="astruct_p_c_d___handle_type_def_html_a1b0969b24339de5dd49515ef1282743c"><div class="ttname"><a href="struct_p_c_d___handle_type_def.html#a1b0969b24339de5dd49515ef1282743c">PCD_HandleTypeDef::Setup</a></div><div class="ttdeci">uint32_t Setup[12]</div><div class="ttdoc">Setup packet buffer.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__pcd_8h_source.html#l00120">stm32f1xx_hal_pcd.h:120</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__hal__pcd_8c_source.html#l01501">HAL_PCD_SetupStageCallback()</a>, <a class="el" href="stm32f1xx__hal__pcd_8h_source.html#l00125">PCD_HandleTypeDef::pData</a>, <a class="el" href="stm32f1xx__hal__pcd_8h_source.html#l00120">PCD_HandleTypeDef::Setup</a> y <a class="el" href="usbd__core_8c_source.html#l00263">USBD_LL_SetupStage()</a>.</p>
+<div id="dynsection-11" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-11-summary" class="dynsummary">
+</div>
+<div id="dynsection-11-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="usbd__conf_8c_a9d72aa4d3d984b164047b081d4566f6d_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a85c99eeb4aa17d8ff5298efff92ac28e" name="a85c99eeb4aa17d8ff5298efff92ac28e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a85c99eeb4aa17d8ff5298efff92ac28e">&#9670;&#160;</a></span>HAL_PCD_SOFCallback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void HAL_PCD_SOFCallback </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_p_c_d___handle_type_def.html">PCD_HandleTypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>hpcd</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SOF callback. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">hpcd</td><td>PCD handle </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="usbd__conf_8c_source.html#l00164">164</a> del archivo <a class="el" href="usbd__conf_8c_source.html">usbd_conf.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  166</span>{</div>
+<div class="line"><span class="lineno">  167</span>  <a class="code hl_function" href="group___u_s_b_d___c_o_r_e___exported___functions_prototype.html#gacf5d847096b6b8d9b1880dab9cd1726d">USBD_LL_SOF</a>((<a class="code hl_typedef" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ga08827834e2e564cea191282b65ce06f7">USBD_HandleTypeDef</a>*)hpcd-&gt;<a class="code hl_variable" href="struct_p_c_d___handle_type_def.html#a936f1eff2cdf03ccbbf1443b18204311">pData</a>);</div>
+<div class="line"><span class="lineno">  168</span>}</div>
+<div class="ttc" id="agroup___u_s_b_d___c_o_r_e___exported___functions_prototype_html_gacf5d847096b6b8d9b1880dab9cd1726d"><div class="ttname"><a href="group___u_s_b_d___c_o_r_e___exported___functions_prototype.html#gacf5d847096b6b8d9b1880dab9cd1726d">USBD_LL_SOF</a></div><div class="ttdeci">USBD_StatusTypeDef USBD_LL_SOF(USBD_HandleTypeDef *pdev)</div><div class="ttdoc">USBD_SOF Handle SOF event.</div><div class="ttdef"><b>Definición</b> <a href="usbd__core_8c_source.html#l00523">usbd_core.c:523</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__hal__pcd_8c_source.html#l01516">HAL_PCD_SOFCallback()</a>, <a class="el" href="stm32f1xx__hal__pcd_8h_source.html#l00125">PCD_HandleTypeDef::pData</a> y <a class="el" href="usbd__core_8c_source.html#l00523">USBD_LL_SOF()</a>.</p>
+<div id="dynsection-12" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-12-summary" class="dynsummary">
+</div>
+<div id="dynsection-12-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="usbd__conf_8c_a85c99eeb4aa17d8ff5298efff92ac28e_cgraph.svg" width="396" height="136"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a0e14acd4564979743bc0a89aa5f15428" name="a0e14acd4564979743bc0a89aa5f15428"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e14acd4564979743bc0a89aa5f15428">&#9670;&#160;</a></span>HAL_PCD_SuspendCallback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void HAL_PCD_SuspendCallback </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_p_c_d___handle_type_def.html">PCD_HandleTypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>hpcd</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Suspend callback. </p>
+<p>When Low power mode is enabled the debug cannot be used (IAR, Keil doesn't support it) </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">hpcd</td><td>PCD handle </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; System Control Space Base Address</p>
+<p>&lt; System Control Block Base Address</p>
+<p>&lt; SCB configuration struct</p>
+<p>&lt; SCB SCR: SLEEPDEEP Position</p>
+<p>&lt; SCB SCR: SLEEPDEEP Mask</p>
+<p>&lt; SCB SCR: SLEEPONEXIT Position</p>
+<p>&lt; SCB SCR: SLEEPONEXIT Mask</p>
+
+<p class="definition">Definición en la línea <a class="el" href="usbd__conf_8c_source.html#l00203">203</a> del archivo <a class="el" href="usbd__conf_8c_source.html">usbd_conf.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  205</span>{</div>
+<div class="line"><span class="lineno">  206</span>  <span class="comment">/* Inform USB library that core enters in suspend Mode. */</span></div>
+<div class="line"><span class="lineno">  207</span>  <a class="code hl_function" href="group___u_s_b_d___c_o_r_e___exported___functions_prototype.html#ga907b2335773fcc0856e4ab6972c04020">USBD_LL_Suspend</a>((<a class="code hl_typedef" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ga08827834e2e564cea191282b65ce06f7">USBD_HandleTypeDef</a>*)hpcd-&gt;<a class="code hl_variable" href="struct_p_c_d___handle_type_def.html#a936f1eff2cdf03ccbbf1443b18204311">pData</a>);</div>
+<div class="line"><span class="lineno">  208</span>  <span class="comment">/* Enter in STOP mode. */</span></div>
+<div class="line"><span class="lineno">  209</span>  <span class="comment">/* USER CODE BEGIN 2 */</span></div>
+<div class="line"><span class="lineno">  210</span>  <span class="keywordflow">if</span> (hpcd-&gt;<a class="code hl_variable" href="struct_p_c_d___handle_type_def.html#af610ca87ae079aa8aef6734862ef2485">Init</a>.<a class="code hl_variable" href="struct_u_s_b___cfg_type_def.html#a68de44f4a45ca2b7e5ba04c4d5cace81">low_power_enable</a>)</div>
+<div class="line"><span class="lineno">  211</span>  {</div>
+<div class="line"><span class="lineno">  212</span>    <span class="comment">/* Set SLEEPDEEP bit and SleepOnExit of Cortex System Control Register. */</span></div>
+<div class="line"><span class="lineno">  213</span>    SCB-&gt;SCR |= (uint32_t)((uint32_t)(SCB_SCR_SLEEPDEEP_Msk | SCB_SCR_SLEEPONEXIT_Msk));</div>
+<div class="line"><span class="lineno">  214</span>  }</div>
+<div class="line"><span class="lineno">  215</span>  <span class="comment">/* USER CODE END 2 */</span></div>
+<div class="line"><span class="lineno">  216</span>}</div>
+<div class="ttc" id="agroup___u_s_b_d___c_o_r_e___exported___functions_prototype_html_ga907b2335773fcc0856e4ab6972c04020"><div class="ttname"><a href="group___u_s_b_d___c_o_r_e___exported___functions_prototype.html#ga907b2335773fcc0856e4ab6972c04020">USBD_LL_Suspend</a></div><div class="ttdeci">USBD_StatusTypeDef USBD_LL_Suspend(USBD_HandleTypeDef *pdev)</div><div class="ttdoc">USBD_Suspend Handle Suspend event.</div><div class="ttdef"><b>Definición</b> <a href="usbd__core_8c_source.html#l00491">usbd_core.c:491</a></div></div>
+<div class="ttc" id="astruct_u_s_b___cfg_type_def_html_a68de44f4a45ca2b7e5ba04c4d5cace81"><div class="ttname"><a href="struct_u_s_b___cfg_type_def.html#a68de44f4a45ca2b7e5ba04c4d5cace81">USB_CfgTypeDef::low_power_enable</a></div><div class="ttdeci">uint8_t low_power_enable</div><div class="ttdoc">Enable or disable the low Power Mode.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__ll__usb_8h_source.html#l00119">stm32f1xx_ll_usb.h:119</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__hal__pcd_8c_source.html#l01546">HAL_PCD_SuspendCallback()</a>, <a class="el" href="stm32f1xx__hal__pcd_8h_source.html#l00107">PCD_HandleTypeDef::Init</a>, <a class="el" href="stm32f1xx__ll__usb_8h_source.html#l00119">USB_CfgTypeDef::low_power_enable</a>, <a class="el" href="stm32f1xx__hal__pcd_8h_source.html#l00125">PCD_HandleTypeDef::pData</a> y <a class="el" href="usbd__core_8c_source.html#l00491">USBD_LL_Suspend()</a>.</p>
+<div id="dynsection-13" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-13-summary" class="dynsummary">
+</div>
+<div id="dynsection-13-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="usbd__conf_8c_a0e14acd4564979743bc0a89aa5f15428_cgraph.svg" width="444" height="136"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a3d04e2831c0a46d0e6719c1a2caba5b1" name="a3d04e2831c0a46d0e6719c1a2caba5b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d04e2831c0a46d0e6719c1a2caba5b1">&#9670;&#160;</a></span>HAL_PCDEx_SetConnectionState()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void HAL_PCDEx_SetConnectionState </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_p_c_d___handle_type_def.html">PCD_HandleTypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>hpcd</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>state</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Software Device Connection. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">hpcd</td><td>PCD handle </td></tr>
+    <tr><td class="paramname">state</td><td>Connection state (0: disconnected / 1: connected) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="usbd__conf_8c_source.html#l00620">620</a> del archivo <a class="el" href="usbd__conf_8c_source.html">usbd_conf.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  622</span>{</div>
+<div class="line"><span class="lineno">  623</span>  <span class="comment">/* USER CODE BEGIN 6 */</span></div>
+<div class="line"><span class="lineno">  624</span>  <span class="keywordflow">if</span> (state == 1)</div>
+<div class="line"><span class="lineno">  625</span>  {</div>
+<div class="line"><span class="lineno">  626</span>    <span class="comment">/* Configure Low connection state. */</span></div>
+<div class="line"><span class="lineno">  627</span> </div>
+<div class="line"><span class="lineno">  628</span>  }</div>
+<div class="line"><span class="lineno">  629</span>  <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  630</span>  {</div>
+<div class="line"><span class="lineno">  631</span>    <span class="comment">/* Configure High connection state. */</span></div>
+<div class="line"><span class="lineno">  632</span> </div>
+<div class="line"><span class="lineno">  633</span>  }</div>
+<div class="line"><span class="lineno">  634</span>  <span class="comment">/* USER CODE END 6 */</span></div>
+<div class="line"><span class="lineno">  635</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__hal__pcd__ex_8c_source.html#l00182">HAL_PCDEx_SetConnectionState()</a>.</p>
+<div id="dynsection-14" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-14-summary" class="dynsummary">
+</div>
+<div id="dynsection-14-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="usbd__conf_8c_a3d04e2831c0a46d0e6719c1a2caba5b1_cgraph.svg" width="506" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a71e72e29fe464c7f3be4edf36806355e" name="a71e72e29fe464c7f3be4edf36806355e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71e72e29fe464c7f3be4edf36806355e">&#9670;&#160;</a></span>USBD_Get_USB_Status()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#gaebc658c200e50399361e7901f0a57e95">USBD_StatusTypeDef</a> USBD_Get_USB_Status </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a></td>          <td class="paramname"><span class="paramname"><em>hal_status</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the USB status depending on the HAL status: </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">hal_status</td><td>HAL status </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">USB</td><td>status </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="usbd__conf_8c_source.html#l00642">642</a> del archivo <a class="el" href="usbd__conf_8c_source.html">usbd_conf.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  643</span>{</div>
+<div class="line"><span class="lineno">  644</span>  <a class="code hl_enumeration" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#gaebc658c200e50399361e7901f0a57e95">USBD_StatusTypeDef</a> usb_status = <a class="code hl_enumvalue" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ggaebc658c200e50399361e7901f0a57e95a82f83a0537693d71dd31a4ae9960d737">USBD_OK</a>;</div>
+<div class="line"><span class="lineno">  645</span> </div>
+<div class="line"><span class="lineno">  646</span>  <span class="keywordflow">switch</span> (hal_status)</div>
+<div class="line"><span class="lineno">  647</span>  {</div>
+<div class="line"><span class="lineno">  648</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632">HAL_OK</a> :</div>
+<div class="line"><span class="lineno">  649</span>      usb_status = <a class="code hl_enumvalue" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ggaebc658c200e50399361e7901f0a57e95a82f83a0537693d71dd31a4ae9960d737">USBD_OK</a>;</div>
+<div class="line"><span class="lineno">  650</span>    <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  651</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478fa5a04e395e501e4e400172c610478c4a4">HAL_ERROR</a> :</div>
+<div class="line"><span class="lineno">  652</span>      usb_status = <a class="code hl_enumvalue" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ggaebc658c200e50399361e7901f0a57e95a05db9cbdbff7d5bb866a9d9f3dcdbe8e">USBD_FAIL</a>;</div>
+<div class="line"><span class="lineno">  653</span>    <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  654</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478fa8532fa3641ae7c14cb1b0554e2d9cbc7">HAL_BUSY</a> :</div>
+<div class="line"><span class="lineno">  655</span>      usb_status = <a class="code hl_enumvalue" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ggaebc658c200e50399361e7901f0a57e95ac740a5fc3a2c8458f50c1778a85b68b4">USBD_BUSY</a>;</div>
+<div class="line"><span class="lineno">  656</span>    <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  657</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478fa00c89549bc881c35e8e4cd9e718337e5">HAL_TIMEOUT</a> :</div>
+<div class="line"><span class="lineno">  658</span>      usb_status = <a class="code hl_enumvalue" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ggaebc658c200e50399361e7901f0a57e95a05db9cbdbff7d5bb866a9d9f3dcdbe8e">USBD_FAIL</a>;</div>
+<div class="line"><span class="lineno">  659</span>    <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  660</span>    default :</div>
+<div class="line"><span class="lineno">  661</span>      usb_status = <a class="code hl_enumvalue" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ggaebc658c200e50399361e7901f0a57e95a05db9cbdbff7d5bb866a9d9f3dcdbe8e">USBD_FAIL</a>;</div>
+<div class="line"><span class="lineno">  662</span>    <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  663</span>  }</div>
+<div class="line"><span class="lineno">  664</span>  <span class="keywordflow">return</span> usb_status;</div>
+<div class="line"><span class="lineno">  665</span>}</div>
+<div class="ttc" id="agroup___u_s_b_d___d_e_f___exported___types_definitions_html_gaebc658c200e50399361e7901f0a57e95"><div class="ttname"><a href="group___u_s_b_d___d_e_f___exported___types_definitions.html#gaebc658c200e50399361e7901f0a57e95">USBD_StatusTypeDef</a></div><div class="ttdeci">USBD_StatusTypeDef</div><div class="ttdef"><b>Definición</b> <a href="usbd__def_8h_source.html#l00204">usbd_def.h:205</a></div></div>
+<div class="ttc" id="agroup___u_s_b_d___d_e_f___exported___types_definitions_html_ggaebc658c200e50399361e7901f0a57e95a05db9cbdbff7d5bb866a9d9f3dcdbe8e"><div class="ttname"><a href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ggaebc658c200e50399361e7901f0a57e95a05db9cbdbff7d5bb866a9d9f3dcdbe8e">USBD_FAIL</a></div><div class="ttdeci">@ USBD_FAIL</div><div class="ttdef"><b>Definición</b> <a href="usbd__def_8h_source.html#l00208">usbd_def.h:208</a></div></div>
+<div class="ttc" id="agroup___u_s_b_d___d_e_f___exported___types_definitions_html_ggaebc658c200e50399361e7901f0a57e95a82f83a0537693d71dd31a4ae9960d737"><div class="ttname"><a href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ggaebc658c200e50399361e7901f0a57e95a82f83a0537693d71dd31a4ae9960d737">USBD_OK</a></div><div class="ttdeci">@ USBD_OK</div><div class="ttdef"><b>Definición</b> <a href="usbd__def_8h_source.html#l00206">usbd_def.h:206</a></div></div>
+<div class="ttc" id="agroup___u_s_b_d___d_e_f___exported___types_definitions_html_ggaebc658c200e50399361e7901f0a57e95ac740a5fc3a2c8458f50c1778a85b68b4"><div class="ttname"><a href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ggaebc658c200e50399361e7901f0a57e95ac740a5fc3a2c8458f50c1778a85b68b4">USBD_BUSY</a></div><div class="ttdeci">@ USBD_BUSY</div><div class="ttdef"><b>Definición</b> <a href="usbd__def_8h_source.html#l00207">usbd_def.h:207</a></div></div>
+<div class="ttc" id="astm32f1xx__hal__def_8h_html_a63c0679d1cb8b8c684fbb0632743478fa00c89549bc881c35e8e4cd9e718337e5"><div class="ttname"><a href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478fa00c89549bc881c35e8e4cd9e718337e5">HAL_TIMEOUT</a></div><div class="ttdeci">@ HAL_TIMEOUT</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__def_8h_source.html#l00043">stm32f1xx_hal_def.h:43</a></div></div>
+<div class="ttc" id="astm32f1xx__hal__def_8h_html_a63c0679d1cb8b8c684fbb0632743478fa5a04e395e501e4e400172c610478c4a4"><div class="ttname"><a href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478fa5a04e395e501e4e400172c610478c4a4">HAL_ERROR</a></div><div class="ttdeci">@ HAL_ERROR</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__def_8h_source.html#l00041">stm32f1xx_hal_def.h:41</a></div></div>
+<div class="ttc" id="astm32f1xx__hal__def_8h_html_a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632"><div class="ttname"><a href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478fa6eb724a07061d89a4a2052744e5a3632">HAL_OK</a></div><div class="ttdeci">@ HAL_OK</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__def_8h_source.html#l00040">stm32f1xx_hal_def.h:40</a></div></div>
+<div class="ttc" id="astm32f1xx__hal__def_8h_html_a63c0679d1cb8b8c684fbb0632743478fa8532fa3641ae7c14cb1b0554e2d9cbc7"><div class="ttname"><a href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478fa8532fa3641ae7c14cb1b0554e2d9cbc7">HAL_BUSY</a></div><div class="ttdeci">@ HAL_BUSY</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__def_8h_source.html#l00042">stm32f1xx_hal_def.h:42</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__hal__def_8h_source.html#l00042">HAL_BUSY</a>, <a class="el" href="stm32f1xx__hal__def_8h_source.html#l00041">HAL_ERROR</a>, <a class="el" href="stm32f1xx__hal__def_8h_source.html#l00040">HAL_OK</a>, <a class="el" href="stm32f1xx__hal__def_8h_source.html#l00043">HAL_TIMEOUT</a>, <a class="el" href="usbd__def_8h_source.html#l00207">USBD_BUSY</a>, <a class="el" href="usbd__def_8h_source.html#l00208">USBD_FAIL</a>, <a class="el" href="usbd__conf_8c_source.html#l00642">USBD_Get_USB_Status()</a> y <a class="el" href="usbd__def_8h_source.html#l00206">USBD_OK</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="usbd__conf_8c_source.html#l00642">USBD_Get_USB_Status()</a>, <a class="el" href="usbd__conf_8c_source.html#l00479">USBD_LL_ClearStallEP()</a>, <a class="el" href="usbd__conf_8c_source.html#l00425">USBD_LL_CloseEP()</a>, <a class="el" href="usbd__conf_8c_source.html#l00353">USBD_LL_DeInit()</a>, <a class="el" href="usbd__conf_8c_source.html#l00443">USBD_LL_FlushEP()</a>, <a class="el" href="usbd__conf_8c_source.html#l00407">USBD_LL_OpenEP()</a>, <a class="el" href="usbd__conf_8c_source.html#l00557">USBD_LL_PrepareReceive()</a>, <a class="el" href="usbd__conf_8c_source.html#l00517">USBD_LL_SetUSBAddress()</a>, <a class="el" href="usbd__conf_8c_source.html#l00461">USBD_LL_StallEP()</a>, <a class="el" href="usbd__conf_8c_source.html#l00370">USBD_LL_Start()</a>, <a class="el" href="usbd__conf_8c_source.html#l00387">USBD_LL_Stop()</a> y <a class="el" href="usbd__conf_8c_source.html#l00537">USBD_LL_Transmit()</a>.</p>
+<div id="dynsection-15" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-15-summary" class="dynsummary">
+</div>
+<div id="dynsection-15-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="usbd__conf_8c_a71e72e29fe464c7f3be4edf36806355e_cgraph.svg" width="179" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-16" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-16-summary" class="dynsummary">
+</div>
+<div id="dynsection-16-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="usbd__conf_8c_a71e72e29fe464c7f3be4edf36806355e_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Documentación de variables</h2>
+<a id="afabb8e1d05154a3b694f4f4d150b194f" name="afabb8e1d05154a3b694f4f4d150b194f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afabb8e1d05154a3b694f4f4d150b194f">&#9670;&#160;</a></span>hpcd_USB_FS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_p_c_d___handle_type_def.html">PCD_HandleTypeDef</a> hpcd_USB_FS</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="usbd__conf_8c_source.html#l00041">41</a> del archivo <a class="el" href="usbd__conf_8c_source.html">usbd_conf.c</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__it_8c_source.html#l00261">USB_HP_CAN1_TX_IRQHandler()</a>, <a class="el" href="stm32f1xx__it_8c_source.html#l00275">USB_LP_CAN1_RX0_IRQHandler()</a> y <a class="el" href="usbd__conf_8c_source.html#l00303">USBD_LL_Init()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_b484bb5bfad2a7c15a6c5b169ba0e52c.html">USB_DEVICE</a></li><li class="navelem"><a href="dir_2b3d25d3aff4b4c33c2f3f2247d6460c.html">Target</a></li><li class="navelem"><a href="usbd__conf_8c.html">usbd_conf.c</a></li>
+    <li class="footer">Generado el <span class="timestamp"></span> para MICRO-Firmware por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

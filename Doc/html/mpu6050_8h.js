@@ -1,0 +1,26 @@
+var mpu6050_8h =
+[
+    [ "ACCEL_CONFIG_REG", "group___m_p_u6050___registers.html#gad1d05dc09d0025498687ab7e30ffd4e4", null ],
+    [ "ACCEL_XOUT_H_REG", "group___m_p_u6050___registers.html#ga12d3f98f5ae302f7aab5895be9388d69", null ],
+    [ "CONFIG_REG", "group___m_p_u6050___registers.html#gaf81594fa2c83e52e601f2e4a1d81d8bc", null ],
+    [ "GYRO_CONFIG_REG", "group___m_p_u6050___registers.html#ga5b1b1a1ea1298b67cdab17a7213c6356", null ],
+    [ "GYRO_XOUT_H_REG", "group___m_p_u6050___registers.html#gae2681bec6196f74ae52136e8af1a4dcf", null ],
+    [ "MPU6050_ADDR", "group___m_p_u6050___registers.html#gad4d6255d8f7e5dc770e773b787977508", null ],
+    [ "MULTIPLICADORFLOAT", "group___m_p_u6050___calibration.html#ga32c4bb7fad1e1a4e3a3cdc51c0e91f10", null ],
+    [ "OFFSET_AX", "group___m_p_u6050___calibration.html#ga2fe73e9ca8a2959ad0724c0488af023d", null ],
+    [ "OFFSET_AY", "group___m_p_u6050___calibration.html#ga26c4723b38a2c1862ee06bc893e4c608", null ],
+    [ "OFFSET_AZ", "group___m_p_u6050___calibration.html#ga7d1c6af1c047743b5f699e1887cc288d", null ],
+    [ "OFFSET_GX", "group___m_p_u6050___calibration.html#gaa1de8ac21ef49c0f259db92f8098f23f", null ],
+    [ "OFFSET_GY", "group___m_p_u6050___calibration.html#ga72876ea6e0d9f1e6374dfc479594ed54", null ],
+    [ "OFFSET_GZ", "group___m_p_u6050___calibration.html#ga8b454708a3c084ab2b678713ec060b59", null ],
+    [ "PWR_MGMT_1_REG", "group___m_p_u6050___registers.html#gaf9bd016ab99b299a4816433252e31c3d", null ],
+    [ "SMPLRT_DIV_REG", "group___m_p_u6050___registers.html#gaa2208da6faf439107b23dee629bb8398", null ],
+    [ "WHO_AM_I_REG", "group___m_p_u6050___registers.html#ga7e23ffa5bb718d06bcee89bbdf844ed8", null ],
+    [ "mpu6050_ADC_ConfCpltCallback", "mpu6050_8h.html#a2864ec8a15ced6016fe62257bea31262", null ],
+    [ "mpu6050_Attach_MemReadDMA", "mpu6050_8h.html#adf4f13f79245b1e0e41a105890ab2d9f", null ],
+    [ "mpu6050_Attach_MemWrite", "mpu6050_8h.html#a0e9583f99e3050282c81ef580a5fa90b", null ],
+    [ "mpu6050_GetData", "mpu6050_8h.html#a0d2422b0bd5bcfba247b703c9f82057e", null ],
+    [ "mpu6050_Init", "mpu6050_8h.html#a8c5131d4f6387709825f77368430fdf4", null ],
+    [ "mpu6050_Read", "mpu6050_8h.html#aace5fea3888e51a75e8bfb77bae17b80", null ],
+    [ "mpu6050_Reset_State", "mpu6050_8h.html#a9211023060608ef2cae3642ca8406845", null ]
+];

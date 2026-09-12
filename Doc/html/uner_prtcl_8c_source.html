@@ -1,0 +1,377 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>MICRO-Firmware: Archivo de código fuente unerPrtcl.c</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="codefolding.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">MICRO-Firmware<span id="projectnumber">&#160;EX100923v01</span>
+   </div>
+   <div id="projectbrief">Firmware de Péndulo Invertido Autónomo de Dos Ruedas (STM32F103C8T6 - ARM Cortex-M3)</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Buscar" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('uner_prtcl_8c_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">unerPrtcl.c</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="uner_prtcl_8c.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment"> * @file   unerPrtcl.c</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment"> * @author Gonzalo M. Buffa</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"> * @date   24/05/2025</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment"> * @brief  Implementación de las rutinas del protocolo binario UNER (unerPrtcl).</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment"> * @details Este archivo contiene las funciones de serialización, cálculo de Checksum por XOR,</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment"> *          gestión de punteros circulares e implementación de la máquina de estados finita</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment"> *          para la detección y validación de tramas de telemetría y telemando.</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment"> * @ingroup group_comm</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;<a class="code" href="util_8h.html">util.h</a>&quot;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;stdint.h&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;<a class="code" href="uner_prtcl_8h.html">unerPrtcl.h</a>&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &quot;<a class="code" href="main_8h.html">main.h</a>&quot;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="comment"></span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="comment"> * @brief Inicializa los descriptores de buffer circular de comunicación.</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="comment"> * @details Asigna los arrays de memoria física, resetea índices de lectura/escritura a cero</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="comment"> *          y calcula la máscara de truncamiento circular `(BUFFER_SIZE - 1)`.</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="comment"> */</span></div>
+<div class="foldopen" id="foldopen00022" data-start="{" data-end="}">
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="uner_prtcl_8h.html#aa8fac5dc4971170d30eea4293610ff6a">   22</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="uner_prtcl_8h.html#aa8fac5dc4971170d30eea4293610ff6a">unerPrtcl_Init</a>(<a class="code hl_struct" href="struct__s_comm.html">_sComm</a> *Rx, <a class="code hl_struct" href="struct__s_comm.html">_sComm</a> *Tx, <span class="keyword">volatile</span> uint8_t *buffRx, <span class="keyword">volatile</span> uint8_t *buffTx){</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    Rx-&gt;<a class="code hl_variable" href="struct__s_comm.html#af98abf2aa4782e55090f0e45d1de6179">buff</a> = (uint8_t *)buffRx;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    Rx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a8287f373ec66cbbd22abcb9ae2afbcc3">indexR</a> = 0;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    Rx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a303b5083a43fafda1988383c867def58">indexW</a> = 0;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    Rx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a993748510567de672c1fdb4ac6a7aa62">indexData</a> = 0;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    Rx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a355bb36a4ee2e19b8328e3be50f5ca13">nBytes</a> = 0;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    Rx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a0b3790f0861ce221123059be7fd3e213">header</a> = <a class="code hl_enumvalue" href="uner_prtcl_8h.html#ad21e16d74a232edf49d5d058f38cd1ddab7875c3491a47307d4661d3f6aeac81b">HEADER_U</a>;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    Rx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a00384445982ef80bdf9d72b66967315c">mask</a> = <a class="code hl_define" href="group___protocol___config.html#ga4a941b75a2cf56698a1e769d8214fd50">RXBUFSIZE</a> - 1; <span class="comment">// Control de buffer circular por máscara bit a bit (2^N - 1)</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    Rx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a57b30fb527a77eb5fd483e7ed8afd31f">chk</a> = 0;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    Tx-&gt;<a class="code hl_variable" href="struct__s_comm.html#af98abf2aa4782e55090f0e45d1de6179">buff</a> = (uint8_t *)buffTx;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    Tx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a8287f373ec66cbbd22abcb9ae2afbcc3">indexR</a> = 0;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    Tx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a303b5083a43fafda1988383c867def58">indexW</a> = 0;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    Tx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a993748510567de672c1fdb4ac6a7aa62">indexData</a> = 0;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    Tx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a355bb36a4ee2e19b8328e3be50f5ca13">nBytes</a> = 0;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    Tx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a0b3790f0861ce221123059be7fd3e213">header</a> = <a class="code hl_enumvalue" href="uner_prtcl_8h.html#ad21e16d74a232edf49d5d058f38cd1ddab7875c3491a47307d4661d3f6aeac81b">HEADER_U</a>;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    Tx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a00384445982ef80bdf9d72b66967315c">mask</a> = <a class="code hl_define" href="group___protocol___config.html#ga9a01f28179d1f97c65ac28919f6f1cdb">TXBUFSIZE</a> - 1;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    Tx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a57b30fb527a77eb5fd483e7ed8afd31f">chk</a> = 0;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>}</div>
+</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="comment"></span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="comment"> * @brief Escribe el encabezado estructurado del protocolo UNER en el buffer de transmisión.</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="comment"> * @details Secuencia inyectada:</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="comment"> *          1. Sync chars: &#39;U&#39;, &#39;N&#39;, &#39;E&#39;, &#39;R&#39;</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="comment"> *          2. Longitud total: frameLength + 1</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="comment"> *          3. Delimitador: &#39;:&#39;</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="comment"> *          4. Identificador de comando: ID</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="comment"> *          Calcula el Checksum preliminar mediante XOR acumulado sobre todos los campos.</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="comment"> */</span></div>
+<div class="foldopen" id="foldopen00051" data-start="{" data-end="}">
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="uner_prtcl_8h.html#aa0410c21f4e99d450a536cb4b441cbd7">   51</a></span>uint8_t <a class="code hl_function" href="uner_prtcl_8h.html#aa0410c21f4e99d450a536cb4b441cbd7">unerPrtcl_PutHeaderOnTx</a>(<a class="code hl_struct" href="struct__s_comm.html">_sComm</a>  *dataTx, uint8_t <a class="code hl_enumvalue" href="uner_prtcl_8h.html#ad21e16d74a232edf49d5d058f38cd1dda001479a58fb44c39a29b20d565081a68">ID</a>, uint8_t frameLength)</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>{</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    frameLength++;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    dataTx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a57b30fb527a77eb5fd483e7ed8afd31f">chk</a> = 0;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    dataTx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a993748510567de672c1fdb4ac6a7aa62">indexData</a> = dataTx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a303b5083a43fafda1988383c867def58">indexW</a>;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    dataTx-&gt;<a class="code hl_variable" href="struct__s_comm.html#af98abf2aa4782e55090f0e45d1de6179">buff</a>[dataTx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a303b5083a43fafda1988383c867def58">indexW</a>++]=<span class="charliteral">&#39;U&#39;</span>;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    dataTx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a303b5083a43fafda1988383c867def58">indexW</a> &amp;= dataTx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a00384445982ef80bdf9d72b66967315c">mask</a>;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    dataTx-&gt;<a class="code hl_variable" href="struct__s_comm.html#af98abf2aa4782e55090f0e45d1de6179">buff</a>[dataTx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a303b5083a43fafda1988383c867def58">indexW</a>++]=<span class="charliteral">&#39;N&#39;</span>;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    dataTx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a303b5083a43fafda1988383c867def58">indexW</a> &amp;= dataTx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a00384445982ef80bdf9d72b66967315c">mask</a>;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    dataTx-&gt;<a class="code hl_variable" href="struct__s_comm.html#af98abf2aa4782e55090f0e45d1de6179">buff</a>[dataTx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a303b5083a43fafda1988383c867def58">indexW</a>++]=<span class="charliteral">&#39;E&#39;</span>;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    dataTx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a303b5083a43fafda1988383c867def58">indexW</a> &amp;= dataTx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a00384445982ef80bdf9d72b66967315c">mask</a>;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    dataTx-&gt;<a class="code hl_variable" href="struct__s_comm.html#af98abf2aa4782e55090f0e45d1de6179">buff</a>[dataTx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a303b5083a43fafda1988383c867def58">indexW</a>++]=<span class="charliteral">&#39;R&#39;</span>;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    dataTx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a303b5083a43fafda1988383c867def58">indexW</a> &amp;= dataTx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a00384445982ef80bdf9d72b66967315c">mask</a>;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    dataTx-&gt;<a class="code hl_variable" href="struct__s_comm.html#af98abf2aa4782e55090f0e45d1de6179">buff</a>[dataTx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a303b5083a43fafda1988383c867def58">indexW</a>++]=frameLength;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    dataTx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a303b5083a43fafda1988383c867def58">indexW</a> &amp;= dataTx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a00384445982ef80bdf9d72b66967315c">mask</a>;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    dataTx-&gt;<a class="code hl_variable" href="struct__s_comm.html#af98abf2aa4782e55090f0e45d1de6179">buff</a>[dataTx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a303b5083a43fafda1988383c867def58">indexW</a>++]=<span class="charliteral">&#39;:&#39;</span>;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    dataTx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a303b5083a43fafda1988383c867def58">indexW</a> &amp;= dataTx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a00384445982ef80bdf9d72b66967315c">mask</a>;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    dataTx-&gt;<a class="code hl_variable" href="struct__s_comm.html#af98abf2aa4782e55090f0e45d1de6179">buff</a>[dataTx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a303b5083a43fafda1988383c867def58">indexW</a>++]=<a class="code hl_enumvalue" href="uner_prtcl_8h.html#ad21e16d74a232edf49d5d058f38cd1dda001479a58fb44c39a29b20d565081a68">ID</a>;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    dataTx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a303b5083a43fafda1988383c867def58">indexW</a> &amp;= dataTx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a00384445982ef80bdf9d72b66967315c">mask</a>;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    dataTx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a355bb36a4ee2e19b8328e3be50f5ca13">nBytes</a> = <a class="code hl_define" href="group___protocol___config.html#ga9f180f03f3cd38aadc9e61001ba8d872">TXBYTES</a>;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    dataTx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a57b30fb527a77eb5fd483e7ed8afd31f">chk</a> ^= (<span class="charliteral">&#39;U&#39;</span> ^<span class="charliteral">&#39;N&#39;</span> ^<span class="charliteral">&#39;E&#39;</span> ^<span class="charliteral">&#39;R&#39;</span> ^frameLength ^<span class="charliteral">&#39;:&#39;</span>^<a class="code hl_enumvalue" href="uner_prtcl_8h.html#ad21e16d74a232edf49d5d058f38cd1dda001479a58fb44c39a29b20d565081a68">ID</a>) ;</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <span class="keywordflow">return</span>  dataTx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a57b30fb527a77eb5fd483e7ed8afd31f">chk</a>;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>}</div>
+</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="comment"></span> </div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="comment"> * @brief Inserta un byte de datos en el buffer de transmisión y actualiza el Checksum.</span></div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="comment"> */</span></div>
+<div class="foldopen" id="foldopen00081" data-start="{" data-end="}">
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno"><a class="line" href="uner_prtcl_8h.html#ae0795132a4bcbd1e1060607356565f44">   81</a></span>uint8_t <a class="code hl_function" href="uner_prtcl_8h.html#ae0795132a4bcbd1e1060607356565f44">unerPrtcl_PutByteOnTx</a>(<a class="code hl_struct" href="struct__s_comm.html">_sComm</a> *dataTx, uint8_t <span class="keywordtype">byte</span>)</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>{</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    dataTx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a355bb36a4ee2e19b8328e3be50f5ca13">nBytes</a>++;</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    dataTx-&gt;<a class="code hl_variable" href="struct__s_comm.html#af98abf2aa4782e55090f0e45d1de6179">buff</a>[dataTx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a303b5083a43fafda1988383c867def58">indexW</a>++]=byte;</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    dataTx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a303b5083a43fafda1988383c867def58">indexW</a> &amp;= dataTx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a00384445982ef80bdf9d72b66967315c">mask</a>;</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    dataTx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a57b30fb527a77eb5fd483e7ed8afd31f">chk</a> ^= byte;</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <span class="keywordflow">return</span> dataTx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a57b30fb527a77eb5fd483e7ed8afd31f">chk</a>;</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>}</div>
+</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="comment"></span> </div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="comment"> * @brief Inserta una cadena de texto en el buffer de salida hasta encontrar el terminador nulo.</span></div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="comment"> */</span></div>
+<div class="foldopen" id="foldopen00093" data-start="{" data-end="}">
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno"><a class="line" href="uner_prtcl_8h.html#a2dcd5afe9599da1e067db58bfa362b0c">   93</a></span>uint8_t <a class="code hl_function" href="uner_prtcl_8h.html#a2dcd5afe9599da1e067db58bfa362b0c">unerPrtcl_PutStrOntx</a>(<a class="code hl_struct" href="struct__s_comm.html">_sComm</a> *dataTx, <span class="keyword">const</span> <span class="keywordtype">char</span> *str)</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>{</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    <span class="keyword">volatile</span> uint8_t globalIndex=0;</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    <span class="keywordflow">while</span>(str[globalIndex]){</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        dataTx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a355bb36a4ee2e19b8328e3be50f5ca13">nBytes</a>++;</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        dataTx-&gt;<a class="code hl_variable" href="struct__s_comm.html#af98abf2aa4782e55090f0e45d1de6179">buff</a>[dataTx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a303b5083a43fafda1988383c867def58">indexW</a>++]=str[globalIndex];</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        dataTx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a303b5083a43fafda1988383c867def58">indexW</a> &amp;= dataTx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a00384445982ef80bdf9d72b66967315c">mask</a>;</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        dataTx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a57b30fb527a77eb5fd483e7ed8afd31f">chk</a> ^= str[globalIndex++];</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    }</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    <span class="keywordflow">return</span> dataTx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a57b30fb527a77eb5fd483e7ed8afd31f">chk</a>;</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>}</div>
+</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span><span class="comment"></span> </div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span><span class="comment"> * @brief Lee un byte del buffer de recepción aplicando índices de desplazamiento seguro.</span></div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span><span class="comment"> */</span></div>
+<div class="foldopen" id="foldopen00108" data-start="{" data-end="}">
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno"><a class="line" href="uner_prtcl_8h.html#add444fe6464e23f221a183e912beff80">  108</a></span>uint8_t <a class="code hl_function" href="uner_prtcl_8h.html#add444fe6464e23f221a183e912beff80">unerPrtcl_GetByteFromRx</a>(<a class="code hl_struct" href="struct__s_comm.html">_sComm</a> *dataRx, uint8_t start, uint8_t end) {</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    uint8_t getByte;</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    dataRx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a993748510567de672c1fdb4ac6a7aa62">indexData</a> += start;</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    dataRx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a993748510567de672c1fdb4ac6a7aa62">indexData</a> &amp;= dataRx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a00384445982ef80bdf9d72b66967315c">mask</a>;</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    getByte = dataRx-&gt;<a class="code hl_variable" href="struct__s_comm.html#af98abf2aa4782e55090f0e45d1de6179">buff</a>[dataRx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a993748510567de672c1fdb4ac6a7aa62">indexData</a>];</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    dataRx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a993748510567de672c1fdb4ac6a7aa62">indexData</a> += end;</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    dataRx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a993748510567de672c1fdb4ac6a7aa62">indexData</a> &amp;= dataRx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a00384445982ef80bdf9d72b66967315c">mask</a>;</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    <span class="keywordflow">return</span> getByte;</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>}</div>
+</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span><span class="comment"></span> </div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span><span class="comment"> * @brief Decodifica secuencialmente la cabecera y el payload de tramas entrantes.</span></div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span><span class="comment"> * @details Implementa una máquina de estados para detectar el preámbulo &quot;UNER:&quot;.</span></div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span><span class="comment"> *          Una vez localizado el delimitador &#39;:&#39;, extrae el payload restando bytes</span></div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span><span class="comment"> *          hasta llegar al último, el cual debe coincidir con el checksum acumulado.</span></div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span><span class="comment"> */</span></div>
+<div class="foldopen" id="foldopen00124" data-start="{" data-end="}">
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno"><a class="line" href="uner_prtcl_8h.html#a5dc19a0d6be5a36353d8a8570c58345c">  124</a></span>uint8_t <a class="code hl_function" href="uner_prtcl_8h.html#a5dc19a0d6be5a36353d8a8570c58345c">unerPrtcl_DecodeHeader</a>(<a class="code hl_struct" href="struct__s_comm.html">_sComm</a> *dataRx)</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>{</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    uint8_t auxIndex=dataRx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a303b5083a43fafda1988383c867def58">indexW</a>;</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span> </div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    <span class="comment">// Procesar todos los bytes acumulados en el buffer circular</span></div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    <span class="keywordflow">while</span>(dataRx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a8287f373ec66cbbd22abcb9ae2afbcc3">indexR</a> != auxIndex){</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>        <span class="keywordflow">switch</span>(dataRx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a0b3790f0861ce221123059be7fd3e213">header</a>)</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>        {</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>            <span class="comment">// Sincronismo 1: Detección de &#39;U&#39;</span></div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>            <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="uner_prtcl_8h.html#ad21e16d74a232edf49d5d058f38cd1ddab7875c3491a47307d4661d3f6aeac81b">HEADER_U</a>:</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>                <span class="keywordflow">if</span>(dataRx-&gt;<a class="code hl_variable" href="struct__s_comm.html#af98abf2aa4782e55090f0e45d1de6179">buff</a>[dataRx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a8287f373ec66cbbd22abcb9ae2afbcc3">indexR</a>] == <span class="charliteral">&#39;U&#39;</span>){</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>                    dataRx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a0b3790f0861ce221123059be7fd3e213">header</a> = <a class="code hl_enumvalue" href="uner_prtcl_8h.html#ad21e16d74a232edf49d5d058f38cd1ddac7830e832b05b02d669346ec772d5cee">HEADER_N</a>;</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>                }</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>            <span class="comment">// Sincronismo 2: Detección de &#39;N&#39;</span></div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>            <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="uner_prtcl_8h.html#ad21e16d74a232edf49d5d058f38cd1ddac7830e832b05b02d669346ec772d5cee">HEADER_N</a>:</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>                <span class="keywordflow">if</span>(dataRx-&gt;<a class="code hl_variable" href="struct__s_comm.html#af98abf2aa4782e55090f0e45d1de6179">buff</a>[dataRx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a8287f373ec66cbbd22abcb9ae2afbcc3">indexR</a>] == <span class="charliteral">&#39;N&#39;</span>){</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>                    dataRx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a0b3790f0861ce221123059be7fd3e213">header</a> = <a class="code hl_enumvalue" href="uner_prtcl_8h.html#ad21e16d74a232edf49d5d058f38cd1dda8145203438c52dabc48cf15d4c339026">HEADER_E</a>;</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>                }<span class="keywordflow">else</span>{</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>                    <span class="keywordflow">if</span>(dataRx-&gt;<a class="code hl_variable" href="struct__s_comm.html#af98abf2aa4782e55090f0e45d1de6179">buff</a>[dataRx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a8287f373ec66cbbd22abcb9ae2afbcc3">indexR</a>] != <span class="charliteral">&#39;U&#39;</span>){</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>                        dataRx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a0b3790f0861ce221123059be7fd3e213">header</a> = <a class="code hl_enumvalue" href="uner_prtcl_8h.html#ad21e16d74a232edf49d5d058f38cd1ddab7875c3491a47307d4661d3f6aeac81b">HEADER_U</a>;</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>                        dataRx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a8287f373ec66cbbd22abcb9ae2afbcc3">indexR</a>--; <span class="comment">// Retroceder para no perder una &#39;U&#39; contigua</span></div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>                    }</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>                }</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>            <span class="comment">// Sincronismo 3: Detección de &#39;E&#39;</span></div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>            <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="uner_prtcl_8h.html#ad21e16d74a232edf49d5d058f38cd1dda8145203438c52dabc48cf15d4c339026">HEADER_E</a>:</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>                <span class="keywordflow">if</span>(dataRx-&gt;<a class="code hl_variable" href="struct__s_comm.html#af98abf2aa4782e55090f0e45d1de6179">buff</a>[dataRx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a8287f373ec66cbbd22abcb9ae2afbcc3">indexR</a>] == <span class="charliteral">&#39;E&#39;</span>){</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>                    dataRx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a0b3790f0861ce221123059be7fd3e213">header</a> = <a class="code hl_enumvalue" href="uner_prtcl_8h.html#ad21e16d74a232edf49d5d058f38cd1ddade6c7efad424d5710e780ae5258b9b0a">HEADER_R</a>;</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>                }<span class="keywordflow">else</span>{</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>                    dataRx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a0b3790f0861ce221123059be7fd3e213">header</a> = <a class="code hl_enumvalue" href="uner_prtcl_8h.html#ad21e16d74a232edf49d5d058f38cd1ddab7875c3491a47307d4661d3f6aeac81b">HEADER_U</a>;</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>                    dataRx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a8287f373ec66cbbd22abcb9ae2afbcc3">indexR</a>--;</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>                }</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>            <span class="comment">// Sincronismo 4: Detección de &#39;R&#39;</span></div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>            <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="uner_prtcl_8h.html#ad21e16d74a232edf49d5d058f38cd1ddade6c7efad424d5710e780ae5258b9b0a">HEADER_R</a>:</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>                <span class="keywordflow">if</span>(dataRx-&gt;<a class="code hl_variable" href="struct__s_comm.html#af98abf2aa4782e55090f0e45d1de6179">buff</a>[dataRx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a8287f373ec66cbbd22abcb9ae2afbcc3">indexR</a>] == <span class="charliteral">&#39;R&#39;</span>){</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>                    dataRx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a0b3790f0861ce221123059be7fd3e213">header</a> = <a class="code hl_enumvalue" href="uner_prtcl_8h.html#ad21e16d74a232edf49d5d058f38cd1ddab17ae6afccbbc8f8efc251eb72cfcf53">NBYTES</a>;</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>                }<span class="keywordflow">else</span>{</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>                    dataRx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a0b3790f0861ce221123059be7fd3e213">header</a> = <a class="code hl_enumvalue" href="uner_prtcl_8h.html#ad21e16d74a232edf49d5d058f38cd1ddab7875c3491a47307d4661d3f6aeac81b">HEADER_U</a>;</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>                    dataRx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a8287f373ec66cbbd22abcb9ae2afbcc3">indexR</a>--;</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>                }</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>            <span class="comment">// Lectura de la cantidad de bytes que componen el paquete</span></div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>            <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="uner_prtcl_8h.html#ad21e16d74a232edf49d5d058f38cd1ddab17ae6afccbbc8f8efc251eb72cfcf53">NBYTES</a>:</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>                dataRx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a355bb36a4ee2e19b8328e3be50f5ca13">nBytes</a>=dataRx-&gt;<a class="code hl_variable" href="struct__s_comm.html#af98abf2aa4782e55090f0e45d1de6179">buff</a>[dataRx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a8287f373ec66cbbd22abcb9ae2afbcc3">indexR</a>];</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>                dataRx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a0b3790f0861ce221123059be7fd3e213">header</a> = <a class="code hl_enumvalue" href="uner_prtcl_8h.html#ad21e16d74a232edf49d5d058f38cd1dda07fe54e18c187cac6548db45a3f3676a">TOKEN</a>;</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>            <span class="comment">// Delimitador de inicio de comando &#39;:&#39;</span></div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>            <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="uner_prtcl_8h.html#ad21e16d74a232edf49d5d058f38cd1dda07fe54e18c187cac6548db45a3f3676a">TOKEN</a>:</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>                <span class="keywordflow">if</span>(dataRx-&gt;<a class="code hl_variable" href="struct__s_comm.html#af98abf2aa4782e55090f0e45d1de6179">buff</a>[dataRx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a8287f373ec66cbbd22abcb9ae2afbcc3">indexR</a>] == <span class="charliteral">&#39;:&#39;</span>){</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>                    dataRx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a0b3790f0861ce221123059be7fd3e213">header</a> = <a class="code hl_enumvalue" href="uner_prtcl_8h.html#ad21e16d74a232edf49d5d058f38cd1dda14aa1c5c4852ea2d61eef4d73772ea65">PAYLOAD</a>;</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>                    dataRx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a993748510567de672c1fdb4ac6a7aa62">indexData</a> = dataRx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a8287f373ec66cbbd22abcb9ae2afbcc3">indexR</a>+1;</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>                    dataRx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a993748510567de672c1fdb4ac6a7aa62">indexData</a> &amp;= dataRx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a00384445982ef80bdf9d72b66967315c">mask</a>;</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>                    <span class="comment">// Inicializar acumulador de Checksum con el preámbulo validado</span></div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>                    dataRx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a57b30fb527a77eb5fd483e7ed8afd31f">chk</a> = 0;</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>                    dataRx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a57b30fb527a77eb5fd483e7ed8afd31f">chk</a> ^= (<span class="charliteral">&#39;U&#39;</span> ^<span class="charliteral">&#39;N&#39;</span> ^<span class="charliteral">&#39;E&#39;</span> ^<span class="charliteral">&#39;R&#39;</span> ^ dataRx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a355bb36a4ee2e19b8328e3be50f5ca13">nBytes</a> ^<span class="charliteral">&#39;:&#39;</span>) ;</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>                }<span class="keywordflow">else</span>{</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>                    dataRx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a0b3790f0861ce221123059be7fd3e213">header</a> = <a class="code hl_enumvalue" href="uner_prtcl_8h.html#ad21e16d74a232edf49d5d058f38cd1ddab7875c3491a47307d4661d3f6aeac81b">HEADER_U</a>;</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>                    dataRx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a8287f373ec66cbbd22abcb9ae2afbcc3">indexR</a>--;</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>                }</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>            <span class="comment">// Recepción del payload y validación de Checksum final</span></div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>            <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="uner_prtcl_8h.html#ad21e16d74a232edf49d5d058f38cd1dda14aa1c5c4852ea2d61eef4d73772ea65">PAYLOAD</a>:</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>                dataRx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a355bb36a4ee2e19b8328e3be50f5ca13">nBytes</a>--;</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>                <span class="keywordflow">if</span>(dataRx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a355bb36a4ee2e19b8328e3be50f5ca13">nBytes</a>&gt;0){</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>                   dataRx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a57b30fb527a77eb5fd483e7ed8afd31f">chk</a> ^= dataRx-&gt;<a class="code hl_variable" href="struct__s_comm.html#af98abf2aa4782e55090f0e45d1de6179">buff</a>[dataRx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a8287f373ec66cbbd22abcb9ae2afbcc3">indexR</a>];</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>                }<span class="keywordflow">else</span>{</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>                    dataRx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a0b3790f0861ce221123059be7fd3e213">header</a> = <a class="code hl_enumvalue" href="uner_prtcl_8h.html#ad21e16d74a232edf49d5d058f38cd1ddab7875c3491a47307d4661d3f6aeac81b">HEADER_U</a>;</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>                    <span class="comment">// Comprobación de integridad</span></div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>                    <span class="keywordflow">if</span>(dataRx-&gt;<a class="code hl_variable" href="struct__s_comm.html#af98abf2aa4782e55090f0e45d1de6179">buff</a>[dataRx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a8287f373ec66cbbd22abcb9ae2afbcc3">indexR</a>] == dataRx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a57b30fb527a77eb5fd483e7ed8afd31f">chk</a>)</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>                        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="util_8h.html#a48dec3f0bf02a2f3b11fb90ae0fc4d4caa82764c3079aea4e60c80e45befbb839">TRUE</a>; <span class="comment">// Trama completa y válida</span></div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>                }</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>            <span class="keywordflow">default</span>:</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>                dataRx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a0b3790f0861ce221123059be7fd3e213">header</a> = <a class="code hl_enumvalue" href="uner_prtcl_8h.html#ad21e16d74a232edf49d5d058f38cd1ddab7875c3491a47307d4661d3f6aeac81b">HEADER_U</a>;</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>        }</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>        dataRx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a8287f373ec66cbbd22abcb9ae2afbcc3">indexR</a>++;</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>        dataRx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a8287f373ec66cbbd22abcb9ae2afbcc3">indexR</a> &amp;= dataRx-&gt;<a class="code hl_variable" href="struct__s_comm.html#a00384445982ef80bdf9d72b66967315c">mask</a>;</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>    }</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="util_8h.html#a48dec3f0bf02a2f3b11fb90ae0fc4d4caa1e095cc966dbecf6a0d8aad75348d1a">FALSE</a>; <span class="comment">// Trama incompleta</span></div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>}</div>
+</div>
+<div class="ttc" id="agroup___protocol___config_html_ga4a941b75a2cf56698a1e769d8214fd50"><div class="ttname"><a href="group___protocol___config.html#ga4a941b75a2cf56698a1e769d8214fd50">RXBUFSIZE</a></div><div class="ttdeci">#define RXBUFSIZE</div><div class="ttdoc">Capacidad en bytes del buffer circular de recepción (debe ser potencia de 2).</div><div class="ttdef"><b>Definición</b> <a href="uner_prtcl_8h_source.html#l00022">unerPrtcl.h:22</a></div></div>
+<div class="ttc" id="agroup___protocol___config_html_ga9a01f28179d1f97c65ac28919f6f1cdb"><div class="ttname"><a href="group___protocol___config.html#ga9a01f28179d1f97c65ac28919f6f1cdb">TXBUFSIZE</a></div><div class="ttdeci">#define TXBUFSIZE</div><div class="ttdoc">Capacidad en bytes del buffer circular de transmisión (debe ser potencia de 2).</div><div class="ttdef"><b>Definición</b> <a href="uner_prtcl_8h_source.html#l00023">unerPrtcl.h:23</a></div></div>
+<div class="ttc" id="agroup___protocol___config_html_ga9f180f03f3cd38aadc9e61001ba8d872"><div class="ttname"><a href="group___protocol___config.html#ga9f180f03f3cd38aadc9e61001ba8d872">TXBYTES</a></div><div class="ttdeci">#define TXBYTES</div><div class="ttdoc">Longitud base en bytes del encabezado estándar de transmisión (&quot;UNER&quot; + Len + &#39;:&#39; + ID).</div><div class="ttdef"><b>Definición</b> <a href="uner_prtcl_8h_source.html#l00024">unerPrtcl.h:24</a></div></div>
+<div class="ttc" id="amain_8h_html"><div class="ttname"><a href="main_8h.html">main.h</a></div><div class="ttdoc">Cabecera principal de la aplicación, constantes de hardware y prototipos del sistema.</div></div>
+<div class="ttc" id="astruct__s_comm_html"><div class="ttname"><a href="struct__s_comm.html">_sComm</a></div><div class="ttdoc">Estructura de control de buffer circular para canales de comunicación (Rx/Tx).</div><div class="ttdef"><b>Definición</b> <a href="uner_prtcl_8h_source.html#l00046">unerPrtcl.h:46</a></div></div>
+<div class="ttc" id="astruct__s_comm_html_a00384445982ef80bdf9d72b66967315c"><div class="ttname"><a href="struct__s_comm.html#a00384445982ef80bdf9d72b66967315c">_sComm::mask</a></div><div class="ttdeci">uint8_t mask</div><div class="ttdoc">Máscara binaria para avance circular sin operación módulo ($2^N - 1$).</div><div class="ttdef"><b>Definición</b> <a href="uner_prtcl_8h_source.html#l00051">unerPrtcl.h:51</a></div></div>
+<div class="ttc" id="astruct__s_comm_html_a0b3790f0861ce221123059be7fd3e213"><div class="ttname"><a href="struct__s_comm.html#a0b3790f0861ce221123059be7fd3e213">_sComm::header</a></div><div class="ttdeci">uint8_t header</div><div class="ttdoc">Estado actual en la máquina de estados de sincronización de cabecera.</div><div class="ttdef"><b>Definición</b> <a href="uner_prtcl_8h_source.html#l00054">unerPrtcl.h:54</a></div></div>
+<div class="ttc" id="astruct__s_comm_html_a303b5083a43fafda1988383c867def58"><div class="ttname"><a href="struct__s_comm.html#a303b5083a43fafda1988383c867def58">_sComm::indexW</a></div><div class="ttdeci">uint8_t indexW</div><div class="ttdoc">Índice de escritura (Write Index) en el buffer circular.</div><div class="ttdef"><b>Definición</b> <a href="uner_prtcl_8h_source.html#l00049">unerPrtcl.h:49</a></div></div>
+<div class="ttc" id="astruct__s_comm_html_a355bb36a4ee2e19b8328e3be50f5ca13"><div class="ttname"><a href="struct__s_comm.html#a355bb36a4ee2e19b8328e3be50f5ca13">_sComm::nBytes</a></div><div class="ttdeci">uint8_t nBytes</div><div class="ttdoc">Contador de longitud de bytes recibidos o pendientes de despacho.</div><div class="ttdef"><b>Definición</b> <a href="uner_prtcl_8h_source.html#l00053">unerPrtcl.h:53</a></div></div>
+<div class="ttc" id="astruct__s_comm_html_a57b30fb527a77eb5fd483e7ed8afd31f"><div class="ttname"><a href="struct__s_comm.html#a57b30fb527a77eb5fd483e7ed8afd31f">_sComm::chk</a></div><div class="ttdeci">uint8_t chk</div><div class="ttdoc">Acumulador de Checksum por operación XOR para la trama activa.</div><div class="ttdef"><b>Definición</b> <a href="uner_prtcl_8h_source.html#l00052">unerPrtcl.h:52</a></div></div>
+<div class="ttc" id="astruct__s_comm_html_a8287f373ec66cbbd22abcb9ae2afbcc3"><div class="ttname"><a href="struct__s_comm.html#a8287f373ec66cbbd22abcb9ae2afbcc3">_sComm::indexR</a></div><div class="ttdeci">uint8_t indexR</div><div class="ttdoc">Índice de lectura (Read Index) en el buffer circular.</div><div class="ttdef"><b>Definición</b> <a href="uner_prtcl_8h_source.html#l00048">unerPrtcl.h:48</a></div></div>
+<div class="ttc" id="astruct__s_comm_html_a993748510567de672c1fdb4ac6a7aa62"><div class="ttname"><a href="struct__s_comm.html#a993748510567de672c1fdb4ac6a7aa62">_sComm::indexData</a></div><div class="ttdeci">uint8_t indexData</div><div class="ttdoc">Puntero al byte inicial de datos útiles (Payload) dentro del buffer.</div><div class="ttdef"><b>Definición</b> <a href="uner_prtcl_8h_source.html#l00050">unerPrtcl.h:50</a></div></div>
+<div class="ttc" id="astruct__s_comm_html_af98abf2aa4782e55090f0e45d1de6179"><div class="ttname"><a href="struct__s_comm.html#af98abf2aa4782e55090f0e45d1de6179">_sComm::buff</a></div><div class="ttdeci">uint8_t * buff</div><div class="ttdoc">Puntero al array de memoria física asignado al buffer.</div><div class="ttdef"><b>Definición</b> <a href="uner_prtcl_8h_source.html#l00047">unerPrtcl.h:47</a></div></div>
+<div class="ttc" id="auner_prtcl_8h_html"><div class="ttname"><a href="uner_prtcl_8h.html">unerPrtcl.h</a></div><div class="ttdoc">Definiciones y primitivas del protocolo de comunicación binario UNER (unerPrtcl).</div></div>
+<div class="ttc" id="auner_prtcl_8h_html_a2dcd5afe9599da1e067db58bfa362b0c"><div class="ttname"><a href="uner_prtcl_8h.html#a2dcd5afe9599da1e067db58bfa362b0c">unerPrtcl_PutStrOntx</a></div><div class="ttdeci">uint8_t unerPrtcl_PutStrOntx(_sComm *dataTx, const char *str)</div><div class="ttdoc">Inserta una cadena de caracteres terminada en nulo (\0) en el buffer de transmisión.</div><div class="ttdef"><b>Definición</b> <a href="#l00093">unerPrtcl.c:93</a></div></div>
+<div class="ttc" id="auner_prtcl_8h_html_a5dc19a0d6be5a36353d8a8570c58345c"><div class="ttname"><a href="uner_prtcl_8h.html#a5dc19a0d6be5a36353d8a8570c58345c">unerPrtcl_DecodeHeader</a></div><div class="ttdeci">uint8_t unerPrtcl_DecodeHeader(_sComm *dataRx)</div><div class="ttdoc">Ejecuta la máquina de estados de decodificación de cabeceras sobre los datos recibidos.</div><div class="ttdef"><b>Definición</b> <a href="#l00124">unerPrtcl.c:124</a></div></div>
+<div class="ttc" id="auner_prtcl_8h_html_aa0410c21f4e99d450a536cb4b441cbd7"><div class="ttname"><a href="uner_prtcl_8h.html#aa0410c21f4e99d450a536cb4b441cbd7">unerPrtcl_PutHeaderOnTx</a></div><div class="ttdeci">uint8_t unerPrtcl_PutHeaderOnTx(_sComm *dataTx, uint8_t ID, uint8_t frameLength)</div><div class="ttdoc">Escribe el encabezado estándar del protocolo UNER en el buffer de transmisión.</div><div class="ttdef"><b>Definición</b> <a href="#l00051">unerPrtcl.c:51</a></div></div>
+<div class="ttc" id="auner_prtcl_8h_html_aa8fac5dc4971170d30eea4293610ff6a"><div class="ttname"><a href="uner_prtcl_8h.html#aa8fac5dc4971170d30eea4293610ff6a">unerPrtcl_Init</a></div><div class="ttdeci">void unerPrtcl_Init(_sComm *Rx, _sComm *Tx, volatile uint8_t *buffRx, volatile uint8_t *buffTx)</div><div class="ttdoc">Inicializa las estructuras de comunicación circular para transmisión y recepción.</div><div class="ttdef"><b>Definición</b> <a href="#l00022">unerPrtcl.c:22</a></div></div>
+<div class="ttc" id="auner_prtcl_8h_html_ad21e16d74a232edf49d5d058f38cd1dda001479a58fb44c39a29b20d565081a68"><div class="ttname"><a href="uner_prtcl_8h.html#ad21e16d74a232edf49d5d058f38cd1dda001479a58fb44c39a29b20d565081a68">ID</a></div><div class="ttdeci">@ ID</div><div class="ttdoc">Leyendo el identificador del comando (_eCmd).</div><div class="ttdef"><b>Definición</b> <a href="uner_prtcl_8h_source.html#l00069">unerPrtcl.h:69</a></div></div>
+<div class="ttc" id="auner_prtcl_8h_html_ad21e16d74a232edf49d5d058f38cd1dda07fe54e18c187cac6548db45a3f3676a"><div class="ttname"><a href="uner_prtcl_8h.html#ad21e16d74a232edf49d5d058f38cd1dda07fe54e18c187cac6548db45a3f3676a">TOKEN</a></div><div class="ttdeci">@ TOKEN</div><div class="ttdoc">Esperando el delimitador de comando &#39;:&#39;.</div><div class="ttdef"><b>Definición</b> <a href="uner_prtcl_8h_source.html#l00068">unerPrtcl.h:68</a></div></div>
+<div class="ttc" id="auner_prtcl_8h_html_ad21e16d74a232edf49d5d058f38cd1dda14aa1c5c4852ea2d61eef4d73772ea65"><div class="ttname"><a href="uner_prtcl_8h.html#ad21e16d74a232edf49d5d058f38cd1dda14aa1c5c4852ea2d61eef4d73772ea65">PAYLOAD</a></div><div class="ttdeci">@ PAYLOAD</div><div class="ttdoc">Recibiendo el cuerpo de datos útiles y validando el checksum final.</div><div class="ttdef"><b>Definición</b> <a href="uner_prtcl_8h_source.html#l00070">unerPrtcl.h:70</a></div></div>
+<div class="ttc" id="auner_prtcl_8h_html_ad21e16d74a232edf49d5d058f38cd1dda8145203438c52dabc48cf15d4c339026"><div class="ttname"><a href="uner_prtcl_8h.html#ad21e16d74a232edf49d5d058f38cd1dda8145203438c52dabc48cf15d4c339026">HEADER_E</a></div><div class="ttdeci">@ HEADER_E</div><div class="ttdoc">Esperando el tercer carácter de sincronismo &#39;E&#39;.</div><div class="ttdef"><b>Definición</b> <a href="uner_prtcl_8h_source.html#l00065">unerPrtcl.h:65</a></div></div>
+<div class="ttc" id="auner_prtcl_8h_html_ad21e16d74a232edf49d5d058f38cd1ddab17ae6afccbbc8f8efc251eb72cfcf53"><div class="ttname"><a href="uner_prtcl_8h.html#ad21e16d74a232edf49d5d058f38cd1ddab17ae6afccbbc8f8efc251eb72cfcf53">NBYTES</a></div><div class="ttdeci">@ NBYTES</div><div class="ttdoc">Leyendo el byte que define la longitud de la trama.</div><div class="ttdef"><b>Definición</b> <a href="uner_prtcl_8h_source.html#l00067">unerPrtcl.h:67</a></div></div>
+<div class="ttc" id="auner_prtcl_8h_html_ad21e16d74a232edf49d5d058f38cd1ddab7875c3491a47307d4661d3f6aeac81b"><div class="ttname"><a href="uner_prtcl_8h.html#ad21e16d74a232edf49d5d058f38cd1ddab7875c3491a47307d4661d3f6aeac81b">HEADER_U</a></div><div class="ttdeci">@ HEADER_U</div><div class="ttdoc">Esperando el carácter de sincronismo inicial &#39;U&#39;.</div><div class="ttdef"><b>Definición</b> <a href="uner_prtcl_8h_source.html#l00063">unerPrtcl.h:63</a></div></div>
+<div class="ttc" id="auner_prtcl_8h_html_ad21e16d74a232edf49d5d058f38cd1ddac7830e832b05b02d669346ec772d5cee"><div class="ttname"><a href="uner_prtcl_8h.html#ad21e16d74a232edf49d5d058f38cd1ddac7830e832b05b02d669346ec772d5cee">HEADER_N</a></div><div class="ttdeci">@ HEADER_N</div><div class="ttdoc">Esperando el segundo carácter de sincronismo &#39;N&#39;.</div><div class="ttdef"><b>Definición</b> <a href="uner_prtcl_8h_source.html#l00064">unerPrtcl.h:64</a></div></div>
+<div class="ttc" id="auner_prtcl_8h_html_ad21e16d74a232edf49d5d058f38cd1ddade6c7efad424d5710e780ae5258b9b0a"><div class="ttname"><a href="uner_prtcl_8h.html#ad21e16d74a232edf49d5d058f38cd1ddade6c7efad424d5710e780ae5258b9b0a">HEADER_R</a></div><div class="ttdeci">@ HEADER_R</div><div class="ttdoc">Esperando el cuarto carácter de sincronismo &#39;R&#39;.</div><div class="ttdef"><b>Definición</b> <a href="uner_prtcl_8h_source.html#l00066">unerPrtcl.h:66</a></div></div>
+<div class="ttc" id="auner_prtcl_8h_html_add444fe6464e23f221a183e912beff80"><div class="ttname"><a href="uner_prtcl_8h.html#add444fe6464e23f221a183e912beff80">unerPrtcl_GetByteFromRx</a></div><div class="ttdeci">uint8_t unerPrtcl_GetByteFromRx(_sComm *dataRx, uint8_t start, uint8_t end)</div><div class="ttdoc">Extrae un byte del buffer de recepción aplicando offsets relativos a la posición de datos.</div><div class="ttdef"><b>Definición</b> <a href="#l00108">unerPrtcl.c:108</a></div></div>
+<div class="ttc" id="auner_prtcl_8h_html_ae0795132a4bcbd1e1060607356565f44"><div class="ttname"><a href="uner_prtcl_8h.html#ae0795132a4bcbd1e1060607356565f44">unerPrtcl_PutByteOnTx</a></div><div class="ttdeci">uint8_t unerPrtcl_PutByteOnTx(_sComm *dataTx, uint8_t byte)</div><div class="ttdoc">Inserta un único byte en el buffer circular de transmisión y actualiza el Checksum.</div><div class="ttdef"><b>Definición</b> <a href="#l00081">unerPrtcl.c:81</a></div></div>
+<div class="ttc" id="autil_8h_html"><div class="ttname"><a href="util_8h.html">util.h</a></div><div class="ttdoc">Declaración de tipos fundamentales, enumeraciones, estructuras y uniones del proyecto.</div></div>
+<div class="ttc" id="autil_8h_html_a48dec3f0bf02a2f3b11fb90ae0fc4d4caa1e095cc966dbecf6a0d8aad75348d1a"><div class="ttname"><a href="util_8h.html#a48dec3f0bf02a2f3b11fb90ae0fc4d4caa1e095cc966dbecf6a0d8aad75348d1a">FALSE</a></div><div class="ttdeci">@ FALSE</div><div class="ttdoc">Estado lógico Falso (0).</div><div class="ttdef"><b>Definición</b> <a href="util_8h_source.html#l00022">util.h:22</a></div></div>
+<div class="ttc" id="autil_8h_html_a48dec3f0bf02a2f3b11fb90ae0fc4d4caa82764c3079aea4e60c80e45befbb839"><div class="ttname"><a href="util_8h.html#a48dec3f0bf02a2f3b11fb90ae0fc4d4caa82764c3079aea4e60c80e45befbb839">TRUE</a></div><div class="ttdeci">@ TRUE</div><div class="ttdoc">Estado lógico Verdadero (1).</div><div class="ttdef"><b>Definición</b> <a href="util_8h_source.html#l00023">util.h:23</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_c6310732a22f63c0c2fc5595561e68f1.html">Core</a></li><li class="navelem"><a href="dir_b596f468b52957496e4f78b80e029268.html">Src</a></li><li class="navelem"><a href="uner_prtcl_8c.html">unerPrtcl.c</a></li>
+    <li class="footer">Generado el <span class="timestamp"></span> para MICRO-Firmware por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

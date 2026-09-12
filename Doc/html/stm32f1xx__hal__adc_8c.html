@@ -1,0 +1,517 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>MICRO-Firmware: Referencia del archivo stm32f1xx_hal_adc.c</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="codefolding.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  extensions: ["tex2jax.js"],
+  jax: ["input/TeX","output/HTML-CSS"],
+});
+</script>
+<script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">MICRO-Firmware<span id="projectnumber">&#160;EX100923v01</span>
+   </div>
+   <div id="projectbrief">Firmware de Péndulo Invertido Autónomo de Dos Ruedas (STM32F103C8T6 - ARM Cortex-M3)</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Buscar" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('stm32f1xx__hal__adc_8c.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">Referencia del archivo stm32f1xx_hal_adc.c</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>This file provides firmware functions to manage the following functionalities of the Analog to Digital Convertor (ADC) peripheral:  
+<a href="#details">Más...</a></p>
+<div class="textblock"><code>#include &quot;<a class="el" href="stm32f1xx__hal_8h_source.html">stm32f1xx_hal.h</a>&quot;</code><br />
+</div><div class="textblock"><div id="dynsection-0" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de dependencias incluidas en stm32f1xx_hal_adc.c:</div>
+<div id="dynsection-0-summary" class="dynsummary">
+</div>
+<div id="dynsection-0-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="stm32f1xx__hal__adc_8c__incl.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+</div>
+<p><a href="stm32f1xx__hal__adc_8c_source.html">Ir al código fuente de este archivo.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
+defines</h2></td></tr>
+<tr class="memitem:ga2b268ea01bfa472a0c004fb34cc48c38" id="r_ga2b268ea01bfa472a0c004fb34cc48c38"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group___a_d_c___private___constants.html#ga2b268ea01bfa472a0c004fb34cc48c38">ADC_DISABLE_TIMEOUT</a>&#160;&#160;&#160;2U</td></tr>
+<tr class="memitem:gac60dabae20327f91cbd7c93bf1d5c40f" id="r_gac60dabae20327f91cbd7c93bf1d5c40f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group___a_d_c___private___constants.html#gac60dabae20327f91cbd7c93bf1d5c40f">ADC_ENABLE_TIMEOUT</a>&#160;&#160;&#160;2U</td></tr>
+<tr class="memitem:gad0d1562099d9e378dd1d33b3519cd0c2" id="r_gad0d1562099d9e378dd1d33b3519cd0c2"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group___a_d_c___private___constants.html#gad0d1562099d9e378dd1d33b3519cd0c2">ADC_STAB_DELAY_US</a>&#160;&#160;&#160;1U</td></tr>
+<tr class="memitem:gab57114ba262a4b64193617b22da005b0" id="r_gab57114ba262a4b64193617b22da005b0"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group___a_d_c___private___constants.html#gab57114ba262a4b64193617b22da005b0">ADC_TEMPSENSOR_DELAY_US</a>&#160;&#160;&#160;10U</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Funciones</h2></td></tr>
+<tr class="memitem:ga646e302bd6f80b1a063f31b556806630" id="r_ga646e302bd6f80b1a063f31b556806630"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___a_d_c___private___functions.html#ga646e302bd6f80b1a063f31b556806630">ADC_ConversionStop_Disable</a> (<a class="el" href="group___a_d_c___exported___types.html#ga46483fcdb7a528252920c304ec59d006">ADC_HandleTypeDef</a> *hadc)</td></tr>
+<tr class="memdesc:ga646e302bd6f80b1a063f31b556806630"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stop ADC conversion and disable the selected ADC.  <br /></td></tr>
+<tr class="memitem:ga055840e53820295bac4f4f0998ffcfb0" id="r_ga055840e53820295bac4f4f0998ffcfb0"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group___a_d_c___private___functions.html#ga055840e53820295bac4f4f0998ffcfb0">ADC_DMAConvCplt</a> (<a class="el" href="group___d_m_a___exported___types.html#ga41b754a906b86bce54dc79938970138b">DMA_HandleTypeDef</a> *hdma)</td></tr>
+<tr class="memdesc:ga055840e53820295bac4f4f0998ffcfb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">DMA transfer complete callback.  <br /></td></tr>
+<tr class="memitem:gaede41b9e917d64ad31fbbb8ae9fab79c" id="r_gaede41b9e917d64ad31fbbb8ae9fab79c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group___a_d_c___private___functions.html#gaede41b9e917d64ad31fbbb8ae9fab79c">ADC_DMAError</a> (<a class="el" href="group___d_m_a___exported___types.html#ga41b754a906b86bce54dc79938970138b">DMA_HandleTypeDef</a> *hdma)</td></tr>
+<tr class="memdesc:gaede41b9e917d64ad31fbbb8ae9fab79c"><td class="mdescLeft">&#160;</td><td class="mdescRight">DMA error callback.  <br /></td></tr>
+<tr class="memitem:ga27abcd16a928caf2b6c719ea67c12b25" id="r_ga27abcd16a928caf2b6c719ea67c12b25"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group___a_d_c___private___functions.html#ga27abcd16a928caf2b6c719ea67c12b25">ADC_DMAHalfConvCplt</a> (<a class="el" href="group___d_m_a___exported___types.html#ga41b754a906b86bce54dc79938970138b">DMA_HandleTypeDef</a> *hdma)</td></tr>
+<tr class="memdesc:ga27abcd16a928caf2b6c719ea67c12b25"><td class="mdescLeft">&#160;</td><td class="mdescRight">DMA half transfer complete callback.  <br /></td></tr>
+<tr class="memitem:ga034b9253bac7f083ec43b5b09873ebf1" id="r_ga034b9253bac7f083ec43b5b09873ebf1"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___a_d_c___private___functions.html#ga034b9253bac7f083ec43b5b09873ebf1">ADC_Enable</a> (<a class="el" href="group___a_d_c___exported___types.html#ga46483fcdb7a528252920c304ec59d006">ADC_HandleTypeDef</a> *hadc)</td></tr>
+<tr class="memdesc:ga034b9253bac7f083ec43b5b09873ebf1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable the selected ADC.  <br /></td></tr>
+<tr class="memitem:gaebd9d3c15de8c92e92e18ee38d1bd998" id="r_gaebd9d3c15de8c92e92e18ee38d1bd998"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___a_d_c___exported___functions___group3.html#gaebd9d3c15de8c92e92e18ee38d1bd998">HAL_ADC_AnalogWDGConfig</a> (<a class="el" href="group___a_d_c___exported___types.html#ga46483fcdb7a528252920c304ec59d006">ADC_HandleTypeDef</a> *hadc, <a class="el" href="struct_a_d_c___analog_w_d_g_conf_type_def.html">ADC_AnalogWDGConfTypeDef</a> *AnalogWDGConfig)</td></tr>
+<tr class="memdesc:gaebd9d3c15de8c92e92e18ee38d1bd998"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures the analog watchdog.  <br /></td></tr>
+<tr class="memitem:gac6f70c4927204d6f50ab44c8e4800106" id="r_gac6f70c4927204d6f50ab44c8e4800106"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___a_d_c___exported___functions___group3.html#gac6f70c4927204d6f50ab44c8e4800106">HAL_ADC_ConfigChannel</a> (<a class="el" href="group___a_d_c___exported___types.html#ga46483fcdb7a528252920c304ec59d006">ADC_HandleTypeDef</a> *hadc, <a class="el" href="struct_a_d_c___channel_conf_type_def.html">ADC_ChannelConfTypeDef</a> *sConfig)</td></tr>
+<tr class="memdesc:gac6f70c4927204d6f50ab44c8e4800106"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures the the selected channel to be linked to the regular group.  <br /></td></tr>
+<tr class="memitem:gaf20a88180db1113be1e89266917d148b" id="r_gaf20a88180db1113be1e89266917d148b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group___a_d_c___exported___functions___group2.html#gaf20a88180db1113be1e89266917d148b">HAL_ADC_ConvCpltCallback</a> (<a class="el" href="group___a_d_c___exported___types.html#ga46483fcdb7a528252920c304ec59d006">ADC_HandleTypeDef</a> *hadc)</td></tr>
+<tr class="memdesc:gaf20a88180db1113be1e89266917d148b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conversion complete callback in non blocking mode.  <br /></td></tr>
+<tr class="memitem:gad3a0db6cec6f9395f8bdae5f90dac47c" id="r_gad3a0db6cec6f9395f8bdae5f90dac47c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group___a_d_c___exported___functions___group2.html#gad3a0db6cec6f9395f8bdae5f90dac47c">HAL_ADC_ConvHalfCpltCallback</a> (<a class="el" href="group___a_d_c___exported___types.html#ga46483fcdb7a528252920c304ec59d006">ADC_HandleTypeDef</a> *hadc)</td></tr>
+<tr class="memdesc:gad3a0db6cec6f9395f8bdae5f90dac47c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conversion DMA half-transfer callback in non blocking mode.  <br /></td></tr>
+<tr class="memitem:ga165940b437c6a8843c6032199adbf0a8" id="r_ga165940b437c6a8843c6032199adbf0a8"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___a_d_c___exported___functions___group1.html#ga165940b437c6a8843c6032199adbf0a8">HAL_ADC_DeInit</a> (<a class="el" href="group___a_d_c___exported___types.html#ga46483fcdb7a528252920c304ec59d006">ADC_HandleTypeDef</a> *hadc)</td></tr>
+<tr class="memdesc:ga165940b437c6a8843c6032199adbf0a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deinitialize the ADC peripheral registers to their default reset values, with deinitialization of the ADC MSP.  <br /></td></tr>
+<tr class="memitem:gada16dcfe49fd020ec0b1ab130879ef6f" id="r_gada16dcfe49fd020ec0b1ab130879ef6f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group___a_d_c___exported___functions___group2.html#gada16dcfe49fd020ec0b1ab130879ef6f">HAL_ADC_ErrorCallback</a> (<a class="el" href="group___a_d_c___exported___types.html#ga46483fcdb7a528252920c304ec59d006">ADC_HandleTypeDef</a> *hadc)</td></tr>
+<tr class="memdesc:gada16dcfe49fd020ec0b1ab130879ef6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">ADC error callback in non blocking mode (ADC conversion with interruption or transfer by DMA).  <br /></td></tr>
+<tr class="memitem:ga3a546afb96f473f266573783f37ee8af" id="r_ga3a546afb96f473f266573783f37ee8af"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="group___a_d_c___exported___functions___group4.html#ga3a546afb96f473f266573783f37ee8af">HAL_ADC_GetError</a> (<a class="el" href="group___a_d_c___exported___types.html#ga46483fcdb7a528252920c304ec59d006">ADC_HandleTypeDef</a> *hadc)</td></tr>
+<tr class="memdesc:ga3a546afb96f473f266573783f37ee8af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the ADC error code.  <br /></td></tr>
+<tr class="memitem:ga894143f0fa1502ac0afa6eae8fdaadcc" id="r_ga894143f0fa1502ac0afa6eae8fdaadcc"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="group___a_d_c___exported___functions___group4.html#ga894143f0fa1502ac0afa6eae8fdaadcc">HAL_ADC_GetState</a> (<a class="el" href="group___a_d_c___exported___types.html#ga46483fcdb7a528252920c304ec59d006">ADC_HandleTypeDef</a> *hadc)</td></tr>
+<tr class="memdesc:ga894143f0fa1502ac0afa6eae8fdaadcc"><td class="mdescLeft">&#160;</td><td class="mdescRight">return the ADC state  <br /></td></tr>
+<tr class="memitem:ga421008ca3885339acb12f400958ffbe4" id="r_ga421008ca3885339acb12f400958ffbe4"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="group___a_d_c___exported___functions___group2.html#ga421008ca3885339acb12f400958ffbe4">HAL_ADC_GetValue</a> (<a class="el" href="group___a_d_c___exported___types.html#ga46483fcdb7a528252920c304ec59d006">ADC_HandleTypeDef</a> *hadc)</td></tr>
+<tr class="memdesc:ga421008ca3885339acb12f400958ffbe4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get ADC regular group conversion result.  <br /></td></tr>
+<tr class="memitem:ga33ddb73d4880bd425aaa43c5c52bb13a" id="r_ga33ddb73d4880bd425aaa43c5c52bb13a"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___a_d_c___exported___functions___group1.html#ga33ddb73d4880bd425aaa43c5c52bb13a">HAL_ADC_Init</a> (<a class="el" href="group___a_d_c___exported___types.html#ga46483fcdb7a528252920c304ec59d006">ADC_HandleTypeDef</a> *hadc)</td></tr>
+<tr class="memdesc:ga33ddb73d4880bd425aaa43c5c52bb13a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the ADC peripheral and regular group according to <br  />
+ parameters specified in structure "ADC_InitTypeDef".  <br /></td></tr>
+<tr class="memitem:ga28aaa5662eced92c5a4d23d8bd6b29ca" id="r_ga28aaa5662eced92c5a4d23d8bd6b29ca"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group___a_d_c___exported___functions___group2.html#ga28aaa5662eced92c5a4d23d8bd6b29ca">HAL_ADC_IRQHandler</a> (<a class="el" href="group___a_d_c___exported___types.html#ga46483fcdb7a528252920c304ec59d006">ADC_HandleTypeDef</a> *hadc)</td></tr>
+<tr class="memdesc:ga28aaa5662eced92c5a4d23d8bd6b29ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles ADC interrupt request.  <br /></td></tr>
+<tr class="memitem:ga600923f6775d52579e2092b6c9505a78" id="r_ga600923f6775d52579e2092b6c9505a78"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group___a_d_c___exported___functions___group2.html#ga600923f6775d52579e2092b6c9505a78">HAL_ADC_LevelOutOfWindowCallback</a> (<a class="el" href="group___a_d_c___exported___types.html#ga46483fcdb7a528252920c304ec59d006">ADC_HandleTypeDef</a> *hadc)</td></tr>
+<tr class="memdesc:ga600923f6775d52579e2092b6c9505a78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Analog watchdog callback in non blocking mode.  <br /></td></tr>
+<tr class="memitem:ga39b0f8e80268ab3e660ead921ad4b22f" id="r_ga39b0f8e80268ab3e660ead921ad4b22f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group___a_d_c___exported___functions___group1.html#ga39b0f8e80268ab3e660ead921ad4b22f">HAL_ADC_MspDeInit</a> (<a class="el" href="group___a_d_c___exported___types.html#ga46483fcdb7a528252920c304ec59d006">ADC_HandleTypeDef</a> *hadc)</td></tr>
+<tr class="memdesc:ga39b0f8e80268ab3e660ead921ad4b22f"><td class="mdescLeft">&#160;</td><td class="mdescRight">DeInitializes the ADC MSP.  <br /></td></tr>
+<tr class="memitem:gaa30863492d5c3103e3e8ce8a63dadd07" id="r_gaa30863492d5c3103e3e8ce8a63dadd07"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group___a_d_c___exported___functions___group1.html#gaa30863492d5c3103e3e8ce8a63dadd07">HAL_ADC_MspInit</a> (<a class="el" href="group___a_d_c___exported___types.html#ga46483fcdb7a528252920c304ec59d006">ADC_HandleTypeDef</a> *hadc)</td></tr>
+<tr class="memdesc:gaa30863492d5c3103e3e8ce8a63dadd07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the ADC MSP.  <br /></td></tr>
+<tr class="memitem:gad9c0b5763ab75357407e22d310befc30" id="r_gad9c0b5763ab75357407e22d310befc30"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___a_d_c___exported___functions___group2.html#gad9c0b5763ab75357407e22d310befc30">HAL_ADC_PollForConversion</a> (<a class="el" href="group___a_d_c___exported___types.html#ga46483fcdb7a528252920c304ec59d006">ADC_HandleTypeDef</a> *hadc, uint32_t Timeout)</td></tr>
+<tr class="memdesc:gad9c0b5763ab75357407e22d310befc30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wait for regular group conversion to be completed.  <br /></td></tr>
+<tr class="memitem:ga139d1a4ab69bea84cb39918840e1a64e" id="r_ga139d1a4ab69bea84cb39918840e1a64e"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___a_d_c___exported___functions___group2.html#ga139d1a4ab69bea84cb39918840e1a64e">HAL_ADC_PollForEvent</a> (<a class="el" href="group___a_d_c___exported___types.html#ga46483fcdb7a528252920c304ec59d006">ADC_HandleTypeDef</a> *hadc, uint32_t EventType, uint32_t Timeout)</td></tr>
+<tr class="memdesc:ga139d1a4ab69bea84cb39918840e1a64e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Poll for conversion event.  <br /></td></tr>
+<tr class="memitem:ga193666e3bde978627c9ee1e2073c69c0" id="r_ga193666e3bde978627c9ee1e2073c69c0"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___a_d_c___exported___functions___group2.html#ga193666e3bde978627c9ee1e2073c69c0">HAL_ADC_Start</a> (<a class="el" href="group___a_d_c___exported___types.html#ga46483fcdb7a528252920c304ec59d006">ADC_HandleTypeDef</a> *hadc)</td></tr>
+<tr class="memdesc:ga193666e3bde978627c9ee1e2073c69c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables ADC, starts conversion of regular group.  <br /></td></tr>
+<tr class="memitem:ga7c3ef5532dddebe7fd76bb8f589d11fd" id="r_ga7c3ef5532dddebe7fd76bb8f589d11fd"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___a_d_c___exported___functions___group2.html#ga7c3ef5532dddebe7fd76bb8f589d11fd">HAL_ADC_Start_DMA</a> (<a class="el" href="group___a_d_c___exported___types.html#ga46483fcdb7a528252920c304ec59d006">ADC_HandleTypeDef</a> *hadc, uint32_t *pData, uint32_t Length)</td></tr>
+<tr class="memdesc:ga7c3ef5532dddebe7fd76bb8f589d11fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables ADC, starts conversion of regular group and transfers result through DMA.  <br /></td></tr>
+<tr class="memitem:gaeb53035f47a937d54de2164d6c939a04" id="r_gaeb53035f47a937d54de2164d6c939a04"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___a_d_c___exported___functions___group2.html#gaeb53035f47a937d54de2164d6c939a04">HAL_ADC_Start_IT</a> (<a class="el" href="group___a_d_c___exported___types.html#ga46483fcdb7a528252920c304ec59d006">ADC_HandleTypeDef</a> *hadc)</td></tr>
+<tr class="memdesc:gaeb53035f47a937d54de2164d6c939a04"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables ADC, starts conversion of regular group with interruption.  <br /></td></tr>
+<tr class="memitem:ga1b00cb85fc6c0f40fabd02701528711d" id="r_ga1b00cb85fc6c0f40fabd02701528711d"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___a_d_c___exported___functions___group2.html#ga1b00cb85fc6c0f40fabd02701528711d">HAL_ADC_Stop</a> (<a class="el" href="group___a_d_c___exported___types.html#ga46483fcdb7a528252920c304ec59d006">ADC_HandleTypeDef</a> *hadc)</td></tr>
+<tr class="memdesc:ga1b00cb85fc6c0f40fabd02701528711d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stop ADC conversion of regular group (and injected channels in case of auto_injection mode), disable ADC peripheral.  <br /></td></tr>
+<tr class="memitem:gae113bcf7fc3d8ce07d68403bb5a11560" id="r_gae113bcf7fc3d8ce07d68403bb5a11560"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___a_d_c___exported___functions___group2.html#gae113bcf7fc3d8ce07d68403bb5a11560">HAL_ADC_Stop_DMA</a> (<a class="el" href="group___a_d_c___exported___types.html#ga46483fcdb7a528252920c304ec59d006">ADC_HandleTypeDef</a> *hadc)</td></tr>
+<tr class="memdesc:gae113bcf7fc3d8ce07d68403bb5a11560"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stop ADC conversion of regular group (and injected group in case of auto_injection mode), disable ADC DMA transfer, disable ADC peripheral.  <br /></td></tr>
+<tr class="memitem:gae44e6d3d0d9c60897daa7ccfd368952c" id="r_gae44e6d3d0d9c60897daa7ccfd368952c"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___a_d_c___exported___functions___group2.html#gae44e6d3d0d9c60897daa7ccfd368952c">HAL_ADC_Stop_IT</a> (<a class="el" href="group___a_d_c___exported___types.html#ga46483fcdb7a528252920c304ec59d006">ADC_HandleTypeDef</a> *hadc)</td></tr>
+<tr class="memdesc:gae44e6d3d0d9c60897daa7ccfd368952c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stop ADC conversion of regular group (and injected group in case of auto_injection mode), disable interrution of end-of-conversion, disable ADC peripheral.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Descripción detallada</h2>
+<div class="textblock"><p>This file provides firmware functions to manage the following functionalities of the Analog to Digital Convertor (ADC) peripheral: </p>
+<dl class="section author"><dt>Autor</dt><dd>MCD Application Team<ul>
+<li>Initialization and de-initialization functions</li>
+<li>Peripheral Control functions</li>
+<li>Peripheral State functions Other functions (extended functions) are available in file "stm32f1xx_hal_adc_ex.c".</li>
+</ul>
+</dd></dl>
+<dl class="section attention"><dt>Atención</dt><dd></dd></dl>
+<p>Copyright (c) 2016 STMicroelectronics. All rights reserved.</p>
+<p>This software is licensed under terms that can be found in the LICENSE file in the root directory of this software component. If no LICENSE file comes with this software, it is provided AS-IS.</p>
+<pre class="fragment">==============================================================================
+                   ##### ADC peripheral features #####
+==============================================================================
+[..]
+(+) 12-bit resolution
+
+(+) Interrupt generation at the end of regular conversion, end of injected
+    conversion, and in case of analog watchdog or overrun events.
+
+(+) Single and continuous conversion modes.
+
+(+) Scan mode for conversion of several channels sequentially.
+
+(+) Data alignment with in-built data coherency.
+
+(+) Programmable sampling time (channel wise)
+
+(+) ADC conversion of regular group and injected group.
+
+(+) External trigger (timer or EXTI) 
+    for both regular and injected groups.
+
+(+) DMA request generation for transfer of conversions data of regular group.
+
+(+) Multimode Dual mode (available on devices with 2 ADCs or more).
+
+(+) Configurable DMA data storage in Multimode Dual mode (available on devices
+    with 2 DCs or more).
+
+(+) Configurable delay between conversions in Dual interleaved mode (available 
+    on devices with 2 DCs or more).
+
+(+) ADC calibration
+
+(+) ADC supply requirements: 2.4 V to 3.6 V at full speed and down to 1.8 V at 
+    slower speed.
+
+(+) ADC input range: from Vref- (connected to Vssa) to Vref+ (connected to 
+    Vdda or to an external voltage reference).
+
+
+                   ##### How to use this driver #####
+==============================================================================
+  [..]
+
+   *** Configuration of top level parameters related to ADC ***
+   ============================================================
+   [..]
+
+  (#) Enable the ADC interface
+    (++) As prerequisite, ADC clock must be configured at RCC top level.
+         Caution: On STM32F1, ADC clock frequency max is 14MHz (refer
+                  to device datasheet).
+                  Therefore, ADC clock prescaler must be configured in 
+                  function of ADC clock source frequency to remain below
+                  this maximum frequency.
+      (++) One clock setting is mandatory:
+           ADC clock (core clock, also possibly conversion clock).
+           (+++) Example:
+                 Into HAL_ADC_MspInit() (recommended code location) or with
+                 other device clock parameters configuration:
+             (+++) RCC_PeriphCLKInitTypeDef  PeriphClkInit;
+             (+++) __ADC1_CLK_ENABLE();
+             (+++) PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_ADC;
+             (+++) PeriphClkInit.AdcClockSelection = RCC_ADCPCLK2_DIV2;
+             (+++) HAL_RCCEx_PeriphCLKConfig(&amp;PeriphClkInit);
+
+  (#) ADC pins configuration
+       (++) Enable the clock for the ADC GPIOs
+            using macro __HAL_RCC_GPIOx_CLK_ENABLE()
+       (++) Configure these ADC pins in analog mode
+            using function HAL_GPIO_Init()
+
+  (#) Optionally, in case of usage of ADC with interruptions:
+       (++) Configure the NVIC for ADC
+            using function HAL_NVIC_EnableIRQ(ADCx_IRQn)
+       (++) Insert the ADC interruption handler function HAL_ADC_IRQHandler() 
+            into the function of corresponding ADC interruption vector 
+            ADCx_IRQHandler().
+
+  (#) Optionally, in case of usage of DMA:
+       (++) Configure the DMA (DMA channel, mode normal or circular, ...)
+            using function HAL_DMA_Init().
+       (++) Configure the NVIC for DMA
+            using function HAL_NVIC_EnableIRQ(DMAx_Channelx_IRQn)
+       (++) Insert the ADC interruption handler function HAL_ADC_IRQHandler() 
+            into the function of corresponding DMA interruption vector 
+            DMAx_Channelx_IRQHandler().
+
+   *** Configuration of ADC, groups regular/injected, channels parameters ***
+   ==========================================================================
+   [..]
+
+  (#) Configure the ADC parameters (resolution, data alignment, ...)
+      and regular group parameters (conversion trigger, sequencer, ...)
+      using function HAL_ADC_Init().
+
+  (#) Configure the channels for regular group parameters (channel number, 
+      channel rank into sequencer, ..., into regular group)
+      using function HAL_ADC_ConfigChannel().
+
+  (#) Optionally, configure the injected group parameters (conversion trigger, 
+      sequencer, ..., of injected group)
+      and the channels for injected group parameters (channel number, 
+      channel rank into sequencer, ..., into injected group)
+      using function HAL_ADCEx_InjectedConfigChannel().
+
+  (#) Optionally, configure the analog watchdog parameters (channels
+      monitored, thresholds, ...)
+      using function HAL_ADC_AnalogWDGConfig().
+
+  (#) Optionally, for devices with several ADC instances: configure the 
+      multimode parameters
+      using function HAL_ADCEx_MultiModeConfigChannel().
+
+   *** Execution of ADC conversions ***
+   ====================================
+   [..]
+
+  (#) Optionally, perform an automatic ADC calibration to improve the
+      conversion accuracy
+      using function HAL_ADCEx_Calibration_Start().
+
+  (#) ADC driver can be used among three modes: polling, interruption,
+      transfer by DMA.
+
+      (++) ADC conversion by polling:
+        (+++) Activate the ADC peripheral and start conversions
+              using function HAL_ADC_Start()
+        (+++) Wait for ADC conversion completion 
+              using function HAL_ADC_PollForConversion()
+              (or for injected group: HAL_ADCEx_InjectedPollForConversion() )
+        (+++) Retrieve conversion results 
+              using function HAL_ADC_GetValue()
+              (or for injected group: HAL_ADCEx_InjectedGetValue() )
+        (+++) Stop conversion and disable the ADC peripheral 
+              using function HAL_ADC_Stop()
+
+      (++) ADC conversion by interruption: 
+        (+++) Activate the ADC peripheral and start conversions
+              using function HAL_ADC_Start_IT()
+        (+++) Wait for ADC conversion completion by call of function
+              HAL_ADC_ConvCpltCallback()
+              (this function must be implemented in user program)
+              (or for injected group: HAL_ADCEx_InjectedConvCpltCallback() )
+        (+++) Retrieve conversion results 
+              using function HAL_ADC_GetValue()
+              (or for injected group: HAL_ADCEx_InjectedGetValue() )
+        (+++) Stop conversion and disable the ADC peripheral 
+              using function HAL_ADC_Stop_IT()
+
+      (++) ADC conversion with transfer by DMA:
+        (+++) Activate the ADC peripheral and start conversions
+              using function HAL_ADC_Start_DMA()
+        (+++) Wait for ADC conversion completion by call of function
+              HAL_ADC_ConvCpltCallback() or HAL_ADC_ConvHalfCpltCallback()
+              (these functions must be implemented in user program)
+        (+++) Conversion results are automatically transferred by DMA into
+              destination variable address.
+        (+++) Stop conversion and disable the ADC peripheral 
+              using function HAL_ADC_Stop_DMA()
+
+      (++) For devices with several ADCs: ADC multimode conversion 
+           with transfer by DMA:
+        (+++) Activate the ADC peripheral (slave) and start conversions
+              using function HAL_ADC_Start()
+        (+++) Activate the ADC peripheral (master) and start conversions
+              using function HAL_ADCEx_MultiModeStart_DMA()
+        (+++) Wait for ADC conversion completion by call of function
+              HAL_ADC_ConvCpltCallback() or HAL_ADC_ConvHalfCpltCallback()
+              (these functions must be implemented in user program)
+        (+++) Conversion results are automatically transferred by DMA into
+              destination variable address.
+        (+++) Stop conversion and disable the ADC peripheral (master)
+              using function HAL_ADCEx_MultiModeStop_DMA()
+        (+++) Stop conversion and disable the ADC peripheral (slave)
+              using function HAL_ADC_Stop_IT()
+
+   [..]
+
+  (@) Callback functions must be implemented in user program:
+    (+@) HAL_ADC_ErrorCallback()
+    (+@) HAL_ADC_LevelOutOfWindowCallback() (callback of analog watchdog)
+    (+@) HAL_ADC_ConvCpltCallback()
+    (+@) HAL_ADC_ConvHalfCpltCallback
+    (+@) HAL_ADCEx_InjectedConvCpltCallback()
+
+   *** Deinitialization of ADC ***
+   ============================================================
+   [..]
+
+  (#) Disable the ADC interface
+    (++) ADC clock can be hard reset and disabled at RCC top level.
+      (++) Hard reset of ADC peripherals
+           using macro __ADCx_FORCE_RESET(), __ADCx_RELEASE_RESET().
+      (++) ADC clock disable
+           using the equivalent macro/functions as configuration step.
+           (+++) Example:
+                 Into HAL_ADC_MspDeInit() (recommended code location) or with
+                 other device clock parameters configuration:
+             (+++) PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_ADC
+             (+++) PeriphClkInit.AdcClockSelection = RCC_ADCPLLCLK2_OFF
+             (+++) HAL_RCCEx_PeriphCLKConfig(&amp;PeriphClkInit)
+
+  (#) ADC pins configuration
+       (++) Disable the clock for the ADC GPIOs
+            using macro __HAL_RCC_GPIOx_CLK_DISABLE()
+
+  (#) Optionally, in case of usage of ADC with interruptions:
+       (++) Disable the NVIC for ADC
+            using function HAL_NVIC_EnableIRQ(ADCx_IRQn)
+
+  (#) Optionally, in case of usage of DMA:
+       (++) Deinitialize the DMA
+            using function HAL_DMA_Init().
+       (++) Disable the NVIC for DMA
+            using function HAL_NVIC_EnableIRQ(DMAx_Channelx_IRQn)
+
+  [..]
+  
+  *** Callback registration ***
+  =============================================
+  [..]
+
+   The compilation flag USE_HAL_ADC_REGISTER_CALLBACKS, when set to 1,
+   allows the user to configure dynamically the driver callbacks.
+   Use Functions HAL_ADC_RegisterCallback()
+   to register an interrupt callback.
+  [..]
+
+   Function HAL_ADC_RegisterCallback() allows to register following callbacks:
+     (+) ConvCpltCallback               : ADC conversion complete callback
+     (+) ConvHalfCpltCallback           : ADC conversion DMA half-transfer callback
+     (+) LevelOutOfWindowCallback       : ADC analog watchdog 1 callback
+     (+) ErrorCallback                  : ADC error callback
+     (+) InjectedConvCpltCallback       : ADC group injected conversion complete callback
+     (+) MspInitCallback                : ADC Msp Init callback
+     (+) MspDeInitCallback              : ADC Msp DeInit callback
+   This function takes as parameters the HAL peripheral handle, the Callback ID
+   and a pointer to the user callback function.
+  [..]
+
+   Use function HAL_ADC_UnRegisterCallback to reset a callback to the default
+   weak function.
+  [..]
+
+   HAL_ADC_UnRegisterCallback takes as parameters the HAL peripheral handle,
+   and the Callback ID.
+   This function allows to reset following callbacks:
+     (+) ConvCpltCallback               : ADC conversion complete callback
+     (+) ConvHalfCpltCallback           : ADC conversion DMA half-transfer callback
+     (+) LevelOutOfWindowCallback       : ADC analog watchdog 1 callback
+     (+) ErrorCallback                  : ADC error callback
+     (+) InjectedConvCpltCallback       : ADC group injected conversion complete callback
+     (+) MspInitCallback                : ADC Msp Init callback
+     (+) MspDeInitCallback              : ADC Msp DeInit callback
+   [..]
+
+   By default, after the HAL_ADC_Init() and when the state is HAL_ADC_STATE_RESET
+   all callbacks are set to the corresponding weak functions:
+   examples HAL_ADC_ConvCpltCallback(), HAL_ADC_ErrorCallback().
+   Exception done for MspInit and MspDeInit functions that are
+   reset to the legacy weak functions in the HAL_ADC_Init()/ HAL_ADC_DeInit() only when
+   these callbacks are null (not registered beforehand).
+  [..]
+
+   If MspInit or MspDeInit are not null, the HAL_ADC_Init()/ HAL_ADC_DeInit()
+   keep and use the user MspInit/MspDeInit callbacks (registered beforehand) whatever the state.
+   [..]
+
+   Callbacks can be registered/unregistered in HAL_ADC_STATE_READY state only.
+   Exception done MspInit/MspDeInit functions that can be registered/unregistered
+   in HAL_ADC_STATE_READY or HAL_ADC_STATE_RESET state,
+   thus registered (user) MspInit/DeInit callbacks can be used during the Init/DeInit.
+  [..]
+
+   Then, the user first registers the MspInit/MspDeInit user callbacks
+   using HAL_ADC_RegisterCallback() before calling HAL_ADC_DeInit()
+   or HAL_ADC_Init() function.
+   [..]
+
+   When the compilation flag USE_HAL_ADC_REGISTER_CALLBACKS is set to 0 or
+   not defined, the callback registration feature is not available and all callbacks
+   are set to the corresponding weak functions.
+</pre> 
+<p class="definition">Definición en el archivo <a class="el" href="stm32f1xx__hal__adc_8c_source.html">stm32f1xx_hal_adc.c</a>.</p>
+</div></div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_60925fc218da8ca7908795bf5f624060.html">Drivers</a></li><li class="navelem"><a href="dir_bb6a392354d207333b00bd1cb9328973.html">STM32F1xx_HAL_Driver</a></li><li class="navelem"><a href="dir_934d29f6e99d76aa15686823274a01c7.html">Src</a></li><li class="navelem"><a href="stm32f1xx__hal__adc_8c.html">stm32f1xx_hal_adc.c</a></li>
+    <li class="footer">Generado el <span class="timestamp"></span> para MICRO-Firmware por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,119 @@
+\doxysubsubsubsection{DMA Private Functions }
+\hypertarget{group___d_m_a___private___functions}{}\label{group___d_m_a___private___functions}\index{DMA Private Functions@{DMA Private Functions}}
+Diagrama de colaboración de DMA Private Functions:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=272pt]{group___d_m_a___private___functions}
+\end{center}
+\end{figure}
+\doxysubsubsubsubsubsection*{Funciones}
+\begin{DoxyCompactItemize}
+\item 
+static void \doxymbox{\hyperlink{group___d_m_a___private___functions_ga26dc2dbf05a5a572c7653bd8f91de459}{DMA\+\_\+\+Set\+Config}} (\doxymbox{\hyperlink{group___d_m_a___exported___types_ga41b754a906b86bce54dc79938970138b}{DMA\+\_\+\+Handle\+Type\+Def}} \texorpdfstring{$\ast$}{*}hdma, uint32\+\_\+t Src\+Address, uint32\+\_\+t Dst\+Address, uint32\+\_\+t Data\+Length)
+\begin{DoxyCompactList}\small\item\em Sets the DMA Transfer parameter. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsubsubsubsection{Descripción detallada}
+
+
+
+
+\label{group___d_m_a___private___functions_doc-func-members}
+\Hypertarget{group___d_m_a___private___functions_doc-func-members}
+\doxysubsubsubsubsection{Documentación de funciones}
+\Hypertarget{group___d_m_a___private___functions_ga26dc2dbf05a5a572c7653bd8f91de459}\index{DMA Private Functions@{DMA Private Functions}!DMA\_SetConfig@{DMA\_SetConfig}}
+\index{DMA\_SetConfig@{DMA\_SetConfig}!DMA Private Functions@{DMA Private Functions}}
+\doxyparagraph{\texorpdfstring{DMA\_SetConfig()}{DMA\_SetConfig()}}
+{\footnotesize\ttfamily \label{group___d_m_a___private___functions_ga26dc2dbf05a5a572c7653bd8f91de459} 
+void DMA\+\_\+\+Set\+Config (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group___d_m_a___exported___types_ga41b754a906b86bce54dc79938970138b}{DMA\+\_\+\+Handle\+Type\+Def}} \texorpdfstring{$\ast$}{*}}]{hdma}{, }\item[{uint32\+\_\+t}]{Src\+Address}{, }\item[{uint32\+\_\+t}]{Dst\+Address}{, }\item[{uint32\+\_\+t}]{Data\+Length}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+{\ttfamily \+\#include "{}\doxymbox{\hyperlink{stm32f1xx__hal__dma_8c}{stm32f1xx\+\_\+hal\+\_\+dma.\+c}}"{}}
+
+
+
+Sets the DMA Transfer parameter. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em hdma} & pointer to a \doxylink{group___d_m_a___exported___types_ga41b754a906b86bce54dc79938970138b}{DMA\+\_\+\+Handle\+Type\+Def} structure that contains the configuration information for the specified DMA Channel. \\
+\hline
+{\em Src\+Address} & The source memory Buffer address \\
+\hline
+{\em Dst\+Address} & The destination memory Buffer address \\
+\hline
+{\em Data\+Length} & The length of data to be transferred from source to destination \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Valores devueltos}
+{\em \doxylink{group___h_a_l}{HAL}} & status \\
+\hline
+\end{DoxyRetVals}
+\texorpdfstring{$<$}{<} 0x00000001
+
+\texorpdfstring{$<$}{<} Channel 1 Global interrupt flag
+
+\texorpdfstring{$<$}{<} 0x00000010
+
+\texorpdfstring{$<$}{<} Data transfer direction
+
+\texorpdfstring{$<$}{<} Memory to peripheral direction
+
+Definición en la línea \doxymbox{\hyperlink{stm32f1xx__hal__dma_8c_source_l00857}{857}} del archivo \doxymbox{\hyperlink{stm32f1xx__hal__dma_8c_source}{stm32f1xx\+\_\+hal\+\_\+dma.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00858\ \{}
+\DoxyCodeLine{00859\ \ \ \textcolor{comment}{/*\ Clear\ all\ flags\ */}}
+\DoxyCodeLine{00860\ \ \ hdma-\/>\doxymbox{\hyperlink{struct_____d_m_a___handle_type_def_a782724cfffb6bcdaa37360a93c3e8926}{DmaBaseAddress}}-\/>\doxymbox{\hyperlink{struct_d_m_a___type_def_ae8c4ae3eba53a553bd91c302c6aecf8e}{IFCR}}\ =\ (\doxymbox{\hyperlink{group___peripheral___registers___bits___definition_ga3475228c998897d0f408a4c5da066186}{DMA\_ISR\_GIF1}}\ <<\ hdma-\/>\doxymbox{\hyperlink{struct_____d_m_a___handle_type_def_a6bc83cac62e984f201c0e1b2eca70d57}{ChannelIndex}});}
+\DoxyCodeLine{00861\ }
+\DoxyCodeLine{00862\ \ \ \textcolor{comment}{/*\ Configure\ DMA\ Channel\ data\ length\ */}}
+\DoxyCodeLine{00863\ \ \ hdma-\/>\doxymbox{\hyperlink{struct_____d_m_a___handle_type_def_a9368ced5769abb92a56886ff879a7f5e}{Instance}}-\/>\doxymbox{\hyperlink{struct_d_m_a___channel___type_def_ad6ac8bdcd9648a1fd5f94b5451f8b126}{CNDTR}}\ =\ DataLength;}
+\DoxyCodeLine{00864\ }
+\DoxyCodeLine{00865\ \ \ \textcolor{comment}{/*\ Memory\ to\ Peripheral\ */}}
+\DoxyCodeLine{00866\ \ \ \textcolor{keywordflow}{if}((hdma-\/>\doxymbox{\hyperlink{struct_____d_m_a___handle_type_def_a3792cb34cedb0e2ab204e41b53ef75ad}{Init}}.\doxymbox{\hyperlink{struct_d_m_a___init_type_def_a0145b5d0e074fa8e2e185ecf2c4a15ca}{Direction}})\ ==\ \doxymbox{\hyperlink{group___d_m_a___data__transfer__direction_ga9e76fc559a2d5c766c969e6e921b1ee9}{DMA\_MEMORY\_TO\_PERIPH}})}
+\DoxyCodeLine{00867\ \ \ \{}
+\DoxyCodeLine{00868\ \ \ \ \ \textcolor{comment}{/*\ Configure\ DMA\ Channel\ destination\ address\ */}}
+\DoxyCodeLine{00869\ \ \ \ \ hdma-\/>\doxymbox{\hyperlink{struct_____d_m_a___handle_type_def_a9368ced5769abb92a56886ff879a7f5e}{Instance}}-\/>\doxymbox{\hyperlink{struct_d_m_a___channel___type_def_a9ac9f62297f0e09c34857542f1a26158}{CPAR}}\ =\ DstAddress;}
+\DoxyCodeLine{00870\ }
+\DoxyCodeLine{00871\ \ \ \ \ \textcolor{comment}{/*\ Configure\ DMA\ Channel\ source\ address\ */}}
+\DoxyCodeLine{00872\ \ \ \ \ hdma-\/>\doxymbox{\hyperlink{struct_____d_m_a___handle_type_def_a9368ced5769abb92a56886ff879a7f5e}{Instance}}-\/>\doxymbox{\hyperlink{struct_d_m_a___channel___type_def_af6b5ce3c273be0be0e5eb16ac61f0b62}{CMAR}}\ =\ SrcAddress;}
+\DoxyCodeLine{00873\ \ \ \}}
+\DoxyCodeLine{00874\ \ \ \textcolor{comment}{/*\ Peripheral\ to\ Memory\ */}}
+\DoxyCodeLine{00875\ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00876\ \ \ \{}
+\DoxyCodeLine{00877\ \ \ \ \ \textcolor{comment}{/*\ Configure\ DMA\ Channel\ source\ address\ */}}
+\DoxyCodeLine{00878\ \ \ \ \ hdma-\/>\doxymbox{\hyperlink{struct_____d_m_a___handle_type_def_a9368ced5769abb92a56886ff879a7f5e}{Instance}}-\/>\doxymbox{\hyperlink{struct_d_m_a___channel___type_def_a9ac9f62297f0e09c34857542f1a26158}{CPAR}}\ =\ SrcAddress;}
+\DoxyCodeLine{00879\ }
+\DoxyCodeLine{00880\ \ \ \ \ \textcolor{comment}{/*\ Configure\ DMA\ Channel\ destination\ address\ */}}
+\DoxyCodeLine{00881\ \ \ \ \ hdma-\/>\doxymbox{\hyperlink{struct_____d_m_a___handle_type_def_a9368ced5769abb92a56886ff879a7f5e}{Instance}}-\/>\doxymbox{\hyperlink{struct_d_m_a___channel___type_def_af6b5ce3c273be0be0e5eb16ac61f0b62}{CMAR}}\ =\ DstAddress;}
+\DoxyCodeLine{00882\ \ \ \}}
+\DoxyCodeLine{00883\ \}}
+
+\end{DoxyCode}
+
+
+Hace referencia a \doxymbox{\hyperlink{stm32f1xx__hal__dma_8h_source_l00134}{\+\_\+\+\_\+\+DMA\+\_\+\+Handle\+Type\+Def::\+\+Channel\+Index}}, \doxymbox{\hyperlink{stm32f103xb_8h_source_l00295}{DMA\+\_\+\+Channel\+\_\+\+Type\+Def::\+\+CMAR}}, \doxymbox{\hyperlink{stm32f103xb_8h_source_l00293}{DMA\+\_\+\+Channel\+\_\+\+Type\+Def::\+\+CNDTR}}, \doxymbox{\hyperlink{stm32f103xb_8h_source_l00294}{DMA\+\_\+\+Channel\+\_\+\+Type\+Def::\+\+CPAR}}, \doxymbox{\hyperlink{stm32f1xx__hal__dma_8h_source_l00049}{DMA\+\_\+\+Init\+Type\+Def::\+\+Direction}}, \doxymbox{\hyperlink{stm32f103xb_8h_source_l03045}{DMA\+\_\+\+ISR\+\_\+\+GIF1}}, \doxymbox{\hyperlink{stm32f1xx__hal__dma_8h_source_l00163}{DMA\+\_\+\+MEMORY\+\_\+\+TO\+\_\+\+PERIPH}}, \doxymbox{\hyperlink{stm32f1xx__hal__dma_8c_source_l00857}{DMA\+\_\+\+Set\+Config()}}, \doxymbox{\hyperlink{stm32f1xx__hal__dma_8h_source_l00132}{\+\_\+\+\_\+\+DMA\+\_\+\+Handle\+Type\+Def::\+\+Dma\+Base\+Address}}, \doxymbox{\hyperlink{stm32f103xb_8h_source_l00301}{DMA\+\_\+\+Type\+Def::\+\+IFCR}}, \doxymbox{\hyperlink{stm32f1xx__hal__dma_8h_source_l00114}{\+\_\+\+\_\+\+DMA\+\_\+\+Handle\+Type\+Def::\+\+Init}} y \doxymbox{\hyperlink{stm32f1xx__hal__dma_8h_source_l00112}{\+\_\+\+\_\+\+DMA\+\_\+\+Handle\+Type\+Def::\+\+Instance}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{stm32f1xx__hal__dma_8c_source_l00857}{DMA\+\_\+\+Set\+Config()}}, \doxymbox{\hyperlink{stm32f1xx__hal__dma_8c_source_l00318}{HAL\+\_\+\+DMA\+\_\+\+Start()}} y \doxymbox{\hyperlink{stm32f1xx__hal__dma_8c_source_l00361}{HAL\+\_\+\+DMA\+\_\+\+Start\+\_\+\+IT()}}.
+
+Gráfico de llamadas de esta función:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=167pt]{group___d_m_a___private___functions_ga26dc2dbf05a5a572c7653bd8f91de459_cgraph}
+\end{center}
+\end{figure}
+Gráfico de llamadas a esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group___d_m_a___private___functions_ga26dc2dbf05a5a572c7653bd8f91de459_icgraph}
+\end{center}
+\end{figure}

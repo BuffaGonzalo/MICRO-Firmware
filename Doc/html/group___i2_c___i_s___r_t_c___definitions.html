@@ -1,0 +1,522 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>MICRO-Firmware: I2C Private macros to check input parameters</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="codefolding.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  extensions: ["tex2jax.js"],
+  jax: ["input/TeX","output/HTML-CSS"],
+});
+</script>
+<script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">MICRO-Firmware<span id="projectnumber">&#160;EX100923v01</span>
+   </div>
+   <div id="projectbrief">Firmware de Péndulo Invertido Autónomo de Dos Ruedas (STM32F103C8T6 - ARM Cortex-M3)</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Buscar" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('group___i2_c___i_s___r_t_c___definitions.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">I2C Private macros to check input parameters <div class="ingroups"><a class="el" href="group___s_t_m32_f1xx___h_a_l___driver.html">STM32F1xx_HAL_Driver</a> &raquo; <a class="el" href="group___i2_c.html">I2C</a> &raquo; <a class="el" href="group___i2_c___private___macros.html">I2C Private Macros</a></div></div></div>
+</div><!--header-->
+<div class="contents">
+<div id="dynsection-0" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Diagrama de colaboración de I2C Private macros to check input parameters:</div>
+<div id="dynsection-0-summary" class="dynsummary">
+</div>
+<div id="dynsection-0-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___i2_c___i_s___r_t_c___definitions.svg" width="370" height="54"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
+defines</h2></td></tr>
+<tr class="memitem:ga31873e0595e29c80cffe00c2d2e073ab" id="r_ga31873e0595e29c80cffe00c2d2e073ab"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga31873e0595e29c80cffe00c2d2e073ab">I2C_CHECK_FLAG</a>(__ISR__,  __FLAG__)</td></tr>
+<tr class="memitem:gacc7c83a67d99d759923c6907f1a1751f" id="r_gacc7c83a67d99d759923c6907f1a1751f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gacc7c83a67d99d759923c6907f1a1751f">I2C_CHECK_IT_SOURCE</a>(__CR1__,  __IT__)</td></tr>
+<tr class="memitem:gabfbd7569fe1512aea1cf507afc05e5fe" id="r_gabfbd7569fe1512aea1cf507afc05e5fe"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gabfbd7569fe1512aea1cf507afc05e5fe">IS_I2C_ADDRESSING_MODE</a>(ADDRESS)</td></tr>
+<tr class="memitem:gae0d731df1b264d853703716c29309b9b" id="r_gae0d731df1b264d853703716c29309b9b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gae0d731df1b264d853703716c29309b9b">IS_I2C_CLOCK_SPEED</a>(SPEED)</td></tr>
+<tr class="memitem:gae683c113d4088dfae90fbe6677f8296a" id="r_gae683c113d4088dfae90fbe6677f8296a"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gae683c113d4088dfae90fbe6677f8296a">IS_I2C_DUAL_ADDRESS</a>(ADDRESS)</td></tr>
+<tr class="memitem:gae9b3276d9b6ec872ee4fafa2b2fafb83" id="r_gae9b3276d9b6ec872ee4fafa2b2fafb83"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gae9b3276d9b6ec872ee4fafa2b2fafb83">IS_I2C_DUTY_CYCLE</a>(CYCLE)</td></tr>
+<tr class="memitem:ga36a9a7855d7f35a6b03b05c6079bf149" id="r_ga36a9a7855d7f35a6b03b05c6079bf149"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga36a9a7855d7f35a6b03b05c6079bf149">IS_I2C_GENERAL_CALL</a>(CALL)</td></tr>
+<tr class="memitem:gace95d2b6add7feef5805f1fa6d2e46be" id="r_gace95d2b6add7feef5805f1fa6d2e46be"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gace95d2b6add7feef5805f1fa6d2e46be">IS_I2C_MEMADD_SIZE</a>(SIZE)</td></tr>
+<tr class="memitem:gaf7d844f7c7f5c96067468ab47971d0fd" id="r_gaf7d844f7c7f5c96067468ab47971d0fd"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gaf7d844f7c7f5c96067468ab47971d0fd">IS_I2C_NO_STRETCH</a>(STRETCH)</td></tr>
+<tr class="memitem:gad84e8b9523d45b6105b4d5cb68994a79" id="r_gad84e8b9523d45b6105b4d5cb68994a79"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#gad84e8b9523d45b6105b4d5cb68994a79">IS_I2C_OWN_ADDRESS1</a>(ADDRESS1)</td></tr>
+<tr class="memitem:ga83001d53612b83ee90730d3bb2732537" id="r_ga83001d53612b83ee90730d3bb2732537"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga83001d53612b83ee90730d3bb2732537">IS_I2C_OWN_ADDRESS2</a>(ADDRESS2)</td></tr>
+<tr class="memitem:ga8f3522af9ffef268641698ac80f77859" id="r_ga8f3522af9ffef268641698ac80f77859"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga8f3522af9ffef268641698ac80f77859">IS_I2C_TRANSFER_OPTIONS_REQUEST</a>(REQUEST)</td></tr>
+<tr class="memitem:ga13a3986011ca018dd12ff39ea3bec11b" id="r_ga13a3986011ca018dd12ff39ea3bec11b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ga13a3986011ca018dd12ff39ea3bec11b">IS_I2C_TRANSFER_OTHER_OPTIONS_REQUEST</a>(REQUEST)</td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Descripción detallada</h2>
+<div class="textblock"></div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Documentación de «define»</h2>
+<a id="ga31873e0595e29c80cffe00c2d2e073ab" name="ga31873e0595e29c80cffe00c2d2e073ab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga31873e0595e29c80cffe00c2d2e073ab">&#9670;&#160;</a></span>I2C_CHECK_FLAG</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define I2C_CHECK_FLAG</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>__ISR__</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>__FLAG__</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__i2c_8h.html">stm32f1xx_hal_i2c.h</a>&quot;</code></p>
+<b>Valor:</b><div class="fragment"><div class="line">((((__ISR__) &amp; ((__FLAG__) &amp; <a class="code hl_define" href="group___i2_c___private___constants.html#gafbc0a6e4113be03100fbae1314a8b395">I2C_FLAG_MASK</a>)) == ((__FLAG__) &amp; <a class="code hl_define" href="group___i2_c___private___constants.html#gafbc0a6e4113be03100fbae1314a8b395">I2C_FLAG_MASK</a>)) ? <a class="code hl_enumvalue" href="group___exported__types.html#gga89136caac2e14c55151f527ac02daaffab44c8101cc294c074709ec1b14211792">SET</a> : <a class="code hl_enumvalue" href="group___exported__types.html#gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05">RESET</a>)</div>
+<div class="ttc" id="agroup___exported__types_html_gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05"><div class="ttname"><a href="group___exported__types.html#gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05">RESET</a></div><div class="ttdeci">@ RESET</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx_8h_source.html#l00152">stm32f1xx.h:152</a></div></div>
+<div class="ttc" id="agroup___exported__types_html_gga89136caac2e14c55151f527ac02daaffab44c8101cc294c074709ec1b14211792"><div class="ttname"><a href="group___exported__types.html#gga89136caac2e14c55151f527ac02daaffab44c8101cc294c074709ec1b14211792">SET</a></div><div class="ttdeci">@ SET</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx_8h_source.html#l00153">stm32f1xx.h:153</a></div></div>
+<div class="ttc" id="agroup___i2_c___private___constants_html_gafbc0a6e4113be03100fbae1314a8b395"><div class="ttname"><a href="group___i2_c___private___constants.html#gafbc0a6e4113be03100fbae1314a8b395">I2C_FLAG_MASK</a></div><div class="ttdeci">#define I2C_FLAG_MASK</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8h_source.html#l00644">stm32f1xx_hal_i2c.h:644</a></div></div>
+</div><!-- fragment -->
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__i2c_8h_source.html#l00705">705</a> del archivo <a class="el" href="stm32f1xx__hal__i2c_8h_source.html">stm32f1xx_hal_i2c.h</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l05054">HAL_I2C_ER_IRQHandler()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l04885">HAL_I2C_EV_IRQHandler()</a> y <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l06226">I2C_Slave_ADDR()</a>.</p>
+
+</div>
+</div>
+<a id="gacc7c83a67d99d759923c6907f1a1751f" name="gacc7c83a67d99d759923c6907f1a1751f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gacc7c83a67d99d759923c6907f1a1751f">&#9670;&#160;</a></span>I2C_CHECK_IT_SOURCE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define I2C_CHECK_IT_SOURCE</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>__CR1__</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>__IT__</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__i2c_8h.html">stm32f1xx_hal_i2c.h</a>&quot;</code></p>
+<b>Valor:</b><div class="fragment"><div class="line">((((__CR1__) &amp; (__IT__)) == (__IT__)) ? <a class="code hl_enumvalue" href="group___exported__types.html#gga89136caac2e14c55151f527ac02daaffab44c8101cc294c074709ec1b14211792">SET</a> : <a class="code hl_enumvalue" href="group___exported__types.html#gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05">RESET</a>)</div>
+</div><!-- fragment -->
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__i2c_8h_source.html#l00706">706</a> del archivo <a class="el" href="stm32f1xx__hal__i2c_8h_source.html">stm32f1xx_hal_i2c.h</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l05054">HAL_I2C_ER_IRQHandler()</a> y <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l04885">HAL_I2C_EV_IRQHandler()</a>.</p>
+
+</div>
+</div>
+<a id="gabfbd7569fe1512aea1cf507afc05e5fe" name="gabfbd7569fe1512aea1cf507afc05e5fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gabfbd7569fe1512aea1cf507afc05e5fe">&#9670;&#160;</a></span>IS_I2C_ADDRESSING_MODE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IS_I2C_ADDRESSING_MODE</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>ADDRESS</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__i2c_8h.html">stm32f1xx_hal_i2c.h</a>&quot;</code></p>
+<b>Valor:</b><div class="fragment"><div class="line">(((ADDRESS) == <a class="code hl_define" href="group___i2_c__addressing__mode.html#ga28cf3b277595ac15edf383c2574ed18d">I2C_ADDRESSINGMODE_7BIT</a>) || \</div>
+<div class="line">((ADDRESS) == <a class="code hl_define" href="group___i2_c__addressing__mode.html#ga2401dc32e64cd53290497bab73c3608d">I2C_ADDRESSINGMODE_10BIT</a>))</div>
+<div class="ttc" id="agroup___i2_c__addressing__mode_html_ga2401dc32e64cd53290497bab73c3608d"><div class="ttname"><a href="group___i2_c__addressing__mode.html#ga2401dc32e64cd53290497bab73c3608d">I2C_ADDRESSINGMODE_10BIT</a></div><div class="ttdeci">#define I2C_ADDRESSINGMODE_10BIT</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8h_source.html#l00299">stm32f1xx_hal_i2c.h:299</a></div></div>
+<div class="ttc" id="agroup___i2_c__addressing__mode_html_ga28cf3b277595ac15edf383c2574ed18d"><div class="ttname"><a href="group___i2_c__addressing__mode.html#ga28cf3b277595ac15edf383c2574ed18d">I2C_ADDRESSINGMODE_7BIT</a></div><div class="ttdeci">#define I2C_ADDRESSINGMODE_7BIT</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8h_source.html#l00298">stm32f1xx_hal_i2c.h:298</a></div></div>
+</div><!-- fragment -->
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__i2c_8h_source.html#l00681">681</a> del archivo <a class="el" href="stm32f1xx__hal__i2c_8h_source.html">stm32f1xx_hal_i2c.h</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l00463">HAL_I2C_Init()</a>.</p>
+
+</div>
+</div>
+<a id="gae0d731df1b264d853703716c29309b9b" name="gae0d731df1b264d853703716c29309b9b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae0d731df1b264d853703716c29309b9b">&#9670;&#160;</a></span>IS_I2C_CLOCK_SPEED</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IS_I2C_CLOCK_SPEED</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>SPEED</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__i2c_8h.html">stm32f1xx_hal_i2c.h</a>&quot;</code></p>
+<b>Valor:</b><div class="fragment"><div class="line">(((SPEED) &gt; 0U) &amp;&amp; ((SPEED) &lt;= 400000U))</div>
+</div><!-- fragment -->
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__i2c_8h_source.html#l00691">691</a> del archivo <a class="el" href="stm32f1xx__hal__i2c_8h_source.html">stm32f1xx_hal_i2c.h</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l00463">HAL_I2C_Init()</a>.</p>
+
+</div>
+</div>
+<a id="gae683c113d4088dfae90fbe6677f8296a" name="gae683c113d4088dfae90fbe6677f8296a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae683c113d4088dfae90fbe6677f8296a">&#9670;&#160;</a></span>IS_I2C_DUAL_ADDRESS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IS_I2C_DUAL_ADDRESS</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>ADDRESS</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__i2c_8h.html">stm32f1xx_hal_i2c.h</a>&quot;</code></p>
+<b>Valor:</b><div class="fragment"><div class="line">(((ADDRESS) == <a class="code hl_define" href="group___i2_c__dual__addressing__mode.html#gacb8f4a1fd543e5ef2c9e7711fc9b5a67">I2C_DUALADDRESS_DISABLE</a>) || \</div>
+<div class="line">((ADDRESS) == <a class="code hl_define" href="group___i2_c__dual__addressing__mode.html#gae33ff5305d9f38d857cff1774f481fab">I2C_DUALADDRESS_ENABLE</a>))</div>
+<div class="ttc" id="agroup___i2_c__dual__addressing__mode_html_gacb8f4a1fd543e5ef2c9e7711fc9b5a67"><div class="ttname"><a href="group___i2_c__dual__addressing__mode.html#gacb8f4a1fd543e5ef2c9e7711fc9b5a67">I2C_DUALADDRESS_DISABLE</a></div><div class="ttdeci">#define I2C_DUALADDRESS_DISABLE</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8h_source.html#l00307">stm32f1xx_hal_i2c.h:307</a></div></div>
+<div class="ttc" id="agroup___i2_c__dual__addressing__mode_html_gae33ff5305d9f38d857cff1774f481fab"><div class="ttname"><a href="group___i2_c__dual__addressing__mode.html#gae33ff5305d9f38d857cff1774f481fab">I2C_DUALADDRESS_ENABLE</a></div><div class="ttdeci">#define I2C_DUALADDRESS_ENABLE</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8h_source.html#l00308">stm32f1xx_hal_i2c.h:308</a></div></div>
+</div><!-- fragment -->
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__i2c_8h_source.html#l00683">683</a> del archivo <a class="el" href="stm32f1xx__hal__i2c_8h_source.html">stm32f1xx_hal_i2c.h</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l00463">HAL_I2C_Init()</a>.</p>
+
+</div>
+</div>
+<a id="gae9b3276d9b6ec872ee4fafa2b2fafb83" name="gae9b3276d9b6ec872ee4fafa2b2fafb83"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae9b3276d9b6ec872ee4fafa2b2fafb83">&#9670;&#160;</a></span>IS_I2C_DUTY_CYCLE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IS_I2C_DUTY_CYCLE</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>CYCLE</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__i2c_8h.html">stm32f1xx_hal_i2c.h</a>&quot;</code></p>
+<b>Valor:</b><div class="fragment"><div class="line">(((CYCLE) == <a class="code hl_define" href="group___i2_c__duty__cycle__in__fast__mode.html#ga414df076d339793a7c761033346fd4ca">I2C_DUTYCYCLE_2</a>) || \</div>
+<div class="line">((CYCLE) == <a class="code hl_define" href="group___i2_c__duty__cycle__in__fast__mode.html#gae9d1f8a140f052c1fcbcd87b4181f78d">I2C_DUTYCYCLE_16_9</a>))</div>
+<div class="ttc" id="agroup___i2_c__duty__cycle__in__fast__mode_html_ga414df076d339793a7c761033346fd4ca"><div class="ttname"><a href="group___i2_c__duty__cycle__in__fast__mode.html#ga414df076d339793a7c761033346fd4ca">I2C_DUTYCYCLE_2</a></div><div class="ttdeci">#define I2C_DUTYCYCLE_2</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8h_source.html#l00289">stm32f1xx_hal_i2c.h:289</a></div></div>
+<div class="ttc" id="agroup___i2_c__duty__cycle__in__fast__mode_html_gae9d1f8a140f052c1fcbcd87b4181f78d"><div class="ttname"><a href="group___i2_c__duty__cycle__in__fast__mode.html#gae9d1f8a140f052c1fcbcd87b4181f78d">I2C_DUTYCYCLE_16_9</a></div><div class="ttdeci">#define I2C_DUTYCYCLE_16_9</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8h_source.html#l00290">stm32f1xx_hal_i2c.h:290</a></div></div>
+</div><!-- fragment -->
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__i2c_8h_source.html#l00679">679</a> del archivo <a class="el" href="stm32f1xx__hal__i2c_8h_source.html">stm32f1xx_hal_i2c.h</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l00463">HAL_I2C_Init()</a>.</p>
+
+</div>
+</div>
+<a id="ga36a9a7855d7f35a6b03b05c6079bf149" name="ga36a9a7855d7f35a6b03b05c6079bf149"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga36a9a7855d7f35a6b03b05c6079bf149">&#9670;&#160;</a></span>IS_I2C_GENERAL_CALL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IS_I2C_GENERAL_CALL</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>CALL</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__i2c_8h.html">stm32f1xx_hal_i2c.h</a>&quot;</code></p>
+<b>Valor:</b><div class="fragment"><div class="line">(((CALL) == <a class="code hl_define" href="group___i2_c__general__call__addressing__mode.html#ga14918ea7d2b23cd67c66b49ebbf5c0a8">I2C_GENERALCALL_DISABLE</a>) || \</div>
+<div class="line">((CALL) == <a class="code hl_define" href="group___i2_c__general__call__addressing__mode.html#ga5ec9ec869e4c78a597c5007c245c01a0">I2C_GENERALCALL_ENABLE</a>))</div>
+<div class="ttc" id="agroup___i2_c__general__call__addressing__mode_html_ga14918ea7d2b23cd67c66b49ebbf5c0a8"><div class="ttname"><a href="group___i2_c__general__call__addressing__mode.html#ga14918ea7d2b23cd67c66b49ebbf5c0a8">I2C_GENERALCALL_DISABLE</a></div><div class="ttdeci">#define I2C_GENERALCALL_DISABLE</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8h_source.html#l00316">stm32f1xx_hal_i2c.h:316</a></div></div>
+<div class="ttc" id="agroup___i2_c__general__call__addressing__mode_html_ga5ec9ec869e4c78a597c5007c245c01a0"><div class="ttname"><a href="group___i2_c__general__call__addressing__mode.html#ga5ec9ec869e4c78a597c5007c245c01a0">I2C_GENERALCALL_ENABLE</a></div><div class="ttdeci">#define I2C_GENERALCALL_ENABLE</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8h_source.html#l00317">stm32f1xx_hal_i2c.h:317</a></div></div>
+</div><!-- fragment -->
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__i2c_8h_source.html#l00685">685</a> del archivo <a class="el" href="stm32f1xx__hal__i2c_8h_source.html">stm32f1xx_hal_i2c.h</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l00463">HAL_I2C_Init()</a>.</p>
+
+</div>
+</div>
+<a id="gace95d2b6add7feef5805f1fa6d2e46be" name="gace95d2b6add7feef5805f1fa6d2e46be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gace95d2b6add7feef5805f1fa6d2e46be">&#9670;&#160;</a></span>IS_I2C_MEMADD_SIZE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IS_I2C_MEMADD_SIZE</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>SIZE</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__i2c_8h.html">stm32f1xx_hal_i2c.h</a>&quot;</code></p>
+<b>Valor:</b><div class="fragment"><div class="line">(((SIZE) == <a class="code hl_define" href="group___i2_c___memory___address___size.html#ga44007b689fa80deeab22820ad0b2dc6d">I2C_MEMADD_SIZE_8BIT</a>) || \</div>
+<div class="line">((SIZE) == <a class="code hl_define" href="group___i2_c___memory___address___size.html#ga5b8c4b7d245fd7ab998acf2c7edd61a4">I2C_MEMADD_SIZE_16BIT</a>))</div>
+<div class="ttc" id="agroup___i2_c___memory___address___size_html_ga44007b689fa80deeab22820ad0b2dc6d"><div class="ttname"><a href="group___i2_c___memory___address___size.html#ga44007b689fa80deeab22820ad0b2dc6d">I2C_MEMADD_SIZE_8BIT</a></div><div class="ttdeci">#define I2C_MEMADD_SIZE_8BIT</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8h_source.html#l00334">stm32f1xx_hal_i2c.h:334</a></div></div>
+<div class="ttc" id="agroup___i2_c___memory___address___size_html_ga5b8c4b7d245fd7ab998acf2c7edd61a4"><div class="ttname"><a href="group___i2_c___memory___address___size.html#ga5b8c4b7d245fd7ab998acf2c7edd61a4">I2C_MEMADD_SIZE_16BIT</a></div><div class="ttdeci">#define I2C_MEMADD_SIZE_16BIT</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8h_source.html#l00335">stm32f1xx_hal_i2c.h:335</a></div></div>
+</div><!-- fragment -->
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__i2c_8h_source.html#l00689">689</a> del archivo <a class="el" href="stm32f1xx__hal__i2c_8h_source.html">stm32f1xx_hal_i2c.h</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l02683">HAL_I2C_Mem_Read()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l03340">HAL_I2C_Mem_Read_DMA()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l03069">HAL_I2C_Mem_Read_IT()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l02560">HAL_I2C_Mem_Write()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l03160">HAL_I2C_Mem_Write_DMA()</a> y <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l02984">HAL_I2C_Mem_Write_IT()</a>.</p>
+
+</div>
+</div>
+<a id="gaf7d844f7c7f5c96067468ab47971d0fd" name="gaf7d844f7c7f5c96067468ab47971d0fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf7d844f7c7f5c96067468ab47971d0fd">&#9670;&#160;</a></span>IS_I2C_NO_STRETCH</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IS_I2C_NO_STRETCH</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>STRETCH</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__i2c_8h.html">stm32f1xx_hal_i2c.h</a>&quot;</code></p>
+<b>Valor:</b><div class="fragment"><div class="line">(((STRETCH) == <a class="code hl_define" href="group___i2_c__nostretch__mode.html#ga611deefe89e56fa65f853e6796f2cf66">I2C_NOSTRETCH_DISABLE</a>) || \</div>
+<div class="line">((STRETCH) == <a class="code hl_define" href="group___i2_c__nostretch__mode.html#ga67ebace1182d99bb5d7968994c01c80e">I2C_NOSTRETCH_ENABLE</a>))</div>
+<div class="ttc" id="agroup___i2_c__nostretch__mode_html_ga611deefe89e56fa65f853e6796f2cf66"><div class="ttname"><a href="group___i2_c__nostretch__mode.html#ga611deefe89e56fa65f853e6796f2cf66">I2C_NOSTRETCH_DISABLE</a></div><div class="ttdeci">#define I2C_NOSTRETCH_DISABLE</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8h_source.html#l00325">stm32f1xx_hal_i2c.h:325</a></div></div>
+<div class="ttc" id="agroup___i2_c__nostretch__mode_html_ga67ebace1182d99bb5d7968994c01c80e"><div class="ttname"><a href="group___i2_c__nostretch__mode.html#ga67ebace1182d99bb5d7968994c01c80e">I2C_NOSTRETCH_ENABLE</a></div><div class="ttdeci">#define I2C_NOSTRETCH_ENABLE</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8h_source.html#l00326">stm32f1xx_hal_i2c.h:326</a></div></div>
+</div><!-- fragment -->
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__i2c_8h_source.html#l00687">687</a> del archivo <a class="el" href="stm32f1xx__hal__i2c_8h_source.html">stm32f1xx_hal_i2c.h</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l00463">HAL_I2C_Init()</a>.</p>
+
+</div>
+</div>
+<a id="gad84e8b9523d45b6105b4d5cb68994a79" name="gad84e8b9523d45b6105b4d5cb68994a79"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad84e8b9523d45b6105b4d5cb68994a79">&#9670;&#160;</a></span>IS_I2C_OWN_ADDRESS1</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IS_I2C_OWN_ADDRESS1</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>ADDRESS1</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__i2c_8h.html">stm32f1xx_hal_i2c.h</a>&quot;</code></p>
+<b>Valor:</b><div class="fragment"><div class="line">(((ADDRESS1) &amp; 0xFFFFFC00U) == 0U)</div>
+</div><!-- fragment -->
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__i2c_8h_source.html#l00692">692</a> del archivo <a class="el" href="stm32f1xx__hal__i2c_8h_source.html">stm32f1xx_hal_i2c.h</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l00463">HAL_I2C_Init()</a>.</p>
+
+</div>
+</div>
+<a id="ga83001d53612b83ee90730d3bb2732537" name="ga83001d53612b83ee90730d3bb2732537"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga83001d53612b83ee90730d3bb2732537">&#9670;&#160;</a></span>IS_I2C_OWN_ADDRESS2</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IS_I2C_OWN_ADDRESS2</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>ADDRESS2</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__i2c_8h.html">stm32f1xx_hal_i2c.h</a>&quot;</code></p>
+<b>Valor:</b><div class="fragment"><div class="line">(((ADDRESS2) &amp; 0xFFFFFF01U) == 0U)</div>
+</div><!-- fragment -->
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__i2c_8h_source.html#l00693">693</a> del archivo <a class="el" href="stm32f1xx__hal__i2c_8h_source.html">stm32f1xx_hal_i2c.h</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l00463">HAL_I2C_Init()</a>.</p>
+
+</div>
+</div>
+<a id="ga8f3522af9ffef268641698ac80f77859" name="ga8f3522af9ffef268641698ac80f77859"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga8f3522af9ffef268641698ac80f77859">&#9670;&#160;</a></span>IS_I2C_TRANSFER_OPTIONS_REQUEST</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IS_I2C_TRANSFER_OPTIONS_REQUEST</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>REQUEST</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__i2c_8h.html">stm32f1xx_hal_i2c.h</a>&quot;</code></p>
+<b>Valor:</b><div class="fragment"><div class="line">(((REQUEST) == <a class="code hl_define" href="group___i2_c___xfer_options__definition.html#gab23601bfc0eaddbc4823d193b7e49a9c">I2C_FIRST_FRAME</a>)              || \</div>
+<div class="line">((REQUEST) == <a class="code hl_define" href="group___i2_c___xfer_options__definition.html#ga1396d7236a5e1d52c9fd6d182d1f2869">I2C_FIRST_AND_NEXT_FRAME</a>)     || \</div>
+<div class="line">((REQUEST) == <a class="code hl_define" href="group___i2_c___xfer_options__definition.html#ga8790cd8bea154c662fc6a6d6ef6b9083">I2C_NEXT_FRAME</a>)               || \</div>
+<div class="line">((REQUEST) == <a class="code hl_define" href="group___i2_c___xfer_options__definition.html#ga56aa81e0fe6ff902f3b0dd0bc9e11b96">I2C_FIRST_AND_LAST_FRAME</a>)     || \</div>
+<div class="line">((REQUEST) == <a class="code hl_define" href="group___i2_c___xfer_options__definition.html#gaf732cc5827622242ce14645f67749f40">I2C_LAST_FRAME</a>)               || \</div>
+<div class="line">((REQUEST) == <a class="code hl_define" href="group___i2_c___xfer_options__definition.html#gac316c2c562991d4629151b517c2c02d8">I2C_LAST_FRAME_NO_STOP</a>)       || \</div>
+<div class="line">IS_I2C_TRANSFER_OTHER_OPTIONS_REQUEST(REQUEST))</div>
+<div class="ttc" id="agroup___i2_c___xfer_options__definition_html_ga1396d7236a5e1d52c9fd6d182d1f2869"><div class="ttname"><a href="group___i2_c___xfer_options__definition.html#ga1396d7236a5e1d52c9fd6d182d1f2869">I2C_FIRST_AND_NEXT_FRAME</a></div><div class="ttdeci">#define I2C_FIRST_AND_NEXT_FRAME</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8h_source.html#l00353">stm32f1xx_hal_i2c.h:353</a></div></div>
+<div class="ttc" id="agroup___i2_c___xfer_options__definition_html_ga56aa81e0fe6ff902f3b0dd0bc9e11b96"><div class="ttname"><a href="group___i2_c___xfer_options__definition.html#ga56aa81e0fe6ff902f3b0dd0bc9e11b96">I2C_FIRST_AND_LAST_FRAME</a></div><div class="ttdeci">#define I2C_FIRST_AND_LAST_FRAME</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8h_source.html#l00355">stm32f1xx_hal_i2c.h:355</a></div></div>
+<div class="ttc" id="agroup___i2_c___xfer_options__definition_html_ga8790cd8bea154c662fc6a6d6ef6b9083"><div class="ttname"><a href="group___i2_c___xfer_options__definition.html#ga8790cd8bea154c662fc6a6d6ef6b9083">I2C_NEXT_FRAME</a></div><div class="ttdeci">#define I2C_NEXT_FRAME</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8h_source.html#l00354">stm32f1xx_hal_i2c.h:354</a></div></div>
+<div class="ttc" id="agroup___i2_c___xfer_options__definition_html_gab23601bfc0eaddbc4823d193b7e49a9c"><div class="ttname"><a href="group___i2_c___xfer_options__definition.html#gab23601bfc0eaddbc4823d193b7e49a9c">I2C_FIRST_FRAME</a></div><div class="ttdeci">#define I2C_FIRST_FRAME</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8h_source.html#l00352">stm32f1xx_hal_i2c.h:352</a></div></div>
+<div class="ttc" id="agroup___i2_c___xfer_options__definition_html_gac316c2c562991d4629151b517c2c02d8"><div class="ttname"><a href="group___i2_c___xfer_options__definition.html#gac316c2c562991d4629151b517c2c02d8">I2C_LAST_FRAME_NO_STOP</a></div><div class="ttdeci">#define I2C_LAST_FRAME_NO_STOP</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8h_source.html#l00356">stm32f1xx_hal_i2c.h:356</a></div></div>
+<div class="ttc" id="agroup___i2_c___xfer_options__definition_html_gaf732cc5827622242ce14645f67749f40"><div class="ttname"><a href="group___i2_c___xfer_options__definition.html#gaf732cc5827622242ce14645f67749f40">I2C_LAST_FRAME</a></div><div class="ttdeci">#define I2C_LAST_FRAME</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8h_source.html#l00357">stm32f1xx_hal_i2c.h:357</a></div></div>
+</div><!-- fragment -->
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__i2c_8h_source.html#l00694">694</a> del archivo <a class="el" href="stm32f1xx__hal__i2c_8h_source.html">stm32f1xx_hal_i2c.h</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l04066">HAL_I2C_Master_Seq_Receive_DMA()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l03945">HAL_I2C_Master_Seq_Receive_IT()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l03765">HAL_I2C_Master_Seq_Transmit_DMA()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l03670">HAL_I2C_Master_Seq_Transmit_IT()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l04587">HAL_I2C_Slave_Seq_Receive_DMA()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l04521">HAL_I2C_Slave_Seq_Receive_IT()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l04347">HAL_I2C_Slave_Seq_Transmit_DMA()</a> y <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l04281">HAL_I2C_Slave_Seq_Transmit_IT()</a>.</p>
+
+</div>
+</div>
+<a id="ga13a3986011ca018dd12ff39ea3bec11b" name="ga13a3986011ca018dd12ff39ea3bec11b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga13a3986011ca018dd12ff39ea3bec11b">&#9670;&#160;</a></span>IS_I2C_TRANSFER_OTHER_OPTIONS_REQUEST</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IS_I2C_TRANSFER_OTHER_OPTIONS_REQUEST</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>REQUEST</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__i2c_8h.html">stm32f1xx_hal_i2c.h</a>&quot;</code></p>
+<b>Valor:</b><div class="fragment"><div class="line">(((REQUEST) == <a class="code hl_define" href="group___i2_c___xfer_options__definition.html#gabedde3791be7cb544ffeb9e408d1980e">I2C_OTHER_FRAME</a>)     || \</div>
+<div class="line">((REQUEST) == <a class="code hl_define" href="group___i2_c___xfer_options__definition.html#ga272995b7f02a1e44b589cc9794093d0b">I2C_OTHER_AND_LAST_FRAME</a>))</div>
+<div class="ttc" id="agroup___i2_c___xfer_options__definition_html_ga272995b7f02a1e44b589cc9794093d0b"><div class="ttname"><a href="group___i2_c___xfer_options__definition.html#ga272995b7f02a1e44b589cc9794093d0b">I2C_OTHER_AND_LAST_FRAME</a></div><div class="ttdeci">#define I2C_OTHER_AND_LAST_FRAME</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8h_source.html#l00363">stm32f1xx_hal_i2c.h:363</a></div></div>
+<div class="ttc" id="agroup___i2_c___xfer_options__definition_html_gabedde3791be7cb544ffeb9e408d1980e"><div class="ttname"><a href="group___i2_c___xfer_options__definition.html#gabedde3791be7cb544ffeb9e408d1980e">I2C_OTHER_FRAME</a></div><div class="ttdeci">#define I2C_OTHER_FRAME</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8h_source.html#l00362">stm32f1xx_hal_i2c.h:362</a></div></div>
+</div><!-- fragment -->
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__i2c_8h_source.html#l00702">702</a> del archivo <a class="el" href="stm32f1xx__hal__i2c_8h_source.html">stm32f1xx_hal_i2c.h</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l04885">HAL_I2C_EV_IRQHandler()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l04066">HAL_I2C_Master_Seq_Receive_DMA()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l03945">HAL_I2C_Master_Seq_Receive_IT()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l03765">HAL_I2C_Master_Seq_Transmit_DMA()</a> y <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l03670">HAL_I2C_Master_Seq_Transmit_IT()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generado el <span class="timestamp"></span> para MICRO-Firmware por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

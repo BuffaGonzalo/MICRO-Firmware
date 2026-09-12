@@ -1,0 +1,107 @@
+\doxysubsubsubsubsection{ADC DMA management }
+\hypertarget{group___a_d_c___l_l___e_f___d_m_a___management}{}\label{group___a_d_c___l_l___e_f___d_m_a___management}\index{ADC DMA management@{ADC DMA management}}
+Diagrama de colaboración de ADC DMA management:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group___a_d_c___l_l___e_f___d_m_a___management}
+\end{center}
+\end{figure}
+\doxysubsubsubsubsubsubsection*{Funciones}
+\begin{DoxyCompactItemize}
+\item 
+static \+\_\+\+\_\+inline uint32\+\_\+t \doxymbox{\hyperlink{group___a_d_c___l_l___e_f___d_m_a___management_ga62686bfa592f47ec08eb339214e3ba90}{LL\+\_\+\+ADC\+\_\+\+DMA\+\_\+\+Get\+Reg\+Addr}} (\doxymbox{\hyperlink{struct_a_d_c___type_def}{ADC\+\_\+\+Type\+Def}} \texorpdfstring{$\ast$}{*}ADCx, uint32\+\_\+t Register)
+\begin{DoxyCompactList}\small\item\em Function to help to configure DMA transfer from ADC: retrieve the ADC register address from ADC instance and a list of ADC registers intended to be used (most commonly) with DMA transfer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsubsubsubsubsection{Descripción detallada}
+
+
+\label{group___a_d_c___l_l___e_f___d_m_a___management_doc-func-members}
+\Hypertarget{group___a_d_c___l_l___e_f___d_m_a___management_doc-func-members}
+\doxysubsubsubsubsubsection{Documentación de funciones}
+\Hypertarget{group___a_d_c___l_l___e_f___d_m_a___management_ga62686bfa592f47ec08eb339214e3ba90}\index{ADC DMA management@{ADC DMA management}!LL\_ADC\_DMA\_GetRegAddr@{LL\_ADC\_DMA\_GetRegAddr}}
+\index{LL\_ADC\_DMA\_GetRegAddr@{LL\_ADC\_DMA\_GetRegAddr}!ADC DMA management@{ADC DMA management}}
+\doxyparagraph{\texorpdfstring{LL\_ADC\_DMA\_GetRegAddr()}{LL\_ADC\_DMA\_GetRegAddr()}}
+{\footnotesize\ttfamily \label{group___a_d_c___l_l___e_f___d_m_a___management_ga62686bfa592f47ec08eb339214e3ba90} 
+\+\_\+\+\_\+inline uint32\+\_\+t LL\+\_\+\+ADC\+\_\+\+DMA\+\_\+\+Get\+Reg\+Addr (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{struct_a_d_c___type_def}{ADC\+\_\+\+Type\+Def}} \texorpdfstring{$\ast$}{*}}]{ADCx}{, }\item[{uint32\+\_\+t}]{Register}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+{\ttfamily \+\#include "{}\doxymbox{\hyperlink{stm32f1xx__ll__adc_8h}{stm32f1xx\+\_\+ll\+\_\+adc.\+h}}"{}}
+
+
+
+Function to help to configure DMA transfer from ADC: retrieve the ADC register address from ADC instance and a list of ADC registers intended to be used (most commonly) with DMA transfer. 
+
+\begin{DoxyNote}{Nota}
+These ADC registers are data registers: when ADC conversion data is available in ADC data registers, ADC generates a DMA transfer request. 
+
+This macro is intended to be used with LL DMA driver, refer to function "{}\+LL\+\_\+\+DMA\+\_\+\+Config\+Addresses()"{}. Example: LL\+\_\+\+DMA\+\_\+\+Config\+Addresses(DMA1, LL\+\_\+\+DMA\+\_\+\+CHANNEL\+\_\+1, LL\+\_\+\+ADC\+\_\+\+DMA\+\_\+\+Get\+Reg\+Addr(\+ADC1, LL\+\_\+\+ADC\+\_\+\+DMA\+\_\+\+REG\+\_\+\+REGULAR\+\_\+\+DATA), (uint32\+\_\+t)\&\texorpdfstring{$<$}{<} array or variable \texorpdfstring{$>$}{>}, LL\+\_\+\+DMA\+\_\+\+DIRECTION\+\_\+\+PERIPH\+\_\+\+TO\+\_\+\+MEMORY); 
+
+For devices with several ADC: in multimode, some devices use a different data register outside of ADC instance scope (common data register). This macro manages this register difference, only ADC instance has to be set as parameter. 
+
+On STM32\+F1, only ADC instances ADC1 and ADC3 have DMA transfer capability, not ADC2 (ADC2 and ADC3 instances not available on all devices). 
+
+On STM32\+F1, multimode can be used only with ADC1 and ADC2, not ADC3. Therefore, the corresponding parameter of data transfer for multimode can be used only with ADC1 and ADC2. (ADC2 and ADC3 instances not available on all devices). @rmtoll DR DATA LL\+\_\+\+ADC\+\_\+\+DMA\+\_\+\+Get\+Reg\+Addr 
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parámetros}
+{\em ADCx} & ADC instance \\
+\hline
+{\em Register} & This parameter can be one of the following values: \begin{DoxyItemize}
+\item \doxylink{group___a_d_c___l_l___e_c___r_e_g_i_s_t_e_r_s_gae6865719ded4c442347a9f47e28ae911}{LL\+\_\+\+ADC\+\_\+\+DMA\+\_\+\+REG\+\_\+\+REGULAR\+\_\+\+DATA} \item \doxylink{group___a_d_c___l_l___e_c___r_e_g_i_s_t_e_r_s_gaaa0a4a0fa88843eeb4bfc6a30ede367a}{LL\+\_\+\+ADC\+\_\+\+DMA\+\_\+\+REG\+\_\+\+REGULAR\+\_\+\+DATA\+\_\+\+MULTI} (1)\end{DoxyItemize}
+(1) Available on devices with several ADC instances. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Valores devueltos}
+{\em \doxylink{group___a_d_c}{ADC}} & register address \\
+\hline
+\end{DoxyRetVals}
+\texorpdfstring{$<$}{<} Peripheral base address in the alias region
+
+Definición en la línea \doxymbox{\hyperlink{stm32f1xx__ll__adc_8h_source_l01600}{1600}} del archivo \doxymbox{\hyperlink{stm32f1xx__ll__adc_8h_source}{stm32f1xx\+\_\+ll\+\_\+adc.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01601\ \{}
+\DoxyCodeLine{01602\ \ \ uint32\_t\ data\_reg\_addr\ =\ 0U;}
+\DoxyCodeLine{01603\ \ \ }
+\DoxyCodeLine{01604\ \ \ \textcolor{keywordflow}{if}\ (Register\ ==\ \doxymbox{\hyperlink{group___a_d_c___l_l___e_c___r_e_g_i_s_t_e_r_s_gae6865719ded4c442347a9f47e28ae911}{LL\_ADC\_DMA\_REG\_REGULAR\_DATA}})}
+\DoxyCodeLine{01605\ \ \ \{}
+\DoxyCodeLine{01606\ \ \ \ \ \textcolor{comment}{/*\ Retrieve\ address\ of\ register\ DR\ */}}
+\DoxyCodeLine{01607\ \ \ \ \ data\_reg\_addr\ =\ (uint32\_t)\&(ADCx-\/>\doxymbox{\hyperlink{struct_a_d_c___type_def_af59d5641aab8676a0eb78c790d7c72bd}{DR}});}
+\DoxyCodeLine{01608\ \ \ \}}
+\DoxyCodeLine{01609\ \ \ \textcolor{keywordflow}{else}\ \textcolor{comment}{/*\ (Register\ ==\ LL\_ADC\_DMA\_REG\_REGULAR\_DATA\_MULTI)\ */}}
+\DoxyCodeLine{01610\ \ \ \{}
+\DoxyCodeLine{01611\ \ \ \ \ \textcolor{comment}{/*\ Retrieve\ address\ of\ register\ of\ multimode\ data\ */}}
+\DoxyCodeLine{01612\ \ \ \ \ data\_reg\_addr\ =\ (uint32\_t)\&(\doxymbox{\hyperlink{group___peripheral__declaration_gaf14f3ee44d5eab3d8f7dac1006cb5582}{ADC12\_COMMON}}-\/>DR);}
+\DoxyCodeLine{01613\ \ \ \}}
+\DoxyCodeLine{01614\ \ \ }
+\DoxyCodeLine{01615\ \ \ \textcolor{keywordflow}{return}\ data\_reg\_addr;}
+\DoxyCodeLine{01616\ \}}
+
+\end{DoxyCode}
+
+
+Hace referencia a \doxymbox{\hyperlink{stm32f103xb_8h_source_l00671}{ADC12\+\_\+\+COMMON}}, \doxymbox{\hyperlink{stm32f103xb_8h_source_l00164}{ADC\+\_\+\+Type\+Def::\+\+DR}}, \doxymbox{\hyperlink{stm32f1xx__ll__adc_8h_source_l01600}{LL\+\_\+\+ADC\+\_\+\+DMA\+\_\+\+Get\+Reg\+Addr()}} y \doxymbox{\hyperlink{stm32f1xx__ll__adc_8h_source_l00443}{LL\+\_\+\+ADC\+\_\+\+DMA\+\_\+\+REG\+\_\+\+REGULAR\+\_\+\+DATA}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{stm32f1xx__ll__adc_8h_source_l01600}{LL\+\_\+\+ADC\+\_\+\+DMA\+\_\+\+Get\+Reg\+Addr()}}.
+
+Gráfico de llamadas de esta función:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=221pt]{group___a_d_c___l_l___e_f___d_m_a___management_ga62686bfa592f47ec08eb339214e3ba90_cgraph}
+\end{center}
+\end{figure}
+Gráfico de llamadas a esta función:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=221pt]{group___a_d_c___l_l___e_f___d_m_a___management_ga62686bfa592f47ec08eb339214e3ba90_icgraph}
+\end{center}
+\end{figure}

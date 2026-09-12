@@ -1,19 +1,28 @@
-/*
- * wiregfx.c
- *
- *  Created on: 28 abr 2026
- *      Author: gonza
+/**
+ * @file   wiregfx.c
+ * @author Gonzalo M. Buffa
+ * @date   28/04/2026
+ * @brief  Implementación del pipeline de renderizado alámbrico (Wireframe) 3D/4D en punto fijo.
+ * @details Realiza proyecciones axonométricas y en perspectiva estereográfica sobre el display SSD1306.
+ *          Aplica matrices de rotación trigonométrica computadas mediante una tabla precalculada (sin_LUT)
+ *          de 256 elementos escalada a 7 bits ($1.0 \approx 127$), sustituyendo la división en coma flotante
+ *          por desplazamientos aritméticos a la derecha (`>> 7`).
+ * @ingroup group_ui_graphics
  */
 
 #include "wiregfx.h"
 
-// --- Ángulos de rotación internos ---
-static uint8_t angle_x = 0;
-static uint8_t angle_y = 0;
-static uint8_t angle_z = 0;
-static uint8_t angle_xz = 0;
-static uint8_t angle_yz = 0;
-static uint8_t angle_xw = 0;
+/**
+ * @name Variables Estáticas de Ángulos de Rotación
+ * @{
+ */
+static uint8_t angle_x = 0;   /*!< Ángulo de rotación sobre el eje X (0 a 255 = 0° a 360°) */
+static uint8_t angle_y = 0;   /*!< Ángulo de rotación sobre el eje Y */
+static uint8_t angle_z = 0;   /*!< Ángulo de rotación sobre el eje Z */
+static uint8_t angle_xz = 0;  /*!< Ángulo de rotación en el plano X-Z (para 4D) */
+static uint8_t angle_yz = 0;  /*!< Ángulo de rotación en el plano Y-Z (para 4D) */
+static uint8_t angle_xw = 0;  /*!< Ángulo de rotación en el plano X-W de la 4ta dimensión */
+/** @} */
 
 // Look-Up Table (LUT) de Seno. 256 valores precalculados.
 // Está escalada de -127 a 127. (1.0 = 127). Esto nos permite dividir rápido con ">> 7".

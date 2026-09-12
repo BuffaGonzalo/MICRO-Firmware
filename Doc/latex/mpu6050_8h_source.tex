@@ -1,0 +1,108 @@
+\doxysubsection{mpu6050.\+h}
+\hypertarget{mpu6050_8h_source}{}\label{mpu6050_8h_source}\index{mpu6050.h@{mpu6050.h}}
+\doxymbox{\hyperlink{mpu6050_8h}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00001}00001\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00002}00002\ \textcolor{comment}{\ *\ @file\ \ \ mpu6050.h}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00003}00003\ \textcolor{comment}{\ *\ @author\ Gonzalo\ M.\ Buffa}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00004}00004\ \textcolor{comment}{\ *\ @date\ \ \ 24/05/2025}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00005}00005\ \textcolor{comment}{\ *\ @brief\ \ Driver\ de\ configuración\ y\ adquisición\ para\ la\ Unidad\ de\ Medición\ Inercial\ MPU-\/6050.}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00006}00006\ \textcolor{comment}{\ *\ @details\ Este\ módulo\ gestiona\ la\ inicialización\ de\ la\ IMU\ MPU-\/6050\ sobre\ el\ bus\ I2C,}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00007}00007\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ configurando\ el\ muestreo\ interno\ a\ 200\ Hz\ y\ el\ filtro\ digital\ pasabajos\ (DLPF)\ a\ 98\ Hz.}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00008}00008\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ La\ lectura\ de\ los\ 14\ registros\ continuos\ de\ aceleración\ y\ velocidad\ angular\ se\ realiza}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00009}00009\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ de\ forma\ no\ bloqueante\ mediante\ transferencias\ DMA\ directas\ a\ memoria.}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00010}00010\ \textcolor{comment}{\ *\ @ingroup\ group\_sensors}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00011}00011\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00013}00013\ \textcolor{preprocessor}{\#ifndef\ INC\_MPU6050\_H\_}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00014}00014\ \textcolor{preprocessor}{\#define\ INC\_MPU6050\_H\_}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00016}00016\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00017}00017\ \textcolor{preprocessor}{\#include\ <stddef.h>}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00018}00018\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00019}00019\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00020}00020\ \textcolor{comment}{\ *\ @defgroup\ MPU6050\_Registers\ Mapa\ de\ Registros\ del\ MPU-\/6050}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00021}00021\ \textcolor{comment}{\ *\ @ingroup\ group\_sensors}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00022}00022\ \textcolor{comment}{\ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00023}00023\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00024}\doxymbox{\hyperlink{group___m_p_u6050___registers_gad4d6255d8f7e5dc770e773b787977508}{00024}}\ \textcolor{preprocessor}{\#define\ MPU6050\_ADDR\ \ \ \ \ \ \ \ \ 0xD0\ \ }\textcolor{comment}{/*!<\ Dirección\ I2C\ del\ sensor\ en\ 8\ bits\ (AD0\ =\ 0\ -\/>\ 0x68\ <<\ 1\ =\ 0xD0)\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00025}\doxymbox{\hyperlink{group___m_p_u6050___registers_ga7e23ffa5bb718d06bcee89bbdf844ed8}{00025}}\ \textcolor{preprocessor}{\#define\ WHO\_AM\_I\_REG\ \ \ \ \ \ \ \ \ 0x75\ \ }\textcolor{comment}{/*!<\ Registro\ de\ identidad\ del\ dispositivo\ (valor\ esperado:\ 0x68)\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00026}\doxymbox{\hyperlink{group___m_p_u6050___registers_gaf9bd016ab99b299a4816433252e31c3d}{00026}}\ \textcolor{preprocessor}{\#define\ PWR\_MGMT\_1\_REG\ \ \ \ \ \ \ 0x6B\ \ }\textcolor{comment}{/*!<\ Registro\ de\ gestión\ de\ energía\ y\ modo\ sleep\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00027}\doxymbox{\hyperlink{group___m_p_u6050___registers_gaa2208da6faf439107b23dee629bb8398}{00027}}\ \textcolor{preprocessor}{\#define\ SMPLRT\_DIV\_REG\ \ \ \ \ \ \ 0x19\ \ }\textcolor{comment}{/*!<\ Divisor\ de\ la\ tasa\ de\ muestreo\ interno\ (Sample\ Rate\ Divider)\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00028}\doxymbox{\hyperlink{group___m_p_u6050___registers_gaf81594fa2c83e52e601f2e4a1d81d8bc}{00028}}\ \textcolor{preprocessor}{\#define\ CONFIG\_REG\ \ \ \ \ \ \ \ \ \ \ 0x1A\ \ }\textcolor{comment}{/*!<\ Configuración\ del\ filtro\ digital\ pasa-\/bajos\ (DLPF)\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00029}\doxymbox{\hyperlink{group___m_p_u6050___registers_ga5b1b1a1ea1298b67cdab17a7213c6356}{00029}}\ \textcolor{preprocessor}{\#define\ GYRO\_CONFIG\_REG\ \ \ \ \ \ 0x1B\ \ }\textcolor{comment}{/*!<\ Configuración\ de\ escala\ y\ rango\ del\ giróscopo\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00030}\doxymbox{\hyperlink{group___m_p_u6050___registers_gad1d05dc09d0025498687ab7e30ffd4e4}{00030}}\ \textcolor{preprocessor}{\#define\ ACCEL\_CONFIG\_REG\ \ \ \ \ 0x1C\ \ }\textcolor{comment}{/*!<\ Configuración\ de\ escala\ y\ rango\ del\ acelerómetro\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00031}\doxymbox{\hyperlink{group___m_p_u6050___registers_ga12d3f98f5ae302f7aab5895be9388d69}{00031}}\ \textcolor{preprocessor}{\#define\ ACCEL\_XOUT\_H\_REG\ \ \ \ \ 0x3B\ \ }\textcolor{comment}{/*!<\ Dirección\ base\ de\ lectura\ de\ aceleración\ (X\_HIGH,\ 14\ bytes\ continuos)\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00032}\doxymbox{\hyperlink{group___m_p_u6050___registers_gae2681bec6196f74ae52136e8af1a4dcf}{00032}}\ \textcolor{preprocessor}{\#define\ GYRO\_XOUT\_H\_REG\ \ \ \ \ \ 0x43\ \ }\textcolor{comment}{/*!<\ Dirección\ base\ de\ lectura\ de\ velocidad\ angular\ (X\_HIGH)\ */}\textcolor{preprocessor}{}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00033}00033\ \textcolor{comment}{/**\ @\}\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00034}00034\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00035}00035\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00036}00036\ \textcolor{comment}{\ *\ @defgroup\ MPU6050\_Calibration\ Offsets\ Digitales\ y\ Factores\ de\ Escala}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00037}00037\ \textcolor{comment}{\ *\ @ingroup\ group\_sensors}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00038}00038\ \textcolor{comment}{\ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00039}00039\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00040}\doxymbox{\hyperlink{group___m_p_u6050___calibration_ga2fe73e9ca8a2959ad0724c0488af023d}{00040}}\ \textcolor{preprocessor}{\#define\ OFFSET\_AX\ \ \ \ \ \ \ \ \ \ \ \ 450\ \ \ }\textcolor{comment}{/*!<\ Offset\ de\ calibración\ estática\ para\ acelerómetro\ eje\ X\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00041}\doxymbox{\hyperlink{group___m_p_u6050___calibration_ga26c4723b38a2c1862ee06bc893e4c608}{00041}}\ \textcolor{preprocessor}{\#define\ OFFSET\_AY\ \ \ \ \ \ \ \ \ \ \ \ 450\ \ \ }\textcolor{comment}{/*!<\ Offset\ de\ calibración\ estática\ para\ acelerómetro\ eje\ Y\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00042}\doxymbox{\hyperlink{group___m_p_u6050___calibration_ga7d1c6af1c047743b5f699e1887cc288d}{00042}}\ \textcolor{preprocessor}{\#define\ OFFSET\_AZ\ \ \ \ \ \ \ \ \ \ \ \ 450\ \ \ }\textcolor{comment}{/*!<\ Offset\ de\ calibración\ estática\ para\ acelerómetro\ eje\ Z\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00043}\doxymbox{\hyperlink{group___m_p_u6050___calibration_gaa1de8ac21ef49c0f259db92f8098f23f}{00043}}\ \textcolor{preprocessor}{\#define\ OFFSET\_GX\ \ \ \ \ \ \ \ \ \ \ \ 450\ \ \ }\textcolor{comment}{/*!<\ Offset\ de\ calibración\ estática\ para\ giróscopo\ eje\ X\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00044}\doxymbox{\hyperlink{group___m_p_u6050___calibration_ga72876ea6e0d9f1e6374dfc479594ed54}{00044}}\ \textcolor{preprocessor}{\#define\ OFFSET\_GY\ \ \ \ \ \ \ \ \ \ \ \ 350\ \ \ }\textcolor{comment}{/*!<\ Offset\ de\ calibración\ estática\ para\ giróscopo\ eje\ Y\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00045}\doxymbox{\hyperlink{group___m_p_u6050___calibration_ga8b454708a3c084ab2b678713ec060b59}{00045}}\ \textcolor{preprocessor}{\#define\ OFFSET\_GZ\ \ \ \ \ \ \ \ \ \ \ \ 350\ \ \ }\textcolor{comment}{/*!<\ Offset\ de\ calibración\ estática\ para\ giróscopo\ eje\ Z\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00047}\doxymbox{\hyperlink{group___m_p_u6050___calibration_ga32c4bb7fad1e1a4e3a3cdc51c0e91f10}{00047}}\ \textcolor{preprocessor}{\#define\ MULTIPLICADORFLOAT\ \ \ 100\ \ \ }\textcolor{comment}{/*!<\ Factor\ de\ escala\ en\ punto\ fijo\ (x100)\ para\ dos\ cifras\ decimales\ enteras\ */}\textcolor{preprocessor}{}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00048}00048\ \textcolor{comment}{/**\ @\}\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00049}00049\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00050}00050\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00051}00051\ \textcolor{comment}{\ *\ @brief\ Inicializa\ el\ MPU-\/6050\ con\ los\ parámetros\ de\ funcionamiento\ del\ robot.}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00052}00052\ \textcolor{comment}{\ *\ @details\ Despierta\ al\ sensor\ sacándolo\ del\ modo\ sleep\ (PWR\_MGMT\_1\ =\ 0),\ configura\ el\ DLPF}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00053}00053\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ a\ 98\ Hz\ (CONFIG\ =\ 0x02),\ establece\ la\ tasa\ de\ muestreo\ interno\ a\ 200\ Hz\ (SMPLRT\_DIV\ =\ 4),}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00054}00054\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ y\ fija\ los\ rangos\ dinámicos\ en\ \$\(\backslash\)pm\ 2g\$\ para\ aceleración\ y\ \$\(\backslash\)pm\ 250\string^\(\backslash\)circ/\(\backslash\)text\{s\}\$\ para\ rotación.}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00055}00055\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00056}00056\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{mpu6050_8h_a8c5131d4f6387709825f77368430fdf4}{mpu6050\_Init}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00057}00057\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00058}00058\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00059}00059\ \textcolor{comment}{\ *\ @brief\ Ejecuta\ el\ ciclo\ de\ lectura\ no\ bloqueante\ de\ 14\ bytes\ por\ DMA.}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00060}00060\ \textcolor{comment}{\ *\ @details\ Implementa\ una\ máquina\ de\ dos\ estados:}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00061}00061\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ -\/\ Estado\ 1:\ Dispara\ la\ lectura\ DMA\ de\ 14\ bytes\ contiguos\ desde\ \`{}ACCEL\_XOUT\_H\_REG`.}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00062}00062\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ -\/\ Estado\ 2:\ Recompone\ los\ pares\ de\ bytes\ recibidos\ (Big-\/Endian)\ en\ valores\ con\ signo\ de\ 16\ bits.}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00063}00063\ \textcolor{comment}{\ *\ @retval\ 1\ Lectura\ completa,\ datos\ actualizados\ y\ listos.}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00064}00064\ \textcolor{comment}{\ *\ @retval\ 0\ Transferencia\ DMA\ en\ curso\ o\ bus\ no\ disponible.}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00065}00065\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00066}00066\ \textcolor{keywordtype}{char}\ \doxymbox{\hyperlink{mpu6050_8h_aace5fea3888e51a75e8bfb77bae17b80}{mpu6050\_Read}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00067}00067\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00068}00068\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00069}00069\ \textcolor{comment}{\ *\ @brief\ Vincula\ la\ función\ de\ callback\ que\ indica\ la\ finalización\ de\ recepción\ DMA.}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00070}00070\ \textcolor{comment}{\ *\ @param[in]\ PtrRx\ Puntero\ a\ la\ bandera\ volátil\ que\ se\ activa\ en\ la\ interrupción\ DMA\ Rx.}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00071}00071\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00072}00072\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{mpu6050_8h_a2864ec8a15ced6016fe62257bea31262}{mpu6050\_ADC\_ConfCpltCallback}}(\textcolor{keyword}{volatile}\ uint8\_t\ *PtrRx);}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00073}00073\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00074}00074\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00075}00075\ \textcolor{comment}{\ *\ @brief\ Conecta\ el\ puntero\ a\ la\ función\ de\ lectura\ por\ DMA\ del\ bus\ I2C\ del\ microcontrolador.}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00076}00076\ \textcolor{comment}{\ *\ @param[in]\ PtrRx\ Puntero\ a\ la\ función\ despachadora\ de\ lectura\ I2C\ DMA\ implementada\ en\ el\ main.}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00077}00077\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00078}00078\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{mpu6050_8h_adf4f13f79245b1e0e41a105890ab2d9f}{mpu6050\_Attach\_MemReadDMA}}(\textcolor{keywordtype}{void}(*PtrRx)(uint8\_t\ address,\ uint8\_t\ *data,\ uint8\_t\ size,\ uint8\_t\ type));}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00079}00079\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00080}00080\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00081}00081\ \textcolor{comment}{\ *\ @brief\ Conecta\ el\ puntero\ a\ la\ función\ de\ escritura\ en\ registros\ I2C.}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00082}00082\ \textcolor{comment}{\ *\ @param[in]\ PtrRx\ Puntero\ a\ la\ función\ de\ encolado\ de\ escrituras\ I2C.}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00083}00083\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00084}00084\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{mpu6050_8h_a0e9583f99e3050282c81ef580a5fa90b}{mpu6050\_Attach\_MemWrite}}(\textcolor{keywordtype}{void}(*PtrRx)(uint8\_t\ address,\ uint8\_t\ *data,\ uint8\_t\ size,\ uint8\_t\ type));}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00085}00085\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00086}00086\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00087}00087\ \textcolor{comment}{\ *\ @brief\ Reinicia\ el\ estado\ interno\ del\ secuenciador\ de\ lectura\ DMA\ del\ sensor.}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00088}00088\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00089}00089\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{mpu6050_8h_a9211023060608ef2cae3642ca8406845}{mpu6050\_Reset\_State}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00090}00090\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00091}00091\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00092}00092\ \textcolor{comment}{\ *\ @brief\ Copia\ los\ últimos\ datos\ crudos\ de\ 16\ bits\ leídos\ del\ acelerómetro\ y\ giróscopo.}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00093}00093\ \textcolor{comment}{\ *\ @param[out]\ ax\ Puntero\ donde\ se\ almacenará\ la\ aceleración\ cruda\ en\ eje\ X.}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00094}00094\ \textcolor{comment}{\ *\ @param[out]\ ay\ Puntero\ donde\ se\ almacenará\ la\ aceleración\ cruda\ en\ eje\ Y.}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00095}00095\ \textcolor{comment}{\ *\ @param[out]\ az\ Puntero\ donde\ se\ almacenará\ la\ aceleración\ cruda\ en\ eje\ Z.}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00096}00096\ \textcolor{comment}{\ *\ @param[out]\ gx\ Puntero\ donde\ se\ almacenará\ la\ velocidad\ angular\ cruda\ en\ eje\ X.}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00097}00097\ \textcolor{comment}{\ *\ @param[out]\ gy\ Puntero\ donde\ se\ almacenará\ la\ velocidad\ angular\ cruda\ en\ eje\ Y.}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00098}00098\ \textcolor{comment}{\ *\ @param[out]\ gz\ Puntero\ donde\ se\ almacenará\ la\ velocidad\ angular\ cruda\ en\ eje\ Z.}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00099}00099\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00100}00100\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{mpu6050_8h_a0d2422b0bd5bcfba247b703c9f82057e}{mpu6050\_GetData}}(int16\_t\ *\doxymbox{\hyperlink{main_8c_aebedd0a48fe876cce3d3f14326e4ca66}{ax}},\ int16\_t\ *\doxymbox{\hyperlink{main_8c_a46d26903f1874d06875a974dfa1a9d3c}{ay}},\ int16\_t\ *\doxymbox{\hyperlink{main_8c_a41e60f9324f9d4fd9e916e964370fb2f}{az}},\ int16\_t\ *\doxymbox{\hyperlink{main_8c_a4524555b50a829ee7628cf5e5806f227}{gx}},\ int16\_t\ *\doxymbox{\hyperlink{main_8c_a8bd44b73dc5745833a8dd8d2a6240613}{gy}},\ int16\_t\ *\doxymbox{\hyperlink{main_8c_aa61e9778c784ec4695029ed2cc769a61}{gz}});}
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00101}00101\ }
+\DoxyCodeLine{\Hypertarget{mpu6050_8h_source_l00102}00102\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ INC\_MPU6050\_H\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

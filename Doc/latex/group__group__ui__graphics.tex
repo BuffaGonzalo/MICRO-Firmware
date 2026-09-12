@@ -1,0 +1,620 @@
+\doxysubsection{Interfaz OLED, Gráficos 3D y Botón (Display \& UI) }
+\hypertarget{group__group__ui__graphics}{}\label{group__group__ui__graphics}\index{Interfaz OLED, Gráficos 3D y Botón (Display \& UI)@{Interfaz OLED, Gráficos 3D y Botón (Display \& UI)}}
+
+
+Primitivas para display SSD1306, motor 3D/\+4D wireframe, pulsador multifunción y LED Heartbeat.  
+
+
+Diagrama de colaboración de Interfaz OLED, Gráficos 3D y Botón (Display \& UI):
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__group__ui__graphics}
+\end{center}
+\end{figure}
+\doxysubsubsubsection*{Temas}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{group___wire_g_f_x___config}{Parámetros de Centro y Perspectiva}}
+\end{DoxyCompactItemize}
+\doxysubsubsubsection*{Archivos}
+\begin{DoxyCompactItemize}
+\item 
+archivo \doxymbox{\hyperlink{fonts_8c}{fonts.\+c}}
+\begin{DoxyCompactList}\small\item\em Definición de las matrices de píxeles para las fuentes tipográficas del display OLED. \end{DoxyCompactList}\item 
+archivo \doxymbox{\hyperlink{fonts_8h}{fonts.\+h}}
+\begin{DoxyCompactList}\small\item\em Declaración de fuentes tipográficas matriciales para display OLED SSD1306. \end{DoxyCompactList}\item 
+archivo \doxymbox{\hyperlink{img_8h}{img.\+h}}
+\begin{DoxyCompactList}\small\item\em Mapas de bits monocromáticos (Bitmaps) para presentación en display OLED SSD1306. \end{DoxyCompactList}\item 
+archivo \doxymbox{\hyperlink{ssd1306_8c}{ssd1306.\+c}}
+\begin{DoxyCompactList}\small\item\em Implementación del controlador y primitivas de dibujo para el display OLED SSD1306. \end{DoxyCompactList}\item 
+archivo \doxymbox{\hyperlink{ssd1306_8h}{ssd1306.\+h}}
+\begin{DoxyCompactList}\small\item\em Driver de control y primitivas gráficas para display OLED monocromático SSD1306 (128x64). \end{DoxyCompactList}\item 
+archivo \doxymbox{\hyperlink{ssd1306__conf_8h}{ssd1306\+\_\+conf.\+h}}
+\begin{DoxyCompactList}\small\item\em Archivo de configuración estática para el driver de pantalla OLED SSD1306. \end{DoxyCompactList}\item 
+archivo \doxymbox{\hyperlink{wiregfx_8c}{wiregfx.\+c}}
+\begin{DoxyCompactList}\small\item\em Implementación del pipeline de renderizado alámbrico (Wireframe) 3D/\+4D en punto fijo. \end{DoxyCompactList}\item 
+archivo \doxymbox{\hyperlink{wiregfx_8h}{wiregfx.\+h}}
+\begin{DoxyCompactList}\small\item\em Motor gráfico wireframe 3D/\+4D en punto fijo para pantalla OLED SSD1306. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsubsection*{Planificador Temporal y Temporizadores Cooperativos}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{group__group__main_gad529a04bd298cf0801e0052c5da907c7}{heart\+Beat\+Task}} (void)
+\begin{DoxyCompactList}\small\item\em Genera el patrón visual de parpadeo sincrónico en el LED PC13 (Heartbeat). \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsubsection*{Máquina de Estados del Pulsador de Usuario}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{group__group__ui__graphics_ga2f07501694f5b96fb0fd85ee473c83eb}{init\+Button}} (\doxymbox{\hyperlink{struct__s_button}{\+\_\+s\+Button}} \texorpdfstring{$\ast$}{*}button)
+\begin{DoxyCompactList}\small\item\em Inicializa los descriptores de estado y temporización del botón de usuario. \end{DoxyCompactList}\item 
+uint8\+\_\+t \doxymbox{\hyperlink{group__group__ui__graphics_gaf7c4f477f9b957326bbb08d6ca119ac0}{update\+Mef\+Task}} (\doxymbox{\hyperlink{struct__s_button}{\+\_\+s\+Button}} \texorpdfstring{$\ast$}{*}button)
+\begin{DoxyCompactList}\small\item\em Actualiza la MEF de bajo nivel de antirrebote (Debounce) del botón. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{group__group__ui__graphics_gae8f31d90f3ac9868df392f575913fe7d}{button\+Task}} (\doxymbox{\hyperlink{struct__s_button}{\+\_\+s\+Button}} \texorpdfstring{$\ast$}{*}button)
+\begin{DoxyCompactList}\small\item\em Interpreta los eventos de alto nivel del botón (multiclic de 1 a 5 clics y pulsación larga). \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{group__group__ui__graphics_ga65dbf97ebe6b95c5571e8110d940f642}{button\+Timeout10ms}} (\doxymbox{\hyperlink{struct__s_button}{\+\_\+s\+Button}} \texorpdfstring{$\ast$}{*}button)
+\begin{DoxyCompactList}\small\item\em Decrementa el temporizador de ventana multiclic del botón cada 10 ms. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsubsection*{Lazos de Control Dinámico, PID y Navegación}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{group__group__control_ga392b7d5c226c5d8393b4df5c5f835fd1}{Handle\+Mode\+Screen\+Transition}} (void)
+\begin{DoxyCompactList}\small\item\em Gestiona la transición limpia de interfaces visuales al cambiar el modo operativo. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Descripción detallada}
+Primitivas para display SSD1306, motor 3D/\+4D wireframe, pulsador multifunción y LED Heartbeat. 
+
+
+
+\label{group__group__ui__graphics_doc-func-members}
+\Hypertarget{group__group__ui__graphics_doc-func-members}
+\doxysubsubsection{Documentación de funciones}
+\Hypertarget{group__group__ui__graphics_gae8f31d90f3ac9868df392f575913fe7d}\index{Interfaz OLED, Gráficos 3D y Botón (Display \& UI)@{Interfaz OLED, Gráficos 3D y Botón (Display \& UI)}!buttonTask@{buttonTask}}
+\index{buttonTask@{buttonTask}!Interfaz OLED, Gráficos 3D y Botón (Display \& UI)@{Interfaz OLED, Gráficos 3D y Botón (Display \& UI)}}
+\doxyparagraph{\texorpdfstring{buttonTask()}{buttonTask()}}
+{\footnotesize\ttfamily \label{group__group__ui__graphics_gae8f31d90f3ac9868df392f575913fe7d} 
+void button\+Task (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{struct__s_button}{\+\_\+s\+Button}} \texorpdfstring{$\ast$}{*}}]{button}{}\end{DoxyParamCaption})}
+
+
+
+{\ttfamily \+\#include "{}\doxymbox{\hyperlink{main_8c}{main.\+c}}"{}}
+
+
+
+Interpreta los eventos de alto nivel del botón (multiclic de 1 a 5 clics y pulsación larga). 
+
+Conmuta la variable global {\ttfamily \doxylink{main_8c_a7937637e0ec141695e3397a4eb429199}{robot\+Mode}} ({\ttfamily \doxylink{group__group__main_ga5ef913d615749b343e42f0424064e937}{\+\_\+e\+Robot\+Mode}}) según el número de clics registrados. 
+\begin{DoxyParams}[1]{Parámetros}
+\doxymbox{\texttt{in,out}}  & {\em button} & Puntero a la estructura {\ttfamily \doxylink{struct__s_button}{\+\_\+s\+Button}} con el estado del botón. \\
+\hline
+\end{DoxyParams}
+
+
+Definición en la línea \doxymbox{\hyperlink{main_8c_source_l02164}{2164}} del archivo \doxymbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{02164\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{02165\ \ \ \ \ \textcolor{comment}{//\ 1.\ Evaluar\ si\ la\ ventana\ de\ clics\ múltiples\ terminó\ (time\ llegó\ a\ 0)\ sin\ eventos\ de\ liberación\ pendientes}}
+\DoxyCodeLine{02166\ \ \ \ \ \textcolor{keywordflow}{if}\ (!button-\/>\doxymbox{\hyperlink{struct__s_button_a89aae2e1a5caaee3b017518a4973448e}{isPressed}}\ \&\&\ button-\/>\doxymbox{\hyperlink{struct__s_button_aba52ff7c5d18b686dfe7d23441b2e66c}{time}}\ ==\ 0\ \&\&\ button-\/>\doxymbox{\hyperlink{struct__s_button_a7664b4868cbb6eb989eff0d30e30c605}{clickCount}}\ >\ 0\ \&\&\ !button-\/>\doxymbox{\hyperlink{struct__s_button_a3ed6d0ad2029c6502c6e4241fdd7dc25}{justReleased}})\ \{}
+\DoxyCodeLine{02167\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Retornar\ y\ reintentar\ en\ el\ próximo\ ciclo\ si\ el\ bus\ I2C\ está\ ocupado,\ previniendo\ bloqueos\ y\ jitter}}
+\DoxyCodeLine{02168\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{group___i2_c___exported___functions___group3_gad63373b093502b83d5f9bd5e292385f0}{HAL\_I2C\_GetState}}(\&\doxymbox{\hyperlink{main_8c_ac379bcc152d860f08b1279fd3e232295}{hi2c2}})\ !=\ \doxymbox{\hyperlink{group___h_a_l__state__structure__definition_ggaef355af8eab251ae2a19ee164ad81c37af859ce60c5e462b0bfde3a5010bc72d1}{HAL\_I2C\_STATE\_READY}})\ \{}
+\DoxyCodeLine{02169\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{02170\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{02171\ }
+\DoxyCodeLine{02172\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (button-\/>\doxymbox{\hyperlink{struct__s_button_a7664b4868cbb6eb989eff0d30e30c605}{clickCount}})\ \{}
+\DoxyCodeLine{02173\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 1:\ \doxymbox{\hyperlink{main_8c_a4be6725935eb1d72095b766b2120782a}{SetRobotMode}}(\doxymbox{\hyperlink{group__group__main_gga5ef913d615749b343e42f0424064e937afb76bc9af4d33cb1941ce2198a22b5f1}{STATE\_SWING}});\ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{02174\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 2:\ \doxymbox{\hyperlink{main_8c_a4be6725935eb1d72095b766b2120782a}{SetRobotMode}}(\doxymbox{\hyperlink{group__group__main_gga5ef913d615749b343e42f0424064e937ab641b484c5de42c96f5a382ef25d557f}{STATE\_LINE\_FOLLOWING}});\ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{02175\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 3:\ \doxymbox{\hyperlink{main_8c_a4be6725935eb1d72095b766b2120782a}{SetRobotMode}}(\doxymbox{\hyperlink{group__group__main_gga5ef913d615749b343e42f0424064e937acbd2746ad5303084bb979bc275aa15ef}{STATE\_DODGE}});\ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{02176\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 4:\ \doxymbox{\hyperlink{main_8c_a4be6725935eb1d72095b766b2120782a}{SetRobotMode}}(\doxymbox{\hyperlink{group__group__main_gga5ef913d615749b343e42f0424064e937a81a27a62c9d29883324be07483fdd10a}{STATE\_JOYSTICK}});\ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{02177\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 5:\ \doxymbox{\hyperlink{main_8c_a4be6725935eb1d72095b766b2120782a}{SetRobotMode}}(\doxymbox{\hyperlink{group__group__main_gga5ef913d615749b343e42f0424064e937a2ac9f0b5fbb6cfc38170ccc14dcf3263}{STATE\_3D\_SCREEN}});\ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{02178\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:\ \doxymbox{\hyperlink{main_8c_a4be6725935eb1d72095b766b2120782a}{SetRobotMode}}(\doxymbox{\hyperlink{group__group__main_gga5ef913d615749b343e42f0424064e937ab641b484c5de42c96f5a382ef25d557f}{STATE\_LINE\_FOLLOWING}});\ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{02179\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{02180\ \ \ \ \ \ \ \ \ button-\/>\doxymbox{\hyperlink{struct__s_button_a7664b4868cbb6eb989eff0d30e30c605}{clickCount}}\ =\ 0;\ \textcolor{comment}{//\ Resetear\ contador}}
+\DoxyCodeLine{02181\ \ \ \ \ \}}
+\DoxyCodeLine{02182\ }
+\DoxyCodeLine{02183\ \ \ \ \ \textcolor{comment}{//\ 2.\ Solo\ tomamos\ decisiones\ de\ temporización\ de\ pulsación\ ante\ un\ EVENTO\ DE\ LIBERACIÓN}}
+\DoxyCodeLine{02184\ \ \ \ \ \textcolor{keywordflow}{if}\ (button-\/>\doxymbox{\hyperlink{struct__s_button_a3ed6d0ad2029c6502c6e4241fdd7dc25}{justReleased}})\ \{}
+\DoxyCodeLine{02185\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (button-\/>\doxymbox{\hyperlink{struct__s_button_aba52ff7c5d18b686dfe7d23441b2e66c}{time}}\ >=\ \doxymbox{\hyperlink{main_8c_ab0f00f133cbd0474bfa5bfb72394bfbd}{T3000MS}})\ \{}
+\DoxyCodeLine{02186\ \ \ \ \ \ \ \ \ \ \ \ \ button-\/>\doxymbox{\hyperlink{struct__s_button_a3ed6d0ad2029c6502c6e4241fdd7dc25}{justReleased}}\ =\ \doxymbox{\hyperlink{util_8h_a48dec3f0bf02a2f3b11fb90ae0fc4d4caa1e095cc966dbecf6a0d8aad75348d1a}{FALSE}};\ \textcolor{comment}{//\ Consumir\ el\ evento}}
+\DoxyCodeLine{02187\ \ \ \ \ \ \ \ \ \ \ \ \ button-\/>\doxymbox{\hyperlink{struct__s_button_aba52ff7c5d18b686dfe7d23441b2e66c}{time}}\ =\ 0;\ \textcolor{comment}{//\ Sin\ acción\ por\ ahora,\ limpiar}}
+\DoxyCodeLine{02188\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{02189\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (button-\/>\doxymbox{\hyperlink{struct__s_button_aba52ff7c5d18b686dfe7d23441b2e66c}{time}}\ >=\ \doxymbox{\hyperlink{main_8c_a19b85936f2c773232d11b318adf1c9de}{T2000MS}}\ \&\&\ button-\/>\doxymbox{\hyperlink{struct__s_button_aba52ff7c5d18b686dfe7d23441b2e66c}{time}}\ <\ \doxymbox{\hyperlink{main_8c_ab0f00f133cbd0474bfa5bfb72394bfbd}{T3000MS}})\ \{}
+\DoxyCodeLine{02190\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{group___i2_c___exported___functions___group3_gad63373b093502b83d5f9bd5e292385f0}{HAL\_I2C\_GetState}}(\&\doxymbox{\hyperlink{main_8c_ac379bcc152d860f08b1279fd3e232295}{hi2c2}})\ !=\ \doxymbox{\hyperlink{group___h_a_l__state__structure__definition_ggaef355af8eab251ae2a19ee164ad81c37af859ce60c5e462b0bfde3a5010bc72d1}{HAL\_I2C\_STATE\_READY}})\ \{}
+\DoxyCodeLine{02191\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{02192\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{02193\ \ \ \ \ \ \ \ \ \ \ \ \ button-\/>\doxymbox{\hyperlink{struct__s_button_a3ed6d0ad2029c6502c6e4241fdd7dc25}{justReleased}}\ =\ \doxymbox{\hyperlink{util_8h_a48dec3f0bf02a2f3b11fb90ae0fc4d4caa1e095cc966dbecf6a0d8aad75348d1a}{FALSE}};\ \textcolor{comment}{//\ Consumir\ el\ evento}}
+\DoxyCodeLine{02194\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{main_8c_a4be6725935eb1d72095b766b2120782a}{SetRobotMode}}(\doxymbox{\hyperlink{group__group__main_gga5ef913d615749b343e42f0424064e937aa52b63031d0b61679533a443a366aaba}{STATE\_SECOND\_SCREEN}});}
+\DoxyCodeLine{02195\ \ \ \ \ \ \ \ \ \ \ \ \ button-\/>\doxymbox{\hyperlink{struct__s_button_a7664b4868cbb6eb989eff0d30e30c605}{clickCount}}\ =\ 0;\ \ \textcolor{comment}{//\ Abortar\ clics\ cortos\ pendientes}}
+\DoxyCodeLine{02196\ \ \ \ \ \ \ \ \ \ \ \ \ button-\/>\doxymbox{\hyperlink{struct__s_button_aba52ff7c5d18b686dfe7d23441b2e66c}{time}}\ =\ 0;\ \ \ \ \ \ \ \ \textcolor{comment}{//\ Limpiar}}
+\DoxyCodeLine{02197\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{02198\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (button-\/>\doxymbox{\hyperlink{struct__s_button_aba52ff7c5d18b686dfe7d23441b2e66c}{time}}\ >=\ \doxymbox{\hyperlink{main_8c_a9123e51e7f8ff19757a3d268d525bf57}{T1000MS}}\ \&\&\ button-\/>\doxymbox{\hyperlink{struct__s_button_aba52ff7c5d18b686dfe7d23441b2e66c}{time}}\ <\ \doxymbox{\hyperlink{main_8c_a19b85936f2c773232d11b318adf1c9de}{T2000MS}})\ \{}
+\DoxyCodeLine{02199\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{group___i2_c___exported___functions___group3_gad63373b093502b83d5f9bd5e292385f0}{HAL\_I2C\_GetState}}(\&\doxymbox{\hyperlink{main_8c_ac379bcc152d860f08b1279fd3e232295}{hi2c2}})\ !=\ \doxymbox{\hyperlink{group___h_a_l__state__structure__definition_ggaef355af8eab251ae2a19ee164ad81c37af859ce60c5e462b0bfde3a5010bc72d1}{HAL\_I2C\_STATE\_READY}})\ \{}
+\DoxyCodeLine{02200\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{02201\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{02202\ \ \ \ \ \ \ \ \ \ \ \ \ button-\/>\doxymbox{\hyperlink{struct__s_button_a3ed6d0ad2029c6502c6e4241fdd7dc25}{justReleased}}\ =\ \doxymbox{\hyperlink{util_8h_a48dec3f0bf02a2f3b11fb90ae0fc4d4caa1e095cc966dbecf6a0d8aad75348d1a}{FALSE}};\ \textcolor{comment}{//\ Consumir\ el\ evento}}
+\DoxyCodeLine{02203\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{main_8c_a4be6725935eb1d72095b766b2120782a}{SetRobotMode}}(\doxymbox{\hyperlink{group__group__main_gga5ef913d615749b343e42f0424064e937abc08c548b43efb25afd93a4143f71f1b}{STATE\_FIRST\_SCREEN}});}
+\DoxyCodeLine{02204\ \ \ \ \ \ \ \ \ \ \ \ \ button-\/>\doxymbox{\hyperlink{struct__s_button_a7664b4868cbb6eb989eff0d30e30c605}{clickCount}}\ =\ 0;\ \ \textcolor{comment}{//\ Abortar\ clics\ cortos\ pendientes}}
+\DoxyCodeLine{02205\ \ \ \ \ \ \ \ \ \ \ \ \ button-\/>\doxymbox{\hyperlink{struct__s_button_aba52ff7c5d18b686dfe7d23441b2e66c}{time}}\ =\ 0;\ \ \ \ \ \ \ \ \textcolor{comment}{//\ Limpiar}}
+\DoxyCodeLine{02206\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{02207\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (button-\/>\doxymbox{\hyperlink{struct__s_button_aba52ff7c5d18b686dfe7d23441b2e66c}{time}}\ <\ \doxymbox{\hyperlink{main_8c_a9123e51e7f8ff19757a3d268d525bf57}{T1000MS}})\ \{}
+\DoxyCodeLine{02208\ \ \ \ \ \ \ \ \ \ \ \ \ button-\/>\doxymbox{\hyperlink{struct__s_button_a3ed6d0ad2029c6502c6e4241fdd7dc25}{justReleased}}\ =\ \doxymbox{\hyperlink{util_8h_a48dec3f0bf02a2f3b11fb90ae0fc4d4caa1e095cc966dbecf6a0d8aad75348d1a}{FALSE}};\ \textcolor{comment}{//\ Consumir\ el\ evento}}
+\DoxyCodeLine{02209\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Clic\ corto\ detectado\ (duración\ <\ 1s)\ -\/>\ Sumar\ al\ contador\ y\ arrancar\ ventana\ de\ 400ms\ reutilizando\ 'time'}}
+\DoxyCodeLine{02210\ \ \ \ \ \ \ \ \ \ \ \ \ button-\/>\doxymbox{\hyperlink{struct__s_button_a7664b4868cbb6eb989eff0d30e30c605}{clickCount}}++;}
+\DoxyCodeLine{02211\ \ \ \ \ \ \ \ \ \ \ \ \ button-\/>\doxymbox{\hyperlink{struct__s_button_aba52ff7c5d18b686dfe7d23441b2e66c}{time}}\ =\ \doxymbox{\hyperlink{main_8c_ab76123318c055bce04dd1bf0321c9773}{T400MS}};\ }
+\DoxyCodeLine{02212\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{02213\ \ \ \ \ \}}
+\DoxyCodeLine{02214\ \}}
+
+\end{DoxyCode}
+
+
+Hace referencia a \doxymbox{\hyperlink{main_8c_source_l02164}{button\+Task()}}, \doxymbox{\hyperlink{util_8h_source_l00168}{\+\_\+s\+Button::\+click\+Count}}, \doxymbox{\hyperlink{util_8h_source_l00022}{FALSE}}, \doxymbox{\hyperlink{stm32f1xx__hal__i2c_8c_source_l05319}{HAL\+\_\+\+I2\+C\+\_\+\+Get\+State()}}, \doxymbox{\hyperlink{stm32f1xx__hal__i2c_8h_source_l00109}{HAL\+\_\+\+I2\+C\+\_\+\+STATE\+\_\+\+READY}}, \doxymbox{\hyperlink{main_8c_source_l00231}{hi2c2}}, \doxymbox{\hyperlink{util_8h_source_l00166}{\+\_\+s\+Button::\+is\+Pressed}}, \doxymbox{\hyperlink{util_8h_source_l00169}{\+\_\+s\+Button::\+just\+Released}}, \doxymbox{\hyperlink{main_8c_source_l00767}{Set\+Robot\+Mode()}}, \doxymbox{\hyperlink{main_8c_source_l00099}{STATE\+\_\+3\+D\+\_\+\+SCREEN}}, \doxymbox{\hyperlink{main_8c_source_l00097}{STATE\+\_\+\+DODGE}}, \doxymbox{\hyperlink{main_8c_source_l00100}{STATE\+\_\+\+FIRST\+\_\+\+SCREEN}}, \doxymbox{\hyperlink{main_8c_source_l00098}{STATE\+\_\+\+JOYSTICK}}, \doxymbox{\hyperlink{main_8c_source_l00096}{STATE\+\_\+\+LINE\+\_\+\+FOLLOWING}}, \doxymbox{\hyperlink{main_8c_source_l00101}{STATE\+\_\+\+SECOND\+\_\+\+SCREEN}}, \doxymbox{\hyperlink{main_8c_source_l00095}{STATE\+\_\+\+SWING}}, \doxymbox{\hyperlink{main_8c_source_l00113}{T1000\+MS}}, \doxymbox{\hyperlink{main_8c_source_l00114}{T2000\+MS}}, \doxymbox{\hyperlink{main_8c_source_l00115}{T3000\+MS}}, \doxymbox{\hyperlink{main_8c_source_l00116}{T400\+MS}} y \doxymbox{\hyperlink{util_8h_source_l00167}{\+\_\+s\+Button::\+time}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{main_8c_source_l02164}{button\+Task()}}, \doxymbox{\hyperlink{main_8c_source_l03056}{main()}} y \doxymbox{\hyperlink{group__group__comm_gaef53b41afe84bf3a4c3f95ab5a56a3c4}{USBTask()}}.
+
+Gráfico de llamadas de esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__group__ui__graphics_gae8f31d90f3ac9868df392f575913fe7d_cgraph}
+\end{center}
+\end{figure}
+Gráfico de llamadas a esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=238pt]{group__group__ui__graphics_gae8f31d90f3ac9868df392f575913fe7d_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group__group__ui__graphics_ga65dbf97ebe6b95c5571e8110d940f642}\index{Interfaz OLED, Gráficos 3D y Botón (Display \& UI)@{Interfaz OLED, Gráficos 3D y Botón (Display \& UI)}!buttonTimeout10ms@{buttonTimeout10ms}}
+\index{buttonTimeout10ms@{buttonTimeout10ms}!Interfaz OLED, Gráficos 3D y Botón (Display \& UI)@{Interfaz OLED, Gráficos 3D y Botón (Display \& UI)}}
+\doxyparagraph{\texorpdfstring{buttonTimeout10ms()}{buttonTimeout10ms()}}
+{\footnotesize\ttfamily \label{group__group__ui__graphics_ga65dbf97ebe6b95c5571e8110d940f642} 
+void button\+Timeout10ms (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{struct__s_button}{\+\_\+s\+Button}} \texorpdfstring{$\ast$}{*}}]{button}{}\end{DoxyParamCaption})}
+
+
+
+{\ttfamily \+\#include "{}\doxymbox{\hyperlink{main_8c}{main.\+c}}"{}}
+
+
+
+Decrementa el temporizador de ventana multiclic del botón cada 10 ms. 
+
+
+\begin{DoxyParams}[1]{Parámetros}
+\doxymbox{\texttt{in,out}}  & {\em button} & Puntero a la estructura {\ttfamily \doxylink{struct__s_button}{\+\_\+s\+Button}}. \\
+\hline
+\end{DoxyParams}
+\texorpdfstring{$<$}{<} Peripheral base address in the alias region
+
+\texorpdfstring{$<$}{<} Puerto GPIO del pulsador de usuario (Puerto B)
+
+\texorpdfstring{$<$}{<} Pin del pulsador multifunción de usuario
+
+Definición en la línea \doxymbox{\hyperlink{main_8c_source_l02110}{2110}} del archivo \doxymbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{02110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{02111\ \ \ \ \ \textcolor{keyword}{static}\ uint8\_t\ timeToDebounce\ =\ 0;}
+\DoxyCodeLine{02112\ \ \ \ \ \textcolor{keyword}{static}\ uint8\_t\ release\_ticks\ =\ 0;}
+\DoxyCodeLine{02113\ \ \ \ \ \textcolor{keyword}{static}\ uint8\_t\ was\_pressed\ =\ \doxymbox{\hyperlink{util_8h_a48dec3f0bf02a2f3b11fb90ae0fc4d4caa1e095cc966dbecf6a0d8aad75348d1a}{FALSE}};}
+\DoxyCodeLine{02114\ }
+\DoxyCodeLine{02115\ \ \ \ \ \textcolor{comment}{//\ Leer\ el\ estado\ físico\ instantáneo\ del\ pin}}
+\DoxyCodeLine{02116\ \ \ \ \ \doxymbox{\hyperlink{util_8h_ae01c58988e4d37977423a5aab26ab5fa}{\_eEvent}}\ current\_pin\ =\ (\doxymbox{\hyperlink{group___g_p_i_o___exported___functions___group2_gaf2b819ea6551319ddd5670db318d2e4e}{HAL\_GPIO\_ReadPin}}(\doxymbox{\hyperlink{group___hardware___pinout_ga6fc0123f44685ed0ecbb6e33c31d61a2}{SW0\_GPIO\_Port}},\ \doxymbox{\hyperlink{group___hardware___pinout_ga8cfad64c817b1b87958ec365c00fe484}{SW0\_Pin}})\ ==\ \doxymbox{\hyperlink{group___g_p_i_o___exported___types_gga5b3ef0486b179415581eb342e0ea6b43a90af2af95004ea61d76950ff3f2f6ec2}{GPIO\_PIN\_RESET}})\ ?\ \doxymbox{\hyperlink{util_8h_ae01c58988e4d37977423a5aab26ab5faa5ef9a100ac8b4b8d6dec477c377b7901}{PRESSED}}\ :\ \doxymbox{\hyperlink{util_8h_ae01c58988e4d37977423a5aab26ab5faacdb8b9a398ffbd729218a27d00d8fa45}{NOT\_PRESSED}};}
+\DoxyCodeLine{02117\ }
+\DoxyCodeLine{02118\ \ \ \ \ \textcolor{comment}{//\ Si\ el\ botón\ está\ actualmente\ presionado,\ aplicamos\ un\ filtro\ de\ liberación\ lento\ contra\ rebotes\ por\ vibración}}
+\DoxyCodeLine{02119\ \ \ \ \ \textcolor{keywordflow}{if}\ (button-\/>\doxymbox{\hyperlink{struct__s_button_a89aae2e1a5caaee3b017518a4973448e}{isPressed}})\ \{}
+\DoxyCodeLine{02120\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (current\_pin\ ==\ \doxymbox{\hyperlink{util_8h_ae01c58988e4d37977423a5aab26ab5faacdb8b9a398ffbd729218a27d00d8fa45}{NOT\_PRESSED}})\ \{}
+\DoxyCodeLine{02121\ \ \ \ \ \ \ \ \ \ \ \ \ release\_ticks++;}
+\DoxyCodeLine{02122\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (release\_ticks\ >=\ 8)\ \{\ \textcolor{comment}{//\ Requiere\ 80ms\ estables\ de\ liberación\ física\ para\ confirmar\ soltado}}
+\DoxyCodeLine{02123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ button-\/>\doxymbox{\hyperlink{struct__s_button_ad8a59931a8518aa96b000d6d07cb0e9b}{stateInput}}\ =\ \doxymbox{\hyperlink{util_8h_ae01c58988e4d37977423a5aab26ab5faacdb8b9a398ffbd729218a27d00d8fa45}{NOT\_PRESSED}};}
+\DoxyCodeLine{02124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ release\_ticks\ =\ 0;}
+\DoxyCodeLine{02125\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{02126\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{02127\ \ \ \ \ \ \ \ \ \ \ \ \ button-\/>\doxymbox{\hyperlink{struct__s_button_ad8a59931a8518aa96b000d6d07cb0e9b}{stateInput}}\ =\ \doxymbox{\hyperlink{util_8h_ae01c58988e4d37977423a5aab26ab5faa5ef9a100ac8b4b8d6dec477c377b7901}{PRESSED}};}
+\DoxyCodeLine{02128\ \ \ \ \ \ \ \ \ \ \ \ \ release\_ticks\ =\ 0;}
+\DoxyCodeLine{02129\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{02130\ \ \ \ \ \ \ \ \ timeToDebounce\ =\ 0;\ \textcolor{comment}{//\ Sincronizar}}
+\DoxyCodeLine{02131\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{02132\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Si\ no\ está\ presionado,\ se\ utiliza\ el\ debouncer\ rápido\ de\ 50ms\ original\ del\ proyecto}}
+\DoxyCodeLine{02133\ \ \ \ \ \ \ \ \ release\_ticks\ =\ 0;}
+\DoxyCodeLine{02134\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(timeToDebounce\ >\ \doxymbox{\hyperlink{main_8c_a171ef18ea7b584f85234640a918da857}{DEBOUNCE}})\{}
+\DoxyCodeLine{02135\ \ \ \ \ \ \ \ \ \ \ \ \ timeToDebounce\ =\ 0;}
+\DoxyCodeLine{02136\ \ \ \ \ \ \ \ \ \ \ \ \ button-\/>\doxymbox{\hyperlink{struct__s_button_ad8a59931a8518aa96b000d6d07cb0e9b}{stateInput}}\ =\ current\_pin;}
+\DoxyCodeLine{02137\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{02138\ \ \ \ \ \ \ \ \ \ \ \ \ timeToDebounce++;}
+\DoxyCodeLine{02139\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{02140\ \ \ \ \ \}}
+\DoxyCodeLine{02141\ }
+\DoxyCodeLine{02142\ \ \ \ \ \textcolor{comment}{//\ Lógica\ unificada\ para\ el\ acumulador\ /\ temporizador\ "{}time"{}}}
+\DoxyCodeLine{02143\ \ \ \ \ \textcolor{keywordflow}{if}\ (button-\/>\doxymbox{\hyperlink{struct__s_button_a89aae2e1a5caaee3b017518a4973448e}{isPressed}})\ \{}
+\DoxyCodeLine{02144\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!was\_pressed)\ \{}
+\DoxyCodeLine{02145\ \ \ \ \ \ \ \ \ \ \ \ \ button-\/>\doxymbox{\hyperlink{struct__s_button_aba52ff7c5d18b686dfe7d23441b2e66c}{time}}\ =\ 0;\ \textcolor{comment}{//\ Reiniciar\ para\ empezar\ a\ cronometrar\ la\ pulsación\ actual\ desde\ cero}}
+\DoxyCodeLine{02146\ \ \ \ \ \ \ \ \ \ \ \ \ was\_pressed\ =\ \doxymbox{\hyperlink{util_8h_a48dec3f0bf02a2f3b11fb90ae0fc4d4caa82764c3079aea4e60c80e45befbb839}{TRUE}};}
+\DoxyCodeLine{02147\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{02148\ \ \ \ \ \ \ \ \ button-\/>\doxymbox{\hyperlink{struct__s_button_aba52ff7c5d18b686dfe7d23441b2e66c}{time}}\ +=\ 10;}
+\DoxyCodeLine{02149\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{02150\ \ \ \ \ \ \ \ \ was\_pressed\ =\ \doxymbox{\hyperlink{util_8h_a48dec3f0bf02a2f3b11fb90ae0fc4d4caa1e095cc966dbecf6a0d8aad75348d1a}{FALSE}};}
+\DoxyCodeLine{02151\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Si\ no\ está\ presionado\ y\ hay\ clics\ acumulados,\ decrementamos\ la\ ventana\ de\ multiclic}}
+\DoxyCodeLine{02152\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (button-\/>\doxymbox{\hyperlink{struct__s_button_a7664b4868cbb6eb989eff0d30e30c605}{clickCount}}\ >\ 0\ \&\&\ button-\/>\doxymbox{\hyperlink{struct__s_button_aba52ff7c5d18b686dfe7d23441b2e66c}{time}}\ >\ 0)\ \{}
+\DoxyCodeLine{02153\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (button-\/>\doxymbox{\hyperlink{struct__s_button_aba52ff7c5d18b686dfe7d23441b2e66c}{time}}\ >=\ 10)\ \{}
+\DoxyCodeLine{02154\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ button-\/>\doxymbox{\hyperlink{struct__s_button_aba52ff7c5d18b686dfe7d23441b2e66c}{time}}\ -\/=\ 10;}
+\DoxyCodeLine{02155\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{02156\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ button-\/>\doxymbox{\hyperlink{struct__s_button_aba52ff7c5d18b686dfe7d23441b2e66c}{time}}\ =\ 0;}
+\DoxyCodeLine{02157\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{02158\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (button-\/>\doxymbox{\hyperlink{struct__s_button_a7664b4868cbb6eb989eff0d30e30c605}{clickCount}}\ ==\ 0)\ \{}
+\DoxyCodeLine{02159\ \ \ \ \ \ \ \ \ \ \ \ \ button-\/>\doxymbox{\hyperlink{struct__s_button_aba52ff7c5d18b686dfe7d23441b2e66c}{time}}\ =\ 0;}
+\DoxyCodeLine{02160\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{02161\ \ \ \ \ \}}
+\DoxyCodeLine{02162\ \}}
+
+\end{DoxyCode}
+
+
+Hace referencia a \doxymbox{\hyperlink{main_8c_source_l02110}{button\+Timeout10ms()}}, \doxymbox{\hyperlink{util_8h_source_l00168}{\+\_\+s\+Button::\+click\+Count}}, \doxymbox{\hyperlink{main_8c_source_l00119}{DEBOUNCE}}, \doxymbox{\hyperlink{util_8h_source_l00022}{FALSE}}, \doxymbox{\hyperlink{stm32f1xx__hal__gpio_8h_source_l00066}{GPIO\+\_\+\+PIN\+\_\+\+RESET}}, \doxymbox{\hyperlink{stm32f1xx__hal__gpio_8c_source_l00431}{HAL\+\_\+\+GPIO\+\_\+\+Read\+Pin()}}, \doxymbox{\hyperlink{util_8h_source_l00166}{\+\_\+s\+Button::\+is\+Pressed}}, \doxymbox{\hyperlink{util_8h_source_l00153}{NOT\+\_\+\+PRESSED}}, \doxymbox{\hyperlink{util_8h_source_l00152}{PRESSED}}, \doxymbox{\hyperlink{util_8h_source_l00165}{\+\_\+s\+Button::\+state\+Input}}, \doxymbox{\hyperlink{main_8h_source_l00040}{SW0\+\_\+\+GPIO\+\_\+\+Port}}, \doxymbox{\hyperlink{main_8h_source_l00039}{SW0\+\_\+\+Pin}}, \doxymbox{\hyperlink{util_8h_source_l00167}{\+\_\+s\+Button::\+time}} y \doxymbox{\hyperlink{util_8h_source_l00023}{TRUE}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{main_8c_source_l02110}{button\+Timeout10ms()}}, \doxymbox{\hyperlink{main_8c_source_l01441}{do10ms()}} y \doxymbox{\hyperlink{group__group__comm_gaef53b41afe84bf3a4c3f95ab5a56a3c4}{USBTask()}}.
+
+Gráfico de llamadas de esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=327pt]{group__group__ui__graphics_ga65dbf97ebe6b95c5571e8110d940f642_cgraph}
+\end{center}
+\end{figure}
+Gráfico de llamadas a esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__group__ui__graphics_ga65dbf97ebe6b95c5571e8110d940f642_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group__group__control_ga392b7d5c226c5d8393b4df5c5f835fd1}\index{Interfaz OLED, Gráficos 3D y Botón (Display \& UI)@{Interfaz OLED, Gráficos 3D y Botón (Display \& UI)}!HandleModeScreenTransition@{HandleModeScreenTransition}}
+\index{HandleModeScreenTransition@{HandleModeScreenTransition}!Interfaz OLED, Gráficos 3D y Botón (Display \& UI)@{Interfaz OLED, Gráficos 3D y Botón (Display \& UI)}}
+\doxyparagraph{\texorpdfstring{HandleModeScreenTransition()}{HandleModeScreenTransition()}}
+{\footnotesize\ttfamily \label{group__group__control_ga392b7d5c226c5d8393b4df5c5f835fd1} 
+void Handle\+Mode\+Screen\+Transition (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+{\ttfamily \+\#include "{}\doxymbox{\hyperlink{main_8c}{main.\+c}}"{}}
+
+
+
+Gestiona la transición limpia de interfaces visuales al cambiar el modo operativo. 
+
+Silencia temporalmente los motores para evitar tirones durante escrituras I2C síncronas. 
+
+Definición en la línea \doxymbox{\hyperlink{main_8c_source_l02975}{2975}} del archivo \doxymbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{02975\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{02976\ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{main_8c_a7937637e0ec141695e3397a4eb429199}{robotMode}}\ !=\ \doxymbox{\hyperlink{main_8c_a195502054f48c74f0167966e98598713}{lastMode}})\ \{}
+\DoxyCodeLine{02977\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{main_8c_a195502054f48c74f0167966e98598713}{lastMode}}\ =\ \doxymbox{\hyperlink{main_8c_a7937637e0ec141695e3397a4eb429199}{robotMode}};}
+\DoxyCodeLine{02978\ }
+\DoxyCodeLine{02979\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{main_8c_a7937637e0ec141695e3397a4eb429199}{robotMode}}\ ==\ \doxymbox{\hyperlink{group__group__main_gga5ef913d615749b343e42f0424064e937afb76bc9af4d33cb1941ce2198a22b5f1}{STATE\_SWING}}\ ||\ \doxymbox{\hyperlink{main_8c_a7937637e0ec141695e3397a4eb429199}{robotMode}}\ ==\ \doxymbox{\hyperlink{group__group__main_gga5ef913d615749b343e42f0424064e937ab641b484c5de42c96f5a382ef25d557f}{STATE\_LINE\_FOLLOWING}}\ ||\ \doxymbox{\hyperlink{main_8c_a7937637e0ec141695e3397a4eb429199}{robotMode}}\ ==\ \doxymbox{\hyperlink{group__group__main_gga5ef913d615749b343e42f0424064e937acbd2746ad5303084bb979bc275aa15ef}{STATE\_DODGE}}\ ||\ \doxymbox{\hyperlink{main_8c_a7937637e0ec141695e3397a4eb429199}{robotMode}}\ ==\ \doxymbox{\hyperlink{group__group__main_gga5ef913d615749b343e42f0424064e937a46854d200d334ed65c5b8542eee92421}{STATE\_STANDBY}}\ ||\ \doxymbox{\hyperlink{main_8c_a7937637e0ec141695e3397a4eb429199}{robotMode}}\ ==\ \doxymbox{\hyperlink{group__group__main_gga5ef913d615749b343e42f0424064e937a81a27a62c9d29883324be07483fdd10a}{STATE\_JOYSTICK}})\ \{}
+\DoxyCodeLine{02980\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Esperar\ a\ que\ el\ bus\ I2C\ esté\ listo}}
+\DoxyCodeLine{02981\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (\doxymbox{\hyperlink{group___i2_c___exported___functions___group3_gad63373b093502b83d5f9bd5e292385f0}{HAL\_I2C\_GetState}}(\&\doxymbox{\hyperlink{main_8c_ac379bcc152d860f08b1279fd3e232295}{hi2c2}})\ !=\ \doxymbox{\hyperlink{group___h_a_l__state__structure__definition_ggaef355af8eab251ae2a19ee164ad81c37af859ce60c5e462b0bfde3a5010bc72d1}{HAL\_I2C\_STATE\_READY}})\ \{}
+\DoxyCodeLine{02982\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Espera\ activa\ segura}}
+\DoxyCodeLine{02983\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{02984\ }
+\DoxyCodeLine{02985\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a63e99c8591f89a39d542c519eac7294f}{ssd1306\_SetDisplayOn}}(1);}
+\DoxyCodeLine{02986\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a77620914b6d1247e7515a36c38672391}{ssd1306\_Fill}}(\doxymbox{\hyperlink{ssd1306_8h_a6f68a90e6eefe5396bcbec2cd699d500ac1e9bce8242f443c54c7405223d616cd}{Black}});}
+\DoxyCodeLine{02987\ }
+\DoxyCodeLine{02988\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{main_8c_a7937637e0ec141695e3397a4eb429199}{robotMode}}\ ==\ \doxymbox{\hyperlink{group__group__main_gga5ef913d615749b343e42f0424064e937a46854d200d334ed65c5b8542eee92421}{STATE\_STANDBY}})\ \{}
+\DoxyCodeLine{02989\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Centrar\ "{}>>>MODO\ 0\ -\/\ STANDBY<<<"{}}}
+\DoxyCodeLine{02990\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a43b18d938dee01ee07fb8c364ea57996}{ssd1306\_SetCursor}}((128\ -\/\ 12\ *\ 7)\ /\ 2,\ 20);}
+\DoxyCodeLine{02991\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_ac4cbd10dc54485513439a84d9b18c729}{ssd1306\_WriteString}}(\textcolor{stringliteral}{"{}>>>MODO\ 0<<<"{}},\ \doxymbox{\hyperlink{fonts_8h_a0c25f61fad82321049bc227058706235}{Font\_7x10}},\ \doxymbox{\hyperlink{ssd1306_8h_a6f68a90e6eefe5396bcbec2cd699d500ab548046646b36c12aa6ba841de500094}{White}});}
+\DoxyCodeLine{02992\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a43b18d938dee01ee07fb8c364ea57996}{ssd1306\_SetCursor}}((128\ -\/\ 7\ *\ 7)\ /\ 2,\ 34);}
+\DoxyCodeLine{02993\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_ac4cbd10dc54485513439a84d9b18c729}{ssd1306\_WriteString}}(\textcolor{stringliteral}{"{}STANDBY"{}},\ \doxymbox{\hyperlink{fonts_8h_a0c25f61fad82321049bc227058706235}{Font\_7x10}},\ \doxymbox{\hyperlink{ssd1306_8h_a6f68a90e6eefe5396bcbec2cd699d500ab548046646b36c12aa6ba841de500094}{White}});}
+\DoxyCodeLine{02994\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{main_8c_a7937637e0ec141695e3397a4eb429199}{robotMode}}\ ==\ \doxymbox{\hyperlink{group__group__main_gga5ef913d615749b343e42f0424064e937afb76bc9af4d33cb1941ce2198a22b5f1}{STATE\_SWING}})\ \{}
+\DoxyCodeLine{02995\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Centrar\ "{}>>>MODO\ 1\ -\/\ \ BALANCEO<<<"{}}}
+\DoxyCodeLine{02996\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Primera\ línea:\ "{}>>>MODO\ 1<<<"{}\ (12\ caracteres)}}
+\DoxyCodeLine{02997\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a43b18d938dee01ee07fb8c364ea57996}{ssd1306\_SetCursor}}((128\ -\/\ 12\ *\ 7)\ /\ 2,\ 20);}
+\DoxyCodeLine{02998\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_ac4cbd10dc54485513439a84d9b18c729}{ssd1306\_WriteString}}(\textcolor{stringliteral}{"{}>>>MODO\ 1<<<"{}},\ \doxymbox{\hyperlink{fonts_8h_a0c25f61fad82321049bc227058706235}{Font\_7x10}},\ \doxymbox{\hyperlink{ssd1306_8h_a6f68a90e6eefe5396bcbec2cd699d500ab548046646b36c12aa6ba841de500094}{White}});}
+\DoxyCodeLine{02999\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Segunda\ línea:\ "{}BALANCEO"{}\ (8\ caracteres)}}
+\DoxyCodeLine{03000\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a43b18d938dee01ee07fb8c364ea57996}{ssd1306\_SetCursor}}((128\ -\/\ 8\ *\ 7)\ /\ 2,\ 34);}
+\DoxyCodeLine{03001\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_ac4cbd10dc54485513439a84d9b18c729}{ssd1306\_WriteString}}(\textcolor{stringliteral}{"{}BALANCEO"{}},\ \doxymbox{\hyperlink{fonts_8h_a0c25f61fad82321049bc227058706235}{Font\_7x10}},\ \doxymbox{\hyperlink{ssd1306_8h_a6f68a90e6eefe5396bcbec2cd699d500ab548046646b36c12aa6ba841de500094}{White}});}
+\DoxyCodeLine{03002\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{main_8c_a7937637e0ec141695e3397a4eb429199}{robotMode}}\ ==\ \doxymbox{\hyperlink{group__group__main_gga5ef913d615749b343e42f0424064e937ab641b484c5de42c96f5a382ef25d557f}{STATE\_LINE\_FOLLOWING}})\ \{}
+\DoxyCodeLine{03003\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Centrar\ "{}>>>MODO\ 2\ -\/\ SEGUIMIENTO\ LINEA<<<"{}}}
+\DoxyCodeLine{03004\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Primera\ línea:\ "{}>>>MODO\ 2<<<"{}\ (12\ caracteres)}}
+\DoxyCodeLine{03005\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a43b18d938dee01ee07fb8c364ea57996}{ssd1306\_SetCursor}}((128\ -\/\ 12\ *\ 7)\ /\ 2,\ 20);}
+\DoxyCodeLine{03006\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_ac4cbd10dc54485513439a84d9b18c729}{ssd1306\_WriteString}}(\textcolor{stringliteral}{"{}>>>MODO\ 2<<<"{}},\ \doxymbox{\hyperlink{fonts_8h_a0c25f61fad82321049bc227058706235}{Font\_7x10}},\ \doxymbox{\hyperlink{ssd1306_8h_a6f68a90e6eefe5396bcbec2cd699d500ab548046646b36c12aa6ba841de500094}{White}});}
+\DoxyCodeLine{03007\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Segunda\ línea:\ "{}SEGUIMIENTO\ LINEA"{}\ (17\ caracteres)}}
+\DoxyCodeLine{03008\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a43b18d938dee01ee07fb8c364ea57996}{ssd1306\_SetCursor}}((128\ -\/\ 17\ *\ 7)\ /\ 2,\ 34);}
+\DoxyCodeLine{03009\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_ac4cbd10dc54485513439a84d9b18c729}{ssd1306\_WriteString}}(\textcolor{stringliteral}{"{}SEGUIMIENTO\ LINEA"{}},\ \doxymbox{\hyperlink{fonts_8h_a0c25f61fad82321049bc227058706235}{Font\_7x10}},\ \doxymbox{\hyperlink{ssd1306_8h_a6f68a90e6eefe5396bcbec2cd699d500ab548046646b36c12aa6ba841de500094}{White}});}
+\DoxyCodeLine{03010\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{main_8c_a7937637e0ec141695e3397a4eb429199}{robotMode}}\ ==\ \doxymbox{\hyperlink{group__group__main_gga5ef913d615749b343e42f0424064e937acbd2746ad5303084bb979bc275aa15ef}{STATE\_DODGE}})\ \{}
+\DoxyCodeLine{03011\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Centrar\ "{}>>>MODO\ 3\ -\/\ ESQUIVAR<<<"{}}}
+\DoxyCodeLine{03012\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Primera\ línea:\ "{}>>>MODO\ 3<<<"{}\ (12\ caracteres)}}
+\DoxyCodeLine{03013\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a43b18d938dee01ee07fb8c364ea57996}{ssd1306\_SetCursor}}((128\ -\/\ 12\ *\ 7)\ /\ 2,\ 20);}
+\DoxyCodeLine{03014\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_ac4cbd10dc54485513439a84d9b18c729}{ssd1306\_WriteString}}(\textcolor{stringliteral}{"{}>>>MODO\ 3<<<"{}},\ \doxymbox{\hyperlink{fonts_8h_a0c25f61fad82321049bc227058706235}{Font\_7x10}},\ \doxymbox{\hyperlink{ssd1306_8h_a6f68a90e6eefe5396bcbec2cd699d500ab548046646b36c12aa6ba841de500094}{White}});}
+\DoxyCodeLine{03015\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Segunda\ línea:\ "{}ESQUIVAR"{}\ (8\ caracteres)}}
+\DoxyCodeLine{03016\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a43b18d938dee01ee07fb8c364ea57996}{ssd1306\_SetCursor}}((128\ -\/\ 8\ *\ 7)\ /\ 2,\ 34);}
+\DoxyCodeLine{03017\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_ac4cbd10dc54485513439a84d9b18c729}{ssd1306\_WriteString}}(\textcolor{stringliteral}{"{}ESQUIVAR"{}},\ \doxymbox{\hyperlink{fonts_8h_a0c25f61fad82321049bc227058706235}{Font\_7x10}},\ \doxymbox{\hyperlink{ssd1306_8h_a6f68a90e6eefe5396bcbec2cd699d500ab548046646b36c12aa6ba841de500094}{White}});}
+\DoxyCodeLine{03018\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{main_8c_a7937637e0ec141695e3397a4eb429199}{robotMode}}\ ==\ \doxymbox{\hyperlink{group__group__main_gga5ef913d615749b343e42f0424064e937a81a27a62c9d29883324be07483fdd10a}{STATE\_JOYSTICK}})\ \{}
+\DoxyCodeLine{03019\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Centrar\ "{}>>>MODO\ 4\ -\/\ JOYSTICK<<<"{}}}
+\DoxyCodeLine{03020\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Primera\ línea:\ "{}>>>MODO\ 4<<<"{}\ (12\ caracteres)}}
+\DoxyCodeLine{03021\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a43b18d938dee01ee07fb8c364ea57996}{ssd1306\_SetCursor}}((128\ -\/\ 12\ *\ 7)\ /\ 2,\ 20);}
+\DoxyCodeLine{03022\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_ac4cbd10dc54485513439a84d9b18c729}{ssd1306\_WriteString}}(\textcolor{stringliteral}{"{}>>>MODO\ 4<<<"{}},\ \doxymbox{\hyperlink{fonts_8h_a0c25f61fad82321049bc227058706235}{Font\_7x10}},\ \doxymbox{\hyperlink{ssd1306_8h_a6f68a90e6eefe5396bcbec2cd699d500ab548046646b36c12aa6ba841de500094}{White}});}
+\DoxyCodeLine{03023\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Segunda\ línea:\ "{}JOYSTICK"{}\ (8\ caracteres)}}
+\DoxyCodeLine{03024\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a43b18d938dee01ee07fb8c364ea57996}{ssd1306\_SetCursor}}((128\ -\/\ 8\ *\ 7)\ /\ 2,\ 34);}
+\DoxyCodeLine{03025\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_ac4cbd10dc54485513439a84d9b18c729}{ssd1306\_WriteString}}(\textcolor{stringliteral}{"{}JOYSTICK"{}},\ \doxymbox{\hyperlink{fonts_8h_a0c25f61fad82321049bc227058706235}{Font\_7x10}},\ \doxymbox{\hyperlink{ssd1306_8h_a6f68a90e6eefe5396bcbec2cd699d500ab548046646b36c12aa6ba841de500094}{White}});}
+\DoxyCodeLine{03026\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{03027\ }
+\DoxyCodeLine{03028\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Silenciado\ de\ motores\ durante\ el\ refresco\ síncrono\ I2C}}
+\DoxyCodeLine{03029\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{main_8c_a01fbadbc06f6d9eb904682faf2fdcadd}{lPulse1}}\ =\ 0;}
+\DoxyCodeLine{03030\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{main_8c_a92327bf6e6417262b514bda6815b3d38}{lPulse3}}\ =\ 0;}
+\DoxyCodeLine{03031\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{main_8c_ace6ab4da683a858d209c6eedf9972d7d}{rPulse2}}\ =\ 0;}
+\DoxyCodeLine{03032\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{main_8c_a63f663a6adce80f0d2eee663685dfc4d}{rPulse4}}\ =\ 0;}
+\DoxyCodeLine{03033\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group__group__control_ga40f8ea2b8a2f79835ff0e5ab6436893a}{PWM\_Control}}();}
+\DoxyCodeLine{03034\ }
+\DoxyCodeLine{03035\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_aeca33ad55a12e5a6c23250a01c9e5032}{ssd1306\_UpdateScreen}}();}
+\DoxyCodeLine{03036\ }
+\DoxyCodeLine{03037\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{main_8c_a39b2881ad499b829fadc434c42826207}{RUN\_PID}}\ =\ \doxymbox{\hyperlink{util_8h_a48dec3f0bf02a2f3b11fb90ae0fc4d4caa1e095cc966dbecf6a0d8aad75348d1a}{FALSE}};}
+\DoxyCodeLine{03038\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{main_8c_a59bdb22b7224146301488db0f7f2c550}{integral}}\ =\ 0;}
+\DoxyCodeLine{03039\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{main_8c_aca6a2f2b3f4915d25c346a598b8a3dc1}{last\_error}}\ =\ 0;}
+\DoxyCodeLine{03040\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{main_8c_a7937637e0ec141695e3397a4eb429199}{robotMode}}\ ==\ \doxymbox{\hyperlink{group__group__main_gga5ef913d615749b343e42f0424064e937a2ac9f0b5fbb6cfc38170ccc14dcf3263}{STATE\_3D\_SCREEN}})\ \{}
+\DoxyCodeLine{03041\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (\doxymbox{\hyperlink{group___i2_c___exported___functions___group3_gad63373b093502b83d5f9bd5e292385f0}{HAL\_I2C\_GetState}}(\&\doxymbox{\hyperlink{main_8c_ac379bcc152d860f08b1279fd3e232295}{hi2c2}})\ !=\ \doxymbox{\hyperlink{group___h_a_l__state__structure__definition_ggaef355af8eab251ae2a19ee164ad81c37af859ce60c5e462b0bfde3a5010bc72d1}{HAL\_I2C\_STATE\_READY}})\ \{}
+\DoxyCodeLine{03042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Espera\ activa\ segura}}
+\DoxyCodeLine{03043\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{03044\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a1052f348684f4611334bab03e2f21dda}{ssd1306\_ResetDMAState}}();}
+\DoxyCodeLine{03045\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a63e99c8591f89a39d542c519eac7294f}{ssd1306\_SetDisplayOn}}(1);}
+\DoxyCodeLine{03046\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{03047\ \ \ \ \ \}}
+\DoxyCodeLine{03048\ \}}
+
+\end{DoxyCode}
+
+
+Hace referencia a \doxymbox{\hyperlink{ssd1306_8h_source_l00057}{Black}}, \doxymbox{\hyperlink{util_8h_source_l00022}{FALSE}}, \doxymbox{\hyperlink{fonts_8c_source_l00214}{Font\+\_\+7x10}}, \doxymbox{\hyperlink{stm32f1xx__hal__i2c_8c_source_l05319}{HAL\+\_\+\+I2\+C\+\_\+\+Get\+State()}}, \doxymbox{\hyperlink{stm32f1xx__hal__i2c_8h_source_l00109}{HAL\+\_\+\+I2\+C\+\_\+\+STATE\+\_\+\+READY}}, \doxymbox{\hyperlink{main_8c_source_l02975}{Handle\+Mode\+Screen\+Transition()}}, \doxymbox{\hyperlink{main_8c_source_l00231}{hi2c2}}, \doxymbox{\hyperlink{main_8c_source_l00408}{integral}}, \doxymbox{\hyperlink{main_8c_source_l00406}{last\+\_\+error}}, \doxymbox{\hyperlink{main_8c_source_l00244}{last\+Mode}}, \doxymbox{\hyperlink{main_8c_source_l00327}{l\+Pulse1}}, \doxymbox{\hyperlink{main_8c_source_l00329}{l\+Pulse3}}, \doxymbox{\hyperlink{main_8c_source_l01718}{PWM\+\_\+\+Control()}}, \doxymbox{\hyperlink{main_8c_source_l00243}{robot\+Mode}}, \doxymbox{\hyperlink{main_8c_source_l00328}{r\+Pulse2}}, \doxymbox{\hyperlink{main_8c_source_l00330}{r\+Pulse4}}, \doxymbox{\hyperlink{main_8c_source_l00219}{RUN\+\_\+\+PID}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00219}{ssd1306\+\_\+\+Fill()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00283}{ssd1306\+\_\+\+Reset\+DMAState()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00368}{ssd1306\+\_\+\+Set\+Cursor()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00681}{ssd1306\+\_\+\+Set\+Display\+On()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00224}{ssd1306\+\_\+\+Update\+Screen()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00354}{ssd1306\+\_\+\+Write\+String()}}, \doxymbox{\hyperlink{main_8c_source_l00099}{STATE\+\_\+3\+D\+\_\+\+SCREEN}}, \doxymbox{\hyperlink{main_8c_source_l00097}{STATE\+\_\+\+DODGE}}, \doxymbox{\hyperlink{main_8c_source_l00098}{STATE\+\_\+\+JOYSTICK}}, \doxymbox{\hyperlink{main_8c_source_l00096}{STATE\+\_\+\+LINE\+\_\+\+FOLLOWING}}, \doxymbox{\hyperlink{main_8c_source_l00094}{STATE\+\_\+\+STANDBY}}, \doxymbox{\hyperlink{main_8c_source_l00095}{STATE\+\_\+\+SWING}} y \doxymbox{\hyperlink{ssd1306_8h_source_l00058}{White}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{main_8c_source_l02975}{Handle\+Mode\+Screen\+Transition()}}, \doxymbox{\hyperlink{main_8c_source_l03056}{main()}} y \doxymbox{\hyperlink{group__group__comm_gaef53b41afe84bf3a4c3f95ab5a56a3c4}{USBTask()}}.
+
+Gráfico de llamadas de esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__group__control_ga392b7d5c226c5d8393b4df5c5f835fd1_cgraph}
+\end{center}
+\end{figure}
+Gráfico de llamadas a esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=318pt]{group__group__control_ga392b7d5c226c5d8393b4df5c5f835fd1_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group__group__main_gad529a04bd298cf0801e0052c5da907c7}\index{Interfaz OLED, Gráficos 3D y Botón (Display \& UI)@{Interfaz OLED, Gráficos 3D y Botón (Display \& UI)}!heartBeatTask@{heartBeatTask}}
+\index{heartBeatTask@{heartBeatTask}!Interfaz OLED, Gráficos 3D y Botón (Display \& UI)@{Interfaz OLED, Gráficos 3D y Botón (Display \& UI)}}
+\doxyparagraph{\texorpdfstring{heartBeatTask()}{heartBeatTask()}}
+{\footnotesize\ttfamily \label{group__group__main_gad529a04bd298cf0801e0052c5da907c7} 
+void heart\+Beat\+Task (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+{\ttfamily \+\#include "{}\doxymbox{\hyperlink{main_8c}{main.\+c}}"{}}
+
+
+
+Genera el patrón visual de parpadeo sincrónico en el LED PC13 (Heartbeat). 
+
+Modula el LED según la máscara de 20 ranuras de 100 ms ({\ttfamily \doxylink{main_8c_aa8714e52b7faf9cd0bec6e009005e7c1}{heart\+Beat\+Mask}\+[]}) para identificar a simple vista el modo activo de la MEF. \texorpdfstring{$<$}{<} Peripheral base address in the alias region
+
+\texorpdfstring{$<$}{<} Puerto GPIO del LED indicador (Puerto C)
+
+\texorpdfstring{$<$}{<} Pin del LED indicador integrado (Heartbeat activo a nivel bajo)
+
+\texorpdfstring{$<$}{<} Peripheral base address in the alias region
+
+\texorpdfstring{$<$}{<} Puerto GPIO del LED indicador (Puerto C)
+
+\texorpdfstring{$<$}{<} Pin del LED indicador integrado (Heartbeat activo a nivel bajo)
+
+Definición en la línea \doxymbox{\hyperlink{main_8c_source_l01476}{1476}} del archivo \doxymbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01476\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01477\ \ \ \ \ \textcolor{keyword}{static}\ uint8\_t\ times\ =\ 0;}
+\DoxyCodeLine{01478\ }
+\DoxyCodeLine{01479\ \ \ \ \ \textcolor{keywordflow}{if}\ (\string~\doxymbox{\hyperlink{main_8c_aa8714e52b7faf9cd0bec6e009005e7c1}{heartBeatMask}}[\doxymbox{\hyperlink{main_8c_ae67c613f33a34cb36dab446183c8c075}{hbIndex}}]\ \&\ (1\ <<\ times))\ \{}
+\DoxyCodeLine{01480\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___g_p_i_o___exported___functions___group2_gaf4b97bdf533a02f51ef696d43b6da5c4}{HAL\_GPIO\_WritePin}}(\doxymbox{\hyperlink{group___hardware___pinout_ga3cf393d21586a4097159246e8aca13a2}{LED\_GPIO\_Port}},\ \doxymbox{\hyperlink{group___hardware___pinout_gac969c4fccd009dd70b69992d92cbe81a}{LED\_Pin}},\ \doxymbox{\hyperlink{group___g_p_i_o___exported___types_gga5b3ef0486b179415581eb342e0ea6b43a746c062509db3ad1e47beed7527f9f8a}{GPIO\_PIN\_SET}});}
+\DoxyCodeLine{01481\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{01482\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___g_p_i_o___exported___functions___group2_gaf4b97bdf533a02f51ef696d43b6da5c4}{HAL\_GPIO\_WritePin}}(\doxymbox{\hyperlink{group___hardware___pinout_ga3cf393d21586a4097159246e8aca13a2}{LED\_GPIO\_Port}},\ \doxymbox{\hyperlink{group___hardware___pinout_gac969c4fccd009dd70b69992d92cbe81a}{LED\_Pin}},\ \doxymbox{\hyperlink{group___g_p_i_o___exported___types_gga5b3ef0486b179415581eb342e0ea6b43a90af2af95004ea61d76950ff3f2f6ec2}{GPIO\_PIN\_RESET}});}
+\DoxyCodeLine{01483\ \ \ \ \ \}}
+\DoxyCodeLine{01484\ }
+\DoxyCodeLine{01485\ \ \ \ \ times++;}
+\DoxyCodeLine{01486\ \ \ \ \ \textcolor{keywordflow}{if}\ (times\ >=\ 20)\ \{}
+\DoxyCodeLine{01487\ \ \ \ \ \ \ \ \ times\ =\ 0;\ \textcolor{comment}{//\ Acotado\ a\ ciclo\ síncrono\ de\ exactly\ 2.0\ segundos\ (20\ ranuras\ x\ 100ms)}}
+\DoxyCodeLine{01488\ \ \ \ \ \}}
+\DoxyCodeLine{01489\ \}}
+
+\end{DoxyCode}
+
+
+Hace referencia a \doxymbox{\hyperlink{stm32f1xx__hal__gpio_8h_source_l00066}{GPIO\+\_\+\+PIN\+\_\+\+RESET}}, \doxymbox{\hyperlink{stm32f1xx__hal__gpio_8h_source_l00067}{GPIO\+\_\+\+PIN\+\_\+\+SET}}, \doxymbox{\hyperlink{stm32f1xx__hal__gpio_8c_source_l00465}{HAL\+\_\+\+GPIO\+\_\+\+Write\+Pin()}}, \doxymbox{\hyperlink{main_8c_source_l00263}{hb\+Index}}, \doxymbox{\hyperlink{main_8c_source_l00252}{heart\+Beat\+Mask}}, \doxymbox{\hyperlink{main_8c_source_l01476}{heart\+Beat\+Task()}}, \doxymbox{\hyperlink{main_8h_source_l00038}{LED\+\_\+\+GPIO\+\_\+\+Port}} y \doxymbox{\hyperlink{main_8h_source_l00037}{LED\+\_\+\+Pin}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{main_8c_source_l01441}{do10ms()}}, \doxymbox{\hyperlink{main_8c_source_l01476}{heart\+Beat\+Task()}} y \doxymbox{\hyperlink{group__group__comm_gaef53b41afe84bf3a4c3f95ab5a56a3c4}{USBTask()}}.
+
+Gráfico de llamadas de esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=303pt]{group__group__main_gad529a04bd298cf0801e0052c5da907c7_cgraph}
+\end{center}
+\end{figure}
+Gráfico de llamadas a esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=340pt]{group__group__main_gad529a04bd298cf0801e0052c5da907c7_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group__group__ui__graphics_ga2f07501694f5b96fb0fd85ee473c83eb}\index{Interfaz OLED, Gráficos 3D y Botón (Display \& UI)@{Interfaz OLED, Gráficos 3D y Botón (Display \& UI)}!initButton@{initButton}}
+\index{initButton@{initButton}!Interfaz OLED, Gráficos 3D y Botón (Display \& UI)@{Interfaz OLED, Gráficos 3D y Botón (Display \& UI)}}
+\doxyparagraph{\texorpdfstring{initButton()}{initButton()}}
+{\footnotesize\ttfamily \label{group__group__ui__graphics_ga2f07501694f5b96fb0fd85ee473c83eb} 
+void init\+Button (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{struct__s_button}{\+\_\+s\+Button}} \texorpdfstring{$\ast$}{*}}]{button}{}\end{DoxyParamCaption})}
+
+
+
+{\ttfamily \+\#include "{}\doxymbox{\hyperlink{main_8c}{main.\+c}}"{}}
+
+
+
+Inicializa los descriptores de estado y temporización del botón de usuario. 
+
+
+\begin{DoxyParams}[1]{Parámetros}
+\doxymbox{\texttt{in,out}}  & {\em button} & Puntero a la estructura {\ttfamily \doxylink{struct__s_button}{\+\_\+s\+Button}}. \\
+\hline
+\end{DoxyParams}
+
+
+Definición en la línea \doxymbox{\hyperlink{main_8c_source_l02064}{2064}} del archivo \doxymbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{02064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{02065\ \ \ \ \ button-\/>\doxymbox{\hyperlink{struct__s_button_a1289fe209a109362956009f566d46d5b}{currentState}}\ =\ \doxymbox{\hyperlink{util_8h_a6de6f3d8e74aa6ec71bf5cb6bae49e98a37666936297216dce293b0aa31c474b8}{BUTTON\_UP}};}
+\DoxyCodeLine{02066\ \ \ \ \ button-\/>\doxymbox{\hyperlink{struct__s_button_ad8a59931a8518aa96b000d6d07cb0e9b}{stateInput}}\ =\ \doxymbox{\hyperlink{util_8h_ae01c58988e4d37977423a5aab26ab5faa5856f037cd70ecf6fca11999c11a4a0d}{NO\_EVENT}};}
+\DoxyCodeLine{02067\ \ \ \ \ button-\/>\doxymbox{\hyperlink{struct__s_button_a89aae2e1a5caaee3b017518a4973448e}{isPressed}}\ =\ \doxymbox{\hyperlink{util_8h_a48dec3f0bf02a2f3b11fb90ae0fc4d4caa1e095cc966dbecf6a0d8aad75348d1a}{FALSE}};}
+\DoxyCodeLine{02068\ \ \ \ \ button-\/>\doxymbox{\hyperlink{struct__s_button_aba52ff7c5d18b686dfe7d23441b2e66c}{time}}\ =\ 0;}
+\DoxyCodeLine{02069\ \ \ \ \ button-\/>\doxymbox{\hyperlink{struct__s_button_a7664b4868cbb6eb989eff0d30e30c605}{clickCount}}\ =\ 0;}
+\DoxyCodeLine{02070\ \ \ \ \ button-\/>\doxymbox{\hyperlink{struct__s_button_a3ed6d0ad2029c6502c6e4241fdd7dc25}{justReleased}}\ =\ \doxymbox{\hyperlink{util_8h_a48dec3f0bf02a2f3b11fb90ae0fc4d4caa1e095cc966dbecf6a0d8aad75348d1a}{FALSE}};}
+\DoxyCodeLine{02071\ \}}
+
+\end{DoxyCode}
+
+
+Hace referencia a \doxymbox{\hyperlink{util_8h_source_l00142}{BUTTON\+\_\+\+UP}}, \doxymbox{\hyperlink{util_8h_source_l00168}{\+\_\+s\+Button::\+click\+Count}}, \doxymbox{\hyperlink{util_8h_source_l00164}{\+\_\+s\+Button::\+current\+State}}, \doxymbox{\hyperlink{util_8h_source_l00022}{FALSE}}, \doxymbox{\hyperlink{main_8c_source_l02064}{init\+Button()}}, \doxymbox{\hyperlink{util_8h_source_l00166}{\+\_\+s\+Button::\+is\+Pressed}}, \doxymbox{\hyperlink{util_8h_source_l00169}{\+\_\+s\+Button::\+just\+Released}}, \doxymbox{\hyperlink{util_8h_source_l00154}{NO\+\_\+\+EVENT}}, \doxymbox{\hyperlink{util_8h_source_l00165}{\+\_\+s\+Button::\+state\+Input}} y \doxymbox{\hyperlink{util_8h_source_l00167}{\+\_\+s\+Button::\+time}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{main_8c_source_l02064}{init\+Button()}}, \doxymbox{\hyperlink{main_8c_source_l03056}{main()}} y \doxymbox{\hyperlink{group__group__comm_gaef53b41afe84bf3a4c3f95ab5a56a3c4}{USBTask()}}.
+
+Gráfico de llamadas de esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=137pt]{group__group__ui__graphics_ga2f07501694f5b96fb0fd85ee473c83eb_cgraph}
+\end{center}
+\end{figure}
+Gráfico de llamadas a esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=231pt]{group__group__ui__graphics_ga2f07501694f5b96fb0fd85ee473c83eb_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group__group__ui__graphics_gaf7c4f477f9b957326bbb08d6ca119ac0}\index{Interfaz OLED, Gráficos 3D y Botón (Display \& UI)@{Interfaz OLED, Gráficos 3D y Botón (Display \& UI)}!updateMefTask@{updateMefTask}}
+\index{updateMefTask@{updateMefTask}!Interfaz OLED, Gráficos 3D y Botón (Display \& UI)@{Interfaz OLED, Gráficos 3D y Botón (Display \& UI)}}
+\doxyparagraph{\texorpdfstring{updateMefTask()}{updateMefTask()}}
+{\footnotesize\ttfamily \label{group__group__ui__graphics_gaf7c4f477f9b957326bbb08d6ca119ac0} 
+uint8\+\_\+t update\+Mef\+Task (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{struct__s_button}{\+\_\+s\+Button}} \texorpdfstring{$\ast$}{*}}]{button}{}\end{DoxyParamCaption})}
+
+
+
+{\ttfamily \+\#include "{}\doxymbox{\hyperlink{main_8c}{main.\+c}}"{}}
+
+
+
+Actualiza la MEF de bajo nivel de antirrebote (Debounce) del botón. 
+
+
+\begin{DoxyParams}[1]{Parámetros}
+\doxymbox{\texttt{in,out}}  & {\em button} & Puntero a la estructura {\ttfamily \doxylink{struct__s_button}{\+\_\+s\+Button}}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Devuelve}
+Estado activo o inactivo del botón tras el filtrado. 
+\end{DoxyReturn}
+
+
+Definición en la línea \doxymbox{\hyperlink{main_8c_source_l02073}{2073}} del archivo \doxymbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{02073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{02074\ \ \ \ \ uint8\_t\ action=\doxymbox{\hyperlink{util_8h_a48dec3f0bf02a2f3b11fb90ae0fc4d4caa1e095cc966dbecf6a0d8aad75348d1a}{FALSE}};}
+\DoxyCodeLine{02075\ }
+\DoxyCodeLine{02076\ \ \ \ \ \textcolor{keywordflow}{switch}\ (button-\/>\doxymbox{\hyperlink{struct__s_button_a1289fe209a109362956009f566d46d5b}{currentState}})\{}
+\DoxyCodeLine{02077\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{util_8h_a6de6f3d8e74aa6ec71bf5cb6bae49e98a37666936297216dce293b0aa31c474b8}{BUTTON\_UP}}:}
+\DoxyCodeLine{02078\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(button-\/>\doxymbox{\hyperlink{struct__s_button_ad8a59931a8518aa96b000d6d07cb0e9b}{stateInput}}==\doxymbox{\hyperlink{util_8h_ae01c58988e4d37977423a5aab26ab5faa5ef9a100ac8b4b8d6dec477c377b7901}{PRESSED}})}
+\DoxyCodeLine{02079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ button-\/>\doxymbox{\hyperlink{struct__s_button_a1289fe209a109362956009f566d46d5b}{currentState}}=\doxymbox{\hyperlink{util_8h_a6de6f3d8e74aa6ec71bf5cb6bae49e98a4c5560be280ccf3e4ef5a385a6dd62dc}{BUTTON\_FALLING}};}
+\DoxyCodeLine{02080\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{02081\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{util_8h_a6de6f3d8e74aa6ec71bf5cb6bae49e98a4c5560be280ccf3e4ef5a385a6dd62dc}{BUTTON\_FALLING}}:}
+\DoxyCodeLine{02082\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(button-\/>\doxymbox{\hyperlink{struct__s_button_ad8a59931a8518aa96b000d6d07cb0e9b}{stateInput}}==\doxymbox{\hyperlink{util_8h_ae01c58988e4d37977423a5aab26ab5faa5ef9a100ac8b4b8d6dec477c377b7901}{PRESSED}})\{}
+\DoxyCodeLine{02083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ button-\/>\doxymbox{\hyperlink{struct__s_button_a1289fe209a109362956009f566d46d5b}{currentState}}=\doxymbox{\hyperlink{util_8h_a6de6f3d8e74aa6ec71bf5cb6bae49e98a0c7746cfbcac16484b2266e6f51e5e0b}{BUTTON\_DOWN}};}
+\DoxyCodeLine{02084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ button-\/>\doxymbox{\hyperlink{struct__s_button_a89aae2e1a5caaee3b017518a4973448e}{isPressed}}=\doxymbox{\hyperlink{util_8h_a48dec3f0bf02a2f3b11fb90ae0fc4d4caa82764c3079aea4e60c80e45befbb839}{TRUE}};}
+\DoxyCodeLine{02085\ \ \ \ \ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{02086\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ button-\/>\doxymbox{\hyperlink{struct__s_button_a1289fe209a109362956009f566d46d5b}{currentState}}=\doxymbox{\hyperlink{util_8h_a6de6f3d8e74aa6ec71bf5cb6bae49e98a37666936297216dce293b0aa31c474b8}{BUTTON\_UP}};}
+\DoxyCodeLine{02087\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{02088\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{02089\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{util_8h_a6de6f3d8e74aa6ec71bf5cb6bae49e98a0c7746cfbcac16484b2266e6f51e5e0b}{BUTTON\_DOWN}}:}
+\DoxyCodeLine{02090\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(button-\/>\doxymbox{\hyperlink{struct__s_button_ad8a59931a8518aa96b000d6d07cb0e9b}{stateInput}}==\doxymbox{\hyperlink{util_8h_ae01c58988e4d37977423a5aab26ab5faacdb8b9a398ffbd729218a27d00d8fa45}{NOT\_PRESSED}})}
+\DoxyCodeLine{02091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ button-\/>\doxymbox{\hyperlink{struct__s_button_a1289fe209a109362956009f566d46d5b}{currentState}}=\doxymbox{\hyperlink{util_8h_a6de6f3d8e74aa6ec71bf5cb6bae49e98a5783aad8af274c748e903acf713c430f}{BUTTON\_RISING}};}
+\DoxyCodeLine{02092\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{02093\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{util_8h_a6de6f3d8e74aa6ec71bf5cb6bae49e98a5783aad8af274c748e903acf713c430f}{BUTTON\_RISING}}:}
+\DoxyCodeLine{02094\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(button-\/>\doxymbox{\hyperlink{struct__s_button_ad8a59931a8518aa96b000d6d07cb0e9b}{stateInput}}==\doxymbox{\hyperlink{util_8h_ae01c58988e4d37977423a5aab26ab5faacdb8b9a398ffbd729218a27d00d8fa45}{NOT\_PRESSED}})\{}
+\DoxyCodeLine{02095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ button-\/>\doxymbox{\hyperlink{struct__s_button_a1289fe209a109362956009f566d46d5b}{currentState}}=\doxymbox{\hyperlink{util_8h_a6de6f3d8e74aa6ec71bf5cb6bae49e98a37666936297216dce293b0aa31c474b8}{BUTTON\_UP}};}
+\DoxyCodeLine{02096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ button-\/>\doxymbox{\hyperlink{struct__s_button_a89aae2e1a5caaee3b017518a4973448e}{isPressed}}\ =\ \doxymbox{\hyperlink{util_8h_a48dec3f0bf02a2f3b11fb90ae0fc4d4caa1e095cc966dbecf6a0d8aad75348d1a}{FALSE}};}
+\DoxyCodeLine{02097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ button-\/>\doxymbox{\hyperlink{struct__s_button_a3ed6d0ad2029c6502c6e4241fdd7dc25}{justReleased}}\ =\ \doxymbox{\hyperlink{util_8h_a48dec3f0bf02a2f3b11fb90ae0fc4d4caa82764c3079aea4e60c80e45befbb839}{TRUE}};\ \textcolor{comment}{//\ Capturar\ flanco\ de\ subida\ de\ liberación}}
+\DoxyCodeLine{02098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ action=\doxymbox{\hyperlink{util_8h_a48dec3f0bf02a2f3b11fb90ae0fc4d4caa82764c3079aea4e60c80e45befbb839}{TRUE}};}
+\DoxyCodeLine{02099\ \ \ \ \ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{02100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ button-\/>\doxymbox{\hyperlink{struct__s_button_a1289fe209a109362956009f566d46d5b}{currentState}}=\doxymbox{\hyperlink{util_8h_a6de6f3d8e74aa6ec71bf5cb6bae49e98a0c7746cfbcac16484b2266e6f51e5e0b}{BUTTON\_DOWN}};}
+\DoxyCodeLine{02101\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{02102\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{02103\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{02104\ \ \ \ \ \ \ \ \ \ \ \ \ button-\/>\doxymbox{\hyperlink{struct__s_button_a1289fe209a109362956009f566d46d5b}{currentState}}=\doxymbox{\hyperlink{util_8h_a6de6f3d8e74aa6ec71bf5cb6bae49e98a37666936297216dce293b0aa31c474b8}{BUTTON\_UP}};}
+\DoxyCodeLine{02105\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{02106\ \ \ \ \ \}}
+\DoxyCodeLine{02107\ \ \ \ \ \textcolor{keywordflow}{return}\ action;}
+\DoxyCodeLine{02108\ \}}
+
+\end{DoxyCode}
+
+
+Hace referencia a \doxymbox{\hyperlink{util_8h_source_l00141}{BUTTON\+\_\+\+DOWN}}, \doxymbox{\hyperlink{util_8h_source_l00144}{BUTTON\+\_\+\+FALLING}}, \doxymbox{\hyperlink{util_8h_source_l00143}{BUTTON\+\_\+\+RISING}}, \doxymbox{\hyperlink{util_8h_source_l00142}{BUTTON\+\_\+\+UP}}, \doxymbox{\hyperlink{util_8h_source_l00164}{\+\_\+s\+Button::\+current\+State}}, \doxymbox{\hyperlink{util_8h_source_l00022}{FALSE}}, \doxymbox{\hyperlink{util_8h_source_l00166}{\+\_\+s\+Button::\+is\+Pressed}}, \doxymbox{\hyperlink{util_8h_source_l00169}{\+\_\+s\+Button::\+just\+Released}}, \doxymbox{\hyperlink{util_8h_source_l00153}{NOT\+\_\+\+PRESSED}}, \doxymbox{\hyperlink{util_8h_source_l00152}{PRESSED}}, \doxymbox{\hyperlink{util_8h_source_l00165}{\+\_\+s\+Button::\+state\+Input}}, \doxymbox{\hyperlink{util_8h_source_l00023}{TRUE}} y \doxymbox{\hyperlink{main_8c_source_l02073}{update\+Mef\+Task()}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{main_8c_source_l03056}{main()}}, \doxymbox{\hyperlink{main_8c_source_l02073}{update\+Mef\+Task()}} y \doxymbox{\hyperlink{group__group__comm_gaef53b41afe84bf3a4c3f95ab5a56a3c4}{USBTask()}}.
+
+Gráfico de llamadas de esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=163pt]{group__group__ui__graphics_gaf7c4f477f9b957326bbb08d6ca119ac0_cgraph}
+\end{center}
+\end{figure}
+Gráfico de llamadas a esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=257pt]{group__group__ui__graphics_gaf7c4f477f9b957326bbb08d6ca119ac0_icgraph}
+\end{center}
+\end{figure}
+\input{group___wire_g_f_x___config}

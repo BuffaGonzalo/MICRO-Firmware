@@ -1,21 +1,12 @@
-/* USER CODE BEGIN Header */
 /**
-  ******************************************************************************
-  * @file    stm32f1xx_it.c
-  * @brief   Interrupt Service Routines.
-  ******************************************************************************
-  * @attention
-  *
-  * Copyright (c) 2026 STMicroelectronics.
-  * All rights reserved.
-  *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
-  *
-  ******************************************************************************
-  */
-/* USER CODE END Header */
+ * @file   stm32f1xx_it.c
+ * @author STMicroelectronics / Gonzalo M. Buffa
+ * @brief  Implementación de las Rutinas de Servicio de Interrupción (ISR).
+ * @details Despacha los eventos de hardware para DMA1 (ADC e I2C), temporizadores de control
+ *          (TIM2 a 5ms, TIM3 a 10kHz), USART1 y la interfaz USB de la placa.
+ * @ingroup group_system
+ */
+
 
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"

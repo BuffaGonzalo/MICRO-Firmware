@@ -1,0 +1,443 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>MICRO-Firmware: Archivo de código fuente stm32f1xx_hal_tim_ex.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="codefolding.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">MICRO-Firmware<span id="projectnumber">&#160;EX100923v01</span>
+   </div>
+   <div id="projectbrief">Firmware de Péndulo Invertido Autónomo de Dos Ruedas (STM32F103C8T6 - ARM Cortex-M3)</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Buscar" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('stm32f1xx__hal__tim__ex_8h_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">stm32f1xx_hal_tim_ex.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="stm32f1xx__hal__tim__ex_8h.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">  ******************************************************************************</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment">  * @file    stm32f1xx_hal_tim_ex.h</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment">  * @author  MCD Application Team</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment">  * @brief   Header file of TIM HAL Extended module.</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment">  ******************************************************************************</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment">  * @attention</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment">  *</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment">  * Copyright (c) 2016 STMicroelectronics.</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment">  * All rights reserved.</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment">  *</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment">  * This software is licensed under terms that can be found in the LICENSE file</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment">  * in the root directory of this software component.</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment">  * If no LICENSE file comes with this software, it is provided AS-IS.</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="comment">  *</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="comment">  ******************************************************************************</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="comment">/* Define to prevent recursive inclusion -------------------------------------*/</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#ifndef STM32F1xx_HAL_TIM_EX_H</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#define STM32F1xx_HAL_TIM_EX_H</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span> {</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="comment">/* Includes ------------------------------------------------------------------*/</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#include &quot;<a class="code" href="stm32f1xx__hal__def_8h.html">stm32f1xx_hal_def.h</a>&quot;</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="comment"></span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="comment">/** @addtogroup STM32F1xx_HAL_Driver</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="comment">  * @{</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="comment"></span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="comment">/** @addtogroup TIMEx</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="comment">  * @{</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="comment">/* Exported types ------------------------------------------------------------*/</span><span class="comment"></span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment">/** @defgroup TIMEx_Exported_Types TIM Extended Exported Types</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="comment">  * @{</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="comment"></span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="comment">  * @brief  TIM Hall sensor Configuration Structure definition</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="foldopen" id="foldopen00047" data-start="{" data-end="};">
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="struct_t_i_m___hall_sensor___init_type_def.html">   47</a></span><span class="keyword">typedef</span> <span class="keyword">struct</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>{</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="struct_t_i_m___hall_sensor___init_type_def.html#a08e8f098cb51159344135bab57d82d85">   49</a></span>  uint32_t <a class="code hl_variable" href="struct_t_i_m___hall_sensor___init_type_def.html#a08e8f098cb51159344135bab57d82d85">IC1Polarity</a>;         <span class="comment">/*!&lt; Specifies the active edge of the input signal.</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="comment">                                     This parameter can be a value of @ref TIM_Input_Capture_Polarity */</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="struct_t_i_m___hall_sensor___init_type_def.html#ac6c54e891cbe5afec92676219978209e">   52</a></span>  uint32_t <a class="code hl_variable" href="struct_t_i_m___hall_sensor___init_type_def.html#ac6c54e891cbe5afec92676219978209e">IC1Prescaler</a>;        <span class="comment">/*!&lt; Specifies the Input Capture Prescaler.</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="comment">                                     This parameter can be a value of @ref TIM_Input_Capture_Prescaler */</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="struct_t_i_m___hall_sensor___init_type_def.html#a2d349ca17282be59dd09dc9b10948d24">   55</a></span>  uint32_t <a class="code hl_variable" href="struct_t_i_m___hall_sensor___init_type_def.html#a2d349ca17282be59dd09dc9b10948d24">IC1Filter</a>;           <span class="comment">/*!&lt; Specifies the input capture filter.</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="comment">                                     This parameter can be a number between Min_Data = 0x0 and Max_Data = 0xF */</span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="struct_t_i_m___hall_sensor___init_type_def.html#a822efefca8a13af284e84070bd19bb91">   58</a></span>  uint32_t <a class="code hl_variable" href="struct_t_i_m___hall_sensor___init_type_def.html#a822efefca8a13af284e84070bd19bb91">Commutation_Delay</a>;   <span class="comment">/*!&lt; Specifies the pulse value to be loaded into the Capture Compare Register.</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="comment">                                     This parameter can be a number between Min_Data = 0x0000 and Max_Data = 0xFFFF */</span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>} <a class="code hl_struct" href="struct_t_i_m___hall_sensor___init_type_def.html">TIM_HallSensor_InitTypeDef</a>;<span class="comment"></span></div>
+</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="comment">  * @}</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="comment">/* End of exported types -----------------------------------------------------*/</span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="comment">/* Exported constants --------------------------------------------------------*/</span><span class="comment"></span></div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="comment">/** @defgroup TIMEx_Exported_Constants TIM Extended Exported Constants</span></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="comment">  * @{</span></div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="comment"></span> </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="comment">/** @defgroup TIMEx_Remap TIM Extended Remapping</span></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="comment">  * @{</span></div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="comment">  */</span><span class="comment"></span></div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="comment">  * @}</span></div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="comment"></span> </div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="comment">  * @}</span></div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="comment">/* End of exported constants -------------------------------------------------*/</span></div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="comment">/* Exported macro ------------------------------------------------------------*/</span><span class="comment"></span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="comment">/** @defgroup TIMEx_Exported_Macros TIM Extended Exported Macros</span></div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="comment">  * @{</span></div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span><span class="comment"></span> </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="comment">  * @}</span></div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="comment">/* End of exported macro -----------------------------------------------------*/</span></div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="comment">/* Private macro -------------------------------------------------------------*/</span><span class="comment"></span></div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="comment">/** @defgroup TIMEx_Private_Macros TIM Extended Private Macros</span></div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="comment">  * @{</span></div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span><span class="comment"></span> </div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span><span class="comment">  * @}</span></div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span><span class="comment">/* End of private macro ------------------------------------------------------*/</span></div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span><span class="comment">/* Exported functions --------------------------------------------------------*/</span><span class="comment"></span></div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span><span class="comment">/** @addtogroup TIMEx_Exported_Functions TIM Extended Exported Functions</span></div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span><span class="comment">  * @{</span></div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span><span class="comment"></span> </div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span><span class="comment">/** @addtogroup TIMEx_Exported_Functions_Group1 Extended Timer Hall Sensor functions</span></div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span><span class="comment">  *  @brief    Timer Hall Sensor functions</span></div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span><span class="comment">  * @{</span></div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span><span class="comment">/*  Timer Hall Sensor functions  **********************************************/</span></div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span><a class="code hl_enumeration" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a> <a class="code hl_function" href="group___t_i_m_ex___exported___functions___group1.html#ga70b3896d3c42d92d211c00566c623f71">HAL_TIMEx_HallSensor_Init</a>(<a class="code hl_struct" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, <span class="keyword">const</span> <a class="code hl_struct" href="struct_t_i_m___hall_sensor___init_type_def.html">TIM_HallSensor_InitTypeDef</a> *sConfig);</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span><a class="code hl_enumeration" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a> <a class="code hl_function" href="group___t_i_m_ex___exported___functions___group1.html#ga61f3c18eb8fe53b65b55ec855072631d">HAL_TIMEx_HallSensor_DeInit</a>(<a class="code hl_struct" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim);</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span><span class="keywordtype">void</span> <a class="code hl_function" href="group___t_i_m_ex___exported___functions___group1.html#gaa6fa8ee8711badb1fc1677dad00c6bee">HAL_TIMEx_HallSensor_MspInit</a>(<a class="code hl_struct" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim);</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span><span class="keywordtype">void</span> <a class="code hl_function" href="group___t_i_m_ex___exported___functions___group1.html#gab705d2e292092094a5973c3e226b7b91">HAL_TIMEx_HallSensor_MspDeInit</a>(<a class="code hl_struct" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim);</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span><span class="comment">/* Blocking mode: Polling */</span></div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span><a class="code hl_enumeration" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a> <a class="code hl_function" href="group___t_i_m_ex___exported___functions___group1.html#ga9f4bfa2a4b890a2219ca927bbbb455fc">HAL_TIMEx_HallSensor_Start</a>(<a class="code hl_struct" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim);</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span><a class="code hl_enumeration" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a> <a class="code hl_function" href="group___t_i_m_ex___exported___functions___group1.html#ga714c2a7a51f4ab61b04df84ab182eb86">HAL_TIMEx_HallSensor_Stop</a>(<a class="code hl_struct" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim);</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span><span class="comment">/* Non-Blocking mode: Interrupt */</span></div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span><a class="code hl_enumeration" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a> <a class="code hl_function" href="group___t_i_m_ex___exported___functions___group1.html#gaf3e7068c5bc6fc74e016cc8e990cbb02">HAL_TIMEx_HallSensor_Start_IT</a>(<a class="code hl_struct" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim);</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span><a class="code hl_enumeration" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a> <a class="code hl_function" href="group___t_i_m_ex___exported___functions___group1.html#gac6ab7ab0cada425a8d4deb637bd2ad71">HAL_TIMEx_HallSensor_Stop_IT</a>(<a class="code hl_struct" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim);</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span><span class="comment">/* Non-Blocking mode: DMA */</span></div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span><a class="code hl_enumeration" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a> <a class="code hl_function" href="group___t_i_m_ex___exported___functions___group1.html#ga3d0d063498f6888d61411d56380f5211">HAL_TIMEx_HallSensor_Start_DMA</a>(<a class="code hl_struct" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, uint32_t *pData, uint16_t Length);</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span><a class="code hl_enumeration" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a> <a class="code hl_function" href="group___t_i_m_ex___exported___functions___group1.html#gab361d1aa6e0eb244886b93908beded6f">HAL_TIMEx_HallSensor_Stop_DMA</a>(<a class="code hl_struct" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim);<span class="comment"></span></div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span><span class="comment">  * @}</span></div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span><span class="comment"></span> </div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span><span class="comment">/** @addtogroup TIMEx_Exported_Functions_Group2 Extended Timer Complementary Output Compare functions</span></div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span><span class="comment">  *  @brief   Timer Complementary Output Compare functions</span></div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span><span class="comment">  * @{</span></div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span><span class="comment">/*  Timer Complementary Output Compare functions  *****************************/</span></div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span><span class="comment">/* Blocking mode: Polling */</span></div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span><a class="code hl_enumeration" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a> <a class="code hl_function" href="group___t_i_m_ex___exported___functions___group2.html#ga56d25f544564ef28a66dca7ec150de00">HAL_TIMEx_OCN_Start</a>(<a class="code hl_struct" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, uint32_t Channel);</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span><a class="code hl_enumeration" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a> <a class="code hl_function" href="group___t_i_m_ex___exported___functions___group2.html#ga576cb1c3e40fc49555f232773cb2cdbc">HAL_TIMEx_OCN_Stop</a>(<a class="code hl_struct" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, uint32_t Channel);</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span> </div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span><span class="comment">/* Non-Blocking mode: Interrupt */</span></div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span><a class="code hl_enumeration" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a> <a class="code hl_function" href="group___t_i_m_ex___exported___functions___group2.html#ga2f4d7c285095d5293b81d2e11cd991af">HAL_TIMEx_OCN_Start_IT</a>(<a class="code hl_struct" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, uint32_t Channel);</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span><a class="code hl_enumeration" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a> <a class="code hl_function" href="group___t_i_m_ex___exported___functions___group2.html#gabe91877781dbd7fb9fdd63262e6ea10f">HAL_TIMEx_OCN_Stop_IT</a>(<a class="code hl_struct" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, uint32_t Channel);</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span> </div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span><span class="comment">/* Non-Blocking mode: DMA */</span></div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span><a class="code hl_enumeration" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a> <a class="code hl_function" href="group___t_i_m_ex___exported___functions___group2.html#ga4d82bbece7e69bff83c478bbcf003e1d">HAL_TIMEx_OCN_Start_DMA</a>(<a class="code hl_struct" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, uint32_t Channel, <span class="keyword">const</span> uint32_t *pData,</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>                                          uint16_t Length);</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span><a class="code hl_enumeration" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a> <a class="code hl_function" href="group___t_i_m_ex___exported___functions___group2.html#ga09216649456d28828492740232b275fd">HAL_TIMEx_OCN_Stop_DMA</a>(<a class="code hl_struct" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, uint32_t Channel);<span class="comment"></span></div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span><span class="comment">  * @}</span></div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span><span class="comment"></span> </div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span><span class="comment">/** @addtogroup TIMEx_Exported_Functions_Group3 Extended Timer Complementary PWM functions</span></div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span><span class="comment">  *  @brief    Timer Complementary PWM functions</span></div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span><span class="comment">  * @{</span></div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span><span class="comment">/*  Timer Complementary PWM functions  ****************************************/</span></div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span><span class="comment">/* Blocking mode: Polling */</span></div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span><a class="code hl_enumeration" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a> <a class="code hl_function" href="group___t_i_m_ex___exported___functions___group3.html#ga4f2b0bb4b66a5acd76eac4e8d32cc498">HAL_TIMEx_PWMN_Start</a>(<a class="code hl_struct" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, uint32_t Channel);</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span><a class="code hl_enumeration" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a> <a class="code hl_function" href="group___t_i_m_ex___exported___functions___group3.html#ga0f2e27f3fb6d8f42d998e2071e5f0482">HAL_TIMEx_PWMN_Stop</a>(<a class="code hl_struct" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, uint32_t Channel);</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span> </div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span><span class="comment">/* Non-Blocking mode: Interrupt */</span></div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span><a class="code hl_enumeration" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a> <a class="code hl_function" href="group___t_i_m_ex___exported___functions___group3.html#ga82f0b53f6b10e6aafc6835178662c488">HAL_TIMEx_PWMN_Start_IT</a>(<a class="code hl_struct" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, uint32_t Channel);</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span><a class="code hl_enumeration" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a> <a class="code hl_function" href="group___t_i_m_ex___exported___functions___group3.html#ga13848e20df29fa552ef4f5b69fef20a6">HAL_TIMEx_PWMN_Stop_IT</a>(<a class="code hl_struct" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, uint32_t Channel);</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span><span class="comment">/* Non-Blocking mode: DMA */</span></div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span><a class="code hl_enumeration" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a> <a class="code hl_function" href="group___t_i_m_ex___exported___functions___group3.html#ga40c945a8c706dbfc1da753fbcb821c4b">HAL_TIMEx_PWMN_Start_DMA</a>(<a class="code hl_struct" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, uint32_t Channel, <span class="keyword">const</span> uint32_t *pData,</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>                                           uint16_t Length);</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span><a class="code hl_enumeration" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a> <a class="code hl_function" href="group___t_i_m_ex___exported___functions___group3.html#ga10afdfdc5eed2e0288ccb969f48bc0e4">HAL_TIMEx_PWMN_Stop_DMA</a>(<a class="code hl_struct" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, uint32_t Channel);<span class="comment"></span></div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span><span class="comment">  * @}</span></div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span><span class="comment"></span> </div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span><span class="comment">/** @addtogroup TIMEx_Exported_Functions_Group4 Extended Timer Complementary One Pulse functions</span></div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span><span class="comment">  *  @brief    Timer Complementary One Pulse functions</span></div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span><span class="comment">  * @{</span></div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span><span class="comment">/*  Timer Complementary One Pulse functions  **********************************/</span></div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span><span class="comment">/* Blocking mode: Polling */</span></div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span><a class="code hl_enumeration" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a> <a class="code hl_function" href="group___t_i_m_ex___exported___functions___group4.html#ga41e254708b0215a68acb6e0836d4f8ca">HAL_TIMEx_OnePulseN_Start</a>(<a class="code hl_struct" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, uint32_t OutputChannel);</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span><a class="code hl_enumeration" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a> <a class="code hl_function" href="group___t_i_m_ex___exported___functions___group4.html#gaf42ab805f75ecece735d600e54cabf83">HAL_TIMEx_OnePulseN_Stop</a>(<a class="code hl_struct" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, uint32_t OutputChannel);</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span> </div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span><span class="comment">/* Non-Blocking mode: Interrupt */</span></div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span><a class="code hl_enumeration" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a> <a class="code hl_function" href="group___t_i_m_ex___exported___functions___group4.html#ga297a97004076cee5734510a0dece7665">HAL_TIMEx_OnePulseN_Start_IT</a>(<a class="code hl_struct" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, uint32_t OutputChannel);</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span><a class="code hl_enumeration" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a> <a class="code hl_function" href="group___t_i_m_ex___exported___functions___group4.html#ga5b6f320c18f453054a5409db6b98254e">HAL_TIMEx_OnePulseN_Stop_IT</a>(<a class="code hl_struct" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, uint32_t OutputChannel);<span class="comment"></span></div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span><span class="comment">  * @}</span></div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span><span class="comment"></span> </div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span><span class="comment">/** @addtogroup TIMEx_Exported_Functions_Group5 Extended Peripheral Control functions</span></div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span><span class="comment">  *  @brief    Peripheral Control functions</span></div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span><span class="comment">  * @{</span></div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span><span class="comment">/* Extended Control functions  ************************************************/</span></div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span><a class="code hl_enumeration" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a> <a class="code hl_function" href="group___t_i_m_ex___exported___functions___group5.html#gab5802aa4b8b5a79b93b209b0277622ac">HAL_TIMEx_ConfigCommutEvent</a>(<a class="code hl_struct" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, uint32_t  InputTrigger,</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>                                              uint32_t  CommutationSource);</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span><a class="code hl_enumeration" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a> <a class="code hl_function" href="group___t_i_m_ex___exported___functions___group5.html#gad9f5f717a203adafb70e66451b4f0472">HAL_TIMEx_ConfigCommutEvent_IT</a>(<a class="code hl_struct" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, uint32_t  InputTrigger,</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>                                                 uint32_t  CommutationSource);</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span><a class="code hl_enumeration" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a> <a class="code hl_function" href="group___t_i_m_ex___exported___functions___group5.html#ga6ab2af489cfc5783e4ddd76a35edde31">HAL_TIMEx_ConfigCommutEvent_DMA</a>(<a class="code hl_struct" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, uint32_t  InputTrigger,</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>                                                  uint32_t  CommutationSource);</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span><a class="code hl_enumeration" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a> <a class="code hl_function" href="group___t_i_m_ex___exported___functions___group5.html#ga772129e4fa76d4af34b9b6913698d3c8">HAL_TIMEx_MasterConfigSynchronization</a>(<a class="code hl_struct" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim,</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>                                                        <span class="keyword">const</span> <a class="code hl_struct" href="struct_t_i_m___master_config_type_def.html">TIM_MasterConfigTypeDef</a> *sMasterConfig);</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span><a class="code hl_enumeration" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a> <a class="code hl_function" href="group___t_i_m_ex___exported___functions___group5.html#ga5ebf7ce00c211c085633ed1fb964d054">HAL_TIMEx_ConfigBreakDeadTime</a>(<a class="code hl_struct" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim,</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>                                                <span class="keyword">const</span> <a class="code hl_struct" href="struct_t_i_m___break_dead_time_config_type_def.html">TIM_BreakDeadTimeConfigTypeDef</a> *sBreakDeadTimeConfig);</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span><a class="code hl_enumeration" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a> <a class="code hl_function" href="group___t_i_m_ex___exported___functions___group5.html#ga683118282daf3aa2e319eb8eea93af31">HAL_TIMEx_RemapConfig</a>(<a class="code hl_struct" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim, uint32_t Remap);<span class="comment"></span></div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span><span class="comment">  * @}</span></div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span><span class="comment"></span> </div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span><span class="comment">/** @addtogroup TIMEx_Exported_Functions_Group6 Extended Callbacks functions</span></div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span><span class="comment">  * @brief    Extended Callbacks functions</span></div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span><span class="comment">  * @{</span></div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span><span class="comment">/* Extended Callback **********************************************************/</span></div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span><span class="keywordtype">void</span> <a class="code hl_function" href="group___t_i_m_ex___exported___functions___group6.html#ga538e27fac28380a20b2e9db75b07ddc7">HAL_TIMEx_CommutCallback</a>(<a class="code hl_struct" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim);</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span><span class="keywordtype">void</span> <a class="code hl_function" href="group___t_i_m_ex___exported___functions___group6.html#gad3e0f980bb86bc8e6b4834ce9e9ad5c6">HAL_TIMEx_CommutHalfCpltCallback</a>(<a class="code hl_struct" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim);</div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span><span class="keywordtype">void</span> <a class="code hl_function" href="group___t_i_m_ex___exported___functions___group6.html#ga37031fc75c8c9f92b7a95d73f91b5f3c">HAL_TIMEx_BreakCallback</a>(<a class="code hl_struct" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim);<span class="comment"></span></div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span><span class="comment">  * @}</span></div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span><span class="comment"></span> </div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span><span class="comment">/** @addtogroup TIMEx_Exported_Functions_Group7 Extended Peripheral State functions</span></div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span><span class="comment">  * @brief    Extended Peripheral State functions</span></div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span><span class="comment">  * @{</span></div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span><span class="comment">/* Extended Peripheral State functions  ***************************************/</span></div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span><a class="code hl_enumeration" href="group___t_i_m___exported___types.html#gae0994cf5970e56ca4903e9151f40010c">HAL_TIM_StateTypeDef</a> <a class="code hl_function" href="group___t_i_m_ex___exported___functions___group7.html#gaa27ea2ed2e334e5fe94b7b9be5af857e">HAL_TIMEx_HallSensor_GetState</a>(<span class="keyword">const</span> <a class="code hl_struct" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim);</div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span><a class="code hl_enumeration" href="group___t_i_m___exported___types.html#ga1a70fcbe9952e18af5c890e216a15f34">HAL_TIM_ChannelStateTypeDef</a> <a class="code hl_function" href="group___t_i_m_ex___exported___functions___group7.html#ga974d8474ef6c31a41b46f46d31202888">HAL_TIMEx_GetChannelNState</a>(<span class="keyword">const</span> <a class="code hl_struct" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim,  uint32_t ChannelN);<span class="comment"></span></div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span><span class="comment">  * @}</span></div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span><span class="comment"></span> </div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span><span class="comment">  * @}</span></div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span><span class="comment">/* End of exported functions -------------------------------------------------*/</span></div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span> </div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span><span class="comment">/* Private functions----------------------------------------------------------*/</span><span class="comment"></span></div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span><span class="comment">/** @addtogroup TIMEx_Private_Functions TIM Extended Private Functions</span></div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span><span class="comment">  * @{</span></div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span><span class="keywordtype">void</span> <a class="code hl_function" href="group___t_i_m_ex___private___functions.html#gaf473fa38254d62a74a006a781fe0aeb8">TIMEx_DMACommutationCplt</a>(<a class="code hl_typedef" href="group___d_m_a___exported___types.html#ga41b754a906b86bce54dc79938970138b">DMA_HandleTypeDef</a> *hdma);</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span><span class="keywordtype">void</span> <a class="code hl_function" href="group___t_i_m_ex___private___functions.html#ga65b7244a1ee94cf20081543377ba8d2a">TIMEx_DMACommutationHalfCplt</a>(<a class="code hl_typedef" href="group___d_m_a___exported___types.html#ga41b754a906b86bce54dc79938970138b">DMA_HandleTypeDef</a> *hdma);<span class="comment"></span></div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span><span class="comment">  * @}</span></div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span><span class="comment">/* End of private functions --------------------------------------------------*/</span></div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span><span class="comment"></span> </div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span><span class="comment">  * @}</span></div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span><span class="comment"></span> </div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span><span class="comment">  * @}</span></div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span> </div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span><span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>}</div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span> </div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span> </div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span><span class="preprocessor">#endif </span><span class="comment">/* STM32F1xx_HAL_TIM_EX_H */</span><span class="preprocessor"></span></div>
+<div class="ttc" id="agroup___d_m_a___exported___types_html_ga41b754a906b86bce54dc79938970138b"><div class="ttname"><a href="group___d_m_a___exported___types.html#ga41b754a906b86bce54dc79938970138b">DMA_HandleTypeDef</a></div><div class="ttdeci">struct __DMA_HandleTypeDef DMA_HandleTypeDef</div><div class="ttdoc">DMA handle Structure definition.</div></div>
+<div class="ttc" id="agroup___t_i_m___exported___types_html_ga1a70fcbe9952e18af5c890e216a15f34"><div class="ttname"><a href="group___t_i_m___exported___types.html#ga1a70fcbe9952e18af5c890e216a15f34">HAL_TIM_ChannelStateTypeDef</a></div><div class="ttdeci">HAL_TIM_ChannelStateTypeDef</div><div class="ttdoc">TIM Channel States definition.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim_8h_source.html#l00302">stm32f1xx_hal_tim.h:303</a></div></div>
+<div class="ttc" id="agroup___t_i_m___exported___types_html_gae0994cf5970e56ca4903e9151f40010c"><div class="ttname"><a href="group___t_i_m___exported___types.html#gae0994cf5970e56ca4903e9151f40010c">HAL_TIM_StateTypeDef</a></div><div class="ttdeci">HAL_TIM_StateTypeDef</div><div class="ttdoc">HAL State structures definition.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim_8h_source.html#l00290">stm32f1xx_hal_tim.h:291</a></div></div>
+<div class="ttc" id="agroup___t_i_m_ex___exported___functions___group1_html_ga3d0d063498f6888d61411d56380f5211"><div class="ttname"><a href="group___t_i_m_ex___exported___functions___group1.html#ga3d0d063498f6888d61411d56380f5211">HAL_TIMEx_HallSensor_Start_DMA</a></div><div class="ttdeci">HAL_StatusTypeDef HAL_TIMEx_HallSensor_Start_DMA(TIM_HandleTypeDef *htim, uint32_t *pData, uint16_t Length)</div><div class="ttdoc">Starts the TIM Hall Sensor Interface in DMA mode.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim__ex_8c_source.html#l00487">stm32f1xx_hal_tim_ex.c:487</a></div></div>
+<div class="ttc" id="agroup___t_i_m_ex___exported___functions___group1_html_ga61f3c18eb8fe53b65b55ec855072631d"><div class="ttname"><a href="group___t_i_m_ex___exported___functions___group1.html#ga61f3c18eb8fe53b65b55ec855072631d">HAL_TIMEx_HallSensor_DeInit</a></div><div class="ttdeci">HAL_StatusTypeDef HAL_TIMEx_HallSensor_DeInit(TIM_HandleTypeDef *htim)</div><div class="ttdoc">DeInitializes the TIM Hall Sensor interface.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim__ex_8c_source.html#l00240">stm32f1xx_hal_tim_ex.c:240</a></div></div>
+<div class="ttc" id="agroup___t_i_m_ex___exported___functions___group1_html_ga70b3896d3c42d92d211c00566c623f71"><div class="ttname"><a href="group___t_i_m_ex___exported___functions___group1.html#ga70b3896d3c42d92d211c00566c623f71">HAL_TIMEx_HallSensor_Init</a></div><div class="ttdeci">HAL_StatusTypeDef HAL_TIMEx_HallSensor_Init(TIM_HandleTypeDef *htim, const TIM_HallSensor_InitTypeDef *sConfig)</div><div class="ttdoc">Initializes the TIM Hall Sensor Interface and initialize the associated handle.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim__ex_8c_source.html#l00138">stm32f1xx_hal_tim_ex.c:138</a></div></div>
+<div class="ttc" id="agroup___t_i_m_ex___exported___functions___group1_html_ga714c2a7a51f4ab61b04df84ab182eb86"><div class="ttname"><a href="group___t_i_m_ex___exported___functions___group1.html#ga714c2a7a51f4ab61b04df84ab182eb86">HAL_TIMEx_HallSensor_Stop</a></div><div class="ttdeci">HAL_StatusTypeDef HAL_TIMEx_HallSensor_Stop(TIM_HandleTypeDef *htim)</div><div class="ttdoc">Stops the TIM Hall sensor Interface.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim__ex_8c_source.html#l00369">stm32f1xx_hal_tim_ex.c:369</a></div></div>
+<div class="ttc" id="agroup___t_i_m_ex___exported___functions___group1_html_ga9f4bfa2a4b890a2219ca927bbbb455fc"><div class="ttname"><a href="group___t_i_m_ex___exported___functions___group1.html#ga9f4bfa2a4b890a2219ca927bbbb455fc">HAL_TIMEx_HallSensor_Start</a></div><div class="ttdeci">HAL_StatusTypeDef HAL_TIMEx_HallSensor_Start(TIM_HandleTypeDef *htim)</div><div class="ttdoc">Starts the TIM Hall Sensor Interface.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim__ex_8c_source.html#l00315">stm32f1xx_hal_tim_ex.c:315</a></div></div>
+<div class="ttc" id="agroup___t_i_m_ex___exported___functions___group1_html_gaa6fa8ee8711badb1fc1677dad00c6bee"><div class="ttname"><a href="group___t_i_m_ex___exported___functions___group1.html#gaa6fa8ee8711badb1fc1677dad00c6bee">HAL_TIMEx_HallSensor_MspInit</a></div><div class="ttdeci">void HAL_TIMEx_HallSensor_MspInit(TIM_HandleTypeDef *htim)</div><div class="ttdoc">Initializes the TIM Hall Sensor MSP.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim__ex_8c_source.html#l00285">stm32f1xx_hal_tim_ex.c:285</a></div></div>
+<div class="ttc" id="agroup___t_i_m_ex___exported___functions___group1_html_gab361d1aa6e0eb244886b93908beded6f"><div class="ttname"><a href="group___t_i_m_ex___exported___functions___group1.html#gab361d1aa6e0eb244886b93908beded6f">HAL_TIMEx_HallSensor_Stop_DMA</a></div><div class="ttdeci">HAL_StatusTypeDef HAL_TIMEx_HallSensor_Stop_DMA(TIM_HandleTypeDef *htim)</div><div class="ttdoc">Stops the TIM Hall Sensor Interface in DMA mode.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim__ex_8c_source.html#l00563">stm32f1xx_hal_tim_ex.c:563</a></div></div>
+<div class="ttc" id="agroup___t_i_m_ex___exported___functions___group1_html_gab705d2e292092094a5973c3e226b7b91"><div class="ttname"><a href="group___t_i_m_ex___exported___functions___group1.html#gab705d2e292092094a5973c3e226b7b91">HAL_TIMEx_HallSensor_MspDeInit</a></div><div class="ttdeci">void HAL_TIMEx_HallSensor_MspDeInit(TIM_HandleTypeDef *htim)</div><div class="ttdoc">DeInitializes TIM Hall Sensor MSP.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim__ex_8c_source.html#l00300">stm32f1xx_hal_tim_ex.c:300</a></div></div>
+<div class="ttc" id="agroup___t_i_m_ex___exported___functions___group1_html_gac6ab7ab0cada425a8d4deb637bd2ad71"><div class="ttname"><a href="group___t_i_m_ex___exported___functions___group1.html#gac6ab7ab0cada425a8d4deb637bd2ad71">HAL_TIMEx_HallSensor_Stop_IT</a></div><div class="ttdeci">HAL_StatusTypeDef HAL_TIMEx_HallSensor_Stop_IT(TIM_HandleTypeDef *htim)</div><div class="ttdoc">Stops the TIM Hall Sensor Interface in interrupt mode.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim__ex_8c_source.html#l00454">stm32f1xx_hal_tim_ex.c:454</a></div></div>
+<div class="ttc" id="agroup___t_i_m_ex___exported___functions___group1_html_gaf3e7068c5bc6fc74e016cc8e990cbb02"><div class="ttname"><a href="group___t_i_m_ex___exported___functions___group1.html#gaf3e7068c5bc6fc74e016cc8e990cbb02">HAL_TIMEx_HallSensor_Start_IT</a></div><div class="ttdeci">HAL_StatusTypeDef HAL_TIMEx_HallSensor_Start_IT(TIM_HandleTypeDef *htim)</div><div class="ttdoc">Starts the TIM Hall Sensor Interface in interrupt mode.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim__ex_8c_source.html#l00397">stm32f1xx_hal_tim_ex.c:397</a></div></div>
+<div class="ttc" id="agroup___t_i_m_ex___exported___functions___group2_html_ga09216649456d28828492740232b275fd"><div class="ttname"><a href="group___t_i_m_ex___exported___functions___group2.html#ga09216649456d28828492740232b275fd">HAL_TIMEx_OCN_Stop_DMA</a></div><div class="ttdeci">HAL_StatusTypeDef HAL_TIMEx_OCN_Stop_DMA(TIM_HandleTypeDef *htim, uint32_t Channel)</div><div class="ttdoc">Stops the TIM Output Compare signal generation in DMA mode on the complementary output.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim__ex_8c_source.html#l01008">stm32f1xx_hal_tim_ex.c:1008</a></div></div>
+<div class="ttc" id="agroup___t_i_m_ex___exported___functions___group2_html_ga2f4d7c285095d5293b81d2e11cd991af"><div class="ttname"><a href="group___t_i_m_ex___exported___functions___group2.html#ga2f4d7c285095d5293b81d2e11cd991af">HAL_TIMEx_OCN_Start_IT</a></div><div class="ttdeci">HAL_StatusTypeDef HAL_TIMEx_OCN_Start_IT(TIM_HandleTypeDef *htim, uint32_t Channel)</div><div class="ttdoc">Starts the TIM Output Compare signal generation in interrupt mode on the complementary output.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim__ex_8c_source.html#l00708">stm32f1xx_hal_tim_ex.c:708</a></div></div>
+<div class="ttc" id="agroup___t_i_m_ex___exported___functions___group2_html_ga4d82bbece7e69bff83c478bbcf003e1d"><div class="ttname"><a href="group___t_i_m_ex___exported___functions___group2.html#ga4d82bbece7e69bff83c478bbcf003e1d">HAL_TIMEx_OCN_Start_DMA</a></div><div class="ttdeci">HAL_StatusTypeDef HAL_TIMEx_OCN_Start_DMA(TIM_HandleTypeDef *htim, uint32_t Channel, const uint32_t *pData, uint16_t Length)</div><div class="ttdoc">Starts the TIM Output Compare signal generation in DMA mode on the complementary output.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim__ex_8c_source.html#l00870">stm32f1xx_hal_tim_ex.c:870</a></div></div>
+<div class="ttc" id="agroup___t_i_m_ex___exported___functions___group2_html_ga56d25f544564ef28a66dca7ec150de00"><div class="ttname"><a href="group___t_i_m_ex___exported___functions___group2.html#ga56d25f544564ef28a66dca7ec150de00">HAL_TIMEx_OCN_Start</a></div><div class="ttdeci">HAL_StatusTypeDef HAL_TIMEx_OCN_Start(TIM_HandleTypeDef *htim, uint32_t Channel)</div><div class="ttdoc">Starts the TIM Output Compare signal generation on the complementary output.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim__ex_8c_source.html#l00625">stm32f1xx_hal_tim_ex.c:625</a></div></div>
+<div class="ttc" id="agroup___t_i_m_ex___exported___functions___group2_html_ga576cb1c3e40fc49555f232773cb2cdbc"><div class="ttname"><a href="group___t_i_m_ex___exported___functions___group2.html#ga576cb1c3e40fc49555f232773cb2cdbc">HAL_TIMEx_OCN_Stop</a></div><div class="ttdeci">HAL_StatusTypeDef HAL_TIMEx_OCN_Stop(TIM_HandleTypeDef *htim, uint32_t Channel)</div><div class="ttdoc">Stops the TIM Output Compare signal generation on the complementary output.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim__ex_8c_source.html#l00676">stm32f1xx_hal_tim_ex.c:676</a></div></div>
+<div class="ttc" id="agroup___t_i_m_ex___exported___functions___group2_html_gabe91877781dbd7fb9fdd63262e6ea10f"><div class="ttname"><a href="group___t_i_m_ex___exported___functions___group2.html#gabe91877781dbd7fb9fdd63262e6ea10f">HAL_TIMEx_OCN_Stop_IT</a></div><div class="ttdeci">HAL_StatusTypeDef HAL_TIMEx_OCN_Stop_IT(TIM_HandleTypeDef *htim, uint32_t Channel)</div><div class="ttdoc">Stops the TIM Output Compare signal generation in interrupt mode on the complementary output.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim__ex_8c_source.html#l00795">stm32f1xx_hal_tim_ex.c:795</a></div></div>
+<div class="ttc" id="agroup___t_i_m_ex___exported___functions___group3_html_ga0f2e27f3fb6d8f42d998e2071e5f0482"><div class="ttname"><a href="group___t_i_m_ex___exported___functions___group3.html#ga0f2e27f3fb6d8f42d998e2071e5f0482">HAL_TIMEx_PWMN_Stop</a></div><div class="ttdeci">HAL_StatusTypeDef HAL_TIMEx_PWMN_Stop(TIM_HandleTypeDef *htim, uint32_t Channel)</div><div class="ttdoc">Stops the PWM signal generation on the complementary output.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim__ex_8c_source.html#l01148">stm32f1xx_hal_tim_ex.c:1148</a></div></div>
+<div class="ttc" id="agroup___t_i_m_ex___exported___functions___group3_html_ga10afdfdc5eed2e0288ccb969f48bc0e4"><div class="ttname"><a href="group___t_i_m_ex___exported___functions___group3.html#ga10afdfdc5eed2e0288ccb969f48bc0e4">HAL_TIMEx_PWMN_Stop_DMA</a></div><div class="ttdeci">HAL_StatusTypeDef HAL_TIMEx_PWMN_Stop_DMA(TIM_HandleTypeDef *htim, uint32_t Channel)</div><div class="ttdoc">Stops the TIM PWM signal generation in DMA mode on the complementary output.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim__ex_8c_source.html#l01479">stm32f1xx_hal_tim_ex.c:1479</a></div></div>
+<div class="ttc" id="agroup___t_i_m_ex___exported___functions___group3_html_ga13848e20df29fa552ef4f5b69fef20a6"><div class="ttname"><a href="group___t_i_m_ex___exported___functions___group3.html#ga13848e20df29fa552ef4f5b69fef20a6">HAL_TIMEx_PWMN_Stop_IT</a></div><div class="ttdeci">HAL_StatusTypeDef HAL_TIMEx_PWMN_Stop_IT(TIM_HandleTypeDef *htim, uint32_t Channel)</div><div class="ttdoc">Stops the PWM signal generation in interrupt mode on the complementary output.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim__ex_8c_source.html#l01266">stm32f1xx_hal_tim_ex.c:1266</a></div></div>
+<div class="ttc" id="agroup___t_i_m_ex___exported___functions___group3_html_ga40c945a8c706dbfc1da753fbcb821c4b"><div class="ttname"><a href="group___t_i_m_ex___exported___functions___group3.html#ga40c945a8c706dbfc1da753fbcb821c4b">HAL_TIMEx_PWMN_Start_DMA</a></div><div class="ttdeci">HAL_StatusTypeDef HAL_TIMEx_PWMN_Start_DMA(TIM_HandleTypeDef *htim, uint32_t Channel, const uint32_t *pData, uint16_t Length)</div><div class="ttdoc">Starts the TIM PWM signal generation in DMA mode on the complementary output.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim__ex_8c_source.html#l01341">stm32f1xx_hal_tim_ex.c:1341</a></div></div>
+<div class="ttc" id="agroup___t_i_m_ex___exported___functions___group3_html_ga4f2b0bb4b66a5acd76eac4e8d32cc498"><div class="ttname"><a href="group___t_i_m_ex___exported___functions___group3.html#ga4f2b0bb4b66a5acd76eac4e8d32cc498">HAL_TIMEx_PWMN_Start</a></div><div class="ttdeci">HAL_StatusTypeDef HAL_TIMEx_PWMN_Start(TIM_HandleTypeDef *htim, uint32_t Channel)</div><div class="ttdoc">Starts the PWM signal generation on the complementary output.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim__ex_8c_source.html#l01098">stm32f1xx_hal_tim_ex.c:1098</a></div></div>
+<div class="ttc" id="agroup___t_i_m_ex___exported___functions___group3_html_ga82f0b53f6b10e6aafc6835178662c488"><div class="ttname"><a href="group___t_i_m_ex___exported___functions___group3.html#ga82f0b53f6b10e6aafc6835178662c488">HAL_TIMEx_PWMN_Start_IT</a></div><div class="ttdeci">HAL_StatusTypeDef HAL_TIMEx_PWMN_Start_IT(TIM_HandleTypeDef *htim, uint32_t Channel)</div><div class="ttdoc">Starts the PWM signal generation in interrupt mode on the complementary output.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim__ex_8c_source.html#l01180">stm32f1xx_hal_tim_ex.c:1180</a></div></div>
+<div class="ttc" id="agroup___t_i_m_ex___exported___functions___group4_html_ga297a97004076cee5734510a0dece7665"><div class="ttname"><a href="group___t_i_m_ex___exported___functions___group4.html#ga297a97004076cee5734510a0dece7665">HAL_TIMEx_OnePulseN_Start_IT</a></div><div class="ttdeci">HAL_StatusTypeDef HAL_TIMEx_OnePulseN_Start_IT(TIM_HandleTypeDef *htim, uint32_t OutputChannel)</div><div class="ttdoc">Starts the TIM One Pulse signal generation in interrupt mode on the complementary channel.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim__ex_8c_source.html#l01658">stm32f1xx_hal_tim_ex.c:1658</a></div></div>
+<div class="ttc" id="agroup___t_i_m_ex___exported___functions___group4_html_ga41e254708b0215a68acb6e0836d4f8ca"><div class="ttname"><a href="group___t_i_m_ex___exported___functions___group4.html#ga41e254708b0215a68acb6e0836d4f8ca">HAL_TIMEx_OnePulseN_Start</a></div><div class="ttdeci">HAL_StatusTypeDef HAL_TIMEx_OnePulseN_Start(TIM_HandleTypeDef *htim, uint32_t OutputChannel)</div><div class="ttdoc">Starts the TIM One Pulse signal generation on the complementary output.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim__ex_8c_source.html#l01570">stm32f1xx_hal_tim_ex.c:1570</a></div></div>
+<div class="ttc" id="agroup___t_i_m_ex___exported___functions___group4_html_ga5b6f320c18f453054a5409db6b98254e"><div class="ttname"><a href="group___t_i_m_ex___exported___functions___group4.html#ga5b6f320c18f453054a5409db6b98254e">HAL_TIMEx_OnePulseN_Stop_IT</a></div><div class="ttdeci">HAL_StatusTypeDef HAL_TIMEx_OnePulseN_Stop_IT(TIM_HandleTypeDef *htim, uint32_t OutputChannel)</div><div class="ttdoc">Stops the TIM One Pulse signal generation in interrupt mode on the complementary channel.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim__ex_8c_source.html#l01713">stm32f1xx_hal_tim_ex.c:1713</a></div></div>
+<div class="ttc" id="agroup___t_i_m_ex___exported___functions___group4_html_gaf42ab805f75ecece735d600e54cabf83"><div class="ttname"><a href="group___t_i_m_ex___exported___functions___group4.html#gaf42ab805f75ecece735d600e54cabf83">HAL_TIMEx_OnePulseN_Stop</a></div><div class="ttdeci">HAL_StatusTypeDef HAL_TIMEx_OnePulseN_Stop(TIM_HandleTypeDef *htim, uint32_t OutputChannel)</div><div class="ttdoc">Stops the TIM One Pulse signal generation on the complementary output.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim__ex_8c_source.html#l01619">stm32f1xx_hal_tim_ex.c:1619</a></div></div>
+<div class="ttc" id="agroup___t_i_m_ex___exported___functions___group5_html_ga5ebf7ce00c211c085633ed1fb964d054"><div class="ttname"><a href="group___t_i_m_ex___exported___functions___group5.html#ga5ebf7ce00c211c085633ed1fb964d054">HAL_TIMEx_ConfigBreakDeadTime</a></div><div class="ttdeci">HAL_StatusTypeDef HAL_TIMEx_ConfigBreakDeadTime(TIM_HandleTypeDef *htim, const TIM_BreakDeadTimeConfigTypeDef *sBreakDeadTimeConfig)</div><div class="ttdoc">Configures the Break feature, dead time, Lock level, OSSI/OSSR State and the AOE(automatic output ena...</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim__ex_8c_source.html#l02015">stm32f1xx_hal_tim_ex.c:2015</a></div></div>
+<div class="ttc" id="agroup___t_i_m_ex___exported___functions___group5_html_ga683118282daf3aa2e319eb8eea93af31"><div class="ttname"><a href="group___t_i_m_ex___exported___functions___group5.html#ga683118282daf3aa2e319eb8eea93af31">HAL_TIMEx_RemapConfig</a></div><div class="ttdeci">HAL_StatusTypeDef HAL_TIMEx_RemapConfig(TIM_HandleTypeDef *htim, uint32_t Remap)</div><div class="ttdoc">Configures the TIMx Remapping input capabilities.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim__ex_8c_source.html#l02062">stm32f1xx_hal_tim_ex.c:2062</a></div></div>
+<div class="ttc" id="agroup___t_i_m_ex___exported___functions___group5_html_ga6ab2af489cfc5783e4ddd76a35edde31"><div class="ttname"><a href="group___t_i_m_ex___exported___functions___group5.html#ga6ab2af489cfc5783e4ddd76a35edde31">HAL_TIMEx_ConfigCommutEvent_DMA</a></div><div class="ttdeci">HAL_StatusTypeDef HAL_TIMEx_ConfigCommutEvent_DMA(TIM_HandleTypeDef *htim, uint32_t InputTrigger, uint32_t CommutationSource)</div><div class="ttdoc">Configure the TIM commutation event sequence with DMA.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim__ex_8c_source.html#l01905">stm32f1xx_hal_tim_ex.c:1905</a></div></div>
+<div class="ttc" id="agroup___t_i_m_ex___exported___functions___group5_html_ga772129e4fa76d4af34b9b6913698d3c8"><div class="ttname"><a href="group___t_i_m_ex___exported___functions___group5.html#ga772129e4fa76d4af34b9b6913698d3c8">HAL_TIMEx_MasterConfigSynchronization</a></div><div class="ttdeci">HAL_StatusTypeDef HAL_TIMEx_MasterConfigSynchronization(TIM_HandleTypeDef *htim, const TIM_MasterConfigTypeDef *sMasterConfig)</div><div class="ttdoc">Configures the TIM in master mode.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim__ex_8c_source.html#l01954">stm32f1xx_hal_tim_ex.c:1954</a></div></div>
+<div class="ttc" id="agroup___t_i_m_ex___exported___functions___group5_html_gab5802aa4b8b5a79b93b209b0277622ac"><div class="ttname"><a href="group___t_i_m_ex___exported___functions___group5.html#gab5802aa4b8b5a79b93b209b0277622ac">HAL_TIMEx_ConfigCommutEvent</a></div><div class="ttdeci">HAL_StatusTypeDef HAL_TIMEx_ConfigCommutEvent(TIM_HandleTypeDef *htim, uint32_t InputTrigger, uint32_t CommutationSource)</div><div class="ttdoc">Configure the TIM commutation event sequence.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim__ex_8c_source.html#l01792">stm32f1xx_hal_tim_ex.c:1792</a></div></div>
+<div class="ttc" id="agroup___t_i_m_ex___exported___functions___group5_html_gad9f5f717a203adafb70e66451b4f0472"><div class="ttname"><a href="group___t_i_m_ex___exported___functions___group5.html#gad9f5f717a203adafb70e66451b4f0472">HAL_TIMEx_ConfigCommutEvent_IT</a></div><div class="ttdeci">HAL_StatusTypeDef HAL_TIMEx_ConfigCommutEvent_IT(TIM_HandleTypeDef *htim, uint32_t InputTrigger, uint32_t CommutationSource)</div><div class="ttdoc">Configure the TIM commutation event sequence with interrupt.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim__ex_8c_source.html#l01848">stm32f1xx_hal_tim_ex.c:1848</a></div></div>
+<div class="ttc" id="agroup___t_i_m_ex___exported___functions___group6_html_ga37031fc75c8c9f92b7a95d73f91b5f3c"><div class="ttname"><a href="group___t_i_m_ex___exported___functions___group6.html#ga37031fc75c8c9f92b7a95d73f91b5f3c">HAL_TIMEx_BreakCallback</a></div><div class="ttdeci">void HAL_TIMEx_BreakCallback(TIM_HandleTypeDef *htim)</div><div class="ttdoc">Break detection callback in non-blocking mode.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim__ex_8c_source.html#l02125">stm32f1xx_hal_tim_ex.c:2125</a></div></div>
+<div class="ttc" id="agroup___t_i_m_ex___exported___functions___group6_html_ga538e27fac28380a20b2e9db75b07ddc7"><div class="ttname"><a href="group___t_i_m_ex___exported___functions___group6.html#ga538e27fac28380a20b2e9db75b07ddc7">HAL_TIMEx_CommutCallback</a></div><div class="ttdeci">void HAL_TIMEx_CommutCallback(TIM_HandleTypeDef *htim)</div><div class="ttdoc">Commutation callback in non-blocking mode.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim__ex_8c_source.html#l02096">stm32f1xx_hal_tim_ex.c:2096</a></div></div>
+<div class="ttc" id="agroup___t_i_m_ex___exported___functions___group6_html_gad3e0f980bb86bc8e6b4834ce9e9ad5c6"><div class="ttname"><a href="group___t_i_m_ex___exported___functions___group6.html#gad3e0f980bb86bc8e6b4834ce9e9ad5c6">HAL_TIMEx_CommutHalfCpltCallback</a></div><div class="ttdeci">void HAL_TIMEx_CommutHalfCpltCallback(TIM_HandleTypeDef *htim)</div><div class="ttdoc">Commutation half complete callback in non-blocking mode.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim__ex_8c_source.html#l02110">stm32f1xx_hal_tim_ex.c:2110</a></div></div>
+<div class="ttc" id="agroup___t_i_m_ex___exported___functions___group7_html_ga974d8474ef6c31a41b46f46d31202888"><div class="ttname"><a href="group___t_i_m_ex___exported___functions___group7.html#ga974d8474ef6c31a41b46f46d31202888">HAL_TIMEx_GetChannelNState</a></div><div class="ttdeci">HAL_TIM_ChannelStateTypeDef HAL_TIMEx_GetChannelNState(const TIM_HandleTypeDef *htim, uint32_t ChannelN)</div><div class="ttdoc">Return actual state of the TIM complementary channel.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim__ex_8c_source.html#l02173">stm32f1xx_hal_tim_ex.c:2173</a></div></div>
+<div class="ttc" id="agroup___t_i_m_ex___exported___functions___group7_html_gaa27ea2ed2e334e5fe94b7b9be5af857e"><div class="ttname"><a href="group___t_i_m_ex___exported___functions___group7.html#gaa27ea2ed2e334e5fe94b7b9be5af857e">HAL_TIMEx_HallSensor_GetState</a></div><div class="ttdeci">HAL_TIM_StateTypeDef HAL_TIMEx_HallSensor_GetState(const TIM_HandleTypeDef *htim)</div><div class="ttdoc">Return the TIM Hall Sensor interface handle state.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim__ex_8c_source.html#l02158">stm32f1xx_hal_tim_ex.c:2158</a></div></div>
+<div class="ttc" id="agroup___t_i_m_ex___private___functions_html_ga65b7244a1ee94cf20081543377ba8d2a"><div class="ttname"><a href="group___t_i_m_ex___private___functions.html#ga65b7244a1ee94cf20081543377ba8d2a">TIMEx_DMACommutationHalfCplt</a></div><div class="ttdeci">void TIMEx_DMACommutationHalfCplt(DMA_HandleTypeDef *hdma)</div><div class="ttdoc">TIM DMA Commutation half complete callback.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim__ex_8c_source.html#l02221">stm32f1xx_hal_tim_ex.c:2221</a></div></div>
+<div class="ttc" id="agroup___t_i_m_ex___private___functions_html_gaf473fa38254d62a74a006a781fe0aeb8"><div class="ttname"><a href="group___t_i_m_ex___private___functions.html#gaf473fa38254d62a74a006a781fe0aeb8">TIMEx_DMACommutationCplt</a></div><div class="ttdeci">void TIMEx_DMACommutationCplt(DMA_HandleTypeDef *hdma)</div><div class="ttdoc">TIM DMA Commutation callback.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim__ex_8c_source.html#l02202">stm32f1xx_hal_tim_ex.c:2202</a></div></div>
+<div class="ttc" id="astm32f1xx__hal__def_8h_html"><div class="ttname"><a href="stm32f1xx__hal__def_8h.html">stm32f1xx_hal_def.h</a></div><div class="ttdoc">This file contains HAL common defines, enumeration, macros and structures definitions.</div></div>
+<div class="ttc" id="astm32f1xx__hal__def_8h_html_a63c0679d1cb8b8c684fbb0632743478f"><div class="ttname"><a href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a></div><div class="ttdeci">HAL_StatusTypeDef</div><div class="ttdoc">HAL Status structures definition.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__def_8h_source.html#l00038">stm32f1xx_hal_def.h:39</a></div></div>
+<div class="ttc" id="astruct_t_i_m___break_dead_time_config_type_def_html"><div class="ttname"><a href="struct_t_i_m___break_dead_time_config_type_def.html">TIM_BreakDeadTimeConfigTypeDef</a></div><div class="ttdoc">TIM Break input(s) and Dead time configuration Structure definition.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim_8h_source.html#l00267">stm32f1xx_hal_tim.h:268</a></div></div>
+<div class="ttc" id="astruct_t_i_m___hall_sensor___init_type_def_html"><div class="ttname"><a href="struct_t_i_m___hall_sensor___init_type_def.html">TIM_HallSensor_InitTypeDef</a></div><div class="ttdoc">TIM Hall sensor Configuration Structure definition.</div><div class="ttdef"><b>Definición</b> <a href="#l00047">stm32f1xx_hal_tim_ex.h:48</a></div></div>
+<div class="ttc" id="astruct_t_i_m___hall_sensor___init_type_def_html_a08e8f098cb51159344135bab57d82d85"><div class="ttname"><a href="struct_t_i_m___hall_sensor___init_type_def.html#a08e8f098cb51159344135bab57d82d85">TIM_HallSensor_InitTypeDef::IC1Polarity</a></div><div class="ttdeci">uint32_t IC1Polarity</div><div class="ttdoc">Specifies the active edge of the input signal.</div><div class="ttdef"><b>Definición</b> <a href="#l00049">stm32f1xx_hal_tim_ex.h:49</a></div></div>
+<div class="ttc" id="astruct_t_i_m___hall_sensor___init_type_def_html_a2d349ca17282be59dd09dc9b10948d24"><div class="ttname"><a href="struct_t_i_m___hall_sensor___init_type_def.html#a2d349ca17282be59dd09dc9b10948d24">TIM_HallSensor_InitTypeDef::IC1Filter</a></div><div class="ttdeci">uint32_t IC1Filter</div><div class="ttdoc">Specifies the input capture filter.</div><div class="ttdef"><b>Definición</b> <a href="#l00055">stm32f1xx_hal_tim_ex.h:55</a></div></div>
+<div class="ttc" id="astruct_t_i_m___hall_sensor___init_type_def_html_a822efefca8a13af284e84070bd19bb91"><div class="ttname"><a href="struct_t_i_m___hall_sensor___init_type_def.html#a822efefca8a13af284e84070bd19bb91">TIM_HallSensor_InitTypeDef::Commutation_Delay</a></div><div class="ttdeci">uint32_t Commutation_Delay</div><div class="ttdoc">Specifies the pulse value to be loaded into the Capture Compare Register.</div><div class="ttdef"><b>Definición</b> <a href="#l00058">stm32f1xx_hal_tim_ex.h:58</a></div></div>
+<div class="ttc" id="astruct_t_i_m___hall_sensor___init_type_def_html_ac6c54e891cbe5afec92676219978209e"><div class="ttname"><a href="struct_t_i_m___hall_sensor___init_type_def.html#ac6c54e891cbe5afec92676219978209e">TIM_HallSensor_InitTypeDef::IC1Prescaler</a></div><div class="ttdeci">uint32_t IC1Prescaler</div><div class="ttdoc">Specifies the Input Capture Prescaler.</div><div class="ttdef"><b>Definición</b> <a href="#l00052">stm32f1xx_hal_tim_ex.h:52</a></div></div>
+<div class="ttc" id="astruct_t_i_m___handle_type_def_html"><div class="ttname"><a href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a></div><div class="ttdoc">TIM Time Base Handle Structure definition.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim_8h_source.html#l00337">stm32f1xx_hal_tim.h:339</a></div></div>
+<div class="ttc" id="astruct_t_i_m___master_config_type_def_html"><div class="ttname"><a href="struct_t_i_m___master_config_type_def.html">TIM_MasterConfigTypeDef</a></div><div class="ttdoc">TIM Master configuration Structure definition.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim_8h_source.html#l00231">stm32f1xx_hal_tim.h:232</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_60925fc218da8ca7908795bf5f624060.html">Drivers</a></li><li class="navelem"><a href="dir_bb6a392354d207333b00bd1cb9328973.html">STM32F1xx_HAL_Driver</a></li><li class="navelem"><a href="dir_1a1855b043853774b7feae02fcb02080.html">Inc</a></li><li class="navelem"><a href="stm32f1xx__hal__tim__ex_8h.html">stm32f1xx_hal_tim_ex.h</a></li>
+    <li class="footer">Generado el <span class="timestamp"></span> para MICRO-Firmware por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

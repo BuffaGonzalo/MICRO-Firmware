@@ -1,0 +1,236 @@
+\doxysubsubsubsubsection{Flags Interrupts Management }
+\hypertarget{group___r_c_c___flags___interrupts___management}{}\label{group___r_c_c___flags___interrupts___management}\index{Flags Interrupts Management@{Flags Interrupts Management}}
+
+
+macros to manage the specified RCC Flags and interrupts.  
+
+
+Diagrama de colaboración de Flags Interrupts Management:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group___r_c_c___flags___interrupts___management}
+\end{center}
+\end{figure}
+\doxysubsubsubsubsubsubsection*{defines}
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{group___r_c_c___flags___interrupts___management_ga9d8ab157f58045b8daf8136bee54f139}{\+\_\+\+\_\+\+HAL\+\_\+\+RCC\+\_\+\+CLEAR\+\_\+\+IT}}(\+\_\+\+\_\+\+INTERRUPT\+\_\+\_)
+\begin{DoxyCompactList}\small\item\em Clear the RCC\textquotesingle{}s interrupt pending bits. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group___r_c_c___flags___interrupts___management_gaf28c11b36035ef1e27883ff7ee2c46b0}{\+\_\+\+\_\+\+HAL\+\_\+\+RCC\+\_\+\+CLEAR\+\_\+\+RESET\+\_\+\+FLAGS}}()
+\begin{DoxyCompactList}\small\item\em Set RMVF bit to clear the reset flags. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group___r_c_c___flags___interrupts___management_gafc4df8cd4df0a529d11f18bf1f7e9f50}{\+\_\+\+\_\+\+HAL\+\_\+\+RCC\+\_\+\+DISABLE\+\_\+\+IT}}(\+\_\+\+\_\+\+INTERRUPT\+\_\+\_)
+\begin{DoxyCompactList}\small\item\em Disable RCC interrupt. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group___r_c_c___flags___interrupts___management_ga180fb20a37b31a6e4f7e59213a6c0405}{\+\_\+\+\_\+\+HAL\+\_\+\+RCC\+\_\+\+ENABLE\+\_\+\+IT}}(\+\_\+\+\_\+\+INTERRUPT\+\_\+\_)
+\begin{DoxyCompactList}\small\item\em Enable RCC interrupt. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group___r_c_c___flags___interrupts___management_gae2d7d461630562bf2a2ddb31b1f96449}{\+\_\+\+\_\+\+HAL\+\_\+\+RCC\+\_\+\+GET\+\_\+\+FLAG}}(\+\_\+\+\_\+\+FLAG\+\_\+\_)
+\begin{DoxyCompactList}\small\item\em Check RCC flag is set or not. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group___r_c_c___flags___interrupts___management_ga134af980b892f362c05ae21922cd828d}{\+\_\+\+\_\+\+HAL\+\_\+\+RCC\+\_\+\+GET\+\_\+\+IT}}(\+\_\+\+\_\+\+INTERRUPT\+\_\+\_)
+\begin{DoxyCompactList}\small\item\em Check the RCC\textquotesingle{}s interrupt has occurred or not. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsubsubsubsubsection{Descripción detallada}
+macros to manage the specified RCC Flags and interrupts. 
+
+
+
+\label{group___r_c_c___flags___interrupts___management_doc-define-members}
+\Hypertarget{group___r_c_c___flags___interrupts___management_doc-define-members}
+\doxysubsubsubsubsubsection{Documentación de «define»}
+\Hypertarget{group___r_c_c___flags___interrupts___management_ga9d8ab157f58045b8daf8136bee54f139}\index{Flags Interrupts Management@{Flags Interrupts Management}!\_\_HAL\_RCC\_CLEAR\_IT@{\_\_HAL\_RCC\_CLEAR\_IT}}
+\index{\_\_HAL\_RCC\_CLEAR\_IT@{\_\_HAL\_RCC\_CLEAR\_IT}!Flags Interrupts Management@{Flags Interrupts Management}}
+\doxyparagraph{\texorpdfstring{\_\_HAL\_RCC\_CLEAR\_IT}{\_\_HAL\_RCC\_CLEAR\_IT}}
+{\footnotesize\ttfamily \label{group___r_c_c___flags___interrupts___management_ga9d8ab157f58045b8daf8136bee54f139} 
+\+\#define \+\_\+\+\_\+\+HAL\+\_\+\+RCC\+\_\+\+CLEAR\+\_\+\+IT(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+\+INTERRUPT\+\_\+\_}{}\end{DoxyParamCaption})}
+
+
+
+{\ttfamily \+\#include "{}\doxymbox{\hyperlink{stm32f1xx__hal__rcc_8h}{stm32f1xx\+\_\+hal\+\_\+rcc.\+h}}"{}}
+
+{\bfseries Valor:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(*(\_\_IO\ uint8\_t\ *)\ \doxymbox{\hyperlink{group___r_c_c___private___constants_ga1387fb2dfadb830eb83ab2772c8d2294}{RCC\_CIR\_BYTE2\_ADDRESS}}\ =\ (\_\_INTERRUPT\_\_))}
+
+\end{DoxyCode}
+
+
+Clear the RCC\textquotesingle{}s interrupt pending bits. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em \+\_\+\+\_\+\+INTERRUPT\+\_\+\_} & specifies the interrupt pending bit to clear. This parameter can be any combination of the following values: \begin{DoxyItemize}
+\item \doxylink{group___r_c_c___interrupt_ga2b4ef277c1b71f96e0bef4b9a72fca94}{RCC\+\_\+\+IT\+\_\+\+LSIRDY} LSI ready interrupt. \item \doxylink{group___r_c_c___interrupt_gad6b6e78a426850f595ef180d292a673d}{RCC\+\_\+\+IT\+\_\+\+LSERDY} LSE ready interrupt. \item \doxylink{group___r_c_c___interrupt_ga69637e51b71f73f519c8c0a0613d042f}{RCC\+\_\+\+IT\+\_\+\+HSIRDY} HSI ready interrupt. \item \doxylink{group___r_c_c___interrupt_gad13eaede352bca59611e6cae68665866}{RCC\+\_\+\+IT\+\_\+\+HSERDY} HSE ready interrupt. \item \doxylink{group___r_c_c___interrupt_ga68d48e7811fb58f2649dce6cf0d823d9}{RCC\+\_\+\+IT\+\_\+\+PLLRDY} Main PLL ready interrupt.  \item \doxylink{group___r_c_c___interrupt_ga9bb34a4912d2084dc1c0834eb53aa7a3}{RCC\+\_\+\+IT\+\_\+\+CSS} Clock Security System interrupt \end{DoxyItemize}
+\\
+\hline
+\end{DoxyParams}
+
+
+Definición en la línea \doxymbox{\hyperlink{stm32f1xx__hal__rcc_8h_source_l01078}{1078}} del archivo \doxymbox{\hyperlink{stm32f1xx__hal__rcc_8h_source}{stm32f1xx\+\_\+hal\+\_\+rcc.\+h}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{stm32f1xx__hal__rcc_8c_source_l01345}{HAL\+\_\+\+RCC\+\_\+\+NMI\+\_\+\+IRQHandler()}}.
+
+\Hypertarget{group___r_c_c___flags___interrupts___management_gaf28c11b36035ef1e27883ff7ee2c46b0}\index{Flags Interrupts Management@{Flags Interrupts Management}!\_\_HAL\_RCC\_CLEAR\_RESET\_FLAGS@{\_\_HAL\_RCC\_CLEAR\_RESET\_FLAGS}}
+\index{\_\_HAL\_RCC\_CLEAR\_RESET\_FLAGS@{\_\_HAL\_RCC\_CLEAR\_RESET\_FLAGS}!Flags Interrupts Management@{Flags Interrupts Management}}
+\doxyparagraph{\texorpdfstring{\_\_HAL\_RCC\_CLEAR\_RESET\_FLAGS}{\_\_HAL\_RCC\_CLEAR\_RESET\_FLAGS}}
+{\footnotesize\ttfamily \label{group___r_c_c___flags___interrupts___management_gaf28c11b36035ef1e27883ff7ee2c46b0} 
+\+\#define \+\_\+\+\_\+\+HAL\+\_\+\+RCC\+\_\+\+CLEAR\+\_\+\+RESET\+\_\+\+FLAGS(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+{\ttfamily \+\#include "{}\doxymbox{\hyperlink{stm32f1xx__hal__rcc_8h}{stm32f1xx\+\_\+hal\+\_\+rcc.\+h}}"{}}
+
+{\bfseries Valor:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(*(\_\_IO\ uint32\_t\ *)\doxymbox{\hyperlink{group___r_c_c___bit_address___alias_region_ga40f8ee2c5fa801d0b72ae230578dd77b}{RCC\_CSR\_RMVF\_BB}}\ =\ \doxymbox{\hyperlink{group___exported__types_ggac9a7e9a35d2513ec15c3b537aaa4fba1a7d46875fa3ebd2c34d2756950eda83bf}{ENABLE}})}
+
+\end{DoxyCode}
+
+
+Set RMVF bit to clear the reset flags. 
+
+The reset flags are RCC\+\_\+\+FLAG\+\_\+\+PINRST, RCC\+\_\+\+FLAG\+\_\+\+PORRST, RCC\+\_\+\+FLAG\+\_\+\+SFTRST, RCC\+\_\+\+FLAG\+\_\+\+IWDGRST, RCC\+\_\+\+FLAG\+\_\+\+WWDGRST, RCC\+\_\+\+FLAG\+\_\+\+LPWRRST 
+
+Definición en la línea \doxymbox{\hyperlink{stm32f1xx__hal__rcc_8h_source_l01104}{1104}} del archivo \doxymbox{\hyperlink{stm32f1xx__hal__rcc_8h_source}{stm32f1xx\+\_\+hal\+\_\+rcc.\+h}}.
+
+\Hypertarget{group___r_c_c___flags___interrupts___management_gafc4df8cd4df0a529d11f18bf1f7e9f50}\index{Flags Interrupts Management@{Flags Interrupts Management}!\_\_HAL\_RCC\_DISABLE\_IT@{\_\_HAL\_RCC\_DISABLE\_IT}}
+\index{\_\_HAL\_RCC\_DISABLE\_IT@{\_\_HAL\_RCC\_DISABLE\_IT}!Flags Interrupts Management@{Flags Interrupts Management}}
+\doxyparagraph{\texorpdfstring{\_\_HAL\_RCC\_DISABLE\_IT}{\_\_HAL\_RCC\_DISABLE\_IT}}
+{\footnotesize\ttfamily \label{group___r_c_c___flags___interrupts___management_gafc4df8cd4df0a529d11f18bf1f7e9f50} 
+\+\#define \+\_\+\+\_\+\+HAL\+\_\+\+RCC\+\_\+\+DISABLE\+\_\+\+IT(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+\+INTERRUPT\+\_\+\_}{}\end{DoxyParamCaption})}
+
+
+
+{\ttfamily \+\#include "{}\doxymbox{\hyperlink{stm32f1xx__hal__rcc_8h}{stm32f1xx\+\_\+hal\+\_\+rcc.\+h}}"{}}
+
+{\bfseries Valor:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(*(\_\_IO\ uint8\_t\ *)\ \doxymbox{\hyperlink{group___r_c_c___private___constants_ga97f80d22ba3506a43accbeb9ceb31f51}{RCC\_CIR\_BYTE1\_ADDRESS}}\ \&=\ (uint8\_t)(\string~(\_\_INTERRUPT\_\_)))}
+
+\end{DoxyCode}
+
+
+Disable RCC interrupt. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em \+\_\+\+\_\+\+INTERRUPT\+\_\+\_} & specifies the RCC interrupt sources to be disabled. This parameter can be any combination of the following values: \begin{DoxyItemize}
+\item \doxylink{group___r_c_c___interrupt_ga2b4ef277c1b71f96e0bef4b9a72fca94}{RCC\+\_\+\+IT\+\_\+\+LSIRDY} LSI ready interrupt \item \doxylink{group___r_c_c___interrupt_gad6b6e78a426850f595ef180d292a673d}{RCC\+\_\+\+IT\+\_\+\+LSERDY} LSE ready interrupt \item \doxylink{group___r_c_c___interrupt_ga69637e51b71f73f519c8c0a0613d042f}{RCC\+\_\+\+IT\+\_\+\+HSIRDY} HSI ready interrupt \item \doxylink{group___r_c_c___interrupt_gad13eaede352bca59611e6cae68665866}{RCC\+\_\+\+IT\+\_\+\+HSERDY} HSE ready interrupt \item \doxylink{group___r_c_c___interrupt_ga68d48e7811fb58f2649dce6cf0d823d9}{RCC\+\_\+\+IT\+\_\+\+PLLRDY} main PLL ready interrupt  \end{DoxyItemize}
+\\
+\hline
+\end{DoxyParams}
+
+
+Definición en la línea \doxymbox{\hyperlink{stm32f1xx__hal__rcc_8h_source_l01059}{1059}} del archivo \doxymbox{\hyperlink{stm32f1xx__hal__rcc_8h_source}{stm32f1xx\+\_\+hal\+\_\+rcc.\+h}}.
+
+\Hypertarget{group___r_c_c___flags___interrupts___management_ga180fb20a37b31a6e4f7e59213a6c0405}\index{Flags Interrupts Management@{Flags Interrupts Management}!\_\_HAL\_RCC\_ENABLE\_IT@{\_\_HAL\_RCC\_ENABLE\_IT}}
+\index{\_\_HAL\_RCC\_ENABLE\_IT@{\_\_HAL\_RCC\_ENABLE\_IT}!Flags Interrupts Management@{Flags Interrupts Management}}
+\doxyparagraph{\texorpdfstring{\_\_HAL\_RCC\_ENABLE\_IT}{\_\_HAL\_RCC\_ENABLE\_IT}}
+{\footnotesize\ttfamily \label{group___r_c_c___flags___interrupts___management_ga180fb20a37b31a6e4f7e59213a6c0405} 
+\+\#define \+\_\+\+\_\+\+HAL\+\_\+\+RCC\+\_\+\+ENABLE\+\_\+\+IT(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+\+INTERRUPT\+\_\+\_}{}\end{DoxyParamCaption})}
+
+
+
+{\ttfamily \+\#include "{}\doxymbox{\hyperlink{stm32f1xx__hal__rcc_8h}{stm32f1xx\+\_\+hal\+\_\+rcc.\+h}}"{}}
+
+{\bfseries Valor:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(*(\_\_IO\ uint8\_t\ *)\ \doxymbox{\hyperlink{group___r_c_c___private___constants_ga97f80d22ba3506a43accbeb9ceb31f51}{RCC\_CIR\_BYTE1\_ADDRESS}}\ |=\ (\_\_INTERRUPT\_\_))}
+
+\end{DoxyCode}
+
+
+Enable RCC interrupt. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em \+\_\+\+\_\+\+INTERRUPT\+\_\+\_} & specifies the RCC interrupt sources to be enabled. This parameter can be any combination of the following values: \begin{DoxyItemize}
+\item \doxylink{group___r_c_c___interrupt_ga2b4ef277c1b71f96e0bef4b9a72fca94}{RCC\+\_\+\+IT\+\_\+\+LSIRDY} LSI ready interrupt \item \doxylink{group___r_c_c___interrupt_gad6b6e78a426850f595ef180d292a673d}{RCC\+\_\+\+IT\+\_\+\+LSERDY} LSE ready interrupt \item \doxylink{group___r_c_c___interrupt_ga69637e51b71f73f519c8c0a0613d042f}{RCC\+\_\+\+IT\+\_\+\+HSIRDY} HSI ready interrupt \item \doxylink{group___r_c_c___interrupt_gad13eaede352bca59611e6cae68665866}{RCC\+\_\+\+IT\+\_\+\+HSERDY} HSE ready interrupt \item \doxylink{group___r_c_c___interrupt_ga68d48e7811fb58f2649dce6cf0d823d9}{RCC\+\_\+\+IT\+\_\+\+PLLRDY} main PLL ready interrupt  \end{DoxyItemize}
+\\
+\hline
+\end{DoxyParams}
+
+
+Definición en la línea \doxymbox{\hyperlink{stm32f1xx__hal__rcc_8h_source_l01041}{1041}} del archivo \doxymbox{\hyperlink{stm32f1xx__hal__rcc_8h_source}{stm32f1xx\+\_\+hal\+\_\+rcc.\+h}}.
+
+\Hypertarget{group___r_c_c___flags___interrupts___management_gae2d7d461630562bf2a2ddb31b1f96449}\index{Flags Interrupts Management@{Flags Interrupts Management}!\_\_HAL\_RCC\_GET\_FLAG@{\_\_HAL\_RCC\_GET\_FLAG}}
+\index{\_\_HAL\_RCC\_GET\_FLAG@{\_\_HAL\_RCC\_GET\_FLAG}!Flags Interrupts Management@{Flags Interrupts Management}}
+\doxyparagraph{\texorpdfstring{\_\_HAL\_RCC\_GET\_FLAG}{\_\_HAL\_RCC\_GET\_FLAG}}
+{\footnotesize\ttfamily \label{group___r_c_c___flags___interrupts___management_gae2d7d461630562bf2a2ddb31b1f96449} 
+\+\#define \+\_\+\+\_\+\+HAL\+\_\+\+RCC\+\_\+\+GET\+\_\+\+FLAG(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+\+FLAG\+\_\+\_}{}\end{DoxyParamCaption})}
+
+
+
+{\ttfamily \+\#include "{}\doxymbox{\hyperlink{stm32f1xx__hal__rcc_8h}{stm32f1xx\+\_\+hal\+\_\+rcc.\+h}}"{}}
+
+{\bfseries Valor:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(((((\_\_FLAG\_\_)\ >>\ 5U)\ ==\ \doxymbox{\hyperlink{group___r_c_c___private___constants_ga56feb1abcd35b22427fa55164c585afa}{CR\_REG\_INDEX}})?\ \ \ \doxymbox{\hyperlink{group___peripheral__declaration_ga74944438a086975793d26ae48d5882d4}{RCC}}-\/>CR\ \ \ :\ \(\backslash\)}
+\DoxyCodeLine{((((\_\_FLAG\_\_)\ >>\ 5U)\ ==\ \doxymbox{\hyperlink{group___r_c_c___private___constants_ga114b3e5b2a2cdb5d85f65511fe085a6d}{BDCR\_REG\_INDEX}})?\ \doxymbox{\hyperlink{group___peripheral__declaration_ga74944438a086975793d26ae48d5882d4}{RCC}}-\/>BDCR\ :\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___peripheral__declaration_ga74944438a086975793d26ae48d5882d4}{RCC}}-\/>CSR))\ \&\ (1U\ <<\ ((\_\_FLAG\_\_)\ \&\ \doxymbox{\hyperlink{group___r_c_c___private___constants_ga80017c6bf8a5c6f53a1a21bb8db93a82}{RCC\_FLAG\_MASK}})))}
+
+\end{DoxyCode}
+
+
+Check RCC flag is set or not. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em \+\_\+\+\_\+\+FLAG\+\_\+\_} & specifies the flag to check. This parameter can be one of the following values: \begin{DoxyItemize}
+\item \doxylink{group___r_c_c___flag_ga827d986723e7ce652fa733bb8184d216}{RCC\+\_\+\+FLAG\+\_\+\+HSIRDY} HSI oscillator clock ready. \item \doxylink{group___r_c_c___flag_ga173edf47bec93cf269a0e8d0fec9997c}{RCC\+\_\+\+FLAG\+\_\+\+HSERDY} HSE oscillator clock ready. \item \doxylink{group___r_c_c___flag_gaf82d8afb18d9df75db1d6c08b9c50046}{RCC\+\_\+\+FLAG\+\_\+\+PLLRDY} Main PLL clock ready.  \item \doxylink{group___r_c_c___flag_gac9fb963db446c16e46a18908f7fe1927}{RCC\+\_\+\+FLAG\+\_\+\+LSERDY} LSE oscillator clock ready. \item \doxylink{group___r_c_c___flag_ga8c5e4992314d347597621bfe7ab10d72}{RCC\+\_\+\+FLAG\+\_\+\+LSIRDY} LSI oscillator clock ready. \item \doxylink{group___r_c_c___flag_gabfc3ab5d4a8a94ec1c9f38794ce37ad6}{RCC\+\_\+\+FLAG\+\_\+\+PINRST} Pin reset. \item \doxylink{group___r_c_c___flag_ga39ad309070f416720207eece5da7dc2c}{RCC\+\_\+\+FLAG\+\_\+\+PORRST} POR/\+\+PDR reset. \item \doxylink{group___r_c_c___flag_gaf7852615e9b19f0b2dbc8d08c7594b52}{RCC\+\_\+\+FLAG\+\_\+\+SFTRST} Software reset. \item \doxylink{group___r_c_c___flag_gaac46bac8a97cf16635ff7ffc1e6c657f}{RCC\+\_\+\+FLAG\+\_\+\+IWDGRST} Independent Watchdog reset. \item \doxylink{group___r_c_c___flag_gaa80b60b2d497ccd7b7de1075009999a7}{RCC\+\_\+\+FLAG\+\_\+\+WWDGRST} Window Watchdog reset. \item \doxylink{group___r_c_c___flag_ga67049531354aed7546971163d02c9920}{RCC\+\_\+\+FLAG\+\_\+\+LPWRRST} Low Power reset. \end{DoxyItemize}
+\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Valores devueltos}
+{\em The} & new state of {\bfseries{FLAG}} (TRUE or FALSE). \\
+\hline
+\end{DoxyRetVals}
+
+
+Definición en la línea \doxymbox{\hyperlink{stm32f1xx__hal__rcc_8h_source_l01129}{1129}} del archivo \doxymbox{\hyperlink{stm32f1xx__hal__rcc_8h_source}{stm32f1xx\+\_\+hal\+\_\+rcc.\+h}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{stm32f1xx__hal__rcc_8c_source_l00811}{HAL\+\_\+\+RCC\+\_\+\+Clock\+Config()}}, \doxymbox{\hyperlink{stm32f1xx__hal__rcc_8c_source_l00345}{HAL\+\_\+\+RCC\+\_\+\+Osc\+Config()}} y \doxymbox{\hyperlink{stm32f1xx__hal__rcc__ex_8c_source_l00098}{HAL\+\_\+\+RCCEx\+\_\+\+Periph\+CLKConfig()}}.
+
+\Hypertarget{group___r_c_c___flags___interrupts___management_ga134af980b892f362c05ae21922cd828d}\index{Flags Interrupts Management@{Flags Interrupts Management}!\_\_HAL\_RCC\_GET\_IT@{\_\_HAL\_RCC\_GET\_IT}}
+\index{\_\_HAL\_RCC\_GET\_IT@{\_\_HAL\_RCC\_GET\_IT}!Flags Interrupts Management@{Flags Interrupts Management}}
+\doxyparagraph{\texorpdfstring{\_\_HAL\_RCC\_GET\_IT}{\_\_HAL\_RCC\_GET\_IT}}
+{\footnotesize\ttfamily \label{group___r_c_c___flags___interrupts___management_ga134af980b892f362c05ae21922cd828d} 
+\+\#define \+\_\+\+\_\+\+HAL\+\_\+\+RCC\+\_\+\+GET\+\_\+\+IT(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+\+INTERRUPT\+\_\+\_}{}\end{DoxyParamCaption})}
+
+
+
+{\ttfamily \+\#include "{}\doxymbox{\hyperlink{stm32f1xx__hal__rcc_8h}{stm32f1xx\+\_\+hal\+\_\+rcc.\+h}}"{}}
+
+{\bfseries Valor:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((\doxymbox{\hyperlink{group___peripheral__declaration_ga74944438a086975793d26ae48d5882d4}{RCC}}-\/>CIR\ \&\ (\_\_INTERRUPT\_\_))\ ==\ (\_\_INTERRUPT\_\_))}
+
+\end{DoxyCode}
+
+
+Check the RCC\textquotesingle{}s interrupt has occurred or not. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em \+\_\+\+\_\+\+INTERRUPT\+\_\+\_} & specifies the RCC interrupt source to check. This parameter can be one of the following values: \begin{DoxyItemize}
+\item \doxylink{group___r_c_c___interrupt_ga2b4ef277c1b71f96e0bef4b9a72fca94}{RCC\+\_\+\+IT\+\_\+\+LSIRDY} LSI ready interrupt. \item \doxylink{group___r_c_c___interrupt_gad6b6e78a426850f595ef180d292a673d}{RCC\+\_\+\+IT\+\_\+\+LSERDY} LSE ready interrupt. \item \doxylink{group___r_c_c___interrupt_ga69637e51b71f73f519c8c0a0613d042f}{RCC\+\_\+\+IT\+\_\+\+HSIRDY} HSI ready interrupt. \item \doxylink{group___r_c_c___interrupt_gad13eaede352bca59611e6cae68665866}{RCC\+\_\+\+IT\+\_\+\+HSERDY} HSE ready interrupt. \item \doxylink{group___r_c_c___interrupt_ga68d48e7811fb58f2649dce6cf0d823d9}{RCC\+\_\+\+IT\+\_\+\+PLLRDY} Main PLL ready interrupt.  \item \doxylink{group___r_c_c___interrupt_ga9bb34a4912d2084dc1c0834eb53aa7a3}{RCC\+\_\+\+IT\+\_\+\+CSS} Clock Security System interrupt \end{DoxyItemize}
+\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Valores devueltos}
+{\em The} & new state of {\bfseries{INTERRUPT}} (TRUE or FALSE). \\
+\hline
+\end{DoxyRetVals}
+
+
+Definición en la línea \doxymbox{\hyperlink{stm32f1xx__hal__rcc_8h_source_l01098}{1098}} del archivo \doxymbox{\hyperlink{stm32f1xx__hal__rcc_8h_source}{stm32f1xx\+\_\+hal\+\_\+rcc.\+h}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{stm32f1xx__hal__rcc_8c_source_l01345}{HAL\+\_\+\+RCC\+\_\+\+NMI\+\_\+\+IRQHandler()}}.
+

@@ -1,0 +1,25 @@
+var searchData=
+[
+  ['de_20bloques_20del_20hardware_0',['2.1 Diagrama de Bloques del Hardware',['../C:/Users/gonza/OneDrive/Documentos/Projects/MICRO/Docs/mainpage.md#subsec_hw_diagram',1,'']]],
+  ['de_20comunicación_20unerprtcl_1',['6. Protocolo de Comunicación unerPrtcl',['../C:/Users/gonza/OneDrive/Documentos/Projects/MICRO/Docs/mainpage.md#sec_protocol',1,'']]],
+  ['de_20control_20cascada_2',['4.3 Arquitectura de Control Cascada',['../C:/Users/gonza/OneDrive/Documentos/Projects/MICRO/Docs/mainpage.md#subsec_pid_cascade',1,'']]],
+  ['de_20control_20y_20aritmética_20de_20punto_20fijo_20fpa_3',['4. Teoría de Control y Aritmética de Punto Fijo (FPA)',['../C:/Users/gonza/OneDrive/Documentos/Projects/MICRO/Docs/mainpage.md#sec_control',1,'']]],
+  ['de_20documentación_4',['7. Guía de Generación y Uso de Documentación',['../C:/Users/gonza/OneDrive/Documentos/Projects/MICRO/Docs/mainpage.md#sec_guide',1,'']]],
+  ['de_20estados_20finita_20mef_20principal_20del_20robot_5',['5. Máquina de Estados Finita (MEF) Principal del Robot',['../C:/Users/gonza/OneDrive/Documentos/Projects/MICRO/Docs/mainpage.md#sec_mef',1,'']]],
+  ['de_20generación_20y_20uso_20de_20documentación_6',['7. Guía de Generación y Uso de Documentación',['../C:/Users/gonza/OneDrive/Documentos/Projects/MICRO/Docs/mainpage.md#sec_guide',1,'']]],
+  ['de_20hardware_20y_20asignación_20de_20recursos_7',['2. Arquitectura de Hardware y Asignación de Recursos',['../C:/Users/gonza/OneDrive/Documentos/Projects/MICRO/Docs/mainpage.md#sec_arch',1,'']]],
+  ['de_20la_20api_8',['6.2 Comandos Principales de la API',['../C:/Users/gonza/OneDrive/Documentos/Projects/MICRO/Docs/mainpage.md#subsec_cmd_table',1,'']]],
+  ['de_20la_20aritmética_20en_20punto_20fijo_9',['4.1 Justificación de la Aritmética en Punto Fijo',['../C:/Users/gonza/OneDrive/Documentos/Projects/MICRO/Docs/mainpage.md#subsec_fpa',1,'']]],
+  ['de_20la_20trama_10',['6.1 Estructura de la Trama',['../C:/Users/gonza/OneDrive/Documentos/Projects/MICRO/Docs/mainpage.md#subsec_frame',1,'']]],
+  ['de_20mapeo_20de_20periféricos_20y_20pines_11',['2.2 Tabla de Mapeo de Periféricos y Pines',['../C:/Users/gonza/OneDrive/Documentos/Projects/MICRO/Docs/mainpage.md#subsec_pinout',1,'']]],
+  ['de_20periféricos_20y_20pines_12',['2.2 Tabla de Mapeo de Periféricos y Pines',['../C:/Users/gonza/OneDrive/Documentos/Projects/MICRO/Docs/mainpage.md#subsec_pinout',1,'']]],
+  ['de_20punto_20fijo_20fpa_13',['4. Teoría de Control y Aritmética de Punto Fijo (FPA)',['../C:/Users/gonza/OneDrive/Documentos/Projects/MICRO/Docs/mainpage.md#sec_control',1,'']]],
+  ['de_20recursos_14',['2. Arquitectura de Hardware y Asignación de Recursos',['../C:/Users/gonza/OneDrive/Documentos/Projects/MICRO/Docs/mainpage.md#sec_arch',1,'']]],
+  ['del_20funcionamiento_15',['Resumen del funcionamiento',['../md__r_e_a_d_m_e.html#autotoc_md1',1,'']]],
+  ['del_20hardware_16',['2.1 Diagrama de Bloques del Hardware',['../C:/Users/gonza/OneDrive/Documentos/Projects/MICRO/Docs/mainpage.md#subsec_hw_diagram',1,'']]],
+  ['del_20proyecto_17',['1. Resumen Ejecutivo del Proyecto',['../C:/Users/gonza/OneDrive/Documentos/Projects/MICRO/Docs/mainpage.md#sec_intro',1,'']]],
+  ['del_20robot_18',['5. Máquina de Estados Finita (MEF) Principal del Robot',['../C:/Users/gonza/OneDrive/Documentos/Projects/MICRO/Docs/mainpage.md#sec_mef',1,'']]],
+  ['diagrama_20de_20bloques_20del_20hardware_19',['2.1 Diagrama de Bloques del Hardware',['../C:/Users/gonza/OneDrive/Documentos/Projects/MICRO/Docs/mainpage.md#subsec_hw_diagram',1,'']]],
+  ['discreto_20',['4.2 Filtro Complementario Discreto',['../C:/Users/gonza/OneDrive/Documentos/Projects/MICRO/Docs/mainpage.md#subsec_comp_filter',1,'']]],
+  ['documentación_21',['7. Guía de Generación y Uso de Documentación',['../C:/Users/gonza/OneDrive/Documentos/Projects/MICRO/Docs/mainpage.md#sec_guide',1,'']]]
+];

@@ -1,22 +1,12 @@
-/* USER CODE BEGIN Header */
 /**
-  ******************************************************************************
-  * @file         stm32f1xx_hal_msp.c
-  * @brief        This file provides code for the MSP Initialization
-  *               and de-Initialization codes.
-  ******************************************************************************
-  * @attention
-  *
-  * Copyright (c) 2026 STMicroelectronics.
-  * All rights reserved.
-  *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
-  *
-  ******************************************************************************
-  */
-/* USER CODE END Header */
+ * @file   stm32f1xx_hal_msp.c
+ * @author STMicroelectronics / Gonzalo M. Buffa
+ * @brief  Inicializaciones de bajo nivel MSP (Microcontroller Support Package) para periféricos HAL.
+ * @details Configura relojes, pines GPIO (modo analógico, alternativo push-pull), canales DMA1
+ *          e interrupciones NVIC para ADC1, I2C2, TIM1, TIM2, TIM3, TIM4 y USART1.
+ * @ingroup group_system
+ */
+
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 /* USER CODE BEGIN Includes */

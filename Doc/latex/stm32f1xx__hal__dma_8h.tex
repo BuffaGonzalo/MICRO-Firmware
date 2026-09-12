@@ -1,0 +1,246 @@
+\doxysubsection{Referencia del archivo stm32f1xx\+\_\+hal\+\_\+dma.\+h}
+\hypertarget{stm32f1xx__hal__dma_8h}{}\label{stm32f1xx__hal__dma_8h}\index{stm32f1xx\_hal\_dma.h@{stm32f1xx\_hal\_dma.h}}
+
+
+Header file of DMA HAL module.  
+
+
+{\ttfamily \+\#include "{}stm32f1xx\+\_\+hal\+\_\+def.\+h"{}}\newline
+{\ttfamily \+\#include "{}stm32f1xx\+\_\+hal\+\_\+dma\+\_\+ex.\+h"{}}\newline
+Gráfico de dependencias incluidas en stm32f1xx\+\_\+hal\+\_\+dma.\+h:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{stm32f1xx__hal__dma_8h__incl}
+\end{center}
+\end{figure}
+Gráfico de los archivos que directa o indirectamente incluyen a este archivo:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{stm32f1xx__hal__dma_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsubsection*{Estructuras de datos}
+\begin{DoxyCompactItemize}
+\item 
+struct \doxymbox{\hyperlink{struct_____d_m_a___handle_type_def}{\+\_\+\+\_\+\+DMA\+\_\+\+Handle\+Type\+Def}}
+\begin{DoxyCompactList}\small\item\em DMA handle Structure definition. \end{DoxyCompactList}\item 
+struct \doxymbox{\hyperlink{struct_d_m_a___init_type_def}{DMA\+\_\+\+Init\+Type\+Def}}
+\begin{DoxyCompactList}\small\item\em DMA Configuration Structure definition. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsubsection*{defines}
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a___exported___macros_gafeef4c5e8c3f015cdecc0f37bbe063dc}{\+\_\+\+\_\+\+HAL\+\_\+\+DMA\+\_\+\+DISABLE}}(\+\_\+\+\_\+\+HANDLE\+\_\+\_)
+\begin{DoxyCompactList}\small\item\em Disable the specified DMA Channel. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a___exported___macros_ga2867eab09398df2daac55c3f327654da}{\+\_\+\+\_\+\+HAL\+\_\+\+DMA\+\_\+\+DISABLE\+\_\+\+IT}}(\+\_\+\+\_\+\+HANDLE\+\_\+\_,  \+\_\+\+\_\+\+INTERRUPT\+\_\+\_)
+\begin{DoxyCompactList}\small\item\em Disable the specified DMA Channel interrupts. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a___exported___macros_ga93900b3ef3f87ef924eb887279a434b4}{\+\_\+\+\_\+\+HAL\+\_\+\+DMA\+\_\+\+ENABLE}}(\+\_\+\+\_\+\+HANDLE\+\_\+\_)
+\begin{DoxyCompactList}\small\item\em Enable the specified DMA Channel. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a___exported___macros_ga2124233229c04ca90b790cd8cddfa98b}{\+\_\+\+\_\+\+HAL\+\_\+\+DMA\+\_\+\+ENABLE\+\_\+\+IT}}(\+\_\+\+\_\+\+HANDLE\+\_\+\_,  \+\_\+\+\_\+\+INTERRUPT\+\_\+\_)
+\begin{DoxyCompactList}\small\item\em Enables the specified DMA Channel interrupts. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a___exported___macros_ga082d691311bac96641dc35a17cfe8e63}{\+\_\+\+\_\+\+HAL\+\_\+\+DMA\+\_\+\+GET\+\_\+\+COUNTER}}(\+\_\+\+\_\+\+HANDLE\+\_\+\_)
+\begin{DoxyCompactList}\small\item\em Return the number of remaining data units in the current DMA Channel transfer. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a___exported___macros_ga206f24e6bee4600515b9b6b1ec79365b}{\+\_\+\+\_\+\+HAL\+\_\+\+DMA\+\_\+\+GET\+\_\+\+IT\+\_\+\+SOURCE}}(\+\_\+\+\_\+\+HANDLE\+\_\+\_,  \+\_\+\+\_\+\+INTERRUPT\+\_\+\_)
+\begin{DoxyCompactList}\small\item\em Check whether the specified DMA Channel interrupt is enabled or not. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a___exported___macros_gaadcee34f0999c8eafd37de2f69daa0ac}{\+\_\+\+\_\+\+HAL\+\_\+\+DMA\+\_\+\+RESET\+\_\+\+HANDLE\+\_\+\+STATE}}(\+\_\+\+\_\+\+HANDLE\+\_\+\_)
+\begin{DoxyCompactList}\small\item\em Reset DMA handle state. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a__mode_ga4c4f425cba13edffb3c831c036c91e01}{DMA\+\_\+\+CIRCULAR}}~((uint32\+\_\+t)\doxymbox{\hyperlink{group___peripheral___registers___bits___definition_ga445471396e741418bcd6f63404f4052c}{DMA\+\_\+\+CCR\+\_\+\+CIRC}})
+\begin{DoxyCompactList}\small\item\em Circular mode. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a__flag__definitions_ga56f71da03db3e0a5dfad8cdfe46eac5c}{DMA\+\_\+\+FLAG\+\_\+\+GL1}}~0x00000001U
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a__flag__definitions_ga1c8da546d95df14be19e9b82d0a49ecc}{DMA\+\_\+\+FLAG\+\_\+\+GL2}}~0x00000010U
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a__flag__definitions_ga245f18e8c146baf3596e7340f7ecae3b}{DMA\+\_\+\+FLAG\+\_\+\+GL3}}~0x00000100U
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a__flag__definitions_ga4dc75a03066b5e3700cb650daf4731e2}{DMA\+\_\+\+FLAG\+\_\+\+GL4}}~0x00001000U
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a__flag__definitions_ga78246e9a0d30e63e4fe5a54207c41a3e}{DMA\+\_\+\+FLAG\+\_\+\+GL5}}~0x00010000U
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a__flag__definitions_ga2ea0eb984d33f6788a59f49dcd2acee0}{DMA\+\_\+\+FLAG\+\_\+\+GL6}}~0x00100000U
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a__flag__definitions_gaf4619624c5d2cde7fc58bc4cd400bfc3}{DMA\+\_\+\+FLAG\+\_\+\+GL7}}~0x01000000U
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a__flag__definitions_ga4317f6260e1aecc4f5fe882fc043f606}{DMA\+\_\+\+FLAG\+\_\+\+HT1}}~0x00000004U
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a__flag__definitions_gab21f437ec8a55a600e5ca2af9416baba}{DMA\+\_\+\+FLAG\+\_\+\+HT2}}~0x00000040U
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a__flag__definitions_gad28ea63fda2c87dd5e2ec08e0ab407d4}{DMA\+\_\+\+FLAG\+\_\+\+HT3}}~0x00000400U
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a__flag__definitions_ga1a766ffe9b0138d6ab42819c1a9206f1}{DMA\+\_\+\+FLAG\+\_\+\+HT4}}~0x00004000U
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a__flag__definitions_ga3f7bd37a3c6a833a5e8dd011f7ef9acd}{DMA\+\_\+\+FLAG\+\_\+\+HT5}}~0x00040000U
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a__flag__definitions_ga37e18ea9dab110bafc8de3b6aedabb02}{DMA\+\_\+\+FLAG\+\_\+\+HT6}}~0x00400000U
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a__flag__definitions_ga8216565e4c640761fa93891006d43655}{DMA\+\_\+\+FLAG\+\_\+\+HT7}}~0x04000000U
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a__flag__definitions_ga02b6c752c28b35dba79fa1d2bb55ec06}{DMA\+\_\+\+FLAG\+\_\+\+TC1}}~0x00000002U
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a__flag__definitions_gacdf2954f3faf8314811ed39272825ab0}{DMA\+\_\+\+FLAG\+\_\+\+TC2}}~0x00000020U
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a__flag__definitions_ga17463fb2609ad37aebe6955a044e83c7}{DMA\+\_\+\+FLAG\+\_\+\+TC3}}~0x00000200U
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a__flag__definitions_gafb3f8a8c7048d344865c47e72a598074}{DMA\+\_\+\+FLAG\+\_\+\+TC4}}~0x00002000U
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a__flag__definitions_ga2e3a81f03ed107dbb60cfa7560c32e97}{DMA\+\_\+\+FLAG\+\_\+\+TC5}}~0x00020000U
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a__flag__definitions_ga1e3da05635b4165ce2a0075646cc9131}{DMA\+\_\+\+FLAG\+\_\+\+TC6}}~0x00200000U
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a__flag__definitions_gaacfd9fe9de9727dd862aa475b3d5aee8}{DMA\+\_\+\+FLAG\+\_\+\+TC7}}~0x02000000U
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a__flag__definitions_ga198c0b4984a79514964d3dd5ae546008}{DMA\+\_\+\+FLAG\+\_\+\+TE1}}~0x00000008U
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a__flag__definitions_ga6d81cc881182d35ba7a34c2759cd97f3}{DMA\+\_\+\+FLAG\+\_\+\+TE2}}~0x00000080U
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a__flag__definitions_ga3e3d70e09d144c82ffc17d2ece186339}{DMA\+\_\+\+FLAG\+\_\+\+TE3}}~0x00000800U
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a__flag__definitions_gab1bb20d71697de115b87319347216a26}{DMA\+\_\+\+FLAG\+\_\+\+TE4}}~0x00008000U
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a__flag__definitions_ga04a05f5cc8f193757d8658d97a857b3a}{DMA\+\_\+\+FLAG\+\_\+\+TE5}}~0x00080000U
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a__flag__definitions_ga50e2f489b50cbe42d03a80ca7cd42dad}{DMA\+\_\+\+FLAG\+\_\+\+TE6}}~0x00800000U
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a__flag__definitions_ga312e060067bffdf46136be4f7b0b614c}{DMA\+\_\+\+FLAG\+\_\+\+TE7}}~0x08000000U
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a__interrupt__enable__definitions_gadf11c572b9797e04a14b105fdc2e5f66}{DMA\+\_\+\+IT\+\_\+\+HT}}~((uint32\+\_\+t)\doxymbox{\hyperlink{group___peripheral___registers___bits___definition_ga0f0fae31377ab1d33e36cead97b1811b}{DMA\+\_\+\+CCR\+\_\+\+HTIE}})
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a__interrupt__enable__definitions_ga06e83dd277e0d3e5635cf8ce8dfd6e16}{DMA\+\_\+\+IT\+\_\+\+TC}}~((uint32\+\_\+t)\doxymbox{\hyperlink{group___peripheral___registers___bits___definition_gaaba9cd82cab0cca23de038e946f81c6a}{DMA\+\_\+\+CCR\+\_\+\+TCIE}})
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a__interrupt__enable__definitions_gaf9d92649d2a0146f663ff253d8f3b59e}{DMA\+\_\+\+IT\+\_\+\+TE}}~((uint32\+\_\+t)\doxymbox{\hyperlink{group___peripheral___registers___bits___definition_ga3dd2204c9046500140e3c720fb5a415f}{DMA\+\_\+\+CCR\+\_\+\+TEIE}})
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a___memory__data__size_ga9ed07bddf736298eba11508382ea4d51}{DMA\+\_\+\+MDATAALIGN\+\_\+\+BYTE}}~0x00000000U
+\begin{DoxyCompactList}\small\item\em Memory data alignment: Byte. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a___memory__data__size_ga2c7355971c0da34a7ffe50ec87403071}{DMA\+\_\+\+MDATAALIGN\+\_\+\+HALFWORD}}~((uint32\+\_\+t)\doxymbox{\hyperlink{group___peripheral___registers___bits___definition_ga600d3f8200fc42ea6e1c7c8abbd327ad}{DMA\+\_\+\+CCR\+\_\+\+MSIZE\+\_\+0}})
+\begin{DoxyCompactList}\small\item\em Memory data alignment: Half\+Word. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a___memory__data__size_ga8812da819f18c873249074f3920220b2}{DMA\+\_\+\+MDATAALIGN\+\_\+\+WORD}}~((uint32\+\_\+t)\doxymbox{\hyperlink{group___peripheral___registers___bits___definition_ga60b9958fbde96f69160ca7edf92d4c27}{DMA\+\_\+\+CCR\+\_\+\+MSIZE\+\_\+1}})
+\begin{DoxyCompactList}\small\item\em Memory data alignment: Word. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a___data__transfer__direction_ga0695035d725855ccf64d2d8452a33810}{DMA\+\_\+\+MEMORY\+\_\+\+TO\+\_\+\+MEMORY}}~((uint32\+\_\+t)\doxymbox{\hyperlink{group___peripheral___registers___bits___definition_ga5c87a41026384e25fe2312d03af76215}{DMA\+\_\+\+CCR\+\_\+\+MEM2\+MEM}})
+\begin{DoxyCompactList}\small\item\em Memory to memory direction. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a___data__transfer__direction_ga9e76fc559a2d5c766c969e6e921b1ee9}{DMA\+\_\+\+MEMORY\+\_\+\+TO\+\_\+\+PERIPH}}~((uint32\+\_\+t)\doxymbox{\hyperlink{group___peripheral___registers___bits___definition_ga8f1ece172cf3c3e696b86d401d7345a2}{DMA\+\_\+\+CCR\+\_\+\+DIR}})
+\begin{DoxyCompactList}\small\item\em Memory to peripheral direction. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a___memory__incremented__mode_ga32625330516c188151743473fad97a33}{DMA\+\_\+\+MINC\+\_\+\+DISABLE}}~0x00000000U
+\begin{DoxyCompactList}\small\item\em Memory increment mode Disable. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a___memory__incremented__mode_ga43d30885699cc8378562316ff4fed1cd}{DMA\+\_\+\+MINC\+\_\+\+ENABLE}}~((uint32\+\_\+t)\doxymbox{\hyperlink{group___peripheral___registers___bits___definition_gaa189138f534283d876f654ec9474987e}{DMA\+\_\+\+CCR\+\_\+\+MINC}})
+\begin{DoxyCompactList}\small\item\em Memory increment mode Enable. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a__mode_ga04941acfbbdefc53e1e08133cffa3b8a}{DMA\+\_\+\+NORMAL}}~0x00000000U
+\begin{DoxyCompactList}\small\item\em Normal mode. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a___peripheral__data__size_ga55b8c8f5ec95f10d26d6c5b1c9136730}{DMA\+\_\+\+PDATAALIGN\+\_\+\+BYTE}}~0x00000000U
+\begin{DoxyCompactList}\small\item\em Peripheral data alignment: Byte. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a___peripheral__data__size_gac08bfd907442dba5358830b247135bcc}{DMA\+\_\+\+PDATAALIGN\+\_\+\+HALFWORD}}~((uint32\+\_\+t)\doxymbox{\hyperlink{group___peripheral___registers___bits___definition_ga4b3726c7d0fd3b00e33637f163c79128}{DMA\+\_\+\+CCR\+\_\+\+PSIZE\+\_\+0}})
+\begin{DoxyCompactList}\small\item\em Peripheral data alignment: Half\+Word. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a___peripheral__data__size_gaad50e97cbc4a726660db9c3f42ac93b0}{DMA\+\_\+\+PDATAALIGN\+\_\+\+WORD}}~((uint32\+\_\+t)\doxymbox{\hyperlink{group___peripheral___registers___bits___definition_ga8e8d8786f16dda2bef035ba2df15b69d}{DMA\+\_\+\+CCR\+\_\+\+PSIZE\+\_\+1}})
+\begin{DoxyCompactList}\small\item\em Peripheral data alignment: Word. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a___data__transfer__direction_gacb2cbf03ecae6804ae4a6f60a3e37c12}{DMA\+\_\+\+PERIPH\+\_\+\+TO\+\_\+\+MEMORY}}~0x00000000U
+\begin{DoxyCompactList}\small\item\em Peripheral to memory direction. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a___peripheral__incremented__mode_ga63e2aff2973d1a8f01d5d7b6e4894f39}{DMA\+\_\+\+PINC\+\_\+\+DISABLE}}~0x00000000U
+\begin{DoxyCompactList}\small\item\em Peripheral increment mode Disable. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a___peripheral__incremented__mode_gab6d84e5805302516d26c06fb4497a346}{DMA\+\_\+\+PINC\+\_\+\+ENABLE}}~((uint32\+\_\+t)\doxymbox{\hyperlink{group___peripheral___registers___bits___definition_ga028cb96357bd24868a74ee1134a35b7e}{DMA\+\_\+\+CCR\+\_\+\+PINC}})
+\begin{DoxyCompactList}\small\item\em Peripheral increment mode Enable. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a___priority__level_ga6b2f5c5e22895f8b4bd52a27ec6cae2a}{DMA\+\_\+\+PRIORITY\+\_\+\+HIGH}}~((uint32\+\_\+t)\doxymbox{\hyperlink{group___peripheral___registers___bits___definition_ga82819927445c9617409bb08e09dc4cd8}{DMA\+\_\+\+CCR\+\_\+\+PL\+\_\+1}})
+\begin{DoxyCompactList}\small\item\em Priority level : High. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a___priority__level_ga0d1ed2bc9229ba3c953002bcf3a72130}{DMA\+\_\+\+PRIORITY\+\_\+\+LOW}}~0x00000000U
+\begin{DoxyCompactList}\small\item\em Priority level : Low. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a___priority__level_gad6fbeee76fd4a02cbed64365bb4c1781}{DMA\+\_\+\+PRIORITY\+\_\+\+MEDIUM}}~((uint32\+\_\+t)\doxymbox{\hyperlink{group___peripheral___registers___bits___definition_gaa935d7f115297c5e9e10a62efd065247}{DMA\+\_\+\+CCR\+\_\+\+PL\+\_\+0}})
+\begin{DoxyCompactList}\small\item\em Priority level : Medium. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a___priority__level_gaed0542331a4d875d1d8d5b2878e9372c}{DMA\+\_\+\+PRIORITY\+\_\+\+VERY\+\_\+\+HIGH}}~((uint32\+\_\+t)\doxymbox{\hyperlink{group___peripheral___registers___bits___definition_ga97726688157629243aa59bb60e33c284}{DMA\+\_\+\+CCR\+\_\+\+PL}})
+\begin{DoxyCompactList}\small\item\em Priority level : Very\+\_\+\+High. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a___error___code_gab7526e686427f26bf3b6af062d5a690b}{HAL\+\_\+\+DMA\+\_\+\+ERROR\+\_\+\+NO\+\_\+\+XFER}}~0x00000004U
+\begin{DoxyCompactList}\small\item\em no ongoing transfer \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a___error___code_gaad4009390bfbe05a1bb7115d03c25a97}{HAL\+\_\+\+DMA\+\_\+\+ERROR\+\_\+\+NONE}}~0x00000000U
+\begin{DoxyCompactList}\small\item\em No error. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a___error___code_ga7432f31f9972e1c0a398a3f20587d118}{HAL\+\_\+\+DMA\+\_\+\+ERROR\+\_\+\+NOT\+\_\+\+SUPPORTED}}~0x00000100U
+\begin{DoxyCompactList}\small\item\em Not supported mode. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a___error___code_ga9882442c5f8f0170917934bbee1cc92d}{HAL\+\_\+\+DMA\+\_\+\+ERROR\+\_\+\+TE}}~0x00000001U
+\begin{DoxyCompactList}\small\item\em Transfer error. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a___error___code_ga6cf6a5b8881ff36ed4316a29bbfb5b79}{HAL\+\_\+\+DMA\+\_\+\+ERROR\+\_\+\+TIMEOUT}}~0x00000020U
+\begin{DoxyCompactList}\small\item\em Timeout error. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a___private___macros_ga72ef4033bb3bc2cdfdbe579083b05e32}{IS\+\_\+\+DMA\+\_\+\+BUFFER\+\_\+\+SIZE}}(SIZE)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a___private___macros_gae2b02e8e823854bcd7c5746cdd29e70d}{IS\+\_\+\+DMA\+\_\+\+DIRECTION}}(DIRECTION)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a___private___macros_gac9e3748cebcb16d4ae4206d562bc804c}{IS\+\_\+\+DMA\+\_\+\+MEMORY\+\_\+\+DATA\+\_\+\+SIZE}}(SIZE)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a___private___macros_gaa880f39d499d1e80449cf80381e4eb67}{IS\+\_\+\+DMA\+\_\+\+MEMORY\+\_\+\+INC\+\_\+\+STATE}}(STATE)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a___private___macros_gad88ee5030574d6a573904378fb62c7ac}{IS\+\_\+\+DMA\+\_\+\+MODE}}(MODE)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a___private___macros_gad7916e0ae55cdf5efdfa68a09a028037}{IS\+\_\+\+DMA\+\_\+\+PERIPHERAL\+\_\+\+DATA\+\_\+\+SIZE}}(SIZE)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a___private___macros_ga28762105b3f567c16ba79a47e68ff0fa}{IS\+\_\+\+DMA\+\_\+\+PERIPHERAL\+\_\+\+INC\+\_\+\+STATE}}(STATE)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_m_a___private___macros_gaa1cae2ab458948511596467c87cd02b6}{IS\+\_\+\+DMA\+\_\+\+PRIORITY}}(PRIORITY)
+\end{DoxyCompactItemize}
+\doxysubsubsubsection*{typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \doxymbox{\hyperlink{struct_____d_m_a___handle_type_def}{\+\_\+\+\_\+\+DMA\+\_\+\+Handle\+Type\+Def}} \doxymbox{\hyperlink{group___d_m_a___exported___types_ga41b754a906b86bce54dc79938970138b}{DMA\+\_\+\+Handle\+Type\+Def}}
+\begin{DoxyCompactList}\small\item\em DMA handle Structure definition. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsubsection*{Enumeraciones}
+\begin{DoxyCompactItemize}
+\item 
+enum \doxymbox{\hyperlink{group___d_m_a___exported___types_gafbe8b2bd9ce2128de6cdc08ccde7e8ad}{HAL\+\_\+\+DMA\+\_\+\+Callback\+IDType\+Def}} \{ \newline
+\doxymbox{\hyperlink{group___d_m_a___exported___types_ggafbe8b2bd9ce2128de6cdc08ccde7e8ada7d4463d9db2e6d15282128b44ae08e12}{HAL\+\_\+\+DMA\+\_\+\+XFER\+\_\+\+CPLT\+\_\+\+CB\+\_\+\+ID}} = 0x00U
+, \doxymbox{\hyperlink{group___d_m_a___exported___types_ggafbe8b2bd9ce2128de6cdc08ccde7e8ada4b1606f39a4eec41d958bc878719f046}{HAL\+\_\+\+DMA\+\_\+\+XFER\+\_\+\+HALFCPLT\+\_\+\+CB\+\_\+\+ID}} = 0x01U
+, \doxymbox{\hyperlink{group___d_m_a___exported___types_ggafbe8b2bd9ce2128de6cdc08ccde7e8ada3e76bc89154e0b50333cc551bf0337a6}{HAL\+\_\+\+DMA\+\_\+\+XFER\+\_\+\+ERROR\+\_\+\+CB\+\_\+\+ID}} = 0x02U
+, \doxymbox{\hyperlink{group___d_m_a___exported___types_ggafbe8b2bd9ce2128de6cdc08ccde7e8ada3059a9412e0624699e9123ba2bccdf3e}{HAL\+\_\+\+DMA\+\_\+\+XFER\+\_\+\+ABORT\+\_\+\+CB\+\_\+\+ID}} = 0x03U
+, \newline
+\doxymbox{\hyperlink{group___d_m_a___exported___types_ggafbe8b2bd9ce2128de6cdc08ccde7e8adac9935fd906719942d6b09cfd55e837f0}{HAL\+\_\+\+DMA\+\_\+\+XFER\+\_\+\+ALL\+\_\+\+CB\+\_\+\+ID}} = 0x04U
+ \}
+\begin{DoxyCompactList}\small\item\em HAL DMA Callback ID structure definition. \end{DoxyCompactList}\item 
+enum \doxymbox{\hyperlink{group___d_m_a___exported___types_gaee3245eea8fa938edeb35a6c9596fd86}{HAL\+\_\+\+DMA\+\_\+\+Level\+Complete\+Type\+Def}} \{ \doxymbox{\hyperlink{group___d_m_a___exported___types_ggaee3245eea8fa938edeb35a6c9596fd86a5314147c8ba21548763bf89446b78468}{HAL\+\_\+\+DMA\+\_\+\+FULL\+\_\+\+TRANSFER}} = 0x00U
+, \doxymbox{\hyperlink{group___d_m_a___exported___types_ggaee3245eea8fa938edeb35a6c9596fd86ad0ba8bc74a2ae6dcdc3e316e8be0d5d8}{HAL\+\_\+\+DMA\+\_\+\+HALF\+\_\+\+TRANSFER}} = 0x01U
+ \}
+\begin{DoxyCompactList}\small\item\em HAL DMA Error Code structure definition. \end{DoxyCompactList}\item 
+enum \doxymbox{\hyperlink{group___d_m_a___exported___types_ga9c012af359987a240826f29073bbe463}{HAL\+\_\+\+DMA\+\_\+\+State\+Type\+Def}} \{ \doxymbox{\hyperlink{group___d_m_a___exported___types_gga9c012af359987a240826f29073bbe463a9e7be73da32b8c837cde0318e0d5eed2}{HAL\+\_\+\+DMA\+\_\+\+STATE\+\_\+\+RESET}} = 0x00U
+, \doxymbox{\hyperlink{group___d_m_a___exported___types_gga9c012af359987a240826f29073bbe463ad497944e6e72bc3ca904694b1098105a}{HAL\+\_\+\+DMA\+\_\+\+STATE\+\_\+\+READY}} = 0x01U
+, \doxymbox{\hyperlink{group___d_m_a___exported___types_gga9c012af359987a240826f29073bbe463af7a0a2ca8de4e5be9e85b6a9073476ef}{HAL\+\_\+\+DMA\+\_\+\+STATE\+\_\+\+BUSY}} = 0x02U
+, \doxymbox{\hyperlink{group___d_m_a___exported___types_gga9c012af359987a240826f29073bbe463acf3a5443bf4dc71018512a255e2076eb}{HAL\+\_\+\+DMA\+\_\+\+STATE\+\_\+\+TIMEOUT}} = 0x03U
+ \}
+\begin{DoxyCompactList}\small\item\em HAL DMA State structures definition. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsubsection*{Funciones}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \doxymbox{\hyperlink{group___d_m_a___exported___functions___group2_ga001f9fb04328a7460f9ff16908ff987c}{HAL\+\_\+\+DMA\+\_\+\+Abort}} (\doxymbox{\hyperlink{group___d_m_a___exported___types_ga41b754a906b86bce54dc79938970138b}{DMA\+\_\+\+Handle\+Type\+Def}} \texorpdfstring{$\ast$}{*}hdma)
+\begin{DoxyCompactList}\small\item\em Abort the DMA Transfer. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \doxymbox{\hyperlink{group___d_m_a___exported___functions___group2_ga6677d7e614747341a58ffd7a048fd390}{HAL\+\_\+\+DMA\+\_\+\+Abort\+\_\+\+IT}} (\doxymbox{\hyperlink{group___d_m_a___exported___types_ga41b754a906b86bce54dc79938970138b}{DMA\+\_\+\+Handle\+Type\+Def}} \texorpdfstring{$\ast$}{*}hdma)
+\begin{DoxyCompactList}\small\item\em Aborts the DMA Transfer in Interrupt mode. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \doxymbox{\hyperlink{group___d_m_a___exported___functions___group1_ga7bb8587d642da11252a97f5c41c389ef}{HAL\+\_\+\+DMA\+\_\+\+De\+Init}} (\doxymbox{\hyperlink{group___d_m_a___exported___types_ga41b754a906b86bce54dc79938970138b}{DMA\+\_\+\+Handle\+Type\+Def}} \texorpdfstring{$\ast$}{*}hdma)
+\begin{DoxyCompactList}\small\item\em De\+Initialize the DMA peripheral. \end{DoxyCompactList}\item 
+uint32\+\_\+t \doxymbox{\hyperlink{group___d_m_a___exported___functions___group3_gabc0735694a0dd08e352b796d7fa7634f}{HAL\+\_\+\+DMA\+\_\+\+Get\+Error}} (\doxymbox{\hyperlink{group___d_m_a___exported___types_ga41b754a906b86bce54dc79938970138b}{DMA\+\_\+\+Handle\+Type\+Def}} \texorpdfstring{$\ast$}{*}hdma)
+\begin{DoxyCompactList}\small\item\em Return the DMA error code. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group___d_m_a___exported___types_ga9c012af359987a240826f29073bbe463}{HAL\+\_\+\+DMA\+\_\+\+State\+Type\+Def}} \doxymbox{\hyperlink{group___d_m_a___exported___functions___group3_gaef09509c41da57dc118c8ffb9533ce3f}{HAL\+\_\+\+DMA\+\_\+\+Get\+State}} (\doxymbox{\hyperlink{group___d_m_a___exported___types_ga41b754a906b86bce54dc79938970138b}{DMA\+\_\+\+Handle\+Type\+Def}} \texorpdfstring{$\ast$}{*}hdma)
+\begin{DoxyCompactList}\small\item\em Return the DMA handle state. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \doxymbox{\hyperlink{group___d_m_a___exported___functions___group1_ga0fbcb690074233a03f2fa366dc22ff01}{HAL\+\_\+\+DMA\+\_\+\+Init}} (\doxymbox{\hyperlink{group___d_m_a___exported___types_ga41b754a906b86bce54dc79938970138b}{DMA\+\_\+\+Handle\+Type\+Def}} \texorpdfstring{$\ast$}{*}hdma)
+\begin{DoxyCompactList}\small\item\em Initialize the DMA according to the specified parameters in the \doxylink{struct_d_m_a___init_type_def}{DMA\+\_\+\+Init\+Type\+Def} and initialize the associated handle. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{group___d_m_a___exported___functions___group2_ga8c8564d06f6d39b702af1c5cbb7dd54a}{HAL\+\_\+\+DMA\+\_\+\+IRQHandler}} (\doxymbox{\hyperlink{group___d_m_a___exported___types_ga41b754a906b86bce54dc79938970138b}{DMA\+\_\+\+Handle\+Type\+Def}} \texorpdfstring{$\ast$}{*}hdma)
+\begin{DoxyCompactList}\small\item\em Handles DMA interrupt request. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \doxymbox{\hyperlink{group___d_m_a___exported___functions___group2_ga676b9606af3221a6b7bd7de264809fc7}{HAL\+\_\+\+DMA\+\_\+\+Poll\+For\+Transfer}} (\doxymbox{\hyperlink{group___d_m_a___exported___types_ga41b754a906b86bce54dc79938970138b}{DMA\+\_\+\+Handle\+Type\+Def}} \texorpdfstring{$\ast$}{*}hdma, uint32\+\_\+t Complete\+Level, uint32\+\_\+t Timeout)
+\begin{DoxyCompactList}\small\item\em Polling for transfer complete. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \doxymbox{\hyperlink{group___d_m_a___exported___functions___group2_gaabec77de08a59c94f2c6265ce7ae8261}{HAL\+\_\+\+DMA\+\_\+\+Register\+Callback}} (\doxymbox{\hyperlink{group___d_m_a___exported___types_ga41b754a906b86bce54dc79938970138b}{DMA\+\_\+\+Handle\+Type\+Def}} \texorpdfstring{$\ast$}{*}hdma, \doxymbox{\hyperlink{group___d_m_a___exported___types_gafbe8b2bd9ce2128de6cdc08ccde7e8ad}{HAL\+\_\+\+DMA\+\_\+\+Callback\+IDType\+Def}} Callback\+ID, void(\texorpdfstring{$\ast$}{*}p\+Callback)(\doxymbox{\hyperlink{group___d_m_a___exported___types_ga41b754a906b86bce54dc79938970138b}{DMA\+\_\+\+Handle\+Type\+Def}} \texorpdfstring{$\ast$}{*}\+\_\+hdma))
+\begin{DoxyCompactList}\small\item\em Register callbacks. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \doxymbox{\hyperlink{group___d_m_a___exported___functions___group2_ga96fbd9c285135f558fd9283a57406330}{HAL\+\_\+\+DMA\+\_\+\+Start}} (\doxymbox{\hyperlink{group___d_m_a___exported___types_ga41b754a906b86bce54dc79938970138b}{DMA\+\_\+\+Handle\+Type\+Def}} \texorpdfstring{$\ast$}{*}hdma, uint32\+\_\+t Src\+Address, uint32\+\_\+t Dst\+Address, uint32\+\_\+t Data\+Length)
+\begin{DoxyCompactList}\small\item\em Start the DMA Transfer. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \doxymbox{\hyperlink{group___d_m_a___exported___functions___group2_ga7eddc0931ac8a3d77b23d6d5e68407c7}{HAL\+\_\+\+DMA\+\_\+\+Start\+\_\+\+IT}} (\doxymbox{\hyperlink{group___d_m_a___exported___types_ga41b754a906b86bce54dc79938970138b}{DMA\+\_\+\+Handle\+Type\+Def}} \texorpdfstring{$\ast$}{*}hdma, uint32\+\_\+t Src\+Address, uint32\+\_\+t Dst\+Address, uint32\+\_\+t Data\+Length)
+\begin{DoxyCompactList}\small\item\em Start the DMA Transfer with interrupt enabled. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} \doxymbox{\hyperlink{group___d_m_a___exported___functions___group2_ga87842d3780f0e54c7fb29a003e6b5ac4}{HAL\+\_\+\+DMA\+\_\+\+Un\+Register\+Callback}} (\doxymbox{\hyperlink{group___d_m_a___exported___types_ga41b754a906b86bce54dc79938970138b}{DMA\+\_\+\+Handle\+Type\+Def}} \texorpdfstring{$\ast$}{*}hdma, \doxymbox{\hyperlink{group___d_m_a___exported___types_gafbe8b2bd9ce2128de6cdc08ccde7e8ad}{HAL\+\_\+\+DMA\+\_\+\+Callback\+IDType\+Def}} Callback\+ID)
+\begin{DoxyCompactList}\small\item\em Un\+Register callbacks. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Descripción detallada}
+Header file of DMA HAL module. 
+
+\begin{DoxyAuthor}{Autor}
+MCD Application Team 
+\end{DoxyAuthor}
+\begin{DoxyAttention}{Atención}
+
+\end{DoxyAttention}
+Copyright (c) 2016 STMicroelectronics. All rights reserved.
+
+This software is licensed under terms that can be found in the LICENSE file in the root directory of this software component. If no LICENSE file comes with this software, it is provided AS-\/\+IS. 
+
+Definición en el archivo \doxymbox{\hyperlink{stm32f1xx__hal__dma_8h_source}{stm32f1xx\+\_\+hal\+\_\+dma.\+h}}.
+

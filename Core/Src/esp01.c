@@ -1,13 +1,12 @@
-/*
- * esp01.c
- *
- *  Created on: Jun 17, 2025
- *      Author: gonza
- */
-
-/*
- * ESP01.c
- * Version: 01b05 - 04/08/2024
+/**
+ * @file   esp01.c
+ * @author Germán E. Hachmann / Gonzalo M. Buffa
+ * @date   04/08/2024
+ * @brief  Implementación del driver de control por comandos AT para módulo Wi-Fi ESP-01.
+ * @details Implementa la máquina de estados AT para asociar el microcontrolador STM32F103
+ *          a redes inalámbricas, habilitar el punto de acceso SoftAP con servidor HTTP,
+ *          y transferir paquetes de telemetría a través de sockets UDP/TCP.
+ * @ingroup group_comm
  */
 
 #include "ESP01.h"
@@ -72,21 +71,23 @@ static uint32_t esp01TimeoutSendOk = 0;
 static void (*ESP01ChangeState)(_eESP01STATUS esp01State);
 static void (*ESP01DbgStr)(const char *dbgStr);
 
-static char esp01SSID[64] = {0};
-static char esp01PASSWORD[32] = {0};
+#define ESP01_CRED_BUF_SIZE     9        /* 8 caracteres max + '\0' */
+static char esp01SSID[ESP01_CRED_BUF_SIZE] = {0};
+static char esp01PASSWORD[ESP01_CRED_BUF_SIZE] = {0};
 static char esp01RemoteIP[16] = {0};
 static char esp01PROTO[4] = "UDP";
 static char esp01RemotePORT[6] = {0};
 static char esp01LocalIP[16] = {0};
 static char esp01LocalPORT[6] = {0};
 
-/* Variables para el modo SoftAP / Webserver */
-static char    esp01AP_SSID[32] = {0};
-static char    esp01AP_PASS[32] = {0};
+/* Variables para el modo SoftAP / Servidor TCP */
+static char    esp01AP_SSID[ESP01_CRED_BUF_SIZE] = {0};
+static char    esp01AP_PASS[ESP01_CRED_BUF_SIZE] = {0};
 static char    esp01AP_CH[3]    = "5";
 static char    esp01AP_ENC[2]   = "3"; /* 3 = WPA2 */
-static uint8_t esp01WebServerMode = 0; /* 1 = modo webserver activo */
-static uint8_t esp01LastConnID    = 0; /* ID de conexion del ultimo +IPD */
+static char    esp01AP_PORT[6]  = "80";
+static uint8_t esp01SoftAPMode  = 0; /* 1 = modo SoftAP servidor TCP activo */
+static uint8_t esp01LastConnID  = 0; /* ID de conexion del ultimo +IPD */
 
 static uint8_t esp01HState = 0;
 static uint16_t	esp01nBytes = 0;
@@ -98,6 +99,7 @@ static uint16_t esp01irTX = 0;
 static uint16_t esp01iwTX = 0;
 
 static uint8_t esp01TriesAT = 0;
+static uint8_t tcpFailCount = 0;
 
 //static _sESP01Handle esp01Handle = {.DoCHPD = NULL, .WriteUSARTByte = NULL,
 //									.bufRX = NULL, .iwRX = NULL, .sizeBufferRX = 0};
@@ -114,7 +116,7 @@ const char ATCIPCLOSE[] = "AT+CIPCLOSE\r\n";
 const char ATCIPSEND[]   = "AT+CIPSEND=";
 const char ATCWSAP[]     = "AT+CWSAP_CUR=";
 const char ATCWDHCP[]    = "AT+CWDHCP_CUR=2,1\r\n";
-const char ATCIPSERVER[] = "AT+CIPSERVER=1,80\r\n";
+const char ATCIPSERVER[] = "AT+CIPSERVER=1,";
 
 const char respAT[] = "0302AT\r";
 const char respATp[] = "0302AT+";
@@ -157,12 +159,12 @@ static uint8_t indexResponseChar = 0;
 void ESP01_SetWIFI(const char *ssid, const char *password){
 	esp01ATSate = ESP01ATIDLE;
 	esp01Flags.byte = 0;
-	esp01WebServerMode = 0;   /* Salir del modo webserver al conectar como Station */
+	esp01SoftAPMode = 0;   /* Salir del modo SoftAP al conectar como Station */
 
-	strncpy(esp01SSID, ssid, 64);
-	esp01SSID[63] = '\0';
-	strncpy(esp01PASSWORD, password, 32);
-	esp01PASSWORD[31] = '\0';
+	strncpy(esp01SSID, ssid, ESP01_CRED_BUF_SIZE - 1);
+	esp01SSID[ESP01_CRED_BUF_SIZE - 1] = '\0';
+	strncpy(esp01PASSWORD, password, ESP01_CRED_BUF_SIZE - 1);
+	esp01PASSWORD[ESP01_CRED_BUF_SIZE - 1] = '\0';
 
 	esp01TimeoutTask = 50;
 	esp01ATSate = ESP01ATHARDRST0;
@@ -171,27 +173,28 @@ void ESP01_SetWIFI(const char *ssid, const char *password){
 }
 
 /**
- * @brief Configura el ESP01 en modo SoftAP + inicia servidor HTTP en puerto 80
+ * @brief Configura el ESP01 en modo SoftAP + inicia servidor TCP en el puerto especificado
  *
- * El STM32 podra recibir peticiones HTTP con SSID y contraseña para luego
- * llamar a ESP01_SetWIFI() y conectarse como Station.
+ * El cliente TCP (ej. Hercules) podrá conectarse a la IP del SoftAP (192.168.4.1) y puerto
+ * para enviar "SSID;PASS", permitiendo asociarse como Station.
  *
  * @param apSSID   Nombre de la red WiFi a crear
- * @param apPass   Contraseña del AP (minimo 8 chars). NULL o "" para red abierta
+ * @param apPass   Contraseña del AP (mínimo 8 chars). NULL o "" para red abierta
  * @param ch       Canal WiFi (1-13)
- * @param enc      Encriptacion: 0=abierta, 2=WPA, 3=WPA2, 4=WPA/WPA2
+ * @param enc      Encriptación: 0=abierta, 2=WPA, 3=WPA2, 4=WPA/WPA2
+ * @param port     Puerto TCP (por defecto 80 si es 0)
  */
-void ESP01_SetWebServer(const char *apSSID, const char *apPass, uint8_t ch, uint8_t enc){
+void ESP01_SetSoftAP(const char *apSSID, const char *apPass, uint8_t ch, uint8_t enc, uint16_t port){
 	esp01ATSate = ESP01ATIDLE;
 	esp01Flags.byte = 0;
-	esp01WebServerMode = 1;
+	esp01SoftAPMode = 1;
 
-	strncpy(esp01AP_SSID, apSSID, 31);
-	esp01AP_SSID[31] = '\0';
+	strncpy(esp01AP_SSID, apSSID, ESP01_CRED_BUF_SIZE - 1);
+	esp01AP_SSID[ESP01_CRED_BUF_SIZE - 1] = '\0';
 
 	if(apPass && apPass[0] != '\0'){
-		strncpy(esp01AP_PASS, apPass, 31);
-		esp01AP_PASS[31] = '\0';
+		strncpy(esp01AP_PASS, apPass, ESP01_CRED_BUF_SIZE - 1);
+		esp01AP_PASS[ESP01_CRED_BUF_SIZE - 1] = '\0';
 	} else {
 		esp01AP_PASS[0] = '\0';
 		enc = 0; /* Sin contraseña → red abierta */
@@ -199,6 +202,8 @@ void ESP01_SetWebServer(const char *apSSID, const char *apPass, uint8_t ch, uint
 
 	itoa(ch,  esp01AP_CH,  10);
 	itoa(enc, esp01AP_ENC, 10);
+	if(port == 0) port = 80;
+	itoa(port, esp01AP_PORT, 10);
 
 	esp01TimeoutTask = 50;
 	esp01ATSate = ESP01ATHARDRST0;
@@ -236,7 +241,15 @@ _eESP01STATUS ESP01_StartUDP(const char *RemoteIP, uint16_t RemotePORT, uint16_t
 	if(esp01Flags.bit.WIFICONNECTED == 0)
 		return ESP01_WIFI_DISCONNECTED;
 
+	/* Limpiar transmisiones previas pendientes para evitar bloqueos del driver AT */
+	esp01Flags.bit.SENDINGDATA = 0;
+	esp01Flags.bit.WAITINGSYMBOL = 0;
+	esp01Flags.bit.UDPTCPCONNECTED = 0;
+	esp01Flags.bit.ATRESPONSEOK = 0;
+	esp01irTX = esp01iwTX;
+
 	esp01ATSate = ESP01ATCIPCLOSE;
+	esp01TimeoutTask = 0;
 
 	return ESP01_UDPTCP_CONNECTING;
 }
@@ -262,11 +275,23 @@ _eESP01STATUS ESP01_StartTCP(const char *RemoteIP, uint16_t RemotePORT, uint16_t
 	if(esp01Flags.bit.WIFICONNECTED == 0)
 		return ESP01_WIFI_DISCONNECTED;
 
+	/* Limpiar transmisiones previas pendientes para evitar bloqueos del driver AT */
+	esp01Flags.bit.SENDINGDATA = 0;
+	esp01Flags.bit.WAITINGSYMBOL = 0;
+	esp01Flags.bit.UDPTCPCONNECTED = 0;
+	esp01Flags.bit.ATRESPONSEOK = 0;
+	esp01irTX = esp01iwTX;
+	tcpFailCount = 0;
+
 	esp01ATSate = ESP01ATCIPCLOSE;
+	esp01TimeoutTask = 0;
 
 	return ESP01_UDPTCP_CONNECTING;
 }
 
+const char *ESP01_GetProtocol(void){
+	return esp01PROTO;
+}
 
 void ESP01_CloseUDPTCP(){
 	if(esp01Handle.WriteUSARTByte == NULL)
@@ -316,7 +341,7 @@ _eESP01STATUS ESP01_Send(uint8_t connID, uint8_t *buf, uint16_t irRingBuf, uint1
 	if(esp01Handle.WriteUSARTByte == NULL)
 		return ESP01_NOT_INIT;
 
-	if(esp01Flags.bit.UDPTCPCONNECTED == 0 && !esp01WebServerMode)
+	if(esp01Flags.bit.UDPTCPCONNECTED == 0 && !esp01SoftAPMode)
 		return ESP01_UDPTCP_DISCONNECTED;
 
 	if(esp01Flags.bit.SENDINGDATA == 0){
@@ -330,9 +355,9 @@ _eESP01STATUS ESP01_Send(uint8_t connID, uint8_t *buf, uint16_t irRingBuf, uint1
 
 		ESP01StrToBufTX(ATCIPSEND);
 
-		/* Con CIPMUX=1 (webserver) el formato es AT+CIPSEND=connID,length */
-		/* Con CIPMUX=0 (UDP/TCP)   el formato es AT+CIPSEND=length        */
-		if(esp01WebServerMode){
+		/* Con CIPMUX=1 (SoftAP) el formato es AT+CIPSEND=connID,length */
+		/* Con CIPMUX=0 (UDP/TCP) el formato es AT+CIPSEND=length        */
+		if(esp01SoftAPMode){
 			char connStr[4];
 			itoa(connID, connStr, 10);
 			ESP01StrToBufTX(connStr);
@@ -380,8 +405,8 @@ void ESP01_Init(_sESP01Handle *hESP01){
 	esp01irRXAT = 0;
 	esp01iwRXAT = 0;
 	esp01Flags.byte = 0;
-	esp01WebServerMode = 0;
-	esp01LastConnID    = 0;
+	esp01SoftAPMode = 0;
+	esp01TimeoutTask = 50;
 	ESP01ChangeState = NULL;
 	ESP01DbgStr = NULL;
 }
@@ -547,6 +572,9 @@ static void ESP01ATDecode(){
 						esp01irTX = esp01iwTX;
 						esp01TimeoutSendOk = 0;
 					}
+					if(esp01ATSate == ESP01CIPSTARTRESPONSE){
+						esp01TimeoutTask = 0;
+					}
 					break;
 				case 4://WIFI GOT IP
 					/* SOLO aceptamos el éxito si estábamos esperando la respuesta de nuestro CWJAP */
@@ -576,7 +604,7 @@ static void ESP01ATDecode(){
 					if (ESP01ChangeState != NULL)
 						ESP01ChangeState(ESP01_WIFI_DISCONNECTED);
 
-					if (!esp01WebServerMode) {
+					if (!esp01SoftAPMode) {
 						esp01ATSate = ESP01ATHARDRSTSTOP;
 					}
 					break;
@@ -586,21 +614,14 @@ static void ESP01ATDecode(){
 				case 9://SEND OK
 					esp01Flags.bit.SENDINGDATA = 0;
 					esp01TimeoutSendOk = 0;
-					if(esp01WebServerMode){
-						char connStr[4];
-						itoa(esp01LastConnID, connStr, 10);
-						ESP01StrToBufTX("AT+CIPCLOSE=");
-						ESP01StrToBufTX(connStr);
-						ESP01StrToBufTX("\r\n");
-					}
 					if(ESP01ChangeState != NULL)
 						ESP01ChangeState(ESP01_SEND_OK);
 					break;
 				case 10://CONNECT
 					/* En CIPMUX=0: "CONNECT\r\n" indica conexion UDP/TCP establecida.
 					 * En CIPMUX=1: "X,CONNECT\r\n" (con ID) → no matchea aqui.
-					 * Solo actuamos si NO estamos en webserver para no interferir. */
-					if(!esp01WebServerMode){
+					 * Solo actuamos si NO estamos en SoftAP para no interferir. */
+					if(!esp01SoftAPMode){
 						esp01TimeoutTask = 0;
 						esp01Flags.bit.ATRESPONSEOK = 1;
 						esp01Flags.bit.UDPTCPCONNECTED = 1;
@@ -610,6 +631,8 @@ static void ESP01ATDecode(){
 					break;
 				case 11://CLOSED
 					esp01Flags.bit.UDPTCPCONNECTED = 0;
+					if(ESP01ChangeState != NULL)
+						ESP01ChangeState(ESP01_UDPTCP_DISCONNECTED);
 					break;
 				case 13://busy
 					esp01Flags.bit.UDPTCPCONNECTED = 0;
@@ -678,7 +701,7 @@ static void ESP01ATDecode(){
 			break;
 		case 10://IPD - primera coma
 			if(value == ','){
-				if(esp01WebServerMode){
+				if(esp01SoftAPMode){
 					/* Con CIPMUX=1: +IPD,connID,N:data  →  leer connID primero */
 					esp01HState = 13;
 					esp01LastConnID = 0;
@@ -816,8 +839,8 @@ static void ESP01DOConnection(){
 			break;
 
 		case ESP01ATCIPMUX:
-			/* Enviar CIPMUX=1 para WebServer y CIPMUX=0 para UDP normal */
-			if (esp01WebServerMode) {
+			/* Enviar CIPMUX=1 para SoftAP TCP Server y CIPMUX=0 para UDP normal */
+			if (esp01SoftAPMode) {
 				ESP01StrToBufTX("AT+CIPMUX=1\r\n");
 			} else {
 				ESP01StrToBufTX("AT+CIPMUX=0\r\n");
@@ -829,7 +852,7 @@ static void ESP01DOConnection(){
 			break;
 		case ESP01CIPMUXRESPONSE:
 			if(esp01Flags.bit.ATRESPONSEOK)
-				esp01ATSate = (esp01WebServerMode) ? ESP01ATCWSAP : ESP01ATCWJAP;
+				esp01ATSate = (esp01SoftAPMode) ? ESP01ATCWSAP : ESP01ATCWJAP;
 			else
 				esp01ATSate = ESP01ATAT;
 			break;
@@ -879,8 +902,10 @@ static void ESP01DOConnection(){
 			esp01ATSate = ESP01ATAT;
 		break;
 	case ESP01ATCIPSERVER:
-		/* AT+CIPSERVER=1,80  →  inicia servidor TCP en puerto 80 */
+		/* AT+CIPSERVER=1,<port>  →  inicia servidor TCP en el puerto configurado */
 		ESP01StrToBufTX(ATCIPSERVER);
+		ESP01StrToBufTX(esp01AP_PORT);
+		ESP01StrToBufTX("\r\n");
 		if(ESP01DbgStr != NULL)
 			ESP01DbgStr("+&DBGESP01ATCIPSERVER\n");
 		esp01Flags.bit.ATRESPONSEOK = 0;
@@ -954,6 +979,7 @@ static void ESP01DOConnection(){
 		if(ESP01DbgStr != NULL)
 			ESP01DbgStr("+&DBGESP01ATCIPCLOSE\n");
 		esp01ATSate = ESP01ATCIPSTART;
+		esp01TimeoutTask = 20; /* 200ms para asegurar cierre previo en el ESP */
 		break;
 	case ESP01ATCIPSTART:
 		ESP01StrToBufTX(ATCIPSTART);
@@ -979,27 +1005,39 @@ static void ESP01DOConnection(){
 		esp01Flags.bit.ATRESPONSEOK = 0;
 		esp01Flags.bit.UDPTCPCONNECTED = 0;
 		esp01ATSate = ESP01CIPSTARTRESPONSE;
-		esp01TimeoutTask = 200;
+		esp01TimeoutTask = 150; /* 1.5s timeout de respuesta */
 		break;
 	case ESP01CIPSTARTRESPONSE:
 		if(esp01Flags.bit.ATRESPONSEOK){
 			esp01Flags.bit.UDPTCPCONNECTED = 1;
+			tcpFailCount = 0;
 			esp01ATSate = ESP01ATCONNECTED;
+			if(ESP01ChangeState != NULL)
+				ESP01ChangeState(ESP01_UDPTCP_CONNECTED);
 		} else {
 			esp01Flags.bit.UDPTCPCONNECTED = 0;
 			if(esp01Flags.bit.WIFICONNECTED){
-				/* Si el WiFi sigue conectado pero TCP fallo (ej: la PC aun no abrio el puerto),
-				 * reintentar conectar TCP en 3 segundos SIN desconectar el WiFi del router. */
+				/* Si falló TCP tras 2 intentos (ej: la PC aún no abrió TCP o está en UDP), regresar a UDP */
+				if(strcmp(esp01PROTO, "TCP") == 0){
+					tcpFailCount++;
+					if(tcpFailCount >= 2){
+						tcpFailCount = 0;
+						strcpy(esp01PROTO, "UDP");
+						if(esp01LocalPORT[0] == '\0') strcpy(esp01LocalPORT, "30001");
+					}
+				} else {
+					tcpFailCount = 0;
+				}
 				esp01ATSate = ESP01ATCIPSTART;
-				esp01TimeoutTask = 300;
+				esp01TimeoutTask = 100; /* Reintentar en 1s */
 			} else {
 				esp01ATSate = ESP01ATAT;
 			}
 		}
 		break;
 	case ESP01ATCONNECTED:
-		/* En modo webserver solo esperamos conexiones entrantes */
-		if(esp01WebServerMode){
+		/* En modo SoftAP servidor TCP esperamos conexiones entrantes */
+		if(esp01SoftAPMode){
 			esp01TimeoutTask = 0;
 			break;
 		}
@@ -1008,7 +1046,13 @@ static void ESP01DOConnection(){
 			break;
 		}
 		if(esp01Flags.bit.UDPTCPCONNECTED == 0){
+			/* Si estábamos en TCP y el socket se cerró (DISCONNECT en Qt), regresar a UDP */
+			if(strcmp(esp01PROTO, "TCP") == 0){
+				strcpy(esp01PROTO, "UDP");
+				if(esp01LocalPORT[0] == '\0') strcpy(esp01LocalPORT, "30001");
+			}
 			esp01ATSate = ESP01ATCIPCLOSE;
+			esp01TimeoutTask = 0;
 			break;
 		}
 		esp01TimeoutTask = 0;

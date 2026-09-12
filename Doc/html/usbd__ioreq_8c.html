@@ -1,0 +1,180 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>MICRO-Firmware: Referencia del archivo usbd_ioreq.c</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="codefolding.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  extensions: ["tex2jax.js"],
+  jax: ["input/TeX","output/HTML-CSS"],
+});
+</script>
+<script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">MICRO-Firmware<span id="projectnumber">&#160;EX100923v01</span>
+   </div>
+   <div id="projectbrief">Firmware de Péndulo Invertido Autónomo de Dos Ruedas (STM32F103C8T6 - ARM Cortex-M3)</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Buscar" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('usbd__ioreq_8c.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">Referencia del archivo usbd_ioreq.c</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>This file provides the IO requests APIs for control endpoints.  
+<a href="#details">Más...</a></p>
+<div class="textblock"><code>#include &quot;<a class="el" href="usbd__ioreq_8h_source.html">usbd_ioreq.h</a>&quot;</code><br />
+</div><div class="textblock"><div id="dynsection-0" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de dependencias incluidas en usbd_ioreq.c:</div>
+<div id="dynsection-0-summary" class="dynsummary">
+</div>
+<div id="dynsection-0-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="usbd__ioreq_8c__incl.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+</div>
+<p><a href="usbd__ioreq_8c_source.html">Ir al código fuente de este archivo.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Funciones</h2></td></tr>
+<tr class="memitem:gaf6cabd5a8d9d527cf6aa64915abb7f2b" id="r_gaf6cabd5a8d9d527cf6aa64915abb7f2b"><td class="memItemLeft"><a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#gaebc658c200e50399361e7901f0a57e95">USBD_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___u_s_b_d___i_o_r_e_q___private___functions.html#gaf6cabd5a8d9d527cf6aa64915abb7f2b">USBD_CtlContinueRx</a> (<a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ga08827834e2e564cea191282b65ce06f7">USBD_HandleTypeDef</a> *pdev, uint8_t *pbuf, uint16_t len)</td></tr>
+<tr class="memdesc:gaf6cabd5a8d9d527cf6aa64915abb7f2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">USBD_CtlContinueRx continue receive data on the ctl pipe.  <br /></td></tr>
+<tr class="memitem:gaf07248d84e87cdf14db392f94b369744" id="r_gaf07248d84e87cdf14db392f94b369744"><td class="memItemLeft"><a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#gaebc658c200e50399361e7901f0a57e95">USBD_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___u_s_b_d___i_o_r_e_q___private___functions.html#gaf07248d84e87cdf14db392f94b369744">USBD_CtlContinueSendData</a> (<a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ga08827834e2e564cea191282b65ce06f7">USBD_HandleTypeDef</a> *pdev, uint8_t *pbuf, uint16_t len)</td></tr>
+<tr class="memdesc:gaf07248d84e87cdf14db392f94b369744"><td class="mdescLeft">&#160;</td><td class="mdescRight">USBD_CtlContinueSendData continue sending data on the ctl pipe.  <br /></td></tr>
+<tr class="memitem:gabe067dfaa82139b6d3acf5f8cdd5fc91" id="r_gabe067dfaa82139b6d3acf5f8cdd5fc91"><td class="memItemLeft"><a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#gaebc658c200e50399361e7901f0a57e95">USBD_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___u_s_b_d___i_o_r_e_q___private___functions.html#gabe067dfaa82139b6d3acf5f8cdd5fc91">USBD_CtlPrepareRx</a> (<a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ga08827834e2e564cea191282b65ce06f7">USBD_HandleTypeDef</a> *pdev, uint8_t *pbuf, uint16_t len)</td></tr>
+<tr class="memdesc:gabe067dfaa82139b6d3acf5f8cdd5fc91"><td class="mdescLeft">&#160;</td><td class="mdescRight">USBD_CtlPrepareRx receive data on the ctl pipe.  <br /></td></tr>
+<tr class="memitem:gad5e847f89ca67a6b2154a72d0aa25e9a" id="r_gad5e847f89ca67a6b2154a72d0aa25e9a"><td class="memItemLeft"><a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#gaebc658c200e50399361e7901f0a57e95">USBD_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___u_s_b_d___i_o_r_e_q___private___functions.html#gad5e847f89ca67a6b2154a72d0aa25e9a">USBD_CtlReceiveStatus</a> (<a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ga08827834e2e564cea191282b65ce06f7">USBD_HandleTypeDef</a> *pdev)</td></tr>
+<tr class="memdesc:gad5e847f89ca67a6b2154a72d0aa25e9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">USBD_CtlReceiveStatus receive zero lzngth packet on the ctl pipe.  <br /></td></tr>
+<tr class="memitem:gae66e8dc0e24f9d7d23930f6c87605e75" id="r_gae66e8dc0e24f9d7d23930f6c87605e75"><td class="memItemLeft"><a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#gaebc658c200e50399361e7901f0a57e95">USBD_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___u_s_b_d___i_o_r_e_q___private___functions.html#gae66e8dc0e24f9d7d23930f6c87605e75">USBD_CtlSendData</a> (<a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ga08827834e2e564cea191282b65ce06f7">USBD_HandleTypeDef</a> *pdev, uint8_t *pbuf, uint16_t len)</td></tr>
+<tr class="memdesc:gae66e8dc0e24f9d7d23930f6c87605e75"><td class="mdescLeft">&#160;</td><td class="mdescRight">USBD_CtlSendData send data on the ctl pipe.  <br /></td></tr>
+<tr class="memitem:ga19e53947fc912c43bcee2c7d7429e8ee" id="r_ga19e53947fc912c43bcee2c7d7429e8ee"><td class="memItemLeft"><a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#gaebc658c200e50399361e7901f0a57e95">USBD_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="group___u_s_b_d___i_o_r_e_q___private___functions.html#ga19e53947fc912c43bcee2c7d7429e8ee">USBD_CtlSendStatus</a> (<a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ga08827834e2e564cea191282b65ce06f7">USBD_HandleTypeDef</a> *pdev)</td></tr>
+<tr class="memdesc:ga19e53947fc912c43bcee2c7d7429e8ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">USBD_CtlSendStatus send zero lzngth packet on the ctl pipe.  <br /></td></tr>
+<tr class="memitem:ga1ea167471f0e91676934feb76f67b1c2" id="r_ga1ea167471f0e91676934feb76f67b1c2"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="group___u_s_b_d___i_o_r_e_q___private___functions.html#ga1ea167471f0e91676934feb76f67b1c2">USBD_GetRxCount</a> (<a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ga08827834e2e564cea191282b65ce06f7">USBD_HandleTypeDef</a> *pdev, uint8_t ep_addr)</td></tr>
+<tr class="memdesc:ga1ea167471f0e91676934feb76f67b1c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">USBD_GetRxCount returns the received data length.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Descripción detallada</h2>
+<div class="textblock"><p>This file provides the IO requests APIs for control endpoints. </p>
+<dl class="section author"><dt>Autor</dt><dd>MCD Application Team </dd></dl>
+<dl class="section attention"><dt>Atención</dt><dd></dd></dl>
+<h2><center>&copy; Copyright (c) 2015 STMicroelectronics. All rights reserved.</center></h2>
+<p>This software component is licensed by ST under Ultimate Liberty license SLA0044, the "License"; You may not use this file except in compliance with the License. You may obtain a copy of the License at: www.st.com/SLA0044 </p>
+
+<p class="definition">Definición en el archivo <a class="el" href="usbd__ioreq_8c_source.html">usbd_ioreq.c</a>.</p>
+</div></div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_18d39804a75e1fcb1deadc3198692f5c.html">Middlewares</a></li><li class="navelem"><a href="dir_0d4e7aba86dbe6d2cd1e6eea82503c8e.html">ST</a></li><li class="navelem"><a href="dir_7844be63775b82f7837a4888e568d9b6.html">STM32_USB_Device_Library</a></li><li class="navelem"><a href="dir_b855bb5e426b3b994b21c389222e14df.html">Core</a></li><li class="navelem"><a href="dir_7c0b0880f4bfb9f793b7785b093fa4ec.html">Src</a></li><li class="navelem"><a href="usbd__ioreq_8c.html">usbd_ioreq.c</a></li>
+    <li class="footer">Generado el <span class="timestamp"></span> para MICRO-Firmware por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

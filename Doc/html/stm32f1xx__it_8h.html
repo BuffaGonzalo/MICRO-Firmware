@@ -1,0 +1,1409 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>MICRO-Firmware: Referencia del archivo stm32f1xx_it.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="codefolding.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  extensions: ["tex2jax.js"],
+  jax: ["input/TeX","output/HTML-CSS"],
+});
+</script>
+<script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">MICRO-Firmware<span id="projectnumber">&#160;EX100923v01</span>
+   </div>
+   <div id="projectbrief">Firmware de Péndulo Invertido Autónomo de Dos Ruedas (STM32F103C8T6 - ARM Cortex-M3)</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Buscar" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('stm32f1xx__it_8h.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">Referencia del archivo stm32f1xx_it.h<div class="ingroups"><a class="el" href="group__group__main.html">Núcleo y Planificador del Sistema (Core &amp; Scheduler)</a> &raquo; <a class="el" href="group__group__system.html">Abstracción de Hardware y Sistema STM32 (System &amp; HAL)</a></div></div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Declaración de manejadores de interrupción (ISRs) del microcontrolador STM32F103.  
+<a href="#details">Más...</a></p>
+<div class="textblock"><code>#include &quot;<a class="el" href="stm32f1xx__hal_8h_source.html">stm32f1xx_hal.h</a>&quot;</code><br />
+</div><div class="textblock"><div id="dynsection-0" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de dependencias incluidas en stm32f1xx_it.h:</div>
+<div id="dynsection-0-summary" class="dynsummary">
+</div>
+<div id="dynsection-0-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="stm32f1xx__it_8h__incl.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+</div><div class="textblock"><div id="dynsection-1" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de los archivos que directa o indirectamente incluyen a este archivo:</div>
+<div id="dynsection-1-summary" class="dynsummary">
+</div>
+<div id="dynsection-1-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="stm32f1xx__it_8h__dep__incl.svg" width="119" height="112"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+</div>
+<p><a href="stm32f1xx__it_8h_source.html">Ir al código fuente de este archivo.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Funciones</h2></td></tr>
+<tr id="func-members-0" class="groupHeader"><td colspan="2"><div class="groupHeader">Excepciones del Núcleo ARM Cortex-M3</div></td></tr>
+<tr class="memitem:a850cefb17a977292ae5eb4cafa9976c3" id="r_a850cefb17a977292ae5eb4cafa9976c3"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a850cefb17a977292ae5eb4cafa9976c3">BusFault_Handler</a> (void)</td></tr>
+<tr class="memdesc:a850cefb17a977292ae5eb4cafa9976c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function handles Prefetch fault, memory access fault.  <br /></td></tr>
+<tr class="memitem:adbdfb05858cc36fc520974df37ec3cb0" id="r_adbdfb05858cc36fc520974df37ec3cb0"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#adbdfb05858cc36fc520974df37ec3cb0">DebugMon_Handler</a> (void)</td></tr>
+<tr class="memdesc:adbdfb05858cc36fc520974df37ec3cb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function handles Debug monitor.  <br /></td></tr>
+<tr class="memitem:a2bffc10d5bd4106753b7c30e86903bea" id="r_a2bffc10d5bd4106753b7c30e86903bea"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a2bffc10d5bd4106753b7c30e86903bea">HardFault_Handler</a> (void)</td></tr>
+<tr class="memdesc:a2bffc10d5bd4106753b7c30e86903bea"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function handles Hard fault interrupt.  <br /></td></tr>
+<tr class="memitem:a3150f74512510287a942624aa9b44cc5" id="r_a3150f74512510287a942624aa9b44cc5"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a3150f74512510287a942624aa9b44cc5">MemManage_Handler</a> (void)</td></tr>
+<tr class="memdesc:a3150f74512510287a942624aa9b44cc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function handles Memory management fault.  <br /></td></tr>
+<tr class="memitem:a6ad7a5e3ee69cb6db6a6b9111ba898bc" id="r_a6ad7a5e3ee69cb6db6a6b9111ba898bc"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6ad7a5e3ee69cb6db6a6b9111ba898bc">NMI_Handler</a> (void)</td></tr>
+<tr class="memdesc:a6ad7a5e3ee69cb6db6a6b9111ba898bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function handles Non maskable interrupt.  <br /></td></tr>
+<tr class="memitem:a6303e1f258cbdc1f970ce579cc015623" id="r_a6303e1f258cbdc1f970ce579cc015623"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6303e1f258cbdc1f970ce579cc015623">PendSV_Handler</a> (void)</td></tr>
+<tr class="memdesc:a6303e1f258cbdc1f970ce579cc015623"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function handles Pendable request for system service.  <br /></td></tr>
+<tr class="memitem:a3e5ddb3df0d62f2dc357e64a3f04a6ce" id="r_a3e5ddb3df0d62f2dc357e64a3f04a6ce"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a3e5ddb3df0d62f2dc357e64a3f04a6ce">SVC_Handler</a> (void)</td></tr>
+<tr class="memdesc:a3e5ddb3df0d62f2dc357e64a3f04a6ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function handles System service call via SWI instruction.  <br /></td></tr>
+<tr class="memitem:ab5e09814056d617c521549e542639b7e" id="r_ab5e09814056d617c521549e542639b7e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ab5e09814056d617c521549e542639b7e">SysTick_Handler</a> (void)</td></tr>
+<tr class="memdesc:ab5e09814056d617c521549e542639b7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manejador del temporizador del sistema (SysTick).  <br /></td></tr>
+<tr class="memitem:a1d98923de2ed6b7309b66f9ba2971647" id="r_a1d98923de2ed6b7309b66f9ba2971647"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a1d98923de2ed6b7309b66f9ba2971647">UsageFault_Handler</a> (void)</td></tr>
+<tr class="memdesc:a1d98923de2ed6b7309b66f9ba2971647"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function handles Undefined instruction or illegal state.  <br /></td></tr>
+<tr id="func-members-1" class="groupHeader"><td colspan="2"><div class="groupHeader">Interrupciones de Periféricos Hardware STM32</div></td></tr>
+<tr class="memitem:a3e8fca6e2f18e433a9fbc3d2dcc0b411" id="r_a3e8fca6e2f18e433a9fbc3d2dcc0b411"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a3e8fca6e2f18e433a9fbc3d2dcc0b411">ADC1_2_IRQHandler</a> (void)</td></tr>
+<tr class="memdesc:a3e8fca6e2f18e433a9fbc3d2dcc0b411"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function handles ADC1 and ADC2 global interrupts.  <br /></td></tr>
+<tr class="memitem:a7b6fac3d670a4860ebec8a961d5c4a73" id="r_a7b6fac3d670a4860ebec8a961d5c4a73"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a7b6fac3d670a4860ebec8a961d5c4a73">DMA1_Channel1_IRQHandler</a> (void)</td></tr>
+<tr class="memdesc:a7b6fac3d670a4860ebec8a961d5c4a73"><td class="mdescLeft">&#160;</td><td class="mdescRight">ISR del Canal 1 de DMA1: Conversión continua multicanal de sensores IR (ADC1).  <br /></td></tr>
+<tr class="memitem:a9b75ef44037d7ed50a1078c024ae853a" id="r_a9b75ef44037d7ed50a1078c024ae853a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a9b75ef44037d7ed50a1078c024ae853a">DMA1_Channel4_IRQHandler</a> (void)</td></tr>
+<tr class="memdesc:a9b75ef44037d7ed50a1078c024ae853a"><td class="mdescLeft">&#160;</td><td class="mdescRight">ISR del Canal 4 de DMA1: Transmisión asíncrona de datos I2C2 hacia el display OLED SSD1306.  <br /></td></tr>
+<tr class="memitem:abd16b3391557c4a3a8020d675e2c452f" id="r_abd16b3391557c4a3a8020d675e2c452f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#abd16b3391557c4a3a8020d675e2c452f">DMA1_Channel5_IRQHandler</a> (void)</td></tr>
+<tr class="memdesc:abd16b3391557c4a3a8020d675e2c452f"><td class="mdescLeft">&#160;</td><td class="mdescRight">ISR del Canal 5 de DMA1: Recepción asíncrona de datos I2C2 desde la IMU MPU-6050.  <br /></td></tr>
+<tr class="memitem:aecd40b8012604ac4236bda3f65857c37" id="r_aecd40b8012604ac4236bda3f65857c37"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aecd40b8012604ac4236bda3f65857c37">I2C2_ER_IRQHandler</a> (void)</td></tr>
+<tr class="memdesc:aecd40b8012604ac4236bda3f65857c37"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function handles I2C2 error interrupt.  <br /></td></tr>
+<tr class="memitem:abdb05db0781544b33e806a12940d062c" id="r_abdb05db0781544b33e806a12940d062c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#abdb05db0781544b33e806a12940d062c">I2C2_EV_IRQHandler</a> (void)</td></tr>
+<tr class="memdesc:abdb05db0781544b33e806a12940d062c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function handles I2C2 event interrupt.  <br /></td></tr>
+<tr class="memitem:ac932fa89be69a5610d5b3a1ee6f6aed7" id="r_ac932fa89be69a5610d5b3a1ee6f6aed7"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac932fa89be69a5610d5b3a1ee6f6aed7">TIM1_BRK_IRQHandler</a> (void)</td></tr>
+<tr class="memdesc:ac932fa89be69a5610d5b3a1ee6f6aed7"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function handles TIM1 break interrupt.  <br /></td></tr>
+<tr class="memitem:ae8a61b27afdb07c70d6b863c44284ca6" id="r_ae8a61b27afdb07c70d6b863c44284ca6"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ae8a61b27afdb07c70d6b863c44284ca6">TIM1_CC_IRQHandler</a> (void)</td></tr>
+<tr class="memdesc:ae8a61b27afdb07c70d6b863c44284ca6"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function handles TIM1 capture compare interrupt.  <br /></td></tr>
+<tr class="memitem:a9ca55e77c801001298d93229cbd2d837" id="r_a9ca55e77c801001298d93229cbd2d837"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a9ca55e77c801001298d93229cbd2d837">TIM1_TRG_COM_IRQHandler</a> (void)</td></tr>
+<tr class="memdesc:a9ca55e77c801001298d93229cbd2d837"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function handles TIM1 trigger and commutation interrupts.  <br /></td></tr>
+<tr class="memitem:a51741dbf9b0de1b8b56b5a6f1ef2e694" id="r_a51741dbf9b0de1b8b56b5a6f1ef2e694"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a51741dbf9b0de1b8b56b5a6f1ef2e694">TIM1_UP_IRQHandler</a> (void)</td></tr>
+<tr class="memdesc:a51741dbf9b0de1b8b56b5a6f1ef2e694"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function handles TIM1 update interrupt.  <br /></td></tr>
+<tr class="memitem:a38ad4725462bdc5e86c4ead4f04b9fc2" id="r_a38ad4725462bdc5e86c4ead4f04b9fc2"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a38ad4725462bdc5e86c4ead4f04b9fc2">TIM2_IRQHandler</a> (void)</td></tr>
+<tr class="memdesc:a38ad4725462bdc5e86c4ead4f04b9fc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">ISR del Temporizador TIM2: Lazo crítico determinístico de balance PID (5.0 ms / 200 Hz).  <br /></td></tr>
+<tr class="memitem:ac8e51d2183b5230cbd5481f8867adce9" id="r_ac8e51d2183b5230cbd5481f8867adce9"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac8e51d2183b5230cbd5481f8867adce9">TIM3_IRQHandler</a> (void)</td></tr>
+<tr class="memdesc:ac8e51d2183b5230cbd5481f8867adce9"><td class="mdescLeft">&#160;</td><td class="mdescRight">ISR del Temporizador TIM3: Modulación por ancho de pulsos PWM para tracción de motores (10 kHz).  <br /></td></tr>
+<tr class="memitem:a7133f3f78767503641d307386e68bd28" id="r_a7133f3f78767503641d307386e68bd28"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a7133f3f78767503641d307386e68bd28">TIM4_IRQHandler</a> (void)</td></tr>
+<tr class="memdesc:a7133f3f78767503641d307386e68bd28"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function handles TIM4 global interrupt.  <br /></td></tr>
+<tr class="memitem:a7139cd4baabbbcbab0c1fe6d7d4ae1cc" id="r_a7139cd4baabbbcbab0c1fe6d7d4ae1cc"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a7139cd4baabbbcbab0c1fe6d7d4ae1cc">USART1_IRQHandler</a> (void)</td></tr>
+<tr class="memdesc:a7139cd4baabbbcbab0c1fe6d7d4ae1cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">ISR del puerto USART1: Recepción de bytes serie desde el módulo Wi-Fi ESP-01 (115200 bps).  <br /></td></tr>
+<tr class="memitem:af002aebc5aa5f4f2eb22b093f754ebae" id="r_af002aebc5aa5f4f2eb22b093f754ebae"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#af002aebc5aa5f4f2eb22b093f754ebae">USB_HP_CAN1_TX_IRQHandler</a> (void)</td></tr>
+<tr class="memdesc:af002aebc5aa5f4f2eb22b093f754ebae"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function handles USB high priority or CAN TX interrupts.  <br /></td></tr>
+<tr class="memitem:af57bde854fa2b396f29664995a502b19" id="r_af57bde854fa2b396f29664995a502b19"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#af57bde854fa2b396f29664995a502b19">USB_LP_CAN1_RX0_IRQHandler</a> (void)</td></tr>
+<tr class="memdesc:af57bde854fa2b396f29664995a502b19"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function handles USB low priority or CAN RX0 interrupts.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Descripción detallada</h2>
+<div class="textblock"><p>Declaración de manejadores de interrupción (ISRs) del microcontrolador STM32F103. </p>
+<dl class="section author"><dt>Autor</dt><dd>STMicroelectronics / Gonzalo M. Buffa</dd></dl>
+<p>Prototipos de las rutinas de servicio de interrupción (ISR) para excepciones del núcleo Cortex-M3 (SysTick, HardFault, etc.) y periféricos integrados (DMA1, ADC1, TIM2, TIM3, USART1, USB). </p>
+
+<p class="definition">Definición en el archivo <a class="el" href="stm32f1xx__it_8h_source.html">stm32f1xx_it.h</a>.</p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Documentación de funciones</h2>
+<a id="a3e8fca6e2f18e433a9fbc3d2dcc0b411" name="a3e8fca6e2f18e433a9fbc3d2dcc0b411"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e8fca6e2f18e433a9fbc3d2dcc0b411">&#9670;&#160;</a></span>ADC1_2_IRQHandler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ADC1_2_IRQHandler </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function handles ADC1 and ADC2 global interrupts. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__it_8c_source.html#l00247">247</a> del archivo <a class="el" href="stm32f1xx__it_8c_source.html">stm32f1xx_it.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  248</span>{</div>
+<div class="line"><span class="lineno">  249</span>  <span class="comment">/* USER CODE BEGIN ADC1_2_IRQn 0 */</span></div>
+<div class="line"><span class="lineno">  250</span> </div>
+<div class="line"><span class="lineno">  251</span>  <span class="comment">/* USER CODE END ADC1_2_IRQn 0 */</span></div>
+<div class="line"><span class="lineno">  252</span>  <a class="code hl_function" href="group___a_d_c___exported___functions___group2.html#ga28aaa5662eced92c5a4d23d8bd6b29ca">HAL_ADC_IRQHandler</a>(&amp;<a class="code hl_variable" href="main_8c.html#a22b804736f5648d52f639b2647d4ed13">hadc1</a>);</div>
+<div class="line"><span class="lineno">  253</span>  <span class="comment">/* USER CODE BEGIN ADC1_2_IRQn 1 */</span></div>
+<div class="line"><span class="lineno">  254</span> </div>
+<div class="line"><span class="lineno">  255</span>  <span class="comment">/* USER CODE END ADC1_2_IRQn 1 */</span></div>
+<div class="line"><span class="lineno">  256</span>}</div>
+<div class="ttc" id="agroup___a_d_c___exported___functions___group2_html_ga28aaa5662eced92c5a4d23d8bd6b29ca"><div class="ttname"><a href="group___a_d_c___exported___functions___group2.html#ga28aaa5662eced92c5a4d23d8bd6b29ca">HAL_ADC_IRQHandler</a></div><div class="ttdeci">void HAL_ADC_IRQHandler(ADC_HandleTypeDef *hadc)</div><div class="ttdoc">Handles ADC interrupt request.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__adc_8c_source.html#l01761">stm32f1xx_hal_adc.c:1761</a></div></div>
+<div class="ttc" id="amain_8c_html_a22b804736f5648d52f639b2647d4ed13"><div class="ttname"><a href="main_8c.html#a22b804736f5648d52f639b2647d4ed13">hadc1</a></div><div class="ttdeci">ADC_HandleTypeDef hadc1</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00228">main.c:228</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__it_8c_source.html#l00247">ADC1_2_IRQHandler()</a>, <a class="el" href="main_8c_source.html#l00228">hadc1</a> y <a class="el" href="stm32f1xx__hal__adc_8c_source.html#l01761">HAL_ADC_IRQHandler()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__it_8c_source.html#l00247">ADC1_2_IRQHandler()</a>.</p>
+<div id="dynsection-2" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-2-summary" class="dynsummary">
+</div>
+<div id="dynsection-2-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="stm32f1xx__it_8h_a3e8fca6e2f18e433a9fbc3d2dcc0b411_cgraph.svg" width="558" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-3" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-3-summary" class="dynsummary">
+</div>
+<div id="dynsection-3-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="stm32f1xx__it_8h_a3e8fca6e2f18e433a9fbc3d2dcc0b411_icgraph.svg" width="159" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a850cefb17a977292ae5eb4cafa9976c3" name="a850cefb17a977292ae5eb4cafa9976c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a850cefb17a977292ae5eb4cafa9976c3">&#9670;&#160;</a></span>BusFault_Handler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void BusFault_Handler </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function handles Prefetch fault, memory access fault. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__it_8c_source.html#l00115">115</a> del archivo <a class="el" href="stm32f1xx__it_8c_source.html">stm32f1xx_it.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  116</span>{</div>
+<div class="line"><span class="lineno">  117</span>  <span class="comment">/* USER CODE BEGIN BusFault_IRQn 0 */</span></div>
+<div class="line"><span class="lineno">  118</span> </div>
+<div class="line"><span class="lineno">  119</span>  <span class="comment">/* USER CODE END BusFault_IRQn 0 */</span></div>
+<div class="line"><span class="lineno">  120</span>  <span class="keywordflow">while</span> (1)</div>
+<div class="line"><span class="lineno">  121</span>  {</div>
+<div class="line"><span class="lineno">  122</span>    <span class="comment">/* USER CODE BEGIN W1_BusFault_IRQn 0 */</span></div>
+<div class="line"><span class="lineno">  123</span>    <span class="comment">/* USER CODE END W1_BusFault_IRQn 0 */</span></div>
+<div class="line"><span class="lineno">  124</span>  }</div>
+<div class="line"><span class="lineno">  125</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__it_8c_source.html#l00115">BusFault_Handler()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__it_8c_source.html#l00115">BusFault_Handler()</a>.</p>
+<div id="dynsection-4" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-4-summary" class="dynsummary">
+</div>
+<div id="dynsection-4-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="stm32f1xx__it_8h_a850cefb17a977292ae5eb4cafa9976c3_cgraph.svg" width="136" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-5" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-5-summary" class="dynsummary">
+</div>
+<div id="dynsection-5-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="stm32f1xx__it_8h_a850cefb17a977292ae5eb4cafa9976c3_icgraph.svg" width="136" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="adbdfb05858cc36fc520974df37ec3cb0" name="adbdfb05858cc36fc520974df37ec3cb0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adbdfb05858cc36fc520974df37ec3cb0">&#9670;&#160;</a></span>DebugMon_Handler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DebugMon_Handler </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function handles Debug monitor. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__it_8c_source.html#l00158">158</a> del archivo <a class="el" href="stm32f1xx__it_8c_source.html">stm32f1xx_it.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  159</span>{</div>
+<div class="line"><span class="lineno">  160</span>  <span class="comment">/* USER CODE BEGIN DebugMonitor_IRQn 0 */</span></div>
+<div class="line"><span class="lineno">  161</span> </div>
+<div class="line"><span class="lineno">  162</span>  <span class="comment">/* USER CODE END DebugMonitor_IRQn 0 */</span></div>
+<div class="line"><span class="lineno">  163</span>  <span class="comment">/* USER CODE BEGIN DebugMonitor_IRQn 1 */</span></div>
+<div class="line"><span class="lineno">  164</span> </div>
+<div class="line"><span class="lineno">  165</span>  <span class="comment">/* USER CODE END DebugMonitor_IRQn 1 */</span></div>
+<div class="line"><span class="lineno">  166</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__it_8c_source.html#l00158">DebugMon_Handler()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__it_8c_source.html#l00158">DebugMon_Handler()</a>.</p>
+<div id="dynsection-6" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-6-summary" class="dynsummary">
+</div>
+<div id="dynsection-6-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="stm32f1xx__it_8h_adbdfb05858cc36fc520974df37ec3cb0_cgraph.svg" width="147" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-7" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-7-summary" class="dynsummary">
+</div>
+<div id="dynsection-7-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="stm32f1xx__it_8h_adbdfb05858cc36fc520974df37ec3cb0_icgraph.svg" width="147" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a7b6fac3d670a4860ebec8a961d5c4a73" name="a7b6fac3d670a4860ebec8a961d5c4a73"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b6fac3d670a4860ebec8a961d5c4a73">&#9670;&#160;</a></span>DMA1_Channel1_IRQHandler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DMA1_Channel1_IRQHandler </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ISR del Canal 1 de DMA1: Conversión continua multicanal de sensores IR (ADC1). </p>
+<p>This function handles DMA1 channel1 global interrupt.</p>
+<p>ISR del Canal 1 de DMA1: Conversión continua multicanal de sensores IR (ADC1). </p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__it_8c_source.html#l00205">205</a> del archivo <a class="el" href="stm32f1xx__it_8c_source.html">stm32f1xx_it.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  206</span>{</div>
+<div class="line"><span class="lineno">  207</span>  <span class="comment">/* USER CODE BEGIN DMA1_Channel1_IRQn 0 */</span></div>
+<div class="line"><span class="lineno">  208</span> </div>
+<div class="line"><span class="lineno">  209</span>  <span class="comment">/* USER CODE END DMA1_Channel1_IRQn 0 */</span></div>
+<div class="line"><span class="lineno">  210</span>  <a class="code hl_function" href="group___d_m_a___exported___functions___group2.html#ga8c8564d06f6d39b702af1c5cbb7dd54a">HAL_DMA_IRQHandler</a>(&amp;<a class="code hl_variable" href="main_8c.html#a1c126854bb1813d31ab4776b21dcc51f">hdma_adc1</a>);</div>
+<div class="line"><span class="lineno">  211</span>  <span class="comment">/* USER CODE BEGIN DMA1_Channel1_IRQn 1 */</span></div>
+<div class="line"><span class="lineno">  212</span> </div>
+<div class="line"><span class="lineno">  213</span>  <span class="comment">/* USER CODE END DMA1_Channel1_IRQn 1 */</span></div>
+<div class="line"><span class="lineno">  214</span>}</div>
+<div class="ttc" id="agroup___d_m_a___exported___functions___group2_html_ga8c8564d06f6d39b702af1c5cbb7dd54a"><div class="ttname"><a href="group___d_m_a___exported___functions___group2.html#ga8c8564d06f6d39b702af1c5cbb7dd54a">HAL_DMA_IRQHandler</a></div><div class="ttdeci">void HAL_DMA_IRQHandler(DMA_HandleTypeDef *hdma)</div><div class="ttdoc">Handles DMA interrupt request.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__dma_8c_source.html#l00602">stm32f1xx_hal_dma.c:602</a></div></div>
+<div class="ttc" id="amain_8c_html_a1c126854bb1813d31ab4776b21dcc51f"><div class="ttname"><a href="main_8c.html#a1c126854bb1813d31ab4776b21dcc51f">hdma_adc1</a></div><div class="ttdeci">DMA_HandleTypeDef hdma_adc1</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00229">main.c:229</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__it_8c_source.html#l00205">DMA1_Channel1_IRQHandler()</a>, <a class="el" href="stm32f1xx__hal__dma_8c_source.html#l00602">HAL_DMA_IRQHandler()</a> y <a class="el" href="main_8c_source.html#l00229">hdma_adc1</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__it_8c_source.html#l00205">DMA1_Channel1_IRQHandler()</a>.</p>
+<div id="dynsection-8" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-8-summary" class="dynsummary">
+</div>
+<div id="dynsection-8-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="stm32f1xx__it_8h_a7b6fac3d670a4860ebec8a961d5c4a73_cgraph.svg" width="416" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-9" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-9-summary" class="dynsummary">
+</div>
+<div id="dynsection-9-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="stm32f1xx__it_8h_a7b6fac3d670a4860ebec8a961d5c4a73_icgraph.svg" width="207" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a9b75ef44037d7ed50a1078c024ae853a" name="a9b75ef44037d7ed50a1078c024ae853a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b75ef44037d7ed50a1078c024ae853a">&#9670;&#160;</a></span>DMA1_Channel4_IRQHandler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DMA1_Channel4_IRQHandler </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ISR del Canal 4 de DMA1: Transmisión asíncrona de datos I2C2 hacia el display OLED SSD1306. </p>
+<p>This function handles DMA1 channel4 global interrupt.</p>
+<p>ISR del Canal 4 de DMA1: Transmisión asíncrona de datos I2C2 hacia el display OLED SSD1306. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__it_8c_source.html#l00219">219</a> del archivo <a class="el" href="stm32f1xx__it_8c_source.html">stm32f1xx_it.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  220</span>{</div>
+<div class="line"><span class="lineno">  221</span>  <span class="comment">/* USER CODE BEGIN DMA1_Channel4_IRQn 0 */</span></div>
+<div class="line"><span class="lineno">  222</span> </div>
+<div class="line"><span class="lineno">  223</span>  <span class="comment">/* USER CODE END DMA1_Channel4_IRQn 0 */</span></div>
+<div class="line"><span class="lineno">  224</span>  <a class="code hl_function" href="group___d_m_a___exported___functions___group2.html#ga8c8564d06f6d39b702af1c5cbb7dd54a">HAL_DMA_IRQHandler</a>(&amp;<a class="code hl_variable" href="main_8c.html#a59582237877151c52551fac4b2c12aa5">hdma_i2c2_tx</a>);</div>
+<div class="line"><span class="lineno">  225</span>  <span class="comment">/* USER CODE BEGIN DMA1_Channel4_IRQn 1 */</span></div>
+<div class="line"><span class="lineno">  226</span> </div>
+<div class="line"><span class="lineno">  227</span>  <span class="comment">/* USER CODE END DMA1_Channel4_IRQn 1 */</span></div>
+<div class="line"><span class="lineno">  228</span>}</div>
+<div class="ttc" id="amain_8c_html_a59582237877151c52551fac4b2c12aa5"><div class="ttname"><a href="main_8c.html#a59582237877151c52551fac4b2c12aa5">hdma_i2c2_tx</a></div><div class="ttdeci">DMA_HandleTypeDef hdma_i2c2_tx</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00233">main.c:233</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__it_8c_source.html#l00219">DMA1_Channel4_IRQHandler()</a>, <a class="el" href="stm32f1xx__hal__dma_8c_source.html#l00602">HAL_DMA_IRQHandler()</a> y <a class="el" href="main_8c_source.html#l00233">hdma_i2c2_tx</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__it_8c_source.html#l00219">DMA1_Channel4_IRQHandler()</a>.</p>
+<div id="dynsection-10" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-10-summary" class="dynsummary">
+</div>
+<div id="dynsection-10-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="stm32f1xx__it_8h_a9b75ef44037d7ed50a1078c024ae853a_cgraph.svg" width="416" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-11" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-11-summary" class="dynsummary">
+</div>
+<div id="dynsection-11-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="stm32f1xx__it_8h_a9b75ef44037d7ed50a1078c024ae853a_icgraph.svg" width="207" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="abd16b3391557c4a3a8020d675e2c452f" name="abd16b3391557c4a3a8020d675e2c452f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abd16b3391557c4a3a8020d675e2c452f">&#9670;&#160;</a></span>DMA1_Channel5_IRQHandler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DMA1_Channel5_IRQHandler </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ISR del Canal 5 de DMA1: Recepción asíncrona de datos I2C2 desde la IMU MPU-6050. </p>
+<p>This function handles DMA1 channel5 global interrupt.</p>
+<p>ISR del Canal 5 de DMA1: Recepción asíncrona de datos I2C2 desde la IMU MPU-6050. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__it_8c_source.html#l00233">233</a> del archivo <a class="el" href="stm32f1xx__it_8c_source.html">stm32f1xx_it.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  234</span>{</div>
+<div class="line"><span class="lineno">  235</span>  <span class="comment">/* USER CODE BEGIN DMA1_Channel5_IRQn 0 */</span></div>
+<div class="line"><span class="lineno">  236</span> </div>
+<div class="line"><span class="lineno">  237</span>  <span class="comment">/* USER CODE END DMA1_Channel5_IRQn 0 */</span></div>
+<div class="line"><span class="lineno">  238</span>  <a class="code hl_function" href="group___d_m_a___exported___functions___group2.html#ga8c8564d06f6d39b702af1c5cbb7dd54a">HAL_DMA_IRQHandler</a>(&amp;<a class="code hl_variable" href="main_8c.html#a359a88f73f8c878a975809a7d824801a">hdma_i2c2_rx</a>);</div>
+<div class="line"><span class="lineno">  239</span>  <span class="comment">/* USER CODE BEGIN DMA1_Channel5_IRQn 1 */</span></div>
+<div class="line"><span class="lineno">  240</span> </div>
+<div class="line"><span class="lineno">  241</span>  <span class="comment">/* USER CODE END DMA1_Channel5_IRQn 1 */</span></div>
+<div class="line"><span class="lineno">  242</span>}</div>
+<div class="ttc" id="amain_8c_html_a359a88f73f8c878a975809a7d824801a"><div class="ttname"><a href="main_8c.html#a359a88f73f8c878a975809a7d824801a">hdma_i2c2_rx</a></div><div class="ttdeci">DMA_HandleTypeDef hdma_i2c2_rx</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00232">main.c:232</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__it_8c_source.html#l00233">DMA1_Channel5_IRQHandler()</a>, <a class="el" href="stm32f1xx__hal__dma_8c_source.html#l00602">HAL_DMA_IRQHandler()</a> y <a class="el" href="main_8c_source.html#l00232">hdma_i2c2_rx</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__it_8c_source.html#l00233">DMA1_Channel5_IRQHandler()</a>.</p>
+<div id="dynsection-12" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-12-summary" class="dynsummary">
+</div>
+<div id="dynsection-12-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="stm32f1xx__it_8h_abd16b3391557c4a3a8020d675e2c452f_cgraph.svg" width="416" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-13" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-13-summary" class="dynsummary">
+</div>
+<div id="dynsection-13-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="stm32f1xx__it_8h_abd16b3391557c4a3a8020d675e2c452f_icgraph.svg" width="207" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a2bffc10d5bd4106753b7c30e86903bea" name="a2bffc10d5bd4106753b7c30e86903bea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2bffc10d5bd4106753b7c30e86903bea">&#9670;&#160;</a></span>HardFault_Handler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void HardFault_Handler </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function handles Hard fault interrupt. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__it_8c_source.html#l00085">85</a> del archivo <a class="el" href="stm32f1xx__it_8c_source.html">stm32f1xx_it.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   86</span>{</div>
+<div class="line"><span class="lineno">   87</span>  <span class="comment">/* USER CODE BEGIN HardFault_IRQn 0 */</span></div>
+<div class="line"><span class="lineno">   88</span> </div>
+<div class="line"><span class="lineno">   89</span>  <span class="comment">/* USER CODE END HardFault_IRQn 0 */</span></div>
+<div class="line"><span class="lineno">   90</span>  <span class="keywordflow">while</span> (1)</div>
+<div class="line"><span class="lineno">   91</span>  {</div>
+<div class="line"><span class="lineno">   92</span>    <span class="comment">/* USER CODE BEGIN W1_HardFault_IRQn 0 */</span></div>
+<div class="line"><span class="lineno">   93</span>    <span class="comment">/* USER CODE END W1_HardFault_IRQn 0 */</span></div>
+<div class="line"><span class="lineno">   94</span>  }</div>
+<div class="line"><span class="lineno">   95</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__it_8c_source.html#l00085">HardFault_Handler()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__it_8c_source.html#l00085">HardFault_Handler()</a>.</p>
+<div id="dynsection-14" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-14-summary" class="dynsummary">
+</div>
+<div id="dynsection-14-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="stm32f1xx__it_8h_a2bffc10d5bd4106753b7c30e86903bea_cgraph.svg" width="142" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-15" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-15-summary" class="dynsummary">
+</div>
+<div id="dynsection-15-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="stm32f1xx__it_8h_a2bffc10d5bd4106753b7c30e86903bea_icgraph.svg" width="142" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="aecd40b8012604ac4236bda3f65857c37" name="aecd40b8012604ac4236bda3f65857c37"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aecd40b8012604ac4236bda3f65857c37">&#9670;&#160;</a></span>I2C2_ER_IRQHandler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void I2C2_ER_IRQHandler </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function handles I2C2 error interrupt. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__it_8c_source.html#l00401">401</a> del archivo <a class="el" href="stm32f1xx__it_8c_source.html">stm32f1xx_it.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  402</span>{</div>
+<div class="line"><span class="lineno">  403</span>  <span class="comment">/* USER CODE BEGIN I2C2_ER_IRQn 0 */</span></div>
+<div class="line"><span class="lineno">  404</span> </div>
+<div class="line"><span class="lineno">  405</span>  <span class="comment">/* USER CODE END I2C2_ER_IRQn 0 */</span></div>
+<div class="line"><span class="lineno">  406</span>  <a class="code hl_function" href="group___i2_c___i_r_q___handler__and___callbacks.html#ga78739c0d57d55034a9c8bc39c8ee6bc2">HAL_I2C_ER_IRQHandler</a>(&amp;<a class="code hl_variable" href="main_8c.html#ac379bcc152d860f08b1279fd3e232295">hi2c2</a>);</div>
+<div class="line"><span class="lineno">  407</span>  <span class="comment">/* USER CODE BEGIN I2C2_ER_IRQn 1 */</span></div>
+<div class="line"><span class="lineno">  408</span> </div>
+<div class="line"><span class="lineno">  409</span>  <span class="comment">/* USER CODE END I2C2_ER_IRQn 1 */</span></div>
+<div class="line"><span class="lineno">  410</span>}</div>
+<div class="ttc" id="agroup___i2_c___i_r_q___handler__and___callbacks_html_ga78739c0d57d55034a9c8bc39c8ee6bc2"><div class="ttname"><a href="group___i2_c___i_r_q___handler__and___callbacks.html#ga78739c0d57d55034a9c8bc39c8ee6bc2">HAL_I2C_ER_IRQHandler</a></div><div class="ttdeci">void HAL_I2C_ER_IRQHandler(I2C_HandleTypeDef *hi2c)</div><div class="ttdoc">This function handles I2C error interrupt request.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8c_source.html#l05054">stm32f1xx_hal_i2c.c:5054</a></div></div>
+<div class="ttc" id="amain_8c_html_ac379bcc152d860f08b1279fd3e232295"><div class="ttname"><a href="main_8c.html#ac379bcc152d860f08b1279fd3e232295">hi2c2</a></div><div class="ttdeci">I2C_HandleTypeDef hi2c2</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00231">main.c:231</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l05054">HAL_I2C_ER_IRQHandler()</a>, <a class="el" href="main_8c_source.html#l00231">hi2c2</a> y <a class="el" href="stm32f1xx__it_8c_source.html#l00401">I2C2_ER_IRQHandler()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__it_8c_source.html#l00401">I2C2_ER_IRQHandler()</a>.</p>
+<div id="dynsection-16" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-16-summary" class="dynsummary">
+</div>
+<div id="dynsection-16-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="stm32f1xx__it_8h_aecd40b8012604ac4236bda3f65857c37_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div id="dynsection-17" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-17-summary" class="dynsummary">
+</div>
+<div id="dynsection-17-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="stm32f1xx__it_8h_aecd40b8012604ac4236bda3f65857c37_icgraph.svg" width="163" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="abdb05db0781544b33e806a12940d062c" name="abdb05db0781544b33e806a12940d062c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abdb05db0781544b33e806a12940d062c">&#9670;&#160;</a></span>I2C2_EV_IRQHandler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void I2C2_EV_IRQHandler </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function handles I2C2 event interrupt. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__it_8c_source.html#l00387">387</a> del archivo <a class="el" href="stm32f1xx__it_8c_source.html">stm32f1xx_it.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  388</span>{</div>
+<div class="line"><span class="lineno">  389</span>  <span class="comment">/* USER CODE BEGIN I2C2_EV_IRQn 0 */</span></div>
+<div class="line"><span class="lineno">  390</span> </div>
+<div class="line"><span class="lineno">  391</span>  <span class="comment">/* USER CODE END I2C2_EV_IRQn 0 */</span></div>
+<div class="line"><span class="lineno">  392</span>  <a class="code hl_function" href="group___i2_c___i_r_q___handler__and___callbacks.html#ga0cd3cc56c83b85a65e31c945c854d9d5">HAL_I2C_EV_IRQHandler</a>(&amp;<a class="code hl_variable" href="main_8c.html#ac379bcc152d860f08b1279fd3e232295">hi2c2</a>);</div>
+<div class="line"><span class="lineno">  393</span>  <span class="comment">/* USER CODE BEGIN I2C2_EV_IRQn 1 */</span></div>
+<div class="line"><span class="lineno">  394</span> </div>
+<div class="line"><span class="lineno">  395</span>  <span class="comment">/* USER CODE END I2C2_EV_IRQn 1 */</span></div>
+<div class="line"><span class="lineno">  396</span>}</div>
+<div class="ttc" id="agroup___i2_c___i_r_q___handler__and___callbacks_html_ga0cd3cc56c83b85a65e31c945c854d9d5"><div class="ttname"><a href="group___i2_c___i_r_q___handler__and___callbacks.html#ga0cd3cc56c83b85a65e31c945c854d9d5">HAL_I2C_EV_IRQHandler</a></div><div class="ttdeci">void HAL_I2C_EV_IRQHandler(I2C_HandleTypeDef *hi2c)</div><div class="ttdoc">This function handles I2C event interrupt request.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8c_source.html#l04885">stm32f1xx_hal_i2c.c:4885</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l04885">HAL_I2C_EV_IRQHandler()</a>, <a class="el" href="main_8c_source.html#l00231">hi2c2</a> y <a class="el" href="stm32f1xx__it_8c_source.html#l00387">I2C2_EV_IRQHandler()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__it_8c_source.html#l00387">I2C2_EV_IRQHandler()</a>.</p>
+<div id="dynsection-18" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-18-summary" class="dynsummary">
+</div>
+<div id="dynsection-18-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="stm32f1xx__it_8h_abdb05db0781544b33e806a12940d062c_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div id="dynsection-19" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-19-summary" class="dynsummary">
+</div>
+<div id="dynsection-19-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="stm32f1xx__it_8h_abdb05db0781544b33e806a12940d062c_icgraph.svg" width="162" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a3150f74512510287a942624aa9b44cc5" name="a3150f74512510287a942624aa9b44cc5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3150f74512510287a942624aa9b44cc5">&#9670;&#160;</a></span>MemManage_Handler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MemManage_Handler </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function handles Memory management fault. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__it_8c_source.html#l00100">100</a> del archivo <a class="el" href="stm32f1xx__it_8c_source.html">stm32f1xx_it.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  101</span>{</div>
+<div class="line"><span class="lineno">  102</span>  <span class="comment">/* USER CODE BEGIN MemoryManagement_IRQn 0 */</span></div>
+<div class="line"><span class="lineno">  103</span> </div>
+<div class="line"><span class="lineno">  104</span>  <span class="comment">/* USER CODE END MemoryManagement_IRQn 0 */</span></div>
+<div class="line"><span class="lineno">  105</span>  <span class="keywordflow">while</span> (1)</div>
+<div class="line"><span class="lineno">  106</span>  {</div>
+<div class="line"><span class="lineno">  107</span>    <span class="comment">/* USER CODE BEGIN W1_MemoryManagement_IRQn 0 */</span></div>
+<div class="line"><span class="lineno">  108</span>    <span class="comment">/* USER CODE END W1_MemoryManagement_IRQn 0 */</span></div>
+<div class="line"><span class="lineno">  109</span>  }</div>
+<div class="line"><span class="lineno">  110</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__it_8c_source.html#l00100">MemManage_Handler()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__it_8c_source.html#l00100">MemManage_Handler()</a>.</p>
+<div id="dynsection-20" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-20-summary" class="dynsummary">
+</div>
+<div id="dynsection-20-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="stm32f1xx__it_8h_a3150f74512510287a942624aa9b44cc5_cgraph.svg" width="159" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-21" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-21-summary" class="dynsummary">
+</div>
+<div id="dynsection-21-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="stm32f1xx__it_8h_a3150f74512510287a942624aa9b44cc5_icgraph.svg" width="159" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a6ad7a5e3ee69cb6db6a6b9111ba898bc" name="a6ad7a5e3ee69cb6db6a6b9111ba898bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ad7a5e3ee69cb6db6a6b9111ba898bc">&#9670;&#160;</a></span>NMI_Handler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void NMI_Handler </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function handles Non maskable interrupt. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__it_8c_source.html#l00070">70</a> del archivo <a class="el" href="stm32f1xx__it_8c_source.html">stm32f1xx_it.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   71</span>{</div>
+<div class="line"><span class="lineno">   72</span>  <span class="comment">/* USER CODE BEGIN NonMaskableInt_IRQn 0 */</span></div>
+<div class="line"><span class="lineno">   73</span> </div>
+<div class="line"><span class="lineno">   74</span>  <span class="comment">/* USER CODE END NonMaskableInt_IRQn 0 */</span></div>
+<div class="line"><span class="lineno">   75</span>  <span class="comment">/* USER CODE BEGIN NonMaskableInt_IRQn 1 */</span></div>
+<div class="line"><span class="lineno">   76</span>   <span class="keywordflow">while</span> (1)</div>
+<div class="line"><span class="lineno">   77</span>  {</div>
+<div class="line"><span class="lineno">   78</span>  }</div>
+<div class="line"><span class="lineno">   79</span>  <span class="comment">/* USER CODE END NonMaskableInt_IRQn 1 */</span></div>
+<div class="line"><span class="lineno">   80</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__it_8c_source.html#l00070">NMI_Handler()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__it_8c_source.html#l00070">NMI_Handler()</a>.</p>
+<div id="dynsection-22" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-22-summary" class="dynsummary">
+</div>
+<div id="dynsection-22-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="stm32f1xx__it_8h_a6ad7a5e3ee69cb6db6a6b9111ba898bc_cgraph.svg" width="110" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-23" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-23-summary" class="dynsummary">
+</div>
+<div id="dynsection-23-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="stm32f1xx__it_8h_a6ad7a5e3ee69cb6db6a6b9111ba898bc_icgraph.svg" width="110" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a6303e1f258cbdc1f970ce579cc015623" name="a6303e1f258cbdc1f970ce579cc015623"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6303e1f258cbdc1f970ce579cc015623">&#9670;&#160;</a></span>PendSV_Handler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PendSV_Handler </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function handles Pendable request for system service. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__it_8c_source.html#l00171">171</a> del archivo <a class="el" href="stm32f1xx__it_8c_source.html">stm32f1xx_it.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  172</span>{</div>
+<div class="line"><span class="lineno">  173</span>  <span class="comment">/* USER CODE BEGIN PendSV_IRQn 0 */</span></div>
+<div class="line"><span class="lineno">  174</span> </div>
+<div class="line"><span class="lineno">  175</span>  <span class="comment">/* USER CODE END PendSV_IRQn 0 */</span></div>
+<div class="line"><span class="lineno">  176</span>  <span class="comment">/* USER CODE BEGIN PendSV_IRQn 1 */</span></div>
+<div class="line"><span class="lineno">  177</span> </div>
+<div class="line"><span class="lineno">  178</span>  <span class="comment">/* USER CODE END PendSV_IRQn 1 */</span></div>
+<div class="line"><span class="lineno">  179</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__it_8c_source.html#l00171">PendSV_Handler()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__it_8c_source.html#l00171">PendSV_Handler()</a>.</p>
+<div id="dynsection-24" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-24-summary" class="dynsummary">
+</div>
+<div id="dynsection-24-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="stm32f1xx__it_8h_a6303e1f258cbdc1f970ce579cc015623_cgraph.svg" width="132" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-25" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-25-summary" class="dynsummary">
+</div>
+<div id="dynsection-25-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="stm32f1xx__it_8h_a6303e1f258cbdc1f970ce579cc015623_icgraph.svg" width="132" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a3e5ddb3df0d62f2dc357e64a3f04a6ce" name="a3e5ddb3df0d62f2dc357e64a3f04a6ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e5ddb3df0d62f2dc357e64a3f04a6ce">&#9670;&#160;</a></span>SVC_Handler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SVC_Handler </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function handles System service call via SWI instruction. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__it_8c_source.html#l00145">145</a> del archivo <a class="el" href="stm32f1xx__it_8c_source.html">stm32f1xx_it.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  146</span>{</div>
+<div class="line"><span class="lineno">  147</span>  <span class="comment">/* USER CODE BEGIN SVCall_IRQn 0 */</span></div>
+<div class="line"><span class="lineno">  148</span> </div>
+<div class="line"><span class="lineno">  149</span>  <span class="comment">/* USER CODE END SVCall_IRQn 0 */</span></div>
+<div class="line"><span class="lineno">  150</span>  <span class="comment">/* USER CODE BEGIN SVCall_IRQn 1 */</span></div>
+<div class="line"><span class="lineno">  151</span> </div>
+<div class="line"><span class="lineno">  152</span>  <span class="comment">/* USER CODE END SVCall_IRQn 1 */</span></div>
+<div class="line"><span class="lineno">  153</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__it_8c_source.html#l00145">SVC_Handler()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__it_8c_source.html#l00145">SVC_Handler()</a>.</p>
+<div id="dynsection-26" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-26-summary" class="dynsummary">
+</div>
+<div id="dynsection-26-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="stm32f1xx__it_8h_a3e5ddb3df0d62f2dc357e64a3f04a6ce_cgraph.svg" width="112" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-27" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-27-summary" class="dynsummary">
+</div>
+<div id="dynsection-27-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="stm32f1xx__it_8h_a3e5ddb3df0d62f2dc357e64a3f04a6ce_icgraph.svg" width="112" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ab5e09814056d617c521549e542639b7e" name="ab5e09814056d617c521549e542639b7e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5e09814056d617c521549e542639b7e">&#9670;&#160;</a></span>SysTick_Handler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SysTick_Handler </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Manejador del temporizador del sistema (SysTick). </p>
+<p>This function handles System tick timer.</p>
+<p>Genera la base de tiempo de alta resolución (250 µs) para el planificador y los temporizadores HAL.</p>
+<p>Manejador del temporizador del sistema (SysTick). </p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__it_8c_source.html#l00184">184</a> del archivo <a class="el" href="stm32f1xx__it_8c_source.html">stm32f1xx_it.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  185</span>{</div>
+<div class="line"><span class="lineno">  186</span>  <span class="comment">/* USER CODE BEGIN SysTick_IRQn 0 */</span></div>
+<div class="line"><span class="lineno">  187</span> </div>
+<div class="line"><span class="lineno">  188</span>  <span class="comment">/* USER CODE END SysTick_IRQn 0 */</span></div>
+<div class="line"><span class="lineno">  189</span>  <a class="code hl_function" href="group___h_a_l___exported___functions___group2.html#gaba5b726bfedd013bf7bb5a51d5c4f188">HAL_IncTick</a>();</div>
+<div class="line"><span class="lineno">  190</span>  <span class="comment">/* USER CODE BEGIN SysTick_IRQn 1 */</span></div>
+<div class="line"><span class="lineno">  191</span> </div>
+<div class="line"><span class="lineno">  192</span>  <span class="comment">/* USER CODE END SysTick_IRQn 1 */</span></div>
+<div class="line"><span class="lineno">  193</span>}</div>
+<div class="ttc" id="agroup___h_a_l___exported___functions___group2_html_gaba5b726bfedd013bf7bb5a51d5c4f188"><div class="ttname"><a href="group___h_a_l___exported___functions___group2.html#gaba5b726bfedd013bf7bb5a51d5c4f188">HAL_IncTick</a></div><div class="ttdeci">void HAL_IncTick(void)</div><div class="ttdoc">This function is called to increment a global variable &quot;uwTick&quot; used as application time base.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal_8c_source.html#l00293">stm32f1xx_hal.c:293</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__hal_8c_source.html#l00293">HAL_IncTick()</a> y <a class="el" href="stm32f1xx__it_8c_source.html#l00184">SysTick_Handler()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__it_8c_source.html#l00184">SysTick_Handler()</a>.</p>
+<div id="dynsection-28" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-28-summary" class="dynsummary">
+</div>
+<div id="dynsection-28-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="stm32f1xx__it_8h_ab5e09814056d617c521549e542639b7e_cgraph.svg" width="278" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-29" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-29-summary" class="dynsummary">
+</div>
+<div id="dynsection-29-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="stm32f1xx__it_8h_ab5e09814056d617c521549e542639b7e_icgraph.svg" width="132" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ac932fa89be69a5610d5b3a1ee6f6aed7" name="ac932fa89be69a5610d5b3a1ee6f6aed7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac932fa89be69a5610d5b3a1ee6f6aed7">&#9670;&#160;</a></span>TIM1_BRK_IRQHandler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void TIM1_BRK_IRQHandler </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function handles TIM1 break interrupt. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__it_8c_source.html#l00289">289</a> del archivo <a class="el" href="stm32f1xx__it_8c_source.html">stm32f1xx_it.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  290</span>{</div>
+<div class="line"><span class="lineno">  291</span>  <span class="comment">/* USER CODE BEGIN TIM1_BRK_IRQn 0 */</span></div>
+<div class="line"><span class="lineno">  292</span> </div>
+<div class="line"><span class="lineno">  293</span>  <span class="comment">/* USER CODE END TIM1_BRK_IRQn 0 */</span></div>
+<div class="line"><span class="lineno">  294</span>  <a class="code hl_function" href="group___t_i_m___exported___functions___group7.html#ga2dc3ef34340412aa8a01d734d2ff8f88">HAL_TIM_IRQHandler</a>(&amp;<a class="code hl_variable" href="main_8c.html#a25fc663547539bc49fecc0011bd76ab5">htim1</a>);</div>
+<div class="line"><span class="lineno">  295</span>  <span class="comment">/* USER CODE BEGIN TIM1_BRK_IRQn 1 */</span></div>
+<div class="line"><span class="lineno">  296</span> </div>
+<div class="line"><span class="lineno">  297</span>  <span class="comment">/* USER CODE END TIM1_BRK_IRQn 1 */</span></div>
+<div class="line"><span class="lineno">  298</span>}</div>
+<div class="ttc" id="agroup___t_i_m___exported___functions___group7_html_ga2dc3ef34340412aa8a01d734d2ff8f88"><div class="ttname"><a href="group___t_i_m___exported___functions___group7.html#ga2dc3ef34340412aa8a01d734d2ff8f88">HAL_TIM_IRQHandler</a></div><div class="ttdeci">void HAL_TIM_IRQHandler(TIM_HandleTypeDef *htim)</div><div class="ttdoc">This function handles TIM interrupts requests.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim_8c_source.html#l03822">stm32f1xx_hal_tim.c:3822</a></div></div>
+<div class="ttc" id="amain_8c_html_a25fc663547539bc49fecc0011bd76ab5"><div class="ttname"><a href="main_8c.html#a25fc663547539bc49fecc0011bd76ab5">htim1</a></div><div class="ttdeci">TIM_HandleTypeDef htim1</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00235">main.c:235</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__hal__tim_8c_source.html#l03822">HAL_TIM_IRQHandler()</a>, <a class="el" href="main_8c_source.html#l00235">htim1</a> y <a class="el" href="stm32f1xx__it_8c_source.html#l00289">TIM1_BRK_IRQHandler()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__it_8c_source.html#l00289">TIM1_BRK_IRQHandler()</a>.</p>
+<div id="dynsection-30" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-30-summary" class="dynsummary">
+</div>
+<div id="dynsection-30-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="stm32f1xx__it_8h_ac932fa89be69a5610d5b3a1ee6f6aed7_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div id="dynsection-31" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-31-summary" class="dynsummary">
+</div>
+<div id="dynsection-31-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="stm32f1xx__it_8h_ac932fa89be69a5610d5b3a1ee6f6aed7_icgraph.svg" width="174" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ae8a61b27afdb07c70d6b863c44284ca6" name="ae8a61b27afdb07c70d6b863c44284ca6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8a61b27afdb07c70d6b863c44284ca6">&#9670;&#160;</a></span>TIM1_CC_IRQHandler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void TIM1_CC_IRQHandler </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function handles TIM1 capture compare interrupt. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__it_8c_source.html#l00331">331</a> del archivo <a class="el" href="stm32f1xx__it_8c_source.html">stm32f1xx_it.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  332</span>{</div>
+<div class="line"><span class="lineno">  333</span>  <span class="comment">/* USER CODE BEGIN TIM1_CC_IRQn 0 */</span></div>
+<div class="line"><span class="lineno">  334</span> </div>
+<div class="line"><span class="lineno">  335</span>  <span class="comment">/* USER CODE END TIM1_CC_IRQn 0 */</span></div>
+<div class="line"><span class="lineno">  336</span>  <a class="code hl_function" href="group___t_i_m___exported___functions___group7.html#ga2dc3ef34340412aa8a01d734d2ff8f88">HAL_TIM_IRQHandler</a>(&amp;<a class="code hl_variable" href="main_8c.html#a25fc663547539bc49fecc0011bd76ab5">htim1</a>);</div>
+<div class="line"><span class="lineno">  337</span>  <span class="comment">/* USER CODE BEGIN TIM1_CC_IRQn 1 */</span></div>
+<div class="line"><span class="lineno">  338</span> </div>
+<div class="line"><span class="lineno">  339</span>  <span class="comment">/* USER CODE END TIM1_CC_IRQn 1 */</span></div>
+<div class="line"><span class="lineno">  340</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__hal__tim_8c_source.html#l03822">HAL_TIM_IRQHandler()</a>, <a class="el" href="main_8c_source.html#l00235">htim1</a> y <a class="el" href="stm32f1xx__it_8c_source.html#l00331">TIM1_CC_IRQHandler()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__it_8c_source.html#l00331">TIM1_CC_IRQHandler()</a>.</p>
+<div id="dynsection-32" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-32-summary" class="dynsummary">
+</div>
+<div id="dynsection-32-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="stm32f1xx__it_8h_ae8a61b27afdb07c70d6b863c44284ca6_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div id="dynsection-33" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-33-summary" class="dynsummary">
+</div>
+<div id="dynsection-33-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="stm32f1xx__it_8h_ae8a61b27afdb07c70d6b863c44284ca6_icgraph.svg" width="166" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a9ca55e77c801001298d93229cbd2d837" name="a9ca55e77c801001298d93229cbd2d837"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9ca55e77c801001298d93229cbd2d837">&#9670;&#160;</a></span>TIM1_TRG_COM_IRQHandler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void TIM1_TRG_COM_IRQHandler </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function handles TIM1 trigger and commutation interrupts. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__it_8c_source.html#l00317">317</a> del archivo <a class="el" href="stm32f1xx__it_8c_source.html">stm32f1xx_it.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  318</span>{</div>
+<div class="line"><span class="lineno">  319</span>  <span class="comment">/* USER CODE BEGIN TIM1_TRG_COM_IRQn 0 */</span></div>
+<div class="line"><span class="lineno">  320</span> </div>
+<div class="line"><span class="lineno">  321</span>  <span class="comment">/* USER CODE END TIM1_TRG_COM_IRQn 0 */</span></div>
+<div class="line"><span class="lineno">  322</span>  <a class="code hl_function" href="group___t_i_m___exported___functions___group7.html#ga2dc3ef34340412aa8a01d734d2ff8f88">HAL_TIM_IRQHandler</a>(&amp;<a class="code hl_variable" href="main_8c.html#a25fc663547539bc49fecc0011bd76ab5">htim1</a>);</div>
+<div class="line"><span class="lineno">  323</span>  <span class="comment">/* USER CODE BEGIN TIM1_TRG_COM_IRQn 1 */</span></div>
+<div class="line"><span class="lineno">  324</span> </div>
+<div class="line"><span class="lineno">  325</span>  <span class="comment">/* USER CODE END TIM1_TRG_COM_IRQn 1 */</span></div>
+<div class="line"><span class="lineno">  326</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__hal__tim_8c_source.html#l03822">HAL_TIM_IRQHandler()</a>, <a class="el" href="main_8c_source.html#l00235">htim1</a> y <a class="el" href="stm32f1xx__it_8c_source.html#l00317">TIM1_TRG_COM_IRQHandler()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__it_8c_source.html#l00317">TIM1_TRG_COM_IRQHandler()</a>.</p>
+<div id="dynsection-34" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-34-summary" class="dynsummary">
+</div>
+<div id="dynsection-34-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="stm32f1xx__it_8h_a9ca55e77c801001298d93229cbd2d837_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div id="dynsection-35" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-35-summary" class="dynsummary">
+</div>
+<div id="dynsection-35-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="stm32f1xx__it_8h_a9ca55e77c801001298d93229cbd2d837_icgraph.svg" width="211" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a51741dbf9b0de1b8b56b5a6f1ef2e694" name="a51741dbf9b0de1b8b56b5a6f1ef2e694"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51741dbf9b0de1b8b56b5a6f1ef2e694">&#9670;&#160;</a></span>TIM1_UP_IRQHandler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void TIM1_UP_IRQHandler </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function handles TIM1 update interrupt. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__it_8c_source.html#l00303">303</a> del archivo <a class="el" href="stm32f1xx__it_8c_source.html">stm32f1xx_it.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  304</span>{</div>
+<div class="line"><span class="lineno">  305</span>  <span class="comment">/* USER CODE BEGIN TIM1_UP_IRQn 0 */</span></div>
+<div class="line"><span class="lineno">  306</span> </div>
+<div class="line"><span class="lineno">  307</span>  <span class="comment">/* USER CODE END TIM1_UP_IRQn 0 */</span></div>
+<div class="line"><span class="lineno">  308</span>  <a class="code hl_function" href="group___t_i_m___exported___functions___group7.html#ga2dc3ef34340412aa8a01d734d2ff8f88">HAL_TIM_IRQHandler</a>(&amp;<a class="code hl_variable" href="main_8c.html#a25fc663547539bc49fecc0011bd76ab5">htim1</a>);</div>
+<div class="line"><span class="lineno">  309</span>  <span class="comment">/* USER CODE BEGIN TIM1_UP_IRQn 1 */</span></div>
+<div class="line"><span class="lineno">  310</span> </div>
+<div class="line"><span class="lineno">  311</span>  <span class="comment">/* USER CODE END TIM1_UP_IRQn 1 */</span></div>
+<div class="line"><span class="lineno">  312</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__hal__tim_8c_source.html#l03822">HAL_TIM_IRQHandler()</a>, <a class="el" href="main_8c_source.html#l00235">htim1</a> y <a class="el" href="stm32f1xx__it_8c_source.html#l00303">TIM1_UP_IRQHandler()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__it_8c_source.html#l00303">TIM1_UP_IRQHandler()</a>.</p>
+<div id="dynsection-36" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-36-summary" class="dynsummary">
+</div>
+<div id="dynsection-36-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="stm32f1xx__it_8h_a51741dbf9b0de1b8b56b5a6f1ef2e694_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div id="dynsection-37" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-37-summary" class="dynsummary">
+</div>
+<div id="dynsection-37-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="stm32f1xx__it_8h_a51741dbf9b0de1b8b56b5a6f1ef2e694_icgraph.svg" width="164" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a38ad4725462bdc5e86c4ead4f04b9fc2" name="a38ad4725462bdc5e86c4ead4f04b9fc2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38ad4725462bdc5e86c4ead4f04b9fc2">&#9670;&#160;</a></span>TIM2_IRQHandler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void TIM2_IRQHandler </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ISR del Temporizador TIM2: Lazo crítico determinístico de balance PID (5.0 ms / 200 Hz). </p>
+<p>This function handles TIM2 global interrupt.</p>
+<p>ISR del Temporizador TIM2: Lazo crítico determinístico de balance PID (5.0 ms / 200 Hz). </p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__it_8c_source.html#l00345">345</a> del archivo <a class="el" href="stm32f1xx__it_8c_source.html">stm32f1xx_it.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  346</span>{</div>
+<div class="line"><span class="lineno">  347</span>  <span class="comment">/* USER CODE BEGIN TIM2_IRQn 0 */</span></div>
+<div class="line"><span class="lineno">  348</span> </div>
+<div class="line"><span class="lineno">  349</span>  <span class="comment">/* USER CODE END TIM2_IRQn 0 */</span></div>
+<div class="line"><span class="lineno">  350</span>  <a class="code hl_function" href="group___t_i_m___exported___functions___group7.html#ga2dc3ef34340412aa8a01d734d2ff8f88">HAL_TIM_IRQHandler</a>(&amp;<a class="code hl_variable" href="main_8c.html#a2c80fd5510e2990a59a5c90d745c716c">htim2</a>);</div>
+<div class="line"><span class="lineno">  351</span>  <span class="comment">/* USER CODE BEGIN TIM2_IRQn 1 */</span></div>
+<div class="line"><span class="lineno">  352</span> </div>
+<div class="line"><span class="lineno">  353</span>  <span class="comment">/* USER CODE END TIM2_IRQn 1 */</span></div>
+<div class="line"><span class="lineno">  354</span>}</div>
+<div class="ttc" id="amain_8c_html_a2c80fd5510e2990a59a5c90d745c716c"><div class="ttname"><a href="main_8c.html#a2c80fd5510e2990a59a5c90d745c716c">htim2</a></div><div class="ttdeci">TIM_HandleTypeDef htim2</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00236">main.c:236</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__hal__tim_8c_source.html#l03822">HAL_TIM_IRQHandler()</a>, <a class="el" href="main_8c_source.html#l00236">htim2</a> y <a class="el" href="stm32f1xx__it_8c_source.html#l00345">TIM2_IRQHandler()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__it_8c_source.html#l00345">TIM2_IRQHandler()</a>.</p>
+<div id="dynsection-38" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-38-summary" class="dynsummary">
+</div>
+<div id="dynsection-38-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="stm32f1xx__it_8h_a38ad4725462bdc5e86c4ead4f04b9fc2_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div id="dynsection-39" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-39-summary" class="dynsummary">
+</div>
+<div id="dynsection-39-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="stm32f1xx__it_8h_a38ad4725462bdc5e86c4ead4f04b9fc2_icgraph.svg" width="139" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ac8e51d2183b5230cbd5481f8867adce9" name="ac8e51d2183b5230cbd5481f8867adce9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8e51d2183b5230cbd5481f8867adce9">&#9670;&#160;</a></span>TIM3_IRQHandler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void TIM3_IRQHandler </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ISR del Temporizador TIM3: Modulación por ancho de pulsos PWM para tracción de motores (10 kHz). </p>
+<p>This function handles TIM3 global interrupt.</p>
+<p>ISR del Temporizador TIM3: Modulación por ancho de pulsos PWM para tracción de motores (10 kHz). </p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__it_8c_source.html#l00359">359</a> del archivo <a class="el" href="stm32f1xx__it_8c_source.html">stm32f1xx_it.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  360</span>{</div>
+<div class="line"><span class="lineno">  361</span>  <span class="comment">/* USER CODE BEGIN TIM3_IRQn 0 */</span></div>
+<div class="line"><span class="lineno">  362</span> </div>
+<div class="line"><span class="lineno">  363</span>  <span class="comment">/* USER CODE END TIM3_IRQn 0 */</span></div>
+<div class="line"><span class="lineno">  364</span>  <a class="code hl_function" href="group___t_i_m___exported___functions___group7.html#ga2dc3ef34340412aa8a01d734d2ff8f88">HAL_TIM_IRQHandler</a>(&amp;<a class="code hl_variable" href="main_8c.html#aac3d2c59ee0e3bbae1b99529a154eb62">htim3</a>);</div>
+<div class="line"><span class="lineno">  365</span>  <span class="comment">/* USER CODE BEGIN TIM3_IRQn 1 */</span></div>
+<div class="line"><span class="lineno">  366</span> </div>
+<div class="line"><span class="lineno">  367</span>  <span class="comment">/* USER CODE END TIM3_IRQn 1 */</span></div>
+<div class="line"><span class="lineno">  368</span>}</div>
+<div class="ttc" id="amain_8c_html_aac3d2c59ee0e3bbae1b99529a154eb62"><div class="ttname"><a href="main_8c.html#aac3d2c59ee0e3bbae1b99529a154eb62">htim3</a></div><div class="ttdeci">TIM_HandleTypeDef htim3</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00237">main.c:237</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__hal__tim_8c_source.html#l03822">HAL_TIM_IRQHandler()</a>, <a class="el" href="main_8c_source.html#l00237">htim3</a> y <a class="el" href="stm32f1xx__it_8c_source.html#l00359">TIM3_IRQHandler()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__it_8c_source.html#l00359">TIM3_IRQHandler()</a>.</p>
+<div id="dynsection-40" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-40-summary" class="dynsummary">
+</div>
+<div id="dynsection-40-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="stm32f1xx__it_8h_ac8e51d2183b5230cbd5481f8867adce9_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div id="dynsection-41" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-41-summary" class="dynsummary">
+</div>
+<div id="dynsection-41-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="stm32f1xx__it_8h_ac8e51d2183b5230cbd5481f8867adce9_icgraph.svg" width="139" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a7133f3f78767503641d307386e68bd28" name="a7133f3f78767503641d307386e68bd28"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7133f3f78767503641d307386e68bd28">&#9670;&#160;</a></span>TIM4_IRQHandler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void TIM4_IRQHandler </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function handles TIM4 global interrupt. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__it_8c_source.html#l00373">373</a> del archivo <a class="el" href="stm32f1xx__it_8c_source.html">stm32f1xx_it.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  374</span>{</div>
+<div class="line"><span class="lineno">  375</span>  <span class="comment">/* USER CODE BEGIN TIM4_IRQn 0 */</span></div>
+<div class="line"><span class="lineno">  376</span> </div>
+<div class="line"><span class="lineno">  377</span>  <span class="comment">/* USER CODE END TIM4_IRQn 0 */</span></div>
+<div class="line"><span class="lineno">  378</span>  <a class="code hl_function" href="group___t_i_m___exported___functions___group7.html#ga2dc3ef34340412aa8a01d734d2ff8f88">HAL_TIM_IRQHandler</a>(&amp;<a class="code hl_variable" href="main_8c.html#a85788cec5a97ee377e4ee2e74f026484">htim4</a>);</div>
+<div class="line"><span class="lineno">  379</span>  <span class="comment">/* USER CODE BEGIN TIM4_IRQn 1 */</span></div>
+<div class="line"><span class="lineno">  380</span> </div>
+<div class="line"><span class="lineno">  381</span>  <span class="comment">/* USER CODE END TIM4_IRQn 1 */</span></div>
+<div class="line"><span class="lineno">  382</span>}</div>
+<div class="ttc" id="amain_8c_html_a85788cec5a97ee377e4ee2e74f026484"><div class="ttname"><a href="main_8c.html#a85788cec5a97ee377e4ee2e74f026484">htim4</a></div><div class="ttdeci">TIM_HandleTypeDef htim4</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00238">main.c:238</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__hal__tim_8c_source.html#l03822">HAL_TIM_IRQHandler()</a>, <a class="el" href="main_8c_source.html#l00238">htim4</a> y <a class="el" href="stm32f1xx__it_8c_source.html#l00373">TIM4_IRQHandler()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__it_8c_source.html#l00373">TIM4_IRQHandler()</a>.</p>
+<div id="dynsection-42" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-42-summary" class="dynsummary">
+</div>
+<div id="dynsection-42-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="stm32f1xx__it_8h_a7133f3f78767503641d307386e68bd28_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div id="dynsection-43" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-43-summary" class="dynsummary">
+</div>
+<div id="dynsection-43-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="stm32f1xx__it_8h_a7133f3f78767503641d307386e68bd28_icgraph.svg" width="139" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a1d98923de2ed6b7309b66f9ba2971647" name="a1d98923de2ed6b7309b66f9ba2971647"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d98923de2ed6b7309b66f9ba2971647">&#9670;&#160;</a></span>UsageFault_Handler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void UsageFault_Handler </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function handles Undefined instruction or illegal state. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__it_8c_source.html#l00130">130</a> del archivo <a class="el" href="stm32f1xx__it_8c_source.html">stm32f1xx_it.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  131</span>{</div>
+<div class="line"><span class="lineno">  132</span>  <span class="comment">/* USER CODE BEGIN UsageFault_IRQn 0 */</span></div>
+<div class="line"><span class="lineno">  133</span> </div>
+<div class="line"><span class="lineno">  134</span>  <span class="comment">/* USER CODE END UsageFault_IRQn 0 */</span></div>
+<div class="line"><span class="lineno">  135</span>  <span class="keywordflow">while</span> (1)</div>
+<div class="line"><span class="lineno">  136</span>  {</div>
+<div class="line"><span class="lineno">  137</span>    <span class="comment">/* USER CODE BEGIN W1_UsageFault_IRQn 0 */</span></div>
+<div class="line"><span class="lineno">  138</span>    <span class="comment">/* USER CODE END W1_UsageFault_IRQn 0 */</span></div>
+<div class="line"><span class="lineno">  139</span>  }</div>
+<div class="line"><span class="lineno">  140</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__it_8c_source.html#l00130">UsageFault_Handler()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__it_8c_source.html#l00130">UsageFault_Handler()</a>.</p>
+<div id="dynsection-44" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-44-summary" class="dynsummary">
+</div>
+<div id="dynsection-44-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="stm32f1xx__it_8h_a1d98923de2ed6b7309b66f9ba2971647_cgraph.svg" width="151" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-45" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-45-summary" class="dynsummary">
+</div>
+<div id="dynsection-45-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="stm32f1xx__it_8h_a1d98923de2ed6b7309b66f9ba2971647_icgraph.svg" width="151" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a7139cd4baabbbcbab0c1fe6d7d4ae1cc" name="a7139cd4baabbbcbab0c1fe6d7d4ae1cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7139cd4baabbbcbab0c1fe6d7d4ae1cc">&#9670;&#160;</a></span>USART1_IRQHandler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void USART1_IRQHandler </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ISR del puerto USART1: Recepción de bytes serie desde el módulo Wi-Fi ESP-01 (115200 bps). </p>
+<p>This function handles USART1 global interrupt.</p>
+<p>ISR del puerto USART1: Recepción de bytes serie desde el módulo Wi-Fi ESP-01 (115200 bps). </p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__it_8c_source.html#l00415">415</a> del archivo <a class="el" href="stm32f1xx__it_8c_source.html">stm32f1xx_it.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  416</span>{</div>
+<div class="line"><span class="lineno">  417</span>  <span class="comment">/* USER CODE BEGIN USART1_IRQn 0 */</span></div>
+<div class="line"><span class="lineno">  418</span> </div>
+<div class="line"><span class="lineno">  419</span>  <span class="comment">/* USER CODE END USART1_IRQn 0 */</span></div>
+<div class="line"><span class="lineno">  420</span>  <a class="code hl_function" href="group___u_a_r_t___exported___functions___group2.html#gaad01472c507ceee3c5f2274c775ff3bf">HAL_UART_IRQHandler</a>(&amp;<a class="code hl_variable" href="main_8c.html#a2cf715bef37f7e8ef385a30974a5f0d5">huart1</a>);</div>
+<div class="line"><span class="lineno">  421</span>  <span class="comment">/* USER CODE BEGIN USART1_IRQn 1 */</span></div>
+<div class="line"><span class="lineno">  422</span> </div>
+<div class="line"><span class="lineno">  423</span>  <span class="comment">/* USER CODE END USART1_IRQn 1 */</span></div>
+<div class="line"><span class="lineno">  424</span>}</div>
+<div class="ttc" id="agroup___u_a_r_t___exported___functions___group2_html_gaad01472c507ceee3c5f2274c775ff3bf"><div class="ttname"><a href="group___u_a_r_t___exported___functions___group2.html#gaad01472c507ceee3c5f2274c775ff3bf">HAL_UART_IRQHandler</a></div><div class="ttdeci">void HAL_UART_IRQHandler(UART_HandleTypeDef *huart)</div><div class="ttdoc">This function handles UART interrupt request.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__uart_8c_source.html#l02350">stm32f1xx_hal_uart.c:2350</a></div></div>
+<div class="ttc" id="amain_8c_html_a2cf715bef37f7e8ef385a30974a5f0d5"><div class="ttname"><a href="main_8c.html#a2cf715bef37f7e8ef385a30974a5f0d5">huart1</a></div><div class="ttdeci">UART_HandleTypeDef huart1</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00240">main.c:240</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__hal__uart_8c_source.html#l02350">HAL_UART_IRQHandler()</a>, <a class="el" href="main_8c_source.html#l00240">huart1</a> y <a class="el" href="stm32f1xx__it_8c_source.html#l00415">USART1_IRQHandler()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__it_8c_source.html#l00415">USART1_IRQHandler()</a>.</p>
+<div id="dynsection-46" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-46-summary" class="dynsummary">
+</div>
+<div id="dynsection-46-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="stm32f1xx__it_8h_a7139cd4baabbbcbab0c1fe6d7d4ae1cc_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div id="dynsection-47" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-47-summary" class="dynsummary">
+</div>
+<div id="dynsection-47-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="stm32f1xx__it_8h_a7139cd4baabbbcbab0c1fe6d7d4ae1cc_icgraph.svg" width="160" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="af002aebc5aa5f4f2eb22b093f754ebae" name="af002aebc5aa5f4f2eb22b093f754ebae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af002aebc5aa5f4f2eb22b093f754ebae">&#9670;&#160;</a></span>USB_HP_CAN1_TX_IRQHandler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void USB_HP_CAN1_TX_IRQHandler </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function handles USB high priority or CAN TX interrupts. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__it_8c_source.html#l00261">261</a> del archivo <a class="el" href="stm32f1xx__it_8c_source.html">stm32f1xx_it.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  262</span>{</div>
+<div class="line"><span class="lineno">  263</span>  <span class="comment">/* USER CODE BEGIN USB_HP_CAN1_TX_IRQn 0 */</span></div>
+<div class="line"><span class="lineno">  264</span> </div>
+<div class="line"><span class="lineno">  265</span>  <span class="comment">/* USER CODE END USB_HP_CAN1_TX_IRQn 0 */</span></div>
+<div class="line"><span class="lineno">  266</span>  <a class="code hl_function" href="group___p_c_d___exported___functions___group2.html#ga502da86920d2beb8284c4c2d3dbac0c6">HAL_PCD_IRQHandler</a>(&amp;<a class="code hl_variable" href="stm32f1xx__it_8c.html#afabb8e1d05154a3b694f4f4d150b194f">hpcd_USB_FS</a>);</div>
+<div class="line"><span class="lineno">  267</span>  <span class="comment">/* USER CODE BEGIN USB_HP_CAN1_TX_IRQn 1 */</span></div>
+<div class="line"><span class="lineno">  268</span> </div>
+<div class="line"><span class="lineno">  269</span>  <span class="comment">/* USER CODE END USB_HP_CAN1_TX_IRQn 1 */</span></div>
+<div class="line"><span class="lineno">  270</span>}</div>
+<div class="ttc" id="agroup___p_c_d___exported___functions___group2_html_ga502da86920d2beb8284c4c2d3dbac0c6"><div class="ttname"><a href="group___p_c_d___exported___functions___group2.html#ga502da86920d2beb8284c4c2d3dbac0c6">HAL_PCD_IRQHandler</a></div><div class="ttdeci">void HAL_PCD_IRQHandler(PCD_HandleTypeDef *hpcd)</div><div class="ttdoc">This function handles PCD interrupt request.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__pcd_8c_source.html#l01321">stm32f1xx_hal_pcd.c:1321</a></div></div>
+<div class="ttc" id="astm32f1xx__it_8c_html_afabb8e1d05154a3b694f4f4d150b194f"><div class="ttname"><a href="stm32f1xx__it_8c.html#afabb8e1d05154a3b694f4f4d150b194f">hpcd_USB_FS</a></div><div class="ttdeci">PCD_HandleTypeDef hpcd_USB_FS</div><div class="ttdef"><b>Definición</b> <a href="usbd__conf_8c_source.html#l00041">usbd_conf.c:41</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__hal__pcd_8c_source.html#l01321">HAL_PCD_IRQHandler()</a>, <a class="el" href="usbd__conf_8c_source.html#l00041">hpcd_USB_FS</a> y <a class="el" href="stm32f1xx__it_8c_source.html#l00261">USB_HP_CAN1_TX_IRQHandler()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__it_8c_source.html#l00261">USB_HP_CAN1_TX_IRQHandler()</a>.</p>
+<div id="dynsection-48" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-48-summary" class="dynsummary">
+</div>
+<div id="dynsection-48-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="stm32f1xx__it_8h_af002aebc5aa5f4f2eb22b093f754ebae_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div id="dynsection-49" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-49-summary" class="dynsummary">
+</div>
+<div id="dynsection-49-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="stm32f1xx__it_8h_af002aebc5aa5f4f2eb22b093f754ebae_icgraph.svg" width="230" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="af57bde854fa2b396f29664995a502b19" name="af57bde854fa2b396f29664995a502b19"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af57bde854fa2b396f29664995a502b19">&#9670;&#160;</a></span>USB_LP_CAN1_RX0_IRQHandler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void USB_LP_CAN1_RX0_IRQHandler </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function handles USB low priority or CAN RX0 interrupts. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__it_8c_source.html#l00275">275</a> del archivo <a class="el" href="stm32f1xx__it_8c_source.html">stm32f1xx_it.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  276</span>{</div>
+<div class="line"><span class="lineno">  277</span>  <span class="comment">/* USER CODE BEGIN USB_LP_CAN1_RX0_IRQn 0 */</span></div>
+<div class="line"><span class="lineno">  278</span> </div>
+<div class="line"><span class="lineno">  279</span>  <span class="comment">/* USER CODE END USB_LP_CAN1_RX0_IRQn 0 */</span></div>
+<div class="line"><span class="lineno">  280</span>  <a class="code hl_function" href="group___p_c_d___exported___functions___group2.html#ga502da86920d2beb8284c4c2d3dbac0c6">HAL_PCD_IRQHandler</a>(&amp;<a class="code hl_variable" href="stm32f1xx__it_8c.html#afabb8e1d05154a3b694f4f4d150b194f">hpcd_USB_FS</a>);</div>
+<div class="line"><span class="lineno">  281</span>  <span class="comment">/* USER CODE BEGIN USB_LP_CAN1_RX0_IRQn 1 */</span></div>
+<div class="line"><span class="lineno">  282</span> </div>
+<div class="line"><span class="lineno">  283</span>  <span class="comment">/* USER CODE END USB_LP_CAN1_RX0_IRQn 1 */</span></div>
+<div class="line"><span class="lineno">  284</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__hal__pcd_8c_source.html#l01321">HAL_PCD_IRQHandler()</a>, <a class="el" href="usbd__conf_8c_source.html#l00041">hpcd_USB_FS</a> y <a class="el" href="stm32f1xx__it_8c_source.html#l00275">USB_LP_CAN1_RX0_IRQHandler()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__it_8c_source.html#l00275">USB_LP_CAN1_RX0_IRQHandler()</a>.</p>
+<div id="dynsection-50" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-50-summary" class="dynsummary">
+</div>
+<div id="dynsection-50-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="stm32f1xx__it_8h_af57bde854fa2b396f29664995a502b19_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div id="dynsection-51" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-51-summary" class="dynsummary">
+</div>
+<div id="dynsection-51-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="stm32f1xx__it_8h_af57bde854fa2b396f29664995a502b19_icgraph.svg" width="235" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_c6310732a22f63c0c2fc5595561e68f1.html">Core</a></li><li class="navelem"><a href="dir_e2489e887f17afa3cbc07a4ec152cdd2.html">Inc</a></li><li class="navelem"><a href="stm32f1xx__it_8h.html">stm32f1xx_it.h</a></li>
+    <li class="footer">Generado el <span class="timestamp"></span> para MICRO-Firmware por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

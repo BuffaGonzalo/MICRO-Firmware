@@ -1,0 +1,300 @@
+\doxysubsection{Núcleo y Planificador del Sistema (Core \& Scheduler) }
+\hypertarget{group__group__main}{}\label{group__group__main}\index{Núcleo y Planificador del Sistema (Core \& Scheduler)@{Núcleo y Planificador del Sistema (Core \& Scheduler)}}
+
+
+Inicialización, bucle principal cooperativo y gestión de la MEF general.  
+
+
+Diagrama de colaboración de Núcleo y Planificador del Sistema (Core \& Scheduler):
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__group__main}
+\end{center}
+\end{figure}
+\doxysubsubsubsection*{Temas}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{group__group__system}{Abstracción de Hardware y Sistema STM32 (\+System \& HAL)}}
+\begin{DoxyCompactList}\small\item\em Manejadores de interrupciones NVIC, configuración de periféricos HAL y soporte de bajo nivel. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{group___hardware___pinout}{Asignaciones de Pines GPIO de la Placa}}
+\end{DoxyCompactItemize}
+\doxysubsubsubsection*{Archivos}
+\begin{DoxyCompactItemize}
+\item 
+archivo \doxymbox{\hyperlink{main_8h}{main.\+h}}
+\begin{DoxyCompactList}\small\item\em Cabecera principal de la aplicación, constantes de hardware y prototipos del sistema. \end{DoxyCompactList}\item 
+archivo \doxymbox{\hyperlink{util_8h}{util.\+h}}
+\begin{DoxyCompactList}\small\item\em Declaración de tipos fundamentales, enumeraciones, estructuras y uniones del proyecto. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsubsection*{Enumeraciones}
+\begin{DoxyCompactItemize}
+\item 
+enum \doxymbox{\hyperlink{group__group__main_ga5ef913d615749b343e42f0424064e937}{\+\_\+e\+Robot\+Mode}} \{ \newline
+\doxymbox{\hyperlink{group__group__main_gga5ef913d615749b343e42f0424064e937a46854d200d334ed65c5b8542eee92421}{STATE\+\_\+\+STANDBY}} = 0
+, \doxymbox{\hyperlink{group__group__main_gga5ef913d615749b343e42f0424064e937afb76bc9af4d33cb1941ce2198a22b5f1}{STATE\+\_\+\+SWING}} = 1
+, \doxymbox{\hyperlink{group__group__main_gga5ef913d615749b343e42f0424064e937ab641b484c5de42c96f5a382ef25d557f}{STATE\+\_\+\+LINE\+\_\+\+FOLLOWING}} = 2
+, \doxymbox{\hyperlink{group__group__main_gga5ef913d615749b343e42f0424064e937acbd2746ad5303084bb979bc275aa15ef}{STATE\+\_\+\+DODGE}} = 3
+, \newline
+\doxymbox{\hyperlink{group__group__main_gga5ef913d615749b343e42f0424064e937a81a27a62c9d29883324be07483fdd10a}{STATE\+\_\+\+JOYSTICK}} = 4
+, \doxymbox{\hyperlink{group__group__main_gga5ef913d615749b343e42f0424064e937a2ac9f0b5fbb6cfc38170ccc14dcf3263}{STATE\+\_\+3\+D\+\_\+\+SCREEN}} = 5
+, \doxymbox{\hyperlink{group__group__main_gga5ef913d615749b343e42f0424064e937abc08c548b43efb25afd93a4143f71f1b}{STATE\+\_\+\+FIRST\+\_\+\+SCREEN}} = 6
+, \doxymbox{\hyperlink{group__group__main_gga5ef913d615749b343e42f0424064e937aa52b63031d0b61679533a443a366aaba}{STATE\+\_\+\+SECOND\+\_\+\+SCREEN}} = 7
+ \}
+\begin{DoxyCompactList}\small\item\em Modos operativos principales del robot péndulo invertido gobernados por robot\+Mode. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsubsection*{Planificador Temporal y Temporizadores Cooperativos}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{group__group__main_ga25c8340008640e2668417e765f918b01}{do10ms}} (void)
+\begin{DoxyCompactList}\small\item\em Tarea periódica de 10 ms ejecutada en el bucle principal. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{group__group__main_gad529a04bd298cf0801e0052c5da907c7}{heart\+Beat\+Task}} (void)
+\begin{DoxyCompactList}\small\item\em Genera el patrón visual de parpadeo sincrónico en el LED PC13 (Heartbeat). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Descripción detallada}
+Inicialización, bucle principal cooperativo y gestión de la MEF general. 
+
+
+
+\label{group__group__main_doc-enum-members}
+\Hypertarget{group__group__main_doc-enum-members}
+\doxysubsubsection{Documentación de enumeraciones}
+\Hypertarget{group__group__main_ga5ef913d615749b343e42f0424064e937}\index{Núcleo y Planificador del Sistema (Core \& Scheduler)@{Núcleo y Planificador del Sistema (Core \& Scheduler)}!\_eRobotMode@{\_eRobotMode}}
+\index{\_eRobotMode@{\_eRobotMode}!Núcleo y Planificador del Sistema (Core \& Scheduler)@{Núcleo y Planificador del Sistema (Core \& Scheduler)}}
+\doxyparagraph{\texorpdfstring{\_eRobotMode}{\_eRobotMode}}
+{\footnotesize\ttfamily \label{group__group__main_ga5ef913d615749b343e42f0424064e937} 
+enum \doxymbox{\hyperlink{group__group__main_ga5ef913d615749b343e42f0424064e937}{\+\_\+e\+Robot\+Mode}}}
+
+
+
+{\ttfamily \+\#include "{}\doxymbox{\hyperlink{main_8c}{main.\+c}}"{}}
+
+
+
+Modos operativos principales del robot péndulo invertido gobernados por robot\+Mode. 
+
+\begin{DoxyEnumFields}[2]{Valores de enumeraciones}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{STATE\_STANDBY@{STATE\_STANDBY}!Núcleo y Planificador del Sistema (Core \& Scheduler)@{Núcleo y Planificador del Sistema (Core \& Scheduler)}}
+\index{Núcleo y Planificador del Sistema (Core \& Scheduler)@{Núcleo y Planificador del Sistema (Core \& Scheduler)}!STATE\_STANDBY@{STATE\_STANDBY}}
+}\Hypertarget{group__group__main_gga5ef913d615749b343e42f0424064e937a46854d200d334ed65c5b8542eee92421}\label{group__group__main_gga5ef913d615749b343e42f0424064e937a46854d200d334ed65c5b8542eee92421} 
+STATE\+\_\+\+STANDBY&Modo Reposo: Motores desenergizados (PWM 0\%), sistema en espera segura. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{STATE\_SWING@{STATE\_SWING}!Núcleo y Planificador del Sistema (Core \& Scheduler)@{Núcleo y Planificador del Sistema (Core \& Scheduler)}}
+\index{Núcleo y Planificador del Sistema (Core \& Scheduler)@{Núcleo y Planificador del Sistema (Core \& Scheduler)}!STATE\_SWING@{STATE\_SWING}}
+}\Hypertarget{group__group__main_gga5ef913d615749b343e42f0424064e937afb76bc9af4d33cb1941ce2198a22b5f1}\label{group__group__main_gga5ef913d615749b343e42f0424064e937afb76bc9af4d33cb1941ce2198a22b5f1} 
+STATE\+\_\+\+SWING&Modo Swing (1 clic): Balanceo estático en el lugar, display OLED apagado. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{STATE\_LINE\_FOLLOWING@{STATE\_LINE\_FOLLOWING}!Núcleo y Planificador del Sistema (Core \& Scheduler)@{Núcleo y Planificador del Sistema (Core \& Scheduler)}}
+\index{Núcleo y Planificador del Sistema (Core \& Scheduler)@{Núcleo y Planificador del Sistema (Core \& Scheduler)}!STATE\_LINE\_FOLLOWING@{STATE\_LINE\_FOLLOWING}}
+}\Hypertarget{group__group__main_gga5ef913d615749b343e42f0424064e937ab641b484c5de42c96f5a382ef25d557f}\label{group__group__main_gga5ef913d615749b343e42f0424064e937ab641b484c5de42c96f5a382ef25d557f} 
+STATE\+\_\+\+LINE\+\_\+\+FOLLOWING&Modo Seguidor de Línea (2 clics): Navegación autónoma por pista con sensores IR. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{STATE\_DODGE@{STATE\_DODGE}!Núcleo y Planificador del Sistema (Core \& Scheduler)@{Núcleo y Planificador del Sistema (Core \& Scheduler)}}
+\index{Núcleo y Planificador del Sistema (Core \& Scheduler)@{Núcleo y Planificador del Sistema (Core \& Scheduler)}!STATE\_DODGE@{STATE\_DODGE}}
+}\Hypertarget{group__group__main_gga5ef913d615749b343e42f0424064e937acbd2746ad5303084bb979bc275aa15ef}\label{group__group__main_gga5ef913d615749b343e42f0424064e937acbd2746ad5303084bb979bc275aa15ef} 
+STATE\+\_\+\+DODGE&Modo Evasión de Obstáculos (3 clics): Detección frontal, giro 90° y seguimiento de pared. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{STATE\_JOYSTICK@{STATE\_JOYSTICK}!Núcleo y Planificador del Sistema (Core \& Scheduler)@{Núcleo y Planificador del Sistema (Core \& Scheduler)}}
+\index{Núcleo y Planificador del Sistema (Core \& Scheduler)@{Núcleo y Planificador del Sistema (Core \& Scheduler)}!STATE\_JOYSTICK@{STATE\_JOYSTICK}}
+}\Hypertarget{group__group__main_gga5ef913d615749b343e42f0424064e937a81a27a62c9d29883324be07483fdd10a}\label{group__group__main_gga5ef913d615749b343e42f0424064e937a81a27a62c9d29883324be07483fdd10a} 
+STATE\+\_\+\+JOYSTICK&Modo Joystick (4 clics): Control interactivo remoto desde PC/\+\+App vía UDP con watchdog. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{STATE\_3D\_SCREEN@{STATE\_3D\_SCREEN}!Núcleo y Planificador del Sistema (Core \& Scheduler)@{Núcleo y Planificador del Sistema (Core \& Scheduler)}}
+\index{Núcleo y Planificador del Sistema (Core \& Scheduler)@{Núcleo y Planificador del Sistema (Core \& Scheduler)}!STATE\_3D\_SCREEN@{STATE\_3D\_SCREEN}}
+}\Hypertarget{group__group__main_gga5ef913d615749b343e42f0424064e937a2ac9f0b5fbb6cfc38170ccc14dcf3263}\label{group__group__main_gga5ef913d615749b343e42f0424064e937a2ac9f0b5fbb6cfc38170ccc14dcf3263} 
+STATE\+\_\+3\+D\+\_\+\+SCREEN&Modo 3D Screen (5 clics): Gemelo digital wireframe en OLED (Cubo-\/\texorpdfstring{$>$}{>}Teseracto-\/\texorpdfstring{$>$}{>}Pirámide) con balance activo. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{STATE\_FIRST\_SCREEN@{STATE\_FIRST\_SCREEN}!Núcleo y Planificador del Sistema (Core \& Scheduler)@{Núcleo y Planificador del Sistema (Core \& Scheduler)}}
+\index{Núcleo y Planificador del Sistema (Core \& Scheduler)@{Núcleo y Planificador del Sistema (Core \& Scheduler)}!STATE\_FIRST\_SCREEN@{STATE\_FIRST\_SCREEN}}
+}\Hypertarget{group__group__main_gga5ef913d615749b343e42f0424064e937abc08c548b43efb25afd93a4143f71f1b}\label{group__group__main_gga5ef913d615749b343e42f0424064e937abc08c548b43efb25afd93a4143f71f1b} 
+STATE\+\_\+\+FIRST\+\_\+\+SCREEN&Modo Diagnóstico RAW (Pulsación 1s): Muestra lecturas crudas de ADC y MPU6050, motores apagados. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{STATE\_SECOND\_SCREEN@{STATE\_SECOND\_SCREEN}!Núcleo y Planificador del Sistema (Core \& Scheduler)@{Núcleo y Planificador del Sistema (Core \& Scheduler)}}
+\index{Núcleo y Planificador del Sistema (Core \& Scheduler)@{Núcleo y Planificador del Sistema (Core \& Scheduler)}!STATE\_SECOND\_SCREEN@{STATE\_SECOND\_SCREEN}}
+}\Hypertarget{group__group__main_gga5ef913d615749b343e42f0424064e937aa52b63031d0b61679533a443a366aaba}\label{group__group__main_gga5ef913d615749b343e42f0424064e937aa52b63031d0b61679533a443a366aaba} 
+STATE\+\_\+\+SECOND\+\_\+\+SCREEN&Modo Diagnóstico Dinámico (Pulsación 2s): Muestra velocidad, ángulo y salida PID, motores apagados. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definición en la línea \doxymbox{\hyperlink{main_8c_source_l00093}{93}} del archivo \doxymbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00094\ \ \ \ \ \doxymbox{\hyperlink{group__group__main_gga5ef913d615749b343e42f0424064e937a46854d200d334ed65c5b8542eee92421}{STATE\_STANDBY}}\ =\ 0,\ \ \ \ \ \ \ \ \textcolor{comment}{/*!<\ Modo\ Reposo:\ Motores\ desenergizados\ (PWM\ 0\%),\ sistema\ en\ espera\ segura\ */}}
+\DoxyCodeLine{00095\ \ \ \ \ \doxymbox{\hyperlink{group__group__main_gga5ef913d615749b343e42f0424064e937afb76bc9af4d33cb1941ce2198a22b5f1}{STATE\_SWING}}\ =\ 1,\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*!<\ Modo\ Swing\ (1\ clic):\ Balanceo\ estático\ en\ el\ lugar,\ display\ OLED\ apagado\ */}}
+\DoxyCodeLine{00096\ \ \ \ \ \doxymbox{\hyperlink{group__group__main_gga5ef913d615749b343e42f0424064e937ab641b484c5de42c96f5a382ef25d557f}{STATE\_LINE\_FOLLOWING}}\ =\ 2,\ \textcolor{comment}{/*!<\ Modo\ Seguidor\ de\ Línea\ (2\ clics):\ Navegación\ autónoma\ por\ pista\ con\ sensores\ IR\ */}}
+\DoxyCodeLine{00097\ \ \ \ \ \doxymbox{\hyperlink{group__group__main_gga5ef913d615749b343e42f0424064e937acbd2746ad5303084bb979bc275aa15ef}{STATE\_DODGE}}\ =\ 3,\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*!<\ Modo\ Evasión\ de\ Obstáculos\ (3\ clics):\ Detección\ frontal,\ giro\ 90°\ y\ seguimiento\ de\ pared\ */}}
+\DoxyCodeLine{00098\ \ \ \ \ \doxymbox{\hyperlink{group__group__main_gga5ef913d615749b343e42f0424064e937a81a27a62c9d29883324be07483fdd10a}{STATE\_JOYSTICK}}\ =\ 4,\ \ \ \ \ \ \ \textcolor{comment}{/*!<\ Modo\ Joystick\ (4\ clics):\ Control\ interactivo\ remoto\ desde\ PC/App\ vía\ UDP\ con\ watchdog\ */}}
+\DoxyCodeLine{00099\ \ \ \ \ \doxymbox{\hyperlink{group__group__main_gga5ef913d615749b343e42f0424064e937a2ac9f0b5fbb6cfc38170ccc14dcf3263}{STATE\_3D\_SCREEN}}\ =\ 5,\ \ \ \ \ \ \textcolor{comment}{/*!<\ Modo\ 3D\ Screen\ (5\ clics):\ Gemelo\ digital\ wireframe\ en\ OLED\ (Cubo-\/>Teseracto-\/>Pirámide)\ con\ balance\ activo\ */}}
+\DoxyCodeLine{00100\ \ \ \ \ \doxymbox{\hyperlink{group__group__main_gga5ef913d615749b343e42f0424064e937abc08c548b43efb25afd93a4143f71f1b}{STATE\_FIRST\_SCREEN}}\ =\ 6,\ \ \ \textcolor{comment}{/*!<\ Modo\ Diagnóstico\ RAW\ (Pulsación\ 1s):\ Muestra\ lecturas\ crudas\ de\ ADC\ y\ MPU6050,\ motores\ apagados\ */}}
+\DoxyCodeLine{00101\ \ \ \ \ \doxymbox{\hyperlink{group__group__main_gga5ef913d615749b343e42f0424064e937aa52b63031d0b61679533a443a366aaba}{STATE\_SECOND\_SCREEN}}\ =\ 7\ \ \ \textcolor{comment}{/*!<\ Modo\ Diagnóstico\ Dinámico\ (Pulsación\ 2s):\ Muestra\ velocidad,\ ángulo\ y\ salida\ PID,\ motores\ apagados\ */}}
+\DoxyCodeLine{00102\ \}\ \doxymbox{\hyperlink{group__group__main_ga5ef913d615749b343e42f0424064e937}{\_eRobotMode}};}
+
+\end{DoxyCode}
+
+
+\label{group__group__main_doc-func-members}
+\Hypertarget{group__group__main_doc-func-members}
+\doxysubsubsection{Documentación de funciones}
+\Hypertarget{group__group__main_ga25c8340008640e2668417e765f918b01}\index{Núcleo y Planificador del Sistema (Core \& Scheduler)@{Núcleo y Planificador del Sistema (Core \& Scheduler)}!do10ms@{do10ms}}
+\index{do10ms@{do10ms}!Núcleo y Planificador del Sistema (Core \& Scheduler)@{Núcleo y Planificador del Sistema (Core \& Scheduler)}}
+\doxyparagraph{\texorpdfstring{do10ms()}{do10ms()}}
+{\footnotesize\ttfamily \label{group__group__main_ga25c8340008640e2668417e765f918b01} 
+void do10ms (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+{\ttfamily \+\#include "{}\doxymbox{\hyperlink{main_8c}{main.\+c}}"{}}
+
+
+
+Tarea periódica de 10 ms ejecutada en el bucle principal. 
+
+Gestiona los timeouts del ESP-\/01, antirrebote del botón y genera los ticks derivados de 20 ms, 100 ms y 1 segundo. 
+
+Definición en la línea \doxymbox{\hyperlink{main_8c_source_l01441}{1441}} del archivo \doxymbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01441\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01442\ \ \ \ \ \textcolor{keywordflow}{if}\ (!\doxymbox{\hyperlink{main_8c_a91513b2e59c1f7b62e323ee773efe983}{IS10MS}})\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{01443\ \ \ \ \ \doxymbox{\hyperlink{main_8c_a91513b2e59c1f7b62e323ee773efe983}{IS10MS}}\ =\ \doxymbox{\hyperlink{util_8h_a48dec3f0bf02a2f3b11fb90ae0fc4d4caa1e095cc966dbecf6a0d8aad75348d1a}{FALSE}};}
+\DoxyCodeLine{01444\ }
+\DoxyCodeLine{01445\ \ \ \ \ \textcolor{comment}{//\ -\/-\/-\/\ 1.\ Tareas\ Periódicas\ de\ 10ms\ -\/-\/-\/}}
+\DoxyCodeLine{01446\ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{main_8c_a7937637e0ec141695e3397a4eb429199}{robotMode}}\ !=\ \doxymbox{\hyperlink{group__group__main_gga5ef913d615749b343e42f0424064e937a2ac9f0b5fbb6cfc38170ccc14dcf3263}{STATE\_3D\_SCREEN}})\ \{}
+\DoxyCodeLine{01447\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{esp01_8h_a56d89861ed59233e20a6a4eadbe1c17a}{ESP01\_Timeout10ms}}();}
+\DoxyCodeLine{01448\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group__group__control_gac58a69ee3f3d94afb1e4f227b4d0bee7}{UART\_EnforceReceiverActive}}();}
+\DoxyCodeLine{01449\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group__group__control_gaa261c69c134b08393a0fc78985ab9c3b}{WiFi\_ScanTick}}();}
+\DoxyCodeLine{01450\ \ \ \ \ \}}
+\DoxyCodeLine{01451\ \ \ \ \ \doxymbox{\hyperlink{group__group__ui__graphics_ga65dbf97ebe6b95c5571e8110d940f642}{buttonTimeout10ms}}(\&\doxymbox{\hyperlink{main_8c_ac58c8560d8364a4b698f9e940a9f6090}{myButton}});}
+\DoxyCodeLine{01452\ }
+\DoxyCodeLine{01453\ \ \ \ \ \textcolor{comment}{//\ -\/-\/-\/\ 2.\ Divisor\ de\ Tiempo:\ 20ms\ -\/-\/-\/}}
+\DoxyCodeLine{01454\ \ \ \ \ \doxymbox{\hyperlink{main_8c_af03c824df85c878112f74dad5303729e}{tmo20ms}}-\/-\/;}
+\DoxyCodeLine{01455\ \ \ \ \ \textcolor{keywordflow}{if}\ (!\doxymbox{\hyperlink{main_8c_af03c824df85c878112f74dad5303729e}{tmo20ms}})\ \{}
+\DoxyCodeLine{01456\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{main_8c_af03c824df85c878112f74dad5303729e}{tmo20ms}}\ =\ 2;}
+\DoxyCodeLine{01457\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{main_8c_a3816105526b0d04da45b5276eb5cafde}{IS20MS}}\ =\ \doxymbox{\hyperlink{util_8h_a48dec3f0bf02a2f3b11fb90ae0fc4d4caa82764c3079aea4e60c80e45befbb839}{TRUE}};}
+\DoxyCodeLine{01458\ \ \ \ \ \}}
+\DoxyCodeLine{01459\ }
+\DoxyCodeLine{01460\ \ \ \ \ \textcolor{comment}{//\ -\/-\/-\/\ 3.\ Divisor\ de\ Tiempo:\ 100ms\ -\/-\/-\/}}
+\DoxyCodeLine{01461\ \ \ \ \ \doxymbox{\hyperlink{main_8c_a9ad5f16f8da9e0d9de2b22c8a5ca1fea}{tmo100ms}}-\/-\/;}
+\DoxyCodeLine{01462\ \ \ \ \ \textcolor{keywordflow}{if}\ (!\doxymbox{\hyperlink{main_8c_a9ad5f16f8da9e0d9de2b22c8a5ca1fea}{tmo100ms}})\ \{}
+\DoxyCodeLine{01463\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{main_8c_a9ad5f16f8da9e0d9de2b22c8a5ca1fea}{tmo100ms}}\ =\ 10;}
+\DoxyCodeLine{01464\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{main_8c_a755b39e3aaa964b5429e527cbc150281}{IS100MS}}\ =\ \doxymbox{\hyperlink{util_8h_a48dec3f0bf02a2f3b11fb90ae0fc4d4caa82764c3079aea4e60c80e45befbb839}{TRUE}};}
+\DoxyCodeLine{01465\ }
+\DoxyCodeLine{01466\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Tarea\ Periódica\ de\ 100ms}}
+\DoxyCodeLine{01467\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group__group__main_gad529a04bd298cf0801e0052c5da907c7}{heartBeatTask}}();}
+\DoxyCodeLine{01468\ }
+\DoxyCodeLine{01469\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Tareas\ Periódicas\ de\ 1s\ (Encapsuladas\ en\ tick\ de\ 100ms)}}
+\DoxyCodeLine{01470\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{main_8c_a7937637e0ec141695e3397a4eb429199}{robotMode}}\ !=\ \doxymbox{\hyperlink{group__group__main_gga5ef913d615749b343e42f0424064e937a2ac9f0b5fbb6cfc38170ccc14dcf3263}{STATE\_3D\_SCREEN}})\ \{}
+\DoxyCodeLine{01471\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group__group__control_gae591c096085f78e8377b868ca1f42a69}{WiFi\_HeartbeatTick}}();}
+\DoxyCodeLine{01472\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01473\ \ \ \ \ \}}
+\DoxyCodeLine{01474\ \}}
+
+\end{DoxyCode}
+
+
+Hace referencia a \doxymbox{\hyperlink{main_8c_source_l02110}{button\+Timeout10ms()}}, \doxymbox{\hyperlink{main_8c_source_l01441}{do10ms()}}, \doxymbox{\hyperlink{esp01_8c_source_l00389}{ESP01\+\_\+\+Timeout10ms()}}, \doxymbox{\hyperlink{util_8h_source_l00022}{FALSE}}, \doxymbox{\hyperlink{main_8c_source_l01476}{heart\+Beat\+Task()}}, \doxymbox{\hyperlink{main_8c_source_l00218}{IS100\+MS}}, \doxymbox{\hyperlink{main_8c_source_l00216}{IS10\+MS}}, \doxymbox{\hyperlink{main_8c_source_l00217}{IS20\+MS}}, \doxymbox{\hyperlink{main_8c_source_l00339}{my\+Button}}, \doxymbox{\hyperlink{main_8c_source_l00243}{robot\+Mode}}, \doxymbox{\hyperlink{main_8c_source_l00099}{STATE\+\_\+3\+D\+\_\+\+SCREEN}}, \doxymbox{\hyperlink{main_8c_source_l00269}{tmo100ms}}, \doxymbox{\hyperlink{main_8c_source_l00270}{tmo20ms}}, \doxymbox{\hyperlink{util_8h_source_l00023}{TRUE}}, \doxymbox{\hyperlink{main_8c_source_l03867}{UART\+\_\+\+Enforce\+Receiver\+Active()}}, \doxymbox{\hyperlink{main_8c_source_l03878}{Wi\+Fi\+\_\+\+Heartbeat\+Tick()}} y \doxymbox{\hyperlink{main_8c_source_l03847}{Wi\+Fi\+\_\+\+Scan\+Tick()}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{main_8c_source_l01441}{do10ms()}}, \doxymbox{\hyperlink{main_8c_source_l03056}{main()}} y \doxymbox{\hyperlink{group__group__comm_gaef53b41afe84bf3a4c3f95ab5a56a3c4}{USBTask()}}.
+
+Gráfico de llamadas de esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__group__main_ga25c8340008640e2668417e765f918b01_cgraph}
+\end{center}
+\end{figure}
+Gráfico de llamadas a esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=225pt]{group__group__main_ga25c8340008640e2668417e765f918b01_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group__group__main_gad529a04bd298cf0801e0052c5da907c7}\index{Núcleo y Planificador del Sistema (Core \& Scheduler)@{Núcleo y Planificador del Sistema (Core \& Scheduler)}!heartBeatTask@{heartBeatTask}}
+\index{heartBeatTask@{heartBeatTask}!Núcleo y Planificador del Sistema (Core \& Scheduler)@{Núcleo y Planificador del Sistema (Core \& Scheduler)}}
+\doxyparagraph{\texorpdfstring{heartBeatTask()}{heartBeatTask()}}
+{\footnotesize\ttfamily \label{group__group__main_gad529a04bd298cf0801e0052c5da907c7} 
+void heart\+Beat\+Task (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+{\ttfamily \+\#include "{}\doxymbox{\hyperlink{main_8c}{main.\+c}}"{}}
+
+
+
+Genera el patrón visual de parpadeo sincrónico en el LED PC13 (Heartbeat). 
+
+Modula el LED según la máscara de 20 ranuras de 100 ms ({\ttfamily \doxylink{main_8c_aa8714e52b7faf9cd0bec6e009005e7c1}{heart\+Beat\+Mask}\+[]}) para identificar a simple vista el modo activo de la MEF. \texorpdfstring{$<$}{<} Peripheral base address in the alias region
+
+\texorpdfstring{$<$}{<} Puerto GPIO del LED indicador (Puerto C)
+
+\texorpdfstring{$<$}{<} Pin del LED indicador integrado (Heartbeat activo a nivel bajo)
+
+\texorpdfstring{$<$}{<} Peripheral base address in the alias region
+
+\texorpdfstring{$<$}{<} Puerto GPIO del LED indicador (Puerto C)
+
+\texorpdfstring{$<$}{<} Pin del LED indicador integrado (Heartbeat activo a nivel bajo)
+
+Definición en la línea \doxymbox{\hyperlink{main_8c_source_l01476}{1476}} del archivo \doxymbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01476\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01477\ \ \ \ \ \textcolor{keyword}{static}\ uint8\_t\ times\ =\ 0;}
+\DoxyCodeLine{01478\ }
+\DoxyCodeLine{01479\ \ \ \ \ \textcolor{keywordflow}{if}\ (\string~\doxymbox{\hyperlink{main_8c_aa8714e52b7faf9cd0bec6e009005e7c1}{heartBeatMask}}[\doxymbox{\hyperlink{main_8c_ae67c613f33a34cb36dab446183c8c075}{hbIndex}}]\ \&\ (1\ <<\ times))\ \{}
+\DoxyCodeLine{01480\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___g_p_i_o___exported___functions___group2_gaf4b97bdf533a02f51ef696d43b6da5c4}{HAL\_GPIO\_WritePin}}(\doxymbox{\hyperlink{group___hardware___pinout_ga3cf393d21586a4097159246e8aca13a2}{LED\_GPIO\_Port}},\ \doxymbox{\hyperlink{group___hardware___pinout_gac969c4fccd009dd70b69992d92cbe81a}{LED\_Pin}},\ \doxymbox{\hyperlink{group___g_p_i_o___exported___types_gga5b3ef0486b179415581eb342e0ea6b43a746c062509db3ad1e47beed7527f9f8a}{GPIO\_PIN\_SET}});}
+\DoxyCodeLine{01481\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{01482\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___g_p_i_o___exported___functions___group2_gaf4b97bdf533a02f51ef696d43b6da5c4}{HAL\_GPIO\_WritePin}}(\doxymbox{\hyperlink{group___hardware___pinout_ga3cf393d21586a4097159246e8aca13a2}{LED\_GPIO\_Port}},\ \doxymbox{\hyperlink{group___hardware___pinout_gac969c4fccd009dd70b69992d92cbe81a}{LED\_Pin}},\ \doxymbox{\hyperlink{group___g_p_i_o___exported___types_gga5b3ef0486b179415581eb342e0ea6b43a90af2af95004ea61d76950ff3f2f6ec2}{GPIO\_PIN\_RESET}});}
+\DoxyCodeLine{01483\ \ \ \ \ \}}
+\DoxyCodeLine{01484\ }
+\DoxyCodeLine{01485\ \ \ \ \ times++;}
+\DoxyCodeLine{01486\ \ \ \ \ \textcolor{keywordflow}{if}\ (times\ >=\ 20)\ \{}
+\DoxyCodeLine{01487\ \ \ \ \ \ \ \ \ times\ =\ 0;\ \textcolor{comment}{//\ Acotado\ a\ ciclo\ síncrono\ de\ exactly\ 2.0\ segundos\ (20\ ranuras\ x\ 100ms)}}
+\DoxyCodeLine{01488\ \ \ \ \ \}}
+\DoxyCodeLine{01489\ \}}
+
+\end{DoxyCode}
+
+
+Hace referencia a \doxymbox{\hyperlink{stm32f1xx__hal__gpio_8h_source_l00066}{GPIO\+\_\+\+PIN\+\_\+\+RESET}}, \doxymbox{\hyperlink{stm32f1xx__hal__gpio_8h_source_l00067}{GPIO\+\_\+\+PIN\+\_\+\+SET}}, \doxymbox{\hyperlink{stm32f1xx__hal__gpio_8c_source_l00465}{HAL\+\_\+\+GPIO\+\_\+\+Write\+Pin()}}, \doxymbox{\hyperlink{main_8c_source_l00263}{hb\+Index}}, \doxymbox{\hyperlink{main_8c_source_l00252}{heart\+Beat\+Mask}}, \doxymbox{\hyperlink{main_8c_source_l01476}{heart\+Beat\+Task()}}, \doxymbox{\hyperlink{main_8h_source_l00038}{LED\+\_\+\+GPIO\+\_\+\+Port}} y \doxymbox{\hyperlink{main_8h_source_l00037}{LED\+\_\+\+Pin}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{main_8c_source_l01441}{do10ms()}}, \doxymbox{\hyperlink{main_8c_source_l01476}{heart\+Beat\+Task()}} y \doxymbox{\hyperlink{group__group__comm_gaef53b41afe84bf3a4c3f95ab5a56a3c4}{USBTask()}}.
+
+Gráfico de llamadas de esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=303pt]{group__group__main_gad529a04bd298cf0801e0052c5da907c7_cgraph}
+\end{center}
+\end{figure}
+Gráfico de llamadas a esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=340pt]{group__group__main_gad529a04bd298cf0801e0052c5da907c7_icgraph}
+\end{center}
+\end{figure}
+\input{group__group__system}
+\input{group___hardware___pinout}

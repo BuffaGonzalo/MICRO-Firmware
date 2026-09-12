@@ -1,0 +1,93 @@
+\doxysubsection{wiregfx.\+h}
+\hypertarget{wiregfx_8h_source}{}\label{wiregfx_8h_source}\index{wiregfx.h@{wiregfx.h}}
+\doxymbox{\hyperlink{wiregfx_8h}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00001}00001\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00002}00002\ \textcolor{comment}{\ *\ @file\ \ \ \ wiregfx.h}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00003}00003\ \textcolor{comment}{\ *\ @author\ \ Gonzalo\ M.\ Buffa}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00004}00004\ \textcolor{comment}{\ *\ @date\ \ \ \ 28/04/2026}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00005}00005\ \textcolor{comment}{\ *\ @brief\ \ \ Motor\ gráfico\ wireframe\ 3D/4D\ en\ punto\ fijo\ para\ pantalla\ OLED\ SSD1306.}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00006}00006\ \textcolor{comment}{\ *\ @details\ Este\ módulo\ implementa\ la\ proyección\ geométrica\ en\ perspectiva\ y\ rotaciones}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00007}00007\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ tridimensionales\ y\ tetradimensionales\ (Hipercubo\ o\ Teseracto)\ sobre\ el\ framebuffer}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00008}00008\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ monocromático\ de\ 128x64\ píxeles.\ Todas\ las\ transformaciones\ se\ computan\ mediante}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00009}00009\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ tablas\ de\ búsqueda\ de\ senos\ y\ cosenos\ (LUT)\ escaladas\ a\ 7\ bits\ con\ divisiones}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00010}00010\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ por\ desplazamiento\ binario\ (`>>\ 7`)\ para\ prescindir\ de\ la\ FPU.}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00011}00011\ \textcolor{comment}{\ *\ @ingroup\ group\_ui\_graphics}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00012}00012\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00013}00013\ }
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00014}00014\ \textcolor{preprocessor}{\#ifndef\ INC\_WIREGFX\_H\_}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00015}00015\ \textcolor{preprocessor}{\#define\ INC\_WIREGFX\_H\_}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00017}00017\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{ssd1306_8h}{ssd1306.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00018}00018\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00019}00019\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00020}00020\ \textcolor{comment}{\ *\ @defgroup\ WireGFX\_Config\ Parámetros\ de\ Centro\ y\ Perspectiva}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00021}00021\ \textcolor{comment}{\ *\ @ingroup\ group\_ui\_graphics}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00022}00022\ \textcolor{comment}{\ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00023}00023\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00024}\doxymbox{\hyperlink{group___wire_g_f_x___config_gaffb36ca3a6519ca609cfa9a0d70a682a}{00024}}\ \textcolor{preprocessor}{\#define\ CENTER\_X\ 64\ }\textcolor{comment}{/*!<\ Coordenada\ X\ del\ centro\ geométrico\ en\ pantalla\ (128\ /\ 2)\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00025}\doxymbox{\hyperlink{group___wire_g_f_x___config_ga65dba9379097de8ea0bb4afd9d504b2b}{00025}}\ \textcolor{preprocessor}{\#define\ CENTER\_Y\ 32\ }\textcolor{comment}{/*!<\ Coordenada\ Y\ del\ centro\ geométrico\ en\ pantalla\ (64\ /\ 2)\ */}\textcolor{preprocessor}{}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00026}00026\ \textcolor{comment}{/**\ @\}\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00027}00027\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00028}00028\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00029}00029\ \textcolor{comment}{\ *\ @brief\ Coordenada\ espacial\ tridimensional\ en\ punto\ fijo.}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00030}00030\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00031}\doxymbox{\hyperlink{struct_point3_d}{00031}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00032}\doxymbox{\hyperlink{struct_point3_d_aac47db42875eea60c141fa2711bc05da}{00032}}\ \ \ \ \ int16\_t\ \doxymbox{\hyperlink{struct_point3_d_aac47db42875eea60c141fa2711bc05da}{x}};\ \textcolor{comment}{/*!<\ Coordenada\ en\ eje\ X\ */}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00033}\doxymbox{\hyperlink{struct_point3_d_a95edfd4f1e1876312867eac04e74b657}{00033}}\ \ \ \ \ int16\_t\ \doxymbox{\hyperlink{struct_point3_d_a95edfd4f1e1876312867eac04e74b657}{y}};\ \textcolor{comment}{/*!<\ Coordenada\ en\ eje\ Y\ */}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00034}\doxymbox{\hyperlink{struct_point3_d_a6ebcea10c74b8b9055838fc0d5aeddff}{00034}}\ \ \ \ \ int16\_t\ \doxymbox{\hyperlink{struct_point3_d_a6ebcea10c74b8b9055838fc0d5aeddff}{z}};\ \textcolor{comment}{/*!<\ Coordenada\ en\ eje\ Z\ (profundidad)\ */}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00035}00035\ \}\ \doxymbox{\hyperlink{struct_point3_d}{Point3D}};}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00036}00036\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00037}00037\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00038}00038\ \textcolor{comment}{\ *\ @brief\ Coordenada\ proyectada\ sobre\ el\ plano\ bidimensional\ de\ la\ pantalla.}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00039}00039\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00040}\doxymbox{\hyperlink{struct_point2_d}{00040}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00041}\doxymbox{\hyperlink{struct_point2_d_a20dfae07a7e7084de11e3c0a90fd5ba0}{00041}}\ \ \ \ \ int16\_t\ \doxymbox{\hyperlink{struct_point2_d_a20dfae07a7e7084de11e3c0a90fd5ba0}{x}};\ \textcolor{comment}{/*!<\ Coordenada\ horizontal\ proyectada\ en\ píxeles\ */}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00042}\doxymbox{\hyperlink{struct_point2_d_a194b209717366ee3c45102701a49e922}{00042}}\ \ \ \ \ int16\_t\ \doxymbox{\hyperlink{struct_point2_d_a194b209717366ee3c45102701a49e922}{y}};\ \textcolor{comment}{/*!<\ Coordenada\ vertical\ proyectada\ en\ píxeles\ */}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00043}00043\ \}\ \doxymbox{\hyperlink{struct_point2_d}{Point2D}};}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00044}00044\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00045}00045\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00046}00046\ \textcolor{comment}{\ *\ @brief\ Coordenada\ espacial\ tetradimensional\ (4D)\ para\ geometrías\ hiperespaciales.}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00047}00047\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00048}\doxymbox{\hyperlink{struct_point4_d}{00048}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00049}\doxymbox{\hyperlink{struct_point4_d_afa208b7de233e9c26e8647481f4cdb3c}{00049}}\ \ \ \ \ int16\_t\ \doxymbox{\hyperlink{struct_point4_d_afa208b7de233e9c26e8647481f4cdb3c}{x}};\ \textcolor{comment}{/*!<\ Coordenada\ espacial\ X\ */}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00050}\doxymbox{\hyperlink{struct_point4_d_ae0503121411b6aa6d384b86601dab3ba}{00050}}\ \ \ \ \ int16\_t\ \doxymbox{\hyperlink{struct_point4_d_ae0503121411b6aa6d384b86601dab3ba}{y}};\ \textcolor{comment}{/*!<\ Coordenada\ espacial\ Y\ */}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00051}\doxymbox{\hyperlink{struct_point4_d_a20d9e81a16908b478280514a28ff1b3e}{00051}}\ \ \ \ \ int16\_t\ \doxymbox{\hyperlink{struct_point4_d_a20d9e81a16908b478280514a28ff1b3e}{z}};\ \textcolor{comment}{/*!<\ Coordenada\ espacial\ Z\ */}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00052}\doxymbox{\hyperlink{struct_point4_d_aaf6ac6494d64b38cd1744f1d654a5a28}{00052}}\ \ \ \ \ int16\_t\ \doxymbox{\hyperlink{struct_point4_d_aaf6ac6494d64b38cd1744f1d654a5a28}{w}};\ \textcolor{comment}{/*!<\ Coordenada\ de\ la\ cuarta\ dimensión\ espacial\ W\ */}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00053}00053\ \}\ \doxymbox{\hyperlink{struct_point4_d}{Point4D}};}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00054}00054\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00055}00055\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00056}00056\ \textcolor{comment}{\ *\ @brief\ Renderiza\ un\ cubo\ 3D\ rotando\ sobre\ los\ ejes\ X,\ Y\ y\ Z\ en\ la\ pantalla\ OLED.}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00057}00057\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00058}00058\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{wiregfx_8h_aa040a177091d5ca94b339fc40ffe7006}{WIREGFX\_Graphics\_DrawCube}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00059}00059\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00060}00060\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00061}00061\ \textcolor{comment}{\ *\ @brief\ Renderiza\ un\ teseracto\ (hipercubo\ 4D)\ con\ proyección\ en\ perspectiva\ estereográfica.}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00062}00062\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00063}00063\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{wiregfx_8h_ad2de8c930d3b77da950022208a3c581c}{WIREGFX\_Graphics\_DrawTesseract}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00064}00064\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00065}00065\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00066}00066\ \textcolor{comment}{\ *\ @brief\ Renderiza\ una\ pirámide\ de\ base\ cuadrada\ rotando\ en\ el\ espacio\ tridimensional.}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00067}00067\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00068}00068\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{wiregfx_8h_af013fb800cc4848c93ea2dda220eaf6e}{WIREGFX\_Graphics\_DrawPyramid}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00069}00069\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00070}00070\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00071}00071\ \textcolor{comment}{\ *\ @brief\ Renderiza\ una\ esfera\ alámbrica\ tridimensional.}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00072}00072\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00073}00073\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{wiregfx_8h_ab0f2ac846917b11ac3fa0a4325687066}{WIREGFX\_Graphics\_DrawSphere}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00074}00074\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00075}00075\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00076}00076\ \textcolor{comment}{\ *\ @brief\ Gestiona\ el\ ciclo\ secuencial\ de\ animación\ de\ figuras\ tridimensionales.}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00077}00077\ \textcolor{comment}{\ *\ @details\ Conmuta\ automáticamente\ la\ figura\ visualizada\ cada\ 10\ segundos:}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00078}00078\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ **Cubo\ 3D**\ \&rarr;\ **Teseracto\ 4D**\ \&rarr;\ **Pirámide\ 3D**.}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00079}00079\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00080}00080\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{wiregfx_8h_a369fa94b542724966d415a205d719cd6}{WIREGFX\_DisplayTask}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00081}00081\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00082}00082\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00083}00083\ \textcolor{comment}{\ *\ @brief\ Reinicia\ el\ ciclo\ de\ animación\ para\ comenzar\ inmediatamente\ desde\ el\ Cubo\ 3D.}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00084}00084\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00085}00085\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{wiregfx_8h_a6713ee890930c608f8ce3238a1ce9443}{WIREGFX\_ResetCycle}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00086}00086\ }
+\DoxyCodeLine{\Hypertarget{wiregfx_8h_source_l00087}00087\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ INC\_WIREGFX\_H\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

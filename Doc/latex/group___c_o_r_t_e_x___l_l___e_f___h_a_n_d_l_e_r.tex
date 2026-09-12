@@ -1,0 +1,152 @@
+\doxysubsubsubsubsection{HANDLER }
+\hypertarget{group___c_o_r_t_e_x___l_l___e_f___h_a_n_d_l_e_r}{}\label{group___c_o_r_t_e_x___l_l___e_f___h_a_n_d_l_e_r}\index{HANDLER@{HANDLER}}
+Diagrama de colaboración de HANDLER:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=326pt]{group___c_o_r_t_e_x___l_l___e_f___h_a_n_d_l_e_r}
+\end{center}
+\end{figure}
+\doxysubsubsubsubsubsubsection*{Funciones}
+\begin{DoxyCompactItemize}
+\item 
+static \+\_\+\+\_\+inline void \doxymbox{\hyperlink{group___c_o_r_t_e_x___l_l___e_f___h_a_n_d_l_e_r_gafd30ca5d2c9434713d065923e6c8ca80}{LL\+\_\+\+HANDLER\+\_\+\+Disable\+Fault}} (uint32\+\_\+t Fault)
+\begin{DoxyCompactList}\small\item\em Disable a fault in System handler control register (SHCSR) @rmtoll SCB\+\_\+\+SHCSR MEMFAULTENA LL\+\_\+\+HANDLER\+\_\+\+Disable\+Fault. \end{DoxyCompactList}\item 
+static \+\_\+\+\_\+inline void \doxymbox{\hyperlink{group___c_o_r_t_e_x___l_l___e_f___h_a_n_d_l_e_r_ga046c3f0a0112247b0ae32a204b9e09d2}{LL\+\_\+\+HANDLER\+\_\+\+Enable\+Fault}} (uint32\+\_\+t Fault)
+\begin{DoxyCompactList}\small\item\em Enable a fault in System handler control register (SHCSR) @rmtoll SCB\+\_\+\+SHCSR MEMFAULTENA LL\+\_\+\+HANDLER\+\_\+\+Enable\+Fault. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsubsubsubsubsection{Descripción detallada}
+
+
+\label{group___c_o_r_t_e_x___l_l___e_f___h_a_n_d_l_e_r_doc-func-members}
+\Hypertarget{group___c_o_r_t_e_x___l_l___e_f___h_a_n_d_l_e_r_doc-func-members}
+\doxysubsubsubsubsubsection{Documentación de funciones}
+\Hypertarget{group___c_o_r_t_e_x___l_l___e_f___h_a_n_d_l_e_r_gafd30ca5d2c9434713d065923e6c8ca80}\index{HANDLER@{HANDLER}!LL\_HANDLER\_DisableFault@{LL\_HANDLER\_DisableFault}}
+\index{LL\_HANDLER\_DisableFault@{LL\_HANDLER\_DisableFault}!HANDLER@{HANDLER}}
+\doxyparagraph{\texorpdfstring{LL\_HANDLER\_DisableFault()}{LL\_HANDLER\_DisableFault()}}
+{\footnotesize\ttfamily \label{group___c_o_r_t_e_x___l_l___e_f___h_a_n_d_l_e_r_gafd30ca5d2c9434713d065923e6c8ca80} 
+\+\_\+\+\_\+inline void LL\+\_\+\+HANDLER\+\_\+\+Disable\+Fault (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{Fault}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+{\ttfamily \+\#include "{}\doxymbox{\hyperlink{stm32f1xx__ll__cortex_8h}{stm32f1xx\+\_\+ll\+\_\+cortex.\+h}}"{}}
+
+
+
+Disable a fault in System handler control register (SHCSR) @rmtoll SCB\+\_\+\+SHCSR MEMFAULTENA LL\+\_\+\+HANDLER\+\_\+\+Disable\+Fault. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em Fault} & This parameter can be a combination of the following values: \begin{DoxyItemize}
+\item \doxylink{group___c_o_r_t_e_x___l_l___e_c___f_a_u_l_t_gadbac946ab3d6ddf6e039f892f15777d9}{LL\+\_\+\+HANDLER\+\_\+\+FAULT\+\_\+\+USG} \item \doxylink{group___c_o_r_t_e_x___l_l___e_c___f_a_u_l_t_ga115d536ac8df55563b54b89397fdf465}{LL\+\_\+\+HANDLER\+\_\+\+FAULT\+\_\+\+BUS} \item \doxylink{group___c_o_r_t_e_x___l_l___e_c___f_a_u_l_t_ga6d126af175425807712344e17d75152b}{LL\+\_\+\+HANDLER\+\_\+\+FAULT\+\_\+\+MEM} \end{DoxyItemize}
+\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Valores devueltos}
+{\em None} & \\
+\hline
+\end{DoxyRetVals}
+\texorpdfstring{$<$}{<} System Control Space Base Address
+
+\texorpdfstring{$<$}{<} System Control Block Base Address
+
+\texorpdfstring{$<$}{<} SCB configuration struct
+
+Definición en la línea \doxymbox{\hyperlink{stm32f1xx__ll__cortex_8h_source_l00407}{407}} del archivo \doxymbox{\hyperlink{stm32f1xx__ll__cortex_8h_source}{stm32f1xx\+\_\+ll\+\_\+cortex.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00408\ \{}
+\DoxyCodeLine{00409\ \ \ \textcolor{comment}{/*\ Disable\ the\ system\ handler\ fault\ */}}
+\DoxyCodeLine{00410\ \ \ \doxymbox{\hyperlink{group___exported__macros_ga133aae6fc0d41bffab39ab223a7001de}{CLEAR\_BIT}}(SCB-\/>SHCSR,\ Fault);}
+\DoxyCodeLine{00411\ \}}
+
+\end{DoxyCode}
+
+
+Hace referencia a \doxymbox{\hyperlink{stm32f1xx_8h_source_l00179}{CLEAR\+\_\+\+BIT}} y \doxymbox{\hyperlink{stm32f1xx__ll__cortex_8h_source_l00407}{LL\+\_\+\+HANDLER\+\_\+\+Disable\+Fault()}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{stm32f1xx__ll__cortex_8h_source_l00407}{LL\+\_\+\+HANDLER\+\_\+\+Disable\+Fault()}}.
+
+Gráfico de llamadas de esta función:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=221pt]{group___c_o_r_t_e_x___l_l___e_f___h_a_n_d_l_e_r_gafd30ca5d2c9434713d065923e6c8ca80_cgraph}
+\end{center}
+\end{figure}
+Gráfico de llamadas a esta función:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=221pt]{group___c_o_r_t_e_x___l_l___e_f___h_a_n_d_l_e_r_gafd30ca5d2c9434713d065923e6c8ca80_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group___c_o_r_t_e_x___l_l___e_f___h_a_n_d_l_e_r_ga046c3f0a0112247b0ae32a204b9e09d2}\index{HANDLER@{HANDLER}!LL\_HANDLER\_EnableFault@{LL\_HANDLER\_EnableFault}}
+\index{LL\_HANDLER\_EnableFault@{LL\_HANDLER\_EnableFault}!HANDLER@{HANDLER}}
+\doxyparagraph{\texorpdfstring{LL\_HANDLER\_EnableFault()}{LL\_HANDLER\_EnableFault()}}
+{\footnotesize\ttfamily \label{group___c_o_r_t_e_x___l_l___e_f___h_a_n_d_l_e_r_ga046c3f0a0112247b0ae32a204b9e09d2} 
+\+\_\+\+\_\+inline void LL\+\_\+\+HANDLER\+\_\+\+Enable\+Fault (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{Fault}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+{\ttfamily \+\#include "{}\doxymbox{\hyperlink{stm32f1xx__ll__cortex_8h}{stm32f1xx\+\_\+ll\+\_\+cortex.\+h}}"{}}
+
+
+
+Enable a fault in System handler control register (SHCSR) @rmtoll SCB\+\_\+\+SHCSR MEMFAULTENA LL\+\_\+\+HANDLER\+\_\+\+Enable\+Fault. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em Fault} & This parameter can be a combination of the following values: \begin{DoxyItemize}
+\item \doxylink{group___c_o_r_t_e_x___l_l___e_c___f_a_u_l_t_gadbac946ab3d6ddf6e039f892f15777d9}{LL\+\_\+\+HANDLER\+\_\+\+FAULT\+\_\+\+USG} \item \doxylink{group___c_o_r_t_e_x___l_l___e_c___f_a_u_l_t_ga115d536ac8df55563b54b89397fdf465}{LL\+\_\+\+HANDLER\+\_\+\+FAULT\+\_\+\+BUS} \item \doxylink{group___c_o_r_t_e_x___l_l___e_c___f_a_u_l_t_ga6d126af175425807712344e17d75152b}{LL\+\_\+\+HANDLER\+\_\+\+FAULT\+\_\+\+MEM} \end{DoxyItemize}
+\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Valores devueltos}
+{\em None} & \\
+\hline
+\end{DoxyRetVals}
+\texorpdfstring{$<$}{<} System Control Space Base Address
+
+\texorpdfstring{$<$}{<} System Control Block Base Address
+
+\texorpdfstring{$<$}{<} SCB configuration struct
+
+Definición en la línea \doxymbox{\hyperlink{stm32f1xx__ll__cortex_8h_source_l00392}{392}} del archivo \doxymbox{\hyperlink{stm32f1xx__ll__cortex_8h_source}{stm32f1xx\+\_\+ll\+\_\+cortex.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00393\ \{}
+\DoxyCodeLine{00394\ \ \ \textcolor{comment}{/*\ Enable\ the\ system\ handler\ fault\ */}}
+\DoxyCodeLine{00395\ \ \ \doxymbox{\hyperlink{group___exported__macros_ga26474f43799fbade9cf300e21dd3a91a}{SET\_BIT}}(SCB-\/>SHCSR,\ Fault);}
+\DoxyCodeLine{00396\ \}}
+
+\end{DoxyCode}
+
+
+Hace referencia a \doxymbox{\hyperlink{stm32f1xx__ll__cortex_8h_source_l00392}{LL\+\_\+\+HANDLER\+\_\+\+Enable\+Fault()}} y \doxymbox{\hyperlink{stm32f1xx_8h_source_l00177}{SET\+\_\+\+BIT}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{stm32f1xx__ll__cortex_8h_source_l00392}{LL\+\_\+\+HANDLER\+\_\+\+Enable\+Fault()}}.
+
+Gráfico de llamadas de esta función:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=218pt]{group___c_o_r_t_e_x___l_l___e_f___h_a_n_d_l_e_r_ga046c3f0a0112247b0ae32a204b9e09d2_cgraph}
+\end{center}
+\end{figure}
+Gráfico de llamadas a esta función:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=218pt]{group___c_o_r_t_e_x___l_l___e_f___h_a_n_d_l_e_r_ga046c3f0a0112247b0ae32a204b9e09d2_icgraph}
+\end{center}
+\end{figure}

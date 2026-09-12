@@ -1,8 +1,11 @@
 /**
- * This Library was originally written by Olivier Van den Eede (4ilo) in 2016.
- * Some refactoring was done and SPI support was added by Aleksander Alekseev (afiskon) in 2018.
- *
- * https://github.com/afiskon/stm32-ssd1306
+ * @file   ssd1306.h
+ * @author Olivier Van den Eede / Aleksander Alekseev / Gonzalo M. Buffa
+ * @brief  Driver de control y primitivas gráficas para display OLED monocromático SSD1306 (128x64).
+ * @details Este módulo gestiona el framebuffer de video en memoria RAM (1024 bytes), los comandos
+ *          de inicialización y contraste, primitivas 2D (líneas, rectángulos, círculos, bitmaps)
+ *          y la transferencia asíncrona no bloqueante de la imagen a través de DMA por bus I2C2.
+ * @ingroup group_ui_graphics
  */
 
 #ifndef __SSD1306_H__
@@ -16,39 +19,11 @@ _BEGIN_STD_C
 
 #include "ssd1306_conf.h"
 
-#if defined(STM32WB)
-#include "stm32wbxx_hal.h"
-#elif defined(STM32F0)
-#include "stm32f0xx_hal.h"
-#elif defined(STM32F1)
+#if defined(STM32F1)
 #include "stm32f1xx_hal.h"
-#elif defined(STM32F4)
-#include "stm32f4xx_hal.h"
-#include "stm32f4xx_hal_gpio.h"
-#elif defined(STM32L0)
-#include "stm32l0xx_hal.h"
-#elif defined(STM32L1)
-#include "stm32l1xx_hal.h"
-#elif defined(STM32L4)
-#include "stm32l4xx_hal.h"
-#elif defined(STM32L5)
-#include "stm32l5xx_hal.h"
-#elif defined(STM32F3)
-#include "stm32f3xx_hal.h"
-#elif defined(STM32H7)
-#include "stm32h7xx_hal.h"
-#elif defined(STM32F7)
-#include "stm32f7xx_hal.h"
-#elif defined(STM32G0)
-#include "stm32g0xx_hal.h"
-#elif defined(STM32G4)
-#include "stm32g4xx_hal.h"
-#elif defined(STM32C0)
-#include "stm32c0xx_hal.h"
 #else
-#error "SSD1306 library was tested only on STM32F0, STM32F1, STM32F3, STM32F4, STM32F7, STM32L0, STM32L1, STM32L4, STM32H7, STM32G0, STM32G4, STM32WB, STM32C0 MCU families. Please modify ssd1306.h if you know what you are doing. Also please send a pull request if it turns out the library works on other MCU's as well!"
+#include "stm32f1xx_hal.h"
 #endif
-
 
 #ifdef SSD1306_X_OFFSET
 #define SSD1306_X_OFFSET_LOWER (SSD1306_X_OFFSET & 0x0F)
@@ -58,113 +33,94 @@ _BEGIN_STD_C
 #define SSD1306_X_OFFSET_UPPER 0
 #endif
 
-/* vvv I2C config vvv */
-
-#ifndef SSD1306_I2C_PORT
-//#define SSD1306_I2C_PORT        hi2c2
-#endif
-
+/* Configuración I2C */
 #ifndef SSD1306_I2C_ADDR
 #define SSD1306_I2C_ADDR        (0x3C << 1)
 #endif
 
-/* ^^^ I2C config ^^^ */
-
-/* vvv SPI config vvv */
-
-#ifndef SSD1306_SPI_PORT
-#define SSD1306_SPI_PORT        hspi2
-#endif
-
-#ifndef SSD1306_CS_Port
-#define SSD1306_CS_Port         GPIOB
-#endif
-#ifndef SSD1306_CS_Pin
-#define SSD1306_CS_Pin          GPIO_PIN_12
-#endif
-
-#ifndef SSD1306_DC_Port
-#define SSD1306_DC_Port         GPIOB
-#endif
-#ifndef SSD1306_DC_Pin
-#define SSD1306_DC_Pin          GPIO_PIN_14
-#endif
-
-#ifndef SSD1306_Reset_Port
-#define SSD1306_Reset_Port      GPIOA
-#endif
-#ifndef SSD1306_Reset_Pin
-#define SSD1306_Reset_Pin       GPIO_PIN_8
-#endif
-
-/* ^^^ SPI config ^^^ */
-
-#if defined(SSD1306_USE_I2C)
-extern I2C_HandleTypeDef SSD1306_I2C_PORT;
-#elif defined(SSD1306_USE_SPI)
-extern SPI_HandleTypeDef SSD1306_SPI_PORT;
-#else
-#error "You should define SSD1306_USE_SPI or SSD1306_USE_I2C macro!"
-#endif
-
-// SSD1306 OLED height in pixels
 #ifndef SSD1306_HEIGHT
-#define SSD1306_HEIGHT          64
+#define SSD1306_HEIGHT          64  /*!< Alto de la pantalla OLED en píxeles */
 #endif
 
-// SSD1306 width in pixels
 #ifndef SSD1306_WIDTH
-#define SSD1306_WIDTH           128
+#define SSD1306_WIDTH           128 /*!< Ancho de la pantalla OLED en píxeles */
 #endif
 
 #ifndef SSD1306_BUFFER_SIZE
-#define SSD1306_BUFFER_SIZE   SSD1306_WIDTH * SSD1306_HEIGHT / 8
+#define SSD1306_BUFFER_SIZE     (SSD1306_WIDTH * SSD1306_HEIGHT / 8) /*!< Tamaño en bytes del framebuffer (1024 bytes) */
 #endif
 
-// Enumeration for screen colors
+/**
+ * @brief Paleta de color binaria para pantalla OLED monocromática.
+ */
 typedef enum {
-    Black = 0x00, // Black color, no pixel
-    White = 0x01  // Pixel is set. Color depends on OLED
+    Black = 0x00, /*!< Píxel apagado (Fondo negro) */
+    White = 0x01  /*!< Píxel encendido (Color emisor blanco/azul según el display) */
 } SSD1306_COLOR;
 
+/**
+ * @brief Códigos de error retornados por las operaciones gráficas del SSD1306.
+ */
 typedef enum {
-    SSD1306_OK = 0x00,
-    SSD1306_ERR = 0x01  // Generic error.
+    SSD1306_OK = 0x00, /*!< Operación completada exitosamente */
+    SSD1306_ERR = 0x01 /*!< Error de parámetros, desbordamiento o timeout en bus */
 } SSD1306_Error_t;
 
-// Struct to store transformations
+/**
+ * @brief Estructura de estado interno del controlador de display.
+ */
 typedef struct {
-    uint16_t CurrentX;
-    uint16_t CurrentY;
-    uint8_t Initialized;
-    uint8_t DisplayOn;
+    uint16_t CurrentX;   /*!< Coordenada horizontal actual del cursor de texto */
+    uint16_t CurrentY;   /*!< Coordenada vertical actual del cursor de texto */
+    uint8_t Initialized; /*!< Bandera booleana de inicialización completada */
+    uint8_t DisplayOn;   /*!< Estado de encendido de la matriz OLED (1: ON, 0: OFF) */
 } SSD1306_t;
 
+/**
+ * @brief Vértice de coordenadas bidimensionales para dibujo de polilíneas.
+ */
 typedef struct {
-    uint8_t x;
-    uint8_t y;
+    uint8_t x; /*!< Coordenada X */
+    uint8_t y; /*!< Coordenada Y */
 } SSD1306_VERTEX;
 
-/** Font */
+/**
+ * @brief Estructura descriptora de fuentes tipográficas matriciales.
+ */
 typedef struct {
-	const uint8_t width;                /**< Font width in pixels */
-	const uint8_t height;               /**< Font height in pixels */
-	const uint16_t *const data;         /**< Pointer to font data array */
-    const uint8_t *const char_width;    /**< Proportional character width in pixels (NULL for monospaced) */
+	const uint8_t width;                /*!< Ancho nominal del carácter en píxeles */
+	const uint8_t height;               /*!< Alto nominal del carácter en píxeles */
+	const uint16_t *const data;         /*!< Puntero a la tabla binaria de glifos en memoria FLASH */
+    const uint8_t *const char_width;    /*!< Ancho variable para fuentes proporcionales (NULL para monoespaciadas) */
 } SSD1306_Font_t;
 
-//Init definitions
+/**
+ * @name Funciones de Enlace y Callbacks del Driver
+ * @{
+ */
 void ssd1306_Attach_MemWrite(void(*PtrRx)(uint8_t address, uint8_t *data, uint8_t size, uint8_t type));
 void ssd1306_Attach_MemWriteDMA(void(*PtrRx)(uint8_t address, uint8_t *data, uint8_t size, uint8_t type));
 void ssd1306_ADC_ConfCpltCallback(volatile uint8_t *PtrRx);
+/** @} */
 
-
-// Procedure definitions
+/**
+ * @name Primitivas de Inicialización y Control
+ * @{
+ */
 void ssd1306_Init(void);
 void ssd1306_Fill(SSD1306_COLOR color);
 void ssd1306_UpdateScreen(void);
 char ssd1306_UpdateScreenDMA(void);
 void ssd1306_ResetDMAState(void);
+void ssd1306_SetContrast(const uint8_t value);
+void ssd1306_SetDisplayOn(const uint8_t on);
+uint8_t ssd1306_GetDisplayOn(void);
+/** @} */
+
+/**
+ * @name Primitivas Gráficas y Renderizado 2D
+ * @{
+ */
 void ssd1306_DrawPixel(uint8_t x, uint8_t y, SSD1306_COLOR color);
 char ssd1306_WriteChar(char ch, SSD1306_Font_t Font, SSD1306_COLOR color);
 char ssd1306_WriteString(char* str, SSD1306_Font_t Font, SSD1306_COLOR color);
@@ -173,52 +129,25 @@ void ssd1306_Line(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2, SSD1306_COLOR 
 void ssd1306_DrawArc(uint8_t x, uint8_t y, uint8_t radius, uint16_t start_angle, uint16_t sweep, SSD1306_COLOR color);
 void ssd1306_DrawArcWithRadiusLine(uint8_t x, uint8_t y, uint8_t radius, uint16_t start_angle, uint16_t sweep, SSD1306_COLOR color);
 void ssd1306_DrawCircle(uint8_t par_x, uint8_t par_y, uint8_t par_r, SSD1306_COLOR color);
-void ssd1306_FillCircle(uint8_t par_x,uint8_t par_y,uint8_t par_r,SSD1306_COLOR par_color);
+void ssd1306_FillCircle(uint8_t par_x, uint8_t par_y, uint8_t par_r, SSD1306_COLOR par_color);
 void ssd1306_Polyline(const SSD1306_VERTEX *par_vertex, uint16_t par_size, SSD1306_COLOR color);
 void ssd1306_DrawRectangle(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2, SSD1306_COLOR color);
 void ssd1306_FillRectangle(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2, SSD1306_COLOR color);
-
-/**
- * @brief Invert color of pixels in rectangle (include border)
- *
- * @param x1 X Coordinate of top left corner
- * @param y1 Y Coordinate of top left corner
- * @param x2 X Coordinate of bottom right corner
- * @param y2 Y Coordinate of bottom right corner
- * @return SSD1306_Error_t status
- */
 SSD1306_Error_t ssd1306_InvertRectangle(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2);
-
 void ssd1306_DrawBitmap(uint8_t x, uint8_t y, const unsigned char* bitmap, uint8_t w, uint8_t h, SSD1306_COLOR color);
+/** @} */
 
 /**
- * @brief Sets the contrast of the display.
- * @param[in] value contrast to set.
- * @note Contrast increases as the value increases.
- * @note RESET = 7Fh.
+ * @name Primitivas de Comunicación de Bajo Nivel
+ * @{
  */
-void ssd1306_SetContrast(const uint8_t value);
-
-/**
- * @brief Set Display ON/OFF.
- * @param[in] on 0 for OFF, any for ON.
- */
-void ssd1306_SetDisplayOn(const uint8_t on);
-
-/**
- * @brief Reads DisplayOn state.
- * @return  0: OFF.
- *          1: ON.
- */
-uint8_t ssd1306_GetDisplayOn();
-
-// Low-level procedures
 void ssd1306_Reset(void);
 void ssd1306_WriteCommand(uint8_t byte);
 void ssd1306_WriteCommandDMA(uint8_t byte);
 void ssd1306_WriteData(uint8_t* buffer, size_t buff_size);
 void ssd1306_WriteDataDMA(uint8_t* buffer, size_t buff_size);
 SSD1306_Error_t ssd1306_FillBuffer(uint8_t* buf, uint32_t len);
+/** @} */
 
 _END_STD_C
 

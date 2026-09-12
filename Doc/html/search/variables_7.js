@@ -1,0 +1,23 @@
+var searchData=
+[
+  ['generalcallmode_0',['GeneralCallMode',['../struct_i2_c___init_type_def.html#a17ce92b135a4b5c045a5387c91677803',1,'I2C_InitTypeDef']]],
+  ['getconfigurationstrdescriptor_1',['GetConfigurationStrDescriptor',['../struct_u_s_b_d___descriptors_type_def.html#a94825cd7944585e315b06a9cb5336cc0',1,'USBD_DescriptorsTypeDef']]],
+  ['getdevicedescriptor_2',['GetDeviceDescriptor',['../struct_u_s_b_d___descriptors_type_def.html#a239db51e1ccd0d468ce998f59da3ac5d',1,'USBD_DescriptorsTypeDef']]],
+  ['getdevicequalifierdescriptor_3',['GetDeviceQualifierDescriptor',['../struct___device__cb.html#acae441aaea2d80229133d9bd6e879f30',1,'_Device_cb']]],
+  ['getfsconfigdescriptor_4',['GetFSConfigDescriptor',['../struct___device__cb.html#ac11180f55e7c0ff242cf2ebe3f7012e7',1,'_Device_cb']]],
+  ['gethsconfigdescriptor_5',['GetHSConfigDescriptor',['../struct___device__cb.html#adbc0f143f543fd23e536dfd0d31658fe',1,'_Device_cb']]],
+  ['getinterfacestrdescriptor_6',['GetInterfaceStrDescriptor',['../struct_u_s_b_d___descriptors_type_def.html#a8d83830876fe929908173df21325a741',1,'USBD_DescriptorsTypeDef']]],
+  ['getlangidstrdescriptor_7',['GetLangIDStrDescriptor',['../struct_u_s_b_d___descriptors_type_def.html#aa89ab5c830dfc6f403e57de23fc7a059',1,'USBD_DescriptorsTypeDef']]],
+  ['getmanufacturerstrdescriptor_8',['GetManufacturerStrDescriptor',['../struct_u_s_b_d___descriptors_type_def.html#a4da52b953ee0daf4f0966bfb08e3d05b',1,'USBD_DescriptorsTypeDef']]],
+  ['getotherspeedconfigdescriptor_9',['GetOtherSpeedConfigDescriptor',['../struct___device__cb.html#ab42b0536e90db37532ad8cca685db9c2',1,'_Device_cb']]],
+  ['getproductstrdescriptor_10',['GetProductStrDescriptor',['../struct_u_s_b_d___descriptors_type_def.html#ac8bff28daecc56006dff35984b00510d',1,'USBD_DescriptorsTypeDef']]],
+  ['getserialstrdescriptor_11',['GetSerialStrDescriptor',['../struct_u_s_b_d___descriptors_type_def.html#af5f77d2b877674cd40f6d1d039a85139',1,'USBD_DescriptorsTypeDef']]],
+  ['gpiosel_12',['GPIOSel',['../struct_e_x_t_i___config_type_def.html#acb9a59bb7943a21c105481f85007a79c',1,'EXTI_ConfigTypeDef']]],
+  ['gstate_13',['gState',['../struct_____u_a_r_t___handle_type_def.html#a4eeefca95737b57834d48f429baf5e18',1,'__UART_HandleTypeDef']]],
+  ['gtpr_14',['GTPR',['../struct_u_s_a_r_t___type_def.html#a87687e3f77b398a57d1e253c7c657d1d',1,'USART_TypeDef']]],
+  ['gx_15',['gx',['../main_8c.html#a4524555b50a829ee7628cf5e5806f227',1,'gx:&#160;main.c'],['../mpu6050_8c.html#a0c0a4d1ca523cbb79d44d31b9095c75b',1,'gx:&#160;mpu6050.c']]],
+  ['gy_16',['gy',['../main_8c.html#a8bd44b73dc5745833a8dd8d2a6240613',1,'gy:&#160;main.c'],['../mpu6050_8c.html#a33badeb46ce2b27e69f8b455519815b2',1,'gy:&#160;mpu6050.c']]],
+  ['gyro_5fdelta_5fhr_17',['gyro_delta_hr',['../main_8c.html#a68df08e7d4d97cdb9965efa7d3cf8d39',1,'main.c']]],
+  ['gz_18',['gz',['../main_8c.html#aa61e9778c784ec4695029ed2cc769a61',1,'gz:&#160;main.c'],['../mpu6050_8c.html#a6c9858f8d01300af2bf54b20ad74059d',1,'gz:&#160;mpu6050.c']]],
+  ['gz_5foffset_19',['gz_offset',['../main_8c.html#a354ea4108f602e21d98dcf843caabc0b',1,'main.c']]]
+];

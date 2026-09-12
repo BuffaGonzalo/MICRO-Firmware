@@ -1,0 +1,1358 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>MICRO-Firmware: FLAG Management</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="codefolding.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  extensions: ["tex2jax.js"],
+  jax: ["input/TeX","output/HTML-CSS"],
+});
+</script>
+<script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">MICRO-Firmware<span id="projectnumber">&#160;EX100923v01</span>
+   </div>
+   <div id="projectbrief">Firmware de Péndulo Invertido Autónomo de Dos Ruedas (STM32F103C8T6 - ARM Cortex-M3)</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Buscar" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('group___r_c_c___l_l___e_f___f_l_a_g___management.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">FLAG Management <div class="ingroups"><a class="el" href="group___s_t_m32_f1xx___l_l___driver.html">STM32F1xx_LL_Driver</a> &raquo; <a class="el" href="group___r_c_c___l_l.html">RCC</a> &raquo; <a class="el" href="group___r_c_c___l_l___exported___functions.html">RCC Exported Functions</a></div></div></div>
+</div><!--header-->
+<div class="contents">
+<div id="dynsection-0" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Diagrama de colaboración de FLAG Management:</div>
+<div id="dynsection-0-summary" class="dynsummary">
+</div>
+<div id="dynsection-0-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___r_c_c___l_l___e_f___f_l_a_g___management.svg" width="362" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Funciones</h2></td></tr>
+<tr class="memitem:ga44d23b3a1a28d1cacaea520e17aa74d0" id="r_ga44d23b3a1a28d1cacaea520e17aa74d0"><td class="memItemLeft">static __inline void&#160;</td><td class="memItemRight"><a class="el" href="#ga44d23b3a1a28d1cacaea520e17aa74d0">LL_RCC_ClearFlag_HSECSS</a> (void)</td></tr>
+<tr class="memdesc:ga44d23b3a1a28d1cacaea520e17aa74d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear Clock security system interrupt flag @rmtoll CIR CSSC LL_RCC_ClearFlag_HSECSS.  <br /></td></tr>
+<tr class="memitem:ga06ce9bdaa518b23f0127a4d063411ec1" id="r_ga06ce9bdaa518b23f0127a4d063411ec1"><td class="memItemLeft">static __inline void&#160;</td><td class="memItemRight"><a class="el" href="#ga06ce9bdaa518b23f0127a4d063411ec1">LL_RCC_ClearFlag_HSERDY</a> (void)</td></tr>
+<tr class="memdesc:ga06ce9bdaa518b23f0127a4d063411ec1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear HSE ready interrupt flag @rmtoll CIR HSERDYC LL_RCC_ClearFlag_HSERDY.  <br /></td></tr>
+<tr class="memitem:gac10ad3db0de1f2f019b91196d297d899" id="r_gac10ad3db0de1f2f019b91196d297d899"><td class="memItemLeft">static __inline void&#160;</td><td class="memItemRight"><a class="el" href="#gac10ad3db0de1f2f019b91196d297d899">LL_RCC_ClearFlag_HSIRDY</a> (void)</td></tr>
+<tr class="memdesc:gac10ad3db0de1f2f019b91196d297d899"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear HSI ready interrupt flag @rmtoll CIR HSIRDYC LL_RCC_ClearFlag_HSIRDY.  <br /></td></tr>
+<tr class="memitem:gaeac0fcfc2004c416cafd8b3a541e250f" id="r_gaeac0fcfc2004c416cafd8b3a541e250f"><td class="memItemLeft">static __inline void&#160;</td><td class="memItemRight"><a class="el" href="#gaeac0fcfc2004c416cafd8b3a541e250f">LL_RCC_ClearFlag_LSERDY</a> (void)</td></tr>
+<tr class="memdesc:gaeac0fcfc2004c416cafd8b3a541e250f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear LSE ready interrupt flag @rmtoll CIR LSERDYC LL_RCC_ClearFlag_LSERDY.  <br /></td></tr>
+<tr class="memitem:ga55264f63a9cd29d43d8e1abb327a4eff" id="r_ga55264f63a9cd29d43d8e1abb327a4eff"><td class="memItemLeft">static __inline void&#160;</td><td class="memItemRight"><a class="el" href="#ga55264f63a9cd29d43d8e1abb327a4eff">LL_RCC_ClearFlag_LSIRDY</a> (void)</td></tr>
+<tr class="memdesc:ga55264f63a9cd29d43d8e1abb327a4eff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear LSI ready interrupt flag @rmtoll CIR LSIRDYC LL_RCC_ClearFlag_LSIRDY.  <br /></td></tr>
+<tr class="memitem:gae8249b9810e93fb3ee5afacc5e651244" id="r_gae8249b9810e93fb3ee5afacc5e651244"><td class="memItemLeft">static __inline void&#160;</td><td class="memItemRight"><a class="el" href="#gae8249b9810e93fb3ee5afacc5e651244">LL_RCC_ClearFlag_PLLRDY</a> (void)</td></tr>
+<tr class="memdesc:gae8249b9810e93fb3ee5afacc5e651244"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear PLL ready interrupt flag @rmtoll CIR PLLRDYC LL_RCC_ClearFlag_PLLRDY.  <br /></td></tr>
+<tr class="memitem:gadc4c0983d49d1369a86e99d65bf05ecb" id="r_gadc4c0983d49d1369a86e99d65bf05ecb"><td class="memItemLeft">static __inline void&#160;</td><td class="memItemRight"><a class="el" href="#gadc4c0983d49d1369a86e99d65bf05ecb">LL_RCC_ClearResetFlags</a> (void)</td></tr>
+<tr class="memdesc:gadc4c0983d49d1369a86e99d65bf05ecb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set RMVF bit to clear the reset flags.  <br /></td></tr>
+<tr class="memitem:gae31022f90ab4749f50bd2c118947a82d" id="r_gae31022f90ab4749f50bd2c118947a82d"><td class="memItemLeft">static __inline uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#gae31022f90ab4749f50bd2c118947a82d">LL_RCC_IsActiveFlag_HSECSS</a> (void)</td></tr>
+<tr class="memdesc:gae31022f90ab4749f50bd2c118947a82d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if Clock security system interrupt occurred or not @rmtoll CIR CSSF LL_RCC_IsActiveFlag_HSECSS.  <br /></td></tr>
+<tr class="memitem:gacd3ade01c4bfe01bbee950f216631679" id="r_gacd3ade01c4bfe01bbee950f216631679"><td class="memItemLeft">static __inline uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#gacd3ade01c4bfe01bbee950f216631679">LL_RCC_IsActiveFlag_HSERDY</a> (void)</td></tr>
+<tr class="memdesc:gacd3ade01c4bfe01bbee950f216631679"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if HSE ready interrupt occurred or not @rmtoll CIR HSERDYF LL_RCC_IsActiveFlag_HSERDY.  <br /></td></tr>
+<tr class="memitem:ga7a0b92689144330e18e43314bc72ce5c" id="r_ga7a0b92689144330e18e43314bc72ce5c"><td class="memItemLeft">static __inline uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ga7a0b92689144330e18e43314bc72ce5c">LL_RCC_IsActiveFlag_HSIRDY</a> (void)</td></tr>
+<tr class="memdesc:ga7a0b92689144330e18e43314bc72ce5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if HSI ready interrupt occurred or not @rmtoll CIR HSIRDYF LL_RCC_IsActiveFlag_HSIRDY.  <br /></td></tr>
+<tr class="memitem:ga7ebfd32dc575d55c1b893768d3e011e7" id="r_ga7ebfd32dc575d55c1b893768d3e011e7"><td class="memItemLeft">static __inline uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ga7ebfd32dc575d55c1b893768d3e011e7">LL_RCC_IsActiveFlag_IWDGRST</a> (void)</td></tr>
+<tr class="memdesc:ga7ebfd32dc575d55c1b893768d3e011e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if RCC flag Independent Watchdog reset is set or not.  <br /></td></tr>
+<tr class="memitem:gaf78ef097de8c34811fb6df0f9fc03c07" id="r_gaf78ef097de8c34811fb6df0f9fc03c07"><td class="memItemLeft">static __inline uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#gaf78ef097de8c34811fb6df0f9fc03c07">LL_RCC_IsActiveFlag_LPWRRST</a> (void)</td></tr>
+<tr class="memdesc:gaf78ef097de8c34811fb6df0f9fc03c07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if RCC flag Low Power reset is set or not.  <br /></td></tr>
+<tr class="memitem:ga72d1be841185b3e6f20a56099dbb076f" id="r_ga72d1be841185b3e6f20a56099dbb076f"><td class="memItemLeft">static __inline uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ga72d1be841185b3e6f20a56099dbb076f">LL_RCC_IsActiveFlag_LSERDY</a> (void)</td></tr>
+<tr class="memdesc:ga72d1be841185b3e6f20a56099dbb076f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if LSE ready interrupt occurred or not @rmtoll CIR LSERDYF LL_RCC_IsActiveFlag_LSERDY.  <br /></td></tr>
+<tr class="memitem:ga52a021306abbb7d88a7bad8172f133ec" id="r_ga52a021306abbb7d88a7bad8172f133ec"><td class="memItemLeft">static __inline uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ga52a021306abbb7d88a7bad8172f133ec">LL_RCC_IsActiveFlag_LSIRDY</a> (void)</td></tr>
+<tr class="memdesc:ga52a021306abbb7d88a7bad8172f133ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if LSI ready interrupt occurred or not @rmtoll CIR LSIRDYF LL_RCC_IsActiveFlag_LSIRDY.  <br /></td></tr>
+<tr class="memitem:ga8cfa2282fbb6799d37a821848fdc6b2c" id="r_ga8cfa2282fbb6799d37a821848fdc6b2c"><td class="memItemLeft">static __inline uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ga8cfa2282fbb6799d37a821848fdc6b2c">LL_RCC_IsActiveFlag_PINRST</a> (void)</td></tr>
+<tr class="memdesc:ga8cfa2282fbb6799d37a821848fdc6b2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if RCC flag Pin reset is set or not.  <br /></td></tr>
+<tr class="memitem:ga491a85a3e6882de3d84ba48a451cd78a" id="r_ga491a85a3e6882de3d84ba48a451cd78a"><td class="memItemLeft">static __inline uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ga491a85a3e6882de3d84ba48a451cd78a">LL_RCC_IsActiveFlag_PLLRDY</a> (void)</td></tr>
+<tr class="memdesc:ga491a85a3e6882de3d84ba48a451cd78a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if PLL ready interrupt occurred or not @rmtoll CIR PLLRDYF LL_RCC_IsActiveFlag_PLLRDY.  <br /></td></tr>
+<tr class="memitem:ga968f528a3e8fc9fb945bdc14fff675ca" id="r_ga968f528a3e8fc9fb945bdc14fff675ca"><td class="memItemLeft">static __inline uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ga968f528a3e8fc9fb945bdc14fff675ca">LL_RCC_IsActiveFlag_PORRST</a> (void)</td></tr>
+<tr class="memdesc:ga968f528a3e8fc9fb945bdc14fff675ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if RCC flag POR/PDR reset is set or not.  <br /></td></tr>
+<tr class="memitem:gaaaacbc301b2e1da1940d9c25720495db" id="r_gaaaacbc301b2e1da1940d9c25720495db"><td class="memItemLeft">static __inline uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#gaaaacbc301b2e1da1940d9c25720495db">LL_RCC_IsActiveFlag_SFTRST</a> (void)</td></tr>
+<tr class="memdesc:gaaaacbc301b2e1da1940d9c25720495db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if RCC flag Software reset is set or not.  <br /></td></tr>
+<tr class="memitem:ga4d5c8412b59d383e51b9251d7627e38b" id="r_ga4d5c8412b59d383e51b9251d7627e38b"><td class="memItemLeft">static __inline uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ga4d5c8412b59d383e51b9251d7627e38b">LL_RCC_IsActiveFlag_WWDGRST</a> (void)</td></tr>
+<tr class="memdesc:ga4d5c8412b59d383e51b9251d7627e38b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if RCC flag Window Watchdog reset is set or not.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Descripción detallada</h2>
+<div class="textblock"></div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Documentación de funciones</h2>
+<a id="ga44d23b3a1a28d1cacaea520e17aa74d0" name="ga44d23b3a1a28d1cacaea520e17aa74d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga44d23b3a1a28d1cacaea520e17aa74d0">&#9670;&#160;</a></span>LL_RCC_ClearFlag_HSECSS()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline void LL_RCC_ClearFlag_HSECSS </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__rcc_8h.html">stm32f1xx_ll_rcc.h</a>&quot;</code></p>
+
+<p>Clear Clock security system interrupt flag @rmtoll CIR CSSC LL_RCC_ClearFlag_HSECSS. </p>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; Peripheral base address in the alias region</p>
+<p>&lt; 0x00800000</p>
+<p>&lt; Clock Security System Interrupt Clear</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__rcc_8h_source.html#l01872">1872</a> del archivo <a class="el" href="stm32f1xx__ll__rcc_8h_source.html">stm32f1xx_ll_rcc.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1873</span>{</div>
+<div class="line"><span class="lineno"> 1874</span>  <a class="code hl_define" href="group___exported__macros.html#ga26474f43799fbade9cf300e21dd3a91a">SET_BIT</a>(<a class="code hl_define" href="group___peripheral__declaration.html#ga74944438a086975793d26ae48d5882d4">RCC</a>-&gt;CIR, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga46edb2b9568f002feba7b4312ed92c1f">RCC_CIR_CSSC</a>);</div>
+<div class="line"><span class="lineno"> 1875</span>}</div>
+<div class="ttc" id="agroup___exported__macros_html_ga26474f43799fbade9cf300e21dd3a91a"><div class="ttname"><a href="group___exported__macros.html#ga26474f43799fbade9cf300e21dd3a91a">SET_BIT</a></div><div class="ttdeci">#define SET_BIT(REG, BIT)</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx_8h_source.html#l00177">stm32f1xx.h:177</a></div></div>
+<div class="ttc" id="agroup___peripheral___registers___bits___definition_html_ga46edb2b9568f002feba7b4312ed92c1f"><div class="ttname"><a href="group___peripheral___registers___bits___definition.html#ga46edb2b9568f002feba7b4312ed92c1f">RCC_CIR_CSSC</a></div><div class="ttdeci">#define RCC_CIR_CSSC</div><div class="ttdoc">Clock Security System Interrupt Clear.</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l01165">stm32f103xb.h:1165</a></div></div>
+<div class="ttc" id="agroup___peripheral__declaration_html_ga74944438a086975793d26ae48d5882d4"><div class="ttname"><a href="group___peripheral__declaration.html#ga74944438a086975793d26ae48d5882d4">RCC</a></div><div class="ttdeci">#define RCC</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l00683">stm32f103xb.h:683</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__ll__rcc_8h_source.html#l01872">LL_RCC_ClearFlag_HSECSS()</a>, <a class="el" href="stm32f103xb_8h_source.html#l00683">RCC</a>, <a class="el" href="stm32f103xb_8h_source.html#l01165">RCC_CIR_CSSC</a> y <a class="el" href="stm32f1xx_8h_source.html#l00177">SET_BIT</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__rcc_8h_source.html#l01872">LL_RCC_ClearFlag_HSECSS()</a>.</p>
+<div id="dynsection-1" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-1-summary" class="dynsummary">
+</div>
+<div id="dynsection-1-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___r_c_c___l_l___e_f___f_l_a_g___management_ga44d23b3a1a28d1cacaea520e17aa74d0_cgraph.svg" width="210" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-2" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-2-summary" class="dynsummary">
+</div>
+<div id="dynsection-2-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___r_c_c___l_l___e_f___f_l_a_g___management_ga44d23b3a1a28d1cacaea520e17aa74d0_icgraph.svg" width="210" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ga06ce9bdaa518b23f0127a4d063411ec1" name="ga06ce9bdaa518b23f0127a4d063411ec1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga06ce9bdaa518b23f0127a4d063411ec1">&#9670;&#160;</a></span>LL_RCC_ClearFlag_HSERDY()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline void LL_RCC_ClearFlag_HSERDY </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__rcc_8h.html">stm32f1xx_ll_rcc.h</a>&quot;</code></p>
+
+<p>Clear HSE ready interrupt flag @rmtoll CIR HSERDYC LL_RCC_ClearFlag_HSERDY. </p>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; Peripheral base address in the alias region</p>
+<p>&lt; 0x00080000</p>
+<p>&lt; HSE Ready Interrupt Clear</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__rcc_8h_source.html#l01828">1828</a> del archivo <a class="el" href="stm32f1xx__ll__rcc_8h_source.html">stm32f1xx_ll_rcc.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1829</span>{</div>
+<div class="line"><span class="lineno"> 1830</span>  <a class="code hl_define" href="group___exported__macros.html#ga26474f43799fbade9cf300e21dd3a91a">SET_BIT</a>(<a class="code hl_define" href="group___peripheral__declaration.html#ga74944438a086975793d26ae48d5882d4">RCC</a>-&gt;CIR, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga9464e8188d717902990b467a9396d238">RCC_CIR_HSERDYC</a>);</div>
+<div class="line"><span class="lineno"> 1831</span>}</div>
+<div class="ttc" id="agroup___peripheral___registers___bits___definition_html_ga9464e8188d717902990b467a9396d238"><div class="ttname"><a href="group___peripheral___registers___bits___definition.html#ga9464e8188d717902990b467a9396d238">RCC_CIR_HSERDYC</a></div><div class="ttdeci">#define RCC_CIR_HSERDYC</div><div class="ttdoc">HSE Ready Interrupt Clear.</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l01159">stm32f103xb.h:1159</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__ll__rcc_8h_source.html#l01828">LL_RCC_ClearFlag_HSERDY()</a>, <a class="el" href="stm32f103xb_8h_source.html#l00683">RCC</a>, <a class="el" href="stm32f103xb_8h_source.html#l01159">RCC_CIR_HSERDYC</a> y <a class="el" href="stm32f1xx_8h_source.html#l00177">SET_BIT</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__rcc_8h_source.html#l01828">LL_RCC_ClearFlag_HSERDY()</a>.</p>
+<div id="dynsection-3" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-3-summary" class="dynsummary">
+</div>
+<div id="dynsection-3-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___r_c_c___l_l___e_f___f_l_a_g___management_ga06ce9bdaa518b23f0127a4d063411ec1_cgraph.svg" width="211" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-4" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-4-summary" class="dynsummary">
+</div>
+<div id="dynsection-4-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___r_c_c___l_l___e_f___f_l_a_g___management_ga06ce9bdaa518b23f0127a4d063411ec1_icgraph.svg" width="211" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="gac10ad3db0de1f2f019b91196d297d899" name="gac10ad3db0de1f2f019b91196d297d899"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac10ad3db0de1f2f019b91196d297d899">&#9670;&#160;</a></span>LL_RCC_ClearFlag_HSIRDY()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline void LL_RCC_ClearFlag_HSIRDY </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__rcc_8h.html">stm32f1xx_ll_rcc.h</a>&quot;</code></p>
+
+<p>Clear HSI ready interrupt flag @rmtoll CIR HSIRDYC LL_RCC_ClearFlag_HSIRDY. </p>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; Peripheral base address in the alias region</p>
+<p>&lt; 0x00040000</p>
+<p>&lt; HSI Ready Interrupt Clear</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__rcc_8h_source.html#l01818">1818</a> del archivo <a class="el" href="stm32f1xx__ll__rcc_8h_source.html">stm32f1xx_ll_rcc.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1819</span>{</div>
+<div class="line"><span class="lineno"> 1820</span>  <a class="code hl_define" href="group___exported__macros.html#ga26474f43799fbade9cf300e21dd3a91a">SET_BIT</a>(<a class="code hl_define" href="group___peripheral__declaration.html#ga74944438a086975793d26ae48d5882d4">RCC</a>-&gt;CIR, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#gad1b58377908e5c31a684747d0a80ecb2">RCC_CIR_HSIRDYC</a>);</div>
+<div class="line"><span class="lineno"> 1821</span>}</div>
+<div class="ttc" id="agroup___peripheral___registers___bits___definition_html_gad1b58377908e5c31a684747d0a80ecb2"><div class="ttname"><a href="group___peripheral___registers___bits___definition.html#gad1b58377908e5c31a684747d0a80ecb2">RCC_CIR_HSIRDYC</a></div><div class="ttdeci">#define RCC_CIR_HSIRDYC</div><div class="ttdoc">HSI Ready Interrupt Clear.</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l01156">stm32f103xb.h:1156</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__ll__rcc_8h_source.html#l01818">LL_RCC_ClearFlag_HSIRDY()</a>, <a class="el" href="stm32f103xb_8h_source.html#l00683">RCC</a>, <a class="el" href="stm32f103xb_8h_source.html#l01156">RCC_CIR_HSIRDYC</a> y <a class="el" href="stm32f1xx_8h_source.html#l00177">SET_BIT</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__rcc_8h_source.html#l01818">LL_RCC_ClearFlag_HSIRDY()</a>.</p>
+<div id="dynsection-5" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-5-summary" class="dynsummary">
+</div>
+<div id="dynsection-5-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___r_c_c___l_l___e_f___f_l_a_g___management_gac10ad3db0de1f2f019b91196d297d899_cgraph.svg" width="206" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-6" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-6-summary" class="dynsummary">
+</div>
+<div id="dynsection-6-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___r_c_c___l_l___e_f___f_l_a_g___management_gac10ad3db0de1f2f019b91196d297d899_icgraph.svg" width="206" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="gaeac0fcfc2004c416cafd8b3a541e250f" name="gaeac0fcfc2004c416cafd8b3a541e250f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaeac0fcfc2004c416cafd8b3a541e250f">&#9670;&#160;</a></span>LL_RCC_ClearFlag_LSERDY()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline void LL_RCC_ClearFlag_LSERDY </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__rcc_8h.html">stm32f1xx_ll_rcc.h</a>&quot;</code></p>
+
+<p>Clear LSE ready interrupt flag @rmtoll CIR LSERDYC LL_RCC_ClearFlag_LSERDY. </p>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; Peripheral base address in the alias region</p>
+<p>&lt; 0x00020000</p>
+<p>&lt; LSE Ready Interrupt Clear</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__rcc_8h_source.html#l01808">1808</a> del archivo <a class="el" href="stm32f1xx__ll__rcc_8h_source.html">stm32f1xx_ll_rcc.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1809</span>{</div>
+<div class="line"><span class="lineno"> 1810</span>  <a class="code hl_define" href="group___exported__macros.html#ga26474f43799fbade9cf300e21dd3a91a">SET_BIT</a>(<a class="code hl_define" href="group___peripheral__declaration.html#ga74944438a086975793d26ae48d5882d4">RCC</a>-&gt;CIR, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga144b5147f3a8d0bfda04618e301986aa">RCC_CIR_LSERDYC</a>);</div>
+<div class="line"><span class="lineno"> 1811</span>}</div>
+<div class="ttc" id="agroup___peripheral___registers___bits___definition_html_ga144b5147f3a8d0bfda04618e301986aa"><div class="ttname"><a href="group___peripheral___registers___bits___definition.html#ga144b5147f3a8d0bfda04618e301986aa">RCC_CIR_LSERDYC</a></div><div class="ttdeci">#define RCC_CIR_LSERDYC</div><div class="ttdoc">LSE Ready Interrupt Clear.</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l01153">stm32f103xb.h:1153</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__ll__rcc_8h_source.html#l01808">LL_RCC_ClearFlag_LSERDY()</a>, <a class="el" href="stm32f103xb_8h_source.html#l00683">RCC</a>, <a class="el" href="stm32f103xb_8h_source.html#l01153">RCC_CIR_LSERDYC</a> y <a class="el" href="stm32f1xx_8h_source.html#l00177">SET_BIT</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__rcc_8h_source.html#l01808">LL_RCC_ClearFlag_LSERDY()</a>.</p>
+<div id="dynsection-7" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-7-summary" class="dynsummary">
+</div>
+<div id="dynsection-7-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___r_c_c___l_l___e_f___f_l_a_g___management_gaeac0fcfc2004c416cafd8b3a541e250f_cgraph.svg" width="207" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-8" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-8-summary" class="dynsummary">
+</div>
+<div id="dynsection-8-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___r_c_c___l_l___e_f___f_l_a_g___management_gaeac0fcfc2004c416cafd8b3a541e250f_icgraph.svg" width="207" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ga55264f63a9cd29d43d8e1abb327a4eff" name="ga55264f63a9cd29d43d8e1abb327a4eff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga55264f63a9cd29d43d8e1abb327a4eff">&#9670;&#160;</a></span>LL_RCC_ClearFlag_LSIRDY()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline void LL_RCC_ClearFlag_LSIRDY </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__rcc_8h.html">stm32f1xx_ll_rcc.h</a>&quot;</code></p>
+
+<p>Clear LSI ready interrupt flag @rmtoll CIR LSIRDYC LL_RCC_ClearFlag_LSIRDY. </p>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; Peripheral base address in the alias region</p>
+<p>&lt; 0x00010000</p>
+<p>&lt; LSI Ready Interrupt Clear</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__rcc_8h_source.html#l01798">1798</a> del archivo <a class="el" href="stm32f1xx__ll__rcc_8h_source.html">stm32f1xx_ll_rcc.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1799</span>{</div>
+<div class="line"><span class="lineno"> 1800</span>  <a class="code hl_define" href="group___exported__macros.html#ga26474f43799fbade9cf300e21dd3a91a">SET_BIT</a>(<a class="code hl_define" href="group___peripheral__declaration.html#ga74944438a086975793d26ae48d5882d4">RCC</a>-&gt;CIR, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga982989563f1a95c89bf7f4a25d99f704">RCC_CIR_LSIRDYC</a>);</div>
+<div class="line"><span class="lineno"> 1801</span>}</div>
+<div class="ttc" id="agroup___peripheral___registers___bits___definition_html_ga982989563f1a95c89bf7f4a25d99f704"><div class="ttname"><a href="group___peripheral___registers___bits___definition.html#ga982989563f1a95c89bf7f4a25d99f704">RCC_CIR_LSIRDYC</a></div><div class="ttdeci">#define RCC_CIR_LSIRDYC</div><div class="ttdoc">LSI Ready Interrupt Clear.</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l01150">stm32f103xb.h:1150</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__ll__rcc_8h_source.html#l01798">LL_RCC_ClearFlag_LSIRDY()</a>, <a class="el" href="stm32f103xb_8h_source.html#l00683">RCC</a>, <a class="el" href="stm32f103xb_8h_source.html#l01150">RCC_CIR_LSIRDYC</a> y <a class="el" href="stm32f1xx_8h_source.html#l00177">SET_BIT</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__rcc_8h_source.html#l01798">LL_RCC_ClearFlag_LSIRDY()</a>.</p>
+<div id="dynsection-9" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-9-summary" class="dynsummary">
+</div>
+<div id="dynsection-9-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___r_c_c___l_l___e_f___f_l_a_g___management_ga55264f63a9cd29d43d8e1abb327a4eff_cgraph.svg" width="203" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-10" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-10-summary" class="dynsummary">
+</div>
+<div id="dynsection-10-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___r_c_c___l_l___e_f___f_l_a_g___management_ga55264f63a9cd29d43d8e1abb327a4eff_icgraph.svg" width="203" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="gae8249b9810e93fb3ee5afacc5e651244" name="gae8249b9810e93fb3ee5afacc5e651244"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae8249b9810e93fb3ee5afacc5e651244">&#9670;&#160;</a></span>LL_RCC_ClearFlag_PLLRDY()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline void LL_RCC_ClearFlag_PLLRDY </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__rcc_8h.html">stm32f1xx_ll_rcc.h</a>&quot;</code></p>
+
+<p>Clear PLL ready interrupt flag @rmtoll CIR PLLRDYC LL_RCC_ClearFlag_PLLRDY. </p>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; Peripheral base address in the alias region</p>
+<p>&lt; 0x00100000</p>
+<p>&lt; PLL Ready Interrupt Clear</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__rcc_8h_source.html#l01838">1838</a> del archivo <a class="el" href="stm32f1xx__ll__rcc_8h_source.html">stm32f1xx_ll_rcc.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1839</span>{</div>
+<div class="line"><span class="lineno"> 1840</span>  <a class="code hl_define" href="group___exported__macros.html#ga26474f43799fbade9cf300e21dd3a91a">SET_BIT</a>(<a class="code hl_define" href="group___peripheral__declaration.html#ga74944438a086975793d26ae48d5882d4">RCC</a>-&gt;CIR, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga245af864b194f0c2b2389ea1ee49a396">RCC_CIR_PLLRDYC</a>);</div>
+<div class="line"><span class="lineno"> 1841</span>}</div>
+<div class="ttc" id="agroup___peripheral___registers___bits___definition_html_ga245af864b194f0c2b2389ea1ee49a396"><div class="ttname"><a href="group___peripheral___registers___bits___definition.html#ga245af864b194f0c2b2389ea1ee49a396">RCC_CIR_PLLRDYC</a></div><div class="ttdeci">#define RCC_CIR_PLLRDYC</div><div class="ttdoc">PLL Ready Interrupt Clear.</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l01162">stm32f103xb.h:1162</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__ll__rcc_8h_source.html#l01838">LL_RCC_ClearFlag_PLLRDY()</a>, <a class="el" href="stm32f103xb_8h_source.html#l00683">RCC</a>, <a class="el" href="stm32f103xb_8h_source.html#l01162">RCC_CIR_PLLRDYC</a> y <a class="el" href="stm32f1xx_8h_source.html#l00177">SET_BIT</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__rcc_8h_source.html#l01838">LL_RCC_ClearFlag_PLLRDY()</a>.</p>
+<div id="dynsection-11" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-11-summary" class="dynsummary">
+</div>
+<div id="dynsection-11-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___r_c_c___l_l___e_f___f_l_a_g___management_gae8249b9810e93fb3ee5afacc5e651244_cgraph.svg" width="206" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-12" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-12-summary" class="dynsummary">
+</div>
+<div id="dynsection-12-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___r_c_c___l_l___e_f___f_l_a_g___management_gae8249b9810e93fb3ee5afacc5e651244_icgraph.svg" width="206" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="gadc4c0983d49d1369a86e99d65bf05ecb" name="gadc4c0983d49d1369a86e99d65bf05ecb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gadc4c0983d49d1369a86e99d65bf05ecb">&#9670;&#160;</a></span>LL_RCC_ClearResetFlags()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline void LL_RCC_ClearResetFlags </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__rcc_8h.html">stm32f1xx_ll_rcc.h</a>&quot;</code></p>
+
+<p>Set RMVF bit to clear the reset flags. </p>
+<p>@rmtoll CSR RMVF LL_RCC_ClearResetFlags </p><dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; Peripheral base address in the alias region</p>
+<p>&lt; 0x01000000</p>
+<p>&lt; Remove reset flag</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__rcc_8h_source.html#l02026">2026</a> del archivo <a class="el" href="stm32f1xx__ll__rcc_8h_source.html">stm32f1xx_ll_rcc.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2027</span>{</div>
+<div class="line"><span class="lineno"> 2028</span>  <a class="code hl_define" href="group___exported__macros.html#ga26474f43799fbade9cf300e21dd3a91a">SET_BIT</a>(<a class="code hl_define" href="group___peripheral__declaration.html#ga74944438a086975793d26ae48d5882d4">RCC</a>-&gt;CSR, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#gafc26c5996b14005a70afbeaa29aae716">RCC_CSR_RMVF</a>);</div>
+<div class="line"><span class="lineno"> 2029</span>}</div>
+<div class="ttc" id="agroup___peripheral___registers___bits___definition_html_gafc26c5996b14005a70afbeaa29aae716"><div class="ttname"><a href="group___peripheral___registers___bits___definition.html#gafc26c5996b14005a70afbeaa29aae716">RCC_CSR_RMVF</a></div><div class="ttdeci">#define RCC_CSR_RMVF</div><div class="ttdoc">Remove reset flag.</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l01408">stm32f103xb.h:1408</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__ll__rcc_8h_source.html#l02026">LL_RCC_ClearResetFlags()</a>, <a class="el" href="stm32f103xb_8h_source.html#l00683">RCC</a>, <a class="el" href="stm32f103xb_8h_source.html#l01408">RCC_CSR_RMVF</a> y <a class="el" href="stm32f1xx_8h_source.html#l00177">SET_BIT</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__rcc_8h_source.html#l02026">LL_RCC_ClearResetFlags()</a>.</p>
+<div id="dynsection-13" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-13-summary" class="dynsummary">
+</div>
+<div id="dynsection-13-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___r_c_c___l_l___e_f___f_l_a_g___management_gadc4c0983d49d1369a86e99d65bf05ecb_cgraph.svg" width="188" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-14" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-14-summary" class="dynsummary">
+</div>
+<div id="dynsection-14-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___r_c_c___l_l___e_f___f_l_a_g___management_gadc4c0983d49d1369a86e99d65bf05ecb_icgraph.svg" width="188" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="gae31022f90ab4749f50bd2c118947a82d" name="gae31022f90ab4749f50bd2c118947a82d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae31022f90ab4749f50bd2c118947a82d">&#9670;&#160;</a></span>LL_RCC_IsActiveFlag_HSECSS()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline uint32_t LL_RCC_IsActiveFlag_HSECSS </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__rcc_8h.html">stm32f1xx_ll_rcc.h</a>&quot;</code></p>
+
+<p>Check if Clock security system interrupt occurred or not @rmtoll CIR CSSF LL_RCC_IsActiveFlag_HSECSS. </p>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">State</td><td>of bit (1 or 0). </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; Peripheral base address in the alias region</p>
+<p>&lt; 0x00000080</p>
+<p>&lt; Clock Security System Interrupt flag</p>
+<p>&lt; 0x00000080</p>
+<p>&lt; Clock Security System Interrupt flag</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__rcc_8h_source.html#l01956">1956</a> del archivo <a class="el" href="stm32f1xx__ll__rcc_8h_source.html">stm32f1xx_ll_rcc.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1957</span>{</div>
+<div class="line"><span class="lineno"> 1958</span>  <span class="keywordflow">return</span> (<a class="code hl_define" href="group___exported__macros.html#ga822bb1bb9710d5f2fa6396b84e583c33">READ_BIT</a>(<a class="code hl_define" href="group___peripheral__declaration.html#ga74944438a086975793d26ae48d5882d4">RCC</a>-&gt;CIR, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#gad66b719e4061294de35af58cc27aba7f">RCC_CIR_CSSF</a>) == (<a class="code hl_define" href="group___peripheral___registers___bits___definition.html#gad66b719e4061294de35af58cc27aba7f">RCC_CIR_CSSF</a>));</div>
+<div class="line"><span class="lineno"> 1959</span>}</div>
+<div class="ttc" id="agroup___exported__macros_html_ga822bb1bb9710d5f2fa6396b84e583c33"><div class="ttname"><a href="group___exported__macros.html#ga822bb1bb9710d5f2fa6396b84e583c33">READ_BIT</a></div><div class="ttdeci">#define READ_BIT(REG, BIT)</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx_8h_source.html#l00181">stm32f1xx.h:181</a></div></div>
+<div class="ttc" id="agroup___peripheral___registers___bits___definition_html_gad66b719e4061294de35af58cc27aba7f"><div class="ttname"><a href="group___peripheral___registers___bits___definition.html#gad66b719e4061294de35af58cc27aba7f">RCC_CIR_CSSF</a></div><div class="ttdeci">#define RCC_CIR_CSSF</div><div class="ttdoc">Clock Security System Interrupt flag.</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l01132">stm32f103xb.h:1132</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__ll__rcc_8h_source.html#l01956">LL_RCC_IsActiveFlag_HSECSS()</a>, <a class="el" href="stm32f103xb_8h_source.html#l00683">RCC</a>, <a class="el" href="stm32f103xb_8h_source.html#l01132">RCC_CIR_CSSF</a> y <a class="el" href="stm32f1xx_8h_source.html#l00181">READ_BIT</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__rcc_8h_source.html#l01956">LL_RCC_IsActiveFlag_HSECSS()</a>.</p>
+<div id="dynsection-15" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-15-summary" class="dynsummary">
+</div>
+<div id="dynsection-15-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___r_c_c___l_l___e_f___f_l_a_g___management_gae31022f90ab4749f50bd2c118947a82d_cgraph.svg" width="163" height="78"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-16" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-16-summary" class="dynsummary">
+</div>
+<div id="dynsection-16-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___r_c_c___l_l___e_f___f_l_a_g___management_gae31022f90ab4749f50bd2c118947a82d_icgraph.svg" width="163" height="78"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="gacd3ade01c4bfe01bbee950f216631679" name="gacd3ade01c4bfe01bbee950f216631679"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gacd3ade01c4bfe01bbee950f216631679">&#9670;&#160;</a></span>LL_RCC_IsActiveFlag_HSERDY()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline uint32_t LL_RCC_IsActiveFlag_HSERDY </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__rcc_8h.html">stm32f1xx_ll_rcc.h</a>&quot;</code></p>
+
+<p>Check if HSE ready interrupt occurred or not @rmtoll CIR HSERDYF LL_RCC_IsActiveFlag_HSERDY. </p>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">State</td><td>of bit (1 or 0). </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; Peripheral base address in the alias region</p>
+<p>&lt; 0x00000008</p>
+<p>&lt; HSE Ready Interrupt flag</p>
+<p>&lt; 0x00000008</p>
+<p>&lt; HSE Ready Interrupt flag</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__rcc_8h_source.html#l01912">1912</a> del archivo <a class="el" href="stm32f1xx__ll__rcc_8h_source.html">stm32f1xx_ll_rcc.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1913</span>{</div>
+<div class="line"><span class="lineno"> 1914</span>  <span class="keywordflow">return</span> (<a class="code hl_define" href="group___exported__macros.html#ga822bb1bb9710d5f2fa6396b84e583c33">READ_BIT</a>(<a class="code hl_define" href="group___peripheral__declaration.html#ga74944438a086975793d26ae48d5882d4">RCC</a>-&gt;CIR, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga11ea196450aac9ac35e283a66afc3da6">RCC_CIR_HSERDYF</a>) == (<a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga11ea196450aac9ac35e283a66afc3da6">RCC_CIR_HSERDYF</a>));</div>
+<div class="line"><span class="lineno"> 1915</span>}</div>
+<div class="ttc" id="agroup___peripheral___registers___bits___definition_html_ga11ea196450aac9ac35e283a66afc3da6"><div class="ttname"><a href="group___peripheral___registers___bits___definition.html#ga11ea196450aac9ac35e283a66afc3da6">RCC_CIR_HSERDYF</a></div><div class="ttdeci">#define RCC_CIR_HSERDYF</div><div class="ttdoc">HSE Ready Interrupt flag.</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l01126">stm32f103xb.h:1126</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__ll__rcc_8h_source.html#l01912">LL_RCC_IsActiveFlag_HSERDY()</a>, <a class="el" href="stm32f103xb_8h_source.html#l00683">RCC</a>, <a class="el" href="stm32f103xb_8h_source.html#l01126">RCC_CIR_HSERDYF</a> y <a class="el" href="stm32f1xx_8h_source.html#l00181">READ_BIT</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__rcc_8h_source.html#l01912">LL_RCC_IsActiveFlag_HSERDY()</a>.</p>
+<div id="dynsection-17" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-17-summary" class="dynsummary">
+</div>
+<div id="dynsection-17-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___r_c_c___l_l___e_f___f_l_a_g___management_gacd3ade01c4bfe01bbee950f216631679_cgraph.svg" width="163" height="78"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-18" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-18-summary" class="dynsummary">
+</div>
+<div id="dynsection-18-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___r_c_c___l_l___e_f___f_l_a_g___management_gacd3ade01c4bfe01bbee950f216631679_icgraph.svg" width="163" height="78"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ga7a0b92689144330e18e43314bc72ce5c" name="ga7a0b92689144330e18e43314bc72ce5c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7a0b92689144330e18e43314bc72ce5c">&#9670;&#160;</a></span>LL_RCC_IsActiveFlag_HSIRDY()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline uint32_t LL_RCC_IsActiveFlag_HSIRDY </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__rcc_8h.html">stm32f1xx_ll_rcc.h</a>&quot;</code></p>
+
+<p>Check if HSI ready interrupt occurred or not @rmtoll CIR HSIRDYF LL_RCC_IsActiveFlag_HSIRDY. </p>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">State</td><td>of bit (1 or 0). </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; Peripheral base address in the alias region</p>
+<p>&lt; 0x00000004</p>
+<p>&lt; HSI Ready Interrupt flag</p>
+<p>&lt; 0x00000004</p>
+<p>&lt; HSI Ready Interrupt flag</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__rcc_8h_source.html#l01902">1902</a> del archivo <a class="el" href="stm32f1xx__ll__rcc_8h_source.html">stm32f1xx_ll_rcc.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1903</span>{</div>
+<div class="line"><span class="lineno"> 1904</span>  <span class="keywordflow">return</span> (<a class="code hl_define" href="group___exported__macros.html#ga822bb1bb9710d5f2fa6396b84e583c33">READ_BIT</a>(<a class="code hl_define" href="group___peripheral__declaration.html#ga74944438a086975793d26ae48d5882d4">RCC</a>-&gt;CIR, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#gad38877547c4cbbb94659d5726f377163">RCC_CIR_HSIRDYF</a>) == (<a class="code hl_define" href="group___peripheral___registers___bits___definition.html#gad38877547c4cbbb94659d5726f377163">RCC_CIR_HSIRDYF</a>));</div>
+<div class="line"><span class="lineno"> 1905</span>}</div>
+<div class="ttc" id="agroup___peripheral___registers___bits___definition_html_gad38877547c4cbbb94659d5726f377163"><div class="ttname"><a href="group___peripheral___registers___bits___definition.html#gad38877547c4cbbb94659d5726f377163">RCC_CIR_HSIRDYF</a></div><div class="ttdeci">#define RCC_CIR_HSIRDYF</div><div class="ttdoc">HSI Ready Interrupt flag.</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l01123">stm32f103xb.h:1123</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__ll__rcc_8h_source.html#l01902">LL_RCC_IsActiveFlag_HSIRDY()</a>, <a class="el" href="stm32f103xb_8h_source.html#l00683">RCC</a>, <a class="el" href="stm32f103xb_8h_source.html#l01123">RCC_CIR_HSIRDYF</a> y <a class="el" href="stm32f1xx_8h_source.html#l00181">READ_BIT</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__rcc_8h_source.html#l01902">LL_RCC_IsActiveFlag_HSIRDY()</a>.</p>
+<div id="dynsection-19" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-19-summary" class="dynsummary">
+</div>
+<div id="dynsection-19-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___r_c_c___l_l___e_f___f_l_a_g___management_ga7a0b92689144330e18e43314bc72ce5c_cgraph.svg" width="163" height="78"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-20" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-20-summary" class="dynsummary">
+</div>
+<div id="dynsection-20-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___r_c_c___l_l___e_f___f_l_a_g___management_ga7a0b92689144330e18e43314bc72ce5c_icgraph.svg" width="163" height="78"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ga7ebfd32dc575d55c1b893768d3e011e7" name="ga7ebfd32dc575d55c1b893768d3e011e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7ebfd32dc575d55c1b893768d3e011e7">&#9670;&#160;</a></span>LL_RCC_IsActiveFlag_IWDGRST()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline uint32_t LL_RCC_IsActiveFlag_IWDGRST </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__rcc_8h.html">stm32f1xx_ll_rcc.h</a>&quot;</code></p>
+
+<p>Check if RCC flag Independent Watchdog reset is set or not. </p>
+<p>@rmtoll CSR IWDGRSTF LL_RCC_IsActiveFlag_IWDGRST </p><dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">State</td><td>of bit (1 or 0). </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; Peripheral base address in the alias region</p>
+<p>&lt; 0x20000000</p>
+<p>&lt; Independent Watchdog reset flag</p>
+<p>&lt; 0x20000000</p>
+<p>&lt; Independent Watchdog reset flag</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__rcc_8h_source.html#l01966">1966</a> del archivo <a class="el" href="stm32f1xx__ll__rcc_8h_source.html">stm32f1xx_ll_rcc.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1967</span>{</div>
+<div class="line"><span class="lineno"> 1968</span>  <span class="keywordflow">return</span> (<a class="code hl_define" href="group___exported__macros.html#ga822bb1bb9710d5f2fa6396b84e583c33">READ_BIT</a>(<a class="code hl_define" href="group___peripheral__declaration.html#ga74944438a086975793d26ae48d5882d4">RCC</a>-&gt;CSR, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga22a7079ba87dd7acd5ed7fe7b704e85f">RCC_CSR_IWDGRSTF</a>) == (<a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga22a7079ba87dd7acd5ed7fe7b704e85f">RCC_CSR_IWDGRSTF</a>));</div>
+<div class="line"><span class="lineno"> 1969</span>}</div>
+<div class="ttc" id="agroup___peripheral___registers___bits___definition_html_ga22a7079ba87dd7acd5ed7fe7b704e85f"><div class="ttname"><a href="group___peripheral___registers___bits___definition.html#ga22a7079ba87dd7acd5ed7fe7b704e85f">RCC_CSR_IWDGRSTF</a></div><div class="ttdeci">#define RCC_CSR_IWDGRSTF</div><div class="ttdoc">Independent Watchdog reset flag.</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l01420">stm32f103xb.h:1420</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__ll__rcc_8h_source.html#l01966">LL_RCC_IsActiveFlag_IWDGRST()</a>, <a class="el" href="stm32f103xb_8h_source.html#l00683">RCC</a>, <a class="el" href="stm32f103xb_8h_source.html#l01420">RCC_CSR_IWDGRSTF</a> y <a class="el" href="stm32f1xx_8h_source.html#l00181">READ_BIT</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__rcc_8h_source.html#l01966">LL_RCC_IsActiveFlag_IWDGRST()</a>.</p>
+<div id="dynsection-21" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-21-summary" class="dynsummary">
+</div>
+<div id="dynsection-21-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___r_c_c___l_l___e_f___f_l_a_g___management_ga7ebfd32dc575d55c1b893768d3e011e7_cgraph.svg" width="163" height="78"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-22" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-22-summary" class="dynsummary">
+</div>
+<div id="dynsection-22-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___r_c_c___l_l___e_f___f_l_a_g___management_ga7ebfd32dc575d55c1b893768d3e011e7_icgraph.svg" width="163" height="78"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="gaf78ef097de8c34811fb6df0f9fc03c07" name="gaf78ef097de8c34811fb6df0f9fc03c07"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf78ef097de8c34811fb6df0f9fc03c07">&#9670;&#160;</a></span>LL_RCC_IsActiveFlag_LPWRRST()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline uint32_t LL_RCC_IsActiveFlag_LPWRRST </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__rcc_8h.html">stm32f1xx_ll_rcc.h</a>&quot;</code></p>
+
+<p>Check if RCC flag Low Power reset is set or not. </p>
+<p>@rmtoll CSR LPWRRSTF LL_RCC_IsActiveFlag_LPWRRST </p><dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">State</td><td>of bit (1 or 0). </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; Peripheral base address in the alias region</p>
+<p>&lt; 0x80000000</p>
+<p>&lt; Low-Power reset flag</p>
+<p>&lt; 0x80000000</p>
+<p>&lt; Low-Power reset flag</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__rcc_8h_source.html#l01976">1976</a> del archivo <a class="el" href="stm32f1xx__ll__rcc_8h_source.html">stm32f1xx_ll_rcc.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1977</span>{</div>
+<div class="line"><span class="lineno"> 1978</span>  <span class="keywordflow">return</span> (<a class="code hl_define" href="group___exported__macros.html#ga822bb1bb9710d5f2fa6396b84e583c33">READ_BIT</a>(<a class="code hl_define" href="group___peripheral__declaration.html#ga74944438a086975793d26ae48d5882d4">RCC</a>-&gt;CSR, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga675455250b91f125d52f5d347c2c0fbf">RCC_CSR_LPWRRSTF</a>) == (<a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga675455250b91f125d52f5d347c2c0fbf">RCC_CSR_LPWRRSTF</a>));</div>
+<div class="line"><span class="lineno"> 1979</span>}</div>
+<div class="ttc" id="agroup___peripheral___registers___bits___definition_html_ga675455250b91f125d52f5d347c2c0fbf"><div class="ttname"><a href="group___peripheral___registers___bits___definition.html#ga675455250b91f125d52f5d347c2c0fbf">RCC_CSR_LPWRRSTF</a></div><div class="ttdeci">#define RCC_CSR_LPWRRSTF</div><div class="ttdoc">Low-Power reset flag.</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l01426">stm32f103xb.h:1426</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__ll__rcc_8h_source.html#l01976">LL_RCC_IsActiveFlag_LPWRRST()</a>, <a class="el" href="stm32f103xb_8h_source.html#l00683">RCC</a>, <a class="el" href="stm32f103xb_8h_source.html#l01426">RCC_CSR_LPWRRSTF</a> y <a class="el" href="stm32f1xx_8h_source.html#l00181">READ_BIT</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__rcc_8h_source.html#l01976">LL_RCC_IsActiveFlag_LPWRRST()</a>.</p>
+<div id="dynsection-23" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-23-summary" class="dynsummary">
+</div>
+<div id="dynsection-23-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___r_c_c___l_l___e_f___f_l_a_g___management_gaf78ef097de8c34811fb6df0f9fc03c07_cgraph.svg" width="163" height="78"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-24" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-24-summary" class="dynsummary">
+</div>
+<div id="dynsection-24-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___r_c_c___l_l___e_f___f_l_a_g___management_gaf78ef097de8c34811fb6df0f9fc03c07_icgraph.svg" width="163" height="78"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ga72d1be841185b3e6f20a56099dbb076f" name="ga72d1be841185b3e6f20a56099dbb076f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga72d1be841185b3e6f20a56099dbb076f">&#9670;&#160;</a></span>LL_RCC_IsActiveFlag_LSERDY()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline uint32_t LL_RCC_IsActiveFlag_LSERDY </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__rcc_8h.html">stm32f1xx_ll_rcc.h</a>&quot;</code></p>
+
+<p>Check if LSE ready interrupt occurred or not @rmtoll CIR LSERDYF LL_RCC_IsActiveFlag_LSERDY. </p>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">State</td><td>of bit (1 or 0). </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; Peripheral base address in the alias region</p>
+<p>&lt; 0x00000002</p>
+<p>&lt; LSE Ready Interrupt flag</p>
+<p>&lt; 0x00000002</p>
+<p>&lt; LSE Ready Interrupt flag</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__rcc_8h_source.html#l01892">1892</a> del archivo <a class="el" href="stm32f1xx__ll__rcc_8h_source.html">stm32f1xx_ll_rcc.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1893</span>{</div>
+<div class="line"><span class="lineno"> 1894</span>  <span class="keywordflow">return</span> (<a class="code hl_define" href="group___exported__macros.html#ga822bb1bb9710d5f2fa6396b84e583c33">READ_BIT</a>(<a class="code hl_define" href="group___peripheral__declaration.html#ga74944438a086975793d26ae48d5882d4">RCC</a>-&gt;CIR, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#gabfc100e7ae673dfcec7be79af0d91dfe">RCC_CIR_LSERDYF</a>) == (<a class="code hl_define" href="group___peripheral___registers___bits___definition.html#gabfc100e7ae673dfcec7be79af0d91dfe">RCC_CIR_LSERDYF</a>));</div>
+<div class="line"><span class="lineno"> 1895</span>}</div>
+<div class="ttc" id="agroup___peripheral___registers___bits___definition_html_gabfc100e7ae673dfcec7be79af0d91dfe"><div class="ttname"><a href="group___peripheral___registers___bits___definition.html#gabfc100e7ae673dfcec7be79af0d91dfe">RCC_CIR_LSERDYF</a></div><div class="ttdeci">#define RCC_CIR_LSERDYF</div><div class="ttdoc">LSE Ready Interrupt flag.</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l01120">stm32f103xb.h:1120</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__ll__rcc_8h_source.html#l01892">LL_RCC_IsActiveFlag_LSERDY()</a>, <a class="el" href="stm32f103xb_8h_source.html#l00683">RCC</a>, <a class="el" href="stm32f103xb_8h_source.html#l01120">RCC_CIR_LSERDYF</a> y <a class="el" href="stm32f1xx_8h_source.html#l00181">READ_BIT</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__rcc_8h_source.html#l01892">LL_RCC_IsActiveFlag_LSERDY()</a>.</p>
+<div id="dynsection-25" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-25-summary" class="dynsummary">
+</div>
+<div id="dynsection-25-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___r_c_c___l_l___e_f___f_l_a_g___management_ga72d1be841185b3e6f20a56099dbb076f_cgraph.svg" width="163" height="78"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-26" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-26-summary" class="dynsummary">
+</div>
+<div id="dynsection-26-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___r_c_c___l_l___e_f___f_l_a_g___management_ga72d1be841185b3e6f20a56099dbb076f_icgraph.svg" width="163" height="78"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ga52a021306abbb7d88a7bad8172f133ec" name="ga52a021306abbb7d88a7bad8172f133ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga52a021306abbb7d88a7bad8172f133ec">&#9670;&#160;</a></span>LL_RCC_IsActiveFlag_LSIRDY()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline uint32_t LL_RCC_IsActiveFlag_LSIRDY </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__rcc_8h.html">stm32f1xx_ll_rcc.h</a>&quot;</code></p>
+
+<p>Check if LSI ready interrupt occurred or not @rmtoll CIR LSIRDYF LL_RCC_IsActiveFlag_LSIRDY. </p>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">State</td><td>of bit (1 or 0). </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; Peripheral base address in the alias region</p>
+<p>&lt; 0x00000001</p>
+<p>&lt; LSI Ready Interrupt flag</p>
+<p>&lt; 0x00000001</p>
+<p>&lt; LSI Ready Interrupt flag</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__rcc_8h_source.html#l01882">1882</a> del archivo <a class="el" href="stm32f1xx__ll__rcc_8h_source.html">stm32f1xx_ll_rcc.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1883</span>{</div>
+<div class="line"><span class="lineno"> 1884</span>  <span class="keywordflow">return</span> (<a class="code hl_define" href="group___exported__macros.html#ga822bb1bb9710d5f2fa6396b84e583c33">READ_BIT</a>(<a class="code hl_define" href="group___peripheral__declaration.html#ga74944438a086975793d26ae48d5882d4">RCC</a>-&gt;CIR, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#gacb94ccfe6a212f020e732d1dd787a6fb">RCC_CIR_LSIRDYF</a>) == (<a class="code hl_define" href="group___peripheral___registers___bits___definition.html#gacb94ccfe6a212f020e732d1dd787a6fb">RCC_CIR_LSIRDYF</a>));</div>
+<div class="line"><span class="lineno"> 1885</span>}</div>
+<div class="ttc" id="agroup___peripheral___registers___bits___definition_html_gacb94ccfe6a212f020e732d1dd787a6fb"><div class="ttname"><a href="group___peripheral___registers___bits___definition.html#gacb94ccfe6a212f020e732d1dd787a6fb">RCC_CIR_LSIRDYF</a></div><div class="ttdeci">#define RCC_CIR_LSIRDYF</div><div class="ttdoc">LSI Ready Interrupt flag.</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l01117">stm32f103xb.h:1117</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__ll__rcc_8h_source.html#l01882">LL_RCC_IsActiveFlag_LSIRDY()</a>, <a class="el" href="stm32f103xb_8h_source.html#l00683">RCC</a>, <a class="el" href="stm32f103xb_8h_source.html#l01117">RCC_CIR_LSIRDYF</a> y <a class="el" href="stm32f1xx_8h_source.html#l00181">READ_BIT</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__rcc_8h_source.html#l01882">LL_RCC_IsActiveFlag_LSIRDY()</a>.</p>
+<div id="dynsection-27" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-27-summary" class="dynsummary">
+</div>
+<div id="dynsection-27-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___r_c_c___l_l___e_f___f_l_a_g___management_ga52a021306abbb7d88a7bad8172f133ec_cgraph.svg" width="163" height="78"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-28" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-28-summary" class="dynsummary">
+</div>
+<div id="dynsection-28-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___r_c_c___l_l___e_f___f_l_a_g___management_ga52a021306abbb7d88a7bad8172f133ec_icgraph.svg" width="163" height="78"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ga8cfa2282fbb6799d37a821848fdc6b2c" name="ga8cfa2282fbb6799d37a821848fdc6b2c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga8cfa2282fbb6799d37a821848fdc6b2c">&#9670;&#160;</a></span>LL_RCC_IsActiveFlag_PINRST()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline uint32_t LL_RCC_IsActiveFlag_PINRST </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__rcc_8h.html">stm32f1xx_ll_rcc.h</a>&quot;</code></p>
+
+<p>Check if RCC flag Pin reset is set or not. </p>
+<p>@rmtoll CSR PINRSTF LL_RCC_IsActiveFlag_PINRST </p><dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">State</td><td>of bit (1 or 0). </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; Peripheral base address in the alias region</p>
+<p>&lt; 0x04000000</p>
+<p>&lt; PIN reset flag</p>
+<p>&lt; 0x04000000</p>
+<p>&lt; PIN reset flag</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__rcc_8h_source.html#l01986">1986</a> del archivo <a class="el" href="stm32f1xx__ll__rcc_8h_source.html">stm32f1xx_ll_rcc.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1987</span>{</div>
+<div class="line"><span class="lineno"> 1988</span>  <span class="keywordflow">return</span> (<a class="code hl_define" href="group___exported__macros.html#ga822bb1bb9710d5f2fa6396b84e583c33">READ_BIT</a>(<a class="code hl_define" href="group___peripheral__declaration.html#ga74944438a086975793d26ae48d5882d4">RCC</a>-&gt;CSR, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga4e26d2902d11e638cd0b702332f53ab1">RCC_CSR_PINRSTF</a>) == (<a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga4e26d2902d11e638cd0b702332f53ab1">RCC_CSR_PINRSTF</a>));</div>
+<div class="line"><span class="lineno"> 1989</span>}</div>
+<div class="ttc" id="agroup___peripheral___registers___bits___definition_html_ga4e26d2902d11e638cd0b702332f53ab1"><div class="ttname"><a href="group___peripheral___registers___bits___definition.html#ga4e26d2902d11e638cd0b702332f53ab1">RCC_CSR_PINRSTF</a></div><div class="ttdeci">#define RCC_CSR_PINRSTF</div><div class="ttdoc">PIN reset flag.</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l01411">stm32f103xb.h:1411</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__ll__rcc_8h_source.html#l01986">LL_RCC_IsActiveFlag_PINRST()</a>, <a class="el" href="stm32f103xb_8h_source.html#l00683">RCC</a>, <a class="el" href="stm32f103xb_8h_source.html#l01411">RCC_CSR_PINRSTF</a> y <a class="el" href="stm32f1xx_8h_source.html#l00181">READ_BIT</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__rcc_8h_source.html#l01986">LL_RCC_IsActiveFlag_PINRST()</a>.</p>
+<div id="dynsection-29" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-29-summary" class="dynsummary">
+</div>
+<div id="dynsection-29-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___r_c_c___l_l___e_f___f_l_a_g___management_ga8cfa2282fbb6799d37a821848fdc6b2c_cgraph.svg" width="163" height="78"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-30" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-30-summary" class="dynsummary">
+</div>
+<div id="dynsection-30-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___r_c_c___l_l___e_f___f_l_a_g___management_ga8cfa2282fbb6799d37a821848fdc6b2c_icgraph.svg" width="163" height="78"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ga491a85a3e6882de3d84ba48a451cd78a" name="ga491a85a3e6882de3d84ba48a451cd78a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga491a85a3e6882de3d84ba48a451cd78a">&#9670;&#160;</a></span>LL_RCC_IsActiveFlag_PLLRDY()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline uint32_t LL_RCC_IsActiveFlag_PLLRDY </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__rcc_8h.html">stm32f1xx_ll_rcc.h</a>&quot;</code></p>
+
+<p>Check if PLL ready interrupt occurred or not @rmtoll CIR PLLRDYF LL_RCC_IsActiveFlag_PLLRDY. </p>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">State</td><td>of bit (1 or 0). </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; Peripheral base address in the alias region</p>
+<p>&lt; 0x00000010</p>
+<p>&lt; PLL Ready Interrupt flag</p>
+<p>&lt; 0x00000010</p>
+<p>&lt; PLL Ready Interrupt flag</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__rcc_8h_source.html#l01922">1922</a> del archivo <a class="el" href="stm32f1xx__ll__rcc_8h_source.html">stm32f1xx_ll_rcc.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1923</span>{</div>
+<div class="line"><span class="lineno"> 1924</span>  <span class="keywordflow">return</span> (<a class="code hl_define" href="group___exported__macros.html#ga822bb1bb9710d5f2fa6396b84e583c33">READ_BIT</a>(<a class="code hl_define" href="group___peripheral__declaration.html#ga74944438a086975793d26ae48d5882d4">RCC</a>-&gt;CIR, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga0f007895a17e668f22f7b8b24ca90aec">RCC_CIR_PLLRDYF</a>) == (<a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga0f007895a17e668f22f7b8b24ca90aec">RCC_CIR_PLLRDYF</a>));</div>
+<div class="line"><span class="lineno"> 1925</span>}</div>
+<div class="ttc" id="agroup___peripheral___registers___bits___definition_html_ga0f007895a17e668f22f7b8b24ca90aec"><div class="ttname"><a href="group___peripheral___registers___bits___definition.html#ga0f007895a17e668f22f7b8b24ca90aec">RCC_CIR_PLLRDYF</a></div><div class="ttdeci">#define RCC_CIR_PLLRDYF</div><div class="ttdoc">PLL Ready Interrupt flag.</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l01129">stm32f103xb.h:1129</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__ll__rcc_8h_source.html#l01922">LL_RCC_IsActiveFlag_PLLRDY()</a>, <a class="el" href="stm32f103xb_8h_source.html#l00683">RCC</a>, <a class="el" href="stm32f103xb_8h_source.html#l01129">RCC_CIR_PLLRDYF</a> y <a class="el" href="stm32f1xx_8h_source.html#l00181">READ_BIT</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__rcc_8h_source.html#l01922">LL_RCC_IsActiveFlag_PLLRDY()</a>.</p>
+<div id="dynsection-31" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-31-summary" class="dynsummary">
+</div>
+<div id="dynsection-31-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___r_c_c___l_l___e_f___f_l_a_g___management_ga491a85a3e6882de3d84ba48a451cd78a_cgraph.svg" width="163" height="78"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-32" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-32-summary" class="dynsummary">
+</div>
+<div id="dynsection-32-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___r_c_c___l_l___e_f___f_l_a_g___management_ga491a85a3e6882de3d84ba48a451cd78a_icgraph.svg" width="163" height="78"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ga968f528a3e8fc9fb945bdc14fff675ca" name="ga968f528a3e8fc9fb945bdc14fff675ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga968f528a3e8fc9fb945bdc14fff675ca">&#9670;&#160;</a></span>LL_RCC_IsActiveFlag_PORRST()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline uint32_t LL_RCC_IsActiveFlag_PORRST </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__rcc_8h.html">stm32f1xx_ll_rcc.h</a>&quot;</code></p>
+
+<p>Check if RCC flag POR/PDR reset is set or not. </p>
+<p>@rmtoll CSR PORRSTF LL_RCC_IsActiveFlag_PORRST </p><dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">State</td><td>of bit (1 or 0). </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; Peripheral base address in the alias region</p>
+<p>&lt; 0x08000000</p>
+<p>&lt; POR/PDR reset flag</p>
+<p>&lt; 0x08000000</p>
+<p>&lt; POR/PDR reset flag</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__rcc_8h_source.html#l01996">1996</a> del archivo <a class="el" href="stm32f1xx__ll__rcc_8h_source.html">stm32f1xx_ll_rcc.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1997</span>{</div>
+<div class="line"><span class="lineno"> 1998</span>  <span class="keywordflow">return</span> (<a class="code hl_define" href="group___exported__macros.html#ga822bb1bb9710d5f2fa6396b84e583c33">READ_BIT</a>(<a class="code hl_define" href="group___peripheral__declaration.html#ga74944438a086975793d26ae48d5882d4">RCC</a>-&gt;CSR, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga837e2d7e2395ac45ebe2aea95ecde9bf">RCC_CSR_PORRSTF</a>) == (<a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga837e2d7e2395ac45ebe2aea95ecde9bf">RCC_CSR_PORRSTF</a>));</div>
+<div class="line"><span class="lineno"> 1999</span>}</div>
+<div class="ttc" id="agroup___peripheral___registers___bits___definition_html_ga837e2d7e2395ac45ebe2aea95ecde9bf"><div class="ttname"><a href="group___peripheral___registers___bits___definition.html#ga837e2d7e2395ac45ebe2aea95ecde9bf">RCC_CSR_PORRSTF</a></div><div class="ttdeci">#define RCC_CSR_PORRSTF</div><div class="ttdoc">POR/PDR reset flag.</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l01414">stm32f103xb.h:1414</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__ll__rcc_8h_source.html#l01996">LL_RCC_IsActiveFlag_PORRST()</a>, <a class="el" href="stm32f103xb_8h_source.html#l00683">RCC</a>, <a class="el" href="stm32f103xb_8h_source.html#l01414">RCC_CSR_PORRSTF</a> y <a class="el" href="stm32f1xx_8h_source.html#l00181">READ_BIT</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__rcc_8h_source.html#l01996">LL_RCC_IsActiveFlag_PORRST()</a>.</p>
+<div id="dynsection-33" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-33-summary" class="dynsummary">
+</div>
+<div id="dynsection-33-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___r_c_c___l_l___e_f___f_l_a_g___management_ga968f528a3e8fc9fb945bdc14fff675ca_cgraph.svg" width="163" height="78"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-34" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-34-summary" class="dynsummary">
+</div>
+<div id="dynsection-34-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___r_c_c___l_l___e_f___f_l_a_g___management_ga968f528a3e8fc9fb945bdc14fff675ca_icgraph.svg" width="163" height="78"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="gaaaacbc301b2e1da1940d9c25720495db" name="gaaaacbc301b2e1da1940d9c25720495db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaaaacbc301b2e1da1940d9c25720495db">&#9670;&#160;</a></span>LL_RCC_IsActiveFlag_SFTRST()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline uint32_t LL_RCC_IsActiveFlag_SFTRST </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__rcc_8h.html">stm32f1xx_ll_rcc.h</a>&quot;</code></p>
+
+<p>Check if RCC flag Software reset is set or not. </p>
+<p>@rmtoll CSR SFTRSTF LL_RCC_IsActiveFlag_SFTRST </p><dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">State</td><td>of bit (1 or 0). </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; Peripheral base address in the alias region</p>
+<p>&lt; 0x10000000</p>
+<p>&lt; Software Reset flag</p>
+<p>&lt; 0x10000000</p>
+<p>&lt; Software Reset flag</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__rcc_8h_source.html#l02006">2006</a> del archivo <a class="el" href="stm32f1xx__ll__rcc_8h_source.html">stm32f1xx_ll_rcc.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2007</span>{</div>
+<div class="line"><span class="lineno"> 2008</span>  <span class="keywordflow">return</span> (<a class="code hl_define" href="group___exported__macros.html#ga822bb1bb9710d5f2fa6396b84e583c33">READ_BIT</a>(<a class="code hl_define" href="group___peripheral__declaration.html#ga74944438a086975793d26ae48d5882d4">RCC</a>-&gt;CSR, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga16e89534934436ee8958440882b71e6f">RCC_CSR_SFTRSTF</a>) == (<a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga16e89534934436ee8958440882b71e6f">RCC_CSR_SFTRSTF</a>));</div>
+<div class="line"><span class="lineno"> 2009</span>}</div>
+<div class="ttc" id="agroup___peripheral___registers___bits___definition_html_ga16e89534934436ee8958440882b71e6f"><div class="ttname"><a href="group___peripheral___registers___bits___definition.html#ga16e89534934436ee8958440882b71e6f">RCC_CSR_SFTRSTF</a></div><div class="ttdeci">#define RCC_CSR_SFTRSTF</div><div class="ttdoc">Software Reset flag.</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l01417">stm32f103xb.h:1417</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__ll__rcc_8h_source.html#l02006">LL_RCC_IsActiveFlag_SFTRST()</a>, <a class="el" href="stm32f103xb_8h_source.html#l00683">RCC</a>, <a class="el" href="stm32f103xb_8h_source.html#l01417">RCC_CSR_SFTRSTF</a> y <a class="el" href="stm32f1xx_8h_source.html#l00181">READ_BIT</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__rcc_8h_source.html#l02006">LL_RCC_IsActiveFlag_SFTRST()</a>.</p>
+<div id="dynsection-35" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-35-summary" class="dynsummary">
+</div>
+<div id="dynsection-35-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___r_c_c___l_l___e_f___f_l_a_g___management_gaaaacbc301b2e1da1940d9c25720495db_cgraph.svg" width="163" height="78"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-36" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-36-summary" class="dynsummary">
+</div>
+<div id="dynsection-36-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___r_c_c___l_l___e_f___f_l_a_g___management_gaaaacbc301b2e1da1940d9c25720495db_icgraph.svg" width="163" height="78"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ga4d5c8412b59d383e51b9251d7627e38b" name="ga4d5c8412b59d383e51b9251d7627e38b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4d5c8412b59d383e51b9251d7627e38b">&#9670;&#160;</a></span>LL_RCC_IsActiveFlag_WWDGRST()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline uint32_t LL_RCC_IsActiveFlag_WWDGRST </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__rcc_8h.html">stm32f1xx_ll_rcc.h</a>&quot;</code></p>
+
+<p>Check if RCC flag Window Watchdog reset is set or not. </p>
+<p>@rmtoll CSR WWDGRSTF LL_RCC_IsActiveFlag_WWDGRST </p><dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">State</td><td>of bit (1 or 0). </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; Peripheral base address in the alias region</p>
+<p>&lt; 0x40000000</p>
+<p>&lt; Window watchdog reset flag</p>
+<p>&lt; 0x40000000</p>
+<p>&lt; Window watchdog reset flag</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__rcc_8h_source.html#l02016">2016</a> del archivo <a class="el" href="stm32f1xx__ll__rcc_8h_source.html">stm32f1xx_ll_rcc.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2017</span>{</div>
+<div class="line"><span class="lineno"> 2018</span>  <span class="keywordflow">return</span> (<a class="code hl_define" href="group___exported__macros.html#ga822bb1bb9710d5f2fa6396b84e583c33">READ_BIT</a>(<a class="code hl_define" href="group___peripheral__declaration.html#ga74944438a086975793d26ae48d5882d4">RCC</a>-&gt;CSR, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#gacabd7bbde7e78c9c8f5fd46e34771826">RCC_CSR_WWDGRSTF</a>) == (<a class="code hl_define" href="group___peripheral___registers___bits___definition.html#gacabd7bbde7e78c9c8f5fd46e34771826">RCC_CSR_WWDGRSTF</a>));</div>
+<div class="line"><span class="lineno"> 2019</span>}</div>
+<div class="ttc" id="agroup___peripheral___registers___bits___definition_html_gacabd7bbde7e78c9c8f5fd46e34771826"><div class="ttname"><a href="group___peripheral___registers___bits___definition.html#gacabd7bbde7e78c9c8f5fd46e34771826">RCC_CSR_WWDGRSTF</a></div><div class="ttdeci">#define RCC_CSR_WWDGRSTF</div><div class="ttdoc">Window watchdog reset flag.</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l01423">stm32f103xb.h:1423</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__ll__rcc_8h_source.html#l02016">LL_RCC_IsActiveFlag_WWDGRST()</a>, <a class="el" href="stm32f103xb_8h_source.html#l00683">RCC</a>, <a class="el" href="stm32f103xb_8h_source.html#l01423">RCC_CSR_WWDGRSTF</a> y <a class="el" href="stm32f1xx_8h_source.html#l00181">READ_BIT</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__rcc_8h_source.html#l02016">LL_RCC_IsActiveFlag_WWDGRST()</a>.</p>
+<div id="dynsection-37" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-37-summary" class="dynsummary">
+</div>
+<div id="dynsection-37-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___r_c_c___l_l___e_f___f_l_a_g___management_ga4d5c8412b59d383e51b9251d7627e38b_cgraph.svg" width="163" height="78"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-38" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-38-summary" class="dynsummary">
+</div>
+<div id="dynsection-38-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___r_c_c___l_l___e_f___f_l_a_g___management_ga4d5c8412b59d383e51b9251d7627e38b_icgraph.svg" width="163" height="78"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generado el <span class="timestamp"></span> para MICRO-Firmware por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

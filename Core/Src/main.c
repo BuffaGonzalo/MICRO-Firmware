@@ -1,21 +1,35 @@
-/* USER CODE BEGIN Header */
 /**
-  ******************************************************************************
-  * @file           : main.c
-  * @brief          : Main program body
-  ******************************************************************************
-  * @attention
-  *
-  * Copyright (c) 2026 STMicroelectronics.
-  * All rights reserved.
-  *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
-  *
-  ******************************************************************************
-  */
-/* USER CODE END Header */
+ * @file   main.c
+ * @author Gonzalo M. Buffa
+ * @brief  Punto de entrada principal, planificador temporal cooperativo y lazo de control del péndulo invertido.
+ * @details Este archivo implementa el núcleo en tiempo real del robot autobalanceado sobre STM32F103C8T6 (72 MHz).
+ *          Contiene el lazo crítico de control en cascada ejecutado a 200 Hz (5 ms) mediante TIM2,
+ *          la máquina de estados finita principal (MEF) con 8 modos operativos, el seguidor de línea autónomo
+ *          con calibración por LUTs, el algoritmo de evasión de obstáculos con control PD de pared,
+ *          la teleoperación por Joystick remoto, el despachador de tramas binarias unerPrtcl y el planificador
+ *          cooperativo de tareas periódicas (10 ms, 20 ms, 100 ms y 1 s).
+ *
+ * @defgroup group_main Núcleo y Planificador del Sistema (Core & Scheduler)
+ * @brief Inicialización, bucle principal cooperativo y gestión de la MEF general.
+ *
+ * @defgroup group_control Lazos de Control, PID y Cinemática (Control & PID)
+ * @brief Algoritmo PID de balance (200 Hz), compensador PI externo de esfuerzo motor y control de guiñada.
+ *
+ * @defgroup group_sensors Adquisición Inercial y Sensores Ópticos (Sensors & IMU)
+ * @brief Drivers y filtros para sensor inercial MPU6050, barra infrarroja de línea y sensores de distancia.
+ *
+ * @defgroup group_comm Comunicaciones y Protocolos (Networking & Protocol)
+ * @brief Control por comandos AT para ESP-01 Wi-Fi, sockets UDP/TCP, servidor Web y protocolo unerPrtcl.
+ *
+ * @defgroup group_ui_graphics Interfaz OLED, Gráficos 3D y Botón (Display & UI)
+ * @brief Primitivas para display SSD1306, motor 3D/4D wireframe, pulsador multifunción y LED Heartbeat.
+ *
+ * @defgroup group_system Abstracción de Hardware y Sistema STM32 (System & HAL)
+ * @brief Manejadores de interrupciones NVIC, configuración de periféricos HAL y soporte de bajo nivel.
+ *
+ * @ingroup group_main
+ */
+
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "usb_device.h"
@@ -40,155 +54,133 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-// Estructura contenedora de credenciales de red conocida
-typedef struct {
-	const char *ssid;
-	const char *password;
-	const char *targetIP;
-} _sWiFiNetwork;
-
-// MEF de estados de trayectoria de la pista (Seguidor de línea)
-typedef enum {
-	LINE_SEARCHING,                                   // Estado 0: Pérdida total inicial, buscando línea activamente
-	LINE_FOLLOWING,                                   // Estado 1: Seguimiento PID/Lineal normal sobre la pista
-	LINE_LOST,                                        // Estado 2: Desvío reciente de la línea, aplicando memoria de búsqueda
-	LINE_CROSS                                        // Estado 3: Cruce o bifurcación en T detectada (todo negro)
-} _eLineState;
-
-// MEF del control de esquivado de obstáculos
-typedef enum {
-	OBS_IDLE,                                         // Estado 0: Libre de obstáculos frontalmente
-	OBS_APPROACH,                                     // Estado 1: Detección frontal inminente, decidiendo desvío
-	OBS_CORNER,                                       // Estado 2: Maniobrando esquinas cerradas alrededor del objeto
-	OBS_WALL                                          // Estado 3: Seguimiento paralelo a la pared del obstáculo
-} _eObsState;
-
-typedef enum {
-    STATE_STANDBY = 0,        // Modo Reposo / Motores apagados
-    STATE_SWING = 1,          // 1 clic: Solo balanceo estático en el lugar, pantalla off
-    STATE_LINE_FOLLOWING = 2, // 2 clics: Seguimiento de línea activo, pantalla off
-    STATE_DODGE = 3,          // 3 clics: Esquivado de obstáculos activo, pantalla off
-    STATE_GOTO = 4,           // 4 clics: Modo GoTo interactivo desde PC, balanceo activo y WiFi activo
-    STATE_3D_SCREEN = 5,      // 5 clics: Figuras 3D en pantalla (Cubo->Teseracto->Pirámide cada 10s) con balanceo activo, sin WiFi
-    STATE_FIRST_SCREEN = 6,   // Pulsación 1s: Pantalla RAW (ADC, ACC, GYR), motores off
-    STATE_SECOND_SCREEN = 7   // Pulsación 2s: Pantalla Premium (VEL, ACL, ANG, BAL), motores off
-} _eRobotMode;
+/* Las estructuras y enumeraciones del sistema han sido centralizadas en util.h */
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
 // =========================================================
-// //GENERAL
+// // SISTEMA Y TEMPORIZACIÓN
 // =========================================================
-#define TO10MS              40       // Umbral para tarea de 10ms (40 x 250us)
-#define T100MS              100      // Equivalente a 100ms
-#define T1000MS             1000     // Equivalente a 1000ms
-#define T2000MS             2000     // Equivalente a 2000ms
-#define T3000MS             3000     // Equivalente a 3000ms
-#define T400MS              400      // Ventana de espera para multiclic de botones (400ms)
-#define ON                  1        // Banderas de estado encendido
-#define OFF                 0        // Banderas de estado apagado
-#define DEBOUNCE            4        // Ciclos de antirrebote para botones
+#define TO10MS                  40       // Umbral para tarea de 10ms (40 x 250us)
+#define T100MS                  100      // Equivalente a 100ms
+#define T1000MS                 1000     // Equivalente a 1000ms
+#define T2000MS                 2000     // Equivalente a 2000ms
+#define T3000MS                 3000     // Equivalente a 3000ms
+#define ON                      1        // Banderas de estado encendido
+#define OFF                     0        // Banderas de estado apagado
 
 // =========================================================
-// //DISPLAY
+// // BANDERAS DEL SISTEMA (FLAGS)
 // =========================================================
-#define SSD1306_MAXADC      30       // Límite superior de ADC para gráficos en pantalla
-#define SSD1306_MINADC      60       // Límite inferior de ADC para gráficos en pantalla
-#define SSD1306_SNDCOL      40       // Segunda columna del display
-#define SSD1306_TRDCOL      85       // Tercera columna del display
-#define SSD1306             0        // Identificador de tarea de pantalla en la Pila I2C
+#define ALLFLAGS                myFlags.bytes       // Acceso a bytes completos de las banderas
+#define IS10MS                  myFlags.bits.bit0   // Bandera de ciclo de 10ms activo
+#define IS20MS                  myFlags.bits.bit1   // Bandera de ciclo de 20ms activo
+#define IS100MS                 myFlags.bits.bit2   // Bandera de ciclo de 100ms activo
+#define RUN_PID                 myFlags.bits.bit4   // Bandera para ejecutar PID balancín
 
 // =========================================================
-// //MPU
+// // BOTONES E INTERFAZ DE USUARIO
 // =========================================================
-#define MPU6050             1        // Identificador de tarea del giroscopio en la Pila I2C
-#define DT_MS               5        // Delta de tiempo nominal en ms para integración de giroscopio (ajustado a 5ms)
-#define DT_US               5000     // Delta de tiempo nominal en us para el lazo PID (ajustado a 5ms)
-#define ALPHA_GYRO          980      // Confianza en escala x1000 del filtro complementario en el giroscopio (98.0%)
-#define ALPHA_ACC           20       // Confianza en escala x1000 del filtro complementario en el acelerómetro (2.0%)
-#define AZ_MIN_VALID        4000     // Mínimo valor absoluto del acelerómetro Z para validar el ángulo
-#ifndef MPU6050_ADDR
-#define MPU6050_ADDR        (0x68 << 1) // Dirección I2C del giroscopio MPU6050
-#endif
+#define DEBOUNCE                4        // Ciclos de antirrebote para botones
+#define T400MS                  400      // Ventana de espera para multiclic de botones (400ms)
 
 // =========================================================
-// //I2C
+// // COMUNICACIÓN WIFI Y SOFTAP TCP
 // =========================================================
-#define I2CSIZE             16       // Tamaño del buffer de tareas I2C (Pila)
+#define SOFTAP_BUF_SIZE         48       // Tamaño de buffer para recepción de credenciales desde Hercules (SSID;PASS o SSID;PASS;IP)
+#define WIFI_CRED_BUF_SIZE      9        // Longitud máxima de buffer de credencial (8 caracteres + '\0')
+#define SOFTAP_TCP_PORT         80       // Puerto de escucha TCP del servidor SoftAP para configuración
+#define NUM_KNOWN_NETWORKS      (sizeof(knownNetworks) / sizeof(knownNetworks[0])) // Cantidad de redes registradas
+#define SCANTIME                3000     // Tiempo en ms para escaneo de redes conocidas
 
 // =========================================================
-// //MOTORES
+// // MOTORES Y TRACCIÓN PWM
 // =========================================================
-#define TIM3CP              9999     // Período máximo del PWM de los motores (Timer 3)
+#define TIM3CP                  9999     // Período máximo del PWM de los motores (Timer 3)
 
 // =========================================================
-// //WIFI
+// // BALANCEO Y CONTROL PID
 // =========================================================
-#define HTTP_BUF_SIZE       128      // Tamaño máximo de almacenamiento de request HTTP (Webserver)
-#define NUM_KNOWN_NETWORKS  (sizeof(knownNetworks) / sizeof(knownNetworks[0])) // Cantidad de redes registradas
-#define SCANTIME            3000     // Tiempo en ms para escaneo de redes conocidas
-#define HTTP_BUF_RESET()  do { httpBufIdx = 0; httpBuf[0] = '\0'; } while(0) /* Macro de seguridad: centraliza el reset del buffer HTTP */
+#define PID_SCALE_FACTOR        100      // Factor de escala (x100) para evitar uso de floats en el PID
+#define ANG45                   (45 * PID_SCALE_FACTOR)        // Ángulo de caída extrema (45.00°)
+#define ANG20                   (20 * PID_SCALE_FACTOR)        // Ángulo de límite de integración PID (20.00°)
+#define ANG18                   (18 * PID_SCALE_FACTOR)        // Ángulo de inclinación crítica delantera (18.00°)
+#define ANG15                   (15 * PID_SCALE_FACTOR)        // Ángulo de umbral dinámico trasero en curva (15.00°)
+#define ANG12                   (12 * PID_SCALE_FACTOR)        // Ángulo de setpoint de ataque en curva (12.00°)
+#define ANG10                   (10 * PID_SCALE_FACTOR)        // Ángulo de setpoint de ataque estándar (10.00°)
+#define ANG7_5                  (75 * PID_SCALE_FACTOR / 10)   // Ángulo de recuperación amortiguado (7.50°)
+#define ANG2                    (2 * PID_SCALE_FACTOR)         // Ángulo de caída delantera (2.00°)
 
 // =========================================================
-// //PID
+// // MODO JOYSTICK (TELEOPERACIÓN)
 // =========================================================
-#define PID_SCALE_FACTOR    100      // Factor de escala (x100) para evitar uso de floats en el PID
-#define ANG45               45*PID_SCALE_FACTOR // Ángulo de caída extrema (45.00°)
-#define ANG20               20*PID_SCALE_FACTOR // Ángulo de límite de integración PID (20.00°)
-#define ANG18               18*PID_SCALE_FACTOR // Ángulo de inclinación crítica delantera (18.00°)
-#define ANG15               15*PID_SCALE_FACTOR // Ángulo de umbral dinámico trasero en curva (15.00°)
-#define ANG12               12*PID_SCALE_FACTOR // Ángulo de setpoint de ataque en curva (12.00°)
-#define ANG10               10*PID_SCALE_FACTOR // Ángulo de setpoint de ataque estándar (10.00°)
-#define ANG7_5              75*PID_SCALE_FACTOR/10 // Ángulo de recuperación amortiguado (7.50°)
-#define ANG2                2*PID_SCALE_FACTOR  // Ángulo de caída delantera (2.00°)
-
-
+#define goto_turn_offset        joystick_turn_offset           // Alias de compatibilidad para offset de giro
+#define goto_turn_timer         joystick_turn_timer            // Alias de compatibilidad para temporizador de giro
+#define goto_start_yaw_hr       joystick_start_yaw_hr          // Alias de compatibilidad para ángulo Yaw inicial
 
 // =========================================================
-// //SEGUIDOR
+// // MODO SEGUIDOR DE LÍNEA
 // =========================================================
-#define SCALE_LINE          1000     // Factor de escala para el término cuadrático de error de línea
-#define IR_WHITE            200      // Umbral analógico para considerar superficie blanca
-#define IR_DODGE_LINE_THRESHOLD 200  // Umbral analógico para considerar cinta negra en modo esquivar
-#define IR6_BOX_THRESHOLD   2000     // Umbral analógico para detección de caja (IR6)
-#define LINE_LOST_PHASE0    35       // Duración de la primera fase de búsqueda en ciclos
-#define LINE_LOST_PHASE1    70       // Duración de la segunda fase de búsqueda en ciclos
+#define SCALE_LINE              1000     // Factor de escala para el término cuadrático de error de línea
+#define IR_WHITE                200      // Umbral analógico para considerar superficie blanca
+#define LINE_LOST_PHASE0        35       // Duración de la primera fase de búsqueda en ciclos
+#define LINE_LOST_PHASE1        70       // Duración de la segunda fase de búsqueda en ciclos
 
 // Estados para la sub-MEF de pérdida de línea
-#define LINE_LOST_ROT_90      0
-#define LINE_LOST_WAIT_2S     1
-#define LINE_LOST_ROT_180     2
-#define LINE_LOST_STOPPED     3
-#define LINE_LOST_TURN_SPEED  180      // Esfuerzo de giro reducido para rotación suave en pérdida de línea (90° / 180°)
+#define LINE_LOST_ROT_90        0
+#define LINE_LOST_WAIT_2S       1
+#define LINE_LOST_ROT_180       2
+#define LINE_LOST_STOPPED       3
+#define LINE_LOST_TURN_SPEED    180      // Esfuerzo de giro reducido para rotación suave en pérdida de línea (90° / 180°)
 
 // =========================================================
-// //LUT
+// // MODO ESQUIVAR OBSTÁCULOS (DODGE)
 // =========================================================
-#define LUT_SIZE            16       // Tamaño de las Look-Up Tables de calibración de sensores
-#define lut_l1              LUT_IR1_IZQ           // Alias de tabla de calibración izquierda
-#define lut_l2              LUT_IR3_CEN           // Alias de tabla de calibración central
-#define lut_l3              LUT_IR5_DER           // Alias de tabla de calibración derecha
-#define lut_l4              LUT_PROMEDIO          // Alias de tabla de calibración promedio
-#define lut_y               LUT_Y_SCALE           // Alias de escala de salida (0 a 1000)
-
-#define lut_l1_x            LUT_IR1_IZQ         // Mapeo X de tabla de calibración izquierda
-#define lut_l1_y            LUT_Y_SCALE         // Mapeo Y de tabla de calibración izquierda
-#define lut_l2_x            LUT_IR3_CEN         // Mapeo X de tabla de calibración central
-#define lut_l2_y            LUT_Y_SCALE         // Mapeo Y de tabla de calibración central
-#define lut_l3_x            LUT_IR5_DER         // Mapeo X de tabla de calibración derecha
-#define lut_l3_y            LUT_Y_SCALE         // Mapeo Y de tabla de calibración derecha
-#define lut_l4_x            LUT_PROMEDIO        // Mapeo X de tabla de calibración promedio
-#define lut_l4_y            LUT_Y_SCALE         // Mapeo Y de tabla de calibración promedio
+#define IR_DODGE_LINE_THRESHOLD 200      // Umbral analógico para considerar cinta negra en modo esquivar
+#define IR6_BOX_THRESHOLD       2000     // Umbral analógico para detección de caja (IR6)
 
 // =========================================================
-// //BANDERAS
+// // SENSORES IMU (MPU6050) E I2C
 // =========================================================
-#define ALLFLAGS            myFlags.bytes       // Acceso a bytes completos de las banderas
-#define IS10MS              myFlags.bits.bit0   // Bandera de ciclo de 10ms activo
-#define IS20MS              myFlags.bits.bit1   // Bandera de ciclo de 20ms activo
-#define IS100MS             myFlags.bits.bit2   // Bandera de ciclo de 100ms activo
-#define RUN_PID             myFlags.bits.bit4   // Bandera para ejecutar PID balancín
+#define MPU6050                 1        // Identificador de tarea del giroscopio en la Pila I2C
+#define DT_MS                   5        // Delta de tiempo nominal en ms para integración de giroscopio (ajustado a 5ms)
+#define DT_US                   5000     // Delta de tiempo nominal en us para el lazo PID (ajustado a 5ms)
+#define ALPHA_GYRO              980      // Confianza en escala x1000 del filtro complementario en el giroscopio (98.0%)
+#define ALPHA_ACC               20       // Confianza en escala x1000 del filtro complementario en el acelerómetro (2.0%)
+#define AZ_MIN_VALID            4000     // Mínimo valor absoluto del acelerómetro Z para validar el ángulo
+#ifndef MPU6050_ADDR
+#define MPU6050_ADDR            (0x68 << 1) // Dirección I2C del giroscopio MPU6050
+#endif
+#define I2CSIZE                 16       // Tamaño del buffer de tareas I2C (Pila)
+
+// =========================================================
+// // SENSORES IR Y CALIBRACIÓN (LUT)
+// =========================================================
+#define LUT_SIZE                16       // Tamaño de las Look-Up Tables de calibración de sensores
+#define lut_l1                  LUT_IR1_IZQ           // Alias de tabla de calibración izquierda
+#define lut_l2                  LUT_IR3_CEN           // Alias de tabla de calibración central
+#define lut_l3                  LUT_IR5_DER           // Alias de tabla de calibración derecha
+#define lut_l4                  LUT_PROMEDIO          // Alias de tabla de calibración promedio
+#define lut_y                   LUT_Y_SCALE           // Alias de escala de salida (0 a 1000)
+
+#define lut_l1_x                LUT_IR1_IZQ         // Mapeo X de tabla de calibración izquierda
+#define lut_l1_y                LUT_Y_SCALE         // Mapeo Y de tabla de calibración izquierda
+#define lut_l2_x                LUT_IR3_CEN         // Mapeo X de tabla de calibración central
+#define lut_l2_y                LUT_Y_SCALE         // Mapeo Y de tabla de calibración central
+#define lut_l3_x                LUT_IR5_DER         // Mapeo X de tabla de calibración derecha
+#define lut_l3_y                LUT_Y_SCALE         // Mapeo Y de tabla de calibración derecha
+#define lut_l4_x                LUT_PROMEDIO        // Mapeo X de tabla de calibración promedio
+#define lut_l4_y                LUT_Y_SCALE         // Mapeo Y de tabla de calibración promedio
+
+// =========================================================
+// // PANTALLA OLED (SSD1306)
+// =========================================================
+#define SSD1306                 0        // Identificador de tarea de pantalla en la Pila I2C
+#define SSD1306_MAXADC          30       // Límite superior de ADC para gráficos en pantalla
+#define SSD1306_MINADC          60       // Límite inferior de ADC para gráficos en pantalla
+#define SSD1306_SNDCOL          40       // Segunda columna del display
+#define SSD1306_TRDCOL          85       // Tercera columna del display
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -212,175 +204,99 @@ TIM_HandleTypeDef htim4;
 UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
-volatile _eRobotMode robotMode = STATE_SWING;
-volatile _eRobotMode lastMode = (_eRobotMode)-1;
-
-// Variables de botones encapsuladas dentro de la estructura _sButton myButton
-
 // =========================================================
-// //GENERAL
+// // SISTEMA Y ESTADO GENERAL
 // =========================================================
-// Nueva máscara ajustada a 20 ranuras de 100ms síncronas (Ciclo de 2.0 segundos)
+const char firmware[] = "EX100923v01\n";             // Versión actual del firmware del microcontrolador
+volatile _eRobotMode robotMode = STATE_SWING;         // Modo operativo actual del robot
+volatile _eRobotMode lastMode = (_eRobotMode)-1;      // Modo operativo anterior para detección de cambios
+
+// Máscara de 20 ranuras de 100ms síncronas para el LED Heartbeat (Ciclo de 2.0 segundos)
 uint32_t heartBeatMask[] = {
     0x00000001,  // Indice 0: STATE_SWING (1 parpadeo de 100ms)
     0x00000005,  // Indice 1: STATE_LINE_FOLLOWING (2 parpadeos de 100ms)
     0x00000015,  // Indice 2: STATE_DODGE (3 parpadeos de 100ms)
-    0x00000055,  // Indice 3: STATE_GOTO (4 parpadeos de 100ms)
+    0x00000055,  // Indice 3: STATE_JOYSTICK (4 parpadeos de 100ms)
     0x00000155,  // Indice 4: STATE_3D_SCREEN (5 parpadeos de 100ms)
     0x0000001F,  // Indice 5: STATE_FIRST_SCREEN (encendido 500ms, apagado 1.5s)
     0x000003FF,  // Indice 6: STATE_SECOND_SCREEN (encendido 1000ms, apagado 1s)
     0x00000000   // Indice 7: STATE_STANDBY (apagado)
 };
-const char firmware[] = "EX100923v01\n";             // Versión actual del firmware del microcontrolador
-uint8_t hbIndex = 0;                                  // Índice para seleccionar la máscara del LED (Heartbeat) - Inicializado para STATE_SWING (1 parpadeo de 100ms)
-volatile int16_t goto_turn_offset = 0;                // Offset de giro para modo GoTo
-volatile uint16_t goto_turn_timer = 0;                 // Watchdog de giro para modo GoTo en ms
+uint8_t hbIndex = 0;                                  // Índice para seleccionar la máscara del LED (Heartbeat)
+
+// Temporizadores base y divisores del lazo principal
 uint8_t time10ms;                                     // Temporizador incremental de 250us para llegar a 10ms
 uint8_t tmo100ms = 10;                                // Temporizador de paciencia para eventos de 100ms
 uint8_t tmo20ms = 2;                                  // Temporizador de paciencia para eventos de 20ms
-uint8_t tmo100 = 20;                                  // Divisor de ciclo para intercalar tareas en I2C (ajustado para TIM2 a 5ms para mantener refresco a 100ms)
+uint8_t tmo100 = 20;                                  // Divisor de ciclo para intercalar tareas en I2C (TIM2 a 5ms)
 
 // =========================================================
-// //DISPLAY
-// =========================================================
-volatile uint8_t ssd1306_TxCplt = 0;                  // Bandera indicadora de fin de transmisión I2C por DMA para pantalla
-uint16_t staticOff = 400;                             // Offset estático para dibujo de gráficos
-uint16_t movingOff = 300;                             // Offset móvil para dibujo de gráficos interactivos
-
-// =========================================================
-// //MPU
-// =========================================================
-volatile uint8_t mpu6050_RxCplt = 0;                  // Bandera indicadora de recepción I2C por DMA de datos del giroscopio
-int16_t ax = 0;                                       // Lectura cruda del acelerómetro en el eje X
-int16_t ay = 0;                                       // Lectura cruda del acelerómetro en el eje Y
-int16_t az = 0;                                       // Lectura cruda del acelerómetro en el eje Z
-int16_t gx = 0;                                       // Lectura cruda del giroscopio en el eje X
-int16_t gy = 0;                                       // Lectura cruda del giroscopio en el eje Y
-int16_t gz = 0;                                       // Lectura cruda del giroscopio en el eje Z
-volatile int32_t speed = 0;                           // Estimación física de la velocidad lineal en mm/s
-volatile int32_t dynamic_accel = 0;                   // Aceleración lineal filtrada y compensada
-volatile uint16_t calib_cycle = 0;                    // Contador de ciclos de calibración inicial del MPU (para telemetría)
-
-// =========================================================
-// //I2C
-// =========================================================
-uint8_t Pila[I2CSIZE] = {};                           // Cola de tareas I2C pendientes de despacho
-uint8_t i2cIndex = 0;                                 // Índice circular actual para despacho en la cola I2C
-
-// =========================================================
-// //ADC
-// =========================================================
-uint16_t adcData[8];                                  // Buffer de DMA que almacena los valores crudos del ADC del micro
-uint16_t adcDataTx[8];                                // Copia segura del buffer de ADC para transmisión libre de colisiones
-
-// =========================================================
-// //COMUNICACION
-// =========================================================
-_sComm USBTx;                                         // Estructura de protocolo para el buffer de transmisión USB
-_sComm USBRx;                                         // Estructura de protocolo para el buffer de recepción USB
-_sComm WiFiTx;                                        // Estructura de protocolo para el buffer de transmisión WiFi (ESP-01)
-_sComm WiFiRx;                                        // Estructura de protocolo para el buffer de recepción WiFi (ESP-01)
-volatile uint8_t buffUSBTx[RXBUFSIZE];                // Array de memoria física para buffer de transmisión USB
-volatile uint8_t buffUSBRx[TXBUFSIZE];                // Array de memoria física para buffer de recepción USB
-volatile uint8_t buffWiFiTx[RXBUFSIZE];               // Array de memoria física para buffer de transmisión WiFi
-volatile uint8_t buffWiFiRx[TXBUFSIZE];               // Array de memoria física para buffer de recepción WiFi
-_uWord myWord;                                        // Unión de propósito general para conversión de tipos de datos (2/4 bytes)
-
-// =========================================================
-// //BANDERAS
+// // BANDERAS DEL SISTEMA (FLAGS)
 // =========================================================
 volatile _uFlag myFlags;                              // Banderas de ciclo de tareas del sistema en tiempo real
 
 // =========================================================
-// //MOTORES
+// // BOTONES E INTERFAZ DE USUARIO
+// =========================================================
+_sButton myButton;                                    // Estructura de estado físico del botón de configuración
+
+// =========================================================
+// // COMUNICACIÓN SERIE Y USB
+// =========================================================
+_sComm USBTx;                                         // Estructura de protocolo para el buffer de transmisión USB
+_sComm USBRx;                                         // Estructura de protocolo para el buffer de recepción USB
+volatile uint8_t buffUSBTx[RXBUFSIZE];                // Array de memoria física para buffer de transmisión USB
+volatile uint8_t buffUSBRx[TXBUFSIZE];                // Array de memoria física para buffer de recepción USB
+_uWord myWord;                                        // Unión de propósito general para conversión de tipos de datos (2/4 bytes)
+
+// =========================================================
+// // COMUNICACIÓN WIFI Y SERVIDOR WEB
+// =========================================================
+_sComm WiFiTx;                                        // Estructura de protocolo para el buffer de transmisión WiFi (ESP-01)
+_sComm WiFiRx;                                        // Estructura de protocolo para el buffer de recepción WiFi (ESP-01)
+volatile uint8_t buffWiFiTx[RXBUFSIZE];               // Array de memoria física para buffer de transmisión WiFi
+volatile uint8_t buffWiFiRx[TXBUFSIZE];               // Array de memoria física para buffer de recepción WiFi
+uint8_t byteUART_ESP01;                               // Byte de almacenamiento de interrupción UART para WiFi
+_sESP01Handle esp01Handler;                           // Estructura de llamadas y control del módulo Wi-Fi
+
+// Base de datos local de redes Wi-Fi a las cuales autoconectarse
+static const _sWiFiNetwork knownNetworks[] = {
+	{ "POCOX8",                  "12345678",              "10.120.40.213"  },
+	{ "ARPANET",                 "1969-Apolo_11-2022",    "192.168.0.10"   },
+	{ "FCAL-Personal",           "fcal-uner+2019",        "172.22.237.227" },
+	{ "FCAL",                    "fcalconcordia.06-2019", "172.23.190.89"  },
+	{ "InternetPlus_872f10_EXT", "wlan78d0ef",            "192.168.1.52"   },
+};
+static uint8_t currentNetworkIdx = 0;                 // Red actual en intento de conexión por el escáner
+static uint8_t networkScanActive = 0;                 // Bandera indicadora de escáner de redes activo
+static uint16_t networkScanTimer = SCANTIME;          // Temporizador de permanencia en escaneo de red en milisegundos
+
+// Telemetría y comunicación por sockets UDP/TCP
+uint8_t timerUDP = 0;                                 // Temporizador para vigilar transmisión periódica UDP
+uint8_t udpSilenceCounter = 0;                        // Contador de silencio UDP en segundos (manda ALIVEs en ausencia de comandos)
+static char udpTargetIP[16] = "192.168.0.10";         // Dirección IP de destino UDP/TCP para envío de telemetría
+static uint16_t udpTargetPort = 30010;                // Puerto de destino UDP/TCP de la aplicación de escritorio
+static uint8_t udpReadyToStart = 0;                   // Bandera que indica que el socket UDP/TCP está listo para despachar
+static char udpTargetProto[4] = "UDP";                // Protocolo inicial por defecto ("UDP" inicial, conmute a TCP según necesidad)
+
+// Modo SoftAP servidor TCP para configuración desde terminal Hercules (SSID;PASS)
+static char softAPBuf[SOFTAP_BUF_SIZE];               // Buffer para acumular comando de configuración
+static uint8_t softAPBufIdx = 0;                      // Índice actual en el buffer SoftAP
+static uint8_t softAPBufReady = 0;                    // Bandera de comando completo recibido
+static uint8_t softAPRxTimer = 0;                     // Temporizador de inactividad para recepción SoftAP (10ms ticks)
+static uint8_t isSoftAPMode = 0;                      // Estado de modo SoftAP activo (1 = activo, 0 = estación)
+static char softAP_TargetSSID[WIFI_CRED_BUF_SIZE];    // Almacenamiento persistente del SSID recibido (8 chars max + '\0')
+static char softAP_TargetPASS[WIFI_CRED_BUF_SIZE];    // Almacenamiento persistente de la contraseña recibida (8 chars max + '\0')
+static uint16_t softAPSwitchDelay = 0;                // Demora en ticks de 10ms antes del reset para que salga el mensaje OK
+static uint8_t softAPSwitchPending = 0;               // Bandera de cambio a Station pendiente
+
+// =========================================================
+// // MOTORES Y TRACCIÓN PWM
 // =========================================================
 uint16_t lPulse1 = 0;                                 // Ancho de pulso PWM para Motor Izquierdo Adelante
 uint16_t rPulse2 = 0;                                 // Ancho de pulso PWM para Motor Derecho Adelante
 uint16_t lPulse3 = 0;                                 // Ancho de pulso PWM para Motor Izquierdo Atrás
 uint16_t rPulse4 = 0;                                 // Ancho de pulso PWM para Motor Derecho Atrás
-
-// =========================================================
-// //WIFI
-// =========================================================
-uint8_t timerUDP = 0;                                 // Temporizador para vigilar transmisión periódica UDP
-uint8_t udpSilenceCounter = 5;                        // Contador de silencio UDP (manda ALIVEs autónomos en ausencia de comandos)
-uint8_t byteUART_ESP01;                               // Byte de almacenamiento de interrupción UART para WiFi
-_sESP01Handle esp01Handler;                           // Estructura de llamadas y control del módulo Wi-Fi
-_sButton myButton;                                    // Estructura de estado físico del botón de configuración
-
-// =========================================================
-// //WEBSERVER
-// =========================================================
-static char httpBuf[HTTP_BUF_SIZE];                   // Buffer para acumular el request del servidor web local
-static uint8_t httpBufIdx = 0;                        // Índice actual en el buffer HTTP (0xFF indica petición lista)
-static uint8_t isWebserverMode = 0;                   // Estado bandera del modo Webserver activo (1 = activo, 0 = inactivo)
-static uint8_t httpTxBuf[256];                        // Buffer de transmisión para telemetría JSON (optimizado para bajo consumo de RAM)
-static char udpTargetIP[16] = "192.168.0.10";         // Dirección IP de destino UDP/TCP para envío de telemetría
-static uint16_t udpTargetPort = 30010;                // Puerto de destino UDP/TCP de la aplicación de escritorio
-static uint8_t udpReadyToStart = 0;                   // Bandera que indica que el socket UDP/TCP está listo para despachar
-static char udpTargetProto[4] = "TCP";                // Protocolo de transporte por defecto ("TCP" para pruebas de PID)
-
-// =========================================================
-// //REDES
-// =========================================================
-static const _sWiFiNetwork knownNetworks[] = {
-		{ "POCOX8",    "12345678",                "10.220.43.213"   },
-	{ "ARPANET", "1969-Apolo_11-2022",       "192.168.0.10"   },
-	{ "FCAL-Personal", "fcal-uner+2019",       "172.22.237.227" },
-	{ "FCAL",    "fcalconcordia.06-2019",    "172.23.190.89"  },
-	{ "InternetPlus_872f10_EXT", "wlan78d0ef", "192.168.1.52" },
-};                                                    // Base de datos local de redes Wi-Fi a las cuales autoconectarse
-
-static uint8_t currentNetworkIdx = 0;                 // Red actual en intento de conexión por el escáner
-static uint8_t networkScanActive = 0;                 // _eDMA Bandera indicadora de escáner de redes activo
-static uint16_t networkScanTimer = SCANTIME;          // Temporizador de permanencia en escaneo de red en milisegundos
-
-// =========================================================
-// //SENSORES
-// =========================================================
-const uint16_t LUT_IR1_IZQ[LUT_SIZE] = {78, 167, 315, 384, 520, 722, 807, 903, 1055, 1327, 1492, 1629, 2213, 2442, 2919, 3682}; // LUT del sensor IR izquierdo
-const uint16_t LUT_IR3_CEN[LUT_SIZE] = {149, 298, 459, 622, 868, 1261, 1501, 1720, 2246, 2874, 3261, 3499, 3847, 3875, 3885, 3905}; // LUT del sensor IR central
-const uint16_t LUT_IR5_DER[LUT_SIZE] = {102, 237, 375, 518, 705, 1092, 1255, 1490, 1931, 2501, 2865, 3140, 3826, 3853, 3881, 3892}; // LUT del sensor IR derecho
-const uint16_t LUT_PROMEDIO[LUT_SIZE] = {109, 234, 383, 508, 697, 1025, 1187, 1371, 1744, 2234, 2539, 2756, 3295, 3390, 3561, 3826}; // LUT de calibración promedio
-const uint16_t LUT_Y_SCALE[16] = {0, 67, 133, 200, 267, 333, 400, 467, 533, 600, 667, 733, 800, 867, 933, 1000}; // Escala normalizada de salida (0 = Blanco, 1000 = Negro)
-
-// (LUTs para sensores superiores eliminadas para usar valores crudos directamente)
-
-volatile int16_t cal_left_ir = 0;                     // Lectura calibrada del sensor IR izquierdo (Der-Raw en telemetría)
-volatile int16_t cal_center_ir = 0;                   // Lectura calibrada del sensor IR central (Cen-Raw en telemetría)
-volatile int16_t cal_right_ir = 0;                    // Lectura calibrada del sensor IR derecho (Izq-Raw en telemetría)
-
-// Lecturas calibradas de sensores superiores (esquivar objeto)
-volatile int16_t cal_ir0 = 0;
-volatile int16_t cal_ir2 = 0;
-volatile int16_t cal_ir4 = 0;
-volatile int16_t cal_ir6 = 0;
-volatile int16_t cal_ir7 = 0;
-
-// Prototipos de funciones de calibración asociadas
-static uint16_t LUT_Interpolate(const uint16_t *x, const uint16_t *lut_y, uint16_t raw);
-void NormalizeLineSensors(const uint16_t *adcDataTx_ptr, uint16_t *norm);
-
-// =========================================================
-// //PID
-// =========================================================
-int32_t acc_angle_hr = 0;                             // Ángulo del acelerómetro de alta resolución
-int32_t gyro_delta_hr = 0;                            // Incremento angular de alta resolución calculado del giroscopio
-int32_t current_angle_hr = 0;                         // Ángulo complementario filtrado de alta resolución
-int32_t current_angle = 0;                            // Ángulo complementario de salida del robot en escala x100
-int32_t measured_dt_ms = 20;                          // Delta de tiempo real medido en ms de ejecución del bucle
-int32_t ax_filt = 0;                                  // Aceleración filtrada en el eje X
-int32_t az_filt = 0;                                  // Aceleración filtrada en el eje Z
-
-int32_t error = 0;                                    // Diferencia entre setpoint y ángulo actual
-int32_t last_error = 0;                               // Error del ciclo PID inmediatamente anterior para cálculo derivativo
-int32_t derivative = 0;                               // Componente derivativo del lazo PID
-int32_t integral = 0;                                 // Componente acumulativo integral del lazo PID
-int32_t output = 0;                                   // Acción de control total del lazo de equilibrio inyectada a los motores
-
-int16_t Kp_stable = 85;                               // Ganancia proporcional de equilibrio estático (ajustado por el usuario)
-int16_t Kd_stable = 2;                                // Ganancia derivativa de equilibrio estático (ajustado por el usuario)
-int16_t Ki_stable = 0;                                // Ganancia integral de equilibrio estático (revertido al valor original)
 
 uint16_t maxPWM = 9999;                               // Ciclo de trabajo máximo permitido (100%)
 uint16_t minPWM_Left = 800;                           // PWM mínimo que vence la fricción estática de la rueda izquierda
@@ -390,22 +306,55 @@ uint16_t PWM_RRot = 800;                              // PWM estático de pivote
 int16_t offset_left = 0;                              // Offset para compensación de deriva de tracción del motor izquierdo
 int16_t offset_right = 0;                             // Offset para compensación de deriva de tracción del motor derecho
 
-int32_t setpoint = -1000;                                // Setpoint de equilibrio estático base (x100 = 0.5°) ajustable por Qt
+// =========================================================
+// // BALANCEO Y CONTROL PID
+// =========================================================
+// Estimación angular y filtrado complementario
+int32_t acc_angle_hr = 0;                             // Ángulo del acelerómetro de alta resolución
+int32_t gyro_delta_hr = 0;                            // Incremento angular de alta resolución calculado del giroscopio
+int32_t current_angle_hr = 0;                         // Ángulo complementario filtrado de alta resolución
+int32_t current_angle = 0;                            // Ángulo complementario de salida del robot en escala x100
+int32_t measured_dt_ms = 20;                          // Delta de tiempo real medido en ms de ejecución del bucle
+int32_t last_angle = 0;                               // Ángulo previo para cálculo de la derivada sobre medición
+
+// Lazo PID de balance longitudinal (Lazo Rápido)
+int32_t error = 0;                                    // Diferencia entre setpoint y ángulo actual
+int32_t last_error = 0;                               // Error del ciclo PID inmediatamente anterior para cálculo derivativo
+int32_t derivative = 0;                               // Componente derivativo del lazo PID
+int32_t integral = 0;                                 // Componente acumulativo integral del lazo PID
+int32_t output = 0;                                   // Acción de control total del lazo de equilibrio inyectada a los motores
+
+// Ganancias del PID de balanceo
+int16_t Kp_stable = 85;                               // Ganancia proporcional de equilibrio estático
+int16_t Kd_stable = 2;                                // Ganancia derivativa de equilibrio estático
+int16_t Ki_stable = 0;                                // Ganancia integral de equilibrio estático
+
+// Consignas angulares y recuperación de caída
+int32_t setpoint = -1000;                             // Setpoint de equilibrio estático base (x100) ajustable por Qt
+int32_t balance_setpoint_calib = -1000;               // Setpoint estático calibrado base para recuperación de balance
 int16_t attack_setpoint = -1600;                      // Setpoint de inclinación frontal para ataque (configurable por Qt)
+volatile uint8_t backwards_recovery_active = 0;       // Estado del gatillo de recuperación de caída trasera
+volatile uint8_t forwards_recovery_active = 0;        // Estado del gatillo de recuperación de caída delantera
 
-/* Variables del Lazo Cascada Externo */
+// Lazo Cascada Externo (Control de posición y deriva de velocidad)
 int32_t pwm_filtrado = 0;                             // Esfuerzo de motor filtrado LPF (Lazo Lento)
-int32_t integral_esfuerzo = 0;                         // Integral de error de esfuerzo para lazo externo
-int16_t angulo_modificador_pi = 0;                     // Corrección de ángulo calculado por PI (x100)
-
-/* Parámetros configurables del Lazo Externo */
-int16_t Kp_ext = 40;                                 // Ganancia proporcional de lazo externo (x1000)
-int16_t Ki_ext = 200;                                  // Ganancia integral de lazo externo (x10000)
+int32_t integral_esfuerzo = 0;                        // Integral de error de esfuerzo para lazo externo
+int16_t angulo_modificador_pi = 0;                    // Corrección de ángulo calculado por PI (x100)
+int16_t Kp_ext = 40;                                  // Ganancia proporcional de lazo externo (x1000)
+int16_t Ki_ext = 200;                                 // Ganancia integral de lazo externo (x10000)
 int16_t alfa_lpf = 10;                                // Coeficiente alfa del filtro LPF (0-100)
 
 // =========================================================
-// //SEGUIDOR
+// // MODO JOYSTICK (TELEOPERACIÓN)
 // =========================================================
+volatile int16_t joystick_turn_offset = 0;            // Offset de giro para modo Joystick
+volatile uint16_t joystick_turn_timer = 0;            // Watchdog de giro para modo Joystick en ms
+volatile int32_t joystick_start_yaw_hr = 0;           // Ángulo Yaw de referencia al iniciar modo Joystick
+
+// =========================================================
+// // MODO SEGUIDOR DE LÍNEA
+// =========================================================
+_eLineState lineState = LINE_SEARCHING;               // Estado actual de la máquina del seguidor de línea
 int16_t Kp_line = 250;                                // Ganancia proporcional de guiñada para corrección rápida sobre la línea
 int16_t Kq_line = 25;                                 // Ganancia derivativa/cuadrática de guiñada para atenuar oscilaciones
 int16_t Kp_line_backup = 250;                         // Respaldo de Kp_line al entrar a Swing
@@ -420,49 +369,89 @@ int16_t custom_turn = 350;                            // Intensidad de giro pref
 int16_t vel_damp_div = 500;                           // Divisor del término amortiguador de velocidad
 int16_t vel_damp_limit = 100;                         // Límite del amortiguador de velocidad
 int16_t turn_limit = 1000;                            // Límite superior absoluto del esfuerzo de giro motor (Yaw)
-
-int16_t ax_offset = 0;                                // Offset calibrado de gravedad en reposo del acelerómetro X
-
-_eLineState lineState = LINE_SEARCHING;               // Estado actual de la máquina del seguidor de línea
 uint16_t line_lost_timer = 0;                         // Temporizador en ciclos transcurridos desde que se perdió la pista
 uint8_t line_lost_phase = 0;                          // Fase de búsqueda secuencial actual (fase 0, 1 o 2)
 
 // =========================================================
-// //OBSTACULO
+// // MODO ESQUIVAR OBSTÁCULOS (DODGE)
 // =========================================================
+volatile _eDodgeSubState dodgeState = DODGE_LINE_FOLLOWING; // Inicia en seguimiento de línea con esquivado activo
+volatile int32_t dodge_yaw = 0;                       // Referencia o delta de Yaw durante maniobra de esquive
+volatile uint32_t dodge_timer = 0;                    // Temporizador en milisegundos para fases de maniobra
+int8_t dodge_direction = -1;                          // -1: Rotación a la DERECHA, 1: IZQUIERDA
+
+// Distancias de referencia y umbrales de proximidad
 uint16_t obs_detect_dist = 1000;                      // Distancia frontal de detección en mm
 uint16_t obs_corner_dist = 800;                       // Distancia lateral del sensor de 45° para validar esquina
 uint16_t obs_lost_dist = 400;                         // Distancia mínima lateral por debajo de la cual la pared terminó
-int32_t Kp_pared = 11;                                // Fuerza principal para mantener distancia lateral (90°)
-int32_t Kd_anticipo = 7;                              // Fuerza menor de ayuda/anticipación anticipada (45°)
-int32_t Kd_frontal = 30;                              // Fuerza de protección frontal anticipada (IR6)
 uint16_t obs_side_dist = 1000;                        // Distancia lateral de referencia deseada para seguir la pared
 uint16_t obs_stop_cycles = 10;                        // Ciclos de inmovilización previa antes de iniciar rotación evasiva
 uint16_t obs_align_dist = 2500;                       // Distancia objetivo del sensor lateral tras rotación de 90°
-int8_t dodge_direction = -1;                          // -1: Rotación a la DERECHA, 1: IZQUIERDA
+
+// Ganancias de control de evasión y seguimiento de pared
+int32_t Kp_pared = 11;                                // Fuerza principal para mantener distancia lateral (90°)
+int32_t Kd_anticipo = 7;                              // Fuerza menor de ayuda/anticipación anticipada (45°)
+int32_t Kd_frontal = 30;                              // Fuerza de protección frontal anticipada (IR6)
 
 // =========================================================
-// //DODGE ROTATION
+// // SENSORES IMU (MPU6050) E I2C
 // =========================================================
-// =========================================================
-// //DODGE ROTATION
-// =========================================================
-typedef enum {
-    DODGE_LINE_FOLLOWING,  // Seguimiento de línea con rampa de desaceleración
-    DODGE_ROTATING,        // Rotación de 90° con giroscopio
-    DODGE_WALL_FOLLOWING,  // Evasión PD continua
-    DODGE_RETURN_ROTATING, // Rotación sobre el lugar para re-enganchar la línea
-    DODGE_STANDBY          // Standby unificado de frenado (1.5s a +1000, 1.5s a +350)
-} _eDodgeSubState;
+uint8_t Pila[I2CSIZE] = {};                           // Cola de tareas I2C pendientes de despacho
+uint8_t i2cIndex = 0;                                 // Índice circular actual para despacho en la cola I2C
+volatile uint8_t mpu6050_RxCplt = 0;                  // Bandera indicadora de recepción I2C por DMA de datos del giroscopio
 
+// Lecturas crudas del acelerómetro y giroscopio
+int16_t ax = 0;                                       // Lectura cruda del acelerómetro en el eje X
+int16_t ay = 0;                                       // Lectura cruda del acelerómetro en el eje Y
+int16_t az = 0;                                       // Lectura cruda del acelerómetro en el eje Z
+int16_t gx = 0;                                       // Lectura cruda del giroscopio en el eje X
+int16_t gy = 0;                                       // Lectura cruda del giroscopio en el eje Y
+int16_t gz = 0;                                       // Lectura cruda del giroscopio en el eje Z
 
-volatile _eDodgeSubState dodgeState = DODGE_LINE_FOLLOWING; // Inicia en seguimiento de línea con esquivado activo
-volatile int32_t dodge_yaw = 0;
+// Aceleraciones filtradas y cinemática estimada
+int32_t ax_filt = 0;                                  // Aceleración filtrada en el eje X
+int32_t az_filt = 0;                                  // Aceleración filtrada en el eje Z
+volatile int32_t speed = 0;                           // Estimación física de la velocidad lineal en mm/s
+volatile int32_t dynamic_accel = 0;                   // Aceleración lineal filtrada y compensada
+
+// Calibración, offsets e integración Yaw
+int16_t ax_offset = 0;                                // Offset calibrado de gravedad en reposo del acelerómetro X
+volatile int16_t gz_offset = 0;                       // Offset calibrado del giróscopo en el eje Z
+volatile uint16_t calib_cycle = 0;                    // Contador de ciclos de calibración inicial del MPU (para telemetría)
 volatile int32_t total_yaw_hr = 0;                    // Ángulo Yaw total acumulado continuo en milígrados
-volatile int32_t goto_start_yaw_hr = 0;               // Ángulo Yaw de referencia al iniciar modo GoTo
-volatile uint32_t dodge_timer = 0;
-volatile int16_t gz_offset = 0;
 
+// =========================================================
+// // SENSORES ADC E INFRARROJOS (CALIBRACIÓN / LUT)
+// =========================================================
+// Buffers de conversión ADC
+uint16_t adcData[8];                                  // Buffer de DMA que almacena los valores crudos del ADC del micro
+uint16_t adcDataTx[8];                                // Copia segura del buffer de ADC para transmisión libre de colisiones
+
+// Tablas de calibración Look-Up Tables (LUT)
+const uint16_t LUT_IR1_IZQ[LUT_SIZE] = {78, 167, 315, 384, 520, 722, 807, 903, 1055, 1327, 1492, 1629, 2213, 2442, 2919, 3682}; // LUT del sensor IR izquierdo
+const uint16_t LUT_IR3_CEN[LUT_SIZE] = {149, 298, 459, 622, 868, 1261, 1501, 1720, 2246, 2874, 3261, 3499, 3847, 3875, 3885, 3905}; // LUT del sensor IR central
+const uint16_t LUT_IR5_DER[LUT_SIZE] = {102, 237, 375, 518, 705, 1092, 1255, 1490, 1931, 2501, 2865, 3140, 3826, 3853, 3881, 3892}; // LUT del sensor IR derecho
+const uint16_t LUT_PROMEDIO[LUT_SIZE] = {109, 234, 383, 508, 697, 1025, 1187, 1371, 1744, 2234, 2539, 2756, 3295, 3390, 3561, 3826}; // LUT de calibración promedio
+const uint16_t LUT_Y_SCALE[16] = {0, 67, 133, 200, 267, 333, 400, 467, 533, 600, 667, 733, 800, 867, 933, 1000}; // Escala normalizada de salida (0 = Blanco, 1000 = Negro)
+
+// Lecturas calibradas de sensores inferiores (seguimiento de línea)
+volatile int16_t cal_left_ir = 0;                     // Lectura calibrada del sensor IR izquierdo (Der-Raw en telemetría)
+volatile int16_t cal_center_ir = 0;                   // Lectura calibrada del sensor IR central (Cen-Raw en telemetría)
+volatile int16_t cal_right_ir = 0;                    // Lectura calibrada del sensor IR derecho (Izq-Raw en telemetría)
+
+// Lecturas calibradas de sensores superiores (detección de obstáculos / esquivar)
+volatile int16_t cal_ir0 = 0;
+volatile int16_t cal_ir2 = 0;
+volatile int16_t cal_ir4 = 0;
+volatile int16_t cal_ir6 = 0;
+volatile int16_t cal_ir7 = 0;
+
+// =========================================================
+// // PANTALLA OLED (SSD1306)
+// =========================================================
+volatile uint8_t ssd1306_TxCplt = 0;                  // Bandera indicadora de fin de transmisión I2C por DMA para pantalla
+uint16_t staticOff = 400;                             // Offset estático para dibujo de gráficos
+uint16_t movingOff = 300;                             // Offset móvil para dibujo de gráficos interactivos
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -478,60 +467,194 @@ static void MX_I2C2_Init(void);
 static void MX_TIM4_Init(void);
 /* USER CODE BEGIN PFP */
 
-//USB-Serial Communication
-void USBTask();
+/**
+ * @name Tareas de Comunicación Serie y USB
+ * @{
+ */
+/**
+ * @brief Gestiona la transmisión y recepción periódica sobre el canal USB CDC.
+ * @ingroup group_comm
+ */
+void USBTask(void);
+
+/**
+ * @brief Callback invocado al recibir un paquete de datos por USB CDC desde la PC.
+ * @param[in] buf Puntero al buffer con los bytes recibidos.
+ * @param[in] len Cantidad de bytes recibidos en el paquete.
+ * @ingroup group_comm
+ */
 void USBRxData(uint8_t *buf, uint32_t len);
+
+/**
+ * @brief Decodificador central de comandos del protocolo unerPrtcl.
+ * @details Examina el identificador de comando (`_eCmd`), extrae el payload con `_uWord`
+ *          y genera la respuesta correspondiente con código `ACK` o datos de telemetría.
+ * @param[in,out] dataRx Puntero al descriptor de recepción con la trama validada.
+ * @param[in,out] dataTx Puntero al descriptor de transmisión para armar la respuesta.
+ * @ingroup group_comm
+ */
 void decodeCommand(_sComm *dataRx, _sComm *dataTx);
-//Time functions
-void do10ms();
+/** @} */
 
-//Others
-void heartBeatTask();
+/**
+ * @name Planificador Temporal y Temporizadores Cooperativos
+ * @{
+ */
+/**
+ * @brief Tarea periódica de 10 ms ejecutada en el bucle principal.
+ * @details Gestiona los timeouts del ESP-01, antirrebote del botón y genera los ticks
+ *          derivados de 20 ms, 100 ms y 1 segundo.
+ * @ingroup group_main
+ */
+void do10ms(void);
 
-//Display
-//void displayTask();
-void ssd1306Data();
+/**
+ * @brief Genera el patrón visual de parpadeo sincrónico en el LED PC13 (Heartbeat).
+ * @details Modula el LED según la máscara de 20 ranuras de 100 ms (`heartBeatMask[]`)
+ *          para identificar a simple vista el modo activo de la MEF.
+ * @ingroup group_ui_graphics
+ */
+void heartBeatTask(void);
+/** @} */
+
+/**
+ * @name Manejadores de Pantalla OLED e Interfaz I2C
+ * @{
+ */
+void ssd1306Data(void);
 void displayMemWrite(uint8_t address, uint8_t *data, uint8_t size, uint8_t type);
 void displayMemWriteDMA(uint8_t address, uint8_t *data, uint8_t size, uint8_t type);
-//MPU6050
 void mpuMemWrite(uint8_t address, uint8_t *data, uint8_t size, uint8_t type);
 void mpuMemReadDMA(uint8_t address, uint8_t *data, uint8_t size, uint8_t type);
-//i2C
-void i2cTask();
-//boton
+void i2cTask(void);
+/** @} */
+
 /**
- * @brief Función con la cual inicializamos los botones
- * @param _sButton Estructura con los datos del boton
- * @param buttonFunction Puntero a funcion
-*/
+ * @name Máquina de Estados del Pulsador de Usuario
+ * @{
+ */
+/**
+ * @brief Inicializa los descriptores de estado y temporización del botón de usuario.
+ * @param[in,out] button Puntero a la estructura `_sButton`.
+ * @ingroup group_ui_graphics
+ */
 void initButton(_sButton *button);
 
 /**
- * @brief Función utilizada para actualizar la MEF de los botones
- * @param _sButton Estructura con los datos
-*/
+ * @brief Actualiza la MEF de bajo nivel de antirrebote (Debounce) del botón.
+ * @param[in,out] button Puntero a la estructura `_sButton`.
+ * @return Estado activo o inactivo del botón tras el filtrado.
+ * @ingroup group_ui_graphics
+ */
 uint8_t updateMefTask(_sButton *button);
 
-void buttonTask();
+/**
+ * @brief Interpreta los eventos de alto nivel del botón (multiclic de 1 a 5 clics y pulsación larga).
+ * @details Conmuta la variable global `robotMode` (`_eRobotMode`) según el número de clics registrados.
+ * @param[in,out] button Puntero a la estructura `_sButton` con el estado del botón.
+ * @ingroup group_ui_graphics
+ */
+void buttonTask(_sButton *button);
 
+/**
+ * @brief Decrementa el temporizador de ventana multiclic del botón cada 10 ms.
+ * @param[in,out] button Puntero a la estructura `_sButton`.
+ * @ingroup group_ui_graphics
+ */
 void buttonTimeout10ms(_sButton *button);
+/** @} */
 
-/* ---- WEBSERVER ---- */
-_eESP01STATUS sendJSONTelemetry(uint8_t connID);
-_eESP01STATUS sendHTMLForm(uint8_t connID);
-_eESP01STATUS sendHTTPOKPage(uint8_t connID);
-void parseHTTPGetParams(const char *httpReq, char *ssid, char *pass, char *ip, uint16_t *port, char *proto);
-void httpTask(void);
+/**
+ * @name Modo SoftAP TCP y Manejo de Conectividad Wi-Fi
+ * @{
+ */
+void softAPTask(void);
 void OnESP01ChangeState(_eESP01STATUS state);
-//PID
-void PID_ControlTask(void);
-void LineFollowingMEF(int32_t left_ir, int32_t center_ir, int32_t right_ir, int32_t *target_setpoint);
+/** @} */
+
+/**
+ * @name Lazos de Control Dinámico, PID y Navegación
+ * @{
+ */
+/**
+ * @brief Tarea orquestadora central de control PID y MEF de modos operativos (200 Hz).
+ * @ingroup group_control
+ */
+void PIDTask(void);
+
+/**
+ * @brief Gestiona el modo operativo de balanceo estático en el lugar (Swing y 3D Screen).
+ * @param[out] target_setpoint Puntero a la consigna de inclinación longitudinal del robot.
+ * @ingroup group_control
+ */
+void Control_Balanceo(int32_t *target_setpoint);
+
+/**
+ * @brief Máquina de estados finita y control del seguidor de línea autónomo sobre la pista.
+ * @param[in] left_ir Lectura calibrada del sensor infrarrojo izquierdo.
+ * @param[in] center_ir Lectura calibrada del sensor infrarrojo central.
+ * @param[in] right_ir Lectura calibrada del sensor infrarrojo derecho.
+ * @param[out] target_setpoint Puntero a la consigna de inclinación longitudinal modulada por la curva.
+ * @ingroup group_control
+ */
+void ControlSeguimiento(int32_t left_ir, int32_t center_ir, int32_t right_ir, int32_t *target_setpoint);
+
+/**
+ * @brief Gestiona la máquina de estados finita (MEF) de evasión de obstáculos y seguimiento de pared.
+ * @param[in] left_ir Lectura normalizada del sensor infrarrojo izquierdo.
+ * @param[in] center_ir Lectura normalizada del sensor infrarrojo central.
+ * @param[in] right_ir Lectura normalizada del sensor infrarrojo derecho.
+ * @param[out] target_setpoint Puntero a la consigna de inclinación longitudinal del robot.
+ * @ingroup group_control
+ */
+void Control_Esquivar(int32_t left_ir, int32_t center_ir, int32_t right_ir, int32_t *target_setpoint);
+
+/**
+ * @brief Gestiona el modo de control remoto interactivo vía comandos de Joystick.
+ * @param[out] target_setpoint Puntero a la consigna de inclinación longitudinal del robot.
+ * @ingroup group_control
+ */
+void Control_Joystick(int32_t *target_setpoint);
+
+/**
+ * @brief Ejecuta el lazo PID central de balance longitudinal, la mezcla de tracción y el accionamiento PWM.
+ * @param[in] target_setpoint Consigna de ángulo deseada calculada por la tarea del modo activo.
+ * @ingroup group_control
+ */
+void PID_Calcular(int32_t target_setpoint);
+
+/**
+ * @brief Integra numéricamente la aceleración longitudinal para estimar la velocidad lineal (mm/s).
+ * @param[in] dt_us Intervalo de tiempo transcurrido en microsegundos.
+ * @ingroup group_control
+ */
 void Speed_IntegrationTask(uint32_t dt_us);
+
 static void WiFi_ScanTick(void);
 static void UART_EnforceReceiverActive(void);
 static void WiFi_HeartbeatTick(void);
 
+/**
+ * @brief Gestiona la transición limpia de interfaces visuales al cambiar el modo operativo.
+ * @details Silencia temporalmente los motores para evitar tirones durante escrituras I2C síncronas.
+ * @ingroup group_ui_graphics
+ */
 void HandleModeScreenTransition(void);
+
+/**
+ * @brief Inyecta los ciclos de trabajo PWM calculados sobre los canales del temporizador TIM3.
+ * @ingroup group_control
+ */
+void PWM_Control(void);
+/** @} */
+
+/**
+ * @name Calibración y Normalización de Sensores Infrarrojos
+ * @{
+ */
+static uint16_t LUT_Interpolate(const uint16_t *x, const uint16_t *lut_y, uint16_t raw);
+void NormalizeLineSensors(const uint16_t *adcDataTx_ptr, uint16_t *norm);
+/** @} */
 
 /* USER CODE END PFP */
 
@@ -564,7 +687,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
 
 	if (htim->Instance == TIM2) { // 5ms (ajustado para muestreo rápido)
 		// En modos de movimiento, encolamos el MPU6050 en cada ciclo de 5ms
-		if (robotMode == STATE_SWING || robotMode == STATE_LINE_FOLLOWING || robotMode == STATE_DODGE || robotMode == STATE_3D_SCREEN || robotMode == STATE_GOTO) {
+		if (robotMode == STATE_SWING || robotMode == STATE_LINE_FOLLOWING || robotMode == STATE_DODGE || robotMode == STATE_3D_SCREEN || robotMode == STATE_JOYSTICK) {
 			Pila[i2cIndex] = MPU6050;
 			i2cIndex++;
 			i2cIndex&=(I2CSIZE-1);
@@ -630,6 +753,31 @@ void COMMTask(_sComm *dataRx, _sComm *dataTx, uint8_t source) {
 void CHPD_Control(uint8_t state);
 
 void SetRobotMode(_eRobotMode newMode) {
+	if (robotMode == newMode) {
+		return;
+	}
+
+	// Si salimos del modo Joystick, restauramos inmediatamente el setpoint estático
+	// y cancelamos los offsets y temporizadores de giro del joystick
+	if (robotMode == STATE_JOYSTICK && newMode != STATE_JOYSTICK) {
+		setpoint = balance_setpoint_calib;
+		turn_offset = 0;
+		joystick_turn_offset = 0;
+		joystick_turn_timer = 0;
+	}
+
+	// Silenciado seguro de PWM durante el cambio de modo para evitar impulsos residuales
+	lPulse1 = 0;
+	lPulse3 = 0;
+	rPulse2 = 0;
+	rPulse4 = 0;
+	PWM_Control();
+
+	integral = 0;
+	last_error = 0;
+	backwards_recovery_active = 0;
+	forwards_recovery_active = 0;
+
 	robotMode = newMode;
 	lastMode = (_eRobotMode)-1; // Forzar actualización de pantalla/transición
 
@@ -637,16 +785,21 @@ void SetRobotMode(_eRobotMode newMode) {
 		case STATE_SWING:
 			hbIndex = 0; // LED Swing (1 parpadeo de 100ms)
 			CHPD_Control(1);
-			Kp_line_backup = Kp_line;
+			if (Kp_line > 0) {
+				Kp_line_backup = Kp_line;
+			}
 			Kp_line = 0;
+			setpoint = balance_setpoint_calib;
+			turn_offset = 0;
 			break;
 
 		case STATE_LINE_FOLLOWING:
 			hbIndex = 1; // LED Line Following (2 parpadeos)
 			CHPD_Control(1);
 			if (Kp_line == 0) {
-				Kp_line = Kp_line_backup;
+				Kp_line = (Kp_line_backup > 0) ? Kp_line_backup : 250;
 			}
+			turn_offset = 0;
 			break;
 
 		case STATE_DODGE:
@@ -655,27 +808,34 @@ void SetRobotMode(_eRobotMode newMode) {
 			hbIndex = 2; // LED Dodge (3 parpadeos)
 			CHPD_Control(1);
 			if (Kp_line == 0) {
-				Kp_line = Kp_line_backup;
+				Kp_line = (Kp_line_backup > 0) ? Kp_line_backup : 250;
 			}
+			turn_offset = 0;
 			break;
 
-		case STATE_GOTO:
-			hbIndex = 3; // LED GoTo (4 parpadeos)
+		case STATE_JOYSTICK:
+			hbIndex = 3; // LED Joystick (4 parpadeos)
 			CHPD_Control(1);
-			Kp_line_backup = Kp_line;
+			if (Kp_line > 0) {
+				Kp_line_backup = Kp_line;
+			}
 			Kp_line = 0;
+			setpoint = balance_setpoint_calib;
 			turn_offset = 0;
-			goto_turn_offset = 0;
-			goto_turn_timer = 0;
-			goto_start_yaw_hr = total_yaw_hr;
+			joystick_turn_offset = 0;
+			joystick_turn_timer = 0;
+			joystick_start_yaw_hr = total_yaw_hr;
 			break;
 
 		case STATE_3D_SCREEN:
 			hbIndex = 4; // LED Figuras 3D (5 parpadeos)
 			CHPD_Control(0); // Sin WiFi en este modo
-			Kp_line_backup = Kp_line;
+			if (Kp_line > 0) {
+				Kp_line_backup = Kp_line;
+			}
 			Kp_line = 0;
 			WIREGFX_ResetCycle();
+			turn_offset = 0;
 			break;
 
 		case STATE_FIRST_SCREEN:
@@ -683,6 +843,7 @@ void SetRobotMode(_eRobotMode newMode) {
 			CHPD_Control(1);
 			ssd1306_ResetDMAState();
 			ssd1306_SetDisplayOn(1);
+			turn_offset = 0;
 			break;
 
 		case STATE_SECOND_SCREEN:
@@ -690,12 +851,14 @@ void SetRobotMode(_eRobotMode newMode) {
 			CHPD_Control(1);
 			ssd1306_ResetDMAState();
 			ssd1306_SetDisplayOn(1);
+			turn_offset = 0;
 			break;
 
 		case STATE_STANDBY:
 		default:
 			hbIndex = 7; // LED Reposo (Apagado)
 			CHPD_Control(1);
+			turn_offset = 0;
 			break;
 	}
 }
@@ -706,7 +869,7 @@ void SetRobotModeRemote(uint8_t modeId) {
 		case 1: SetRobotMode(STATE_SWING); break;
 		case 2: SetRobotMode(STATE_LINE_FOLLOWING); break;
 		case 3: SetRobotMode(STATE_DODGE); break;
-		case 4: SetRobotMode(STATE_GOTO); break;
+		case 4: SetRobotMode(STATE_JOYSTICK); break;
 		case 5: SetRobotMode(STATE_3D_SCREEN); break;
 		default: SetRobotMode(STATE_STANDBY); break;
 	}
@@ -856,6 +1019,9 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 		myWord.i8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
 		myWord.i8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
 		setpoint = (int32_t) myWord.i16[0];
+		if (robotMode != STATE_JOYSTICK) {
+			balance_setpoint_calib = setpoint;
+		}
 		break;
 	case SETBKANG:
 		unerPrtcl_PutHeaderOnTx(dataTx, SETBKANG, 2);
@@ -1231,23 +1397,23 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
 		break;
 	}
-	case SETGOTOTURN: {
-		unerPrtcl_PutHeaderOnTx(dataTx, SETGOTOTURN, 2);
+	case SETJOYSTICKTURN: {
+		unerPrtcl_PutHeaderOnTx(dataTx, SETJOYSTICKTURN, 2);
 		unerPrtcl_PutByteOnTx(dataTx, ACK);
 		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
 		myWord.ui8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
 		myWord.ui8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
-		goto_turn_offset = myWord.i16[0];
+		joystick_turn_offset = myWord.i16[0];
 		myWord.ui8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
 		myWord.ui8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
 		uint16_t turn_ms = myWord.ui16[0];
-		if (goto_turn_offset == 0) {
-			goto_turn_timer = 0;
+		if (joystick_turn_offset == 0) {
+			joystick_turn_timer = 0;
 			turn_offset = 0;
 		} else if (turn_ms > 0 && turn_ms <= 3000) {
-			goto_turn_timer = turn_ms;
+			joystick_turn_timer = turn_ms;
 		} else {
-			goto_turn_timer = 200;
+			joystick_turn_timer = 200;
 		}
 		break;
 	}
@@ -1271,6 +1437,20 @@ void do10ms() {
 		WiFi_ScanTick();
 	}
 	buttonTimeout10ms(&myButton);
+
+	// Timeout de inactividad para recepción de credenciales SoftAP (Hercules TCP)
+	if (isSoftAPMode && softAPRxTimer > 0) {
+		softAPRxTimer--;
+		if (softAPRxTimer == 0 && softAPBufIdx > 0 && !softAPBufReady) {
+			softAPBuf[softAPBufIdx] = '\0';
+			softAPBufReady = 1;
+		}
+	}
+
+	// Cuenta regresiva para dar tiempo al envío del mensaje "OK" antes de reiniciar el ESP01
+	if (softAPSwitchDelay > 0) {
+		softAPSwitchDelay--;
+	}
 
 	// --- 2. Divisor de Tiempo: 20ms ---
 	tmo20ms--;
@@ -1600,33 +1780,24 @@ void DebugESP01_To_USB(const char *msg) {
 // Esta función la llama el driver cuando tiene un byte de datos limpio
 void WiFi_Data_Callback(uint8_t byte)
 {
-    if(isWebserverMode){
+    if(isSoftAPMode){
         /*
-         * Solo capturamos la PRIMERA linea del request HTTP (hasta \r\n).
-         * Ahi esta todo lo que necesitamos: "GET /set?ssid=X&pass=Y HTTP/1.1"
-         * El resto del header se descarta. Buffer: 128 bytes en lugar de ~512.
-         *
-         * httpBufIdx:
-         *   0..N  = acumulando la primera linea
-         *   0xFF  = primera linea completa, lista para que httpTask() la procese
+         * Modo SoftAP: captura de credenciales enviadas desde software Hercules (TCP Client).
+         * Formato de recepción: "SSID;PASS\r\n", "SSID;PASS\n" o "SSID;PASS" directo.
          */
-        if(httpBufIdx == 0xFF)
-            return; /* primera linea ya capturada, descartar el resto */
+        if(softAPBufReady)
+            return; /* Trama previa pendiente de procesar en softAPTask */
 
-        if(httpBufIdx < HTTP_BUF_SIZE - 1){
-            httpBuf[httpBufIdx++] = (char)byte;
-            httpBuf[httpBufIdx]   = '\0';
-
-            /* Detectar fin de primera linea: \r\n */
-            if(httpBufIdx >= 2 &&
-               httpBuf[httpBufIdx-2] == '\r' &&
-               httpBuf[httpBufIdx-1] == '\n'){
-                httpBufIdx = 0xFF; /* marcar como listo */
+        if(byte == '\r' || byte == '\n'){
+            if(softAPBufIdx > 0){
+                softAPBuf[softAPBufIdx] = '\0';
+                softAPBufReady = 1;
+                softAPRxTimer = 0;
             }
-        } else {
-            /* Buffer lleno sin \r\n: request corrupto, resetear */
-            httpBufIdx = 0;
-            httpBuf[0] = '\0';
+        } else if(softAPBufIdx < (SOFTAP_BUF_SIZE - 1)){
+            softAPBuf[softAPBufIdx++] = (char)byte;
+            softAPBuf[softAPBufIdx]   = '\0';
+            softAPRxTimer = 5; /* 50ms de inactividad para disparo automático si no hay \r o \n */
         }
     } else {
         /* Modo station UDP/TCP: protocolo UNER */
@@ -1635,159 +1806,11 @@ void WiFi_Data_Callback(uint8_t byte)
     }
 }
 
-static void format_pitch_deg(char *out, size_t maxlen, int32_t pitch_hr) {
-    int32_t abs_val = (pitch_hr < 0) ? -pitch_hr : pitch_hr;
-    int32_t integer_part = abs_val / 10000;
-    int32_t frac_part = (abs_val % 10000) / 100;
-    snprintf(out, maxlen, "%s%ld.%02ld", (pitch_hr < 0 && (integer_part != 0 || frac_part != 0)) ? "-" : "", (long)integer_part, (long)frac_part);
-}
-
-static void format_yaw_deg(char *out, size_t maxlen, int32_t yaw_hr) {
-    int32_t abs_val = (yaw_hr < 0) ? -yaw_hr : yaw_hr;
-    int32_t integer_part = abs_val / 1000;
-    int32_t frac_part = (abs_val % 1000) / 10;
-    snprintf(out, maxlen, "%s%ld.%02ld", (yaw_hr < 0 && (integer_part != 0 || frac_part != 0)) ? "-" : "", (long)integer_part, (long)frac_part);
-}
-
-/**
- * @brief Envia telemetria en formato JSON para auto-refresh del dashboard
- */
-_eESP01STATUS sendJSONTelemetry(uint8_t connID)
-{
-    char strPitch[16] = {0};
-    char strYaw[16]   = {0};
-
-    format_pitch_deg(strPitch, sizeof(strPitch), current_angle_hr);
-    format_yaw_deg(strYaw, sizeof(strYaw), total_yaw_hr);
-
-    const char *header = "HTTP/1.0 200 OK\r\nContent-Type: application/json\r\n\r\n";
-
-    uint16_t len = (uint16_t)snprintf((char*)httpTxBuf, sizeof(httpTxBuf),
-        "%s{\"irl\":%d,\"irc\":%d,\"irr\":%d,\"d0\":%d,\"d2\":%d,\"d4\":%d,\"d6\":%d,\"d7\":%d,\"ax\":%d,\"ay\":%d,\"az\":%d,\"gx\":%d,\"gy\":%d,\"gz\":%d,\"pitch\":%s,\"yaw\":%s}",
-        header,
-        cal_left_ir, cal_center_ir, cal_right_ir,
-        cal_ir0, cal_ir2, cal_ir4, cal_ir6, cal_ir7,
-        ax, ay, az, gx, gy, gz,
-        strPitch, strYaw);
-
-    return ESP01_Send(connID, httpTxBuf, 0, len, sizeof(httpTxBuf));
-}
-
-static const char httpFormResp[] =
-    "HTTP/1.0 200 OK\r\nContent-Type: text/html\r\n\r\n"
-    "<!DOCTYPE html><meta name=viewport content=\"width=device-width\">"
-    "<h4>TELEMETRIA</h4>"
-    "IR: <b id=ir>-</b><br>"
-    "DF: <b id=df>-</b><br>"
-    "DL: <b id=dl>-</b><br>"
-    "P/Y: <b id=att>-</b><br>"
-    "Acc: <b id=acc>-</b><br>"
-    "Gyr: <b id=gyr>-</b><br>"
-    "<form action=/set><h4>WIFI</h4>"
-    "SSID: <input name=ssid required><br>"
-    "Pass: <input name=pass type=password><br>"
-    "IP: <input name=ip value=192.168.0.10><br>"
-    "Port: <input name=port value=30010><br>"
-    "Proto: <select name=proto><option>UDP</option><option>TCP</option></select><br><br>"
-    "<input type=submit value=Conectar>"
-    "</form>"
-    "<script>"
-    "let b=0,s=(i,v)=>document.getElementById(i).innerText=v;"
-    "let u=()=>{if(b)return;b=1;fetch('/data').then(r=>r.json()).then(d=>{"
-    "s('ir',d.irl+'/'+d.irc+'/'+d.irr);"
-    "s('df',d.d6);"
-    "s('dl',d.d2+'/'+d.d4+'/'+d.d0+'/'+d.d7);"
-    "s('att',d.pitch+'/'+d.yaw);"
-    "s('acc',d.ax+','+d.ay+','+d.az);"
-    "s('gyr',d.gx+','+d.gy+','+d.gz);"
-    "}).catch(()=>{}).finally(()=>b=0);};"
-    "u();setInterval(u,1000);"
-    "</script>";
-
-/**
- * @brief Envia el Dashboard HTML con telemetria en vivo y formulario de configuracion Wi-Fi (Flash ROM, 0 RAM, sin CSS)
- */
-_eESP01STATUS sendHTMLForm(uint8_t connID)
-{
-    return ESP01_Send(connID, (uint8_t*)httpFormResp, 0, sizeof(httpFormResp) - 1, sizeof(httpFormResp));
-}
-
-static const char httpOkResp[] =
-    "HTTP/1.0 200 OK\r\nContent-Type: text/html\r\n\r\n"
-    "<!DOCTYPE html><h3>Conectando...</h3>"
-    "<p>El robot se conectara a la red indicada.</p>";
-
-/**
- * @brief Envia pagina de confirmacion al navegador (Flash ROM, 0 RAM)
- */
-_eESP01STATUS sendHTTPOKPage(uint8_t connID)
-{
-    return ESP01_Send(connID, (uint8_t*)httpOkResp, 0, sizeof(httpOkResp) - 1, sizeof(httpOkResp));
-}
-
-/**
- * @brief Extrae ssid, pass, ip y port del GET /set?ssid=X&pass=Y&ip=Z&port=W
- *        Decodificacion basica: '+' → espacio
- */
-void parseHTTPGetParams(const char *httpReq, char *ssid, char *pass, char *ip, uint16_t *port, char *proto)
-{
-    const char *p;
-    uint8_t i;
-
-    ssid[0] = '\0';
-    pass[0] = '\0';
-    ip[0]   = '\0';
-    *port   = 30010; /* valor por defecto */
-    strcpy(proto, "UDP");
-
-    /* ---- SSID ---- */
-    p = strstr(httpReq, "ssid=");
-    if(p){ p += 5;
-        for(i=0; i<63 && *p && *p!='&' && *p!=' '; i++,p++)
-            ssid[i] = (*p=='+') ? ' ' : *p;
-        ssid[i] = '\0';
-    }
-
-    /* ---- PASS ---- */
-    p = strstr(httpReq, "pass=");
-    if(p){ p += 5;
-        for(i=0; i<63 && *p && *p!='&' && *p!=' '; i++,p++)
-            pass[i] = (*p=='+') ? ' ' : *p;
-        pass[i] = '\0';
-    }
-
-    /* ---- IP ---- */
-    p = strstr(httpReq, "&ip=");
-    if(p){ p += 4;
-        for(i=0; i<15 && *p && *p!='&' && *p!=' '; i++,p++)
-            ip[i] = *p;
-        ip[i] = '\0';
-    }
-
-    /* ---- PORT ---- */
-    p = strstr(httpReq, "&port=");
-    if(p){ p += 6;
-        uint16_t val = 0;
-        while(*p >= '0' && *p <= '9')
-            val = (uint16_t)(val * 10 + (*p++ - '0'));
-        if(val > 0) *port = val;
-    }
-
-    /* ---- PROTO ---- */
-    p = strstr(httpReq, "&proto=");
-    if(p){ p += 7;
-        if(strncmp(p, "TCP", 3) == 0 || strncmp(p, "tcp", 3) == 0)
-            strcpy(proto, "TCP");
-        else
-            strcpy(proto, "UDP");
-    }
-}
-
 /**
  * @brief Callback del driver ESP01: se llama cada vez que cambia el estado
  *
- * Cuando el WiFi se conecta (ESP01_WIFI_CONNECTED), arranca el UDP
- * automaticamente usando la IP y puerto guardados desde el formulario.
+ * Cuando el WiFi se conecta (ESP01_WIFI_CONNECTED), arranca el socket UDP/TCP
+ * automáticamente usando la IP y puerto guardados.
  */
 void OnESP01ChangeState(_eESP01STATUS state)
 {
@@ -1799,16 +1822,17 @@ void OnESP01ChangeState(_eESP01STATUS state)
             networkScanActive = 0; /* Detenemos el escaneo */
         }
         udpReadyToStart = 1;
-
-        /* Forzar udpSilenceCounter a 5 para que el primer ALIVE se envie
-         * en cuanto el UDP quede conectado, sin esperar 5 ciclos de 1s. */
-        udpSilenceCounter = 5;
+        udpSilenceCounter = 0;
+    }
+    else if(state == ESP01_UDPTCP_CONNECTED){
+        /* Socket UDP o TCP conectado con éxito: resetear silencio */
+        udpSilenceCounter = 0;
     }
     else if(state == ESP01_WIFI_DISCONNECTED){
         /* Si perdemos la conexión en pleno uso, reactivamos la búsqueda */
-        if(!isWebserverMode && !networkScanActive){
+        if(!isSoftAPMode && !networkScanActive){
             networkScanActive = 1;
-            networkScanTimer = SCANTIME; /* Le damos 15 segs a la red actual para recuperarse */
+            networkScanTimer = SCANTIME; /* Le damos tiempo a la red para recuperarse */
             ESP01_SetWIFI(knownNetworks[currentNetworkIdx].ssid,
                           knownNetworks[currentNetworkIdx].password);
         }
@@ -1816,9 +1840,9 @@ void OnESP01ChangeState(_eESP01STATUS state)
 }
 
 /**
- * @brief Tarea principal del webserver: procesa la primera linea HTTP capturada
+ * @brief Tarea de gestión de conexión y procesamiento de credenciales SoftAP (Hercules)
  */
-void httpTask(void)
+void softAPTask(void)
 {
     /* Iniciar UDP/TCP en cuanto el WiFi este listo (viene del callback) */
     if(udpReadyToStart){
@@ -1831,54 +1855,129 @@ void httpTask(void)
         return;
     }
 
-    if(!isWebserverMode)
+    if(!isSoftAPMode)
         return;
 
-    /* 0xFF = primera linea completa y lista para procesar */
-    if(httpBufIdx != 0xFF)
+    /* Si hay un cambio a modo Station programado tras enviar la confirmación */
+    if(softAPSwitchPending){
+        if(softAPSwitchDelay == 0){
+            softAPSwitchPending = 0;
+            isSoftAPMode = 0;
+            ESP01_SetWIFI(softAP_TargetSSID, softAP_TargetPASS);
+        }
+        return;
+    }
+
+    if(!softAPBufReady)
         return;
 
-    uint8_t connID = ESP01_GetLastConnID();
+    /* Procesar comando de configuración: "SSID;PASS" */
+    char *delim = strchr(softAPBuf, ';');
+    if(delim != NULL){
+        *delim = '\0';
+        char *newSSID = softAPBuf;
+        char *newPASS = delim + 1;
 
-    if(strstr(httpBuf, "GET /data") != NULL){
-        if(sendJSONTelemetry(connID) == ESP01_SEND_READY){
-            HTTP_BUF_RESET();
+        /* Limpiar retornos, saltos de línea y espacios en SSID y Contraseña */
+        while(*newSSID == ' '){
+            newSSID++;
+        }
+        int lenSSID = strlen(newSSID);
+        while(lenSSID > 0 && (newSSID[lenSSID - 1] == '\r' || newSSID[lenSSID - 1] == '\n' || newSSID[lenSSID - 1] == ' ')){
+            newSSID[--lenSSID] = '\0';
         }
 
-    } else if(strstr(httpBuf, "GET /set?") != NULL){
-        char newSSID[64]  = {0};
-        char newPASS[64]  = {0};
-        char newIP[16]    = {0};
-        uint16_t newPort  = 30010;
-        char newProto[4]  = "UDP";
-
-        parseHTTPGetParams(httpBuf, newSSID, newPASS, newIP, &newPort, newProto);
-
-        /* Guardar IP, puerto y protocolo para usarlos cuando conecte el WiFi */
-        if(newIP[0] != '\0'){
-            strncpy(udpTargetIP, newIP, 15);
-            udpTargetIP[15] = '\0';
-        }
-        if(newPort > 0)
-            udpTargetPort = newPort;
-        if(newProto[0] != '\0')
-            strcpy(udpTargetProto, newProto);
-
-        /* Responder al navegador */
-        if(sendHTTPOKPage(connID) == ESP01_SEND_READY){
-            isWebserverMode = 0;
-            HTTP_BUF_RESET();
-            ESP01_SetWIFI(newSSID, newPASS);
+        char *newIP = NULL;
+        char *newProto = NULL;
+        char *delim2 = strchr(newPASS, ';');
+        if(delim2 != NULL){
+            *delim2 = '\0';
+            newIP = delim2 + 1;
+            char *delim3 = strchr(newIP, ';');
+            if(delim3 != NULL){
+                *delim3 = '\0';
+                newProto = delim3 + 1;
+            }
         }
 
-    } else if(strstr(httpBuf, "GET /") != NULL){
-        if(sendHTMLForm(connID) == ESP01_SEND_READY){
-            HTTP_BUF_RESET();
+        while(*newPASS == ' '){
+            newPASS++;
+        }
+        int lenPass = strlen(newPASS);
+        while(lenPass > 0 && (newPASS[lenPass - 1] == '\r' || newPASS[lenPass - 1] == '\n' || newPASS[lenPass - 1] == ' ')){
+            newPASS[--lenPass] = '\0';
         }
 
+        if(newIP != NULL){
+            while(*newIP == ' ') newIP++;
+            int lenIP = strlen(newIP);
+            while(lenIP > 0 && (newIP[lenIP - 1] == '\r' || newIP[lenIP - 1] == '\n' || newIP[lenIP - 1] == ' ')){
+                newIP[--lenIP] = '\0';
+            }
+            if(strlen(newIP) >= 7 && strlen(newIP) < sizeof(udpTargetIP)){
+                strncpy(udpTargetIP, newIP, sizeof(udpTargetIP) - 1);
+                udpTargetIP[sizeof(udpTargetIP) - 1] = '\0';
+            }
+        } else {
+            /* Si no se especificó IP en Hercules, buscar automáticamente en knownNetworks */
+            for(int i = 0; i < NUM_KNOWN_NETWORKS; i++){
+                if(strcmp(newSSID, knownNetworks[i].ssid) == 0){
+                    strncpy(udpTargetIP, knownNetworks[i].targetIP, sizeof(udpTargetIP) - 1);
+                    udpTargetIP[sizeof(udpTargetIP) - 1] = '\0';
+                    break;
+                }
+            }
+        }
+
+        if(newProto != NULL){
+            while(*newProto == ' ') newProto++;
+            int lenProto = strlen(newProto);
+            while(lenProto > 0 && (newProto[lenProto - 1] == '\r' || newProto[lenProto - 1] == '\n' || newProto[lenProto - 1] == ' ')){
+                newProto[--lenProto] = '\0';
+            }
+            if(strncmp(newProto, "UDP", 3) == 0 || strncmp(newProto, "udp", 3) == 0){
+                strcpy(udpTargetProto, "UDP");
+            } else if(strncmp(newProto, "TCP", 3) == 0 || strncmp(newProto, "tcp", 3) == 0){
+                strcpy(udpTargetProto, "TCP");
+            }
+        }
+
+        if(strlen(newSSID) > 0){
+            /* Guardar credenciales de forma permanente ANTES de tocar o limpiar softAPBuf */
+            strncpy(softAP_TargetSSID, newSSID, sizeof(softAP_TargetSSID) - 1);
+            softAP_TargetSSID[sizeof(softAP_TargetSSID) - 1] = '\0';
+            strncpy(softAP_TargetPASS, newPASS, sizeof(softAP_TargetPASS) - 1);
+            softAP_TargetPASS[sizeof(softAP_TargetPASS) - 1] = '\0';
+
+            /* Responder confirmación al cliente Hercules */
+            uint8_t connID = ESP01_GetLastConnID();
+            const char msgOk[] = "OK: Conectando a red...\r\n";
+            ESP01_Send(connID, (uint8_t*)msgOk, 0, sizeof(msgOk) - 1, sizeof(msgOk));
+
+            /* Esperar 800ms (80 ticks de 10ms) para que el ESP-01 transmita
+             * el mensaje completo por TCP a Hercules antes de reiniciar en modo Station */
+            softAPSwitchDelay = 80;
+            softAPSwitchPending = 1;
+        } else {
+            uint8_t connID = ESP01_GetLastConnID();
+            const char msgErr[] = "ERROR: SSID vacio\r\n";
+            ESP01_Send(connID, (uint8_t*)msgErr, 0, sizeof(msgErr) - 1, sizeof(msgErr));
+        }
+
+        /* Limpiar buffer de recepción */
+        softAPBufIdx = 0;
+        softAPBuf[0] = '\0';
+        softAPBufReady = 0;
+        softAPRxTimer = 0;
     } else {
-        /* favicon.ico u otras peticiones: descartar */
-        HTTP_BUF_RESET();
+        uint8_t connID = ESP01_GetLastConnID();
+        const char msgErr[] = "ERROR: Formato esperado SSID;PASS\r\n";
+        ESP01_Send(connID, (uint8_t*)msgErr, 0, sizeof(msgErr) - 1, sizeof(msgErr));
+
+        softAPBufIdx = 0;
+        softAPBuf[0] = '\0';
+        softAPBufReady = 0;
+        softAPRxTimer = 0;
     }
 }
 
@@ -1995,7 +2094,7 @@ void buttonTask(_sButton *button) {
 			case 1: SetRobotMode(STATE_SWING); break;
 			case 2: SetRobotMode(STATE_LINE_FOLLOWING); break;
 			case 3: SetRobotMode(STATE_DODGE); break;
-			case 4: SetRobotMode(STATE_GOTO); break;
+			case 4: SetRobotMode(STATE_JOYSTICK); break;
 			case 5: SetRobotMode(STATE_3D_SCREEN); break;
 			default: SetRobotMode(STATE_LINE_FOLLOWING); break;
 		}
@@ -2035,7 +2134,7 @@ void buttonTask(_sButton *button) {
 	}
 }
 
-void LineFollowingMEF(int32_t left_ir, int32_t center_ir, int32_t right_ir, int32_t *target_setpoint) {
+void ControlSeguimiento(int32_t left_ir, int32_t center_ir, int32_t right_ir, int32_t *target_setpoint) {
 	static uint16_t line_lost_debounce_count = 0;
 	static int32_t last_turn_offset = 0;
 	static int32_t line_lost_yaw = 0;
@@ -2184,18 +2283,453 @@ void LineFollowingMEF(int32_t left_ir, int32_t center_ir, int32_t right_ir, int3
 	}
 }
 
-void PID_ControlTask(void) {
+/**
+ * @brief Gestiona el modo operativo de balanceo estático en el lugar (Swing y 3D Screen).
+ * @param[out] target_setpoint Puntero a la consigna de inclinación longitudinal del robot.
+ * @ingroup group_control
+ */
+void Control_Balanceo(int32_t *target_setpoint) {
+	turn_offset = 0;
+	*target_setpoint = setpoint;
+
+	// Control de prevención de caída delantera específico en Modo Swing
+	if (current_angle < -ANG15) { // Si la inclinación delantera en Swing excede -15.00° (-1500)
+		forwards_recovery_active = 1;
+	} else if (current_angle >= -ANG10) { // Histéresis: se desactiva al volver a -10.00° (-1000)
+		forwards_recovery_active = 0;
+	}
+
+	if (forwards_recovery_active) {
+		*target_setpoint = 0; // Elimina el setpoint de avance en picada
+	}
+}
+
+/**
+ * @brief Gestiona el modo de control remoto interactivo vía comandos de Joystick.
+ * @param[out] target_setpoint Puntero a la consigna de inclinación longitudinal del robot.
+ * @ingroup group_control
+ */
+void Control_Joystick(int32_t *target_setpoint) {
+	*target_setpoint = setpoint;
+	if (joystick_turn_timer > 0) {
+		if (joystick_turn_timer >= DT_MS) {
+			joystick_turn_timer -= DT_MS;
+		} else {
+			joystick_turn_timer = 0;
+		}
+		turn_offset = joystick_turn_offset;
+	} else {
+		turn_offset = 0;
+		joystick_turn_offset = 0;
+	}
+}
+
+/**
+ * @brief Gestiona la máquina de estados finita (MEF) de evasión de obstáculos y seguimiento de pared.
+ * @param[in] left_ir Lectura normalizada del sensor infrarrojo izquierdo.
+ * @param[in] center_ir Lectura normalizada del sensor infrarrojo central.
+ * @param[in] right_ir Lectura normalizada del sensor infrarrojo derecho.
+ * @param[out] target_setpoint Puntero a la consigna de inclinación longitudinal del robot.
+ * @ingroup group_control
+ */
+void Control_Esquivar(int32_t left_ir, int32_t center_ir, int32_t right_ir, int32_t *target_setpoint) {
+	// Variables estáticas locales para el control de esquivado y pared
+	static uint8_t line_cleared = 0;
+	static _eDodgeSubState standby_next_state = DODGE_ROTATING;
+
+	switch (dodgeState) {
+	case DODGE_LINE_FOLLOWING:
+		// 1. Seguimiento de línea normal continuo a velocidad máxima
+		ControlSeguimiento(left_ir, center_ir, right_ir, target_setpoint);
+
+		dodge_timer += DT_MS;
+
+		// Cuando se detecta el obstáculo a la distancia adecuada
+		if (cal_ir6 >= 500 && dodge_timer >= 1000) {
+			standby_next_state = DODGE_ROTATING;
+			turn_offset = 0;
+			dodge_timer = 0;
+			dodgeState = DODGE_STANDBY;
+		}
+		break;
+
+	case DODGE_STANDBY:
+		// Standby unificado de frenado en 3 etapas: 250ms (+1000), 500ms (+350), 750ms (-250)
+		dodge_timer += DT_MS;
+		turn_offset = 0; // Frenado recto y balanceo quieto en el lugar
+
+		if (dodge_timer < 250) {
+			*target_setpoint = 1000; // Etapa 1: Frenado brusco (+10.00°) por 250ms
+		} else if (dodge_timer < 750) {
+			*target_setpoint = 350;  // Etapa 2: Estabilización (+3.50°) por 500ms (hasta 750ms)
+		} else if (dodge_timer < 1500) {
+			*target_setpoint = -250; // Etapa 3: Inclinación frontal leve (-2.50°) por 750ms (hasta 1500ms)
+		} else {
+			// Finalizados los 1.5s de standby: pasar al siguiente estado configurado
+			dodge_timer = 0;
+			dodge_yaw = 0;
+			if (standby_next_state == DODGE_LINE_FOLLOWING) {
+				lineState = LINE_FOLLOWING;
+			}
+			dodgeState = standby_next_state;
+		}
+		break;
+
+	case DODGE_ROTATING: {
+		// Rotación directa de 90° con giroscopio (la espera y frenado previo se realizaron en DODGE_STANDBY)
+		*target_setpoint = 350; // Inclinación (+3.50°) durante la rotación para buena adherencia
+		integral = (integral * 7) / 10; // Atenuación de memoria inercial
+
+		int32_t gz_calibrated = gz - gz_offset;
+		dodge_yaw += ((int64_t)gz_calibrated * DT_US) / 131000LL;
+		int32_t abs_yaw = (dodge_yaw < 0) ? -dodge_yaw : dodge_yaw;
+
+		if (abs_yaw >= 90000) { // Fin de giro (90°)
+			turn_offset = 0;
+			dodge_yaw = 0;
+			dodge_timer = 0;
+			line_cleared = 0; // Resetear validación de liberación de línea
+			dodgeState = DODGE_WALL_FOLLOWING;
+		} else {
+			// Prioridad de balanceo dinámica con par de rotación firme
+			int32_t base_turn = 350;
+			int32_t abs_error = (error < 0) ? -error : error;
+
+			if (abs_error > 450) {
+				turn_offset = 0;
+				integral = 0;
+			} else {
+				turn_offset = base_turn * dodge_direction;
+			}
+		}
+		break;
+	}
+
+	case DODGE_WALL_FOLLOWING: {
+		*target_setpoint = -1400; // Setpoint de avance de -14.00° para seguimiento de pared
+
+		// Sensores de pared: 90° para control principal de distancia, 45° para anticipación anticipada, IR6 para protección frontal
+		int16_t sensor_90 = (dodge_direction == 1) ? cal_ir0 : cal_ir2;
+		int16_t sensor_45 = (dodge_direction == 1) ? cal_ir7 : cal_ir4;
+		int16_t sensor_front = cal_ir6;
+
+		// Distancia objetivo principal a la pared
+		int16_t wall_target = 800;
+
+		// 1. Error de distancia del sensor lateral 90° (Control Principal)
+		int32_t error_distancia = sensor_90 - wall_target;
+
+		// 2. Error de anticipación del sensor diagonal 45° (Ayuda anticipada)
+		int32_t error_anticipo = sensor_45 - wall_target;
+
+		// 3. Error de protección frontal del sensor IR6 (Anticipación frontal)
+		int32_t error_frontal = (sensor_front > 500) ? (sensor_front - 500) : 0;
+
+		// Seguimiento PD normal de pared continuo con protección frontal
+		int32_t calculo_pd = ((error_distancia * Kp_pared) + (error_anticipo * Kd_anticipo) + (error_frontal * Kd_frontal)) / 100;
+
+		turn_offset = calculo_pd * dodge_direction;
+
+		int16_t wall_turn_limit = 500;
+
+		if (turn_offset > wall_turn_limit)        turn_offset = wall_turn_limit;
+		else if (turn_offset < -wall_turn_limit)  turn_offset = -wall_turn_limit;
+
+		// Medida de seguridad: Validar que el robot primero haya salido completamente de la línea previa
+		if (center_ir >= IR_DODGE_LINE_THRESHOLD && left_ir >= IR_DODGE_LINE_THRESHOLD && right_ir >= IR_DODGE_LINE_THRESHOLD) {
+			line_cleared = 1;
+		}
+
+		dodge_timer += DT_MS;
+		// Re-enganche a la línea tras un tiempo mínimo de 4.0 segundos de avance siguiendo la pared
+		if (dodge_timer >= 4000 && line_cleared) {
+			uint8_t d_ir1 = (left_ir < IR_DODGE_LINE_THRESHOLD);
+			uint8_t d_ir3 = (center_ir < IR_DODGE_LINE_THRESHOLD);
+			uint8_t d_ir5 = (right_ir < IR_DODGE_LINE_THRESHOLD);
+			uint8_t d_active_count = d_ir1 + d_ir3 + d_ir5;
+
+			if (d_active_count > 0) {
+				// Condición directa: Si la pared está a la izquierda y el IR izq ya está afuera (d_ir1 == 0),
+				// o si la pared está a la derecha y el IR der ya está afuera (d_ir5 == 0): sigue la línea directo.
+				// Si todos los sensores están sobre la línea (d_active_count == 3) o el IR del lado de la pared está sobre la línea, rota.
+				uint8_t can_follow_directly = (dodge_direction == -1) ? (d_ir1 == 0) : (d_ir5 == 0);
+
+				if (can_follow_directly) {
+					turn_offset = 0;
+					dodge_yaw = 0;
+					dodge_timer = 0;
+					lineState = LINE_FOLLOWING;
+					dodgeState = DODGE_LINE_FOLLOWING;
+				} else {
+					turn_offset = 0;
+					dodge_yaw = 0;
+					dodge_timer = 0;
+					*target_setpoint = -1400;
+					integral = (integral * 7) / 10;
+					dodgeState = DODGE_RETURN_ROTATING;
+				}
+			}
+		}
+		break;
+	}
+
+	case DODGE_RETURN_ROTATING: {
+		uint8_t d_ir1 = (left_ir < IR_DODGE_LINE_THRESHOLD);
+		uint8_t d_ir3 = (center_ir < IR_DODGE_LINE_THRESHOLD);
+		uint8_t d_ir5 = (right_ir < IR_DODGE_LINE_THRESHOLD);
+		uint8_t d_active_count = d_ir1 + d_ir3 + d_ir5;
+
+		dodge_timer += DT_MS;
+
+		// Condición de fin de rotación:
+		// - Pared a la izquierda: rota a la DERECHA hasta que el IR izquierdo quede afuera (d_ir1 == 0) y haya línea activa.
+		// - Pared a la derecha: rota a la IZQUIERDA hasta que el IR derecho quede afuera (d_ir5 == 0) y haya línea activa.
+		// - Si los 3 sensores están sobre la línea, d_ir1 == 1 y d_ir5 == 1, por lo que continúa rotando sí o sí.
+		uint8_t rotation_completed = 0;
+		if (dodge_direction == -1) {
+			if (d_ir1 == 0 && d_active_count > 0) {
+				rotation_completed = 1;
+			}
+		} else {
+			if (d_ir5 == 0 && d_active_count > 0) {
+				rotation_completed = 1;
+			}
+		}
+
+		if (rotation_completed) {
+			turn_offset = 0;
+			dodge_yaw = 0;
+			dodge_timer = 0;
+			lineState = LINE_FOLLOWING;
+			dodgeState = DODGE_LINE_FOLLOWING;
+		} else {
+			*target_setpoint = -1400; // Mantiene setpoint de -14.00° para seguir la línea durante la rotación
+			integral = (integral * 7) / 10; // Atenuación de memoria inercial
+
+			int32_t gz_calibrated = gz - gz_offset;
+			dodge_yaw += ((int64_t)gz_calibrated * DT_US) / 131000LL;
+			int32_t abs_yaw = (dodge_yaw < 0) ? -dodge_yaw : dodge_yaw;
+
+			// Salvaguarda de rotación máxima (180°) o timeout (3s)
+			if (abs_yaw >= 180000 || dodge_timer >= 3000) {
+				turn_offset = 0;
+				dodge_yaw = 0;
+				dodge_timer = 0;
+				lineState = LINE_FOLLOWING;
+				dodgeState = DODGE_LINE_FOLLOWING;
+			} else {
+				int32_t base_turn = 500;
+				int32_t abs_error = (error < 0) ? -error : error;
+
+				if (abs_error > 450) {
+					turn_offset = 0;
+					integral = 0;
+				} else {
+					// Si la pared está a la izquierda (dodge_direction == -1): rota a la DERECHA (-base_turn)
+					// Si la pared está a la derecha   (dodge_direction == 1):  rota a la IZQUIERDA (+base_turn)
+					turn_offset = (dodge_direction == -1) ? -base_turn : base_turn;
+				}
+			}
+		}
+		break;
+	}
+
+	default:
+		dodgeState = DODGE_WALL_FOLLOWING;
+		break;
+	}
+}
+
+/**
+ * @brief Ejecuta el lazo PID central de balance longitudinal, la mezcla de tracción y el accionamiento PWM.
+ * @param[in] target_setpoint Consigna de ángulo deseada calculada por la tarea del modo activo.
+ * @ingroup group_control
+ */
+void PID_Calcular(int32_t target_setpoint) {
+	// =========================================================
+	// --- 4. LAZO PID CENTRAL (Equilibrio Balancín Puro) ---
+	// =========================================================
+	error = target_setpoint - current_angle;
+	// Derivada sobre la medición (Derivative on Measurement) para evitar el Derivative Kick
+	derivative = (int32_t)(((int64_t)(last_angle - current_angle) * 1000000LL) / DT_US);
+
+	if (error > -150 && error < 150) {
+		integral += (error * (int32_t)DT_US) / 1000;
+		if (integral > (ANG20 * 20))  integral = (ANG20 * 20);
+		if (integral < -(ANG20 * 20)) integral = -(ANG20 * 20);
+	} else {
+		integral = (integral * 8) / 10;
+	}
+
+	output = (Kp_stable * error + (Ki_stable * integral) / 1000
+			+ (Kd_stable * derivative)) / 10000;
+	last_error = error;
+	last_angle = current_angle;
+
+	// =========================================================
+	// --- 5. MEZCLA DE MOTORES (Mezclador de Velocidades y PID) ---
+	// =========================================================
+	int32_t pwm_left = 0;
+	int32_t pwm_right = 0;
+
+	// Detectamos si el robot está en búsqueda pivot sobre propio eje o en Modo Joystick con giro activo
+	uint8_t is_rotating_pivot = ((robotMode == STATE_LINE_FOLLOWING && (lineState == LINE_LOST || lineState == LINE_SEARCHING || lineState == LINE_CROSS)) ||
+	                             (robotMode == STATE_DODGE && (lineState == LINE_LOST || lineState == LINE_SEARCHING)) ||
+	                             (robotMode == STATE_JOYSTICK && turn_offset != 0));
+
+	if (is_rotating_pivot) {
+		// --- ROTACIÓN PIVOT SOBRE PROPIO EJE (Búsqueda de línea y Modo Joystick) ---
+		// Cancelación algebraica (Opción B): En rotación de 90° y 180° por pérdida de línea,
+		// igualamos |turn_offset| al balance (output) para que la rueda interior se anule algebraicamente a 0 PWM
+		// mientras la rueda exterior proporciona el doble de tracción de avance alrededor del pivote.
+		if (lineState == LINE_LOST && (line_lost_phase == LINE_LOST_ROT_90 || line_lost_phase == LINE_LOST_ROT_180)) {
+			int32_t balance_effort = (output > 150) ? output : 150;
+			turn_offset = (turn_offset >= 0) ? balance_effort : -balance_effort;
+		}
+
+		int32_t raw_L, raw_R;
+		if (robotMode == STATE_JOYSTICK) {
+			// En Modo Joystick: polaridad directa (turn_offset > 0 gira a la izquierda: rueda izq atrás, rueda der adelante)
+			raw_L = output - turn_offset;
+			raw_R = output + turn_offset;
+		} else {
+			raw_L = output + turn_offset;
+			raw_R = output - turn_offset;
+		}
+
+		uint16_t rot_min_L = (robotMode == STATE_JOYSTICK) ? 450 : ((lineState == LINE_LOST || lineState == LINE_CROSS) ? 770 : PWM_LRot);
+		uint16_t rot_min_R = (robotMode == STATE_JOYSTICK) ? 450 : ((lineState == LINE_LOST || lineState == LINE_CROSS) ? 750 : PWM_RRot);
+
+		if (raw_L > 0)       pwm_left = raw_L + rot_min_L + offset_left;
+		else if (raw_L < 0)  pwm_left = raw_L - rot_min_L - offset_left;
+
+		if (raw_R > 0)       pwm_right = raw_R + rot_min_R + offset_right;
+		else if (raw_R < 0)  pwm_right = raw_R - rot_min_R - offset_right;
+
+	} else {
+		// --- MEZCLADOR GENERAL DE VELOCIDADES DE MOTORES (DODGE_ROTATING_90, DODGE_CORNER_ROTATING y Translación) ---
+		// Vincula la rotación con el mezclador de velocidades para mantener la respuesta del PID de balanceo (output) alrededor del setpoint (+350)
+		uint16_t active_minPWM_Left = minPWM_Left;
+		uint16_t active_minPWM_Right = minPWM_Right;
+
+		int32_t base_L = 0;
+		int32_t base_R = 0;
+
+		if (output > 0) {
+			base_L = output + active_minPWM_Left + offset_left;
+			base_R = output + active_minPWM_Right + offset_right;
+		} else if (output < 0) {
+			base_L = output - active_minPWM_Left - offset_left;
+			base_R = output - active_minPWM_Right - offset_right;
+		}
+
+		// Mezcla diferencial uniforme de giro sin invertir dirección ni perder el setpoint PID
+		if (turn_offset != 0) {
+			if (base_L == 0) base_L = (turn_offset < 0) ? active_minPWM_Left : -active_minPWM_Left;
+			if (base_R == 0) base_R = (turn_offset < 0) ? -active_minPWM_Right : active_minPWM_Right;
+
+			pwm_left = base_L - turn_offset;
+			pwm_right = base_R + turn_offset;
+		} else {
+			pwm_left = base_L;
+			pwm_right = base_R;
+		}
+	}
+
+	// --- IMPULSO DIRECTO DE RECUPERACIÓN (Bypass del Balanceo) ---
+	if (backwards_recovery_active) {
+		pwm_left = -3000;  // Impulso directo marcha atrás controlado (30% duty cycle)
+		pwm_right = -3000;
+		integral = 0;      // Resetear integrador para evitar descontrol al volver a balancear
+		last_error = 0;
+	} else if (forwards_recovery_active) {
+		pwm_left = 3000;   // Impulso directo marcha adelante en modo SWING (30% duty cycle)
+		pwm_right = 3000;
+		integral = 0;      // Resetear integrador para evitar descontrol al volver a balancear
+		last_error = 0;
+	}
+
+	// Integración de velocidad (estimación interna de telemetría extraída)
+	Speed_IntegrationTask(DT_US);
+
+	// =========================================================
+	// --- 6. PROTECCIÓN ABSOLUTA Y APAGADO POR CAÍDA (> 45°) ---
+	// =========================================================
+	if (current_angle > ANG45 || current_angle < -ANG45) {
+		pwm_left = 0;
+		pwm_right = 0;
+		integral = 0;
+		speed = 0;
+	}
+
+	// Silenciado de motores durante calibración inicial (primeros 3 segundos)
+	if (calib_cycle < 150) {
+		pwm_left = 0;
+		pwm_right = 0;
+		integral = 0;
+	}
+
+	// Saturación final al límite de PWM
+	if (pwm_left > (int32_t) maxPWM)  pwm_left = (int32_t) maxPWM;
+	if (pwm_left < -(int32_t) maxPWM) pwm_left = -(int32_t) maxPWM;
+	if (pwm_right > (int32_t) maxPWM)  pwm_right = (int32_t) maxPWM;
+	if (pwm_right < -(int32_t) maxPWM) pwm_right = -(int32_t) maxPWM;
+
+	if (robotMode != STATE_SWING && robotMode != STATE_LINE_FOLLOWING && robotMode != STATE_DODGE && robotMode != STATE_3D_SCREEN && robotMode != STATE_JOYSTICK) {
+		pwm_left = 0;
+		pwm_right = 0;
+		integral = 0;
+		speed = 0;
+	}
+
+	// =========================================================
+	// --- 7. MAPEO AL HARDWARE ---
+	// =========================================================
+	if (pwm_left > 0) {
+		rPulse4 = (uint16_t) pwm_left;
+		lPulse3 = 0;
+	} else {
+		lPulse3 = (uint16_t) (-pwm_left);
+		rPulse4 = 0;
+	}
+
+	if (pwm_right > 0) {
+		rPulse2 = (uint16_t) pwm_right;
+		lPulse1 = 0;
+	} else {
+		lPulse1 = (uint16_t) (-pwm_right);
+		rPulse2 = 0;
+	}
+}
+
+/**
+ * @brief Tarea orquestadora central de control PID y MEF de modos operativos (200 Hz).
+ * @details Realiza el filtrado inercial MPU-6050, lectura de sensores ópticos,
+ *          despacho de tareas especializadas según la MEF (Balanceo, Seguimiento,
+ *          Esquivar, Joystick) y ejecución del cálculo PID de balanceo.
+ * @ingroup group_control
+ */
+void PIDTask(void) {
 	if (RUN_PID == FALSE)
 		return;
 	RUN_PID = FALSE;
 
 	// Variables estáticas persistentes de estado
-	static int32_t last_angle = 0;
+	static _eRobotMode prev_pid_mode = STATE_STANDBY;
+
+	if (robotMode != prev_pid_mode) {
+		prev_pid_mode = robotMode;
+		last_angle = current_angle; // Previene el Derivative Kick en el cambio de modo
+		integral = 0;
+		last_error = 0;
+		backwards_recovery_active = 0;
+		forwards_recovery_active = 0;
+	}
 
 	measured_dt_ms = DT_MS;
 
 	// =========================================================
-	// --- 1. LECTURA DIRECTA DE SENSORES DE LÍNEA ---
+	// --- 1. LECTURA DIRECTA DE SENSORES DE LÍNEA Y DISTANCIA ---
 	// =========================================================
 	uint16_t raw_left   = adcDataTx[1];
 	uint16_t raw_center = adcDataTx[3];
@@ -2252,257 +2786,44 @@ void PID_ControlTask(void) {
 	int32_t gz_calibrated = gz - gz_offset;
 	total_yaw_hr += ((int64_t)gz_calibrated * DT_US) / 131000LL;
 
-		// Restauramos el filtro complementario puro. El acelerómetro DEBE
-		// permanecer activo para corregir la deriva cruzada del giroscopio.
-		current_angle_hr = (ALPHA_GYRO * (current_angle_hr + gyro_delta_hr)
-				+ ALPHA_ACC * acc_angle_hr) / 1000;
+	// Restauramos el filtro complementario puro. El acelerómetro DEBE
+	// permanecer activo para corregir la deriva cruzada del giroscopio.
+	current_angle_hr = (ALPHA_GYRO * (current_angle_hr + gyro_delta_hr)
+			+ ALPHA_ACC * acc_angle_hr) / 1000;
 
-		// Límites de seguridad extremos por software (+/- 90 grados)
-		if (current_angle_hr > 900000)  current_angle_hr = 900000;
-		if (current_angle_hr < -900000) current_angle_hr = -900000;
+	// Límites de seguridad extremos por software (+/- 90 grados)
+	if (current_angle_hr > 900000)  current_angle_hr = 900000;
+	if (current_angle_hr < -900000) current_angle_hr = -900000;
 
-		current_angle = current_angle_hr / 100;
+	current_angle = current_angle_hr / 100;
+
 	// =========================================================
-	// --- 3. MÁQUINA DE ESTADOS: DIRECCIÓN / DODGE ROTATION ---
+	// --- 3. MÁQUINA DE ESTADOS FINITA (MEF) DE MODOS OPERATIVOS ---
 	// =========================================================
 	int32_t target_setpoint = setpoint; 
 	turn_offset = 0;
+	forwards_recovery_active = 0;
 
 	switch (robotMode) {
 	case STATE_SWING:
 	case STATE_3D_SCREEN:
-		// --- MODO 1 & MODO 3D: BALANCEO ESTATICO ---
-		turn_offset = 0;
-		target_setpoint = setpoint;
+		// Modo Balanceo Estático
+		Control_Balanceo(&target_setpoint);
 		break;
 
-	case STATE_GOTO:
-		// --- MODO 4: MODO GOTO REMOTO ---
-		target_setpoint = setpoint;
-		if (goto_turn_timer > 0) {
-			if (goto_turn_timer >= DT_MS) {
-				goto_turn_timer -= DT_MS;
-			} else {
-				goto_turn_timer = 0;
-			}
-			turn_offset = goto_turn_offset;
-		} else {
-			turn_offset = 0;
-			goto_turn_offset = 0;
-		}
+	case STATE_JOYSTICK:
+		// Modo Control Remoto por Joystick
+		Control_Joystick(&target_setpoint);
 		break;
 
 	case STATE_LINE_FOLLOWING:
-		// --- MODO 2: SEGUIMIENTO DE LÍNEA ---
-		LineFollowingMEF(left_ir, center_ir, right_ir, &target_setpoint);
+		// Modo Seguidor de Línea
+		ControlSeguimiento(left_ir, center_ir, right_ir, &target_setpoint);
 		break;
 
 	case STATE_DODGE:
-		// Variables estáticas locales para el control de esquivado y pared
-		static uint8_t line_cleared = 0;
-		static _eDodgeSubState standby_next_state = DODGE_ROTATING;
-
-		switch (dodgeState) {
-		case DODGE_LINE_FOLLOWING:
-			// 1. Seguimiento de línea normal continuo a velocidad máxima
-			LineFollowingMEF(left_ir, center_ir, right_ir, &target_setpoint);
-
-			dodge_timer += DT_MS;
-
-			// Cuando se detecta el obstáculo a la distancia adecuada
-			if (cal_ir6 >= 500 && dodge_timer >= 1000) {
-				standby_next_state = DODGE_ROTATING;
-				turn_offset = 0;
-				dodge_timer = 0;
-				dodgeState = DODGE_STANDBY;
-			}
-			break;
-
-		case DODGE_STANDBY:
-			// Standby unificado de frenado en 3 etapas: 250ms (+1000), 500ms (+350), 750ms (-250)
-			dodge_timer += DT_MS;
-			turn_offset = 0; // Frenado recto y balanceo quieto en el lugar
-
-			if (dodge_timer < 250) {
-				target_setpoint = 1000; // Etapa 1: Frenado brusco (+10.00°) por 250ms
-			} else if (dodge_timer < 750) {
-				target_setpoint = 350;  // Etapa 2: Estabilización (+3.50°) por 500ms (hasta 750ms)
-			} else if (dodge_timer < 1500) {
-				target_setpoint = -250; // Etapa 3: Inclinación frontal leve (-2.50°) por 750ms (hasta 1500ms)
-			} else {
-				// Finalizados los 1.5s de standby: pasar al siguiente estado configurado
-				dodge_timer = 0;
-				dodge_yaw = 0;
-				if (standby_next_state == DODGE_LINE_FOLLOWING) {
-					lineState = LINE_FOLLOWING;
-				}
-				dodgeState = standby_next_state;
-			}
-			break;
-
-		case DODGE_ROTATING: {
-			// Rotación directa de 90° con giroscopio (la espera y frenado previo se realizaron en DODGE_STANDBY)
-			target_setpoint = 350; // Inclinación (+3.50°) durante la rotación para buena adherencia
-			integral = (integral * 7) / 10; // Atenuación de memoria inercial
-
-			int32_t gz_calibrated = gz - gz_offset;
-			dodge_yaw += ((int64_t)gz_calibrated * DT_US) / 131000LL;
-			int32_t abs_yaw = (dodge_yaw < 0) ? -dodge_yaw : dodge_yaw;
-
-			if (abs_yaw >= 90000) { // Fin de giro (90°)
-				turn_offset = 0;
-				dodge_yaw = 0;
-				dodge_timer = 0;
-				line_cleared = 0; // Resetear validación de liberación de línea
-				dodgeState = DODGE_WALL_FOLLOWING;
-			} else {
-				// Prioridad de balanceo dinámica con par de rotación firme
-				int32_t base_turn = 350;
-				int32_t abs_error = (error < 0) ? -error : error;
-
-				if (abs_error > 450) {
-					turn_offset = 0;
-					integral = 0;
-				} else {
-					turn_offset = base_turn * dodge_direction;
-				}
-			}
-			break;
-		}
-
-		case DODGE_WALL_FOLLOWING: {
-					target_setpoint = -1400; // Setpoint de avance de -14.00° para seguimiento de pared
-
-					// Sensores de pared: 90° para control principal de distancia, 45° para anticipación anticipada, IR6 para protección frontal
-					int16_t sensor_90 = (dodge_direction == 1) ? cal_ir0 : cal_ir2;
-					int16_t sensor_45 = (dodge_direction == 1) ? cal_ir7 : cal_ir4;
-					int16_t sensor_front = cal_ir6;
-
-					// Distancia objetivo principal a la pared
-					int16_t wall_target = 800;
-
-					// 1. Error de distancia del sensor lateral 90° (Control Principal)
-					int32_t error_distancia = sensor_90 - wall_target;
-
-					// 2. Error de anticipación del sensor diagonal 45° (Ayuda anticipada)
-					int32_t error_anticipo = sensor_45 - wall_target;
-
-					// 3. Error de protección frontal del sensor IR6 (Anticipación frontal)
-					int32_t error_frontal = (sensor_front > 500) ? (sensor_front - 500) : 0;
-
-					// Seguimiento PD normal de pared continuo con protección frontal
-					int32_t calculo_pd = ((error_distancia * Kp_pared) + (error_anticipo * Kd_anticipo) + (error_frontal * Kd_frontal)) / 100;
-
-					turn_offset = calculo_pd * dodge_direction;
-
-					int16_t wall_turn_limit = 500;
-
-					if (turn_offset > wall_turn_limit)        turn_offset = wall_turn_limit;
-					else if (turn_offset < -wall_turn_limit)  turn_offset = -wall_turn_limit;
-
-					// Medida de seguridad: Validar que el robot primero haya salido completamente de la línea previa
-					if (center_ir >= IR_DODGE_LINE_THRESHOLD && left_ir >= IR_DODGE_LINE_THRESHOLD && right_ir >= IR_DODGE_LINE_THRESHOLD) {
-						line_cleared = 1;
-					}
-
-					dodge_timer += DT_MS;
-					// Re-enganche a la línea tras un tiempo mínimo de 4.0 segundos de avance siguiendo la pared
-					if (dodge_timer >= 4000 && line_cleared) {
-						uint8_t d_ir1 = (left_ir < IR_DODGE_LINE_THRESHOLD);
-						uint8_t d_ir3 = (center_ir < IR_DODGE_LINE_THRESHOLD);
-						uint8_t d_ir5 = (right_ir < IR_DODGE_LINE_THRESHOLD);
-						uint8_t d_active_count = d_ir1 + d_ir3 + d_ir5;
-
-						if (d_active_count > 0) {
-							// Condición directa: Si la pared está a la izquierda y el IR izq ya está afuera (d_ir1 == 0),
-							// o si la pared está a la derecha y el IR der ya está afuera (d_ir5 == 0): sigue la línea directo.
-							// Si todos los sensores están sobre la línea (d_active_count == 3) o el IR del lado de la pared está sobre la línea, rota.
-							uint8_t can_follow_directly = (dodge_direction == -1) ? (d_ir1 == 0) : (d_ir5 == 0);
-
-							if (can_follow_directly) {
-								turn_offset = 0;
-								dodge_yaw = 0;
-								dodge_timer = 0;
-								lineState = LINE_FOLLOWING;
-								dodgeState = DODGE_LINE_FOLLOWING;
-							} else {
-								turn_offset = 0;
-								dodge_yaw = 0;
-								dodge_timer = 0;
-								target_setpoint = -1400;
-								integral = (integral * 7) / 10;
-								dodgeState = DODGE_RETURN_ROTATING;
-							}
-						}
-					}
-					break;
-				}
-
-		case DODGE_RETURN_ROTATING: {
-			uint8_t d_ir1 = (left_ir < IR_DODGE_LINE_THRESHOLD);
-			uint8_t d_ir3 = (center_ir < IR_DODGE_LINE_THRESHOLD);
-			uint8_t d_ir5 = (right_ir < IR_DODGE_LINE_THRESHOLD);
-			uint8_t d_active_count = d_ir1 + d_ir3 + d_ir5;
-
-			dodge_timer += DT_MS;
-
-			// Condición de fin de rotación:
-			// - Pared a la izquierda: rota a la DERECHA hasta que el IR izquierdo quede afuera (d_ir1 == 0) y haya línea activa.
-			// - Pared a la derecha: rota a la IZQUIERDA hasta que el IR derecho quede afuera (d_ir5 == 0) y haya línea activa.
-			// - Si los 3 sensores están sobre la línea, d_ir1 == 1 y d_ir5 == 1, por lo que continúa rotando sí o sí.
-			uint8_t rotation_completed = 0;
-			if (dodge_direction == -1) {
-				if (d_ir1 == 0 && d_active_count > 0) {
-					rotation_completed = 1;
-				}
-			} else {
-				if (d_ir5 == 0 && d_active_count > 0) {
-					rotation_completed = 1;
-				}
-			}
-
-			if (rotation_completed) {
-				turn_offset = 0;
-				dodge_yaw = 0;
-				dodge_timer = 0;
-				lineState = LINE_FOLLOWING;
-				dodgeState = DODGE_LINE_FOLLOWING;
-			} else {
-				target_setpoint = -1400; // Mantiene setpoint de -14.00° para seguir la línea durante la rotación
-				integral = (integral * 7) / 10; // Atenuación de memoria inercial
-
-				int32_t gz_calibrated = gz - gz_offset;
-				dodge_yaw += ((int64_t)gz_calibrated * DT_US) / 131000LL;
-				int32_t abs_yaw = (dodge_yaw < 0) ? -dodge_yaw : dodge_yaw;
-
-				// Salvaguarda de rotación máxima (180°) o timeout (3s)
-				if (abs_yaw >= 180000 || dodge_timer >= 3000) {
-					turn_offset = 0;
-					dodge_yaw = 0;
-					dodge_timer = 0;
-					lineState = LINE_FOLLOWING;
-					dodgeState = DODGE_LINE_FOLLOWING;
-				} else {
-					int32_t base_turn = 500;
-					int32_t abs_error = (error < 0) ? -error : error;
-
-					if (abs_error > 450) {
-						turn_offset = 0;
-						integral = 0;
-					} else {
-						// Si la pared está a la izquierda (dodge_direction == -1): rota a la DERECHA (-base_turn)
-						// Si la pared está a la derecha   (dodge_direction == 1):  rota a la IZQUIERDA (+base_turn)
-						turn_offset = (dodge_direction == -1) ? -base_turn : base_turn;
-					}
-				}
-			}
-			break;
-		}
-
-		default:
-			dodgeState = DODGE_WALL_FOLLOWING;
-			break;
-		}
+		// Modo Evasión de Obstáculos y Seguimiento de Pared
+		Control_Esquivar(left_ir, center_ir, right_ir, &target_setpoint);
 		break;
 
 	default:
@@ -2513,7 +2834,6 @@ void PID_ControlTask(void) {
 	}
 
 	// --- CONTROL DE PREVENCIÓN DE CAÍDA TRASERA (Lógica del Gatillo) ---
-	static uint8_t backwards_recovery_active = 0;
 	if (robotMode == STATE_SWING || robotMode == STATE_LINE_FOLLOWING || robotMode == STATE_3D_SCREEN) {
 		if (current_angle > 0) { // Si la inclinación trasera supera 0.00° (0)
 			backwards_recovery_active = 1;
@@ -2524,20 +2844,8 @@ void PID_ControlTask(void) {
 		if (backwards_recovery_active) {
 			target_setpoint = 0; // Desactivar avance agresivo instantáneamente
 		}
-	}
-
-	// --- CONTROL DE PREVENCIÓN DE CAÍDA DELANTERA EN MODO SWING ---
-	static uint8_t forwards_recovery_active = 0;
-	if (robotMode == STATE_SWING || robotMode == STATE_3D_SCREEN) {
-		if (current_angle < -ANG15) { // Si la inclinación delantera en Swing excede -15.00° (-1500)
-			forwards_recovery_active = 1;
-		} else if (current_angle >= -ANG10) { // Histéresis: se desactiva al volver a -10.00° (-1000)
-			forwards_recovery_active = 0;
-		}
-
-		if (forwards_recovery_active) {
-			target_setpoint = 0; // Elimina el setpoint de avance en picada
-		}
+	} else {
+		backwards_recovery_active = 0;
 	}
 
 	// =========================================================
@@ -2583,160 +2891,11 @@ void PID_ControlTask(void) {
 	}
 
 	// =========================================================
-	// --- 4. LAZO PID CENTRAL (Equilibrio Balancín Puro) ---
+	// --- 4. LAZO PID CENTRAL Y CONTROL DE MOTORES ---
 	// =========================================================
-	error = target_setpoint - current_angle;
-	// Derivada sobre la medición (Derivative on Measurement) para evitar el Derivative Kick
-	derivative = (int32_t)(((int64_t)(last_angle - current_angle) * 1000000LL) / DT_US);
-
-	if (error > -150 && error < 150) {
-		integral += (error * (int32_t)DT_US) / 1000;
-		if (integral > (ANG20 * 20))  integral = (ANG20 * 20);
-		if (integral < -(ANG20 * 20)) integral = -(ANG20 * 20);
-	} else {
-		integral = (integral * 8) / 10;
-	}
-
-	output = (Kp_stable * error + (Ki_stable * integral) / 1000
-			+ (Kd_stable * derivative)) / 10000;
-	last_error = error;
-	last_angle = current_angle;
-
-
-	// =========================================================
-	// --- 5. MEZCLA DE MOTORES (Mezclador de Velocidades y PID) ---
-	// =========================================================
-	int32_t pwm_left = 0;
-	int32_t pwm_right = 0;
-
-	// Detectamos si el robot está en búsqueda pivot sobre propio eje o en Modo GoTo con giro activo
-	uint8_t is_rotating_pivot = ((robotMode == STATE_LINE_FOLLOWING && (lineState == LINE_LOST || lineState == LINE_SEARCHING || lineState == LINE_CROSS)) ||
-	                             (robotMode == STATE_DODGE && (lineState == LINE_LOST || lineState == LINE_SEARCHING)) ||
-	                             (robotMode == STATE_GOTO && turn_offset != 0));
-
-	if (is_rotating_pivot) {
-		// --- ROTACIÓN PIVOT SOBRE PROPIO EJE (Búsqueda de línea y Modo GoTo) ---
-		// Cancelación algebraica (Opción B): En rotación de 90° y 180° por pérdida de línea,
-		// igualamos |turn_offset| al balance (output) para que la rueda interior se anule algebraicamente a 0 PWM
-		// mientras la rueda exterior proporciona el doble de tracción de avance alrededor del pivote.
-		if (lineState == LINE_LOST && (line_lost_phase == LINE_LOST_ROT_90 || line_lost_phase == LINE_LOST_ROT_180)) {
-			int32_t balance_effort = (output > 150) ? output : 150;
-			turn_offset = (turn_offset >= 0) ? balance_effort : -balance_effort;
-		}
-
-		int32_t raw_L, raw_R;
-		if (robotMode == STATE_GOTO) {
-			// En Modo GoTo: polaridad directa (turn_offset > 0 gira a la izquierda: rueda izq atrás, rueda der adelante)
-			raw_L = output - turn_offset;
-			raw_R = output + turn_offset;
-		} else {
-			raw_L = output + turn_offset;
-			raw_R = output - turn_offset;
-		}
-
-		uint16_t rot_min_L = (robotMode == STATE_GOTO) ? 450 : ((lineState == LINE_LOST || lineState == LINE_CROSS) ? 770 : PWM_LRot);
-		uint16_t rot_min_R = (robotMode == STATE_GOTO) ? 450 : ((lineState == LINE_LOST || lineState == LINE_CROSS) ? 750 : PWM_RRot);
-
-		if (raw_L > 0)       pwm_left = raw_L + rot_min_L + offset_left;
-		else if (raw_L < 0)  pwm_left = raw_L - rot_min_L - offset_left;
-
-		if (raw_R > 0)       pwm_right = raw_R + rot_min_R + offset_right;
-		else if (raw_R < 0)  pwm_right = raw_R - rot_min_R - offset_right;
-
-	} else {
-		// --- MEZCLADOR GENERAL DE VELOCIDADES DE MOTORES (DODGE_ROTATING_90, DODGE_CORNER_ROTATING y Translación) ---
-		// Vincula la rotación con el mezclador de velocidades para mantener la respuesta del PID de balanceo (output) alrededor del setpoint (+350)
-		uint16_t active_minPWM_Left = minPWM_Left;
-		uint16_t active_minPWM_Right = minPWM_Right;
-
-		int32_t base_L = 0;
-		int32_t base_R = 0;
-
-		if (output > 0) {
-			base_L = output + active_minPWM_Left + offset_left;
-			base_R = output + active_minPWM_Right + offset_right;
-		} else if (output < 0) {
-			base_L = output - active_minPWM_Left - offset_left;
-			base_R = output - active_minPWM_Right - offset_right;
-		}
-
-		// Mezcla diferencial uniforme de giro sin invertir dirección ni perder el setpoint PID
-		if (turn_offset != 0) {
-			if (base_L == 0) base_L = (turn_offset < 0) ? active_minPWM_Left : -active_minPWM_Left;
-			if (base_R == 0) base_R = (turn_offset < 0) ? -active_minPWM_Right : active_minPWM_Right;
-
-			pwm_left = base_L - turn_offset;
-			pwm_right = base_R + turn_offset;
-		} else {
-			pwm_left = base_L;
-			pwm_right = base_R;
-		}
-	}
-	// --- IMPULSO DIRECTO DE RECUPERACIÓN (Bypass del Balanceo) ---
-	if (backwards_recovery_active) {
-		pwm_left = -3000;  // Impulso directo marcha atrás controlado (30% duty cycle)
-		pwm_right = -3000;
-		integral = 0;      // Resetear integrador para evitar descontrol al volver a balancear
-		last_error = 0;
-	} else if (forwards_recovery_active) {
-		pwm_left = 3000;   // Impulso directo marcha adelante en modo SWING (30% duty cycle)
-		pwm_right = 3000;
-		integral = 0;      // Resetear integrador para evitar descontrol al volver a balancear
-		last_error = 0;
-	}
-
-	// Integración de velocidad (estimación interna de telemetría extraída)
-	Speed_IntegrationTask(DT_US);
-
-	// =========================================================
-	// --- 6. PROTECCIÓN ABSOLUTA Y APAGADO POR CAÍDA (> 45°) ---
-	// =========================================================
-	if (current_angle > ANG45 || current_angle < -ANG45) {
-		pwm_left = 0;
-		pwm_right = 0;
-		integral = 0;
-		speed = 0;
-	}
-
-	// Silenciado de motores durante calibración inicial (primeros 3 segundos)
-	if (calib_cycle < 150) {
-		pwm_left = 0;
-		pwm_right = 0;
-		integral = 0;
-	}
-
-	// Saturación final al límite de PWM
-	if (pwm_left > (int32_t) maxPWM)  pwm_left = (int32_t) maxPWM;
-	if (pwm_left < -(int32_t) maxPWM) pwm_left = -(int32_t) maxPWM;
-	if (pwm_right > (int32_t) maxPWM)  pwm_right = (int32_t) maxPWM;
-	if (pwm_right < -(int32_t) maxPWM) pwm_right = -(int32_t) maxPWM;
-
-	if (robotMode != STATE_SWING && robotMode != STATE_LINE_FOLLOWING && robotMode != STATE_DODGE && robotMode != STATE_3D_SCREEN && robotMode != STATE_GOTO) {
-		pwm_left = 0;
-		pwm_right = 0;
-		integral = 0;
-		speed = 0;
-	}
-
-	// =========================================================
-	// --- 7. MAPEO AL HARDWARE ---
-	// =========================================================
-	if (pwm_left > 0) {
-		rPulse4 = (uint16_t) pwm_left;
-		lPulse3 = 0;
-	} else {
-		lPulse3 = (uint16_t) (-pwm_left);
-		rPulse4 = 0;
-	}
-
-	if (pwm_right > 0) {
-		rPulse2 = (uint16_t) pwm_right;
-		lPulse1 = 0;
-	} else {
-		lPulse1 = (uint16_t) (-pwm_right);
-		rPulse2 = 0;
-	}
+	PID_Calcular(target_setpoint);
 }
+
 
 static uint16_t LUT_Interpolate(const uint16_t *x, const uint16_t *lut_y, uint16_t raw)
 {
@@ -2786,7 +2945,7 @@ void HandleModeScreenTransition(void) {
 	if (robotMode != lastMode) {
 		lastMode = robotMode;
 
-		if (robotMode == STATE_SWING || robotMode == STATE_LINE_FOLLOWING || robotMode == STATE_DODGE || robotMode == STATE_STANDBY || robotMode == STATE_GOTO) {
+		if (robotMode == STATE_SWING || robotMode == STATE_LINE_FOLLOWING || robotMode == STATE_DODGE || robotMode == STATE_STANDBY || robotMode == STATE_JOYSTICK) {
 			// Esperar a que el bus I2C esté listo
 			while (HAL_I2C_GetState(&hi2c2) != HAL_I2C_STATE_READY) {
 				// Espera activa segura
@@ -2825,17 +2984,28 @@ void HandleModeScreenTransition(void) {
 				// Segunda línea: "ESQUIVAR" (8 caracteres)
 				ssd1306_SetCursor((128 - 8 * 7) / 2, 34);
 				ssd1306_WriteString("ESQUIVAR", Font_7x10, White);
-			} else if (robotMode == STATE_GOTO) {
-				// Centrar ">>>MODO 4 - MODO GOTO<<<"
+			} else if (robotMode == STATE_JOYSTICK) {
+				// Centrar ">>>MODO 4 - JOYSTICK<<<"
 				// Primera línea: ">>>MODO 4<<<" (12 caracteres)
 				ssd1306_SetCursor((128 - 12 * 7) / 2, 20);
 				ssd1306_WriteString(">>>MODO 4<<<", Font_7x10, White);
-				// Segunda línea: "MODO GOTO" (9 caracteres)
-				ssd1306_SetCursor((128 - 9 * 7) / 2, 34);
-				ssd1306_WriteString("MODO GOTO", Font_7x10, White);
+				// Segunda línea: "JOYSTICK" (8 caracteres)
+				ssd1306_SetCursor((128 - 8 * 7) / 2, 34);
+				ssd1306_WriteString("JOYSTICK", Font_7x10, White);
 			}
 
+			// Silenciado de motores durante el refresco síncrono I2C
+			lPulse1 = 0;
+			lPulse3 = 0;
+			rPulse2 = 0;
+			rPulse4 = 0;
+			PWM_Control();
+
 			ssd1306_UpdateScreen();
+
+			RUN_PID = FALSE;
+			integral = 0;
+			last_error = 0;
 		} else if (robotMode == STATE_3D_SCREEN) {
 			while (HAL_I2C_GetState(&hi2c2) != HAL_I2C_STATE_READY) {
 				// Espera activa segura
@@ -2929,21 +3099,20 @@ int main(void)
   	HAL_UART_Receive_IT(&huart1, &byteUART_ESP01, 1); //non blocking
 
 
-  	/* ---- MODO WEBSERVER / SOFTAP (Desactivado para modo Station TCP) ----
-  	 * Conectarse con el teléfono o PC a la red "MICRO" (contraseña: 12345678)
-  	 * y navegar a 192.168.4.1 para ingresar el SSID y contraseña del router.
-  	 * Para reactivar SoftAP descomentar las 2 líneas siguientes: */
-  	// isWebserverMode = TRUE;
-  	// ESP01_SetWebServer("MICRO", "12345678", 5, 3);
-  	isWebserverMode = FALSE;
+  	/* ---- MODO SOFTAP TCP HERCULES (Activo al arranque) ----
+  	 * Inicia emitiendo la red Wi-Fi "MICRO" (contraseña: 12345678) y levanta un servidor TCP en puerto 80.
+  	 * Desde el software Hercules conectar a 192.168.4.1:80 y enviar "SSID;PASS".
+  	 * Tras recibir las credenciales, el robot se conectará automáticamente a esa red. */
+  	isSoftAPMode = 1;
+  	ESP01_SetSoftAP("MICRO", "12345678", 5, 3, SOFTAP_TCP_PORT);
 
-  	/* ---- MODO STATION / AUTO-SCAN DIRECTO (TCP) ----
-  	 * Conexión automática directa a las redes guardadas (knownNetworks) usando protocolo TCP. */
+  	/* ---- MODO STATION DIRECTO (Desactivado de inicio; se usará tras recibir credenciales) ---- */
   	currentNetworkIdx = 0;
   	networkScanTimer = SCANTIME;
-  	networkScanActive = 1;
-  	ESP01_SetWIFI(knownNetworks[currentNetworkIdx].ssid,
-  	              knownNetworks[currentNetworkIdx].password);
+  	networkScanActive = 0;
+  	// Para iniciar directamente conectando a knownNetworks sin pasar por SoftAP, descomentar:
+  	// isSoftAPMode = 0;
+  	// ESP01_SetWIFI(knownNetworks[currentNetworkIdx].ssid, knownNetworks[currentNetworkIdx].password);
 
   	//Inicializacion de protocolo
   	unerPrtcl_Init(&USBRx, &USBTx, buffUSBRx, buffUSBTx);
@@ -2975,7 +3144,7 @@ int main(void)
 	do10ms();
 	if (robotMode != STATE_3D_SCREEN) {
 		ESP01_Task();
-		httpTask();
+		softAPTask();
 		COMMTask(&WiFiRx, &WiFiTx, WIFI);
 	}
 
@@ -2984,7 +3153,7 @@ int main(void)
 	PWM_Control();
 	i2cTask();
 
-	PID_ControlTask();
+	PIDTask();
 
 	updateMefTask(&myButton);
 	buttonTask(&myButton);
@@ -3679,15 +3848,45 @@ static void WiFi_HeartbeatTick(void) {
 	if (timerUDP >= 10) { // Entrar cada 10 ciclos de 100ms (1000ms o 1s)
 		timerUDP = 0;
 
-		// Incrementar contador de silencio WiFi (saturar en 5)
-		if (udpSilenceCounter < 5)
+		// Incrementar contador de silencio WiFi (saturar en 60)
+		if (udpSilenceCounter < 60)
 			udpSilenceCounter++;
 
-		/* Enviar ALIVE solo si la PC no esta comunicandose activamente. */
-		if (!isWebserverMode && ESP01_StateUDPTCP() == ESP01_UDPTCP_CONNECTED
-				&& udpSilenceCounter >= 5) {
-			static uint8_t bufferTx[9] = { 'U', 'N', 'E', 'R', 0x03, ':', ALIVE, ACK, 0x98 };
-			ESP01_Send(0, bufferTx, 0, 9, TXBUFSIZE);
+		if (!isSoftAPMode) {
+			const char *currentProto = ESP01_GetProtocol();
+
+			if (strcmp(currentProto, "UDP") == 0) {
+				/* En modo UDP:
+				 * Si hay silencio entre 2s y 4s, enviar ALIVE para avisar a Qt */
+				if (ESP01_StateUDPTCP() == ESP01_UDPTCP_CONNECTED
+						&& udpSilenceCounter >= 2 && udpSilenceCounter < 5) {
+					static uint8_t bufferTx[9] = { 'U', 'N', 'E', 'R', 0x03, ':', ALIVE, ACK, 0x98 };
+					ESP01_Send(0, bufferTx, 0, 9, TXBUFSIZE);
+				}
+
+				/* Si hay silencio continuo >= 5s (la PC no respondió a los ALIVEs UDP),
+				 * probar conectar TCP cada 5 segundos por si el usuario en Qt cambió a TCP */
+				static uint8_t tcpProbeTimer = 0;
+				if (udpSilenceCounter >= 5) {
+					if (tcpProbeTimer == 0) {
+						ESP01_StartTCP(udpTargetIP, udpTargetPort, 30001);
+					}
+					tcpProbeTimer++;
+					if (tcpProbeTimer >= 5) {
+						tcpProbeTimer = 0;
+					}
+				} else {
+					tcpProbeTimer = 0;
+				}
+			} else {
+				/* En modo TCP:
+				 * Si hay silencio entre 2s y 4s, enviar ALIVE por TCP para verificar conexión */
+				if (ESP01_StateUDPTCP() == ESP01_UDPTCP_CONNECTED
+						&& udpSilenceCounter >= 2 && udpSilenceCounter < 5) {
+					static uint8_t bufferTx[9] = { 'U', 'N', 'E', 'R', 0x03, ':', ALIVE, ACK, 0x98 };
+					ESP01_Send(0, bufferTx, 0, 9, TXBUFSIZE);
+				}
+			}
 		}
 	}
 }

@@ -1,0 +1,26 @@
+var wiregfx_8c =
+[
+    [ "WIREGFX_DisplayTask", "wiregfx_8c.html#a369fa94b542724966d415a205d719cd6", null ],
+    [ "WIREGFX_Graphics_DrawCube", "wiregfx_8c.html#aa040a177091d5ca94b339fc40ffe7006", null ],
+    [ "WIREGFX_Graphics_DrawPyramid", "wiregfx_8c.html#af013fb800cc4848c93ea2dda220eaf6e", null ],
+    [ "WIREGFX_Graphics_DrawSphere", "wiregfx_8c.html#ab0f2ac846917b11ac3fa0a4325687066", null ],
+    [ "WIREGFX_Graphics_DrawTesseract", "wiregfx_8c.html#ad2de8c930d3b77da950022208a3c581c", null ],
+    [ "WIREGFX_ResetCycle", "wiregfx_8c.html#a6713ee890930c608f8ce3238a1ce9443", null ],
+    [ "angle_x", "wiregfx_8c.html#ab524463dacbe156ad8377887abd07839", null ],
+    [ "angle_xw", "wiregfx_8c.html#a05ecc5ecfd4f71d82e8b72bee2846b1d", null ],
+    [ "angle_xz", "wiregfx_8c.html#a1dd6556da34d6df771b77a181c129791", null ],
+    [ "angle_y", "wiregfx_8c.html#a80b26bdd0e7515bcb7dab5e799e73d90", null ],
+    [ "angle_yz", "wiregfx_8c.html#ac19649c26af01b34b719bda7a4e0c5ff", null ],
+    [ "angle_z", "wiregfx_8c.html#a06ef935d6fae1bed8d4fdde3ed2d8500", null ],
+    [ "cube_edges", "wiregfx_8c.html#aecc1a37d8a3eff4db9fdeb3a6d836215", null ],
+    [ "cube_vertices", "wiregfx_8c.html#a3bb3396490d4e7b1654cb9e7bedc1e67", null ],
+    [ "pyramid_edges", "wiregfx_8c.html#a4d1acf92c5a782faa68ac209e4cfe788", null ],
+    [ "pyramid_vertices", "wiregfx_8c.html#a4b15c5c7bddb3ff3ef6ebfdeb9261161", null ],
+    [ "sin_LUT", "wiregfx_8c.html#a31dcfeb0361aa1f281db225a98b22e5f", null ],
+    [ "sphere_edges", "wiregfx_8c.html#a77606d6068502259c5de0b0bdd4ddd14", null ],
+    [ "sphere_vertices", "wiregfx_8c.html#a28fb0af1317ff851a80e435b55bf02d6", null ],
+    [ "tesseract_edges", "wiregfx_8c.html#a2c25d0a928c29d1d3aa35427b5bc6b6d", null ],
+    [ "tesseract_vertices", "wiregfx_8c.html#afd9f889e92a18dad325e83cb67b6a526", null ],
+    [ "wiregfx_figure_index", "wiregfx_8c.html#ad227f5a9c4231508fefba8fbe1f994e6", null ],
+    [ "wiregfx_last_switch_tick", "wiregfx_8c.html#aa36114bb09d841e9432302e300d3b781", null ]
+];

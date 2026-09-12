@@ -1,0 +1,461 @@
+\doxysubsubsubsection{ADCEx Private Macro }
+\hypertarget{group___a_d_c_ex___private___macro}{}\label{group___a_d_c_ex___private___macro}\index{ADCEx Private Macro@{ADCEx Private Macro}}
+Diagrama de colaboración de ADCEx Private Macro:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group___a_d_c_ex___private___macro}
+\end{center}
+\end{figure}
+\doxysubsubsubsubsubsection*{Temas}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{group___a_d_c_ex__injected__nb__conv__verification}{ADCEx injected nb conv verification}}
+\end{DoxyCompactItemize}
+\doxysubsubsubsubsubsection*{defines}
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{group___a_d_c_ex___private___macro_ga08652deb6ad9a73620490807ac8c6053}{ADC\+\_\+\+CFGR\+\_\+\+EXTSEL}}(\+\_\+\+\_\+\+HANDLE\+\_\+\_,  \+\_\+\+\_\+\+EXT\+\_\+\+TRIG\+\_\+\+CONV\+\_\+\_)
+\begin{DoxyCompactList}\small\item\em For devices with 3 ADCs: Defines the external trigger source for regular group according to ADC into common group ADC1\&ADC2 or ADC3 (some triggers with same source have different value to be programmed into ADC EXTSEL bits of CR2 register). \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group___a_d_c_ex___private___macro_gafe312b4271f46a1a24243e3021dc9e2a}{ADC\+\_\+\+CFGR\+\_\+\+JEXTSEL}}(\+\_\+\+\_\+\+HANDLE\+\_\+\_,  \+\_\+\+\_\+\+EXT\+\_\+\+TRIG\+\_\+\+INJECTCONV\+\_\+\_)
+\begin{DoxyCompactList}\small\item\em For devices with 3 ADCs: Defines the external trigger source for injected group according to ADC into common group ADC1\&ADC2 or ADC3 (some triggers with same source have different value to be programmed into ADC JEXTSEL bits of CR2 register). \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group___a_d_c_ex___private___macro_ga72a3bbfaca9b197e1a251cf3fe75db5c}{ADC\+\_\+\+COMMON\+\_\+\+ADC\+\_\+\+OTHER}}(\+\_\+\+\_\+\+HANDLE\+\_\+\_,  \+\_\+\+\_\+\+HANDLE\+\_\+\+OTHER\+\_\+\+ADC\+\_\+\_)
+\begin{DoxyCompactList}\small\item\em Set handle of the other ADC sharing the common multimode settings. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group___a_d_c_ex___private___macro_ga74d9b5d54f3d9f70e6b82b052b3d1407}{ADC\+\_\+\+MULTI\+\_\+\+SLAVE}}(\+\_\+\+\_\+\+HANDLE\+\_\+\+MASTER\+\_\+\_,  \+\_\+\+\_\+\+HANDLE\+\_\+\+SLAVE\+\_\+\_)
+\begin{DoxyCompactList}\small\item\em Set handle of the ADC slave associated to the ADC master On STM32\+F1 devices, ADC slave is always ADC2 (this can be different on other STM32 devices). \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group___a_d_c_ex___private___macro_gaa359107fadfc631d25f798aad7c857fd}{ADC\+\_\+\+MULTIMODE\+\_\+\+AUTO\+\_\+\+INJECTED}}(\+\_\+\+\_\+\+HANDLE\+\_\+\_)
+\begin{DoxyCompactList}\small\item\em Check ADC multimode setting: In case of multimode, check whether ADC master of the selected ADC has feature auto-\/injection enabled (applicable for devices with several ADCs). \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group___a_d_c_ex___private___macro_ga44487b8068ac9f116ab789148f8d48c3}{ADC\+\_\+\+MULTIMODE\+\_\+\+IS\+\_\+\+ENABLE}}(\+\_\+\+\_\+\+HANDLE\+\_\+\_)
+\begin{DoxyCompactList}\small\item\em Verification if multimode is enabled for the selected ADC (multimode ADC master or ADC slave) (applicable for devices with several ADCs). \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group___a_d_c_ex___private___macro_ga0b97545981bf2d7f767a98fd018c78af}{ADC\+\_\+\+NONMULTIMODE\+\_\+\+OR\+\_\+\+MULTIMODEMASTER}}(\+\_\+\+\_\+\+HANDLE\+\_\+\_)
+\begin{DoxyCompactList}\small\item\em Verification of condition for ADC start conversion: ADC must be in non-\/multimode, or multimode with handle of ADC master (applicable for devices with several ADCs). \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group___a_d_c_ex___private___macro_gab3f646d603911820b104dd134c42f028}{IS\+\_\+\+ADC\+\_\+\+EXTTRIG}}(REGTRIG)
+\item 
+\+\#define \doxymbox{\hyperlink{group___a_d_c_ex___private___macro_ga29b3772b6f1a051e2d72dda74d7787ac}{IS\+\_\+\+ADC\+\_\+\+EXTTRIGINJEC}}(REGTRIG)
+\item 
+\+\#define \doxymbox{\hyperlink{group___a_d_c_ex___private___macro_gaeb4d9f60256873c29590ca8dbbb6942d}{IS\+\_\+\+ADC\+\_\+\+EXTTRIGINJEC\+\_\+\+EDGE}}(EDGE)
+\item 
+\+\#define \doxymbox{\hyperlink{group___a_d_c_ex___private___macro_ga564b54a7fa3c47f3b8ca74f67866d139}{IS\+\_\+\+ADC\+\_\+\+INJECTED\+\_\+\+RANK}}(CHANNEL)
+\item 
+\+\#define \doxymbox{\hyperlink{group___a_d_c_ex___private___macro_ga4abf4c7de28a42d7b124c9e403a6e537}{IS\+\_\+\+ADC\+\_\+\+MODE}}(MODE)
+\end{DoxyCompactItemize}
+
+
+\doxysubsubsubsubsection{Descripción detallada}
+
+
+\label{group___a_d_c_ex___private___macro_doc-define-members}
+\Hypertarget{group___a_d_c_ex___private___macro_doc-define-members}
+\doxysubsubsubsubsection{Documentación de «define»}
+\Hypertarget{group___a_d_c_ex___private___macro_ga08652deb6ad9a73620490807ac8c6053}\index{ADCEx Private Macro@{ADCEx Private Macro}!ADC\_CFGR\_EXTSEL@{ADC\_CFGR\_EXTSEL}}
+\index{ADC\_CFGR\_EXTSEL@{ADC\_CFGR\_EXTSEL}!ADCEx Private Macro@{ADCEx Private Macro}}
+\doxyparagraph{\texorpdfstring{ADC\_CFGR\_EXTSEL}{ADC\_CFGR\_EXTSEL}}
+{\footnotesize\ttfamily \label{group___a_d_c_ex___private___macro_ga08652deb6ad9a73620490807ac8c6053} 
+\+\#define ADC\+\_\+\+CFGR\+\_\+\+EXTSEL(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+\+HANDLE\+\_\+\_}{, }\item[{}]{\+\_\+\+\_\+\+EXT\+\_\+\+TRIG\+\_\+\+CONV\+\_\+\_}{}\end{DoxyParamCaption})}
+
+
+
+{\ttfamily \+\#include "{}\doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h}{stm32f1xx\+\_\+hal\+\_\+adc\+\_\+ex.\+h}}"{}}
+
+{\bfseries Valor:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(\_\_EXT\_TRIG\_CONV\_\_)}
+
+\end{DoxyCode}
+
+
+For devices with 3 ADCs: Defines the external trigger source for regular group according to ADC into common group ADC1\&ADC2 or ADC3 (some triggers with same source have different value to be programmed into ADC EXTSEL bits of CR2 register). 
+
+For devices with 2 ADCs or less: this macro makes no change. 
+\begin{DoxyParams}{Parámetros}
+{\em \+\_\+\+\_\+\+HANDLE\+\_\+\_} & ADC handle \\
+\hline
+{\em \+\_\+\+\_\+\+EXT\+\_\+\+TRIG\+\_\+\+CONV\+\_\+\_} & External trigger selected for regular group. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Valores devueltos}
+{\em External} & trigger to be programmed into EXTSEL bits of CR2 register \\
+\hline
+\end{DoxyRetVals}
+
+
+Definición en la línea \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h_source_l00394}{394}} del archivo \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h_source}{stm32f1xx\+\_\+hal\+\_\+adc\+\_\+ex.\+h}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{stm32f1xx__hal__adc_8c_source_l00411}{HAL\+\_\+\+ADC\+\_\+\+Init()}}.
+
+\Hypertarget{group___a_d_c_ex___private___macro_gafe312b4271f46a1a24243e3021dc9e2a}\index{ADCEx Private Macro@{ADCEx Private Macro}!ADC\_CFGR\_JEXTSEL@{ADC\_CFGR\_JEXTSEL}}
+\index{ADC\_CFGR\_JEXTSEL@{ADC\_CFGR\_JEXTSEL}!ADCEx Private Macro@{ADCEx Private Macro}}
+\doxyparagraph{\texorpdfstring{ADC\_CFGR\_JEXTSEL}{ADC\_CFGR\_JEXTSEL}}
+{\footnotesize\ttfamily \label{group___a_d_c_ex___private___macro_gafe312b4271f46a1a24243e3021dc9e2a} 
+\+\#define ADC\+\_\+\+CFGR\+\_\+\+JEXTSEL(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+\+HANDLE\+\_\+\_}{, }\item[{}]{\+\_\+\+\_\+\+EXT\+\_\+\+TRIG\+\_\+\+INJECTCONV\+\_\+\_}{}\end{DoxyParamCaption})}
+
+
+
+{\ttfamily \+\#include "{}\doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h}{stm32f1xx\+\_\+hal\+\_\+adc\+\_\+ex.\+h}}"{}}
+
+{\bfseries Valor:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(\_\_EXT\_TRIG\_INJECTCONV\_\_)}
+
+\end{DoxyCode}
+
+
+For devices with 3 ADCs: Defines the external trigger source for injected group according to ADC into common group ADC1\&ADC2 or ADC3 (some triggers with same source have different value to be programmed into ADC JEXTSEL bits of CR2 register). 
+
+For devices with 2 ADCs or less: this macro makes no change. 
+\begin{DoxyParams}{Parámetros}
+{\em \+\_\+\+\_\+\+HANDLE\+\_\+\_} & ADC handle \\
+\hline
+{\em \+\_\+\+\_\+\+EXT\+\_\+\+TRIG\+\_\+\+INJECTCONV\+\_\+\_} & External trigger selected for injected group. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Valores devueltos}
+{\em External} & trigger to be programmed into JEXTSEL bits of CR2 register \\
+\hline
+\end{DoxyRetVals}
+
+
+Definición en la línea \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h_source_l00422}{422}} del archivo \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h_source}{stm32f1xx\+\_\+hal\+\_\+adc\+\_\+ex.\+h}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8c_source_l00980}{HAL\+\_\+\+ADCEx\+\_\+\+Injected\+Config\+Channel()}}.
+
+\Hypertarget{group___a_d_c_ex___private___macro_ga72a3bbfaca9b197e1a251cf3fe75db5c}\index{ADCEx Private Macro@{ADCEx Private Macro}!ADC\_COMMON\_ADC\_OTHER@{ADC\_COMMON\_ADC\_OTHER}}
+\index{ADC\_COMMON\_ADC\_OTHER@{ADC\_COMMON\_ADC\_OTHER}!ADCEx Private Macro@{ADCEx Private Macro}}
+\doxyparagraph{\texorpdfstring{ADC\_COMMON\_ADC\_OTHER}{ADC\_COMMON\_ADC\_OTHER}}
+{\footnotesize\ttfamily \label{group___a_d_c_ex___private___macro_ga72a3bbfaca9b197e1a251cf3fe75db5c} 
+\+\#define ADC\+\_\+\+COMMON\+\_\+\+ADC\+\_\+\+OTHER(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+\+HANDLE\+\_\+\_}{, }\item[{}]{\+\_\+\+\_\+\+HANDLE\+\_\+\+OTHER\+\_\+\+ADC\+\_\+\_}{}\end{DoxyParamCaption})}
+
+
+
+{\ttfamily \+\#include "{}\doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h}{stm32f1xx\+\_\+hal\+\_\+adc\+\_\+ex.\+h}}"{}}
+
+{\bfseries Valor:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((\_\_HANDLE\_OTHER\_ADC\_\_)-\/>Instance\ =\ \doxymbox{\hyperlink{group___peripheral__declaration_gac5503ae96c26b4475226f96715a1bf1e}{ADC2}})}
+
+\end{DoxyCode}
+
+
+Set handle of the other ADC sharing the common multimode settings. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em \+\_\+\+\_\+\+HANDLE\+\_\+\_} & ADC handle \\
+\hline
+{\em \+\_\+\+\_\+\+HANDLE\+\_\+\+OTHER\+\_\+\+ADC\+\_\+\_} & other ADC handle \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Valores devueltos}
+{\em None} & \\
+\hline
+\end{DoxyRetVals}
+
+
+Definición en la línea \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h_source_l00488}{488}} del archivo \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h_source}{stm32f1xx\+\_\+hal\+\_\+adc\+\_\+ex.\+h}}.
+
+\Hypertarget{group___a_d_c_ex___private___macro_ga74d9b5d54f3d9f70e6b82b052b3d1407}\index{ADCEx Private Macro@{ADCEx Private Macro}!ADC\_MULTI\_SLAVE@{ADC\_MULTI\_SLAVE}}
+\index{ADC\_MULTI\_SLAVE@{ADC\_MULTI\_SLAVE}!ADCEx Private Macro@{ADCEx Private Macro}}
+\doxyparagraph{\texorpdfstring{ADC\_MULTI\_SLAVE}{ADC\_MULTI\_SLAVE}}
+{\footnotesize\ttfamily \label{group___a_d_c_ex___private___macro_ga74d9b5d54f3d9f70e6b82b052b3d1407} 
+\+\#define ADC\+\_\+\+MULTI\+\_\+\+SLAVE(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+\+HANDLE\+\_\+\+MASTER\+\_\+\_}{, }\item[{}]{\+\_\+\+\_\+\+HANDLE\+\_\+\+SLAVE\+\_\+\_}{}\end{DoxyParamCaption})}
+
+
+
+{\ttfamily \+\#include "{}\doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h}{stm32f1xx\+\_\+hal\+\_\+adc\+\_\+ex.\+h}}"{}}
+
+{\bfseries Valor:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((\_\_HANDLE\_SLAVE\_\_)-\/>Instance\ =\ \doxymbox{\hyperlink{group___peripheral__declaration_gac5503ae96c26b4475226f96715a1bf1e}{ADC2}})}
+
+\end{DoxyCode}
+
+
+Set handle of the ADC slave associated to the ADC master On STM32\+F1 devices, ADC slave is always ADC2 (this can be different on other STM32 devices). 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em \+\_\+\+\_\+\+HANDLE\+\_\+\+MASTER\+\_\+\_} & ADC master handle \\
+\hline
+{\em \+\_\+\+\_\+\+HANDLE\+\_\+\+SLAVE\+\_\+\_} & ADC slave handle \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Valores devueltos}
+{\em None} & \\
+\hline
+\end{DoxyRetVals}
+
+
+Definición en la línea \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h_source_l00499}{499}} del archivo \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h_source}{stm32f1xx\+\_\+hal\+\_\+adc\+\_\+ex.\+h}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8c_source_l00659}{HAL\+\_\+\+ADCEx\+\_\+\+Multi\+Mode\+Start\+\_\+\+DMA()}}.
+
+\Hypertarget{group___a_d_c_ex___private___macro_gaa359107fadfc631d25f798aad7c857fd}\index{ADCEx Private Macro@{ADCEx Private Macro}!ADC\_MULTIMODE\_AUTO\_INJECTED@{ADC\_MULTIMODE\_AUTO\_INJECTED}}
+\index{ADC\_MULTIMODE\_AUTO\_INJECTED@{ADC\_MULTIMODE\_AUTO\_INJECTED}!ADCEx Private Macro@{ADCEx Private Macro}}
+\doxyparagraph{\texorpdfstring{ADC\_MULTIMODE\_AUTO\_INJECTED}{ADC\_MULTIMODE\_AUTO\_INJECTED}}
+{\footnotesize\ttfamily \label{group___a_d_c_ex___private___macro_gaa359107fadfc631d25f798aad7c857fd} 
+\+\#define ADC\+\_\+\+MULTIMODE\+\_\+\+AUTO\+\_\+\+INJECTED(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+\+HANDLE\+\_\+\_}{}\end{DoxyParamCaption})}
+
+
+
+{\ttfamily \+\#include "{}\doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h}{stm32f1xx\+\_\+hal\+\_\+adc\+\_\+ex.\+h}}"{}}
+
+{\bfseries Valor:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((\ (((\_\_HANDLE\_\_)-\/>Instance)\ ==\ \doxymbox{\hyperlink{group___peripheral__declaration_ga90d2d5c526ce5c0a551f533eccbee71a}{ADC1}})\ ||\ (((\_\_HANDLE\_\_)-\/>Instance)\ ==\ \doxymbox{\hyperlink{group___peripheral__declaration_gac5503ae96c26b4475226f96715a1bf1e}{ADC2}})\ \ \(\backslash\)}
+\DoxyCodeLine{\ )?\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ (\doxymbox{\hyperlink{group___peripheral__declaration_ga90d2d5c526ce5c0a551f533eccbee71a}{ADC1}}-\/>CR1\ \&\ \doxymbox{\hyperlink{group___peripheral___registers___bits___definition_ga6353cb0d564410358b3a086dd0241f8c}{ADC\_CR1\_JAUTO}})\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ :\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ (\doxymbox{\hyperlink{group___exported__types_gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05}{RESET}})\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{)}
+
+\end{DoxyCode}
+
+
+Check ADC multimode setting: In case of multimode, check whether ADC master of the selected ADC has feature auto-\/injection enabled (applicable for devices with several ADCs). 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em \+\_\+\+\_\+\+HANDLE\+\_\+\_} & ADC handle \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Valores devueltos}
+{\em None} & \\
+\hline
+\end{DoxyRetVals}
+
+
+Definición en la línea \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h_source_l00469}{469}} del archivo \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h_source}{stm32f1xx\+\_\+hal\+\_\+adc\+\_\+ex.\+h}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{stm32f1xx__hal__adc_8c_source_l01030}{HAL\+\_\+\+ADC\+\_\+\+Start()}} y \doxymbox{\hyperlink{stm32f1xx__hal__adc_8c_source_l01539}{HAL\+\_\+\+ADC\+\_\+\+Start\+\_\+\+DMA()}}.
+
+\Hypertarget{group___a_d_c_ex___private___macro_ga44487b8068ac9f116ab789148f8d48c3}\index{ADCEx Private Macro@{ADCEx Private Macro}!ADC\_MULTIMODE\_IS\_ENABLE@{ADC\_MULTIMODE\_IS\_ENABLE}}
+\index{ADC\_MULTIMODE\_IS\_ENABLE@{ADC\_MULTIMODE\_IS\_ENABLE}!ADCEx Private Macro@{ADCEx Private Macro}}
+\doxyparagraph{\texorpdfstring{ADC\_MULTIMODE\_IS\_ENABLE}{ADC\_MULTIMODE\_IS\_ENABLE}}
+{\footnotesize\ttfamily \label{group___a_d_c_ex___private___macro_ga44487b8068ac9f116ab789148f8d48c3} 
+\+\#define ADC\+\_\+\+MULTIMODE\+\_\+\+IS\+\_\+\+ENABLE(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+\+HANDLE\+\_\+\_}{}\end{DoxyParamCaption})}
+
+
+
+{\ttfamily \+\#include "{}\doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h}{stm32f1xx\+\_\+hal\+\_\+adc\+\_\+ex.\+h}}"{}}
+
+{\bfseries Valor:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((\ (((\_\_HANDLE\_\_)-\/>Instance)\ ==\ \doxymbox{\hyperlink{group___peripheral__declaration_ga90d2d5c526ce5c0a551f533eccbee71a}{ADC1}})\ ||\ (((\_\_HANDLE\_\_)-\/>Instance)\ ==\ \doxymbox{\hyperlink{group___peripheral__declaration_gac5503ae96c26b4475226f96715a1bf1e}{ADC2}})\ \ \ \(\backslash\)}
+\DoxyCodeLine{\ )?\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ (\doxymbox{\hyperlink{group___peripheral__declaration_ga90d2d5c526ce5c0a551f533eccbee71a}{ADC1}}-\/>CR1\ \&\ \doxymbox{\hyperlink{group___peripheral___registers___bits___definition_gaa5a1a3b2c42e51fcd50a46f82d0b0843}{ADC\_CR1\_DUALMOD}})\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ :\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ (\doxymbox{\hyperlink{group___exported__types_gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05}{RESET}})\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{)}
+
+\end{DoxyCode}
+
+
+Verification if multimode is enabled for the selected ADC (multimode ADC master or ADC slave) (applicable for devices with several ADCs). 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em \+\_\+\+\_\+\+HANDLE\+\_\+\_} & ADC handle \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Valores devueltos}
+{\em Multimode} & state: RESET if multimode is disabled, other value if multimode is enabled \\
+\hline
+\end{DoxyRetVals}
+
+
+Definición en la línea \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h_source_l00433}{433}} del archivo \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h_source}{stm32f1xx\+\_\+hal\+\_\+adc\+\_\+ex.\+h}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{stm32f1xx__hal__adc_8c_source_l01539}{HAL\+\_\+\+ADC\+\_\+\+Start\+\_\+\+DMA()}}.
+
+\Hypertarget{group___a_d_c_ex___private___macro_ga0b97545981bf2d7f767a98fd018c78af}\index{ADCEx Private Macro@{ADCEx Private Macro}!ADC\_NONMULTIMODE\_OR\_MULTIMODEMASTER@{ADC\_NONMULTIMODE\_OR\_MULTIMODEMASTER}}
+\index{ADC\_NONMULTIMODE\_OR\_MULTIMODEMASTER@{ADC\_NONMULTIMODE\_OR\_MULTIMODEMASTER}!ADCEx Private Macro@{ADCEx Private Macro}}
+\doxyparagraph{\texorpdfstring{ADC\_NONMULTIMODE\_OR\_MULTIMODEMASTER}{ADC\_NONMULTIMODE\_OR\_MULTIMODEMASTER}}
+{\footnotesize\ttfamily \label{group___a_d_c_ex___private___macro_ga0b97545981bf2d7f767a98fd018c78af} 
+\+\#define ADC\+\_\+\+NONMULTIMODE\+\_\+\+OR\+\_\+\+MULTIMODEMASTER(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+\+HANDLE\+\_\+\_}{}\end{DoxyParamCaption})}
+
+
+
+{\ttfamily \+\#include "{}\doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h}{stm32f1xx\+\_\+hal\+\_\+adc\+\_\+ex.\+h}}"{}}
+
+{\bfseries Valor:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((\ (((\_\_HANDLE\_\_)-\/>Instance)\ ==\ \doxymbox{\hyperlink{group___peripheral__declaration_gac5503ae96c26b4475226f96715a1bf1e}{ADC2}})\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ )?\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ ((\doxymbox{\hyperlink{group___peripheral__declaration_ga90d2d5c526ce5c0a551f533eccbee71a}{ADC1}}-\/>CR1\ \&\ \doxymbox{\hyperlink{group___peripheral___registers___bits___definition_gaa5a1a3b2c42e51fcd50a46f82d0b0843}{ADC\_CR1\_DUALMOD}})\ ==\ \doxymbox{\hyperlink{group___exported__types_gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05}{RESET}})\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ :\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ (!\doxymbox{\hyperlink{group___exported__types_gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05}{RESET}})\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{)}
+
+\end{DoxyCode}
+
+
+Verification of condition for ADC start conversion: ADC must be in non-\/multimode, or multimode with handle of ADC master (applicable for devices with several ADCs). 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em \+\_\+\+\_\+\+HANDLE\+\_\+\_} & ADC handle \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Valores devueltos}
+{\em None} & \\
+\hline
+\end{DoxyRetVals}
+
+
+Definición en la línea \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h_source_l00451}{451}} del archivo \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h_source}{stm32f1xx\+\_\+hal\+\_\+adc\+\_\+ex.\+h}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{stm32f1xx__hal__adc_8c_source_l01030}{HAL\+\_\+\+ADC\+\_\+\+Start()}} y \doxymbox{\hyperlink{stm32f1xx__hal__adc_8c_source_l01539}{HAL\+\_\+\+ADC\+\_\+\+Start\+\_\+\+DMA()}}.
+
+\Hypertarget{group___a_d_c_ex___private___macro_gab3f646d603911820b104dd134c42f028}\index{ADCEx Private Macro@{ADCEx Private Macro}!IS\_ADC\_EXTTRIG@{IS\_ADC\_EXTTRIG}}
+\index{IS\_ADC\_EXTTRIG@{IS\_ADC\_EXTTRIG}!ADCEx Private Macro@{ADCEx Private Macro}}
+\doxyparagraph{\texorpdfstring{IS\_ADC\_EXTTRIG}{IS\_ADC\_EXTTRIG}}
+{\footnotesize\ttfamily \label{group___a_d_c_ex___private___macro_gab3f646d603911820b104dd134c42f028} 
+\+\#define IS\+\_\+\+ADC\+\_\+\+EXTTRIG(\begin{DoxyParamCaption}\item[{}]{REGTRIG}{}\end{DoxyParamCaption})}
+
+
+
+{\ttfamily \+\#include "{}\doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h}{stm32f1xx\+\_\+hal\+\_\+adc\+\_\+ex.\+h}}"{}}
+
+{\bfseries Valor:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(((REGTRIG)\ ==\ \doxymbox{\hyperlink{group___a_d_c___external__trigger__source___regular_ga7d49b9a93e2452633d650a5bfd2cce23}{ADC\_EXTERNALTRIGCONV\_T1\_CC1}})\ \ \ \ ||\ \(\backslash\)}
+\DoxyCodeLine{((REGTRIG)\ ==\ \doxymbox{\hyperlink{group___a_d_c___external__trigger__source___regular_gaf40cf21366c12d956241193bca60b1f9}{ADC\_EXTERNALTRIGCONV\_T1\_CC2}})\ \ \ \ ||\ \(\backslash\)}
+\DoxyCodeLine{((REGTRIG)\ ==\ \doxymbox{\hyperlink{group___a_d_c___external__trigger__source___regular_ga0b64a9b8ac627c2ca770622c8ada41e6}{ADC\_EXTERNALTRIGCONV\_T2\_CC2}})\ \ \ \ ||\ \(\backslash\)}
+\DoxyCodeLine{((REGTRIG)\ ==\ \doxymbox{\hyperlink{group___a_d_c___external__trigger__source___regular_ga41bef7b6bfdb6641a97e89aa4abc405e}{ADC\_EXTERNALTRIGCONV\_T3\_TRGO}})\ \ \ ||\ \(\backslash\)}
+\DoxyCodeLine{((REGTRIG)\ ==\ \doxymbox{\hyperlink{group___a_d_c___external__trigger__source___regular_gae0e57ccf3d178e6819ce32c0124e4f0f}{ADC\_EXTERNALTRIGCONV\_T4\_CC4}})\ \ \ \ ||\ \(\backslash\)}
+\DoxyCodeLine{((REGTRIG)\ ==\ \doxymbox{\hyperlink{group___a_d_c___external__trigger__source___regular_gaded75d5ddcb64cf735044cdc753571a9}{ADC\_EXTERNALTRIGCONV\_EXT\_IT11}})\ \ ||\ \(\backslash\)}
+\DoxyCodeLine{((REGTRIG)\ ==\ \doxymbox{\hyperlink{group___a_d_c___external__trigger__source___regular_ga349ec6a1c2a362fba718cbfd068e50dc}{ADC\_SOFTWARE\_START}}))}
+
+\end{DoxyCode}
+
+
+Definición en la línea \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h_source_l00521}{521}} del archivo \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h_source}{stm32f1xx\+\_\+hal\+\_\+adc\+\_\+ex.\+h}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{stm32f1xx__hal__adc_8c_source_l00411}{HAL\+\_\+\+ADC\+\_\+\+Init()}}.
+
+\Hypertarget{group___a_d_c_ex___private___macro_ga29b3772b6f1a051e2d72dda74d7787ac}\index{ADCEx Private Macro@{ADCEx Private Macro}!IS\_ADC\_EXTTRIGINJEC@{IS\_ADC\_EXTTRIGINJEC}}
+\index{IS\_ADC\_EXTTRIGINJEC@{IS\_ADC\_EXTTRIGINJEC}!ADCEx Private Macro@{ADCEx Private Macro}}
+\doxyparagraph{\texorpdfstring{IS\_ADC\_EXTTRIGINJEC}{IS\_ADC\_EXTTRIGINJEC}}
+{\footnotesize\ttfamily \label{group___a_d_c_ex___private___macro_ga29b3772b6f1a051e2d72dda74d7787ac} 
+\+\#define IS\+\_\+\+ADC\+\_\+\+EXTTRIGINJEC(\begin{DoxyParamCaption}\item[{}]{REGTRIG}{}\end{DoxyParamCaption})}
+
+
+
+{\ttfamily \+\#include "{}\doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h}{stm32f1xx\+\_\+hal\+\_\+adc\+\_\+ex.\+h}}"{}}
+
+{\bfseries Valor:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(((REGTRIG)\ ==\ \doxymbox{\hyperlink{group___a_d_c_ex___external__trigger__source___injected_ga5408c05ebc9a0a16c08b0be0e79506dc}{ADC\_EXTERNALTRIGINJECCONV\_T2\_TRGO}})\ \ ||\ \(\backslash\)}
+\DoxyCodeLine{((REGTRIG)\ ==\ \doxymbox{\hyperlink{group___a_d_c_ex___external__trigger__source___injected_gaadc7ecf196e883d7375e299dde80a8fa}{ADC\_EXTERNALTRIGINJECCONV\_T2\_CC1}})\ \ \ ||\ \(\backslash\)}
+\DoxyCodeLine{((REGTRIG)\ ==\ \doxymbox{\hyperlink{group___a_d_c_ex___external__trigger__source___injected_ga826c3989c8fe4861729fdb966ff07c2d}{ADC\_EXTERNALTRIGINJECCONV\_T3\_CC4}})\ \ \ ||\ \(\backslash\)}
+\DoxyCodeLine{((REGTRIG)\ ==\ \doxymbox{\hyperlink{group___a_d_c_ex___external__trigger__source___injected_ga87a5534698643b2c3872efb7d17d4f44}{ADC\_EXTERNALTRIGINJECCONV\_T4\_TRGO}})\ \ ||\ \(\backslash\)}
+\DoxyCodeLine{((REGTRIG)\ ==\ \doxymbox{\hyperlink{group___a_d_c_ex___external__trigger__source___injected_ga364de9670181999642dcd159f22815c8}{ADC\_EXTERNALTRIGINJECCONV\_EXT\_IT15}})\ ||\ \(\backslash\)}
+\DoxyCodeLine{((REGTRIG)\ ==\ \doxymbox{\hyperlink{group___a_d_c_ex___external__trigger__source___injected_ga50c7351afe9cf0960de8f2ae831d8a0b}{ADC\_EXTERNALTRIGINJECCONV\_T1\_CC4}})\ \ \ ||\ \(\backslash\)}
+\DoxyCodeLine{((REGTRIG)\ ==\ \doxymbox{\hyperlink{group___a_d_c_ex___external__trigger__source___injected_ga577c4e4b766688d873ab518fa4e8cef0}{ADC\_EXTERNALTRIGINJECCONV\_T1\_TRGO}})\ \ ||\ \(\backslash\)}
+\DoxyCodeLine{((REGTRIG)\ ==\ \doxymbox{\hyperlink{group___a_d_c_ex___external__trigger__source___injected_gae90a9b5e1ae0cb2ef2c711d90b0b382b}{ADC\_INJECTED\_SOFTWARE\_START}}))}
+
+\end{DoxyCode}
+
+
+Definición en la línea \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h_source_l00566}{566}} del archivo \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h_source}{stm32f1xx\+\_\+hal\+\_\+adc\+\_\+ex.\+h}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8c_source_l00980}{HAL\+\_\+\+ADCEx\+\_\+\+Injected\+Config\+Channel()}}.
+
+\Hypertarget{group___a_d_c_ex___private___macro_gaeb4d9f60256873c29590ca8dbbb6942d}\index{ADCEx Private Macro@{ADCEx Private Macro}!IS\_ADC\_EXTTRIGINJEC\_EDGE@{IS\_ADC\_EXTTRIGINJEC\_EDGE}}
+\index{IS\_ADC\_EXTTRIGINJEC\_EDGE@{IS\_ADC\_EXTTRIGINJEC\_EDGE}!ADCEx Private Macro@{ADCEx Private Macro}}
+\doxyparagraph{\texorpdfstring{IS\_ADC\_EXTTRIGINJEC\_EDGE}{IS\_ADC\_EXTTRIGINJEC\_EDGE}}
+{\footnotesize\ttfamily \label{group___a_d_c_ex___private___macro_gaeb4d9f60256873c29590ca8dbbb6942d} 
+\+\#define IS\+\_\+\+ADC\+\_\+\+EXTTRIGINJEC\+\_\+\+EDGE(\begin{DoxyParamCaption}\item[{}]{EDGE}{}\end{DoxyParamCaption})}
+
+
+
+{\ttfamily \+\#include "{}\doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h}{stm32f1xx\+\_\+hal\+\_\+adc\+\_\+ex.\+h}}"{}}
+
+{\bfseries Valor:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(((EDGE)\ ==\ \doxymbox{\hyperlink{group___a_d_c_ex___external__trigger__edge___injected_ga5ef4af64eb11cd75fac665eb7dce016b}{ADC\_EXTERNALTRIGINJECCONV\_EDGE\_NONE}})\ \ ||\ \(\backslash\)}
+\DoxyCodeLine{((EDGE)\ ==\ \doxymbox{\hyperlink{group___a_d_c_ex___external__trigger__edge___injected_ga79010c28c68ef0c2a19c021adcf983d2}{ADC\_EXTERNALTRIGINJECCONV\_EDGE\_RISING}}))}
+
+\end{DoxyCode}
+
+
+Definición en la línea \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h_source_l00509}{509}} del archivo \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h_source}{stm32f1xx\+\_\+hal\+\_\+adc\+\_\+ex.\+h}}.
+
+\Hypertarget{group___a_d_c_ex___private___macro_ga564b54a7fa3c47f3b8ca74f67866d139}\index{ADCEx Private Macro@{ADCEx Private Macro}!IS\_ADC\_INJECTED\_RANK@{IS\_ADC\_INJECTED\_RANK}}
+\index{IS\_ADC\_INJECTED\_RANK@{IS\_ADC\_INJECTED\_RANK}!ADCEx Private Macro@{ADCEx Private Macro}}
+\doxyparagraph{\texorpdfstring{IS\_ADC\_INJECTED\_RANK}{IS\_ADC\_INJECTED\_RANK}}
+{\footnotesize\ttfamily \label{group___a_d_c_ex___private___macro_ga564b54a7fa3c47f3b8ca74f67866d139} 
+\+\#define IS\+\_\+\+ADC\+\_\+\+INJECTED\+\_\+\+RANK(\begin{DoxyParamCaption}\item[{}]{CHANNEL}{}\end{DoxyParamCaption})}
+
+
+
+{\ttfamily \+\#include "{}\doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h}{stm32f1xx\+\_\+hal\+\_\+adc\+\_\+ex.\+h}}"{}}
+
+{\bfseries Valor:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(((CHANNEL)\ ==\ \doxymbox{\hyperlink{group___a_d_c_ex__injected__rank_gabe6252325fda6b22c794ea7b0e974ee3}{ADC\_INJECTED\_RANK\_1}})\ ||\ \(\backslash\)}
+\DoxyCodeLine{((CHANNEL)\ ==\ \doxymbox{\hyperlink{group___a_d_c_ex__injected__rank_gaf065faf92e099a1667694233384d187e}{ADC\_INJECTED\_RANK\_2}})\ ||\ \(\backslash\)}
+\DoxyCodeLine{((CHANNEL)\ ==\ \doxymbox{\hyperlink{group___a_d_c_ex__injected__rank_ga5fa8c3014caccae280220fd3df5d7f23}{ADC\_INJECTED\_RANK\_3}})\ ||\ \(\backslash\)}
+\DoxyCodeLine{((CHANNEL)\ ==\ \doxymbox{\hyperlink{group___a_d_c_ex__injected__rank_gaffe7c5042c696b39ef23fba9af5a88b9}{ADC\_INJECTED\_RANK\_4}}))}
+
+\end{DoxyCode}
+
+
+Definición en la línea \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h_source_l00504}{504}} del archivo \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h_source}{stm32f1xx\+\_\+hal\+\_\+adc\+\_\+ex.\+h}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8c_source_l00980}{HAL\+\_\+\+ADCEx\+\_\+\+Injected\+Config\+Channel()}} y \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8c_source_l00869}{HAL\+\_\+\+ADCEx\+\_\+\+Injected\+Get\+Value()}}.
+
+\Hypertarget{group___a_d_c_ex___private___macro_ga4abf4c7de28a42d7b124c9e403a6e537}\index{ADCEx Private Macro@{ADCEx Private Macro}!IS\_ADC\_MODE@{IS\_ADC\_MODE}}
+\index{IS\_ADC\_MODE@{IS\_ADC\_MODE}!ADCEx Private Macro@{ADCEx Private Macro}}
+\doxyparagraph{\texorpdfstring{IS\_ADC\_MODE}{IS\_ADC\_MODE}}
+{\footnotesize\ttfamily \label{group___a_d_c_ex___private___macro_ga4abf4c7de28a42d7b124c9e403a6e537} 
+\+\#define IS\+\_\+\+ADC\+\_\+\+MODE(\begin{DoxyParamCaption}\item[{}]{MODE}{}\end{DoxyParamCaption})}
+
+
+
+{\ttfamily \+\#include "{}\doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h}{stm32f1xx\+\_\+hal\+\_\+adc\+\_\+ex.\+h}}"{}}
+
+{\bfseries Valor:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(((MODE)\ ==\ \doxymbox{\hyperlink{group___a_d_c_ex___common__mode_gaac07297889e931df4083427a99211638}{ADC\_MODE\_INDEPENDENT}})\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ||\ \(\backslash\)}
+\DoxyCodeLine{((MODE)\ ==\ \doxymbox{\hyperlink{group___a_d_c_ex___common__mode_gac3ad57b1150ca7862fcc932cf19b2fb0}{ADC\_DUALMODE\_REGSIMULT\_INJECSIMULT}})\ \ ||\ \(\backslash\)}
+\DoxyCodeLine{((MODE)\ ==\ \doxymbox{\hyperlink{group___a_d_c_ex___common__mode_ga2667b75f8acb086aa6ab723466bb3f40}{ADC\_DUALMODE\_REGSIMULT\_ALTERTRIG}})\ \ \ \ ||\ \(\backslash\)}
+\DoxyCodeLine{((MODE)\ ==\ \doxymbox{\hyperlink{group___a_d_c_ex___common__mode_ga53a4b5d3a89dee9a79fa8cb44e6f3232}{ADC\_DUALMODE\_INJECSIMULT\_INTERLFAST}})\ ||\ \(\backslash\)}
+\DoxyCodeLine{((MODE)\ ==\ \doxymbox{\hyperlink{group___a_d_c_ex___common__mode_ga32f3de5840bbb001adde1530cff3d89a}{ADC\_DUALMODE\_INJECSIMULT\_INTERLSLOW}})\ ||\ \(\backslash\)}
+\DoxyCodeLine{((MODE)\ ==\ \doxymbox{\hyperlink{group___a_d_c_ex___common__mode_ga8e81364b24ed3c089bb6993b48a020e9}{ADC\_DUALMODE\_INJECSIMULT}})\ \ \ \ \ \ \ \ \ \ \ \ ||\ \(\backslash\)}
+\DoxyCodeLine{((MODE)\ ==\ \doxymbox{\hyperlink{group___a_d_c_ex___common__mode_ga5318d363b48a4244335cdafaed0d179c}{ADC\_DUALMODE\_REGSIMULT}})\ \ \ \ \ \ \ \ \ \ \ \ \ \ ||\ \(\backslash\)}
+\DoxyCodeLine{((MODE)\ ==\ \doxymbox{\hyperlink{group___a_d_c_ex___common__mode_ga032d20b6e9388503566c5d1f97b6877e}{ADC\_DUALMODE\_INTERLFAST}})\ \ \ \ \ \ \ \ \ \ \ \ \ ||\ \(\backslash\)}
+\DoxyCodeLine{((MODE)\ ==\ \doxymbox{\hyperlink{group___a_d_c_ex___common__mode_gaacbfbd3e6e076ccb6e4e74db24cf917c}{ADC\_DUALMODE\_INTERLSLOW}})\ \ \ \ \ \ \ \ \ \ \ \ \ ||\ \(\backslash\)}
+\DoxyCodeLine{((MODE)\ ==\ \doxymbox{\hyperlink{group___a_d_c_ex___common__mode_ga45e63dd5e2f36e62fa1b2cb9eff891ed}{ADC\_DUALMODE\_ALTERTRIG}})\ )}
+
+\end{DoxyCode}
+
+
+Definición en la línea \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h_source_l00614}{614}} del archivo \doxymbox{\hyperlink{stm32f1xx__hal__adc__ex_8h_source}{stm32f1xx\+\_\+hal\+\_\+adc\+\_\+ex.\+h}}.
+
+\input{group___a_d_c_ex__injected__nb__conv__verification}

@@ -1,0 +1,1564 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>MICRO-Firmware: DMA Management</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="codefolding.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  extensions: ["tex2jax.js"],
+  jax: ["input/TeX","output/HTML-CSS"],
+});
+</script>
+<script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">MICRO-Firmware<span id="projectnumber">&#160;EX100923v01</span>
+   </div>
+   <div id="projectbrief">Firmware de Péndulo Invertido Autónomo de Dos Ruedas (STM32F103C8T6 - ARM Cortex-M3)</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Buscar" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('group___t_i_m___l_l___e_f___d_m_a___management.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">DMA Management <div class="ingroups"><a class="el" href="group___s_t_m32_f1xx___l_l___driver.html">STM32F1xx_LL_Driver</a> &raquo; <a class="el" href="group___t_i_m___l_l.html">TIM</a> &raquo; <a class="el" href="group___t_i_m___l_l___exported___functions.html">TIM Exported Functions</a></div></div></div>
+</div><!--header-->
+<div class="contents">
+<div id="dynsection-0" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Diagrama de colaboración de DMA Management:</div>
+<div id="dynsection-0-summary" class="dynsummary">
+</div>
+<div id="dynsection-0-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___d_m_a___management.svg" width="350" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Funciones</h2></td></tr>
+<tr class="memitem:ga6dfdbaba2cd50c6ce99eaaf8ca4e05a1" id="r_ga6dfdbaba2cd50c6ce99eaaf8ca4e05a1"><td class="memItemLeft">static __inline void&#160;</td><td class="memItemRight"><a class="el" href="#ga6dfdbaba2cd50c6ce99eaaf8ca4e05a1">LL_TIM_DisableDMAReq_CC1</a> (<a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *TIMx)</td></tr>
+<tr class="memdesc:ga6dfdbaba2cd50c6ce99eaaf8ca4e05a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable capture/compare 1 DMA request (CC1DE).  <br /></td></tr>
+<tr class="memitem:gaa94b293ee3d35aaee52be3d4c6c59345" id="r_gaa94b293ee3d35aaee52be3d4c6c59345"><td class="memItemLeft">static __inline void&#160;</td><td class="memItemRight"><a class="el" href="#gaa94b293ee3d35aaee52be3d4c6c59345">LL_TIM_DisableDMAReq_CC2</a> (<a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *TIMx)</td></tr>
+<tr class="memdesc:gaa94b293ee3d35aaee52be3d4c6c59345"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable capture/compare 2 DMA request (CC2DE).  <br /></td></tr>
+<tr class="memitem:ga079c27e410b5f166dc962e44a1330464" id="r_ga079c27e410b5f166dc962e44a1330464"><td class="memItemLeft">static __inline void&#160;</td><td class="memItemRight"><a class="el" href="#ga079c27e410b5f166dc962e44a1330464">LL_TIM_DisableDMAReq_CC3</a> (<a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *TIMx)</td></tr>
+<tr class="memdesc:ga079c27e410b5f166dc962e44a1330464"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable capture/compare 3 DMA request (CC3DE).  <br /></td></tr>
+<tr class="memitem:gae1eeb87f8a654326d8eace006313a325" id="r_gae1eeb87f8a654326d8eace006313a325"><td class="memItemLeft">static __inline void&#160;</td><td class="memItemRight"><a class="el" href="#gae1eeb87f8a654326d8eace006313a325">LL_TIM_DisableDMAReq_CC4</a> (<a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *TIMx)</td></tr>
+<tr class="memdesc:gae1eeb87f8a654326d8eace006313a325"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable capture/compare 4 DMA request (CC4DE).  <br /></td></tr>
+<tr class="memitem:ga42b600af4d7a86a78de138f82f446548" id="r_ga42b600af4d7a86a78de138f82f446548"><td class="memItemLeft">static __inline void&#160;</td><td class="memItemRight"><a class="el" href="#ga42b600af4d7a86a78de138f82f446548">LL_TIM_DisableDMAReq_COM</a> (<a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *TIMx)</td></tr>
+<tr class="memdesc:ga42b600af4d7a86a78de138f82f446548"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable commutation DMA request (COMDE).  <br /></td></tr>
+<tr class="memitem:gaffd18cc138b0ad32ab2463eb1fc755c0" id="r_gaffd18cc138b0ad32ab2463eb1fc755c0"><td class="memItemLeft">static __inline void&#160;</td><td class="memItemRight"><a class="el" href="#gaffd18cc138b0ad32ab2463eb1fc755c0">LL_TIM_DisableDMAReq_TRIG</a> (<a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *TIMx)</td></tr>
+<tr class="memdesc:gaffd18cc138b0ad32ab2463eb1fc755c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable trigger interrupt (TDE).  <br /></td></tr>
+<tr class="memitem:gac6f16c245c12646155307de63a14462a" id="r_gac6f16c245c12646155307de63a14462a"><td class="memItemLeft">static __inline void&#160;</td><td class="memItemRight"><a class="el" href="#gac6f16c245c12646155307de63a14462a">LL_TIM_DisableDMAReq_UPDATE</a> (<a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *TIMx)</td></tr>
+<tr class="memdesc:gac6f16c245c12646155307de63a14462a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable update DMA request (UDE).  <br /></td></tr>
+<tr class="memitem:gafa98564212a5f00ea284ef107728cf5a" id="r_gafa98564212a5f00ea284ef107728cf5a"><td class="memItemLeft">static __inline void&#160;</td><td class="memItemRight"><a class="el" href="#gafa98564212a5f00ea284ef107728cf5a">LL_TIM_EnableDMAReq_CC1</a> (<a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *TIMx)</td></tr>
+<tr class="memdesc:gafa98564212a5f00ea284ef107728cf5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable capture/compare 1 DMA request (CC1DE).  <br /></td></tr>
+<tr class="memitem:gab78156935c50addaeb0487a484013b61" id="r_gab78156935c50addaeb0487a484013b61"><td class="memItemLeft">static __inline void&#160;</td><td class="memItemRight"><a class="el" href="#gab78156935c50addaeb0487a484013b61">LL_TIM_EnableDMAReq_CC2</a> (<a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *TIMx)</td></tr>
+<tr class="memdesc:gab78156935c50addaeb0487a484013b61"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable capture/compare 2 DMA request (CC2DE).  <br /></td></tr>
+<tr class="memitem:gae707296388123b2c9ef54ee7d88249a5" id="r_gae707296388123b2c9ef54ee7d88249a5"><td class="memItemLeft">static __inline void&#160;</td><td class="memItemRight"><a class="el" href="#gae707296388123b2c9ef54ee7d88249a5">LL_TIM_EnableDMAReq_CC3</a> (<a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *TIMx)</td></tr>
+<tr class="memdesc:gae707296388123b2c9ef54ee7d88249a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable capture/compare 3 DMA request (CC3DE).  <br /></td></tr>
+<tr class="memitem:ga2f965ae365e81a75048a03e5d5efa6f4" id="r_ga2f965ae365e81a75048a03e5d5efa6f4"><td class="memItemLeft">static __inline void&#160;</td><td class="memItemRight"><a class="el" href="#ga2f965ae365e81a75048a03e5d5efa6f4">LL_TIM_EnableDMAReq_CC4</a> (<a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *TIMx)</td></tr>
+<tr class="memdesc:ga2f965ae365e81a75048a03e5d5efa6f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable capture/compare 4 DMA request (CC4DE).  <br /></td></tr>
+<tr class="memitem:gae5ce5125a4655e054aad5b939faf8b97" id="r_gae5ce5125a4655e054aad5b939faf8b97"><td class="memItemLeft">static __inline void&#160;</td><td class="memItemRight"><a class="el" href="#gae5ce5125a4655e054aad5b939faf8b97">LL_TIM_EnableDMAReq_COM</a> (<a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *TIMx)</td></tr>
+<tr class="memdesc:gae5ce5125a4655e054aad5b939faf8b97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable commutation DMA request (COMDE).  <br /></td></tr>
+<tr class="memitem:gad6aeb83dca3a094459c712d2098b9035" id="r_gad6aeb83dca3a094459c712d2098b9035"><td class="memItemLeft">static __inline void&#160;</td><td class="memItemRight"><a class="el" href="#gad6aeb83dca3a094459c712d2098b9035">LL_TIM_EnableDMAReq_TRIG</a> (<a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *TIMx)</td></tr>
+<tr class="memdesc:gad6aeb83dca3a094459c712d2098b9035"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable trigger interrupt (TDE).  <br /></td></tr>
+<tr class="memitem:gab5eed71287ef23f8af0be4b38fd4ac41" id="r_gab5eed71287ef23f8af0be4b38fd4ac41"><td class="memItemLeft">static __inline void&#160;</td><td class="memItemRight"><a class="el" href="#gab5eed71287ef23f8af0be4b38fd4ac41">LL_TIM_EnableDMAReq_UPDATE</a> (<a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *TIMx)</td></tr>
+<tr class="memdesc:gab5eed71287ef23f8af0be4b38fd4ac41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable update DMA request (UDE).  <br /></td></tr>
+<tr class="memitem:ga1f4686fa238ada3e8d497f59ef0c3469" id="r_ga1f4686fa238ada3e8d497f59ef0c3469"><td class="memItemLeft">static __inline uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ga1f4686fa238ada3e8d497f59ef0c3469">LL_TIM_IsEnabledDMAReq_CC1</a> (const <a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *TIMx)</td></tr>
+<tr class="memdesc:ga1f4686fa238ada3e8d497f59ef0c3469"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates whether the capture/compare 1 DMA request (CC1DE) is enabled.  <br /></td></tr>
+<tr class="memitem:gacff3b162515518c514d03dbc70f596b8" id="r_gacff3b162515518c514d03dbc70f596b8"><td class="memItemLeft">static __inline uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#gacff3b162515518c514d03dbc70f596b8">LL_TIM_IsEnabledDMAReq_CC2</a> (const <a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *TIMx)</td></tr>
+<tr class="memdesc:gacff3b162515518c514d03dbc70f596b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates whether the capture/compare 2 DMA request (CC2DE) is enabled.  <br /></td></tr>
+<tr class="memitem:gab0002325ca61ab51e5281dbb874ccf53" id="r_gab0002325ca61ab51e5281dbb874ccf53"><td class="memItemLeft">static __inline uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#gab0002325ca61ab51e5281dbb874ccf53">LL_TIM_IsEnabledDMAReq_CC3</a> (const <a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *TIMx)</td></tr>
+<tr class="memdesc:gab0002325ca61ab51e5281dbb874ccf53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates whether the capture/compare 3 DMA request (CC3DE) is enabled.  <br /></td></tr>
+<tr class="memitem:gae8f3bb5f589f7f515dee352f5346a08e" id="r_gae8f3bb5f589f7f515dee352f5346a08e"><td class="memItemLeft">static __inline uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#gae8f3bb5f589f7f515dee352f5346a08e">LL_TIM_IsEnabledDMAReq_CC4</a> (const <a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *TIMx)</td></tr>
+<tr class="memdesc:gae8f3bb5f589f7f515dee352f5346a08e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates whether the capture/compare 4 DMA request (CC4DE) is enabled.  <br /></td></tr>
+<tr class="memitem:ga0219a007846688526fbbd01b404c2956" id="r_ga0219a007846688526fbbd01b404c2956"><td class="memItemLeft">static __inline uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ga0219a007846688526fbbd01b404c2956">LL_TIM_IsEnabledDMAReq_COM</a> (const <a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *TIMx)</td></tr>
+<tr class="memdesc:ga0219a007846688526fbbd01b404c2956"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates whether the commutation DMA request (COMDE) is enabled.  <br /></td></tr>
+<tr class="memitem:ga33e34d223a83fca4720c3e84cc701763" id="r_ga33e34d223a83fca4720c3e84cc701763"><td class="memItemLeft">static __inline uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ga33e34d223a83fca4720c3e84cc701763">LL_TIM_IsEnabledDMAReq_TRIG</a> (const <a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *TIMx)</td></tr>
+<tr class="memdesc:ga33e34d223a83fca4720c3e84cc701763"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates whether the trigger interrupt (TDE) is enabled.  <br /></td></tr>
+<tr class="memitem:ga3619842ba90c8addca116098d95f4b20" id="r_ga3619842ba90c8addca116098d95f4b20"><td class="memItemLeft">static __inline uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ga3619842ba90c8addca116098d95f4b20">LL_TIM_IsEnabledDMAReq_UPDATE</a> (const <a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *TIMx)</td></tr>
+<tr class="memdesc:ga3619842ba90c8addca116098d95f4b20"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates whether the update DMA request (UDE) is enabled.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Descripción detallada</h2>
+<div class="textblock"></div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Documentación de funciones</h2>
+<a id="ga6dfdbaba2cd50c6ce99eaaf8ca4e05a1" name="ga6dfdbaba2cd50c6ce99eaaf8ca4e05a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6dfdbaba2cd50c6ce99eaaf8ca4e05a1">&#9670;&#160;</a></span>LL_TIM_DisableDMAReq_CC1()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline void LL_TIM_DisableDMAReq_CC1 </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>TIMx</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__tim_8h.html">stm32f1xx_ll_tim.h</a>&quot;</code></p>
+
+<p>Disable capture/compare 1 DMA request (CC1DE). </p>
+<p>@rmtoll DIER CC1DE LL_TIM_DisableDMAReq_CC1 </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">TIMx</td><td>Timer instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; 0x00000200</p>
+<p>&lt;Capture/Compare 1 DMA request enable</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03580">3580</a> del archivo <a class="el" href="stm32f1xx__ll__tim_8h_source.html">stm32f1xx_ll_tim.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3581</span>{</div>
+<div class="line"><span class="lineno"> 3582</span>  <a class="code hl_define" href="group___exported__macros.html#ga133aae6fc0d41bffab39ab223a7001de">CLEAR_BIT</a>(TIMx-&gt;<a class="code hl_variable" href="struct_t_i_m___type_def.html#a10c688aa3463744d5baaa2602c300ba7">DIER</a>, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#gae181bb16ec916aba8ba86f58f745fdfd">TIM_DIER_CC1DE</a>);</div>
+<div class="line"><span class="lineno"> 3583</span>}</div>
+<div class="ttc" id="agroup___exported__macros_html_ga133aae6fc0d41bffab39ab223a7001de"><div class="ttname"><a href="group___exported__macros.html#ga133aae6fc0d41bffab39ab223a7001de">CLEAR_BIT</a></div><div class="ttdeci">#define CLEAR_BIT(REG, BIT)</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx_8h_source.html#l00179">stm32f1xx.h:179</a></div></div>
+<div class="ttc" id="agroup___peripheral___registers___bits___definition_html_gae181bb16ec916aba8ba86f58f745fdfd"><div class="ttname"><a href="group___peripheral___registers___bits___definition.html#gae181bb16ec916aba8ba86f58f745fdfd">TIM_DIER_CC1DE</a></div><div class="ttdeci">#define TIM_DIER_CC1DE</div><div class="ttdoc">Capture/Compare 1 DMA request enable.</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l03957">stm32f103xb.h:3957</a></div></div>
+<div class="ttc" id="astruct_t_i_m___type_def_html_a10c688aa3463744d5baaa2602c300ba7"><div class="ttname"><a href="struct_t_i_m___type_def.html#a10c688aa3463744d5baaa2602c300ba7">TIM_TypeDef::DIER</a></div><div class="ttdeci">volatile uint32_t DIER</div><div class="ttdoc">&lt; Defines &#39;read / write&#39; permissions</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l00481">stm32f103xb.h:481</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx_8h_source.html#l00179">CLEAR_BIT</a>, <a class="el" href="stm32f103xb_8h_source.html#l00481">TIM_TypeDef::DIER</a>, <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03580">LL_TIM_DisableDMAReq_CC1()</a> y <a class="el" href="stm32f103xb_8h_source.html#l03957">TIM_DIER_CC1DE</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03580">LL_TIM_DisableDMAReq_CC1()</a>.</p>
+<div id="dynsection-1" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-1-summary" class="dynsummary">
+</div>
+<div id="dynsection-1-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___d_m_a___management_ga6dfdbaba2cd50c6ce99eaaf8ca4e05a1_cgraph.svg" width="215" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-2" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-2-summary" class="dynsummary">
+</div>
+<div id="dynsection-2-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___d_m_a___management_ga6dfdbaba2cd50c6ce99eaaf8ca4e05a1_icgraph.svg" width="215" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="gaa94b293ee3d35aaee52be3d4c6c59345" name="gaa94b293ee3d35aaee52be3d4c6c59345"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa94b293ee3d35aaee52be3d4c6c59345">&#9670;&#160;</a></span>LL_TIM_DisableDMAReq_CC2()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline void LL_TIM_DisableDMAReq_CC2 </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>TIMx</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__tim_8h.html">stm32f1xx_ll_tim.h</a>&quot;</code></p>
+
+<p>Disable capture/compare 2 DMA request (CC2DE). </p>
+<p>@rmtoll DIER CC2DE LL_TIM_DisableDMAReq_CC2 </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">TIMx</td><td>Timer instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; 0x00000400</p>
+<p>&lt;Capture/Compare 2 DMA request enable</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03613">3613</a> del archivo <a class="el" href="stm32f1xx__ll__tim_8h_source.html">stm32f1xx_ll_tim.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3614</span>{</div>
+<div class="line"><span class="lineno"> 3615</span>  <a class="code hl_define" href="group___exported__macros.html#ga133aae6fc0d41bffab39ab223a7001de">CLEAR_BIT</a>(TIMx-&gt;<a class="code hl_variable" href="struct_t_i_m___type_def.html#a10c688aa3463744d5baaa2602c300ba7">DIER</a>, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga58f97064991095b28c91028ca3cca28e">TIM_DIER_CC2DE</a>);</div>
+<div class="line"><span class="lineno"> 3616</span>}</div>
+<div class="ttc" id="agroup___peripheral___registers___bits___definition_html_ga58f97064991095b28c91028ca3cca28e"><div class="ttname"><a href="group___peripheral___registers___bits___definition.html#ga58f97064991095b28c91028ca3cca28e">TIM_DIER_CC2DE</a></div><div class="ttdeci">#define TIM_DIER_CC2DE</div><div class="ttdoc">Capture/Compare 2 DMA request enable.</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l03960">stm32f103xb.h:3960</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx_8h_source.html#l00179">CLEAR_BIT</a>, <a class="el" href="stm32f103xb_8h_source.html#l00481">TIM_TypeDef::DIER</a>, <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03613">LL_TIM_DisableDMAReq_CC2()</a> y <a class="el" href="stm32f103xb_8h_source.html#l03960">TIM_DIER_CC2DE</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03613">LL_TIM_DisableDMAReq_CC2()</a>.</p>
+<div id="dynsection-3" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-3-summary" class="dynsummary">
+</div>
+<div id="dynsection-3-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___d_m_a___management_gaa94b293ee3d35aaee52be3d4c6c59345_cgraph.svg" width="215" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-4" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-4-summary" class="dynsummary">
+</div>
+<div id="dynsection-4-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___d_m_a___management_gaa94b293ee3d35aaee52be3d4c6c59345_icgraph.svg" width="215" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ga079c27e410b5f166dc962e44a1330464" name="ga079c27e410b5f166dc962e44a1330464"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga079c27e410b5f166dc962e44a1330464">&#9670;&#160;</a></span>LL_TIM_DisableDMAReq_CC3()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline void LL_TIM_DisableDMAReq_CC3 </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>TIMx</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__tim_8h.html">stm32f1xx_ll_tim.h</a>&quot;</code></p>
+
+<p>Disable capture/compare 3 DMA request (CC3DE). </p>
+<p>@rmtoll DIER CC3DE LL_TIM_DisableDMAReq_CC3 </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">TIMx</td><td>Timer instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; 0x00000800</p>
+<p>&lt;Capture/Compare 3 DMA request enable</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03646">3646</a> del archivo <a class="el" href="stm32f1xx__ll__tim_8h_source.html">stm32f1xx_ll_tim.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3647</span>{</div>
+<div class="line"><span class="lineno"> 3648</span>  <a class="code hl_define" href="group___exported__macros.html#ga133aae6fc0d41bffab39ab223a7001de">CLEAR_BIT</a>(TIMx-&gt;<a class="code hl_variable" href="struct_t_i_m___type_def.html#a10c688aa3463744d5baaa2602c300ba7">DIER</a>, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga1567bff5dc0564b26a8b3cff1f0fe0a4">TIM_DIER_CC3DE</a>);</div>
+<div class="line"><span class="lineno"> 3649</span>}</div>
+<div class="ttc" id="agroup___peripheral___registers___bits___definition_html_ga1567bff5dc0564b26a8b3cff1f0fe0a4"><div class="ttname"><a href="group___peripheral___registers___bits___definition.html#ga1567bff5dc0564b26a8b3cff1f0fe0a4">TIM_DIER_CC3DE</a></div><div class="ttdeci">#define TIM_DIER_CC3DE</div><div class="ttdoc">Capture/Compare 3 DMA request enable.</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l03963">stm32f103xb.h:3963</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx_8h_source.html#l00179">CLEAR_BIT</a>, <a class="el" href="stm32f103xb_8h_source.html#l00481">TIM_TypeDef::DIER</a>, <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03646">LL_TIM_DisableDMAReq_CC3()</a> y <a class="el" href="stm32f103xb_8h_source.html#l03963">TIM_DIER_CC3DE</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03646">LL_TIM_DisableDMAReq_CC3()</a>.</p>
+<div id="dynsection-5" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-5-summary" class="dynsummary">
+</div>
+<div id="dynsection-5-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___d_m_a___management_ga079c27e410b5f166dc962e44a1330464_cgraph.svg" width="215" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-6" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-6-summary" class="dynsummary">
+</div>
+<div id="dynsection-6-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___d_m_a___management_ga079c27e410b5f166dc962e44a1330464_icgraph.svg" width="215" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="gae1eeb87f8a654326d8eace006313a325" name="gae1eeb87f8a654326d8eace006313a325"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae1eeb87f8a654326d8eace006313a325">&#9670;&#160;</a></span>LL_TIM_DisableDMAReq_CC4()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline void LL_TIM_DisableDMAReq_CC4 </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>TIMx</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__tim_8h.html">stm32f1xx_ll_tim.h</a>&quot;</code></p>
+
+<p>Disable capture/compare 4 DMA request (CC4DE). </p>
+<p>@rmtoll DIER CC4DE LL_TIM_DisableDMAReq_CC4 </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">TIMx</td><td>Timer instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; 0x00001000</p>
+<p>&lt;Capture/Compare 4 DMA request enable</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03679">3679</a> del archivo <a class="el" href="stm32f1xx__ll__tim_8h_source.html">stm32f1xx_ll_tim.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3680</span>{</div>
+<div class="line"><span class="lineno"> 3681</span>  <a class="code hl_define" href="group___exported__macros.html#ga133aae6fc0d41bffab39ab223a7001de">CLEAR_BIT</a>(TIMx-&gt;<a class="code hl_variable" href="struct_t_i_m___type_def.html#a10c688aa3463744d5baaa2602c300ba7">DIER</a>, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#gaaba034412c54fa07024e516492748614">TIM_DIER_CC4DE</a>);</div>
+<div class="line"><span class="lineno"> 3682</span>}</div>
+<div class="ttc" id="agroup___peripheral___registers___bits___definition_html_gaaba034412c54fa07024e516492748614"><div class="ttname"><a href="group___peripheral___registers___bits___definition.html#gaaba034412c54fa07024e516492748614">TIM_DIER_CC4DE</a></div><div class="ttdeci">#define TIM_DIER_CC4DE</div><div class="ttdoc">Capture/Compare 4 DMA request enable.</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l03966">stm32f103xb.h:3966</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx_8h_source.html#l00179">CLEAR_BIT</a>, <a class="el" href="stm32f103xb_8h_source.html#l00481">TIM_TypeDef::DIER</a>, <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03679">LL_TIM_DisableDMAReq_CC4()</a> y <a class="el" href="stm32f103xb_8h_source.html#l03966">TIM_DIER_CC4DE</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03679">LL_TIM_DisableDMAReq_CC4()</a>.</p>
+<div id="dynsection-7" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-7-summary" class="dynsummary">
+</div>
+<div id="dynsection-7-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___d_m_a___management_gae1eeb87f8a654326d8eace006313a325_cgraph.svg" width="215" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-8" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-8-summary" class="dynsummary">
+</div>
+<div id="dynsection-8-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___d_m_a___management_gae1eeb87f8a654326d8eace006313a325_icgraph.svg" width="215" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ga42b600af4d7a86a78de138f82f446548" name="ga42b600af4d7a86a78de138f82f446548"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga42b600af4d7a86a78de138f82f446548">&#9670;&#160;</a></span>LL_TIM_DisableDMAReq_COM()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline void LL_TIM_DisableDMAReq_COM </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>TIMx</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__tim_8h.html">stm32f1xx_ll_tim.h</a>&quot;</code></p>
+
+<p>Disable commutation DMA request (COMDE). </p>
+<p>@rmtoll DIER COMDE LL_TIM_DisableDMAReq_COM </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">TIMx</td><td>Timer instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; 0x00002000</p>
+<p>&lt;COM DMA request enable</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03712">3712</a> del archivo <a class="el" href="stm32f1xx__ll__tim_8h_source.html">stm32f1xx_ll_tim.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3713</span>{</div>
+<div class="line"><span class="lineno"> 3714</span>  <a class="code hl_define" href="group___exported__macros.html#ga133aae6fc0d41bffab39ab223a7001de">CLEAR_BIT</a>(TIMx-&gt;<a class="code hl_variable" href="struct_t_i_m___type_def.html#a10c688aa3463744d5baaa2602c300ba7">DIER</a>, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga79c3fab9d33de953a0a7f7d6516c73bc">TIM_DIER_COMDE</a>);</div>
+<div class="line"><span class="lineno"> 3715</span>}</div>
+<div class="ttc" id="agroup___peripheral___registers___bits___definition_html_ga79c3fab9d33de953a0a7f7d6516c73bc"><div class="ttname"><a href="group___peripheral___registers___bits___definition.html#ga79c3fab9d33de953a0a7f7d6516c73bc">TIM_DIER_COMDE</a></div><div class="ttdeci">#define TIM_DIER_COMDE</div><div class="ttdoc">COM DMA request enable.</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l03969">stm32f103xb.h:3969</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx_8h_source.html#l00179">CLEAR_BIT</a>, <a class="el" href="stm32f103xb_8h_source.html#l00481">TIM_TypeDef::DIER</a>, <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03712">LL_TIM_DisableDMAReq_COM()</a> y <a class="el" href="stm32f103xb_8h_source.html#l03969">TIM_DIER_COMDE</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03712">LL_TIM_DisableDMAReq_COM()</a>.</p>
+<div id="dynsection-9" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-9-summary" class="dynsummary">
+</div>
+<div id="dynsection-9-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___d_m_a___management_ga42b600af4d7a86a78de138f82f446548_cgraph.svg" width="219" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-10" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-10-summary" class="dynsummary">
+</div>
+<div id="dynsection-10-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___d_m_a___management_ga42b600af4d7a86a78de138f82f446548_icgraph.svg" width="219" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="gaffd18cc138b0ad32ab2463eb1fc755c0" name="gaffd18cc138b0ad32ab2463eb1fc755c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaffd18cc138b0ad32ab2463eb1fc755c0">&#9670;&#160;</a></span>LL_TIM_DisableDMAReq_TRIG()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline void LL_TIM_DisableDMAReq_TRIG </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>TIMx</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__tim_8h.html">stm32f1xx_ll_tim.h</a>&quot;</code></p>
+
+<p>Disable trigger interrupt (TDE). </p>
+<p>@rmtoll DIER TDE LL_TIM_DisableDMAReq_TRIG </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">TIMx</td><td>Timer instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; 0x00004000</p>
+<p>&lt;Trigger DMA request enable</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03745">3745</a> del archivo <a class="el" href="stm32f1xx__ll__tim_8h_source.html">stm32f1xx_ll_tim.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3746</span>{</div>
+<div class="line"><span class="lineno"> 3747</span>  <a class="code hl_define" href="group___exported__macros.html#ga133aae6fc0d41bffab39ab223a7001de">CLEAR_BIT</a>(TIMx-&gt;<a class="code hl_variable" href="struct_t_i_m___type_def.html#a10c688aa3463744d5baaa2602c300ba7">DIER</a>, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga5a752d4295f100708df9b8be5a7f439d">TIM_DIER_TDE</a>);</div>
+<div class="line"><span class="lineno"> 3748</span>}</div>
+<div class="ttc" id="agroup___peripheral___registers___bits___definition_html_ga5a752d4295f100708df9b8be5a7f439d"><div class="ttname"><a href="group___peripheral___registers___bits___definition.html#ga5a752d4295f100708df9b8be5a7f439d">TIM_DIER_TDE</a></div><div class="ttdeci">#define TIM_DIER_TDE</div><div class="ttdoc">Trigger DMA request enable.</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l03972">stm32f103xb.h:3972</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx_8h_source.html#l00179">CLEAR_BIT</a>, <a class="el" href="stm32f103xb_8h_source.html#l00481">TIM_TypeDef::DIER</a>, <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03745">LL_TIM_DisableDMAReq_TRIG()</a> y <a class="el" href="stm32f103xb_8h_source.html#l03972">TIM_DIER_TDE</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03745">LL_TIM_DisableDMAReq_TRIG()</a>.</p>
+<div id="dynsection-11" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-11-summary" class="dynsummary">
+</div>
+<div id="dynsection-11-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___d_m_a___management_gaffd18cc138b0ad32ab2463eb1fc755c0_cgraph.svg" width="220" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-12" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-12-summary" class="dynsummary">
+</div>
+<div id="dynsection-12-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___d_m_a___management_gaffd18cc138b0ad32ab2463eb1fc755c0_icgraph.svg" width="220" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="gac6f16c245c12646155307de63a14462a" name="gac6f16c245c12646155307de63a14462a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac6f16c245c12646155307de63a14462a">&#9670;&#160;</a></span>LL_TIM_DisableDMAReq_UPDATE()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline void LL_TIM_DisableDMAReq_UPDATE </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>TIMx</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__tim_8h.html">stm32f1xx_ll_tim.h</a>&quot;</code></p>
+
+<p>Disable update DMA request (UDE). </p>
+<p>@rmtoll DIER UDE LL_TIM_DisableDMAReq_UPDATE </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">TIMx</td><td>Timer instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; 0x00000100</p>
+<p>&lt;Update DMA request enable</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03547">3547</a> del archivo <a class="el" href="stm32f1xx__ll__tim_8h_source.html">stm32f1xx_ll_tim.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3548</span>{</div>
+<div class="line"><span class="lineno"> 3549</span>  <a class="code hl_define" href="group___exported__macros.html#ga133aae6fc0d41bffab39ab223a7001de">CLEAR_BIT</a>(TIMx-&gt;<a class="code hl_variable" href="struct_t_i_m___type_def.html#a10c688aa3463744d5baaa2602c300ba7">DIER</a>, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#gab9f47792b1c2f123464a2955f445c811">TIM_DIER_UDE</a>);</div>
+<div class="line"><span class="lineno"> 3550</span>}</div>
+<div class="ttc" id="agroup___peripheral___registers___bits___definition_html_gab9f47792b1c2f123464a2955f445c811"><div class="ttname"><a href="group___peripheral___registers___bits___definition.html#gab9f47792b1c2f123464a2955f445c811">TIM_DIER_UDE</a></div><div class="ttdeci">#define TIM_DIER_UDE</div><div class="ttdoc">Update DMA request enable.</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l03954">stm32f103xb.h:3954</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx_8h_source.html#l00179">CLEAR_BIT</a>, <a class="el" href="stm32f103xb_8h_source.html#l00481">TIM_TypeDef::DIER</a>, <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03547">LL_TIM_DisableDMAReq_UPDATE()</a> y <a class="el" href="stm32f103xb_8h_source.html#l03954">TIM_DIER_UDE</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03547">LL_TIM_DisableDMAReq_UPDATE()</a>.</p>
+<div id="dynsection-13" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-13-summary" class="dynsummary">
+</div>
+<div id="dynsection-13-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___d_m_a___management_gac6f16c245c12646155307de63a14462a_cgraph.svg" width="182" height="78"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-14" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-14-summary" class="dynsummary">
+</div>
+<div id="dynsection-14-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___d_m_a___management_gac6f16c245c12646155307de63a14462a_icgraph.svg" width="182" height="78"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="gafa98564212a5f00ea284ef107728cf5a" name="gafa98564212a5f00ea284ef107728cf5a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gafa98564212a5f00ea284ef107728cf5a">&#9670;&#160;</a></span>LL_TIM_EnableDMAReq_CC1()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline void LL_TIM_EnableDMAReq_CC1 </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>TIMx</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__tim_8h.html">stm32f1xx_ll_tim.h</a>&quot;</code></p>
+
+<p>Enable capture/compare 1 DMA request (CC1DE). </p>
+<p>@rmtoll DIER CC1DE LL_TIM_EnableDMAReq_CC1 </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">TIMx</td><td>Timer instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; 0x00000200</p>
+<p>&lt;Capture/Compare 1 DMA request enable</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03569">3569</a> del archivo <a class="el" href="stm32f1xx__ll__tim_8h_source.html">stm32f1xx_ll_tim.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3570</span>{</div>
+<div class="line"><span class="lineno"> 3571</span>  <a class="code hl_define" href="group___exported__macros.html#ga26474f43799fbade9cf300e21dd3a91a">SET_BIT</a>(TIMx-&gt;<a class="code hl_variable" href="struct_t_i_m___type_def.html#a10c688aa3463744d5baaa2602c300ba7">DIER</a>, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#gae181bb16ec916aba8ba86f58f745fdfd">TIM_DIER_CC1DE</a>);</div>
+<div class="line"><span class="lineno"> 3572</span>}</div>
+<div class="ttc" id="agroup___exported__macros_html_ga26474f43799fbade9cf300e21dd3a91a"><div class="ttname"><a href="group___exported__macros.html#ga26474f43799fbade9cf300e21dd3a91a">SET_BIT</a></div><div class="ttdeci">#define SET_BIT(REG, BIT)</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx_8h_source.html#l00177">stm32f1xx.h:177</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f103xb_8h_source.html#l00481">TIM_TypeDef::DIER</a>, <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03569">LL_TIM_EnableDMAReq_CC1()</a>, <a class="el" href="stm32f1xx_8h_source.html#l00177">SET_BIT</a> y <a class="el" href="stm32f103xb_8h_source.html#l03957">TIM_DIER_CC1DE</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03569">LL_TIM_EnableDMAReq_CC1()</a>.</p>
+<div id="dynsection-15" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-15-summary" class="dynsummary">
+</div>
+<div id="dynsection-15-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___d_m_a___management_gafa98564212a5f00ea284ef107728cf5a_cgraph.svg" width="211" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-16" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-16-summary" class="dynsummary">
+</div>
+<div id="dynsection-16-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___d_m_a___management_gafa98564212a5f00ea284ef107728cf5a_icgraph.svg" width="211" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="gab78156935c50addaeb0487a484013b61" name="gab78156935c50addaeb0487a484013b61"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab78156935c50addaeb0487a484013b61">&#9670;&#160;</a></span>LL_TIM_EnableDMAReq_CC2()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline void LL_TIM_EnableDMAReq_CC2 </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>TIMx</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__tim_8h.html">stm32f1xx_ll_tim.h</a>&quot;</code></p>
+
+<p>Enable capture/compare 2 DMA request (CC2DE). </p>
+<p>@rmtoll DIER CC2DE LL_TIM_EnableDMAReq_CC2 </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">TIMx</td><td>Timer instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; 0x00000400</p>
+<p>&lt;Capture/Compare 2 DMA request enable</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03602">3602</a> del archivo <a class="el" href="stm32f1xx__ll__tim_8h_source.html">stm32f1xx_ll_tim.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3603</span>{</div>
+<div class="line"><span class="lineno"> 3604</span>  <a class="code hl_define" href="group___exported__macros.html#ga26474f43799fbade9cf300e21dd3a91a">SET_BIT</a>(TIMx-&gt;<a class="code hl_variable" href="struct_t_i_m___type_def.html#a10c688aa3463744d5baaa2602c300ba7">DIER</a>, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga58f97064991095b28c91028ca3cca28e">TIM_DIER_CC2DE</a>);</div>
+<div class="line"><span class="lineno"> 3605</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f103xb_8h_source.html#l00481">TIM_TypeDef::DIER</a>, <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03602">LL_TIM_EnableDMAReq_CC2()</a>, <a class="el" href="stm32f1xx_8h_source.html#l00177">SET_BIT</a> y <a class="el" href="stm32f103xb_8h_source.html#l03960">TIM_DIER_CC2DE</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03602">LL_TIM_EnableDMAReq_CC2()</a>.</p>
+<div id="dynsection-17" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-17-summary" class="dynsummary">
+</div>
+<div id="dynsection-17-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___d_m_a___management_gab78156935c50addaeb0487a484013b61_cgraph.svg" width="211" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-18" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-18-summary" class="dynsummary">
+</div>
+<div id="dynsection-18-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___d_m_a___management_gab78156935c50addaeb0487a484013b61_icgraph.svg" width="211" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="gae707296388123b2c9ef54ee7d88249a5" name="gae707296388123b2c9ef54ee7d88249a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae707296388123b2c9ef54ee7d88249a5">&#9670;&#160;</a></span>LL_TIM_EnableDMAReq_CC3()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline void LL_TIM_EnableDMAReq_CC3 </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>TIMx</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__tim_8h.html">stm32f1xx_ll_tim.h</a>&quot;</code></p>
+
+<p>Enable capture/compare 3 DMA request (CC3DE). </p>
+<p>@rmtoll DIER CC3DE LL_TIM_EnableDMAReq_CC3 </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">TIMx</td><td>Timer instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; 0x00000800</p>
+<p>&lt;Capture/Compare 3 DMA request enable</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03635">3635</a> del archivo <a class="el" href="stm32f1xx__ll__tim_8h_source.html">stm32f1xx_ll_tim.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3636</span>{</div>
+<div class="line"><span class="lineno"> 3637</span>  <a class="code hl_define" href="group___exported__macros.html#ga26474f43799fbade9cf300e21dd3a91a">SET_BIT</a>(TIMx-&gt;<a class="code hl_variable" href="struct_t_i_m___type_def.html#a10c688aa3463744d5baaa2602c300ba7">DIER</a>, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga1567bff5dc0564b26a8b3cff1f0fe0a4">TIM_DIER_CC3DE</a>);</div>
+<div class="line"><span class="lineno"> 3638</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f103xb_8h_source.html#l00481">TIM_TypeDef::DIER</a>, <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03635">LL_TIM_EnableDMAReq_CC3()</a>, <a class="el" href="stm32f1xx_8h_source.html#l00177">SET_BIT</a> y <a class="el" href="stm32f103xb_8h_source.html#l03963">TIM_DIER_CC3DE</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03635">LL_TIM_EnableDMAReq_CC3()</a>.</p>
+<div id="dynsection-19" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-19-summary" class="dynsummary">
+</div>
+<div id="dynsection-19-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___d_m_a___management_gae707296388123b2c9ef54ee7d88249a5_cgraph.svg" width="211" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-20" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-20-summary" class="dynsummary">
+</div>
+<div id="dynsection-20-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___d_m_a___management_gae707296388123b2c9ef54ee7d88249a5_icgraph.svg" width="211" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ga2f965ae365e81a75048a03e5d5efa6f4" name="ga2f965ae365e81a75048a03e5d5efa6f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2f965ae365e81a75048a03e5d5efa6f4">&#9670;&#160;</a></span>LL_TIM_EnableDMAReq_CC4()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline void LL_TIM_EnableDMAReq_CC4 </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>TIMx</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__tim_8h.html">stm32f1xx_ll_tim.h</a>&quot;</code></p>
+
+<p>Enable capture/compare 4 DMA request (CC4DE). </p>
+<p>@rmtoll DIER CC4DE LL_TIM_EnableDMAReq_CC4 </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">TIMx</td><td>Timer instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; 0x00001000</p>
+<p>&lt;Capture/Compare 4 DMA request enable</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03668">3668</a> del archivo <a class="el" href="stm32f1xx__ll__tim_8h_source.html">stm32f1xx_ll_tim.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3669</span>{</div>
+<div class="line"><span class="lineno"> 3670</span>  <a class="code hl_define" href="group___exported__macros.html#ga26474f43799fbade9cf300e21dd3a91a">SET_BIT</a>(TIMx-&gt;<a class="code hl_variable" href="struct_t_i_m___type_def.html#a10c688aa3463744d5baaa2602c300ba7">DIER</a>, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#gaaba034412c54fa07024e516492748614">TIM_DIER_CC4DE</a>);</div>
+<div class="line"><span class="lineno"> 3671</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f103xb_8h_source.html#l00481">TIM_TypeDef::DIER</a>, <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03668">LL_TIM_EnableDMAReq_CC4()</a>, <a class="el" href="stm32f1xx_8h_source.html#l00177">SET_BIT</a> y <a class="el" href="stm32f103xb_8h_source.html#l03966">TIM_DIER_CC4DE</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03668">LL_TIM_EnableDMAReq_CC4()</a>.</p>
+<div id="dynsection-21" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-21-summary" class="dynsummary">
+</div>
+<div id="dynsection-21-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___d_m_a___management_ga2f965ae365e81a75048a03e5d5efa6f4_cgraph.svg" width="211" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-22" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-22-summary" class="dynsummary">
+</div>
+<div id="dynsection-22-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___d_m_a___management_ga2f965ae365e81a75048a03e5d5efa6f4_icgraph.svg" width="211" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="gae5ce5125a4655e054aad5b939faf8b97" name="gae5ce5125a4655e054aad5b939faf8b97"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae5ce5125a4655e054aad5b939faf8b97">&#9670;&#160;</a></span>LL_TIM_EnableDMAReq_COM()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline void LL_TIM_EnableDMAReq_COM </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>TIMx</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__tim_8h.html">stm32f1xx_ll_tim.h</a>&quot;</code></p>
+
+<p>Enable commutation DMA request (COMDE). </p>
+<p>@rmtoll DIER COMDE LL_TIM_EnableDMAReq_COM </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">TIMx</td><td>Timer instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; 0x00002000</p>
+<p>&lt;COM DMA request enable</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03701">3701</a> del archivo <a class="el" href="stm32f1xx__ll__tim_8h_source.html">stm32f1xx_ll_tim.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3702</span>{</div>
+<div class="line"><span class="lineno"> 3703</span>  <a class="code hl_define" href="group___exported__macros.html#ga26474f43799fbade9cf300e21dd3a91a">SET_BIT</a>(TIMx-&gt;<a class="code hl_variable" href="struct_t_i_m___type_def.html#a10c688aa3463744d5baaa2602c300ba7">DIER</a>, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga79c3fab9d33de953a0a7f7d6516c73bc">TIM_DIER_COMDE</a>);</div>
+<div class="line"><span class="lineno"> 3704</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f103xb_8h_source.html#l00481">TIM_TypeDef::DIER</a>, <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03701">LL_TIM_EnableDMAReq_COM()</a>, <a class="el" href="stm32f1xx_8h_source.html#l00177">SET_BIT</a> y <a class="el" href="stm32f103xb_8h_source.html#l03969">TIM_DIER_COMDE</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03701">LL_TIM_EnableDMAReq_COM()</a>.</p>
+<div id="dynsection-23" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-23-summary" class="dynsummary">
+</div>
+<div id="dynsection-23-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___d_m_a___management_gae5ce5125a4655e054aad5b939faf8b97_cgraph.svg" width="215" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-24" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-24-summary" class="dynsummary">
+</div>
+<div id="dynsection-24-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___d_m_a___management_gae5ce5125a4655e054aad5b939faf8b97_icgraph.svg" width="215" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="gad6aeb83dca3a094459c712d2098b9035" name="gad6aeb83dca3a094459c712d2098b9035"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad6aeb83dca3a094459c712d2098b9035">&#9670;&#160;</a></span>LL_TIM_EnableDMAReq_TRIG()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline void LL_TIM_EnableDMAReq_TRIG </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>TIMx</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__tim_8h.html">stm32f1xx_ll_tim.h</a>&quot;</code></p>
+
+<p>Enable trigger interrupt (TDE). </p>
+<p>@rmtoll DIER TDE LL_TIM_EnableDMAReq_TRIG </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">TIMx</td><td>Timer instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; 0x00004000</p>
+<p>&lt;Trigger DMA request enable</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03734">3734</a> del archivo <a class="el" href="stm32f1xx__ll__tim_8h_source.html">stm32f1xx_ll_tim.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3735</span>{</div>
+<div class="line"><span class="lineno"> 3736</span>  <a class="code hl_define" href="group___exported__macros.html#ga26474f43799fbade9cf300e21dd3a91a">SET_BIT</a>(TIMx-&gt;<a class="code hl_variable" href="struct_t_i_m___type_def.html#a10c688aa3463744d5baaa2602c300ba7">DIER</a>, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga5a752d4295f100708df9b8be5a7f439d">TIM_DIER_TDE</a>);</div>
+<div class="line"><span class="lineno"> 3737</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f103xb_8h_source.html#l00481">TIM_TypeDef::DIER</a>, <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03734">LL_TIM_EnableDMAReq_TRIG()</a>, <a class="el" href="stm32f1xx_8h_source.html#l00177">SET_BIT</a> y <a class="el" href="stm32f103xb_8h_source.html#l03972">TIM_DIER_TDE</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03734">LL_TIM_EnableDMAReq_TRIG()</a>.</p>
+<div id="dynsection-25" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-25-summary" class="dynsummary">
+</div>
+<div id="dynsection-25-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___d_m_a___management_gad6aeb83dca3a094459c712d2098b9035_cgraph.svg" width="216" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-26" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-26-summary" class="dynsummary">
+</div>
+<div id="dynsection-26-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___d_m_a___management_gad6aeb83dca3a094459c712d2098b9035_icgraph.svg" width="216" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="gab5eed71287ef23f8af0be4b38fd4ac41" name="gab5eed71287ef23f8af0be4b38fd4ac41"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab5eed71287ef23f8af0be4b38fd4ac41">&#9670;&#160;</a></span>LL_TIM_EnableDMAReq_UPDATE()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline void LL_TIM_EnableDMAReq_UPDATE </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>TIMx</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__tim_8h.html">stm32f1xx_ll_tim.h</a>&quot;</code></p>
+
+<p>Enable update DMA request (UDE). </p>
+<p>@rmtoll DIER UDE LL_TIM_EnableDMAReq_UPDATE </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">TIMx</td><td>Timer instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; 0x00000100</p>
+<p>&lt;Update DMA request enable</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03536">3536</a> del archivo <a class="el" href="stm32f1xx__ll__tim_8h_source.html">stm32f1xx_ll_tim.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3537</span>{</div>
+<div class="line"><span class="lineno"> 3538</span>  <a class="code hl_define" href="group___exported__macros.html#ga26474f43799fbade9cf300e21dd3a91a">SET_BIT</a>(TIMx-&gt;<a class="code hl_variable" href="struct_t_i_m___type_def.html#a10c688aa3463744d5baaa2602c300ba7">DIER</a>, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#gab9f47792b1c2f123464a2955f445c811">TIM_DIER_UDE</a>);</div>
+<div class="line"><span class="lineno"> 3539</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f103xb_8h_source.html#l00481">TIM_TypeDef::DIER</a>, <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03536">LL_TIM_EnableDMAReq_UPDATE()</a>, <a class="el" href="stm32f1xx_8h_source.html#l00177">SET_BIT</a> y <a class="el" href="stm32f103xb_8h_source.html#l03954">TIM_DIER_UDE</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03536">LL_TIM_EnableDMAReq_UPDATE()</a>.</p>
+<div id="dynsection-27" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-27-summary" class="dynsummary">
+</div>
+<div id="dynsection-27-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___d_m_a___management_gab5eed71287ef23f8af0be4b38fd4ac41_cgraph.svg" width="178" height="78"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-28" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-28-summary" class="dynsummary">
+</div>
+<div id="dynsection-28-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___d_m_a___management_gab5eed71287ef23f8af0be4b38fd4ac41_icgraph.svg" width="178" height="78"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ga1f4686fa238ada3e8d497f59ef0c3469" name="ga1f4686fa238ada3e8d497f59ef0c3469"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga1f4686fa238ada3e8d497f59ef0c3469">&#9670;&#160;</a></span>LL_TIM_IsEnabledDMAReq_CC1()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline uint32_t LL_TIM_IsEnabledDMAReq_CC1 </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>TIMx</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__tim_8h.html">stm32f1xx_ll_tim.h</a>&quot;</code></p>
+
+<p>Indicates whether the capture/compare 1 DMA request (CC1DE) is enabled. </p>
+<p>@rmtoll DIER CC1DE LL_TIM_IsEnabledDMAReq_CC1 </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">TIMx</td><td>Timer instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">State</td><td>of bit (1 or 0). </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; 0x00000200</p>
+<p>&lt;Capture/Compare 1 DMA request enable</p>
+<p>&lt; 0x00000200</p>
+<p>&lt;Capture/Compare 1 DMA request enable</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03591">3591</a> del archivo <a class="el" href="stm32f1xx__ll__tim_8h_source.html">stm32f1xx_ll_tim.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3592</span>{</div>
+<div class="line"><span class="lineno"> 3593</span>  <span class="keywordflow">return</span> ((<a class="code hl_define" href="group___exported__macros.html#ga822bb1bb9710d5f2fa6396b84e583c33">READ_BIT</a>(TIMx-&gt;<a class="code hl_variable" href="struct_t_i_m___type_def.html#a10c688aa3463744d5baaa2602c300ba7">DIER</a>, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#gae181bb16ec916aba8ba86f58f745fdfd">TIM_DIER_CC1DE</a>) == (<a class="code hl_define" href="group___peripheral___registers___bits___definition.html#gae181bb16ec916aba8ba86f58f745fdfd">TIM_DIER_CC1DE</a>)) ? 1UL : 0UL);</div>
+<div class="line"><span class="lineno"> 3594</span>}</div>
+<div class="ttc" id="agroup___exported__macros_html_ga822bb1bb9710d5f2fa6396b84e583c33"><div class="ttname"><a href="group___exported__macros.html#ga822bb1bb9710d5f2fa6396b84e583c33">READ_BIT</a></div><div class="ttdeci">#define READ_BIT(REG, BIT)</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx_8h_source.html#l00181">stm32f1xx.h:181</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f103xb_8h_source.html#l00481">TIM_TypeDef::DIER</a>, <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03591">LL_TIM_IsEnabledDMAReq_CC1()</a>, <a class="el" href="stm32f1xx_8h_source.html#l00181">READ_BIT</a> y <a class="el" href="stm32f103xb_8h_source.html#l03957">TIM_DIER_CC1DE</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03591">LL_TIM_IsEnabledDMAReq_CC1()</a>.</p>
+<div id="dynsection-29" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-29-summary" class="dynsummary">
+</div>
+<div id="dynsection-29-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___d_m_a___management_ga1f4686fa238ada3e8d497f59ef0c3469_cgraph.svg" width="230" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-30" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-30-summary" class="dynsummary">
+</div>
+<div id="dynsection-30-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___d_m_a___management_ga1f4686fa238ada3e8d497f59ef0c3469_icgraph.svg" width="230" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="gacff3b162515518c514d03dbc70f596b8" name="gacff3b162515518c514d03dbc70f596b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gacff3b162515518c514d03dbc70f596b8">&#9670;&#160;</a></span>LL_TIM_IsEnabledDMAReq_CC2()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline uint32_t LL_TIM_IsEnabledDMAReq_CC2 </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>TIMx</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__tim_8h.html">stm32f1xx_ll_tim.h</a>&quot;</code></p>
+
+<p>Indicates whether the capture/compare 2 DMA request (CC2DE) is enabled. </p>
+<p>@rmtoll DIER CC2DE LL_TIM_IsEnabledDMAReq_CC2 </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">TIMx</td><td>Timer instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">State</td><td>of bit (1 or 0). </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; 0x00000400</p>
+<p>&lt;Capture/Compare 2 DMA request enable</p>
+<p>&lt; 0x00000400</p>
+<p>&lt;Capture/Compare 2 DMA request enable</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03624">3624</a> del archivo <a class="el" href="stm32f1xx__ll__tim_8h_source.html">stm32f1xx_ll_tim.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3625</span>{</div>
+<div class="line"><span class="lineno"> 3626</span>  <span class="keywordflow">return</span> ((<a class="code hl_define" href="group___exported__macros.html#ga822bb1bb9710d5f2fa6396b84e583c33">READ_BIT</a>(TIMx-&gt;<a class="code hl_variable" href="struct_t_i_m___type_def.html#a10c688aa3463744d5baaa2602c300ba7">DIER</a>, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga58f97064991095b28c91028ca3cca28e">TIM_DIER_CC2DE</a>) == (<a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga58f97064991095b28c91028ca3cca28e">TIM_DIER_CC2DE</a>)) ? 1UL : 0UL);</div>
+<div class="line"><span class="lineno"> 3627</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f103xb_8h_source.html#l00481">TIM_TypeDef::DIER</a>, <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03624">LL_TIM_IsEnabledDMAReq_CC2()</a>, <a class="el" href="stm32f1xx_8h_source.html#l00181">READ_BIT</a> y <a class="el" href="stm32f103xb_8h_source.html#l03960">TIM_DIER_CC2DE</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03624">LL_TIM_IsEnabledDMAReq_CC2()</a>.</p>
+<div id="dynsection-31" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-31-summary" class="dynsummary">
+</div>
+<div id="dynsection-31-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___d_m_a___management_gacff3b162515518c514d03dbc70f596b8_cgraph.svg" width="230" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-32" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-32-summary" class="dynsummary">
+</div>
+<div id="dynsection-32-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___d_m_a___management_gacff3b162515518c514d03dbc70f596b8_icgraph.svg" width="230" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="gab0002325ca61ab51e5281dbb874ccf53" name="gab0002325ca61ab51e5281dbb874ccf53"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab0002325ca61ab51e5281dbb874ccf53">&#9670;&#160;</a></span>LL_TIM_IsEnabledDMAReq_CC3()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline uint32_t LL_TIM_IsEnabledDMAReq_CC3 </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>TIMx</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__tim_8h.html">stm32f1xx_ll_tim.h</a>&quot;</code></p>
+
+<p>Indicates whether the capture/compare 3 DMA request (CC3DE) is enabled. </p>
+<p>@rmtoll DIER CC3DE LL_TIM_IsEnabledDMAReq_CC3 </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">TIMx</td><td>Timer instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">State</td><td>of bit (1 or 0). </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; 0x00000800</p>
+<p>&lt;Capture/Compare 3 DMA request enable</p>
+<p>&lt; 0x00000800</p>
+<p>&lt;Capture/Compare 3 DMA request enable</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03657">3657</a> del archivo <a class="el" href="stm32f1xx__ll__tim_8h_source.html">stm32f1xx_ll_tim.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3658</span>{</div>
+<div class="line"><span class="lineno"> 3659</span>  <span class="keywordflow">return</span> ((<a class="code hl_define" href="group___exported__macros.html#ga822bb1bb9710d5f2fa6396b84e583c33">READ_BIT</a>(TIMx-&gt;<a class="code hl_variable" href="struct_t_i_m___type_def.html#a10c688aa3463744d5baaa2602c300ba7">DIER</a>, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga1567bff5dc0564b26a8b3cff1f0fe0a4">TIM_DIER_CC3DE</a>) == (<a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga1567bff5dc0564b26a8b3cff1f0fe0a4">TIM_DIER_CC3DE</a>)) ? 1UL : 0UL);</div>
+<div class="line"><span class="lineno"> 3660</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f103xb_8h_source.html#l00481">TIM_TypeDef::DIER</a>, <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03657">LL_TIM_IsEnabledDMAReq_CC3()</a>, <a class="el" href="stm32f1xx_8h_source.html#l00181">READ_BIT</a> y <a class="el" href="stm32f103xb_8h_source.html#l03963">TIM_DIER_CC3DE</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03657">LL_TIM_IsEnabledDMAReq_CC3()</a>.</p>
+<div id="dynsection-33" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-33-summary" class="dynsummary">
+</div>
+<div id="dynsection-33-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___d_m_a___management_gab0002325ca61ab51e5281dbb874ccf53_cgraph.svg" width="230" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-34" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-34-summary" class="dynsummary">
+</div>
+<div id="dynsection-34-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___d_m_a___management_gab0002325ca61ab51e5281dbb874ccf53_icgraph.svg" width="230" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="gae8f3bb5f589f7f515dee352f5346a08e" name="gae8f3bb5f589f7f515dee352f5346a08e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae8f3bb5f589f7f515dee352f5346a08e">&#9670;&#160;</a></span>LL_TIM_IsEnabledDMAReq_CC4()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline uint32_t LL_TIM_IsEnabledDMAReq_CC4 </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>TIMx</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__tim_8h.html">stm32f1xx_ll_tim.h</a>&quot;</code></p>
+
+<p>Indicates whether the capture/compare 4 DMA request (CC4DE) is enabled. </p>
+<p>@rmtoll DIER CC4DE LL_TIM_IsEnabledDMAReq_CC4 </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">TIMx</td><td>Timer instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">State</td><td>of bit (1 or 0). </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; 0x00001000</p>
+<p>&lt;Capture/Compare 4 DMA request enable</p>
+<p>&lt; 0x00001000</p>
+<p>&lt;Capture/Compare 4 DMA request enable</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03690">3690</a> del archivo <a class="el" href="stm32f1xx__ll__tim_8h_source.html">stm32f1xx_ll_tim.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3691</span>{</div>
+<div class="line"><span class="lineno"> 3692</span>  <span class="keywordflow">return</span> ((<a class="code hl_define" href="group___exported__macros.html#ga822bb1bb9710d5f2fa6396b84e583c33">READ_BIT</a>(TIMx-&gt;<a class="code hl_variable" href="struct_t_i_m___type_def.html#a10c688aa3463744d5baaa2602c300ba7">DIER</a>, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#gaaba034412c54fa07024e516492748614">TIM_DIER_CC4DE</a>) == (<a class="code hl_define" href="group___peripheral___registers___bits___definition.html#gaaba034412c54fa07024e516492748614">TIM_DIER_CC4DE</a>)) ? 1UL : 0UL);</div>
+<div class="line"><span class="lineno"> 3693</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f103xb_8h_source.html#l00481">TIM_TypeDef::DIER</a>, <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03690">LL_TIM_IsEnabledDMAReq_CC4()</a>, <a class="el" href="stm32f1xx_8h_source.html#l00181">READ_BIT</a> y <a class="el" href="stm32f103xb_8h_source.html#l03966">TIM_DIER_CC4DE</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03690">LL_TIM_IsEnabledDMAReq_CC4()</a>.</p>
+<div id="dynsection-35" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-35-summary" class="dynsummary">
+</div>
+<div id="dynsection-35-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___d_m_a___management_gae8f3bb5f589f7f515dee352f5346a08e_cgraph.svg" width="230" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-36" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-36-summary" class="dynsummary">
+</div>
+<div id="dynsection-36-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___d_m_a___management_gae8f3bb5f589f7f515dee352f5346a08e_icgraph.svg" width="230" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ga0219a007846688526fbbd01b404c2956" name="ga0219a007846688526fbbd01b404c2956"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga0219a007846688526fbbd01b404c2956">&#9670;&#160;</a></span>LL_TIM_IsEnabledDMAReq_COM()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline uint32_t LL_TIM_IsEnabledDMAReq_COM </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>TIMx</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__tim_8h.html">stm32f1xx_ll_tim.h</a>&quot;</code></p>
+
+<p>Indicates whether the commutation DMA request (COMDE) is enabled. </p>
+<p>@rmtoll DIER COMDE LL_TIM_IsEnabledDMAReq_COM </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">TIMx</td><td>Timer instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">State</td><td>of bit (1 or 0). </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; 0x00002000</p>
+<p>&lt;COM DMA request enable</p>
+<p>&lt; 0x00002000</p>
+<p>&lt;COM DMA request enable</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03723">3723</a> del archivo <a class="el" href="stm32f1xx__ll__tim_8h_source.html">stm32f1xx_ll_tim.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3724</span>{</div>
+<div class="line"><span class="lineno"> 3725</span>  <span class="keywordflow">return</span> ((<a class="code hl_define" href="group___exported__macros.html#ga822bb1bb9710d5f2fa6396b84e583c33">READ_BIT</a>(TIMx-&gt;<a class="code hl_variable" href="struct_t_i_m___type_def.html#a10c688aa3463744d5baaa2602c300ba7">DIER</a>, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga79c3fab9d33de953a0a7f7d6516c73bc">TIM_DIER_COMDE</a>) == (<a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga79c3fab9d33de953a0a7f7d6516c73bc">TIM_DIER_COMDE</a>)) ? 1UL : 0UL);</div>
+<div class="line"><span class="lineno"> 3726</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f103xb_8h_source.html#l00481">TIM_TypeDef::DIER</a>, <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03723">LL_TIM_IsEnabledDMAReq_COM()</a>, <a class="el" href="stm32f1xx_8h_source.html#l00181">READ_BIT</a> y <a class="el" href="stm32f103xb_8h_source.html#l03969">TIM_DIER_COMDE</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03723">LL_TIM_IsEnabledDMAReq_COM()</a>.</p>
+<div id="dynsection-37" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-37-summary" class="dynsummary">
+</div>
+<div id="dynsection-37-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___d_m_a___management_ga0219a007846688526fbbd01b404c2956_cgraph.svg" width="234" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-38" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-38-summary" class="dynsummary">
+</div>
+<div id="dynsection-38-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___d_m_a___management_ga0219a007846688526fbbd01b404c2956_icgraph.svg" width="234" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ga33e34d223a83fca4720c3e84cc701763" name="ga33e34d223a83fca4720c3e84cc701763"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga33e34d223a83fca4720c3e84cc701763">&#9670;&#160;</a></span>LL_TIM_IsEnabledDMAReq_TRIG()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline uint32_t LL_TIM_IsEnabledDMAReq_TRIG </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>TIMx</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__tim_8h.html">stm32f1xx_ll_tim.h</a>&quot;</code></p>
+
+<p>Indicates whether the trigger interrupt (TDE) is enabled. </p>
+<p>@rmtoll DIER TDE LL_TIM_IsEnabledDMAReq_TRIG </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">TIMx</td><td>Timer instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">State</td><td>of bit (1 or 0). </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; 0x00004000</p>
+<p>&lt;Trigger DMA request enable</p>
+<p>&lt; 0x00004000</p>
+<p>&lt;Trigger DMA request enable</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03756">3756</a> del archivo <a class="el" href="stm32f1xx__ll__tim_8h_source.html">stm32f1xx_ll_tim.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3757</span>{</div>
+<div class="line"><span class="lineno"> 3758</span>  <span class="keywordflow">return</span> ((<a class="code hl_define" href="group___exported__macros.html#ga822bb1bb9710d5f2fa6396b84e583c33">READ_BIT</a>(TIMx-&gt;<a class="code hl_variable" href="struct_t_i_m___type_def.html#a10c688aa3463744d5baaa2602c300ba7">DIER</a>, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga5a752d4295f100708df9b8be5a7f439d">TIM_DIER_TDE</a>) == (<a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga5a752d4295f100708df9b8be5a7f439d">TIM_DIER_TDE</a>)) ? 1UL : 0UL);</div>
+<div class="line"><span class="lineno"> 3759</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f103xb_8h_source.html#l00481">TIM_TypeDef::DIER</a>, <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03756">LL_TIM_IsEnabledDMAReq_TRIG()</a>, <a class="el" href="stm32f1xx_8h_source.html#l00181">READ_BIT</a> y <a class="el" href="stm32f103xb_8h_source.html#l03972">TIM_DIER_TDE</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03756">LL_TIM_IsEnabledDMAReq_TRIG()</a>.</p>
+<div id="dynsection-39" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-39-summary" class="dynsummary">
+</div>
+<div id="dynsection-39-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___d_m_a___management_ga33e34d223a83fca4720c3e84cc701763_cgraph.svg" width="235" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-40" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-40-summary" class="dynsummary">
+</div>
+<div id="dynsection-40-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___d_m_a___management_ga33e34d223a83fca4720c3e84cc701763_icgraph.svg" width="235" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ga3619842ba90c8addca116098d95f4b20" name="ga3619842ba90c8addca116098d95f4b20"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3619842ba90c8addca116098d95f4b20">&#9670;&#160;</a></span>LL_TIM_IsEnabledDMAReq_UPDATE()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__inline uint32_t LL_TIM_IsEnabledDMAReq_UPDATE </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_t_i_m___type_def.html">TIM_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>TIMx</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__ll__tim_8h.html">stm32f1xx_ll_tim.h</a>&quot;</code></p>
+
+<p>Indicates whether the update DMA request (UDE) is enabled. </p>
+<p>@rmtoll DIER UDE LL_TIM_IsEnabledDMAReq_UPDATE </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">TIMx</td><td>Timer instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">State</td><td>of bit (1 or 0). </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; 0x00000100</p>
+<p>&lt;Update DMA request enable</p>
+<p>&lt; 0x00000100</p>
+<p>&lt;Update DMA request enable</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03558">3558</a> del archivo <a class="el" href="stm32f1xx__ll__tim_8h_source.html">stm32f1xx_ll_tim.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3559</span>{</div>
+<div class="line"><span class="lineno"> 3560</span>  <span class="keywordflow">return</span> ((<a class="code hl_define" href="group___exported__macros.html#ga822bb1bb9710d5f2fa6396b84e583c33">READ_BIT</a>(TIMx-&gt;<a class="code hl_variable" href="struct_t_i_m___type_def.html#a10c688aa3463744d5baaa2602c300ba7">DIER</a>, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#gab9f47792b1c2f123464a2955f445c811">TIM_DIER_UDE</a>) == (<a class="code hl_define" href="group___peripheral___registers___bits___definition.html#gab9f47792b1c2f123464a2955f445c811">TIM_DIER_UDE</a>)) ? 1UL : 0UL);</div>
+<div class="line"><span class="lineno"> 3561</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f103xb_8h_source.html#l00481">TIM_TypeDef::DIER</a>, <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03558">LL_TIM_IsEnabledDMAReq_UPDATE()</a>, <a class="el" href="stm32f1xx_8h_source.html#l00181">READ_BIT</a> y <a class="el" href="stm32f103xb_8h_source.html#l03954">TIM_DIER_UDE</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__ll__tim_8h_source.html#l03558">LL_TIM_IsEnabledDMAReq_UPDATE()</a>.</p>
+<div id="dynsection-41" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-41-summary" class="dynsummary">
+</div>
+<div id="dynsection-41-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___d_m_a___management_ga3619842ba90c8addca116098d95f4b20_cgraph.svg" width="195" height="78"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-42" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-42-summary" class="dynsummary">
+</div>
+<div id="dynsection-42-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___l_l___e_f___d_m_a___management_ga3619842ba90c8addca116098d95f4b20_icgraph.svg" width="195" height="78"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generado el <span class="timestamp"></span> para MICRO-Firmware por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

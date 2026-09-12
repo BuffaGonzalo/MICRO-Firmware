@@ -1,0 +1,583 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>MICRO-Firmware: TIM IRQ handler management</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="codefolding.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  extensions: ["tex2jax.js"],
+  jax: ["input/TeX","output/HTML-CSS"],
+});
+</script>
+<script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">MICRO-Firmware<span id="projectnumber">&#160;EX100923v01</span>
+   </div>
+   <div id="projectbrief">Firmware de Péndulo Invertido Autónomo de Dos Ruedas (STM32F103C8T6 - ARM Cortex-M3)</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Buscar" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('group___t_i_m___exported___functions___group7.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">TIM IRQ handler management <div class="ingroups"><a class="el" href="group___s_t_m32_f1xx___h_a_l___driver.html">STM32F1xx_HAL_Driver</a> &raquo; <a class="el" href="group___t_i_m.html">TIM</a> &raquo; <a class="el" href="group___t_i_m___exported___functions.html">TIM Exported Functions</a></div></div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>TIM IRQ handler management.  
+<a href="#details">Más...</a></p>
+<div id="dynsection-0" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Diagrama de colaboración de TIM IRQ handler management:</div>
+<div id="dynsection-0-summary" class="dynsummary">
+</div>
+<div id="dynsection-0-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___exported___functions___group7.svg" width="418" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Funciones</h2></td></tr>
+<tr class="memitem:ga2dc3ef34340412aa8a01d734d2ff8f88" id="r_ga2dc3ef34340412aa8a01d734d2ff8f88"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ga2dc3ef34340412aa8a01d734d2ff8f88">HAL_TIM_IRQHandler</a> (<a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *htim)</td></tr>
+<tr class="memdesc:ga2dc3ef34340412aa8a01d734d2ff8f88"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function handles TIM interrupts requests.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Descripción detallada</h2>
+<div class="textblock"><p>TIM IRQ handler management. </p>
+<p>IRQ handler management</p>
+<pre class="fragment">  ==============================================================================
+                        ##### IRQ handler management #####
+  ==============================================================================
+  [..]
+    This section provides Timer IRQ handler function.
+</pre> </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Documentación de funciones</h2>
+<a id="ga2dc3ef34340412aa8a01d734d2ff8f88" name="ga2dc3ef34340412aa8a01d734d2ff8f88"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2dc3ef34340412aa8a01d734d2ff8f88">&#9670;&#160;</a></span>HAL_TIM_IRQHandler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void HAL_TIM_IRQHandler </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_t_i_m___handle_type_def.html">TIM_HandleTypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>htim</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__tim_8h.html">stm32f1xx_hal_tim.h</a>&quot;</code></p>
+
+<p>This function handles TIM interrupts requests. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">htim</td><td>TIM handle </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; 0x00000002</p>
+<p>&lt;Capture/Compare 1 interrupt Flag</p>
+<p>&lt; Capture/Compare 1 interrupt flag</p>
+<p>&lt; 0x00000002</p>
+<p>&lt;Capture/Compare 1 interrupt Flag</p>
+<p>&lt; Capture/Compare 1 interrupt flag</p>
+<p>&lt; 0x00000002</p>
+<p>&lt;Capture/Compare 1 interrupt enable</p>
+<p>&lt; Capture/Compare 1 interrupt</p>
+<p>&lt; 0x00000002</p>
+<p>&lt;Capture/Compare 1 interrupt enable</p>
+<p>&lt; Capture/Compare 1 interrupt</p>
+<p>&lt; 0x00000002</p>
+<p>&lt;Capture/Compare 1 interrupt Flag</p>
+<p>&lt; Capture/Compare 1 interrupt flag</p>
+<p>&lt; 0x00000003</p>
+<p>&lt;CC1S[1:0] bits (Capture/Compare 1 Selection)</p>
+<p>&lt; 0x00000004</p>
+<p>&lt;Capture/Compare 2 interrupt Flag</p>
+<p>&lt; Capture/Compare 2 interrupt flag</p>
+<p>&lt; 0x00000004</p>
+<p>&lt;Capture/Compare 2 interrupt Flag</p>
+<p>&lt; Capture/Compare 2 interrupt flag</p>
+<p>&lt; 0x00000004</p>
+<p>&lt;Capture/Compare 2 interrupt enable</p>
+<p>&lt; Capture/Compare 2 interrupt</p>
+<p>&lt; 0x00000004</p>
+<p>&lt;Capture/Compare 2 interrupt enable</p>
+<p>&lt; Capture/Compare 2 interrupt</p>
+<p>&lt; 0x00000004</p>
+<p>&lt;Capture/Compare 2 interrupt Flag</p>
+<p>&lt; Capture/Compare 2 interrupt flag</p>
+<p>&lt; 0x00000300</p>
+<p>&lt;CC2S[1:0] bits (Capture/Compare 2 Selection)</p>
+<p>&lt; 0x00000008</p>
+<p>&lt;Capture/Compare 3 interrupt Flag</p>
+<p>&lt; Capture/Compare 3 interrupt flag</p>
+<p>&lt; 0x00000008</p>
+<p>&lt;Capture/Compare 3 interrupt Flag</p>
+<p>&lt; Capture/Compare 3 interrupt flag</p>
+<p>&lt; 0x00000008</p>
+<p>&lt;Capture/Compare 3 interrupt enable</p>
+<p>&lt; Capture/Compare 3 interrupt</p>
+<p>&lt; 0x00000008</p>
+<p>&lt;Capture/Compare 3 interrupt enable</p>
+<p>&lt; Capture/Compare 3 interrupt</p>
+<p>&lt; 0x00000008</p>
+<p>&lt;Capture/Compare 3 interrupt Flag</p>
+<p>&lt; Capture/Compare 3 interrupt flag</p>
+<p>&lt; 0x00000003</p>
+<p>&lt;CC3S[1:0] bits (Capture/Compare 3 Selection)</p>
+<p>&lt; 0x00000010</p>
+<p>&lt;Capture/Compare 4 interrupt Flag</p>
+<p>&lt; Capture/Compare 4 interrupt flag</p>
+<p>&lt; 0x00000010</p>
+<p>&lt;Capture/Compare 4 interrupt Flag</p>
+<p>&lt; Capture/Compare 4 interrupt flag</p>
+<p>&lt; 0x00000010</p>
+<p>&lt;Capture/Compare 4 interrupt enable</p>
+<p>&lt; Capture/Compare 4 interrupt</p>
+<p>&lt; 0x00000010</p>
+<p>&lt;Capture/Compare 4 interrupt enable</p>
+<p>&lt; Capture/Compare 4 interrupt</p>
+<p>&lt; 0x00000010</p>
+<p>&lt;Capture/Compare 4 interrupt Flag</p>
+<p>&lt; Capture/Compare 4 interrupt flag</p>
+<p>&lt; 0x00000300</p>
+<p>&lt;CC4S[1:0] bits (Capture/Compare 4 Selection)</p>
+<p>&lt; 0x00000001</p>
+<p>&lt;Update interrupt Flag</p>
+<p>&lt; Update interrupt flag <br  />
+</p>
+<p>&lt; 0x00000001</p>
+<p>&lt;Update interrupt Flag</p>
+<p>&lt; Update interrupt flag <br  />
+</p>
+<p>&lt; 0x00000001</p>
+<p>&lt;Update interrupt enable</p>
+<p>&lt; Update interrupt <br  />
+</p>
+<p>&lt; 0x00000001</p>
+<p>&lt;Update interrupt enable</p>
+<p>&lt; Update interrupt <br  />
+</p>
+<p>&lt; 0x00000001</p>
+<p>&lt;Update interrupt Flag</p>
+<p>&lt; Update interrupt flag <br  />
+</p>
+<p>&lt; 0x00000080</p>
+<p>&lt;Break interrupt Flag</p>
+<p>&lt; Break interrupt flag <br  />
+</p>
+<p>&lt; 0x00000080</p>
+<p>&lt;Break interrupt Flag</p>
+<p>&lt; Break interrupt flag <br  />
+</p>
+<p>&lt; 0x00000080</p>
+<p>&lt;Break interrupt enable</p>
+<p>&lt; Break interrupt <br  />
+</p>
+<p>&lt; 0x00000080</p>
+<p>&lt;Break interrupt enable</p>
+<p>&lt; Break interrupt <br  />
+</p>
+<p>&lt; 0x00000080</p>
+<p>&lt;Break interrupt Flag</p>
+<p>&lt; Break interrupt flag <br  />
+</p>
+<p>&lt; 0x00000040</p>
+<p>&lt;Trigger interrupt Flag</p>
+<p>&lt; Trigger interrupt flag <br  />
+</p>
+<p>&lt; 0x00000040</p>
+<p>&lt;Trigger interrupt Flag</p>
+<p>&lt; Trigger interrupt flag <br  />
+</p>
+<p>&lt; 0x00000040</p>
+<p>&lt;Trigger interrupt enable</p>
+<p>&lt; Trigger interrupt <br  />
+</p>
+<p>&lt; 0x00000040</p>
+<p>&lt;Trigger interrupt enable</p>
+<p>&lt; Trigger interrupt <br  />
+</p>
+<p>&lt; 0x00000040</p>
+<p>&lt;Trigger interrupt Flag</p>
+<p>&lt; Trigger interrupt flag <br  />
+</p>
+<p>&lt; 0x00000020</p>
+<p>&lt;COM interrupt Flag</p>
+<p>&lt; Commutation interrupt flag <br  />
+</p>
+<p>&lt; 0x00000020</p>
+<p>&lt;COM interrupt Flag</p>
+<p>&lt; Commutation interrupt flag <br  />
+</p>
+<p>&lt; 0x00000020</p>
+<p>&lt;COM interrupt enable</p>
+<p>&lt; Commutation interrupt <br  />
+</p>
+<p>&lt; 0x00000020</p>
+<p>&lt;COM interrupt enable</p>
+<p>&lt; Commutation interrupt <br  />
+</p>
+<p>&lt; 0x00000020</p>
+<p>&lt;COM interrupt Flag</p>
+<p>&lt; Commutation interrupt flag <br  />
+</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__tim_8c_source.html#l03822">3822</a> del archivo <a class="el" href="stm32f1xx__hal__tim_8c_source.html">stm32f1xx_hal_tim.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 3823</span>{</div>
+<div class="line"><span class="lineno"> 3824</span>  uint32_t itsource = htim-&gt;<a class="code hl_variable" href="struct_t_i_m___handle_type_def.html#ad0c5f736a15f6d8d14724854c8133bcc">Instance</a>-&gt;<a class="code hl_variable" href="struct_t_i_m___type_def.html#a10c688aa3463744d5baaa2602c300ba7">DIER</a>;</div>
+<div class="line"><span class="lineno"> 3825</span>  uint32_t itflag   = htim-&gt;<a class="code hl_variable" href="struct_t_i_m___handle_type_def.html#ad0c5f736a15f6d8d14724854c8133bcc">Instance</a>-&gt;<a class="code hl_variable" href="struct_t_i_m___type_def.html#ad4c239c905a84b69f7bc24d1cf63512e">SR</a>;</div>
+<div class="line"><span class="lineno"> 3826</span> </div>
+<div class="line"><span class="lineno"> 3827</span>  <span class="comment">/* Capture compare 1 event */</span></div>
+<div class="line"><span class="lineno"> 3828</span>  <span class="keywordflow">if</span> ((itflag &amp; (<a class="code hl_define" href="group___t_i_m___flag__definition.html#gaa7eb8be054b9bd217a9abb1c8687cc55">TIM_FLAG_CC1</a>)) == (<a class="code hl_define" href="group___t_i_m___flag__definition.html#gaa7eb8be054b9bd217a9abb1c8687cc55">TIM_FLAG_CC1</a>))</div>
+<div class="line"><span class="lineno"> 3829</span>  {</div>
+<div class="line"><span class="lineno"> 3830</span>    <span class="keywordflow">if</span> ((itsource &amp; (<a class="code hl_define" href="group___t_i_m___interrupt__definition.html#ga02267a938ab4722c5013fffa447cf5a6">TIM_IT_CC1</a>)) == (<a class="code hl_define" href="group___t_i_m___interrupt__definition.html#ga02267a938ab4722c5013fffa447cf5a6">TIM_IT_CC1</a>))</div>
+<div class="line"><span class="lineno"> 3831</span>    {</div>
+<div class="line"><span class="lineno"> 3832</span>      {</div>
+<div class="line"><span class="lineno"> 3833</span>        <a class="code hl_define" href="group___t_i_m___exported___macros.html#ga2fe74db6b8cb4badd04ed48e0f5ac7b4">__HAL_TIM_CLEAR_FLAG</a>(htim, <a class="code hl_define" href="group___t_i_m___flag__definition.html#gaa7eb8be054b9bd217a9abb1c8687cc55">TIM_FLAG_CC1</a>);</div>
+<div class="line"><span class="lineno"> 3834</span>        htim-&gt;<a class="code hl_variable" href="struct_t_i_m___handle_type_def.html#ae9c5a11c1f5b27c808c0aca453e63870">Channel</a> = <a class="code hl_enumvalue" href="group___t_i_m___exported___types.html#ggaa3fa7bcbb4707f1151ccfc90a8cf9706a2024e95c48b58ec9b2115faa276e3fad">HAL_TIM_ACTIVE_CHANNEL_1</a>;</div>
+<div class="line"><span class="lineno"> 3835</span> </div>
+<div class="line"><span class="lineno"> 3836</span>        <span class="comment">/* Input capture event */</span></div>
+<div class="line"><span class="lineno"> 3837</span>        <span class="keywordflow">if</span> ((htim-&gt;<a class="code hl_variable" href="struct_t_i_m___handle_type_def.html#ad0c5f736a15f6d8d14724854c8133bcc">Instance</a>-&gt;<a class="code hl_variable" href="struct_t_i_m___type_def.html#a407d56a232172686e7276fcc4628ad96">CCMR1</a> &amp; <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga95291df1eaf532c5c996d176648938eb">TIM_CCMR1_CC1S</a>) != 0x00U)</div>
+<div class="line"><span class="lineno"> 3838</span>        {</div>
+<div class="line"><span class="lineno"> 3839</span><span class="preprocessor">#if (USE_HAL_TIM_REGISTER_CALLBACKS == 1)</span></div>
+<div class="line"><span class="lineno"> 3840</span>          htim-&gt;IC_CaptureCallback(htim);</div>
+<div class="line"><span class="lineno"> 3841</span><span class="preprocessor">#else</span></div>
+<div class="line"><span class="lineno"> 3842</span>          <a class="code hl_function" href="group___t_i_m___exported___functions___group9.html#gafd7ec5ecffcad9af7b3b125afd460d4a">HAL_TIM_IC_CaptureCallback</a>(htim);</div>
+<div class="line"><span class="lineno"> 3843</span><span class="preprocessor">#endif </span><span class="comment">/* USE_HAL_TIM_REGISTER_CALLBACKS */</span><span class="preprocessor"></span></div>
+<div class="line"><span class="lineno"> 3844</span>        }</div>
+<div class="line"><span class="lineno"> 3845</span>        <span class="comment">/* Output compare event */</span></div>
+<div class="line"><span class="lineno"> 3846</span>        <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno"> 3847</span>        {</div>
+<div class="line"><span class="lineno"> 3848</span><span class="preprocessor">#if (USE_HAL_TIM_REGISTER_CALLBACKS == 1)</span></div>
+<div class="line"><span class="lineno"> 3849</span>          htim-&gt;OC_DelayElapsedCallback(htim);</div>
+<div class="line"><span class="lineno"> 3850</span>          htim-&gt;PWM_PulseFinishedCallback(htim);</div>
+<div class="line"><span class="lineno"> 3851</span><span class="preprocessor">#else</span></div>
+<div class="line"><span class="lineno"> 3852</span>          <a class="code hl_function" href="group___t_i_m___exported___functions___group9.html#ga72d683097eb396e4250395df2c89dcfd">HAL_TIM_OC_DelayElapsedCallback</a>(htim);</div>
+<div class="line"><span class="lineno"> 3853</span>          <a class="code hl_function" href="group___t_i_m___exported___functions___group9.html#ga9a92449e0bcf905d0b44eba7b6e1638c">HAL_TIM_PWM_PulseFinishedCallback</a>(htim);</div>
+<div class="line"><span class="lineno"> 3854</span><span class="preprocessor">#endif </span><span class="comment">/* USE_HAL_TIM_REGISTER_CALLBACKS */</span><span class="preprocessor"></span></div>
+<div class="line"><span class="lineno"> 3855</span>        }</div>
+<div class="line"><span class="lineno"> 3856</span>        htim-&gt;<a class="code hl_variable" href="struct_t_i_m___handle_type_def.html#ae9c5a11c1f5b27c808c0aca453e63870">Channel</a> = <a class="code hl_enumvalue" href="group___t_i_m___exported___types.html#ggaa3fa7bcbb4707f1151ccfc90a8cf9706a574f72ac3bb41fe660318aa42dfdc98d">HAL_TIM_ACTIVE_CHANNEL_CLEARED</a>;</div>
+<div class="line"><span class="lineno"> 3857</span>      }</div>
+<div class="line"><span class="lineno"> 3858</span>    }</div>
+<div class="line"><span class="lineno"> 3859</span>  }</div>
+<div class="line"><span class="lineno"> 3860</span>  <span class="comment">/* Capture compare 2 event */</span></div>
+<div class="line"><span class="lineno"> 3861</span>  <span class="keywordflow">if</span> ((itflag &amp; (<a class="code hl_define" href="group___t_i_m___flag__definition.html#ga9cae242f1c51b31839ffc5bc007c82a7">TIM_FLAG_CC2</a>)) == (<a class="code hl_define" href="group___t_i_m___flag__definition.html#ga9cae242f1c51b31839ffc5bc007c82a7">TIM_FLAG_CC2</a>))</div>
+<div class="line"><span class="lineno"> 3862</span>  {</div>
+<div class="line"><span class="lineno"> 3863</span>    <span class="keywordflow">if</span> ((itsource &amp; (<a class="code hl_define" href="group___t_i_m___interrupt__definition.html#ga60f6b6c424b62ca58d3fafd8f5955e4f">TIM_IT_CC2</a>)) == (<a class="code hl_define" href="group___t_i_m___interrupt__definition.html#ga60f6b6c424b62ca58d3fafd8f5955e4f">TIM_IT_CC2</a>))</div>
+<div class="line"><span class="lineno"> 3864</span>    {</div>
+<div class="line"><span class="lineno"> 3865</span>      <a class="code hl_define" href="group___t_i_m___exported___macros.html#ga2fe74db6b8cb4badd04ed48e0f5ac7b4">__HAL_TIM_CLEAR_FLAG</a>(htim, <a class="code hl_define" href="group___t_i_m___flag__definition.html#ga9cae242f1c51b31839ffc5bc007c82a7">TIM_FLAG_CC2</a>);</div>
+<div class="line"><span class="lineno"> 3866</span>      htim-&gt;<a class="code hl_variable" href="struct_t_i_m___handle_type_def.html#ae9c5a11c1f5b27c808c0aca453e63870">Channel</a> = <a class="code hl_enumvalue" href="group___t_i_m___exported___types.html#ggaa3fa7bcbb4707f1151ccfc90a8cf9706ae80e6a1dd1c479f504219c0fec2f3322">HAL_TIM_ACTIVE_CHANNEL_2</a>;</div>
+<div class="line"><span class="lineno"> 3867</span>      <span class="comment">/* Input capture event */</span></div>
+<div class="line"><span class="lineno"> 3868</span>      <span class="keywordflow">if</span> ((htim-&gt;<a class="code hl_variable" href="struct_t_i_m___handle_type_def.html#ad0c5f736a15f6d8d14724854c8133bcc">Instance</a>-&gt;<a class="code hl_variable" href="struct_t_i_m___type_def.html#a407d56a232172686e7276fcc4628ad96">CCMR1</a> &amp; <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#gacdb0986b78bea5b53ea61e4ddd667cbf">TIM_CCMR1_CC2S</a>) != 0x00U)</div>
+<div class="line"><span class="lineno"> 3869</span>      {</div>
+<div class="line"><span class="lineno"> 3870</span><span class="preprocessor">#if (USE_HAL_TIM_REGISTER_CALLBACKS == 1)</span></div>
+<div class="line"><span class="lineno"> 3871</span>        htim-&gt;IC_CaptureCallback(htim);</div>
+<div class="line"><span class="lineno"> 3872</span><span class="preprocessor">#else</span></div>
+<div class="line"><span class="lineno"> 3873</span>        <a class="code hl_function" href="group___t_i_m___exported___functions___group9.html#gafd7ec5ecffcad9af7b3b125afd460d4a">HAL_TIM_IC_CaptureCallback</a>(htim);</div>
+<div class="line"><span class="lineno"> 3874</span><span class="preprocessor">#endif </span><span class="comment">/* USE_HAL_TIM_REGISTER_CALLBACKS */</span><span class="preprocessor"></span></div>
+<div class="line"><span class="lineno"> 3875</span>      }</div>
+<div class="line"><span class="lineno"> 3876</span>      <span class="comment">/* Output compare event */</span></div>
+<div class="line"><span class="lineno"> 3877</span>      <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno"> 3878</span>      {</div>
+<div class="line"><span class="lineno"> 3879</span><span class="preprocessor">#if (USE_HAL_TIM_REGISTER_CALLBACKS == 1)</span></div>
+<div class="line"><span class="lineno"> 3880</span>        htim-&gt;OC_DelayElapsedCallback(htim);</div>
+<div class="line"><span class="lineno"> 3881</span>        htim-&gt;PWM_PulseFinishedCallback(htim);</div>
+<div class="line"><span class="lineno"> 3882</span><span class="preprocessor">#else</span></div>
+<div class="line"><span class="lineno"> 3883</span>        <a class="code hl_function" href="group___t_i_m___exported___functions___group9.html#ga72d683097eb396e4250395df2c89dcfd">HAL_TIM_OC_DelayElapsedCallback</a>(htim);</div>
+<div class="line"><span class="lineno"> 3884</span>        <a class="code hl_function" href="group___t_i_m___exported___functions___group9.html#ga9a92449e0bcf905d0b44eba7b6e1638c">HAL_TIM_PWM_PulseFinishedCallback</a>(htim);</div>
+<div class="line"><span class="lineno"> 3885</span><span class="preprocessor">#endif </span><span class="comment">/* USE_HAL_TIM_REGISTER_CALLBACKS */</span><span class="preprocessor"></span></div>
+<div class="line"><span class="lineno"> 3886</span>      }</div>
+<div class="line"><span class="lineno"> 3887</span>      htim-&gt;<a class="code hl_variable" href="struct_t_i_m___handle_type_def.html#ae9c5a11c1f5b27c808c0aca453e63870">Channel</a> = <a class="code hl_enumvalue" href="group___t_i_m___exported___types.html#ggaa3fa7bcbb4707f1151ccfc90a8cf9706a574f72ac3bb41fe660318aa42dfdc98d">HAL_TIM_ACTIVE_CHANNEL_CLEARED</a>;</div>
+<div class="line"><span class="lineno"> 3888</span>    }</div>
+<div class="line"><span class="lineno"> 3889</span>  }</div>
+<div class="line"><span class="lineno"> 3890</span>  <span class="comment">/* Capture compare 3 event */</span></div>
+<div class="line"><span class="lineno"> 3891</span>  <span class="keywordflow">if</span> ((itflag &amp; (<a class="code hl_define" href="group___t_i_m___flag__definition.html#ga052c380f922219659810e4fceb574a7c">TIM_FLAG_CC3</a>)) == (<a class="code hl_define" href="group___t_i_m___flag__definition.html#ga052c380f922219659810e4fceb574a7c">TIM_FLAG_CC3</a>))</div>
+<div class="line"><span class="lineno"> 3892</span>  {</div>
+<div class="line"><span class="lineno"> 3893</span>    <span class="keywordflow">if</span> ((itsource &amp; (<a class="code hl_define" href="group___t_i_m___interrupt__definition.html#ga6aef020aebafd9e585283fbbaf8b841f">TIM_IT_CC3</a>)) == (<a class="code hl_define" href="group___t_i_m___interrupt__definition.html#ga6aef020aebafd9e585283fbbaf8b841f">TIM_IT_CC3</a>))</div>
+<div class="line"><span class="lineno"> 3894</span>    {</div>
+<div class="line"><span class="lineno"> 3895</span>      <a class="code hl_define" href="group___t_i_m___exported___macros.html#ga2fe74db6b8cb4badd04ed48e0f5ac7b4">__HAL_TIM_CLEAR_FLAG</a>(htim, <a class="code hl_define" href="group___t_i_m___flag__definition.html#ga052c380f922219659810e4fceb574a7c">TIM_FLAG_CC3</a>);</div>
+<div class="line"><span class="lineno"> 3896</span>      htim-&gt;<a class="code hl_variable" href="struct_t_i_m___handle_type_def.html#ae9c5a11c1f5b27c808c0aca453e63870">Channel</a> = <a class="code hl_enumvalue" href="group___t_i_m___exported___types.html#ggaa3fa7bcbb4707f1151ccfc90a8cf9706acc3fcf4ee6d91744c4bc6a5eccde2601">HAL_TIM_ACTIVE_CHANNEL_3</a>;</div>
+<div class="line"><span class="lineno"> 3897</span>      <span class="comment">/* Input capture event */</span></div>
+<div class="line"><span class="lineno"> 3898</span>      <span class="keywordflow">if</span> ((htim-&gt;<a class="code hl_variable" href="struct_t_i_m___handle_type_def.html#ad0c5f736a15f6d8d14724854c8133bcc">Instance</a>-&gt;<a class="code hl_variable" href="struct_t_i_m___type_def.html#a84c9a3da30a61bfab94d1909a1d136c3">CCMR2</a> &amp; <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga2eabcc7e322b02c9c406b3ff70308260">TIM_CCMR2_CC3S</a>) != 0x00U)</div>
+<div class="line"><span class="lineno"> 3899</span>      {</div>
+<div class="line"><span class="lineno"> 3900</span><span class="preprocessor">#if (USE_HAL_TIM_REGISTER_CALLBACKS == 1)</span></div>
+<div class="line"><span class="lineno"> 3901</span>        htim-&gt;IC_CaptureCallback(htim);</div>
+<div class="line"><span class="lineno"> 3902</span><span class="preprocessor">#else</span></div>
+<div class="line"><span class="lineno"> 3903</span>        <a class="code hl_function" href="group___t_i_m___exported___functions___group9.html#gafd7ec5ecffcad9af7b3b125afd460d4a">HAL_TIM_IC_CaptureCallback</a>(htim);</div>
+<div class="line"><span class="lineno"> 3904</span><span class="preprocessor">#endif </span><span class="comment">/* USE_HAL_TIM_REGISTER_CALLBACKS */</span><span class="preprocessor"></span></div>
+<div class="line"><span class="lineno"> 3905</span>      }</div>
+<div class="line"><span class="lineno"> 3906</span>      <span class="comment">/* Output compare event */</span></div>
+<div class="line"><span class="lineno"> 3907</span>      <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno"> 3908</span>      {</div>
+<div class="line"><span class="lineno"> 3909</span><span class="preprocessor">#if (USE_HAL_TIM_REGISTER_CALLBACKS == 1)</span></div>
+<div class="line"><span class="lineno"> 3910</span>        htim-&gt;OC_DelayElapsedCallback(htim);</div>
+<div class="line"><span class="lineno"> 3911</span>        htim-&gt;PWM_PulseFinishedCallback(htim);</div>
+<div class="line"><span class="lineno"> 3912</span><span class="preprocessor">#else</span></div>
+<div class="line"><span class="lineno"> 3913</span>        <a class="code hl_function" href="group___t_i_m___exported___functions___group9.html#ga72d683097eb396e4250395df2c89dcfd">HAL_TIM_OC_DelayElapsedCallback</a>(htim);</div>
+<div class="line"><span class="lineno"> 3914</span>        <a class="code hl_function" href="group___t_i_m___exported___functions___group9.html#ga9a92449e0bcf905d0b44eba7b6e1638c">HAL_TIM_PWM_PulseFinishedCallback</a>(htim);</div>
+<div class="line"><span class="lineno"> 3915</span><span class="preprocessor">#endif </span><span class="comment">/* USE_HAL_TIM_REGISTER_CALLBACKS */</span><span class="preprocessor"></span></div>
+<div class="line"><span class="lineno"> 3916</span>      }</div>
+<div class="line"><span class="lineno"> 3917</span>      htim-&gt;<a class="code hl_variable" href="struct_t_i_m___handle_type_def.html#ae9c5a11c1f5b27c808c0aca453e63870">Channel</a> = <a class="code hl_enumvalue" href="group___t_i_m___exported___types.html#ggaa3fa7bcbb4707f1151ccfc90a8cf9706a574f72ac3bb41fe660318aa42dfdc98d">HAL_TIM_ACTIVE_CHANNEL_CLEARED</a>;</div>
+<div class="line"><span class="lineno"> 3918</span>    }</div>
+<div class="line"><span class="lineno"> 3919</span>  }</div>
+<div class="line"><span class="lineno"> 3920</span>  <span class="comment">/* Capture compare 4 event */</span></div>
+<div class="line"><span class="lineno"> 3921</span>  <span class="keywordflow">if</span> ((itflag &amp; (<a class="code hl_define" href="group___t_i_m___flag__definition.html#gafd0dc57b56941f8b8250d66e289542db">TIM_FLAG_CC4</a>)) == (<a class="code hl_define" href="group___t_i_m___flag__definition.html#gafd0dc57b56941f8b8250d66e289542db">TIM_FLAG_CC4</a>))</div>
+<div class="line"><span class="lineno"> 3922</span>  {</div>
+<div class="line"><span class="lineno"> 3923</span>    <span class="keywordflow">if</span> ((itsource &amp; (<a class="code hl_define" href="group___t_i_m___interrupt__definition.html#ga1dce7f1bc32a258f2964cb7c05f413a6">TIM_IT_CC4</a>)) == (<a class="code hl_define" href="group___t_i_m___interrupt__definition.html#ga1dce7f1bc32a258f2964cb7c05f413a6">TIM_IT_CC4</a>))</div>
+<div class="line"><span class="lineno"> 3924</span>    {</div>
+<div class="line"><span class="lineno"> 3925</span>      <a class="code hl_define" href="group___t_i_m___exported___macros.html#ga2fe74db6b8cb4badd04ed48e0f5ac7b4">__HAL_TIM_CLEAR_FLAG</a>(htim, <a class="code hl_define" href="group___t_i_m___flag__definition.html#gafd0dc57b56941f8b8250d66e289542db">TIM_FLAG_CC4</a>);</div>
+<div class="line"><span class="lineno"> 3926</span>      htim-&gt;<a class="code hl_variable" href="struct_t_i_m___handle_type_def.html#ae9c5a11c1f5b27c808c0aca453e63870">Channel</a> = <a class="code hl_enumvalue" href="group___t_i_m___exported___types.html#ggaa3fa7bcbb4707f1151ccfc90a8cf9706a7d98ec7e385cacb3aaa6cec601fa6ab6">HAL_TIM_ACTIVE_CHANNEL_4</a>;</div>
+<div class="line"><span class="lineno"> 3927</span>      <span class="comment">/* Input capture event */</span></div>
+<div class="line"><span class="lineno"> 3928</span>      <span class="keywordflow">if</span> ((htim-&gt;<a class="code hl_variable" href="struct_t_i_m___handle_type_def.html#ad0c5f736a15f6d8d14724854c8133bcc">Instance</a>-&gt;<a class="code hl_variable" href="struct_t_i_m___type_def.html#a84c9a3da30a61bfab94d1909a1d136c3">CCMR2</a> &amp; <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga294e216b50edd1c2f891143e1f971048">TIM_CCMR2_CC4S</a>) != 0x00U)</div>
+<div class="line"><span class="lineno"> 3929</span>      {</div>
+<div class="line"><span class="lineno"> 3930</span><span class="preprocessor">#if (USE_HAL_TIM_REGISTER_CALLBACKS == 1)</span></div>
+<div class="line"><span class="lineno"> 3931</span>        htim-&gt;IC_CaptureCallback(htim);</div>
+<div class="line"><span class="lineno"> 3932</span><span class="preprocessor">#else</span></div>
+<div class="line"><span class="lineno"> 3933</span>        <a class="code hl_function" href="group___t_i_m___exported___functions___group9.html#gafd7ec5ecffcad9af7b3b125afd460d4a">HAL_TIM_IC_CaptureCallback</a>(htim);</div>
+<div class="line"><span class="lineno"> 3934</span><span class="preprocessor">#endif </span><span class="comment">/* USE_HAL_TIM_REGISTER_CALLBACKS */</span><span class="preprocessor"></span></div>
+<div class="line"><span class="lineno"> 3935</span>      }</div>
+<div class="line"><span class="lineno"> 3936</span>      <span class="comment">/* Output compare event */</span></div>
+<div class="line"><span class="lineno"> 3937</span>      <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno"> 3938</span>      {</div>
+<div class="line"><span class="lineno"> 3939</span><span class="preprocessor">#if (USE_HAL_TIM_REGISTER_CALLBACKS == 1)</span></div>
+<div class="line"><span class="lineno"> 3940</span>        htim-&gt;OC_DelayElapsedCallback(htim);</div>
+<div class="line"><span class="lineno"> 3941</span>        htim-&gt;PWM_PulseFinishedCallback(htim);</div>
+<div class="line"><span class="lineno"> 3942</span><span class="preprocessor">#else</span></div>
+<div class="line"><span class="lineno"> 3943</span>        <a class="code hl_function" href="group___t_i_m___exported___functions___group9.html#ga72d683097eb396e4250395df2c89dcfd">HAL_TIM_OC_DelayElapsedCallback</a>(htim);</div>
+<div class="line"><span class="lineno"> 3944</span>        <a class="code hl_function" href="group___t_i_m___exported___functions___group9.html#ga9a92449e0bcf905d0b44eba7b6e1638c">HAL_TIM_PWM_PulseFinishedCallback</a>(htim);</div>
+<div class="line"><span class="lineno"> 3945</span><span class="preprocessor">#endif </span><span class="comment">/* USE_HAL_TIM_REGISTER_CALLBACKS */</span><span class="preprocessor"></span></div>
+<div class="line"><span class="lineno"> 3946</span>      }</div>
+<div class="line"><span class="lineno"> 3947</span>      htim-&gt;<a class="code hl_variable" href="struct_t_i_m___handle_type_def.html#ae9c5a11c1f5b27c808c0aca453e63870">Channel</a> = <a class="code hl_enumvalue" href="group___t_i_m___exported___types.html#ggaa3fa7bcbb4707f1151ccfc90a8cf9706a574f72ac3bb41fe660318aa42dfdc98d">HAL_TIM_ACTIVE_CHANNEL_CLEARED</a>;</div>
+<div class="line"><span class="lineno"> 3948</span>    }</div>
+<div class="line"><span class="lineno"> 3949</span>  }</div>
+<div class="line"><span class="lineno"> 3950</span>  <span class="comment">/* TIM Update event */</span></div>
+<div class="line"><span class="lineno"> 3951</span>  <span class="keywordflow">if</span> ((itflag &amp; (<a class="code hl_define" href="group___t_i_m___flag__definition.html#gac45ce66cf33b4f324323fc3036917712">TIM_FLAG_UPDATE</a>)) == (<a class="code hl_define" href="group___t_i_m___flag__definition.html#gac45ce66cf33b4f324323fc3036917712">TIM_FLAG_UPDATE</a>))</div>
+<div class="line"><span class="lineno"> 3952</span>  {</div>
+<div class="line"><span class="lineno"> 3953</span>    <span class="keywordflow">if</span> ((itsource &amp; (<a class="code hl_define" href="group___t_i_m___interrupt__definition.html#ga6a48ecf88cae0402ff084202bfdd4f8e">TIM_IT_UPDATE</a>)) == (<a class="code hl_define" href="group___t_i_m___interrupt__definition.html#ga6a48ecf88cae0402ff084202bfdd4f8e">TIM_IT_UPDATE</a>))</div>
+<div class="line"><span class="lineno"> 3954</span>    {</div>
+<div class="line"><span class="lineno"> 3955</span>      <a class="code hl_define" href="group___t_i_m___exported___macros.html#ga2fe74db6b8cb4badd04ed48e0f5ac7b4">__HAL_TIM_CLEAR_FLAG</a>(htim, <a class="code hl_define" href="group___t_i_m___flag__definition.html#gac45ce66cf33b4f324323fc3036917712">TIM_FLAG_UPDATE</a>);</div>
+<div class="line"><span class="lineno"> 3956</span><span class="preprocessor">#if (USE_HAL_TIM_REGISTER_CALLBACKS == 1)</span></div>
+<div class="line"><span class="lineno"> 3957</span>      htim-&gt;PeriodElapsedCallback(htim);</div>
+<div class="line"><span class="lineno"> 3958</span><span class="preprocessor">#else</span></div>
+<div class="line"><span class="lineno"> 3959</span>      <a class="code hl_function" href="main_8c.html#ga8a3b0ad512a6e6c6157440b68d395eac">HAL_TIM_PeriodElapsedCallback</a>(htim);</div>
+<div class="line"><span class="lineno"> 3960</span><span class="preprocessor">#endif </span><span class="comment">/* USE_HAL_TIM_REGISTER_CALLBACKS */</span><span class="preprocessor"></span></div>
+<div class="line"><span class="lineno"> 3961</span>    }</div>
+<div class="line"><span class="lineno"> 3962</span>  }</div>
+<div class="line"><span class="lineno"> 3963</span>  <span class="comment">/* TIM Break input event */</span></div>
+<div class="line"><span class="lineno"> 3964</span>  <span class="keywordflow">if</span> ((itflag &amp; (<a class="code hl_define" href="group___t_i_m___flag__definition.html#ga01aedbe0676064a4d47dee474ddb863d">TIM_FLAG_BREAK</a>)) == (<a class="code hl_define" href="group___t_i_m___flag__definition.html#ga01aedbe0676064a4d47dee474ddb863d">TIM_FLAG_BREAK</a>))</div>
+<div class="line"><span class="lineno"> 3965</span>  {</div>
+<div class="line"><span class="lineno"> 3966</span>    <span class="keywordflow">if</span> ((itsource &amp; (<a class="code hl_define" href="group___t_i_m___interrupt__definition.html#ga351a8f27975e0af87f4bb37a4feaa636">TIM_IT_BREAK</a>)) == (<a class="code hl_define" href="group___t_i_m___interrupt__definition.html#ga351a8f27975e0af87f4bb37a4feaa636">TIM_IT_BREAK</a>))</div>
+<div class="line"><span class="lineno"> 3967</span>    {</div>
+<div class="line"><span class="lineno"> 3968</span>      <a class="code hl_define" href="group___t_i_m___exported___macros.html#ga2fe74db6b8cb4badd04ed48e0f5ac7b4">__HAL_TIM_CLEAR_FLAG</a>(htim, <a class="code hl_define" href="group___t_i_m___flag__definition.html#ga01aedbe0676064a4d47dee474ddb863d">TIM_FLAG_BREAK</a>);</div>
+<div class="line"><span class="lineno"> 3969</span><span class="preprocessor">#if (USE_HAL_TIM_REGISTER_CALLBACKS == 1)</span></div>
+<div class="line"><span class="lineno"> 3970</span>      htim-&gt;BreakCallback(htim);</div>
+<div class="line"><span class="lineno"> 3971</span><span class="preprocessor">#else</span></div>
+<div class="line"><span class="lineno"> 3972</span>      <a class="code hl_function" href="group___t_i_m_ex___exported___functions___group6.html#ga37031fc75c8c9f92b7a95d73f91b5f3c">HAL_TIMEx_BreakCallback</a>(htim);</div>
+<div class="line"><span class="lineno"> 3973</span><span class="preprocessor">#endif </span><span class="comment">/* USE_HAL_TIM_REGISTER_CALLBACKS */</span><span class="preprocessor"></span></div>
+<div class="line"><span class="lineno"> 3974</span>    }</div>
+<div class="line"><span class="lineno"> 3975</span>  }</div>
+<div class="line"><span class="lineno"> 3976</span>  <span class="comment">/* TIM Trigger detection event */</span></div>
+<div class="line"><span class="lineno"> 3977</span>  <span class="keywordflow">if</span> ((itflag &amp; (<a class="code hl_define" href="group___t_i_m___flag__definition.html#gacacf94fcf8b5ee4287f2d5a56dce91b7">TIM_FLAG_TRIGGER</a>)) == (<a class="code hl_define" href="group___t_i_m___flag__definition.html#gacacf94fcf8b5ee4287f2d5a56dce91b7">TIM_FLAG_TRIGGER</a>))</div>
+<div class="line"><span class="lineno"> 3978</span>  {</div>
+<div class="line"><span class="lineno"> 3979</span>    <span class="keywordflow">if</span> ((itsource &amp; (<a class="code hl_define" href="group___t_i_m___interrupt__definition.html#ga2a577f2eee61f101cf551d86c4d73333">TIM_IT_TRIGGER</a>)) == (<a class="code hl_define" href="group___t_i_m___interrupt__definition.html#ga2a577f2eee61f101cf551d86c4d73333">TIM_IT_TRIGGER</a>))</div>
+<div class="line"><span class="lineno"> 3980</span>    {</div>
+<div class="line"><span class="lineno"> 3981</span>      <a class="code hl_define" href="group___t_i_m___exported___macros.html#ga2fe74db6b8cb4badd04ed48e0f5ac7b4">__HAL_TIM_CLEAR_FLAG</a>(htim, <a class="code hl_define" href="group___t_i_m___flag__definition.html#gacacf94fcf8b5ee4287f2d5a56dce91b7">TIM_FLAG_TRIGGER</a>);</div>
+<div class="line"><span class="lineno"> 3982</span><span class="preprocessor">#if (USE_HAL_TIM_REGISTER_CALLBACKS == 1)</span></div>
+<div class="line"><span class="lineno"> 3983</span>      htim-&gt;TriggerCallback(htim);</div>
+<div class="line"><span class="lineno"> 3984</span><span class="preprocessor">#else</span></div>
+<div class="line"><span class="lineno"> 3985</span>      <a class="code hl_function" href="group___t_i_m___exported___functions___group9.html#gaac628fb57879a419f2f9016532f9b751">HAL_TIM_TriggerCallback</a>(htim);</div>
+<div class="line"><span class="lineno"> 3986</span><span class="preprocessor">#endif </span><span class="comment">/* USE_HAL_TIM_REGISTER_CALLBACKS */</span><span class="preprocessor"></span></div>
+<div class="line"><span class="lineno"> 3987</span>    }</div>
+<div class="line"><span class="lineno"> 3988</span>  }</div>
+<div class="line"><span class="lineno"> 3989</span>  <span class="comment">/* TIM commutation event */</span></div>
+<div class="line"><span class="lineno"> 3990</span>  <span class="keywordflow">if</span> ((itflag &amp; (<a class="code hl_define" href="group___t_i_m___flag__definition.html#gad454d70205ce5bbf3b3c0e7e43d6df62">TIM_FLAG_COM</a>)) == (<a class="code hl_define" href="group___t_i_m___flag__definition.html#gad454d70205ce5bbf3b3c0e7e43d6df62">TIM_FLAG_COM</a>))</div>
+<div class="line"><span class="lineno"> 3991</span>  {</div>
+<div class="line"><span class="lineno"> 3992</span>    <span class="keywordflow">if</span> ((itsource &amp; (<a class="code hl_define" href="group___t_i_m___interrupt__definition.html#gaeb7eff6c39922814e7ee47c0820c3d9f">TIM_IT_COM</a>)) == (<a class="code hl_define" href="group___t_i_m___interrupt__definition.html#gaeb7eff6c39922814e7ee47c0820c3d9f">TIM_IT_COM</a>))</div>
+<div class="line"><span class="lineno"> 3993</span>    {</div>
+<div class="line"><span class="lineno"> 3994</span>      <a class="code hl_define" href="group___t_i_m___exported___macros.html#ga2fe74db6b8cb4badd04ed48e0f5ac7b4">__HAL_TIM_CLEAR_FLAG</a>(htim, <a class="code hl_define" href="group___t_i_m___flag__definition.html#gad454d70205ce5bbf3b3c0e7e43d6df62">TIM_FLAG_COM</a>);</div>
+<div class="line"><span class="lineno"> 3995</span><span class="preprocessor">#if (USE_HAL_TIM_REGISTER_CALLBACKS == 1)</span></div>
+<div class="line"><span class="lineno"> 3996</span>      htim-&gt;CommutationCallback(htim);</div>
+<div class="line"><span class="lineno"> 3997</span><span class="preprocessor">#else</span></div>
+<div class="line"><span class="lineno"> 3998</span>      <a class="code hl_function" href="group___t_i_m_ex___exported___functions___group6.html#ga538e27fac28380a20b2e9db75b07ddc7">HAL_TIMEx_CommutCallback</a>(htim);</div>
+<div class="line"><span class="lineno"> 3999</span><span class="preprocessor">#endif </span><span class="comment">/* USE_HAL_TIM_REGISTER_CALLBACKS */</span><span class="preprocessor"></span></div>
+<div class="line"><span class="lineno"> 4000</span>    }</div>
+<div class="line"><span class="lineno"> 4001</span>  }</div>
+<div class="line"><span class="lineno"> 4002</span>}</div>
+<div class="ttc" id="agroup___peripheral___registers___bits___definition_html_ga294e216b50edd1c2f891143e1f971048"><div class="ttname"><a href="group___peripheral___registers___bits___definition.html#ga294e216b50edd1c2f891143e1f971048">TIM_CCMR2_CC4S</a></div><div class="ttdeci">#define TIM_CCMR2_CC4S</div><div class="ttdoc">CC4S[1:0] bits (Capture/Compare 4 Selection).</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l04144">stm32f103xb.h:4144</a></div></div>
+<div class="ttc" id="agroup___peripheral___registers___bits___definition_html_ga2eabcc7e322b02c9c406b3ff70308260"><div class="ttname"><a href="group___peripheral___registers___bits___definition.html#ga2eabcc7e322b02c9c406b3ff70308260">TIM_CCMR2_CC3S</a></div><div class="ttdeci">#define TIM_CCMR2_CC3S</div><div class="ttdoc">CC3S[1:0] bits (Capture/Compare 3 Selection).</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l04120">stm32f103xb.h:4120</a></div></div>
+<div class="ttc" id="agroup___peripheral___registers___bits___definition_html_ga95291df1eaf532c5c996d176648938eb"><div class="ttname"><a href="group___peripheral___registers___bits___definition.html#ga95291df1eaf532c5c996d176648938eb">TIM_CCMR1_CC1S</a></div><div class="ttdeci">#define TIM_CCMR1_CC1S</div><div class="ttdoc">CC1S[1:0] bits (Capture/Compare 1 Selection).</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l04041">stm32f103xb.h:4041</a></div></div>
+<div class="ttc" id="agroup___peripheral___registers___bits___definition_html_gacdb0986b78bea5b53ea61e4ddd667cbf"><div class="ttname"><a href="group___peripheral___registers___bits___definition.html#gacdb0986b78bea5b53ea61e4ddd667cbf">TIM_CCMR1_CC2S</a></div><div class="ttdeci">#define TIM_CCMR1_CC2S</div><div class="ttdoc">CC2S[1:0] bits (Capture/Compare 2 Selection).</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l04065">stm32f103xb.h:4065</a></div></div>
+<div class="ttc" id="agroup___t_i_m___exported___functions___group9_html_ga72d683097eb396e4250395df2c89dcfd"><div class="ttname"><a href="group___t_i_m___exported___functions___group9.html#ga72d683097eb396e4250395df2c89dcfd">HAL_TIM_OC_DelayElapsedCallback</a></div><div class="ttdeci">void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim)</div><div class="ttdoc">Output Compare callback in non-blocking mode.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim_8c_source.html#l05686">stm32f1xx_hal_tim.c:5686</a></div></div>
+<div class="ttc" id="agroup___t_i_m___exported___functions___group9_html_ga9a92449e0bcf905d0b44eba7b6e1638c"><div class="ttname"><a href="group___t_i_m___exported___functions___group9.html#ga9a92449e0bcf905d0b44eba7b6e1638c">HAL_TIM_PWM_PulseFinishedCallback</a></div><div class="ttdeci">void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *htim)</div><div class="ttdoc">PWM Pulse finished callback in non-blocking mode.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim_8c_source.html#l05731">stm32f1xx_hal_tim.c:5731</a></div></div>
+<div class="ttc" id="agroup___t_i_m___exported___functions___group9_html_gaac628fb57879a419f2f9016532f9b751"><div class="ttname"><a href="group___t_i_m___exported___functions___group9.html#gaac628fb57879a419f2f9016532f9b751">HAL_TIM_TriggerCallback</a></div><div class="ttdeci">void HAL_TIM_TriggerCallback(TIM_HandleTypeDef *htim)</div><div class="ttdoc">Hall Trigger detection callback in non-blocking mode.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim_8c_source.html#l05761">stm32f1xx_hal_tim.c:5761</a></div></div>
+<div class="ttc" id="agroup___t_i_m___exported___functions___group9_html_gafd7ec5ecffcad9af7b3b125afd460d4a"><div class="ttname"><a href="group___t_i_m___exported___functions___group9.html#gafd7ec5ecffcad9af7b3b125afd460d4a">HAL_TIM_IC_CaptureCallback</a></div><div class="ttdeci">void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)</div><div class="ttdoc">Input Capture callback in non-blocking mode.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim_8c_source.html#l05701">stm32f1xx_hal_tim.c:5701</a></div></div>
+<div class="ttc" id="agroup___t_i_m___exported___macros_html_ga2fe74db6b8cb4badd04ed48e0f5ac7b4"><div class="ttname"><a href="group___t_i_m___exported___macros.html#ga2fe74db6b8cb4badd04ed48e0f5ac7b4">__HAL_TIM_CLEAR_FLAG</a></div><div class="ttdeci">#define __HAL_TIM_CLEAR_FLAG(__HANDLE__, __FLAG__)</div><div class="ttdoc">Clear the specified TIM interrupt flag.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim_8h_source.html#l01223">stm32f1xx_hal_tim.h:1223</a></div></div>
+<div class="ttc" id="agroup___t_i_m___exported___types_html_ggaa3fa7bcbb4707f1151ccfc90a8cf9706a2024e95c48b58ec9b2115faa276e3fad"><div class="ttname"><a href="group___t_i_m___exported___types.html#ggaa3fa7bcbb4707f1151ccfc90a8cf9706a2024e95c48b58ec9b2115faa276e3fad">HAL_TIM_ACTIVE_CHANNEL_1</a></div><div class="ttdeci">@ HAL_TIM_ACTIVE_CHANNEL_1</div><div class="ttdoc">The active channel is 1.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim_8h_source.html#l00324">stm32f1xx_hal_tim.h:324</a></div></div>
+<div class="ttc" id="agroup___t_i_m___exported___types_html_ggaa3fa7bcbb4707f1151ccfc90a8cf9706a574f72ac3bb41fe660318aa42dfdc98d"><div class="ttname"><a href="group___t_i_m___exported___types.html#ggaa3fa7bcbb4707f1151ccfc90a8cf9706a574f72ac3bb41fe660318aa42dfdc98d">HAL_TIM_ACTIVE_CHANNEL_CLEARED</a></div><div class="ttdeci">@ HAL_TIM_ACTIVE_CHANNEL_CLEARED</div><div class="ttdoc">All active channels cleared.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim_8h_source.html#l00328">stm32f1xx_hal_tim.h:328</a></div></div>
+<div class="ttc" id="agroup___t_i_m___exported___types_html_ggaa3fa7bcbb4707f1151ccfc90a8cf9706a7d98ec7e385cacb3aaa6cec601fa6ab6"><div class="ttname"><a href="group___t_i_m___exported___types.html#ggaa3fa7bcbb4707f1151ccfc90a8cf9706a7d98ec7e385cacb3aaa6cec601fa6ab6">HAL_TIM_ACTIVE_CHANNEL_4</a></div><div class="ttdeci">@ HAL_TIM_ACTIVE_CHANNEL_4</div><div class="ttdoc">The active channel is 4.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim_8h_source.html#l00327">stm32f1xx_hal_tim.h:327</a></div></div>
+<div class="ttc" id="agroup___t_i_m___exported___types_html_ggaa3fa7bcbb4707f1151ccfc90a8cf9706acc3fcf4ee6d91744c4bc6a5eccde2601"><div class="ttname"><a href="group___t_i_m___exported___types.html#ggaa3fa7bcbb4707f1151ccfc90a8cf9706acc3fcf4ee6d91744c4bc6a5eccde2601">HAL_TIM_ACTIVE_CHANNEL_3</a></div><div class="ttdeci">@ HAL_TIM_ACTIVE_CHANNEL_3</div><div class="ttdoc">The active channel is 3.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim_8h_source.html#l00326">stm32f1xx_hal_tim.h:326</a></div></div>
+<div class="ttc" id="agroup___t_i_m___exported___types_html_ggaa3fa7bcbb4707f1151ccfc90a8cf9706ae80e6a1dd1c479f504219c0fec2f3322"><div class="ttname"><a href="group___t_i_m___exported___types.html#ggaa3fa7bcbb4707f1151ccfc90a8cf9706ae80e6a1dd1c479f504219c0fec2f3322">HAL_TIM_ACTIVE_CHANNEL_2</a></div><div class="ttdeci">@ HAL_TIM_ACTIVE_CHANNEL_2</div><div class="ttdoc">The active channel is 2.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim_8h_source.html#l00325">stm32f1xx_hal_tim.h:325</a></div></div>
+<div class="ttc" id="agroup___t_i_m___flag__definition_html_ga01aedbe0676064a4d47dee474ddb863d"><div class="ttname"><a href="group___t_i_m___flag__definition.html#ga01aedbe0676064a4d47dee474ddb863d">TIM_FLAG_BREAK</a></div><div class="ttdeci">#define TIM_FLAG_BREAK</div><div class="ttdoc">Break interrupt flag.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim_8h_source.html#l00726">stm32f1xx_hal_tim.h:726</a></div></div>
+<div class="ttc" id="agroup___t_i_m___flag__definition_html_ga052c380f922219659810e4fceb574a7c"><div class="ttname"><a href="group___t_i_m___flag__definition.html#ga052c380f922219659810e4fceb574a7c">TIM_FLAG_CC3</a></div><div class="ttdeci">#define TIM_FLAG_CC3</div><div class="ttdoc">Capture/Compare 3 interrupt flag.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim_8h_source.html#l00722">stm32f1xx_hal_tim.h:722</a></div></div>
+<div class="ttc" id="agroup___t_i_m___flag__definition_html_ga9cae242f1c51b31839ffc5bc007c82a7"><div class="ttname"><a href="group___t_i_m___flag__definition.html#ga9cae242f1c51b31839ffc5bc007c82a7">TIM_FLAG_CC2</a></div><div class="ttdeci">#define TIM_FLAG_CC2</div><div class="ttdoc">Capture/Compare 2 interrupt flag.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim_8h_source.html#l00721">stm32f1xx_hal_tim.h:721</a></div></div>
+<div class="ttc" id="agroup___t_i_m___flag__definition_html_gaa7eb8be054b9bd217a9abb1c8687cc55"><div class="ttname"><a href="group___t_i_m___flag__definition.html#gaa7eb8be054b9bd217a9abb1c8687cc55">TIM_FLAG_CC1</a></div><div class="ttdeci">#define TIM_FLAG_CC1</div><div class="ttdoc">Capture/Compare 1 interrupt flag.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim_8h_source.html#l00720">stm32f1xx_hal_tim.h:720</a></div></div>
+<div class="ttc" id="agroup___t_i_m___flag__definition_html_gac45ce66cf33b4f324323fc3036917712"><div class="ttname"><a href="group___t_i_m___flag__definition.html#gac45ce66cf33b4f324323fc3036917712">TIM_FLAG_UPDATE</a></div><div class="ttdeci">#define TIM_FLAG_UPDATE</div><div class="ttdoc">Update interrupt flag.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim_8h_source.html#l00719">stm32f1xx_hal_tim.h:719</a></div></div>
+<div class="ttc" id="agroup___t_i_m___flag__definition_html_gacacf94fcf8b5ee4287f2d5a56dce91b7"><div class="ttname"><a href="group___t_i_m___flag__definition.html#gacacf94fcf8b5ee4287f2d5a56dce91b7">TIM_FLAG_TRIGGER</a></div><div class="ttdeci">#define TIM_FLAG_TRIGGER</div><div class="ttdoc">Trigger interrupt flag.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim_8h_source.html#l00725">stm32f1xx_hal_tim.h:725</a></div></div>
+<div class="ttc" id="agroup___t_i_m___flag__definition_html_gad454d70205ce5bbf3b3c0e7e43d6df62"><div class="ttname"><a href="group___t_i_m___flag__definition.html#gad454d70205ce5bbf3b3c0e7e43d6df62">TIM_FLAG_COM</a></div><div class="ttdeci">#define TIM_FLAG_COM</div><div class="ttdoc">Commutation interrupt flag.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim_8h_source.html#l00724">stm32f1xx_hal_tim.h:724</a></div></div>
+<div class="ttc" id="agroup___t_i_m___flag__definition_html_gafd0dc57b56941f8b8250d66e289542db"><div class="ttname"><a href="group___t_i_m___flag__definition.html#gafd0dc57b56941f8b8250d66e289542db">TIM_FLAG_CC4</a></div><div class="ttdeci">#define TIM_FLAG_CC4</div><div class="ttdoc">Capture/Compare 4 interrupt flag.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim_8h_source.html#l00723">stm32f1xx_hal_tim.h:723</a></div></div>
+<div class="ttc" id="agroup___t_i_m___interrupt__definition_html_ga02267a938ab4722c5013fffa447cf5a6"><div class="ttname"><a href="group___t_i_m___interrupt__definition.html#ga02267a938ab4722c5013fffa447cf5a6">TIM_IT_CC1</a></div><div class="ttdeci">#define TIM_IT_CC1</div><div class="ttdoc">Capture/Compare 1 interrupt.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim_8h_source.html#l00673">stm32f1xx_hal_tim.h:673</a></div></div>
+<div class="ttc" id="agroup___t_i_m___interrupt__definition_html_ga1dce7f1bc32a258f2964cb7c05f413a6"><div class="ttname"><a href="group___t_i_m___interrupt__definition.html#ga1dce7f1bc32a258f2964cb7c05f413a6">TIM_IT_CC4</a></div><div class="ttdeci">#define TIM_IT_CC4</div><div class="ttdoc">Capture/Compare 4 interrupt.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim_8h_source.html#l00676">stm32f1xx_hal_tim.h:676</a></div></div>
+<div class="ttc" id="agroup___t_i_m___interrupt__definition_html_ga2a577f2eee61f101cf551d86c4d73333"><div class="ttname"><a href="group___t_i_m___interrupt__definition.html#ga2a577f2eee61f101cf551d86c4d73333">TIM_IT_TRIGGER</a></div><div class="ttdeci">#define TIM_IT_TRIGGER</div><div class="ttdoc">Trigger interrupt.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim_8h_source.html#l00678">stm32f1xx_hal_tim.h:678</a></div></div>
+<div class="ttc" id="agroup___t_i_m___interrupt__definition_html_ga351a8f27975e0af87f4bb37a4feaa636"><div class="ttname"><a href="group___t_i_m___interrupt__definition.html#ga351a8f27975e0af87f4bb37a4feaa636">TIM_IT_BREAK</a></div><div class="ttdeci">#define TIM_IT_BREAK</div><div class="ttdoc">Break interrupt.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim_8h_source.html#l00679">stm32f1xx_hal_tim.h:679</a></div></div>
+<div class="ttc" id="agroup___t_i_m___interrupt__definition_html_ga60f6b6c424b62ca58d3fafd8f5955e4f"><div class="ttname"><a href="group___t_i_m___interrupt__definition.html#ga60f6b6c424b62ca58d3fafd8f5955e4f">TIM_IT_CC2</a></div><div class="ttdeci">#define TIM_IT_CC2</div><div class="ttdoc">Capture/Compare 2 interrupt.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim_8h_source.html#l00674">stm32f1xx_hal_tim.h:674</a></div></div>
+<div class="ttc" id="agroup___t_i_m___interrupt__definition_html_ga6a48ecf88cae0402ff084202bfdd4f8e"><div class="ttname"><a href="group___t_i_m___interrupt__definition.html#ga6a48ecf88cae0402ff084202bfdd4f8e">TIM_IT_UPDATE</a></div><div class="ttdeci">#define TIM_IT_UPDATE</div><div class="ttdoc">Update interrupt.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim_8h_source.html#l00672">stm32f1xx_hal_tim.h:672</a></div></div>
+<div class="ttc" id="agroup___t_i_m___interrupt__definition_html_ga6aef020aebafd9e585283fbbaf8b841f"><div class="ttname"><a href="group___t_i_m___interrupt__definition.html#ga6aef020aebafd9e585283fbbaf8b841f">TIM_IT_CC3</a></div><div class="ttdeci">#define TIM_IT_CC3</div><div class="ttdoc">Capture/Compare 3 interrupt.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim_8h_source.html#l00675">stm32f1xx_hal_tim.h:675</a></div></div>
+<div class="ttc" id="agroup___t_i_m___interrupt__definition_html_gaeb7eff6c39922814e7ee47c0820c3d9f"><div class="ttname"><a href="group___t_i_m___interrupt__definition.html#gaeb7eff6c39922814e7ee47c0820c3d9f">TIM_IT_COM</a></div><div class="ttdeci">#define TIM_IT_COM</div><div class="ttdoc">Commutation interrupt.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim_8h_source.html#l00677">stm32f1xx_hal_tim.h:677</a></div></div>
+<div class="ttc" id="agroup___t_i_m_ex___exported___functions___group6_html_ga37031fc75c8c9f92b7a95d73f91b5f3c"><div class="ttname"><a href="group___t_i_m_ex___exported___functions___group6.html#ga37031fc75c8c9f92b7a95d73f91b5f3c">HAL_TIMEx_BreakCallback</a></div><div class="ttdeci">void HAL_TIMEx_BreakCallback(TIM_HandleTypeDef *htim)</div><div class="ttdoc">Break detection callback in non-blocking mode.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim__ex_8c_source.html#l02125">stm32f1xx_hal_tim_ex.c:2125</a></div></div>
+<div class="ttc" id="agroup___t_i_m_ex___exported___functions___group6_html_ga538e27fac28380a20b2e9db75b07ddc7"><div class="ttname"><a href="group___t_i_m_ex___exported___functions___group6.html#ga538e27fac28380a20b2e9db75b07ddc7">HAL_TIMEx_CommutCallback</a></div><div class="ttdeci">void HAL_TIMEx_CommutCallback(TIM_HandleTypeDef *htim)</div><div class="ttdoc">Commutation callback in non-blocking mode.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim__ex_8c_source.html#l02096">stm32f1xx_hal_tim_ex.c:2096</a></div></div>
+<div class="ttc" id="amain_8c_html_ga8a3b0ad512a6e6c6157440b68d395eac"><div class="ttname"><a href="main_8c.html#ga8a3b0ad512a6e6c6157440b68d395eac">HAL_TIM_PeriodElapsedCallback</a></div><div class="ttdeci">void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)</div><div class="ttdoc">Period elapsed callback in non-blocking mode.</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00690">main.c:690</a></div></div>
+<div class="ttc" id="astruct_t_i_m___handle_type_def_html_ad0c5f736a15f6d8d14724854c8133bcc"><div class="ttname"><a href="struct_t_i_m___handle_type_def.html#ad0c5f736a15f6d8d14724854c8133bcc">TIM_HandleTypeDef::Instance</a></div><div class="ttdeci">TIM_TypeDef * Instance</div><div class="ttdoc">Register base address.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim_8h_source.html#l00340">stm32f1xx_hal_tim.h:340</a></div></div>
+<div class="ttc" id="astruct_t_i_m___handle_type_def_html_ae9c5a11c1f5b27c808c0aca453e63870"><div class="ttname"><a href="struct_t_i_m___handle_type_def.html#ae9c5a11c1f5b27c808c0aca453e63870">TIM_HandleTypeDef::Channel</a></div><div class="ttdeci">HAL_TIM_ActiveChannel Channel</div><div class="ttdoc">Active channel.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__tim_8h_source.html#l00342">stm32f1xx_hal_tim.h:342</a></div></div>
+<div class="ttc" id="astruct_t_i_m___type_def_html_a10c688aa3463744d5baaa2602c300ba7"><div class="ttname"><a href="struct_t_i_m___type_def.html#a10c688aa3463744d5baaa2602c300ba7">TIM_TypeDef::DIER</a></div><div class="ttdeci">volatile uint32_t DIER</div><div class="ttdoc">&lt; Defines &#39;read / write&#39; permissions</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l00481">stm32f103xb.h:481</a></div></div>
+<div class="ttc" id="astruct_t_i_m___type_def_html_a407d56a232172686e7276fcc4628ad96"><div class="ttname"><a href="struct_t_i_m___type_def.html#a407d56a232172686e7276fcc4628ad96">TIM_TypeDef::CCMR1</a></div><div class="ttdeci">volatile uint32_t CCMR1</div><div class="ttdoc">&lt; Defines &#39;read / write&#39; permissions</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l00484">stm32f103xb.h:484</a></div></div>
+<div class="ttc" id="astruct_t_i_m___type_def_html_a84c9a3da30a61bfab94d1909a1d136c3"><div class="ttname"><a href="struct_t_i_m___type_def.html#a84c9a3da30a61bfab94d1909a1d136c3">TIM_TypeDef::CCMR2</a></div><div class="ttdeci">volatile uint32_t CCMR2</div><div class="ttdoc">&lt; Defines &#39;read / write&#39; permissions</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l00485">stm32f103xb.h:485</a></div></div>
+<div class="ttc" id="astruct_t_i_m___type_def_html_ad4c239c905a84b69f7bc24d1cf63512e"><div class="ttname"><a href="struct_t_i_m___type_def.html#ad4c239c905a84b69f7bc24d1cf63512e">TIM_TypeDef::SR</a></div><div class="ttdeci">volatile uint32_t SR</div><div class="ttdoc">&lt; Defines &#39;read / write&#39; permissions</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l00482">stm32f103xb.h:482</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__hal__tim_8h_source.html#l01223">__HAL_TIM_CLEAR_FLAG</a>, <a class="el" href="stm32f103xb_8h_source.html#l00484">TIM_TypeDef::CCMR1</a>, <a class="el" href="stm32f103xb_8h_source.html#l00485">TIM_TypeDef::CCMR2</a>, <a class="el" href="stm32f1xx__hal__tim_8h_source.html#l00342">TIM_HandleTypeDef::Channel</a>, <a class="el" href="stm32f103xb_8h_source.html#l00481">TIM_TypeDef::DIER</a>, <a class="el" href="stm32f1xx__hal__tim_8h_source.html#l00324">HAL_TIM_ACTIVE_CHANNEL_1</a>, <a class="el" href="stm32f1xx__hal__tim_8h_source.html#l00325">HAL_TIM_ACTIVE_CHANNEL_2</a>, <a class="el" href="stm32f1xx__hal__tim_8h_source.html#l00326">HAL_TIM_ACTIVE_CHANNEL_3</a>, <a class="el" href="stm32f1xx__hal__tim_8h_source.html#l00327">HAL_TIM_ACTIVE_CHANNEL_4</a>, <a class="el" href="stm32f1xx__hal__tim_8h_source.html#l00328">HAL_TIM_ACTIVE_CHANNEL_CLEARED</a>, <a class="el" href="stm32f1xx__hal__tim_8c_source.html#l05701">HAL_TIM_IC_CaptureCallback()</a>, <a class="el" href="stm32f1xx__hal__tim_8c_source.html#l03822">HAL_TIM_IRQHandler()</a>, <a class="el" href="stm32f1xx__hal__tim_8c_source.html#l05686">HAL_TIM_OC_DelayElapsedCallback()</a>, <a class="el" href="main_8c_source.html#l00690">HAL_TIM_PeriodElapsedCallback()</a>, <a class="el" href="stm32f1xx__hal__tim_8c_source.html#l05731">HAL_TIM_PWM_PulseFinishedCallback()</a>, <a class="el" href="stm32f1xx__hal__tim_8c_source.html#l05761">HAL_TIM_TriggerCallback()</a>, <a class="el" href="stm32f1xx__hal__tim__ex_8c_source.html#l02125">HAL_TIMEx_BreakCallback()</a>, <a class="el" href="stm32f1xx__hal__tim__ex_8c_source.html#l02096">HAL_TIMEx_CommutCallback()</a>, <a class="el" href="stm32f1xx__hal__tim_8h_source.html#l00340">TIM_HandleTypeDef::Instance</a>, <a class="el" href="stm32f103xb_8h_source.html#l00482">TIM_TypeDef::SR</a>, <a class="el" href="stm32f103xb_8h_source.html#l04041">TIM_CCMR1_CC1S</a>, <a class="el" href="stm32f103xb_8h_source.html#l04065">TIM_CCMR1_CC2S</a>, <a class="el" href="stm32f103xb_8h_source.html#l04120">TIM_CCMR2_CC3S</a>, <a class="el" href="stm32f103xb_8h_source.html#l04144">TIM_CCMR2_CC4S</a>, <a class="el" href="stm32f1xx__hal__tim_8h_source.html#l00726">TIM_FLAG_BREAK</a>, <a class="el" href="stm32f1xx__hal__tim_8h_source.html#l00720">TIM_FLAG_CC1</a>, <a class="el" href="stm32f1xx__hal__tim_8h_source.html#l00721">TIM_FLAG_CC2</a>, <a class="el" href="stm32f1xx__hal__tim_8h_source.html#l00722">TIM_FLAG_CC3</a>, <a class="el" href="stm32f1xx__hal__tim_8h_source.html#l00723">TIM_FLAG_CC4</a>, <a class="el" href="stm32f1xx__hal__tim_8h_source.html#l00724">TIM_FLAG_COM</a>, <a class="el" href="stm32f1xx__hal__tim_8h_source.html#l00725">TIM_FLAG_TRIGGER</a>, <a class="el" href="stm32f1xx__hal__tim_8h_source.html#l00719">TIM_FLAG_UPDATE</a>, <a class="el" href="stm32f1xx__hal__tim_8h_source.html#l00679">TIM_IT_BREAK</a>, <a class="el" href="stm32f1xx__hal__tim_8h_source.html#l00673">TIM_IT_CC1</a>, <a class="el" href="stm32f1xx__hal__tim_8h_source.html#l00674">TIM_IT_CC2</a>, <a class="el" href="stm32f1xx__hal__tim_8h_source.html#l00675">TIM_IT_CC3</a>, <a class="el" href="stm32f1xx__hal__tim_8h_source.html#l00676">TIM_IT_CC4</a>, <a class="el" href="stm32f1xx__hal__tim_8h_source.html#l00677">TIM_IT_COM</a>, <a class="el" href="stm32f1xx__hal__tim_8h_source.html#l00678">TIM_IT_TRIGGER</a> y <a class="el" href="stm32f1xx__hal__tim_8h_source.html#l00672">TIM_IT_UPDATE</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal__tim_8c_source.html#l03822">HAL_TIM_IRQHandler()</a>, <a class="el" href="stm32f1xx__it_8c_source.html#l00289">TIM1_BRK_IRQHandler()</a>, <a class="el" href="stm32f1xx__it_8c_source.html#l00331">TIM1_CC_IRQHandler()</a>, <a class="el" href="stm32f1xx__it_8c_source.html#l00317">TIM1_TRG_COM_IRQHandler()</a>, <a class="el" href="stm32f1xx__it_8c_source.html#l00303">TIM1_UP_IRQHandler()</a>, <a class="el" href="stm32f1xx__it_8c_source.html#l00345">TIM2_IRQHandler()</a>, <a class="el" href="stm32f1xx__it_8c_source.html#l00359">TIM3_IRQHandler()</a> y <a class="el" href="stm32f1xx__it_8c_source.html#l00373">TIM4_IRQHandler()</a>.</p>
+<div id="dynsection-1" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-1-summary" class="dynsummary">
+</div>
+<div id="dynsection-1-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___exported___functions___group7_ga2dc3ef34340412aa8a01d734d2ff8f88_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div id="dynsection-2" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-2-summary" class="dynsummary">
+</div>
+<div id="dynsection-2-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___t_i_m___exported___functions___group7_ga2dc3ef34340412aa8a01d734d2ff8f88_icgraph.svg" width="412" height="510"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generado el <span class="timestamp"></span> para MICRO-Firmware por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

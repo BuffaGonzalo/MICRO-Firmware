@@ -1,0 +1,566 @@
+\doxysubsection{Referencia del archivo uner\+Prtcl.\+c}
+\hypertarget{uner_prtcl_8c}{}\label{uner_prtcl_8c}\index{unerPrtcl.c@{unerPrtcl.c}}
+
+
+Implementación de las rutinas del protocolo binario UNER (uner\+Prtcl).  
+
+
+{\ttfamily \+\#include "{}util.\+h"{}}\newline
+{\ttfamily \+\#include $<$stdint.\+h$>$}\newline
+{\ttfamily \+\#include $<$uner\+Prtcl.\+h$>$}\newline
+{\ttfamily \+\#include "{}main.\+h"{}}\newline
+Gráfico de dependencias incluidas en uner\+Prtcl.\+c:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{uner_prtcl_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsubsection*{Funciones}
+\begin{DoxyCompactItemize}
+\item 
+uint8\+\_\+t \doxymbox{\hyperlink{uner_prtcl_8c_a5dc19a0d6be5a36353d8a8570c58345c}{uner\+Prtcl\+\_\+\+Decode\+Header}} (\doxymbox{\hyperlink{struct__s_comm}{\+\_\+s\+Comm}} \texorpdfstring{$\ast$}{*}data\+Rx)
+\begin{DoxyCompactList}\small\item\em Decodifica secuencialmente la cabecera y el payload de tramas entrantes. \end{DoxyCompactList}\item 
+uint8\+\_\+t \doxymbox{\hyperlink{uner_prtcl_8c_add444fe6464e23f221a183e912beff80}{uner\+Prtcl\+\_\+\+Get\+Byte\+From\+Rx}} (\doxymbox{\hyperlink{struct__s_comm}{\+\_\+s\+Comm}} \texorpdfstring{$\ast$}{*}data\+Rx, uint8\+\_\+t start, uint8\+\_\+t end)
+\begin{DoxyCompactList}\small\item\em Lee un byte del buffer de recepción aplicando índices de desplazamiento seguro. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{uner_prtcl_8c_aa8fac5dc4971170d30eea4293610ff6a}{uner\+Prtcl\+\_\+\+Init}} (\doxymbox{\hyperlink{struct__s_comm}{\+\_\+s\+Comm}} \texorpdfstring{$\ast$}{*}Rx, \doxymbox{\hyperlink{struct__s_comm}{\+\_\+s\+Comm}} \texorpdfstring{$\ast$}{*}Tx, volatile uint8\+\_\+t \texorpdfstring{$\ast$}{*}buff\+Rx, volatile uint8\+\_\+t \texorpdfstring{$\ast$}{*}buff\+Tx)
+\begin{DoxyCompactList}\small\item\em Inicializa los descriptores de buffer circular de comunicación. \end{DoxyCompactList}\item 
+uint8\+\_\+t \doxymbox{\hyperlink{uner_prtcl_8c_ae0795132a4bcbd1e1060607356565f44}{uner\+Prtcl\+\_\+\+Put\+Byte\+On\+Tx}} (\doxymbox{\hyperlink{struct__s_comm}{\+\_\+s\+Comm}} \texorpdfstring{$\ast$}{*}data\+Tx, uint8\+\_\+t byte)
+\begin{DoxyCompactList}\small\item\em Inserta un byte de datos en el buffer de transmisión y actualiza el Checksum. \end{DoxyCompactList}\item 
+uint8\+\_\+t \doxymbox{\hyperlink{uner_prtcl_8c_aa0410c21f4e99d450a536cb4b441cbd7}{uner\+Prtcl\+\_\+\+Put\+Header\+On\+Tx}} (\doxymbox{\hyperlink{struct__s_comm}{\+\_\+s\+Comm}} \texorpdfstring{$\ast$}{*}data\+Tx, uint8\+\_\+t ID, uint8\+\_\+t frame\+Length)
+\begin{DoxyCompactList}\small\item\em Escribe el encabezado estructurado del protocolo UNER en el buffer de transmisión. \end{DoxyCompactList}\item 
+uint8\+\_\+t \doxymbox{\hyperlink{uner_prtcl_8c_a2dcd5afe9599da1e067db58bfa362b0c}{uner\+Prtcl\+\_\+\+Put\+Str\+Ontx}} (\doxymbox{\hyperlink{struct__s_comm}{\+\_\+s\+Comm}} \texorpdfstring{$\ast$}{*}data\+Tx, const char \texorpdfstring{$\ast$}{*}str)
+\begin{DoxyCompactList}\small\item\em Inserta una cadena de texto en el buffer de salida hasta encontrar el terminador nulo. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Descripción detallada}
+Implementación de las rutinas del protocolo binario UNER (uner\+Prtcl). 
+
+\begin{DoxyAuthor}{Autor}
+Gonzalo M. Buffa 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Fecha}
+24/\+05/\+2025
+\end{DoxyDate}
+Este archivo contiene las funciones de serialización, cálculo de Checksum por XOR, gestión de punteros circulares e implementación de la máquina de estados finita para la detección y validación de tramas de telemetría y telemando. 
+
+Definición en el archivo \doxymbox{\hyperlink{uner_prtcl_8c_source}{uner\+Prtcl.\+c}}.
+
+
+
+\label{uner_prtcl_8c_doc-func-members}
+\Hypertarget{uner_prtcl_8c_doc-func-members}
+\doxysubsubsection{Documentación de funciones}
+\Hypertarget{uner_prtcl_8c_a5dc19a0d6be5a36353d8a8570c58345c}\index{unerPrtcl.c@{unerPrtcl.c}!unerPrtcl\_DecodeHeader@{unerPrtcl\_DecodeHeader}}
+\index{unerPrtcl\_DecodeHeader@{unerPrtcl\_DecodeHeader}!unerPrtcl.c@{unerPrtcl.c}}
+\doxyparagraph{\texorpdfstring{unerPrtcl\_DecodeHeader()}{unerPrtcl\_DecodeHeader()}}
+{\footnotesize\ttfamily \label{uner_prtcl_8c_a5dc19a0d6be5a36353d8a8570c58345c} 
+uint8\+\_\+t uner\+Prtcl\+\_\+\+Decode\+Header (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{struct__s_comm}{\+\_\+s\+Comm}} \texorpdfstring{$\ast$}{*}}]{data\+Rx}{}\end{DoxyParamCaption})}
+
+
+
+Decodifica secuencialmente la cabecera y el payload de tramas entrantes. 
+
+Ejecuta la máquina de estados de decodificación de cabeceras sobre los datos recibidos.
+
+Implementa una máquina de estados para detectar el preámbulo "{}\+UNER:\+"{}. Una vez localizado el delimitador \textquotesingle{}:\textquotesingle{}, extrae el payload restando bytes hasta llegar al último, el cual debe coincidir con el checksum acumulado.
+
+Decodifica secuencialmente la cabecera y el payload de tramas entrantes.
+
+Procesa los bytes acumulados entre {\ttfamily indexR} e {\ttfamily indexW}. Verifica el preámbulo "{}\+UNER:\+"{}, contabiliza los bytes recibidos y valida el Checksum al final del payload. 
+\begin{DoxyParams}[1]{Parámetros}
+\doxymbox{\texttt{in,out}}  & {\em data\+Rx} & Puntero a la estructura de recepción {\ttfamily \doxylink{struct__s_comm}{\+\_\+s\+Comm}}. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Valores devueltos}
+{\em \doxylink{util_8h_a48dec3f0bf02a2f3b11fb90ae0fc4d4caa82764c3079aea4e60c80e45befbb839}{TRUE}} & Trama completa y válida recibida con Checksum verificado. \\
+\hline
+{\em \doxylink{util_8h_a48dec3f0bf02a2f3b11fb90ae0fc4d4caa1e095cc966dbecf6a0d8aad75348d1a}{FALSE}} & Trama incompleta, datos en proceso o error de sincronización. \\
+\hline
+\end{DoxyRetVals}
+
+
+Definición en la línea \doxymbox{\hyperlink{uner_prtcl_8c_source_l00124}{124}} del archivo \doxymbox{\hyperlink{uner_prtcl_8c_source}{uner\+Prtcl.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00125\ \{}
+\DoxyCodeLine{00126\ \ \ \ \ uint8\_t\ auxIndex=dataRx-\/>\doxymbox{\hyperlink{struct__s_comm_a303b5083a43fafda1988383c867def58}{indexW}};}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \ \ \ \ \textcolor{comment}{//\ Procesar\ todos\ los\ bytes\ acumulados\ en\ el\ buffer\ circular}}
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{keywordflow}{while}(dataRx-\/>\doxymbox{\hyperlink{struct__s_comm_a8287f373ec66cbbd22abcb9ae2afbcc3}{indexR}}\ !=\ auxIndex)\{}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}(dataRx-\/>\doxymbox{\hyperlink{struct__s_comm_a0b3790f0861ce221123059be7fd3e213}{header}})}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Sincronismo\ 1:\ Detección\ de\ 'U'}}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{uner_prtcl_8h_ad21e16d74a232edf49d5d058f38cd1ddab7875c3491a47307d4661d3f6aeac81b}{HEADER\_U}}:}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(dataRx-\/>\doxymbox{\hyperlink{struct__s_comm_af98abf2aa4782e55090f0e45d1de6179}{buff}}[dataRx-\/>\doxymbox{\hyperlink{struct__s_comm_a8287f373ec66cbbd22abcb9ae2afbcc3}{indexR}}]\ ==\ \textcolor{charliteral}{'U'})\{}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dataRx-\/>\doxymbox{\hyperlink{struct__s_comm_a0b3790f0861ce221123059be7fd3e213}{header}}\ =\ \doxymbox{\hyperlink{uner_prtcl_8h_ad21e16d74a232edf49d5d058f38cd1ddac7830e832b05b02d669346ec772d5cee}{HEADER\_N}};}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Sincronismo\ 2:\ Detección\ de\ 'N'}}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{uner_prtcl_8h_ad21e16d74a232edf49d5d058f38cd1ddac7830e832b05b02d669346ec772d5cee}{HEADER\_N}}:}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(dataRx-\/>\doxymbox{\hyperlink{struct__s_comm_af98abf2aa4782e55090f0e45d1de6179}{buff}}[dataRx-\/>\doxymbox{\hyperlink{struct__s_comm_a8287f373ec66cbbd22abcb9ae2afbcc3}{indexR}}]\ ==\ \textcolor{charliteral}{'N'})\{}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dataRx-\/>\doxymbox{\hyperlink{struct__s_comm_a0b3790f0861ce221123059be7fd3e213}{header}}\ =\ \doxymbox{\hyperlink{uner_prtcl_8h_ad21e16d74a232edf49d5d058f38cd1dda8145203438c52dabc48cf15d4c339026}{HEADER\_E}};}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(dataRx-\/>\doxymbox{\hyperlink{struct__s_comm_af98abf2aa4782e55090f0e45d1de6179}{buff}}[dataRx-\/>\doxymbox{\hyperlink{struct__s_comm_a8287f373ec66cbbd22abcb9ae2afbcc3}{indexR}}]\ !=\ \textcolor{charliteral}{'U'})\{}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dataRx-\/>\doxymbox{\hyperlink{struct__s_comm_a0b3790f0861ce221123059be7fd3e213}{header}}\ =\ \doxymbox{\hyperlink{uner_prtcl_8h_ad21e16d74a232edf49d5d058f38cd1ddab7875c3491a47307d4661d3f6aeac81b}{HEADER\_U}};}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dataRx-\/>\doxymbox{\hyperlink{struct__s_comm_a8287f373ec66cbbd22abcb9ae2afbcc3}{indexR}}-\/-\/;\ \textcolor{comment}{//\ Retroceder\ para\ no\ perder\ una\ 'U'\ contigua}}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Sincronismo\ 3:\ Detección\ de\ 'E'}}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{uner_prtcl_8h_ad21e16d74a232edf49d5d058f38cd1dda8145203438c52dabc48cf15d4c339026}{HEADER\_E}}:}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(dataRx-\/>\doxymbox{\hyperlink{struct__s_comm_af98abf2aa4782e55090f0e45d1de6179}{buff}}[dataRx-\/>\doxymbox{\hyperlink{struct__s_comm_a8287f373ec66cbbd22abcb9ae2afbcc3}{indexR}}]\ ==\ \textcolor{charliteral}{'E'})\{}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dataRx-\/>\doxymbox{\hyperlink{struct__s_comm_a0b3790f0861ce221123059be7fd3e213}{header}}\ =\ \doxymbox{\hyperlink{uner_prtcl_8h_ad21e16d74a232edf49d5d058f38cd1ddade6c7efad424d5710e780ae5258b9b0a}{HEADER\_R}};}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dataRx-\/>\doxymbox{\hyperlink{struct__s_comm_a0b3790f0861ce221123059be7fd3e213}{header}}\ =\ \doxymbox{\hyperlink{uner_prtcl_8h_ad21e16d74a232edf49d5d058f38cd1ddab7875c3491a47307d4661d3f6aeac81b}{HEADER\_U}};}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dataRx-\/>\doxymbox{\hyperlink{struct__s_comm_a8287f373ec66cbbd22abcb9ae2afbcc3}{indexR}}-\/-\/;}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Sincronismo\ 4:\ Detección\ de\ 'R'}}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{uner_prtcl_8h_ad21e16d74a232edf49d5d058f38cd1ddade6c7efad424d5710e780ae5258b9b0a}{HEADER\_R}}:}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(dataRx-\/>\doxymbox{\hyperlink{struct__s_comm_af98abf2aa4782e55090f0e45d1de6179}{buff}}[dataRx-\/>\doxymbox{\hyperlink{struct__s_comm_a8287f373ec66cbbd22abcb9ae2afbcc3}{indexR}}]\ ==\ \textcolor{charliteral}{'R'})\{}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dataRx-\/>\doxymbox{\hyperlink{struct__s_comm_a0b3790f0861ce221123059be7fd3e213}{header}}\ =\ \doxymbox{\hyperlink{uner_prtcl_8h_ad21e16d74a232edf49d5d058f38cd1ddab17ae6afccbbc8f8efc251eb72cfcf53}{NBYTES}};}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dataRx-\/>\doxymbox{\hyperlink{struct__s_comm_a0b3790f0861ce221123059be7fd3e213}{header}}\ =\ \doxymbox{\hyperlink{uner_prtcl_8h_ad21e16d74a232edf49d5d058f38cd1ddab7875c3491a47307d4661d3f6aeac81b}{HEADER\_U}};}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dataRx-\/>\doxymbox{\hyperlink{struct__s_comm_a8287f373ec66cbbd22abcb9ae2afbcc3}{indexR}}-\/-\/;}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Lectura\ de\ la\ cantidad\ de\ bytes\ que\ componen\ el\ paquete}}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{uner_prtcl_8h_ad21e16d74a232edf49d5d058f38cd1ddab17ae6afccbbc8f8efc251eb72cfcf53}{NBYTES}}:}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dataRx-\/>\doxymbox{\hyperlink{struct__s_comm_a355bb36a4ee2e19b8328e3be50f5ca13}{nBytes}}=dataRx-\/>\doxymbox{\hyperlink{struct__s_comm_af98abf2aa4782e55090f0e45d1de6179}{buff}}[dataRx-\/>\doxymbox{\hyperlink{struct__s_comm_a8287f373ec66cbbd22abcb9ae2afbcc3}{indexR}}];}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dataRx-\/>\doxymbox{\hyperlink{struct__s_comm_a0b3790f0861ce221123059be7fd3e213}{header}}\ =\ \doxymbox{\hyperlink{uner_prtcl_8h_ad21e16d74a232edf49d5d058f38cd1dda07fe54e18c187cac6548db45a3f3676a}{TOKEN}};}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Delimitador\ de\ inicio\ de\ comando\ ':'}}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{uner_prtcl_8h_ad21e16d74a232edf49d5d058f38cd1dda07fe54e18c187cac6548db45a3f3676a}{TOKEN}}:}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(dataRx-\/>\doxymbox{\hyperlink{struct__s_comm_af98abf2aa4782e55090f0e45d1de6179}{buff}}[dataRx-\/>\doxymbox{\hyperlink{struct__s_comm_a8287f373ec66cbbd22abcb9ae2afbcc3}{indexR}}]\ ==\ \textcolor{charliteral}{':'})\{}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dataRx-\/>\doxymbox{\hyperlink{struct__s_comm_a0b3790f0861ce221123059be7fd3e213}{header}}\ =\ \doxymbox{\hyperlink{uner_prtcl_8h_ad21e16d74a232edf49d5d058f38cd1dda14aa1c5c4852ea2d61eef4d73772ea65}{PAYLOAD}};}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dataRx-\/>\doxymbox{\hyperlink{struct__s_comm_a993748510567de672c1fdb4ac6a7aa62}{indexData}}\ =\ dataRx-\/>\doxymbox{\hyperlink{struct__s_comm_a8287f373ec66cbbd22abcb9ae2afbcc3}{indexR}}+1;}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dataRx-\/>\doxymbox{\hyperlink{struct__s_comm_a993748510567de672c1fdb4ac6a7aa62}{indexData}}\ \&=\ dataRx-\/>\doxymbox{\hyperlink{struct__s_comm_a00384445982ef80bdf9d72b66967315c}{mask}};}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Inicializar\ acumulador\ de\ Checksum\ con\ el\ preámbulo\ validado}}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dataRx-\/>\doxymbox{\hyperlink{struct__s_comm_a57b30fb527a77eb5fd483e7ed8afd31f}{chk}}\ =\ 0;}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dataRx-\/>\doxymbox{\hyperlink{struct__s_comm_a57b30fb527a77eb5fd483e7ed8afd31f}{chk}}\ \string^=\ (\textcolor{charliteral}{'U'}\ \string^\textcolor{charliteral}{'N'}\ \string^\textcolor{charliteral}{'E'}\ \string^\textcolor{charliteral}{'R'}\ \string^\ dataRx-\/>\doxymbox{\hyperlink{struct__s_comm_a355bb36a4ee2e19b8328e3be50f5ca13}{nBytes}}\ \string^\textcolor{charliteral}{':'})\ ;}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dataRx-\/>\doxymbox{\hyperlink{struct__s_comm_a0b3790f0861ce221123059be7fd3e213}{header}}\ =\ \doxymbox{\hyperlink{uner_prtcl_8h_ad21e16d74a232edf49d5d058f38cd1ddab7875c3491a47307d4661d3f6aeac81b}{HEADER\_U}};}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dataRx-\/>\doxymbox{\hyperlink{struct__s_comm_a8287f373ec66cbbd22abcb9ae2afbcc3}{indexR}}-\/-\/;}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Recepción\ del\ payload\ y\ validación\ de\ Checksum\ final}}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \doxymbox{\hyperlink{uner_prtcl_8h_ad21e16d74a232edf49d5d058f38cd1dda14aa1c5c4852ea2d61eef4d73772ea65}{PAYLOAD}}:}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dataRx-\/>\doxymbox{\hyperlink{struct__s_comm_a355bb36a4ee2e19b8328e3be50f5ca13}{nBytes}}-\/-\/;}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(dataRx-\/>\doxymbox{\hyperlink{struct__s_comm_a355bb36a4ee2e19b8328e3be50f5ca13}{nBytes}}>0)\{}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dataRx-\/>\doxymbox{\hyperlink{struct__s_comm_a57b30fb527a77eb5fd483e7ed8afd31f}{chk}}\ \string^=\ dataRx-\/>\doxymbox{\hyperlink{struct__s_comm_af98abf2aa4782e55090f0e45d1de6179}{buff}}[dataRx-\/>\doxymbox{\hyperlink{struct__s_comm_a8287f373ec66cbbd22abcb9ae2afbcc3}{indexR}}];}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dataRx-\/>\doxymbox{\hyperlink{struct__s_comm_a0b3790f0861ce221123059be7fd3e213}{header}}\ =\ \doxymbox{\hyperlink{uner_prtcl_8h_ad21e16d74a232edf49d5d058f38cd1ddab7875c3491a47307d4661d3f6aeac81b}{HEADER\_U}};}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Comprobación\ de\ integridad}}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(dataRx-\/>\doxymbox{\hyperlink{struct__s_comm_af98abf2aa4782e55090f0e45d1de6179}{buff}}[dataRx-\/>\doxymbox{\hyperlink{struct__s_comm_a8287f373ec66cbbd22abcb9ae2afbcc3}{indexR}}]\ ==\ dataRx-\/>\doxymbox{\hyperlink{struct__s_comm_a57b30fb527a77eb5fd483e7ed8afd31f}{chk}})}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{util_8h_a48dec3f0bf02a2f3b11fb90ae0fc4d4caa82764c3079aea4e60c80e45befbb839}{TRUE}};\ \textcolor{comment}{//\ Trama\ completa\ y\ válida}}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dataRx-\/>\doxymbox{\hyperlink{struct__s_comm_a0b3790f0861ce221123059be7fd3e213}{header}}\ =\ \doxymbox{\hyperlink{uner_prtcl_8h_ad21e16d74a232edf49d5d058f38cd1ddab7875c3491a47307d4661d3f6aeac81b}{HEADER\_U}};}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ dataRx-\/>\doxymbox{\hyperlink{struct__s_comm_a8287f373ec66cbbd22abcb9ae2afbcc3}{indexR}}++;}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ dataRx-\/>\doxymbox{\hyperlink{struct__s_comm_a8287f373ec66cbbd22abcb9ae2afbcc3}{indexR}}\ \&=\ dataRx-\/>\doxymbox{\hyperlink{struct__s_comm_a00384445982ef80bdf9d72b66967315c}{mask}};}
+\DoxyCodeLine{00204\ \ \ \ \ \}}
+\DoxyCodeLine{00205\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{util_8h_a48dec3f0bf02a2f3b11fb90ae0fc4d4caa1e095cc966dbecf6a0d8aad75348d1a}{FALSE}};\ \textcolor{comment}{//\ Trama\ incompleta}}
+\DoxyCodeLine{00206\ \}}
+
+\end{DoxyCode}
+
+
+Hace referencia a \doxymbox{\hyperlink{uner_prtcl_8h_source_l00047}{\+\_\+s\+Comm::\+buff}}, \doxymbox{\hyperlink{uner_prtcl_8h_source_l00052}{\+\_\+s\+Comm::\+chk}}, \doxymbox{\hyperlink{util_8h_source_l00022}{FALSE}}, \doxymbox{\hyperlink{uner_prtcl_8h_source_l00054}{\+\_\+s\+Comm::\+header}}, \doxymbox{\hyperlink{uner_prtcl_8h_source_l00065}{HEADER\+\_\+E}}, \doxymbox{\hyperlink{uner_prtcl_8h_source_l00064}{HEADER\+\_\+N}}, \doxymbox{\hyperlink{uner_prtcl_8h_source_l00066}{HEADER\+\_\+R}}, \doxymbox{\hyperlink{uner_prtcl_8h_source_l00063}{HEADER\+\_\+U}}, \doxymbox{\hyperlink{uner_prtcl_8h_source_l00050}{\+\_\+s\+Comm::\+index\+Data}}, \doxymbox{\hyperlink{uner_prtcl_8h_source_l00048}{\+\_\+s\+Comm::\+indexR}}, \doxymbox{\hyperlink{uner_prtcl_8h_source_l00049}{\+\_\+s\+Comm::\+indexW}}, \doxymbox{\hyperlink{uner_prtcl_8h_source_l00051}{\+\_\+s\+Comm::\+mask}}, \doxymbox{\hyperlink{uner_prtcl_8h_source_l00067}{NBYTES}}, \doxymbox{\hyperlink{uner_prtcl_8h_source_l00053}{\+\_\+s\+Comm::\+n\+Bytes}}, \doxymbox{\hyperlink{uner_prtcl_8h_source_l00070}{PAYLOAD}}, \doxymbox{\hyperlink{uner_prtcl_8h_source_l00068}{TOKEN}}, \doxymbox{\hyperlink{util_8h_source_l00023}{TRUE}} y \doxymbox{\hyperlink{uner_prtcl_8c_source_l00124}{uner\+Prtcl\+\_\+\+Decode\+Header()}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{main_8c_source_l00737}{COMMTask()}} y \doxymbox{\hyperlink{uner_prtcl_8c_source_l00124}{uner\+Prtcl\+\_\+\+Decode\+Header()}}.
+
+Gráfico de llamadas de esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=206pt]{uner_prtcl_8c_a5dc19a0d6be5a36353d8a8570c58345c_cgraph}
+\end{center}
+\end{figure}
+Gráfico de llamadas a esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{uner_prtcl_8c_a5dc19a0d6be5a36353d8a8570c58345c_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{uner_prtcl_8c_add444fe6464e23f221a183e912beff80}\index{unerPrtcl.c@{unerPrtcl.c}!unerPrtcl\_GetByteFromRx@{unerPrtcl\_GetByteFromRx}}
+\index{unerPrtcl\_GetByteFromRx@{unerPrtcl\_GetByteFromRx}!unerPrtcl.c@{unerPrtcl.c}}
+\doxyparagraph{\texorpdfstring{unerPrtcl\_GetByteFromRx()}{unerPrtcl\_GetByteFromRx()}}
+{\footnotesize\ttfamily \label{uner_prtcl_8c_add444fe6464e23f221a183e912beff80} 
+uint8\+\_\+t uner\+Prtcl\+\_\+\+Get\+Byte\+From\+Rx (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{struct__s_comm}{\+\_\+s\+Comm}} \texorpdfstring{$\ast$}{*}}]{data\+Rx}{, }\item[{uint8\+\_\+t}]{start}{, }\item[{uint8\+\_\+t}]{end}{}\end{DoxyParamCaption})}
+
+
+
+Lee un byte del buffer de recepción aplicando índices de desplazamiento seguro. 
+
+Extrae un byte del buffer de recepción aplicando offsets relativos a la posición de datos.
+
+Lee un byte del buffer de recepción aplicando índices de desplazamiento seguro.
+
+
+\begin{DoxyParams}[1]{Parámetros}
+\doxymbox{\texttt{in,out}}  & {\em data\+Rx} & Puntero a la estructura de recepción {\ttfamily \doxylink{struct__s_comm}{\+\_\+s\+Comm}}. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em start} & Desplazamiento inicial a sumar sobre {\ttfamily index\+Data} antes de la lectura. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em end} & Desplazamiento adicional a sumar sobre {\ttfamily index\+Data} tras la lectura. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Devuelve}
+Valor del byte leído en la posición indexada resultante. 
+\end{DoxyReturn}
+
+
+Definición en la línea \doxymbox{\hyperlink{uner_prtcl_8c_source_l00108}{108}} del archivo \doxymbox{\hyperlink{uner_prtcl_8c_source}{uner\+Prtcl.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00109\ \ \ \ \ uint8\_t\ getByte;}
+\DoxyCodeLine{00110\ \ \ \ \ dataRx-\/>\doxymbox{\hyperlink{struct__s_comm_a993748510567de672c1fdb4ac6a7aa62}{indexData}}\ +=\ start;}
+\DoxyCodeLine{00111\ \ \ \ \ dataRx-\/>\doxymbox{\hyperlink{struct__s_comm_a993748510567de672c1fdb4ac6a7aa62}{indexData}}\ \&=\ dataRx-\/>\doxymbox{\hyperlink{struct__s_comm_a00384445982ef80bdf9d72b66967315c}{mask}};}
+\DoxyCodeLine{00112\ \ \ \ \ getByte\ =\ dataRx-\/>\doxymbox{\hyperlink{struct__s_comm_af98abf2aa4782e55090f0e45d1de6179}{buff}}[dataRx-\/>\doxymbox{\hyperlink{struct__s_comm_a993748510567de672c1fdb4ac6a7aa62}{indexData}}];}
+\DoxyCodeLine{00113\ \ \ \ \ dataRx-\/>\doxymbox{\hyperlink{struct__s_comm_a993748510567de672c1fdb4ac6a7aa62}{indexData}}\ +=\ end;}
+\DoxyCodeLine{00114\ \ \ \ \ dataRx-\/>\doxymbox{\hyperlink{struct__s_comm_a993748510567de672c1fdb4ac6a7aa62}{indexData}}\ \&=\ dataRx-\/>\doxymbox{\hyperlink{struct__s_comm_a00384445982ef80bdf9d72b66967315c}{mask}};}
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keywordflow}{return}\ getByte;}
+\DoxyCodeLine{00116\ \}}
+
+\end{DoxyCode}
+
+
+Hace referencia a \doxymbox{\hyperlink{uner_prtcl_8h_source_l00047}{\+\_\+s\+Comm::\+buff}}, \doxymbox{\hyperlink{uner_prtcl_8h_source_l00050}{\+\_\+s\+Comm::\+index\+Data}}, \doxymbox{\hyperlink{uner_prtcl_8h_source_l00051}{\+\_\+s\+Comm::\+mask}} y \doxymbox{\hyperlink{uner_prtcl_8c_source_l00108}{uner\+Prtcl\+\_\+\+Get\+Byte\+From\+Rx()}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{main_8c_source_l00890}{decode\+Command()}} y \doxymbox{\hyperlink{uner_prtcl_8c_source_l00108}{uner\+Prtcl\+\_\+\+Get\+Byte\+From\+Rx()}}.
+
+Gráfico de llamadas de esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=212pt]{uner_prtcl_8c_add444fe6464e23f221a183e912beff80_cgraph}
+\end{center}
+\end{figure}
+Gráfico de llamadas a esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{uner_prtcl_8c_add444fe6464e23f221a183e912beff80_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{uner_prtcl_8c_aa8fac5dc4971170d30eea4293610ff6a}\index{unerPrtcl.c@{unerPrtcl.c}!unerPrtcl\_Init@{unerPrtcl\_Init}}
+\index{unerPrtcl\_Init@{unerPrtcl\_Init}!unerPrtcl.c@{unerPrtcl.c}}
+\doxyparagraph{\texorpdfstring{unerPrtcl\_Init()}{unerPrtcl\_Init()}}
+{\footnotesize\ttfamily \label{uner_prtcl_8c_aa8fac5dc4971170d30eea4293610ff6a} 
+void uner\+Prtcl\+\_\+\+Init (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{struct__s_comm}{\+\_\+s\+Comm}} \texorpdfstring{$\ast$}{*}}]{Rx}{, }\item[{\doxymbox{\hyperlink{struct__s_comm}{\+\_\+s\+Comm}} \texorpdfstring{$\ast$}{*}}]{Tx}{, }\item[{volatile uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{buff\+Rx}{, }\item[{volatile uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{buff\+Tx}{}\end{DoxyParamCaption})}
+
+
+
+Inicializa los descriptores de buffer circular de comunicación. 
+
+Inicializa las estructuras de comunicación circular para transmisión y recepción.
+
+Asigna los arrays de memoria física, resetea índices de lectura/\+escritura a cero y calcula la máscara de truncamiento circular {\ttfamily (BUFFER\+\_\+\+SIZE -\/ 1)}.
+
+Inicializa los descriptores de buffer circular de comunicación.
+
+
+\begin{DoxyParams}[1]{Parámetros}
+\doxymbox{\texttt{in,out}}  & {\em Rx} & Puntero a la estructura de recepción {\ttfamily \doxylink{struct__s_comm}{\+\_\+s\+Comm}}. \\
+\hline
+\doxymbox{\texttt{in,out}}  & {\em Tx} & Puntero a la estructura de transmisión {\ttfamily \doxylink{struct__s_comm}{\+\_\+s\+Comm}}. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em buff\+Rx} & Array de memoria física para el buffer de recepción. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em buff\+Tx} & Array de memoria física para el buffer de transmisión. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Nota}
+Los tamaños de los buffers deben coincidir con las macros {\ttfamily \doxylink{group___protocol___config_ga4a941b75a2cf56698a1e769d8214fd50}{RXBUFSIZE}} y {\ttfamily \doxylink{group___protocol___config_ga9a01f28179d1f97c65ac28919f6f1cdb}{TXBUFSIZE}}. 
+\end{DoxyNote}
+\texorpdfstring{$<$}{<} Capacidad en bytes del buffer circular de recepción (debe ser potencia de 2)
+
+\texorpdfstring{$<$}{<} Capacidad en bytes del buffer circular de transmisión (debe ser potencia de 2)
+
+Definición en la línea \doxymbox{\hyperlink{uner_prtcl_8c_source_l00022}{22}} del archivo \doxymbox{\hyperlink{uner_prtcl_8c_source}{uner\+Prtcl.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00023\ \ \ \ \ Rx-\/>\doxymbox{\hyperlink{struct__s_comm_af98abf2aa4782e55090f0e45d1de6179}{buff}}\ =\ (uint8\_t\ *)buffRx;}
+\DoxyCodeLine{00024\ \ \ \ \ Rx-\/>\doxymbox{\hyperlink{struct__s_comm_a8287f373ec66cbbd22abcb9ae2afbcc3}{indexR}}\ =\ 0;}
+\DoxyCodeLine{00025\ \ \ \ \ Rx-\/>\doxymbox{\hyperlink{struct__s_comm_a303b5083a43fafda1988383c867def58}{indexW}}\ =\ 0;}
+\DoxyCodeLine{00026\ \ \ \ \ Rx-\/>\doxymbox{\hyperlink{struct__s_comm_a993748510567de672c1fdb4ac6a7aa62}{indexData}}\ =\ 0;}
+\DoxyCodeLine{00027\ \ \ \ \ Rx-\/>\doxymbox{\hyperlink{struct__s_comm_a355bb36a4ee2e19b8328e3be50f5ca13}{nBytes}}\ =\ 0;}
+\DoxyCodeLine{00028\ \ \ \ \ Rx-\/>\doxymbox{\hyperlink{struct__s_comm_a0b3790f0861ce221123059be7fd3e213}{header}}\ =\ \doxymbox{\hyperlink{uner_prtcl_8h_ad21e16d74a232edf49d5d058f38cd1ddab7875c3491a47307d4661d3f6aeac81b}{HEADER\_U}};}
+\DoxyCodeLine{00029\ \ \ \ \ Rx-\/>\doxymbox{\hyperlink{struct__s_comm_a00384445982ef80bdf9d72b66967315c}{mask}}\ =\ \doxymbox{\hyperlink{group___protocol___config_ga4a941b75a2cf56698a1e769d8214fd50}{RXBUFSIZE}}\ -\/\ 1;\ \textcolor{comment}{//\ Control\ de\ buffer\ circular\ por\ máscara\ bit\ a\ bit\ (2\string^N\ -\/\ 1)}}
+\DoxyCodeLine{00030\ \ \ \ \ Rx-\/>\doxymbox{\hyperlink{struct__s_comm_a57b30fb527a77eb5fd483e7ed8afd31f}{chk}}\ =\ 0;}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \ \ Tx-\/>\doxymbox{\hyperlink{struct__s_comm_af98abf2aa4782e55090f0e45d1de6179}{buff}}\ =\ (uint8\_t\ *)buffTx;}
+\DoxyCodeLine{00033\ \ \ \ \ Tx-\/>\doxymbox{\hyperlink{struct__s_comm_a8287f373ec66cbbd22abcb9ae2afbcc3}{indexR}}\ =\ 0;}
+\DoxyCodeLine{00034\ \ \ \ \ Tx-\/>\doxymbox{\hyperlink{struct__s_comm_a303b5083a43fafda1988383c867def58}{indexW}}\ =\ 0;}
+\DoxyCodeLine{00035\ \ \ \ \ Tx-\/>\doxymbox{\hyperlink{struct__s_comm_a993748510567de672c1fdb4ac6a7aa62}{indexData}}\ =\ 0;}
+\DoxyCodeLine{00036\ \ \ \ \ Tx-\/>\doxymbox{\hyperlink{struct__s_comm_a355bb36a4ee2e19b8328e3be50f5ca13}{nBytes}}\ =\ 0;}
+\DoxyCodeLine{00037\ \ \ \ \ Tx-\/>\doxymbox{\hyperlink{struct__s_comm_a0b3790f0861ce221123059be7fd3e213}{header}}\ =\ \doxymbox{\hyperlink{uner_prtcl_8h_ad21e16d74a232edf49d5d058f38cd1ddab7875c3491a47307d4661d3f6aeac81b}{HEADER\_U}};}
+\DoxyCodeLine{00038\ \ \ \ \ Tx-\/>\doxymbox{\hyperlink{struct__s_comm_a00384445982ef80bdf9d72b66967315c}{mask}}\ =\ \doxymbox{\hyperlink{group___protocol___config_ga9a01f28179d1f97c65ac28919f6f1cdb}{TXBUFSIZE}}\ -\/\ 1;}
+\DoxyCodeLine{00039\ \ \ \ \ Tx-\/>\doxymbox{\hyperlink{struct__s_comm_a57b30fb527a77eb5fd483e7ed8afd31f}{chk}}\ =\ 0;}
+\DoxyCodeLine{00040\ \}}
+
+\end{DoxyCode}
+
+
+Hace referencia a \doxymbox{\hyperlink{uner_prtcl_8h_source_l00047}{\+\_\+s\+Comm::\+buff}}, \doxymbox{\hyperlink{uner_prtcl_8h_source_l00052}{\+\_\+s\+Comm::\+chk}}, \doxymbox{\hyperlink{uner_prtcl_8h_source_l00054}{\+\_\+s\+Comm::\+header}}, \doxymbox{\hyperlink{uner_prtcl_8h_source_l00063}{HEADER\+\_\+U}}, \doxymbox{\hyperlink{uner_prtcl_8h_source_l00050}{\+\_\+s\+Comm::\+index\+Data}}, \doxymbox{\hyperlink{uner_prtcl_8h_source_l00048}{\+\_\+s\+Comm::\+indexR}}, \doxymbox{\hyperlink{uner_prtcl_8h_source_l00049}{\+\_\+s\+Comm::\+indexW}}, \doxymbox{\hyperlink{uner_prtcl_8h_source_l00051}{\+\_\+s\+Comm::\+mask}}, \doxymbox{\hyperlink{uner_prtcl_8h_source_l00053}{\+\_\+s\+Comm::\+n\+Bytes}}, \doxymbox{\hyperlink{uner_prtcl_8h_source_l00022}{RXBUFSIZE}}, \doxymbox{\hyperlink{uner_prtcl_8h_source_l00023}{TXBUFSIZE}} y \doxymbox{\hyperlink{uner_prtcl_8c_source_l00022}{uner\+Prtcl\+\_\+\+Init()}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{main_8c_source_l03056}{main()}} y \doxymbox{\hyperlink{uner_prtcl_8c_source_l00022}{uner\+Prtcl\+\_\+\+Init()}}.
+
+Gráfico de llamadas de esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=154pt]{uner_prtcl_8c_aa8fac5dc4971170d30eea4293610ff6a_cgraph}
+\end{center}
+\end{figure}
+Gráfico de llamadas a esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=227pt]{uner_prtcl_8c_aa8fac5dc4971170d30eea4293610ff6a_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{uner_prtcl_8c_ae0795132a4bcbd1e1060607356565f44}\index{unerPrtcl.c@{unerPrtcl.c}!unerPrtcl\_PutByteOnTx@{unerPrtcl\_PutByteOnTx}}
+\index{unerPrtcl\_PutByteOnTx@{unerPrtcl\_PutByteOnTx}!unerPrtcl.c@{unerPrtcl.c}}
+\doxyparagraph{\texorpdfstring{unerPrtcl\_PutByteOnTx()}{unerPrtcl\_PutByteOnTx()}}
+{\footnotesize\ttfamily \label{uner_prtcl_8c_ae0795132a4bcbd1e1060607356565f44} 
+uint8\+\_\+t uner\+Prtcl\+\_\+\+Put\+Byte\+On\+Tx (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{struct__s_comm}{\+\_\+s\+Comm}} \texorpdfstring{$\ast$}{*}}]{data\+Tx}{, }\item[{uint8\+\_\+t}]{byte}{}\end{DoxyParamCaption})}
+
+
+
+Inserta un byte de datos en el buffer de transmisión y actualiza el Checksum. 
+
+Inserta un único byte en el buffer circular de transmisión y actualiza el Checksum.
+
+Inserta un byte de datos en el buffer de transmisión y actualiza el Checksum.
+
+
+\begin{DoxyParams}[1]{Parámetros}
+\doxymbox{\texttt{in,out}}  & {\em data\+Tx} & Puntero a la estructura de transmisión {\ttfamily \doxylink{struct__s_comm}{\+\_\+s\+Comm}}. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em byte} & Valor a encolar en el buffer de salida. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Devuelve}
+Checksum acumulado resultante tras la operación XOR. 
+\end{DoxyReturn}
+
+
+Definición en la línea \doxymbox{\hyperlink{uner_prtcl_8c_source_l00081}{81}} del archivo \doxymbox{\hyperlink{uner_prtcl_8c_source}{uner\+Prtcl.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00082\ \{}
+\DoxyCodeLine{00083\ \ \ \ \ dataTx-\/>\doxymbox{\hyperlink{struct__s_comm_a355bb36a4ee2e19b8328e3be50f5ca13}{nBytes}}++;}
+\DoxyCodeLine{00084\ \ \ \ \ dataTx-\/>\doxymbox{\hyperlink{struct__s_comm_af98abf2aa4782e55090f0e45d1de6179}{buff}}[dataTx-\/>\doxymbox{\hyperlink{struct__s_comm_a303b5083a43fafda1988383c867def58}{indexW}}++]=byte;}
+\DoxyCodeLine{00085\ \ \ \ \ dataTx-\/>\doxymbox{\hyperlink{struct__s_comm_a303b5083a43fafda1988383c867def58}{indexW}}\ \&=\ dataTx-\/>\doxymbox{\hyperlink{struct__s_comm_a00384445982ef80bdf9d72b66967315c}{mask}};}
+\DoxyCodeLine{00086\ \ \ \ \ dataTx-\/>\doxymbox{\hyperlink{struct__s_comm_a57b30fb527a77eb5fd483e7ed8afd31f}{chk}}\ \string^=\ byte;}
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keywordflow}{return}\ dataTx-\/>\doxymbox{\hyperlink{struct__s_comm_a57b30fb527a77eb5fd483e7ed8afd31f}{chk}};}
+\DoxyCodeLine{00088\ \}}
+
+\end{DoxyCode}
+
+
+Hace referencia a \doxymbox{\hyperlink{uner_prtcl_8h_source_l00047}{\+\_\+s\+Comm::\+buff}}, \doxymbox{\hyperlink{uner_prtcl_8h_source_l00052}{\+\_\+s\+Comm::\+chk}}, \doxymbox{\hyperlink{uner_prtcl_8h_source_l00049}{\+\_\+s\+Comm::\+indexW}}, \doxymbox{\hyperlink{uner_prtcl_8h_source_l00051}{\+\_\+s\+Comm::\+mask}}, \doxymbox{\hyperlink{uner_prtcl_8h_source_l00053}{\+\_\+s\+Comm::\+n\+Bytes}} y \doxymbox{\hyperlink{uner_prtcl_8c_source_l00081}{uner\+Prtcl\+\_\+\+Put\+Byte\+On\+Tx()}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{main_8c_source_l00890}{decode\+Command()}} y \doxymbox{\hyperlink{uner_prtcl_8c_source_l00081}{uner\+Prtcl\+\_\+\+Put\+Byte\+On\+Tx()}}.
+
+Gráfico de llamadas de esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=200pt]{uner_prtcl_8c_ae0795132a4bcbd1e1060607356565f44_cgraph}
+\end{center}
+\end{figure}
+Gráfico de llamadas a esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{uner_prtcl_8c_ae0795132a4bcbd1e1060607356565f44_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{uner_prtcl_8c_aa0410c21f4e99d450a536cb4b441cbd7}\index{unerPrtcl.c@{unerPrtcl.c}!unerPrtcl\_PutHeaderOnTx@{unerPrtcl\_PutHeaderOnTx}}
+\index{unerPrtcl\_PutHeaderOnTx@{unerPrtcl\_PutHeaderOnTx}!unerPrtcl.c@{unerPrtcl.c}}
+\doxyparagraph{\texorpdfstring{unerPrtcl\_PutHeaderOnTx()}{unerPrtcl\_PutHeaderOnTx()}}
+{\footnotesize\ttfamily \label{uner_prtcl_8c_aa0410c21f4e99d450a536cb4b441cbd7} 
+uint8\+\_\+t uner\+Prtcl\+\_\+\+Put\+Header\+On\+Tx (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{struct__s_comm}{\+\_\+s\+Comm}} \texorpdfstring{$\ast$}{*}}]{data\+Tx}{, }\item[{uint8\+\_\+t}]{ID}{, }\item[{uint8\+\_\+t}]{frame\+Length}{}\end{DoxyParamCaption})}
+
+
+
+Escribe el encabezado estructurado del protocolo UNER en el buffer de transmisión. 
+
+Escribe el encabezado estándar del protocolo UNER en el buffer de transmisión.
+
+Secuencia inyectada:
+\begin{DoxyEnumerate}
+\item Sync chars: \textquotesingle{}U\textquotesingle{}, \textquotesingle{}N\textquotesingle{}, \textquotesingle{}E\textquotesingle{}, \textquotesingle{}R\textquotesingle{}
+\item Longitud total: frame\+Length + 1
+\item Delimitador: \textquotesingle{}:\textquotesingle{}
+\item Identificador de comando: ID Calcula el Checksum preliminar mediante XOR acumulado sobre todos los campos.
+\end{DoxyEnumerate}
+
+Escribe el encabezado estructurado del protocolo UNER en el buffer de transmisión.
+
+Escribe la secuencia {\ttfamily \textquotesingle{}U\textquotesingle{}}, {\ttfamily \textquotesingle{}N\textquotesingle{}}, {\ttfamily \textquotesingle{}E\textquotesingle{}}, {\ttfamily \textquotesingle{}R\textquotesingle{}}, el campo de longitud ajustada, el carácter separador {\ttfamily \textquotesingle{}:\textquotesingle{}} y el identificador de comando {\ttfamily \doxylink{uner_prtcl_8h_ad21e16d74a232edf49d5d058f38cd1dda001479a58fb44c39a29b20d565081a68}{ID}}. Además, inicializa el cálculo de Checksum XOR de la trama. 
+\begin{DoxyParams}[1]{Parámetros}
+\doxymbox{\texttt{in,out}}  & {\em data\+Tx} & Puntero a la estructura de transmisión {\ttfamily \doxylink{struct__s_comm}{\+\_\+s\+Comm}}. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em ID} & Identificador del comando a despachar (definido en {\ttfamily \doxylink{util_8h_a914da92242d04381391fee2bb1c936df}{\+\_\+e\+Cmd}}). \\
+\hline
+\doxymbox{\texttt{in}}  & {\em frame\+Length} & Longitud de los datos que componen el payload. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Devuelve}
+Checksum XOR calculado hasta el byte de ID. 
+\end{DoxyReturn}
+\texorpdfstring{$<$}{<} Longitud base en bytes del encabezado estándar de transmisión ("{}\+UNER"{} + Len + \textquotesingle{}:\textquotesingle{} + ID)
+
+Definición en la línea \doxymbox{\hyperlink{uner_prtcl_8c_source_l00051}{51}} del archivo \doxymbox{\hyperlink{uner_prtcl_8c_source}{uner\+Prtcl.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00052\ \{}
+\DoxyCodeLine{00053\ \ \ \ \ frameLength++;}
+\DoxyCodeLine{00054\ \ \ \ \ dataTx-\/>\doxymbox{\hyperlink{struct__s_comm_a57b30fb527a77eb5fd483e7ed8afd31f}{chk}}\ =\ 0;}
+\DoxyCodeLine{00055\ \ \ \ \ dataTx-\/>\doxymbox{\hyperlink{struct__s_comm_a993748510567de672c1fdb4ac6a7aa62}{indexData}}\ =\ dataTx-\/>\doxymbox{\hyperlink{struct__s_comm_a303b5083a43fafda1988383c867def58}{indexW}};}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \ \ dataTx-\/>\doxymbox{\hyperlink{struct__s_comm_af98abf2aa4782e55090f0e45d1de6179}{buff}}[dataTx-\/>\doxymbox{\hyperlink{struct__s_comm_a303b5083a43fafda1988383c867def58}{indexW}}++]=\textcolor{charliteral}{'U'};}
+\DoxyCodeLine{00058\ \ \ \ \ dataTx-\/>\doxymbox{\hyperlink{struct__s_comm_a303b5083a43fafda1988383c867def58}{indexW}}\ \&=\ dataTx-\/>\doxymbox{\hyperlink{struct__s_comm_a00384445982ef80bdf9d72b66967315c}{mask}};}
+\DoxyCodeLine{00059\ \ \ \ \ dataTx-\/>\doxymbox{\hyperlink{struct__s_comm_af98abf2aa4782e55090f0e45d1de6179}{buff}}[dataTx-\/>\doxymbox{\hyperlink{struct__s_comm_a303b5083a43fafda1988383c867def58}{indexW}}++]=\textcolor{charliteral}{'N'};}
+\DoxyCodeLine{00060\ \ \ \ \ dataTx-\/>\doxymbox{\hyperlink{struct__s_comm_a303b5083a43fafda1988383c867def58}{indexW}}\ \&=\ dataTx-\/>\doxymbox{\hyperlink{struct__s_comm_a00384445982ef80bdf9d72b66967315c}{mask}};}
+\DoxyCodeLine{00061\ \ \ \ \ dataTx-\/>\doxymbox{\hyperlink{struct__s_comm_af98abf2aa4782e55090f0e45d1de6179}{buff}}[dataTx-\/>\doxymbox{\hyperlink{struct__s_comm_a303b5083a43fafda1988383c867def58}{indexW}}++]=\textcolor{charliteral}{'E'};}
+\DoxyCodeLine{00062\ \ \ \ \ dataTx-\/>\doxymbox{\hyperlink{struct__s_comm_a303b5083a43fafda1988383c867def58}{indexW}}\ \&=\ dataTx-\/>\doxymbox{\hyperlink{struct__s_comm_a00384445982ef80bdf9d72b66967315c}{mask}};}
+\DoxyCodeLine{00063\ \ \ \ \ dataTx-\/>\doxymbox{\hyperlink{struct__s_comm_af98abf2aa4782e55090f0e45d1de6179}{buff}}[dataTx-\/>\doxymbox{\hyperlink{struct__s_comm_a303b5083a43fafda1988383c867def58}{indexW}}++]=\textcolor{charliteral}{'R'};}
+\DoxyCodeLine{00064\ \ \ \ \ dataTx-\/>\doxymbox{\hyperlink{struct__s_comm_a303b5083a43fafda1988383c867def58}{indexW}}\ \&=\ dataTx-\/>\doxymbox{\hyperlink{struct__s_comm_a00384445982ef80bdf9d72b66967315c}{mask}};}
+\DoxyCodeLine{00065\ \ \ \ \ dataTx-\/>\doxymbox{\hyperlink{struct__s_comm_af98abf2aa4782e55090f0e45d1de6179}{buff}}[dataTx-\/>\doxymbox{\hyperlink{struct__s_comm_a303b5083a43fafda1988383c867def58}{indexW}}++]=frameLength;}
+\DoxyCodeLine{00066\ \ \ \ \ dataTx-\/>\doxymbox{\hyperlink{struct__s_comm_a303b5083a43fafda1988383c867def58}{indexW}}\ \&=\ dataTx-\/>\doxymbox{\hyperlink{struct__s_comm_a00384445982ef80bdf9d72b66967315c}{mask}};}
+\DoxyCodeLine{00067\ \ \ \ \ dataTx-\/>\doxymbox{\hyperlink{struct__s_comm_af98abf2aa4782e55090f0e45d1de6179}{buff}}[dataTx-\/>\doxymbox{\hyperlink{struct__s_comm_a303b5083a43fafda1988383c867def58}{indexW}}++]=\textcolor{charliteral}{':'};}
+\DoxyCodeLine{00068\ \ \ \ \ dataTx-\/>\doxymbox{\hyperlink{struct__s_comm_a303b5083a43fafda1988383c867def58}{indexW}}\ \&=\ dataTx-\/>\doxymbox{\hyperlink{struct__s_comm_a00384445982ef80bdf9d72b66967315c}{mask}};}
+\DoxyCodeLine{00069\ \ \ \ \ dataTx-\/>\doxymbox{\hyperlink{struct__s_comm_af98abf2aa4782e55090f0e45d1de6179}{buff}}[dataTx-\/>\doxymbox{\hyperlink{struct__s_comm_a303b5083a43fafda1988383c867def58}{indexW}}++]=\doxymbox{\hyperlink{uner_prtcl_8h_ad21e16d74a232edf49d5d058f38cd1dda001479a58fb44c39a29b20d565081a68}{ID}};}
+\DoxyCodeLine{00070\ \ \ \ \ dataTx-\/>\doxymbox{\hyperlink{struct__s_comm_a303b5083a43fafda1988383c867def58}{indexW}}\ \&=\ dataTx-\/>\doxymbox{\hyperlink{struct__s_comm_a00384445982ef80bdf9d72b66967315c}{mask}};}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \ \ dataTx-\/>\doxymbox{\hyperlink{struct__s_comm_a355bb36a4ee2e19b8328e3be50f5ca13}{nBytes}}\ =\ \doxymbox{\hyperlink{group___protocol___config_ga9f180f03f3cd38aadc9e61001ba8d872}{TXBYTES}};}
+\DoxyCodeLine{00073\ \ \ \ \ dataTx-\/>\doxymbox{\hyperlink{struct__s_comm_a57b30fb527a77eb5fd483e7ed8afd31f}{chk}}\ \string^=\ (\textcolor{charliteral}{'U'}\ \string^\textcolor{charliteral}{'N'}\ \string^\textcolor{charliteral}{'E'}\ \string^\textcolor{charliteral}{'R'}\ \string^frameLength\ \string^\textcolor{charliteral}{':'}\string^\doxymbox{\hyperlink{uner_prtcl_8h_ad21e16d74a232edf49d5d058f38cd1dda001479a58fb44c39a29b20d565081a68}{ID}})\ ;}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordflow}{return}\ \ dataTx-\/>\doxymbox{\hyperlink{struct__s_comm_a57b30fb527a77eb5fd483e7ed8afd31f}{chk}};}
+\DoxyCodeLine{00076\ \}}
+
+\end{DoxyCode}
+
+
+Hace referencia a \doxymbox{\hyperlink{uner_prtcl_8h_source_l00047}{\+\_\+s\+Comm::\+buff}}, \doxymbox{\hyperlink{uner_prtcl_8h_source_l00052}{\+\_\+s\+Comm::\+chk}}, \doxymbox{\hyperlink{uner_prtcl_8h_source_l00069}{ID}}, \doxymbox{\hyperlink{uner_prtcl_8h_source_l00050}{\+\_\+s\+Comm::\+index\+Data}}, \doxymbox{\hyperlink{uner_prtcl_8h_source_l00049}{\+\_\+s\+Comm::\+indexW}}, \doxymbox{\hyperlink{uner_prtcl_8h_source_l00051}{\+\_\+s\+Comm::\+mask}}, \doxymbox{\hyperlink{uner_prtcl_8h_source_l00053}{\+\_\+s\+Comm::\+n\+Bytes}}, \doxymbox{\hyperlink{uner_prtcl_8h_source_l00024}{TXBYTES}} y \doxymbox{\hyperlink{uner_prtcl_8c_source_l00051}{uner\+Prtcl\+\_\+\+Put\+Header\+On\+Tx()}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{main_8c_source_l00890}{decode\+Command()}} y \doxymbox{\hyperlink{uner_prtcl_8c_source_l00051}{uner\+Prtcl\+\_\+\+Put\+Header\+On\+Tx()}}.
+
+Gráfico de llamadas de esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=211pt]{uner_prtcl_8c_aa0410c21f4e99d450a536cb4b441cbd7_cgraph}
+\end{center}
+\end{figure}
+Gráfico de llamadas a esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{uner_prtcl_8c_aa0410c21f4e99d450a536cb4b441cbd7_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{uner_prtcl_8c_a2dcd5afe9599da1e067db58bfa362b0c}\index{unerPrtcl.c@{unerPrtcl.c}!unerPrtcl\_PutStrOntx@{unerPrtcl\_PutStrOntx}}
+\index{unerPrtcl\_PutStrOntx@{unerPrtcl\_PutStrOntx}!unerPrtcl.c@{unerPrtcl.c}}
+\doxyparagraph{\texorpdfstring{unerPrtcl\_PutStrOntx()}{unerPrtcl\_PutStrOntx()}}
+{\footnotesize\ttfamily \label{uner_prtcl_8c_a2dcd5afe9599da1e067db58bfa362b0c} 
+uint8\+\_\+t uner\+Prtcl\+\_\+\+Put\+Str\+Ontx (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{struct__s_comm}{\+\_\+s\+Comm}} \texorpdfstring{$\ast$}{*}}]{data\+Tx}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{str}{}\end{DoxyParamCaption})}
+
+
+
+Inserta una cadena de texto en el buffer de salida hasta encontrar el terminador nulo. 
+
+Inserta una cadena de caracteres terminada en nulo ({\ttfamily \textbackslash{}0}) en el buffer de transmisión.
+
+Inserta una cadena de texto en el buffer de salida hasta encontrar el terminador nulo.
+
+
+\begin{DoxyParams}[1]{Parámetros}
+\doxymbox{\texttt{in,out}}  & {\em data\+Tx} & Puntero a la estructura de transmisión {\ttfamily \doxylink{struct__s_comm}{\+\_\+s\+Comm}}. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em str} & Cadena de caracteres ASCII a transmitir. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Devuelve}
+Checksum acumulado resultante tras encolar la totalidad de la cadena. 
+\end{DoxyReturn}
+
+
+Definición en la línea \doxymbox{\hyperlink{uner_prtcl_8c_source_l00093}{93}} del archivo \doxymbox{\hyperlink{uner_prtcl_8c_source}{uner\+Prtcl.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00094\ \{}
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keyword}{volatile}\ uint8\_t\ globalIndex=0;}
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keywordflow}{while}(str[globalIndex])\{}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ dataTx-\/>\doxymbox{\hyperlink{struct__s_comm_a355bb36a4ee2e19b8328e3be50f5ca13}{nBytes}}++;}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ dataTx-\/>\doxymbox{\hyperlink{struct__s_comm_af98abf2aa4782e55090f0e45d1de6179}{buff}}[dataTx-\/>\doxymbox{\hyperlink{struct__s_comm_a303b5083a43fafda1988383c867def58}{indexW}}++]=str[globalIndex];}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ dataTx-\/>\doxymbox{\hyperlink{struct__s_comm_a303b5083a43fafda1988383c867def58}{indexW}}\ \&=\ dataTx-\/>\doxymbox{\hyperlink{struct__s_comm_a00384445982ef80bdf9d72b66967315c}{mask}};}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ dataTx-\/>\doxymbox{\hyperlink{struct__s_comm_a57b30fb527a77eb5fd483e7ed8afd31f}{chk}}\ \string^=\ str[globalIndex++];}
+\DoxyCodeLine{00101\ \ \ \ \ \}}
+\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keywordflow}{return}\ dataTx-\/>\doxymbox{\hyperlink{struct__s_comm_a57b30fb527a77eb5fd483e7ed8afd31f}{chk}};}
+\DoxyCodeLine{00103\ \}}
+
+\end{DoxyCode}
+
+
+Hace referencia a \doxymbox{\hyperlink{uner_prtcl_8h_source_l00047}{\+\_\+s\+Comm::\+buff}}, \doxymbox{\hyperlink{uner_prtcl_8h_source_l00052}{\+\_\+s\+Comm::\+chk}}, \doxymbox{\hyperlink{uner_prtcl_8h_source_l00049}{\+\_\+s\+Comm::\+indexW}}, \doxymbox{\hyperlink{uner_prtcl_8h_source_l00051}{\+\_\+s\+Comm::\+mask}}, \doxymbox{\hyperlink{uner_prtcl_8h_source_l00053}{\+\_\+s\+Comm::\+n\+Bytes}} y \doxymbox{\hyperlink{uner_prtcl_8c_source_l00093}{uner\+Prtcl\+\_\+\+Put\+Str\+Ontx()}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{main_8c_source_l00890}{decode\+Command()}} y \doxymbox{\hyperlink{uner_prtcl_8c_source_l00093}{uner\+Prtcl\+\_\+\+Put\+Str\+Ontx()}}.
+
+Gráfico de llamadas de esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=189pt]{uner_prtcl_8c_a2dcd5afe9599da1e067db58bfa362b0c_cgraph}
+\end{center}
+\end{figure}
+Gráfico de llamadas a esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{uner_prtcl_8c_a2dcd5afe9599da1e067db58bfa362b0c_icgraph}
+\end{center}
+\end{figure}

@@ -1,0 +1,641 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>MICRO-Firmware: USBD_IOREQ_Private_Functions</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="codefolding.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  extensions: ["tex2jax.js"],
+  jax: ["input/TeX","output/HTML-CSS"],
+});
+</script>
+<script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">MICRO-Firmware<span id="projectnumber">&#160;EX100923v01</span>
+   </div>
+   <div id="projectbrief">Firmware de Péndulo Invertido Autónomo de Dos Ruedas (STM32F103C8T6 - ARM Cortex-M3)</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Buscar" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('group___u_s_b_d___i_o_r_e_q___private___functions.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">USBD_IOREQ_Private_Functions <div class="ingroups"><a class="el" href="group___s_t_m32___u_s_b___d_e_v_i_c_e___l_i_b_r_a_r_y.html">STM32_USB_DEVICE_LIBRARY</a> &raquo; <a class="el" href="group___u_s_b_d___i_o_r_e_q.html">USBD_IOREQ</a></div></div></div>
+</div><!--header-->
+<div class="contents">
+<div id="dynsection-0" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Diagrama de colaboración de USBD_IOREQ_Private_Functions:</div>
+<div id="dynsection-0-summary" class="dynsummary">
+</div>
+<div id="dynsection-0-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___u_s_b_d___i_o_r_e_q___private___functions.svg" width="326" height="54"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Funciones</h2></td></tr>
+<tr class="memitem:gaf6cabd5a8d9d527cf6aa64915abb7f2b" id="r_gaf6cabd5a8d9d527cf6aa64915abb7f2b"><td class="memItemLeft"><a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#gaebc658c200e50399361e7901f0a57e95">USBD_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="#gaf6cabd5a8d9d527cf6aa64915abb7f2b">USBD_CtlContinueRx</a> (<a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ga08827834e2e564cea191282b65ce06f7">USBD_HandleTypeDef</a> *pdev, uint8_t *pbuf, uint16_t len)</td></tr>
+<tr class="memdesc:gaf6cabd5a8d9d527cf6aa64915abb7f2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">USBD_CtlContinueRx continue receive data on the ctl pipe.  <br /></td></tr>
+<tr class="memitem:gaf07248d84e87cdf14db392f94b369744" id="r_gaf07248d84e87cdf14db392f94b369744"><td class="memItemLeft"><a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#gaebc658c200e50399361e7901f0a57e95">USBD_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="#gaf07248d84e87cdf14db392f94b369744">USBD_CtlContinueSendData</a> (<a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ga08827834e2e564cea191282b65ce06f7">USBD_HandleTypeDef</a> *pdev, uint8_t *pbuf, uint16_t len)</td></tr>
+<tr class="memdesc:gaf07248d84e87cdf14db392f94b369744"><td class="mdescLeft">&#160;</td><td class="mdescRight">USBD_CtlContinueSendData continue sending data on the ctl pipe.  <br /></td></tr>
+<tr class="memitem:gabe067dfaa82139b6d3acf5f8cdd5fc91" id="r_gabe067dfaa82139b6d3acf5f8cdd5fc91"><td class="memItemLeft"><a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#gaebc658c200e50399361e7901f0a57e95">USBD_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="#gabe067dfaa82139b6d3acf5f8cdd5fc91">USBD_CtlPrepareRx</a> (<a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ga08827834e2e564cea191282b65ce06f7">USBD_HandleTypeDef</a> *pdev, uint8_t *pbuf, uint16_t len)</td></tr>
+<tr class="memdesc:gabe067dfaa82139b6d3acf5f8cdd5fc91"><td class="mdescLeft">&#160;</td><td class="mdescRight">USBD_CtlPrepareRx receive data on the ctl pipe.  <br /></td></tr>
+<tr class="memitem:gad5e847f89ca67a6b2154a72d0aa25e9a" id="r_gad5e847f89ca67a6b2154a72d0aa25e9a"><td class="memItemLeft"><a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#gaebc658c200e50399361e7901f0a57e95">USBD_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="#gad5e847f89ca67a6b2154a72d0aa25e9a">USBD_CtlReceiveStatus</a> (<a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ga08827834e2e564cea191282b65ce06f7">USBD_HandleTypeDef</a> *pdev)</td></tr>
+<tr class="memdesc:gad5e847f89ca67a6b2154a72d0aa25e9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">USBD_CtlReceiveStatus receive zero lzngth packet on the ctl pipe.  <br /></td></tr>
+<tr class="memitem:gae66e8dc0e24f9d7d23930f6c87605e75" id="r_gae66e8dc0e24f9d7d23930f6c87605e75"><td class="memItemLeft"><a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#gaebc658c200e50399361e7901f0a57e95">USBD_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="#gae66e8dc0e24f9d7d23930f6c87605e75">USBD_CtlSendData</a> (<a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ga08827834e2e564cea191282b65ce06f7">USBD_HandleTypeDef</a> *pdev, uint8_t *pbuf, uint16_t len)</td></tr>
+<tr class="memdesc:gae66e8dc0e24f9d7d23930f6c87605e75"><td class="mdescLeft">&#160;</td><td class="mdescRight">USBD_CtlSendData send data on the ctl pipe.  <br /></td></tr>
+<tr class="memitem:ga19e53947fc912c43bcee2c7d7429e8ee" id="r_ga19e53947fc912c43bcee2c7d7429e8ee"><td class="memItemLeft"><a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#gaebc658c200e50399361e7901f0a57e95">USBD_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="#ga19e53947fc912c43bcee2c7d7429e8ee">USBD_CtlSendStatus</a> (<a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ga08827834e2e564cea191282b65ce06f7">USBD_HandleTypeDef</a> *pdev)</td></tr>
+<tr class="memdesc:ga19e53947fc912c43bcee2c7d7429e8ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">USBD_CtlSendStatus send zero lzngth packet on the ctl pipe.  <br /></td></tr>
+<tr class="memitem:ga1ea167471f0e91676934feb76f67b1c2" id="r_ga1ea167471f0e91676934feb76f67b1c2"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ga1ea167471f0e91676934feb76f67b1c2">USBD_GetRxCount</a> (<a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ga08827834e2e564cea191282b65ce06f7">USBD_HandleTypeDef</a> *pdev, uint8_t ep_addr)</td></tr>
+<tr class="memdesc:ga1ea167471f0e91676934feb76f67b1c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">USBD_GetRxCount returns the received data length.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Descripción detallada</h2>
+<div class="textblock"></div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Documentación de funciones</h2>
+<a id="gaf6cabd5a8d9d527cf6aa64915abb7f2b" name="gaf6cabd5a8d9d527cf6aa64915abb7f2b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf6cabd5a8d9d527cf6aa64915abb7f2b">&#9670;&#160;</a></span>USBD_CtlContinueRx()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#gaebc658c200e50399361e7901f0a57e95">USBD_StatusTypeDef</a> USBD_CtlContinueRx </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ga08827834e2e564cea191282b65ce06f7">USBD_HandleTypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>pdev</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t *</td>          <td class="paramname"><span class="paramname"><em>pbuf</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t</td>          <td class="paramname"><span class="paramname"><em>len</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="usbd__ioreq_8c.html">usbd_ioreq.c</a>&quot;</code></p>
+
+<p>USBD_CtlContinueRx continue receive data on the ctl pipe. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pdev</td><td>device instance </td></tr>
+    <tr><td class="paramname">buff</td><td>pointer to data buffer </td></tr>
+    <tr><td class="paramname">len</td><td>length of data to be received </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">status</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="usbd__ioreq_8c_source.html#l00148">148</a> del archivo <a class="el" href="usbd__ioreq_8c_source.html">usbd_ioreq.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  150</span>{</div>
+<div class="line"><span class="lineno">  151</span>  <a class="code hl_function" href="group___u_s_b_d___c_o_r_e___exported___functions_prototype.html#ga259b00707b333065b66be515dd019428">USBD_LL_PrepareReceive</a>(pdev, 0U, pbuf, len);</div>
+<div class="line"><span class="lineno">  152</span> </div>
+<div class="line"><span class="lineno">  153</span>  <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ggaebc658c200e50399361e7901f0a57e95a82f83a0537693d71dd31a4ae9960d737">USBD_OK</a>;</div>
+<div class="line"><span class="lineno">  154</span>}</div>
+<div class="ttc" id="agroup___u_s_b_d___c_o_r_e___exported___functions_prototype_html_ga259b00707b333065b66be515dd019428"><div class="ttname"><a href="group___u_s_b_d___c_o_r_e___exported___functions_prototype.html#ga259b00707b333065b66be515dd019428">USBD_LL_PrepareReceive</a></div><div class="ttdeci">USBD_StatusTypeDef USBD_LL_PrepareReceive(USBD_HandleTypeDef *pdev, uint8_t ep_addr, uint8_t *pbuf, uint16_t size)</div><div class="ttdoc">Prepares an endpoint for reception.</div><div class="ttdef"><b>Definición</b> <a href="usbd__conf_8c_source.html#l00557">usbd_conf.c:557</a></div></div>
+<div class="ttc" id="agroup___u_s_b_d___d_e_f___exported___types_definitions_html_ggaebc658c200e50399361e7901f0a57e95a82f83a0537693d71dd31a4ae9960d737"><div class="ttname"><a href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ggaebc658c200e50399361e7901f0a57e95a82f83a0537693d71dd31a4ae9960d737">USBD_OK</a></div><div class="ttdeci">@ USBD_OK</div><div class="ttdef"><b>Definición</b> <a href="usbd__def_8h_source.html#l00206">usbd_def.h:206</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="usbd__ioreq_8c_source.html#l00148">USBD_CtlContinueRx()</a>, <a class="el" href="usbd__conf_8c_source.html#l00557">USBD_LL_PrepareReceive()</a> y <a class="el" href="usbd__def_8h_source.html#l00206">USBD_OK</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="usbd__ioreq_8c_source.html#l00148">USBD_CtlContinueRx()</a> y <a class="el" href="usbd__core_8c_source.html#l00300">USBD_LL_DataOutStage()</a>.</p>
+<div id="dynsection-1" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-1-summary" class="dynsummary">
+</div>
+<div id="dynsection-1-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___u_s_b_d___i_o_r_e_q___private___functions_gaf6cabd5a8d9d527cf6aa64915abb7f2b_cgraph.svg" width="100%" height="402"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div id="dynsection-2" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-2-summary" class="dynsummary">
+</div>
+<div id="dynsection-2-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___u_s_b_d___i_o_r_e_q___private___functions_gaf6cabd5a8d9d527cf6aa64915abb7f2b_icgraph.svg" width="654" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="gaf07248d84e87cdf14db392f94b369744" name="gaf07248d84e87cdf14db392f94b369744"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf07248d84e87cdf14db392f94b369744">&#9670;&#160;</a></span>USBD_CtlContinueSendData()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#gaebc658c200e50399361e7901f0a57e95">USBD_StatusTypeDef</a> USBD_CtlContinueSendData </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ga08827834e2e564cea191282b65ce06f7">USBD_HandleTypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>pdev</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t *</td>          <td class="paramname"><span class="paramname"><em>pbuf</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t</td>          <td class="paramname"><span class="paramname"><em>len</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="usbd__ioreq_8c.html">usbd_ioreq.c</a>&quot;</code></p>
+
+<p>USBD_CtlContinueSendData continue sending data on the ctl pipe. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pdev</td><td>device instance </td></tr>
+    <tr><td class="paramname">buff</td><td>pointer to data buffer </td></tr>
+    <tr><td class="paramname">len</td><td>length of data to be sent </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">status</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="usbd__ioreq_8c_source.html#l00109">109</a> del archivo <a class="el" href="usbd__ioreq_8c_source.html">usbd_ioreq.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  111</span>{</div>
+<div class="line"><span class="lineno">  112</span>  <span class="comment">/* Start the next transfer */</span></div>
+<div class="line"><span class="lineno">  113</span>  <a class="code hl_function" href="group___u_s_b_d___c_o_r_e___exported___functions_prototype.html#gab87eb9f3d4d9f8956d2c6b77230f265c">USBD_LL_Transmit</a>(pdev, 0x00U, pbuf, len);</div>
+<div class="line"><span class="lineno">  114</span> </div>
+<div class="line"><span class="lineno">  115</span>  <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ggaebc658c200e50399361e7901f0a57e95a82f83a0537693d71dd31a4ae9960d737">USBD_OK</a>;</div>
+<div class="line"><span class="lineno">  116</span>}</div>
+<div class="ttc" id="agroup___u_s_b_d___c_o_r_e___exported___functions_prototype_html_gab87eb9f3d4d9f8956d2c6b77230f265c"><div class="ttname"><a href="group___u_s_b_d___c_o_r_e___exported___functions_prototype.html#gab87eb9f3d4d9f8956d2c6b77230f265c">USBD_LL_Transmit</a></div><div class="ttdeci">USBD_StatusTypeDef USBD_LL_Transmit(USBD_HandleTypeDef *pdev, uint8_t ep_addr, uint8_t *pbuf, uint16_t size)</div><div class="ttdoc">Transmits data over an endpoint.</div><div class="ttdef"><b>Definición</b> <a href="usbd__conf_8c_source.html#l00537">usbd_conf.c:537</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="usbd__ioreq_8c_source.html#l00109">USBD_CtlContinueSendData()</a>, <a class="el" href="usbd__conf_8c_source.html#l00537">USBD_LL_Transmit()</a> y <a class="el" href="usbd__def_8h_source.html#l00206">USBD_OK</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="usbd__ioreq_8c_source.html#l00109">USBD_CtlContinueSendData()</a> y <a class="el" href="usbd__core_8c_source.html#l00361">USBD_LL_DataInStage()</a>.</p>
+<div id="dynsection-3" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-3-summary" class="dynsummary">
+</div>
+<div id="dynsection-3-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___u_s_b_d___i_o_r_e_q___private___functions_gaf07248d84e87cdf14db392f94b369744_cgraph.svg" width="100%" height="402"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div id="dynsection-4" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-4-summary" class="dynsummary">
+</div>
+<div id="dynsection-4-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___u_s_b_d___i_o_r_e_q___private___functions_gaf07248d84e87cdf14db392f94b369744_icgraph.svg" width="100%" height="300"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="gabe067dfaa82139b6d3acf5f8cdd5fc91" name="gabe067dfaa82139b6d3acf5f8cdd5fc91"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gabe067dfaa82139b6d3acf5f8cdd5fc91">&#9670;&#160;</a></span>USBD_CtlPrepareRx()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#gaebc658c200e50399361e7901f0a57e95">USBD_StatusTypeDef</a> USBD_CtlPrepareRx </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ga08827834e2e564cea191282b65ce06f7">USBD_HandleTypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>pdev</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t *</td>          <td class="paramname"><span class="paramname"><em>pbuf</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t</td>          <td class="paramname"><span class="paramname"><em>len</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="usbd__ioreq_8c.html">usbd_ioreq.c</a>&quot;</code></p>
+
+<p>USBD_CtlPrepareRx receive data on the ctl pipe. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pdev</td><td>device instance </td></tr>
+    <tr><td class="paramname">buff</td><td>pointer to data buffer </td></tr>
+    <tr><td class="paramname">len</td><td>length of data to be received </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">status</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="usbd__ioreq_8c_source.html#l00126">126</a> del archivo <a class="el" href="usbd__ioreq_8c_source.html">usbd_ioreq.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  128</span>{</div>
+<div class="line"><span class="lineno">  129</span>  <span class="comment">/* Set EP0 State */</span></div>
+<div class="line"><span class="lineno">  130</span>  pdev-&gt;<a class="code hl_variable" href="struct___u_s_b_d___handle_type_def.html#a613cd6cd788fc7e1192af174f5b52038">ep0_state</a> = <a class="code hl_define" href="group___u_s_b___d_e_f___exported___defines.html#ga8858f76b538f81298e51118955df8b26">USBD_EP0_DATA_OUT</a>;</div>
+<div class="line"><span class="lineno">  131</span>  pdev-&gt;<a class="code hl_variable" href="struct___u_s_b_d___handle_type_def.html#a44d0772ecdbc82857e4838d82cd41cbd">ep_out</a>[0].<a class="code hl_variable" href="struct_u_s_b_d___endpoint_type_def.html#a6e7973421f627ca443eebfba03759522">total_length</a> = len;</div>
+<div class="line"><span class="lineno">  132</span>  pdev-&gt;<a class="code hl_variable" href="struct___u_s_b_d___handle_type_def.html#a44d0772ecdbc82857e4838d82cd41cbd">ep_out</a>[0].<a class="code hl_variable" href="struct_u_s_b_d___endpoint_type_def.html#ace9e512b03bb14b0ef861b0494490c92">rem_length</a>   = len;</div>
+<div class="line"><span class="lineno">  133</span> </div>
+<div class="line"><span class="lineno">  134</span>  <span class="comment">/* Start the transfer */</span></div>
+<div class="line"><span class="lineno">  135</span>  <a class="code hl_function" href="group___u_s_b_d___c_o_r_e___exported___functions_prototype.html#ga259b00707b333065b66be515dd019428">USBD_LL_PrepareReceive</a>(pdev, 0U, pbuf, len);</div>
+<div class="line"><span class="lineno">  136</span> </div>
+<div class="line"><span class="lineno">  137</span>  <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ggaebc658c200e50399361e7901f0a57e95a82f83a0537693d71dd31a4ae9960d737">USBD_OK</a>;</div>
+<div class="line"><span class="lineno">  138</span>}</div>
+<div class="ttc" id="agroup___u_s_b___d_e_f___exported___defines_html_ga8858f76b538f81298e51118955df8b26"><div class="ttname"><a href="group___u_s_b___d_e_f___exported___defines.html#ga8858f76b538f81298e51118955df8b26">USBD_EP0_DATA_OUT</a></div><div class="ttdeci">#define USBD_EP0_DATA_OUT</div><div class="ttdef"><b>Definición</b> <a href="usbd__def_8h_source.html#l00139">usbd_def.h:139</a></div></div>
+<div class="ttc" id="astruct___u_s_b_d___handle_type_def_html_a44d0772ecdbc82857e4838d82cd41cbd"><div class="ttname"><a href="struct___u_s_b_d___handle_type_def.html#a44d0772ecdbc82857e4838d82cd41cbd">_USBD_HandleTypeDef::ep_out</a></div><div class="ttdeci">USBD_EndpointTypeDef ep_out[16]</div><div class="ttdef"><b>Definición</b> <a href="usbd__def_8h_source.html#l00245">usbd_def.h:245</a></div></div>
+<div class="ttc" id="astruct___u_s_b_d___handle_type_def_html_a613cd6cd788fc7e1192af174f5b52038"><div class="ttname"><a href="struct___u_s_b_d___handle_type_def.html#a613cd6cd788fc7e1192af174f5b52038">_USBD_HandleTypeDef::ep0_state</a></div><div class="ttdeci">uint32_t ep0_state</div><div class="ttdef"><b>Definición</b> <a href="usbd__def_8h_source.html#l00246">usbd_def.h:246</a></div></div>
+<div class="ttc" id="astruct_u_s_b_d___endpoint_type_def_html_a6e7973421f627ca443eebfba03759522"><div class="ttname"><a href="struct_u_s_b_d___endpoint_type_def.html#a6e7973421f627ca443eebfba03759522">USBD_EndpointTypeDef::total_length</a></div><div class="ttdeci">uint32_t total_length</div><div class="ttdef"><b>Definición</b> <a href="usbd__def_8h_source.html#l00231">usbd_def.h:231</a></div></div>
+<div class="ttc" id="astruct_u_s_b_d___endpoint_type_def_html_ace9e512b03bb14b0ef861b0494490c92"><div class="ttname"><a href="struct_u_s_b_d___endpoint_type_def.html#ace9e512b03bb14b0ef861b0494490c92">USBD_EndpointTypeDef::rem_length</a></div><div class="ttdeci">uint32_t rem_length</div><div class="ttdef"><b>Definición</b> <a href="usbd__def_8h_source.html#l00232">usbd_def.h:232</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="usbd__def_8h_source.html#l00246">_USBD_HandleTypeDef::ep0_state</a>, <a class="el" href="usbd__def_8h_source.html#l00245">_USBD_HandleTypeDef::ep_out</a>, <a class="el" href="usbd__def_8h_source.html#l00232">USBD_EndpointTypeDef::rem_length</a>, <a class="el" href="usbd__def_8h_source.html#l00231">USBD_EndpointTypeDef::total_length</a>, <a class="el" href="usbd__ioreq_8c_source.html#l00126">USBD_CtlPrepareRx()</a>, <a class="el" href="usbd__def_8h_source.html#l00139">USBD_EP0_DATA_OUT</a>, <a class="el" href="usbd__conf_8c_source.html#l00557">USBD_LL_PrepareReceive()</a> y <a class="el" href="usbd__def_8h_source.html#l00206">USBD_OK</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="usbd__cdc_8c_source.html#l00583">USBD_CDC_Setup()</a> y <a class="el" href="usbd__ioreq_8c_source.html#l00126">USBD_CtlPrepareRx()</a>.</p>
+<div id="dynsection-5" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-5-summary" class="dynsummary">
+</div>
+<div id="dynsection-5-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___u_s_b_d___i_o_r_e_q___private___functions_gabe067dfaa82139b6d3acf5f8cdd5fc91_cgraph.svg" width="100%" height="402"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div id="dynsection-6" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-6-summary" class="dynsummary">
+</div>
+<div id="dynsection-6-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___u_s_b_d___i_o_r_e_q___private___functions_gabe067dfaa82139b6d3acf5f8cdd5fc91_icgraph.svg" width="342" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="gad5e847f89ca67a6b2154a72d0aa25e9a" name="gad5e847f89ca67a6b2154a72d0aa25e9a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad5e847f89ca67a6b2154a72d0aa25e9a">&#9670;&#160;</a></span>USBD_CtlReceiveStatus()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#gaebc658c200e50399361e7901f0a57e95">USBD_StatusTypeDef</a> USBD_CtlReceiveStatus </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ga08827834e2e564cea191282b65ce06f7">USBD_HandleTypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>pdev</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="usbd__ioreq_8c.html">usbd_ioreq.c</a>&quot;</code></p>
+
+<p>USBD_CtlReceiveStatus receive zero lzngth packet on the ctl pipe. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pdev</td><td>device instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">status</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="usbd__ioreq_8c_source.html#l00179">179</a> del archivo <a class="el" href="usbd__ioreq_8c_source.html">usbd_ioreq.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  180</span>{</div>
+<div class="line"><span class="lineno">  181</span>  <span class="comment">/* Set EP0 State */</span></div>
+<div class="line"><span class="lineno">  182</span>  pdev-&gt;<a class="code hl_variable" href="struct___u_s_b_d___handle_type_def.html#a613cd6cd788fc7e1192af174f5b52038">ep0_state</a> = <a class="code hl_define" href="group___u_s_b___d_e_f___exported___defines.html#ga3193c3361fc6fc697a84a43d58cc8789">USBD_EP0_STATUS_OUT</a>;</div>
+<div class="line"><span class="lineno">  183</span> </div>
+<div class="line"><span class="lineno">  184</span>  <span class="comment">/* Start the transfer */</span></div>
+<div class="line"><span class="lineno">  185</span>  <a class="code hl_function" href="group___u_s_b_d___c_o_r_e___exported___functions_prototype.html#ga259b00707b333065b66be515dd019428">USBD_LL_PrepareReceive</a>(pdev, 0U, <a class="code hl_define" href="group___u_s_b___d_e_f___exported___defines.html#ga070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, 0U);</div>
+<div class="line"><span class="lineno">  186</span> </div>
+<div class="line"><span class="lineno">  187</span>  <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ggaebc658c200e50399361e7901f0a57e95a82f83a0537693d71dd31a4ae9960d737">USBD_OK</a>;</div>
+<div class="line"><span class="lineno">  188</span>}</div>
+<div class="ttc" id="agroup___u_s_b___d_e_f___exported___defines_html_ga070d2ce7b6bb7e5c05602aa8c308d0c4"><div class="ttname"><a href="group___u_s_b___d_e_f___exported___defines.html#ga070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a></div><div class="ttdeci">#define NULL</div><div class="ttdef"><b>Definición</b> <a href="usbd__def_8h_source.html#l00045">usbd_def.h:45</a></div></div>
+<div class="ttc" id="agroup___u_s_b___d_e_f___exported___defines_html_ga3193c3361fc6fc697a84a43d58cc8789"><div class="ttname"><a href="group___u_s_b___d_e_f___exported___defines.html#ga3193c3361fc6fc697a84a43d58cc8789">USBD_EP0_STATUS_OUT</a></div><div class="ttdeci">#define USBD_EP0_STATUS_OUT</div><div class="ttdef"><b>Definición</b> <a href="usbd__def_8h_source.html#l00141">usbd_def.h:141</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="usbd__def_8h_source.html#l00246">_USBD_HandleTypeDef::ep0_state</a>, <a class="el" href="usbd__def_8h_source.html#l00045">NULL</a>, <a class="el" href="usbd__ioreq_8c_source.html#l00179">USBD_CtlReceiveStatus()</a>, <a class="el" href="usbd__def_8h_source.html#l00141">USBD_EP0_STATUS_OUT</a>, <a class="el" href="usbd__conf_8c_source.html#l00557">USBD_LL_PrepareReceive()</a> y <a class="el" href="usbd__def_8h_source.html#l00206">USBD_OK</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="usbd__ioreq_8c_source.html#l00179">USBD_CtlReceiveStatus()</a> y <a class="el" href="usbd__core_8c_source.html#l00361">USBD_LL_DataInStage()</a>.</p>
+<div id="dynsection-7" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-7-summary" class="dynsummary">
+</div>
+<div id="dynsection-7-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___u_s_b_d___i_o_r_e_q___private___functions_gad5e847f89ca67a6b2154a72d0aa25e9a_cgraph.svg" width="100%" height="402"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div id="dynsection-8" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-8-summary" class="dynsummary">
+</div>
+<div id="dynsection-8-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___u_s_b_d___i_o_r_e_q___private___functions_gad5e847f89ca67a6b2154a72d0aa25e9a_icgraph.svg" width="651" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="gae66e8dc0e24f9d7d23930f6c87605e75" name="gae66e8dc0e24f9d7d23930f6c87605e75"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae66e8dc0e24f9d7d23930f6c87605e75">&#9670;&#160;</a></span>USBD_CtlSendData()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#gaebc658c200e50399361e7901f0a57e95">USBD_StatusTypeDef</a> USBD_CtlSendData </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ga08827834e2e564cea191282b65ce06f7">USBD_HandleTypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>pdev</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t *</td>          <td class="paramname"><span class="paramname"><em>pbuf</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t</td>          <td class="paramname"><span class="paramname"><em>len</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="usbd__ioreq_8c.html">usbd_ioreq.c</a>&quot;</code></p>
+
+<p>USBD_CtlSendData send data on the ctl pipe. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pdev</td><td>device instance </td></tr>
+    <tr><td class="paramname">buff</td><td>pointer to data buffer </td></tr>
+    <tr><td class="paramname">len</td><td>length of data to be sent </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">status</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="usbd__ioreq_8c_source.html#l00087">87</a> del archivo <a class="el" href="usbd__ioreq_8c_source.html">usbd_ioreq.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   89</span>{</div>
+<div class="line"><span class="lineno">   90</span>  <span class="comment">/* Set EP0 State */</span></div>
+<div class="line"><span class="lineno">   91</span>  pdev-&gt;<a class="code hl_variable" href="struct___u_s_b_d___handle_type_def.html#a613cd6cd788fc7e1192af174f5b52038">ep0_state</a> = <a class="code hl_define" href="group___u_s_b___d_e_f___exported___defines.html#ga16deac9117aa164a6fd3757ad177d0d6">USBD_EP0_DATA_IN</a>;</div>
+<div class="line"><span class="lineno">   92</span>  pdev-&gt;<a class="code hl_variable" href="struct___u_s_b_d___handle_type_def.html#a349168e0c5b8446a99acfe17a4baeb4a">ep_in</a>[0].<a class="code hl_variable" href="struct_u_s_b_d___endpoint_type_def.html#a6e7973421f627ca443eebfba03759522">total_length</a> = len;</div>
+<div class="line"><span class="lineno">   93</span>  pdev-&gt;<a class="code hl_variable" href="struct___u_s_b_d___handle_type_def.html#a349168e0c5b8446a99acfe17a4baeb4a">ep_in</a>[0].<a class="code hl_variable" href="struct_u_s_b_d___endpoint_type_def.html#ace9e512b03bb14b0ef861b0494490c92">rem_length</a>   = len;</div>
+<div class="line"><span class="lineno">   94</span> </div>
+<div class="line"><span class="lineno">   95</span>  <span class="comment">/* Start the transfer */</span></div>
+<div class="line"><span class="lineno">   96</span>  <a class="code hl_function" href="group___u_s_b_d___c_o_r_e___exported___functions_prototype.html#gab87eb9f3d4d9f8956d2c6b77230f265c">USBD_LL_Transmit</a>(pdev, 0x00U, pbuf, len);</div>
+<div class="line"><span class="lineno">   97</span> </div>
+<div class="line"><span class="lineno">   98</span>  <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ggaebc658c200e50399361e7901f0a57e95a82f83a0537693d71dd31a4ae9960d737">USBD_OK</a>;</div>
+<div class="line"><span class="lineno">   99</span>}</div>
+<div class="ttc" id="agroup___u_s_b___d_e_f___exported___defines_html_ga16deac9117aa164a6fd3757ad177d0d6"><div class="ttname"><a href="group___u_s_b___d_e_f___exported___defines.html#ga16deac9117aa164a6fd3757ad177d0d6">USBD_EP0_DATA_IN</a></div><div class="ttdeci">#define USBD_EP0_DATA_IN</div><div class="ttdef"><b>Definición</b> <a href="usbd__def_8h_source.html#l00138">usbd_def.h:138</a></div></div>
+<div class="ttc" id="astruct___u_s_b_d___handle_type_def_html_a349168e0c5b8446a99acfe17a4baeb4a"><div class="ttname"><a href="struct___u_s_b_d___handle_type_def.html#a349168e0c5b8446a99acfe17a4baeb4a">_USBD_HandleTypeDef::ep_in</a></div><div class="ttdeci">USBD_EndpointTypeDef ep_in[16]</div><div class="ttdef"><b>Definición</b> <a href="usbd__def_8h_source.html#l00244">usbd_def.h:244</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="usbd__def_8h_source.html#l00246">_USBD_HandleTypeDef::ep0_state</a>, <a class="el" href="usbd__def_8h_source.html#l00244">_USBD_HandleTypeDef::ep_in</a>, <a class="el" href="usbd__def_8h_source.html#l00232">USBD_EndpointTypeDef::rem_length</a>, <a class="el" href="usbd__def_8h_source.html#l00231">USBD_EndpointTypeDef::total_length</a>, <a class="el" href="usbd__ioreq_8c_source.html#l00087">USBD_CtlSendData()</a>, <a class="el" href="usbd__def_8h_source.html#l00138">USBD_EP0_DATA_IN</a>, <a class="el" href="usbd__conf_8c_source.html#l00537">USBD_LL_Transmit()</a> y <a class="el" href="usbd__def_8h_source.html#l00206">USBD_OK</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="usbd__cdc_8c_source.html#l00583">USBD_CDC_Setup()</a>, <a class="el" href="usbd__ioreq_8c_source.html#l00087">USBD_CtlSendData()</a>, <a class="el" href="usbd__ctlreq_8c_source.html#l00712">USBD_GetConfig()</a>, <a class="el" href="usbd__ctlreq_8c_source.html#l00405">USBD_GetDescriptor()</a>, <a class="el" href="usbd__ctlreq_8c_source.html#l00746">USBD_GetStatus()</a> y <a class="el" href="usbd__ctlreq_8c_source.html#l00230">USBD_StdEPReq()</a>.</p>
+<div id="dynsection-9" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-9-summary" class="dynsummary">
+</div>
+<div id="dynsection-9-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___u_s_b_d___i_o_r_e_q___private___functions_gae66e8dc0e24f9d7d23930f6c87605e75_cgraph.svg" width="100%" height="402"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div id="dynsection-10" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-10-summary" class="dynsummary">
+</div>
+<div id="dynsection-10-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___u_s_b_d___i_o_r_e_q___private___functions_gae66e8dc0e24f9d7d23930f6c87605e75_icgraph.svg" width="100%" height="537"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="ga19e53947fc912c43bcee2c7d7429e8ee" name="ga19e53947fc912c43bcee2c7d7429e8ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga19e53947fc912c43bcee2c7d7429e8ee">&#9670;&#160;</a></span>USBD_CtlSendStatus()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#gaebc658c200e50399361e7901f0a57e95">USBD_StatusTypeDef</a> USBD_CtlSendStatus </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ga08827834e2e564cea191282b65ce06f7">USBD_HandleTypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>pdev</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="usbd__ioreq_8c.html">usbd_ioreq.c</a>&quot;</code></p>
+
+<p>USBD_CtlSendStatus send zero lzngth packet on the ctl pipe. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pdev</td><td>device instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">status</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="usbd__ioreq_8c_source.html#l00162">162</a> del archivo <a class="el" href="usbd__ioreq_8c_source.html">usbd_ioreq.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  163</span>{</div>
+<div class="line"><span class="lineno">  164</span>  <span class="comment">/* Set EP0 State */</span></div>
+<div class="line"><span class="lineno">  165</span>  pdev-&gt;<a class="code hl_variable" href="struct___u_s_b_d___handle_type_def.html#a613cd6cd788fc7e1192af174f5b52038">ep0_state</a> = <a class="code hl_define" href="group___u_s_b___d_e_f___exported___defines.html#ga8c7250413b575970d97a4c3be52f1c69">USBD_EP0_STATUS_IN</a>;</div>
+<div class="line"><span class="lineno">  166</span> </div>
+<div class="line"><span class="lineno">  167</span>  <span class="comment">/* Start the transfer */</span></div>
+<div class="line"><span class="lineno">  168</span>  <a class="code hl_function" href="group___u_s_b_d___c_o_r_e___exported___functions_prototype.html#gab87eb9f3d4d9f8956d2c6b77230f265c">USBD_LL_Transmit</a>(pdev, 0x00U, <a class="code hl_define" href="group___u_s_b___d_e_f___exported___defines.html#ga070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, 0U);</div>
+<div class="line"><span class="lineno">  169</span> </div>
+<div class="line"><span class="lineno">  170</span>  <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ggaebc658c200e50399361e7901f0a57e95a82f83a0537693d71dd31a4ae9960d737">USBD_OK</a>;</div>
+<div class="line"><span class="lineno">  171</span>}</div>
+<div class="ttc" id="agroup___u_s_b___d_e_f___exported___defines_html_ga8c7250413b575970d97a4c3be52f1c69"><div class="ttname"><a href="group___u_s_b___d_e_f___exported___defines.html#ga8c7250413b575970d97a4c3be52f1c69">USBD_EP0_STATUS_IN</a></div><div class="ttdeci">#define USBD_EP0_STATUS_IN</div><div class="ttdef"><b>Definición</b> <a href="usbd__def_8h_source.html#l00140">usbd_def.h:140</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="usbd__def_8h_source.html#l00246">_USBD_HandleTypeDef::ep0_state</a>, <a class="el" href="usbd__def_8h_source.html#l00045">NULL</a>, <a class="el" href="usbd__ioreq_8c_source.html#l00162">USBD_CtlSendStatus()</a>, <a class="el" href="usbd__def_8h_source.html#l00140">USBD_EP0_STATUS_IN</a>, <a class="el" href="usbd__conf_8c_source.html#l00537">USBD_LL_Transmit()</a> y <a class="el" href="usbd__def_8h_source.html#l00206">USBD_OK</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="usbd__ctlreq_8c_source.html#l00805">USBD_ClrFeature()</a>, <a class="el" href="usbd__ioreq_8c_source.html#l00162">USBD_CtlSendStatus()</a>, <a class="el" href="usbd__ctlreq_8c_source.html#l00405">USBD_GetDescriptor()</a>, <a class="el" href="usbd__core_8c_source.html#l00300">USBD_LL_DataOutStage()</a>, <a class="el" href="usbd__ctlreq_8c_source.html#l00595">USBD_SetAddress()</a>, <a class="el" href="usbd__ctlreq_8c_source.html#l00637">USBD_SetConfig()</a>, <a class="el" href="usbd__ctlreq_8c_source.html#l00787">USBD_SetFeature()</a>, <a class="el" href="usbd__ctlreq_8c_source.html#l00230">USBD_StdEPReq()</a> y <a class="el" href="usbd__ctlreq_8c_source.html#l00178">USBD_StdItfReq()</a>.</p>
+<div id="dynsection-11" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-11-summary" class="dynsummary">
+</div>
+<div id="dynsection-11-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___u_s_b_d___i_o_r_e_q___private___functions_ga19e53947fc912c43bcee2c7d7429e8ee_cgraph.svg" width="100%" height="402"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div id="dynsection-12" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-12-summary" class="dynsummary">
+</div>
+<div id="dynsection-12-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___u_s_b_d___i_o_r_e_q___private___functions_ga19e53947fc912c43bcee2c7d7429e8ee_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="ga1ea167471f0e91676934feb76f67b1c2" name="ga1ea167471f0e91676934feb76f67b1c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga1ea167471f0e91676934feb76f67b1c2">&#9670;&#160;</a></span>USBD_GetRxCount()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t USBD_GetRxCount </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group___u_s_b_d___d_e_f___exported___types_definitions.html#ga08827834e2e564cea191282b65ce06f7">USBD_HandleTypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>pdev</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>ep_addr</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="usbd__ioreq_8c.html">usbd_ioreq.c</a>&quot;</code></p>
+
+<p>USBD_GetRxCount returns the received data length. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pdev</td><td>device instance </td></tr>
+    <tr><td class="paramname">ep_addr</td><td>endpoint address </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">Rx</td><td>Data blength </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="usbd__ioreq_8c_source.html#l00197">197</a> del archivo <a class="el" href="usbd__ioreq_8c_source.html">usbd_ioreq.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  198</span>{</div>
+<div class="line"><span class="lineno">  199</span>  <span class="keywordflow">return</span> <a class="code hl_function" href="group___u_s_b_d___c_o_r_e___exported___functions_prototype.html#gaeb80f50482e04c046ba41f5ea58a1b2b">USBD_LL_GetRxDataSize</a>(pdev, ep_addr);</div>
+<div class="line"><span class="lineno">  200</span>}</div>
+<div class="ttc" id="agroup___u_s_b_d___c_o_r_e___exported___functions_prototype_html_gaeb80f50482e04c046ba41f5ea58a1b2b"><div class="ttname"><a href="group___u_s_b_d___c_o_r_e___exported___functions_prototype.html#gaeb80f50482e04c046ba41f5ea58a1b2b">USBD_LL_GetRxDataSize</a></div><div class="ttdeci">uint32_t USBD_LL_GetRxDataSize(USBD_HandleTypeDef *pdev, uint8_t ep_addr)</div><div class="ttdoc">Returns the last transferred packet size.</div><div class="ttdef"><b>Definición</b> <a href="usbd__conf_8c_source.html#l00575">usbd_conf.c:575</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="usbd__ioreq_8c_source.html#l00197">USBD_GetRxCount()</a> y <a class="el" href="usbd__conf_8c_source.html#l00575">USBD_LL_GetRxDataSize()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="usbd__ioreq_8c_source.html#l00197">USBD_GetRxCount()</a>.</p>
+<div id="dynsection-13" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-13-summary" class="dynsummary">
+</div>
+<div id="dynsection-13-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___u_s_b_d___i_o_r_e_q___private___functions_ga1ea167471f0e91676934feb76f67b1c2_cgraph.svg" width="614" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-14" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-14-summary" class="dynsummary">
+</div>
+<div id="dynsection-14-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___u_s_b_d___i_o_r_e_q___private___functions_ga1ea167471f0e91676934feb76f67b1c2_icgraph.svg" width="151" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generado el <span class="timestamp"></span> para MICRO-Firmware por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

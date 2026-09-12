@@ -1,0 +1,927 @@
+\doxysubsection{Referencia del archivo wiregfx.\+c}
+\hypertarget{wiregfx_8c}{}\label{wiregfx_8c}\index{wiregfx.c@{wiregfx.c}}
+
+
+Implementación del pipeline de renderizado alámbrico (Wireframe) 3D/\+4D en punto fijo.  
+
+
+{\ttfamily \+\#include "{}wiregfx.\+h"{}}\newline
+Gráfico de dependencias incluidas en wiregfx.\+c:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{wiregfx_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsubsection*{Funciones}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{wiregfx_8c_a369fa94b542724966d415a205d719cd6}{WIREGFX\+\_\+\+Display\+Task}} (void)
+\begin{DoxyCompactList}\small\item\em Gestiona el ciclo secuencial de animación de figuras tridimensionales. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{wiregfx_8c_aa040a177091d5ca94b339fc40ffe7006}{WIREGFX\+\_\+\+Graphics\+\_\+\+Draw\+Cube}} (void)
+\begin{DoxyCompactList}\small\item\em Renderiza un cubo 3D rotando sobre los ejes X, Y y Z en la pantalla OLED. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{wiregfx_8c_af013fb800cc4848c93ea2dda220eaf6e}{WIREGFX\+\_\+\+Graphics\+\_\+\+Draw\+Pyramid}} (void)
+\begin{DoxyCompactList}\small\item\em Renderiza una pirámide de base cuadrada rotando en el espacio tridimensional. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{wiregfx_8c_ab0f2ac846917b11ac3fa0a4325687066}{WIREGFX\+\_\+\+Graphics\+\_\+\+Draw\+Sphere}} (void)
+\begin{DoxyCompactList}\small\item\em Renderiza una esfera alámbrica tridimensional. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{wiregfx_8c_ad2de8c930d3b77da950022208a3c581c}{WIREGFX\+\_\+\+Graphics\+\_\+\+Draw\+Tesseract}} (void)
+\begin{DoxyCompactList}\small\item\em Renderiza un teseracto (hipercubo 4D) con proyección en perspectiva estereográfica. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{wiregfx_8c_a6713ee890930c608f8ce3238a1ce9443}{WIREGFX\+\_\+\+Reset\+Cycle}} (void)
+\begin{DoxyCompactList}\small\item\em Reinicia el ciclo de animación para comenzar inmediatamente desde el Cubo 3D. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static const int \doxymbox{\hyperlink{wiregfx_8c_aecc1a37d8a3eff4db9fdeb3a6d836215}{cube\+\_\+edges}} \+[12]\+\+[2]
+\item 
+static const \doxymbox{\hyperlink{struct_point3_d}{Point3D}} \doxymbox{\hyperlink{wiregfx_8c_a3bb3396490d4e7b1654cb9e7bedc1e67}{cube\+\_\+vertices}} \+[8]
+\item 
+static const int \doxymbox{\hyperlink{wiregfx_8c_a4d1acf92c5a782faa68ac209e4cfe788}{pyramid\+\_\+edges}} \+[8]\+\+[2]
+\item 
+static const \doxymbox{\hyperlink{struct_point3_d}{Point3D}} \doxymbox{\hyperlink{wiregfx_8c_a4b15c5c7bddb3ff3ef6ebfdeb9261161}{pyramid\+\_\+vertices}} \+[5]
+\item 
+const int8\+\_\+t \doxymbox{\hyperlink{wiregfx_8c_a31dcfeb0361aa1f281db225a98b22e5f}{sin\+\_\+\+LUT}} \+[256]
+\item 
+static const int \doxymbox{\hyperlink{wiregfx_8c_a77606d6068502259c5de0b0bdd4ddd14}{sphere\+\_\+edges}} \+[24]\+\+[2]
+\item 
+static const \doxymbox{\hyperlink{struct_point3_d}{Point3D}} \doxymbox{\hyperlink{wiregfx_8c_a28fb0af1317ff851a80e435b55bf02d6}{sphere\+\_\+vertices}} \+[14]
+\item 
+static const int \doxymbox{\hyperlink{wiregfx_8c_a2c25d0a928c29d1d3aa35427b5bc6b6d}{tesseract\+\_\+edges}} \+[32]\+\+[2]
+\item 
+static const \doxymbox{\hyperlink{struct_point4_d}{Point4D}} \doxymbox{\hyperlink{wiregfx_8c_afd9f889e92a18dad325e83cb67b6a526}{tesseract\+\_\+vertices}} \+[16]
+\item 
+static uint8\+\_\+t \doxymbox{\hyperlink{wiregfx_8c_ad227f5a9c4231508fefba8fbe1f994e6}{wiregfx\+\_\+figure\+\_\+index}} = 0
+\item 
+static uint32\+\_\+t \doxymbox{\hyperlink{wiregfx_8c_aa36114bb09d841e9432302e300d3b781}{wiregfx\+\_\+last\+\_\+switch\+\_\+tick}} = 0
+\end{DoxyCompactItemize}
+\begin{Indent}\textbf{ Variables Estáticas de Ángulos de Rotación}\par
+\begin{DoxyCompactItemize}
+\item 
+static uint8\+\_\+t \doxymbox{\hyperlink{wiregfx_8c_ab524463dacbe156ad8377887abd07839}{angle\+\_\+x}} = 0
+\begin{DoxyCompactList}\small\item\em Ángulo de rotación sobre el eje X (0 a 255 = 0° a 360°). \end{DoxyCompactList}\item 
+static uint8\+\_\+t \doxymbox{\hyperlink{wiregfx_8c_a05ecc5ecfd4f71d82e8b72bee2846b1d}{angle\+\_\+xw}} = 0
+\begin{DoxyCompactList}\small\item\em Ángulo de rotación en el plano X-\/W de la 4ta dimensión. \end{DoxyCompactList}\item 
+static uint8\+\_\+t \doxymbox{\hyperlink{wiregfx_8c_a1dd6556da34d6df771b77a181c129791}{angle\+\_\+xz}} = 0
+\begin{DoxyCompactList}\small\item\em Ángulo de rotación en el plano X-\/Z (para 4D). \end{DoxyCompactList}\item 
+static uint8\+\_\+t \doxymbox{\hyperlink{wiregfx_8c_a80b26bdd0e7515bcb7dab5e799e73d90}{angle\+\_\+y}} = 0
+\begin{DoxyCompactList}\small\item\em Ángulo de rotación sobre el eje Y. \end{DoxyCompactList}\item 
+static uint8\+\_\+t \doxymbox{\hyperlink{wiregfx_8c_ac19649c26af01b34b719bda7a4e0c5ff}{angle\+\_\+yz}} = 0
+\begin{DoxyCompactList}\small\item\em Ángulo de rotación en el plano Y-\/Z (para 4D). \end{DoxyCompactList}\item 
+static uint8\+\_\+t \doxymbox{\hyperlink{wiregfx_8c_a06ef935d6fae1bed8d4fdde3ed2d8500}{angle\+\_\+z}} = 0
+\begin{DoxyCompactList}\small\item\em Ángulo de rotación sobre el eje Z. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+
+
+\doxysubsubsection{Descripción detallada}
+Implementación del pipeline de renderizado alámbrico (Wireframe) 3D/\+4D en punto fijo. 
+
+\begin{DoxyAuthor}{Autor}
+Gonzalo M. Buffa 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Fecha}
+28/\+04/\+2026
+\end{DoxyDate}
+Realiza proyecciones axonométricas y en perspectiva estereográfica sobre el display SSD1306. Aplica matrices de rotación trigonométrica computadas mediante una tabla precalculada (sin\+\_\+\+LUT) de 256 elementos escalada a 7 bits (\$1.0 \textbackslash{}approx 127\$), sustituyendo la división en coma flotante por desplazamientos aritméticos a la derecha ({\ttfamily \texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>} 7}). 
+
+Definición en el archivo \doxymbox{\hyperlink{wiregfx_8c_source}{wiregfx.\+c}}.
+
+
+
+\label{wiregfx_8c_doc-func-members}
+\Hypertarget{wiregfx_8c_doc-func-members}
+\doxysubsubsection{Documentación de funciones}
+\Hypertarget{wiregfx_8c_a369fa94b542724966d415a205d719cd6}\index{wiregfx.c@{wiregfx.c}!WIREGFX\_DisplayTask@{WIREGFX\_DisplayTask}}
+\index{WIREGFX\_DisplayTask@{WIREGFX\_DisplayTask}!wiregfx.c@{wiregfx.c}}
+\doxyparagraph{\texorpdfstring{WIREGFX\_DisplayTask()}{WIREGFX\_DisplayTask()}}
+{\footnotesize\ttfamily \label{wiregfx_8c_a369fa94b542724966d415a205d719cd6} 
+void WIREGFX\+\_\+\+Display\+Task (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Gestiona el ciclo secuencial de animación de figuras tridimensionales. 
+
+Conmuta automáticamente la figura visualizada cada 10 segundos: {\bfseries{Cubo 3D}} {$\rightarrow$} {\bfseries{Teseracto 4D}} {$\rightarrow$} {\bfseries{Pirámide 3D}}. 
+
+Definición en la línea \doxymbox{\hyperlink{wiregfx_8c_source_l00293}{293}} del archivo \doxymbox{\hyperlink{wiregfx_8c_source}{wiregfx.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00294\ \ \ \ \ uint32\_t\ now\ =\ \doxymbox{\hyperlink{group___h_a_l___exported___functions___group2_gac9b3a85a73735ac840d0dcb59bc0fdd6}{HAL\_GetTick}}();}
+\DoxyCodeLine{00295\ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{wiregfx_8c_aa36114bb09d841e9432302e300d3b781}{wiregfx\_last\_switch\_tick}}\ ==\ 0)\ \{}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{wiregfx_8c_aa36114bb09d841e9432302e300d3b781}{wiregfx\_last\_switch\_tick}}\ =\ now;}
+\DoxyCodeLine{00297\ \ \ \ \ \}}
+\DoxyCodeLine{00298\ }
+\DoxyCodeLine{00299\ \ \ \ \ \textcolor{comment}{//\ Cada\ 10\ segundos\ (10,000\ ms)\ se\ cambia\ de\ figura}}
+\DoxyCodeLine{00300\ \ \ \ \ \textcolor{keywordflow}{if}\ ((now\ -\/\ \doxymbox{\hyperlink{wiregfx_8c_aa36114bb09d841e9432302e300d3b781}{wiregfx\_last\_switch\_tick}})\ >=\ 10000)\ \{}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{wiregfx_8c_aa36114bb09d841e9432302e300d3b781}{wiregfx\_last\_switch\_tick}}\ =\ now;}
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{wiregfx_8c_ad227f5a9c4231508fefba8fbe1f994e6}{wiregfx\_figure\_index}}\ =\ (\doxymbox{\hyperlink{wiregfx_8c_ad227f5a9c4231508fefba8fbe1f994e6}{wiregfx\_figure\_index}}\ +\ 1)\ \%\ 3;}
+\DoxyCodeLine{00303\ \ \ \ \ \}}
+\DoxyCodeLine{00304\ }
+\DoxyCodeLine{00305\ \ \ \ \ \textcolor{comment}{//\ Orden\ de\ renderizado:\ Cubo\ -\/>\ Teseracto\ -\/>\ Pirámide}}
+\DoxyCodeLine{00306\ \ \ \ \ \textcolor{keywordflow}{switch}\ (\doxymbox{\hyperlink{wiregfx_8c_ad227f5a9c4231508fefba8fbe1f994e6}{wiregfx\_figure\_index}})\ \{}
+\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 0:}
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{wiregfx_8h_aa040a177091d5ca94b339fc40ffe7006}{WIREGFX\_Graphics\_DrawCube}}();}
+\DoxyCodeLine{00309\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00310\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 1:}
+\DoxyCodeLine{00311\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{wiregfx_8h_ad2de8c930d3b77da950022208a3c581c}{WIREGFX\_Graphics\_DrawTesseract}}();}
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 2:}
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{wiregfx_8h_af013fb800cc4848c93ea2dda220eaf6e}{WIREGFX\_Graphics\_DrawPyramid}}();}
+\DoxyCodeLine{00315\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00316\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00317\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{wiregfx_8c_ad227f5a9c4231508fefba8fbe1f994e6}{wiregfx\_figure\_index}}\ =\ 0;}
+\DoxyCodeLine{00318\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{wiregfx_8h_aa040a177091d5ca94b339fc40ffe7006}{WIREGFX\_Graphics\_DrawCube}}();}
+\DoxyCodeLine{00319\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00320\ \ \ \ \ \}}
+\DoxyCodeLine{00321\ \}}
+
+\end{DoxyCode}
+
+
+Hace referencia a \doxymbox{\hyperlink{stm32f1xx__hal_8c_source_l00304}{HAL\+\_\+\+Get\+Tick()}}, \doxymbox{\hyperlink{wiregfx_8c_source_l00293}{WIREGFX\+\_\+\+Display\+Task()}}, \doxymbox{\hyperlink{wiregfx_8c_source_l00286}{wiregfx\+\_\+figure\+\_\+index}}, \doxymbox{\hyperlink{wiregfx_8c_source_l00114}{WIREGFX\+\_\+\+Graphics\+\_\+\+Draw\+Cube()}}, \doxymbox{\hyperlink{wiregfx_8c_source_l00200}{WIREGFX\+\_\+\+Graphics\+\_\+\+Draw\+Pyramid()}}, \doxymbox{\hyperlink{wiregfx_8c_source_l00155}{WIREGFX\+\_\+\+Graphics\+\_\+\+Draw\+Tesseract()}} y \doxymbox{\hyperlink{wiregfx_8c_source_l00285}{wiregfx\+\_\+last\+\_\+switch\+\_\+tick}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{main_8c_source_l01623}{i2c\+Task()}} y \doxymbox{\hyperlink{wiregfx_8c_source_l00293}{WIREGFX\+\_\+\+Display\+Task()}}.
+
+Gráfico de llamadas de esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{wiregfx_8c_a369fa94b542724966d415a205d719cd6_cgraph}
+\end{center}
+\end{figure}
+Gráfico de llamadas a esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{wiregfx_8c_a369fa94b542724966d415a205d719cd6_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{wiregfx_8c_aa040a177091d5ca94b339fc40ffe7006}\index{wiregfx.c@{wiregfx.c}!WIREGFX\_Graphics\_DrawCube@{WIREGFX\_Graphics\_DrawCube}}
+\index{WIREGFX\_Graphics\_DrawCube@{WIREGFX\_Graphics\_DrawCube}!wiregfx.c@{wiregfx.c}}
+\doxyparagraph{\texorpdfstring{WIREGFX\_Graphics\_DrawCube()}{WIREGFX\_Graphics\_DrawCube()}}
+{\footnotesize\ttfamily \label{wiregfx_8c_aa040a177091d5ca94b339fc40ffe7006} 
+void WIREGFX\+\_\+\+Graphics\+\_\+\+Draw\+Cube (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Renderiza un cubo 3D rotando sobre los ejes X, Y y Z en la pantalla OLED. 
+
+\texorpdfstring{$<$}{<} Coordenada X del centro geométrico en pantalla (128 / 2)
+
+\texorpdfstring{$<$}{<} Coordenada Y del centro geométrico en pantalla (64 / 2)
+
+Definición en la línea \doxymbox{\hyperlink{wiregfx_8c_source_l00114}{114}} del archivo \doxymbox{\hyperlink{wiregfx_8c_source}{wiregfx.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00115\ \ \ \ \ \doxymbox{\hyperlink{struct_point2_d}{Point2D}}\ projected[8];}
+\DoxyCodeLine{00116\ \ \ \ \ int32\_t\ sin\_x\ =\ \doxymbox{\hyperlink{wiregfx_8c_a31dcfeb0361aa1f281db225a98b22e5f}{sin\_LUT}}[\doxymbox{\hyperlink{wiregfx_8c_ab524463dacbe156ad8377887abd07839}{angle\_x}}];}
+\DoxyCodeLine{00117\ \ \ \ \ int32\_t\ cos\_x\ =\ \doxymbox{\hyperlink{wiregfx_8c_a31dcfeb0361aa1f281db225a98b22e5f}{sin\_LUT}}[(uint8\_t)(\doxymbox{\hyperlink{wiregfx_8c_ab524463dacbe156ad8377887abd07839}{angle\_x}}\ +\ 64)];}
+\DoxyCodeLine{00118\ \ \ \ \ int32\_t\ sin\_y\ =\ \doxymbox{\hyperlink{wiregfx_8c_a31dcfeb0361aa1f281db225a98b22e5f}{sin\_LUT}}[\doxymbox{\hyperlink{wiregfx_8c_a80b26bdd0e7515bcb7dab5e799e73d90}{angle\_y}}];}
+\DoxyCodeLine{00119\ \ \ \ \ int32\_t\ cos\_y\ =\ \doxymbox{\hyperlink{wiregfx_8c_a31dcfeb0361aa1f281db225a98b22e5f}{sin\_LUT}}[(uint8\_t)(\doxymbox{\hyperlink{wiregfx_8c_a80b26bdd0e7515bcb7dab5e799e73d90}{angle\_y}}\ +\ 64)];}
+\DoxyCodeLine{00120\ \ \ \ \ int32\_t\ sin\_z\ =\ \doxymbox{\hyperlink{wiregfx_8c_a31dcfeb0361aa1f281db225a98b22e5f}{sin\_LUT}}[\doxymbox{\hyperlink{wiregfx_8c_a06ef935d6fae1bed8d4fdde3ed2d8500}{angle\_z}}];}
+\DoxyCodeLine{00121\ \ \ \ \ int32\_t\ cos\_z\ =\ \doxymbox{\hyperlink{wiregfx_8c_a31dcfeb0361aa1f281db225a98b22e5f}{sin\_LUT}}[(uint8\_t)(\doxymbox{\hyperlink{wiregfx_8c_a06ef935d6fae1bed8d4fdde3ed2d8500}{angle\_z}}\ +\ 64)];}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a77620914b6d1247e7515a36c38672391}{ssd1306\_Fill}}(\doxymbox{\hyperlink{ssd1306_8h_a6f68a90e6eefe5396bcbec2cd699d500ac1e9bce8242f443c54c7405223d616cd}{Black}});}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ 8;\ i++)\ \{}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ int32\_t\ x\ =\ \doxymbox{\hyperlink{wiregfx_8c_a3bb3396490d4e7b1654cb9e7bedc1e67}{cube\_vertices}}[i].\doxymbox{\hyperlink{struct_point3_d_aac47db42875eea60c141fa2711bc05da}{x}};}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ int32\_t\ y\ =\ \doxymbox{\hyperlink{wiregfx_8c_a3bb3396490d4e7b1654cb9e7bedc1e67}{cube\_vertices}}[i].\doxymbox{\hyperlink{struct_point3_d_a95edfd4f1e1876312867eac04e74b657}{y}};}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ int32\_t\ z\ =\ \doxymbox{\hyperlink{wiregfx_8c_a3bb3396490d4e7b1654cb9e7bedc1e67}{cube\_vertices}}[i].\doxymbox{\hyperlink{struct_point3_d_a6ebcea10c74b8b9055838fc0d5aeddff}{z}};}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Rotaciones\ (X,\ Y,\ Z)\ aplicando\ corrimiento\ >>\ 7\ para\ punto\ fijo}}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ int32\_t\ xy\ =\ (y\ *\ cos\_x\ -\/\ z\ *\ sin\_x)\ >>\ 7;}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ int32\_t\ xz\ =\ (y\ *\ sin\_x\ +\ z\ *\ cos\_x)\ >>\ 7;}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ y\ =\ xy;\ z\ =\ xz;}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ int32\_t\ yx\ =\ (x\ *\ cos\_y\ +\ z\ *\ sin\_y)\ >>\ 7;}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ int32\_t\ yz\ =\ (-\/x\ *\ sin\_y\ +\ z\ *\ cos\_y)\ >>\ 7;}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ x\ =\ yx;\ z\ =\ yz;}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ int32\_t\ zx\ =\ (x\ *\ cos\_z\ -\/\ y\ *\ sin\_z)\ >>\ 7;}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ int32\_t\ zy\ =\ (x\ *\ sin\_z\ +\ y\ *\ cos\_z)\ >>\ 7;}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ x\ =\ zx;\ y\ =\ zy;}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ projected[i].\doxymbox{\hyperlink{struct_point2_d_a20dfae07a7e7084de11e3c0a90fd5ba0}{x}}\ =\ x\ +\ \doxymbox{\hyperlink{group___wire_g_f_x___config_gaffb36ca3a6519ca609cfa9a0d70a682a}{CENTER\_X}};}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ projected[i].\doxymbox{\hyperlink{struct_point2_d_a194b209717366ee3c45102701a49e922}{y}}\ =\ y\ +\ \doxymbox{\hyperlink{group___wire_g_f_x___config_ga65dba9379097de8ea0bb4afd9d504b2b}{CENTER\_Y}};}
+\DoxyCodeLine{00145\ \ \ \ \ \}}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00147\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ 12;\ i++)\ \{}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a99529b2a48960312342d3c323aadcec8}{ssd1306\_Line}}(projected[\doxymbox{\hyperlink{wiregfx_8c_aecc1a37d8a3eff4db9fdeb3a6d836215}{cube\_edges}}[i][0]].x,\ projected[\doxymbox{\hyperlink{wiregfx_8c_aecc1a37d8a3eff4db9fdeb3a6d836215}{cube\_edges}}[i][0]].y,}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ projected[\doxymbox{\hyperlink{wiregfx_8c_aecc1a37d8a3eff4db9fdeb3a6d836215}{cube\_edges}}[i][1]].x,\ projected[\doxymbox{\hyperlink{wiregfx_8c_aecc1a37d8a3eff4db9fdeb3a6d836215}{cube\_edges}}[i][1]].y,\ \doxymbox{\hyperlink{ssd1306_8h_a6f68a90e6eefe5396bcbec2cd699d500ab548046646b36c12aa6ba841de500094}{White}});}
+\DoxyCodeLine{00150\ \ \ \ \ \}}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \ \ \ \ \doxymbox{\hyperlink{wiregfx_8c_ab524463dacbe156ad8377887abd07839}{angle\_x}}\ +=\ 2;\ \doxymbox{\hyperlink{wiregfx_8c_a80b26bdd0e7515bcb7dab5e799e73d90}{angle\_y}}\ +=\ 1;\ \doxymbox{\hyperlink{wiregfx_8c_a06ef935d6fae1bed8d4fdde3ed2d8500}{angle\_z}}\ +=\ 3;}
+\DoxyCodeLine{00153\ \}}
+
+\end{DoxyCode}
+
+
+Hace referencia a \doxymbox{\hyperlink{wiregfx_8c_source_l00019}{angle\+\_\+x}}, \doxymbox{\hyperlink{wiregfx_8c_source_l00020}{angle\+\_\+y}}, \doxymbox{\hyperlink{wiregfx_8c_source_l00021}{angle\+\_\+z}}, \doxymbox{\hyperlink{ssd1306_8h_source_l00057}{Black}}, \doxymbox{\hyperlink{wiregfx_8h_source_l00024}{CENTER\+\_\+X}}, \doxymbox{\hyperlink{wiregfx_8h_source_l00025}{CENTER\+\_\+Y}}, \doxymbox{\hyperlink{wiregfx_8c_source_l00053}{cube\+\_\+edges}}, \doxymbox{\hyperlink{wiregfx_8c_source_l00048}{cube\+\_\+vertices}}, \doxymbox{\hyperlink{wiregfx_8c_source_l00029}{sin\+\_\+\+LUT}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00219}{ssd1306\+\_\+\+Fill()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00374}{ssd1306\+\_\+\+Line()}}, \doxymbox{\hyperlink{ssd1306_8h_source_l00058}{White}}, \doxymbox{\hyperlink{wiregfx_8c_source_l00114}{WIREGFX\+\_\+\+Graphics\+\_\+\+Draw\+Cube()}}, \doxymbox{\hyperlink{wiregfx_8h_source_l00041}{Point2\+D::\+x}}, \doxymbox{\hyperlink{wiregfx_8h_source_l00032}{Point3\+D::\+x}}, \doxymbox{\hyperlink{wiregfx_8h_source_l00042}{Point2\+D::\+y}}, \doxymbox{\hyperlink{wiregfx_8h_source_l00033}{Point3\+D::\+y}} y \doxymbox{\hyperlink{wiregfx_8h_source_l00034}{Point3\+D::\+z}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{wiregfx_8c_source_l00293}{WIREGFX\+\_\+\+Display\+Task()}} y \doxymbox{\hyperlink{wiregfx_8c_source_l00114}{WIREGFX\+\_\+\+Graphics\+\_\+\+Draw\+Cube()}}.
+
+Gráfico de llamadas de esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{wiregfx_8c_aa040a177091d5ca94b339fc40ffe7006_cgraph}
+\end{center}
+\end{figure}
+Gráfico de llamadas a esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{wiregfx_8c_aa040a177091d5ca94b339fc40ffe7006_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{wiregfx_8c_af013fb800cc4848c93ea2dda220eaf6e}\index{wiregfx.c@{wiregfx.c}!WIREGFX\_Graphics\_DrawPyramid@{WIREGFX\_Graphics\_DrawPyramid}}
+\index{WIREGFX\_Graphics\_DrawPyramid@{WIREGFX\_Graphics\_DrawPyramid}!wiregfx.c@{wiregfx.c}}
+\doxyparagraph{\texorpdfstring{WIREGFX\_Graphics\_DrawPyramid()}{WIREGFX\_Graphics\_DrawPyramid()}}
+{\footnotesize\ttfamily \label{wiregfx_8c_af013fb800cc4848c93ea2dda220eaf6e} 
+void WIREGFX\+\_\+\+Graphics\+\_\+\+Draw\+Pyramid (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Renderiza una pirámide de base cuadrada rotando en el espacio tridimensional. 
+
+\texorpdfstring{$<$}{<} Coordenada X del centro geométrico en pantalla (128 / 2)
+
+\texorpdfstring{$<$}{<} Coordenada Y del centro geométrico en pantalla (64 / 2)
+
+Definición en la línea \doxymbox{\hyperlink{wiregfx_8c_source_l00200}{200}} del archivo \doxymbox{\hyperlink{wiregfx_8c_source}{wiregfx.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00201\ \ \ \ \ \doxymbox{\hyperlink{struct_point2_d}{Point2D}}\ projected[5];}
+\DoxyCodeLine{00202\ \ \ \ \ int32\_t\ sin\_x\ =\ \doxymbox{\hyperlink{wiregfx_8c_a31dcfeb0361aa1f281db225a98b22e5f}{sin\_LUT}}[\doxymbox{\hyperlink{wiregfx_8c_ab524463dacbe156ad8377887abd07839}{angle\_x}}];}
+\DoxyCodeLine{00203\ \ \ \ \ int32\_t\ cos\_x\ =\ \doxymbox{\hyperlink{wiregfx_8c_a31dcfeb0361aa1f281db225a98b22e5f}{sin\_LUT}}[(uint8\_t)(\doxymbox{\hyperlink{wiregfx_8c_ab524463dacbe156ad8377887abd07839}{angle\_x}}\ +\ 64)];}
+\DoxyCodeLine{00204\ \ \ \ \ int32\_t\ sin\_y\ =\ \doxymbox{\hyperlink{wiregfx_8c_a31dcfeb0361aa1f281db225a98b22e5f}{sin\_LUT}}[\doxymbox{\hyperlink{wiregfx_8c_a80b26bdd0e7515bcb7dab5e799e73d90}{angle\_y}}];}
+\DoxyCodeLine{00205\ \ \ \ \ int32\_t\ cos\_y\ =\ \doxymbox{\hyperlink{wiregfx_8c_a31dcfeb0361aa1f281db225a98b22e5f}{sin\_LUT}}[(uint8\_t)(\doxymbox{\hyperlink{wiregfx_8c_a80b26bdd0e7515bcb7dab5e799e73d90}{angle\_y}}\ +\ 64)];}
+\DoxyCodeLine{00206\ \ \ \ \ int32\_t\ sin\_z\ =\ \doxymbox{\hyperlink{wiregfx_8c_a31dcfeb0361aa1f281db225a98b22e5f}{sin\_LUT}}[\doxymbox{\hyperlink{wiregfx_8c_a06ef935d6fae1bed8d4fdde3ed2d8500}{angle\_z}}];}
+\DoxyCodeLine{00207\ \ \ \ \ int32\_t\ cos\_z\ =\ \doxymbox{\hyperlink{wiregfx_8c_a31dcfeb0361aa1f281db225a98b22e5f}{sin\_LUT}}[(uint8\_t)(\doxymbox{\hyperlink{wiregfx_8c_a06ef935d6fae1bed8d4fdde3ed2d8500}{angle\_z}}\ +\ 64)];}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00209\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a77620914b6d1247e7515a36c38672391}{ssd1306\_Fill}}(\doxymbox{\hyperlink{ssd1306_8h_a6f68a90e6eefe5396bcbec2cd699d500ac1e9bce8242f443c54c7405223d616cd}{Black}});}
+\DoxyCodeLine{00210\ }
+\DoxyCodeLine{00211\ \ \ \ \ \textcolor{comment}{//\ 1.\ Rotar\ y\ proyectar\ los\ 5\ vértices}}
+\DoxyCodeLine{00212\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ 5;\ i++)\ \{}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ int32\_t\ x\ =\ \doxymbox{\hyperlink{wiregfx_8c_a4b15c5c7bddb3ff3ef6ebfdeb9261161}{pyramid\_vertices}}[i].\doxymbox{\hyperlink{struct_point3_d_aac47db42875eea60c141fa2711bc05da}{x}};}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ int32\_t\ y\ =\ \doxymbox{\hyperlink{wiregfx_8c_a4b15c5c7bddb3ff3ef6ebfdeb9261161}{pyramid\_vertices}}[i].\doxymbox{\hyperlink{struct_point3_d_a95edfd4f1e1876312867eac04e74b657}{y}};}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ int32\_t\ z\ =\ \doxymbox{\hyperlink{wiregfx_8c_a4b15c5c7bddb3ff3ef6ebfdeb9261161}{pyramid\_vertices}}[i].\doxymbox{\hyperlink{struct_point3_d_a6ebcea10c74b8b9055838fc0d5aeddff}{z}};}
+\DoxyCodeLine{00216\ }
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ int32\_t\ xy\ =\ (y\ *\ cos\_x\ -\/\ z\ *\ sin\_x)\ >>\ 7;}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ int32\_t\ xz\ =\ (y\ *\ sin\_x\ +\ z\ *\ cos\_x)\ >>\ 7;}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ y\ =\ xy;\ z\ =\ xz;}
+\DoxyCodeLine{00220\ }
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ int32\_t\ yx\ =\ (x\ *\ cos\_y\ +\ z\ *\ sin\_y)\ >>\ 7;}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ int32\_t\ yz\ =\ (-\/x\ *\ sin\_y\ +\ z\ *\ cos\_y)\ >>\ 7;}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ x\ =\ yx;\ z\ =\ yz;}
+\DoxyCodeLine{00224\ }
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ int32\_t\ zx\ =\ (x\ *\ cos\_z\ -\/\ y\ *\ sin\_z)\ >>\ 7;}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ int32\_t\ zy\ =\ (x\ *\ sin\_z\ +\ y\ *\ cos\_z)\ >>\ 7;}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ x\ =\ zx;\ y\ =\ zy;}
+\DoxyCodeLine{00228\ }
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ projected[i].\doxymbox{\hyperlink{struct_point2_d_a20dfae07a7e7084de11e3c0a90fd5ba0}{x}}\ =\ x\ +\ \doxymbox{\hyperlink{group___wire_g_f_x___config_gaffb36ca3a6519ca609cfa9a0d70a682a}{CENTER\_X}};}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ projected[i].\doxymbox{\hyperlink{struct_point2_d_a194b209717366ee3c45102701a49e922}{y}}\ =\ y\ +\ \doxymbox{\hyperlink{group___wire_g_f_x___config_ga65dba9379097de8ea0bb4afd9d504b2b}{CENTER\_Y}};}
+\DoxyCodeLine{00231\ \ \ \ \ \}}
+\DoxyCodeLine{00232\ }
+\DoxyCodeLine{00233\ \ \ \ \ \textcolor{comment}{//\ 2.\ Dibujar\ las\ 8\ aristas}}
+\DoxyCodeLine{00234\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ 8;\ i++)\ \{}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a99529b2a48960312342d3c323aadcec8}{ssd1306\_Line}}(projected[\doxymbox{\hyperlink{wiregfx_8c_a4d1acf92c5a782faa68ac209e4cfe788}{pyramid\_edges}}[i][0]].x,\ projected[\doxymbox{\hyperlink{wiregfx_8c_a4d1acf92c5a782faa68ac209e4cfe788}{pyramid\_edges}}[i][0]].y,}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ projected[\doxymbox{\hyperlink{wiregfx_8c_a4d1acf92c5a782faa68ac209e4cfe788}{pyramid\_edges}}[i][1]].x,\ projected[\doxymbox{\hyperlink{wiregfx_8c_a4d1acf92c5a782faa68ac209e4cfe788}{pyramid\_edges}}[i][1]].y,\ \doxymbox{\hyperlink{ssd1306_8h_a6f68a90e6eefe5396bcbec2cd699d500ab548046646b36c12aa6ba841de500094}{White}});}
+\DoxyCodeLine{00237\ \ \ \ \ \}}
+\DoxyCodeLine{00238\ }
+\DoxyCodeLine{00239\ \ \ \ \ \textcolor{comment}{//\ Incremento\ de\ ángulos\ (puedes\ jugar\ con\ estos\ valores)}}
+\DoxyCodeLine{00240\ \ \ \ \ \doxymbox{\hyperlink{wiregfx_8c_ab524463dacbe156ad8377887abd07839}{angle\_x}}\ +=\ 2;\ \doxymbox{\hyperlink{wiregfx_8c_a80b26bdd0e7515bcb7dab5e799e73d90}{angle\_y}}\ +=\ 3;\ \doxymbox{\hyperlink{wiregfx_8c_a06ef935d6fae1bed8d4fdde3ed2d8500}{angle\_z}}\ +=\ 1;}
+\DoxyCodeLine{00241\ \}}
+
+\end{DoxyCode}
+
+
+Hace referencia a \doxymbox{\hyperlink{wiregfx_8c_source_l00019}{angle\+\_\+x}}, \doxymbox{\hyperlink{wiregfx_8c_source_l00020}{angle\+\_\+y}}, \doxymbox{\hyperlink{wiregfx_8c_source_l00021}{angle\+\_\+z}}, \doxymbox{\hyperlink{ssd1306_8h_source_l00057}{Black}}, \doxymbox{\hyperlink{wiregfx_8h_source_l00024}{CENTER\+\_\+X}}, \doxymbox{\hyperlink{wiregfx_8h_source_l00025}{CENTER\+\_\+Y}}, \doxymbox{\hyperlink{wiregfx_8c_source_l00079}{pyramid\+\_\+edges}}, \doxymbox{\hyperlink{wiregfx_8c_source_l00071}{pyramid\+\_\+vertices}}, \doxymbox{\hyperlink{wiregfx_8c_source_l00029}{sin\+\_\+\+LUT}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00219}{ssd1306\+\_\+\+Fill()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00374}{ssd1306\+\_\+\+Line()}}, \doxymbox{\hyperlink{ssd1306_8h_source_l00058}{White}}, \doxymbox{\hyperlink{wiregfx_8c_source_l00200}{WIREGFX\+\_\+\+Graphics\+\_\+\+Draw\+Pyramid()}}, \doxymbox{\hyperlink{wiregfx_8h_source_l00041}{Point2\+D::\+x}}, \doxymbox{\hyperlink{wiregfx_8h_source_l00032}{Point3\+D::\+x}}, \doxymbox{\hyperlink{wiregfx_8h_source_l00042}{Point2\+D::\+y}}, \doxymbox{\hyperlink{wiregfx_8h_source_l00033}{Point3\+D::\+y}} y \doxymbox{\hyperlink{wiregfx_8h_source_l00034}{Point3\+D::\+z}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{wiregfx_8c_source_l00293}{WIREGFX\+\_\+\+Display\+Task()}} y \doxymbox{\hyperlink{wiregfx_8c_source_l00200}{WIREGFX\+\_\+\+Graphics\+\_\+\+Draw\+Pyramid()}}.
+
+Gráfico de llamadas de esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{wiregfx_8c_af013fb800cc4848c93ea2dda220eaf6e_cgraph}
+\end{center}
+\end{figure}
+Gráfico de llamadas a esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{wiregfx_8c_af013fb800cc4848c93ea2dda220eaf6e_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{wiregfx_8c_ab0f2ac846917b11ac3fa0a4325687066}\index{wiregfx.c@{wiregfx.c}!WIREGFX\_Graphics\_DrawSphere@{WIREGFX\_Graphics\_DrawSphere}}
+\index{WIREGFX\_Graphics\_DrawSphere@{WIREGFX\_Graphics\_DrawSphere}!wiregfx.c@{wiregfx.c}}
+\doxyparagraph{\texorpdfstring{WIREGFX\_Graphics\_DrawSphere()}{WIREGFX\_Graphics\_DrawSphere()}}
+{\footnotesize\ttfamily \label{wiregfx_8c_ab0f2ac846917b11ac3fa0a4325687066} 
+void WIREGFX\+\_\+\+Graphics\+\_\+\+Draw\+Sphere (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Renderiza una esfera alámbrica tridimensional. 
+
+\texorpdfstring{$<$}{<} Coordenada X del centro geométrico en pantalla (128 / 2)
+
+\texorpdfstring{$<$}{<} Coordenada Y del centro geométrico en pantalla (64 / 2)
+
+Definición en la línea \doxymbox{\hyperlink{wiregfx_8c_source_l00243}{243}} del archivo \doxymbox{\hyperlink{wiregfx_8c_source}{wiregfx.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00244\ \ \ \ \ \doxymbox{\hyperlink{struct_point2_d}{Point2D}}\ projected[14];\ \textcolor{comment}{//\ 14\ vértices}}
+\DoxyCodeLine{00245\ }
+\DoxyCodeLine{00246\ \ \ \ \ int32\_t\ sin\_x\ =\ \doxymbox{\hyperlink{wiregfx_8c_a31dcfeb0361aa1f281db225a98b22e5f}{sin\_LUT}}[\doxymbox{\hyperlink{wiregfx_8c_ab524463dacbe156ad8377887abd07839}{angle\_x}}];}
+\DoxyCodeLine{00247\ \ \ \ \ int32\_t\ cos\_x\ =\ \doxymbox{\hyperlink{wiregfx_8c_a31dcfeb0361aa1f281db225a98b22e5f}{sin\_LUT}}[(uint8\_t)(\doxymbox{\hyperlink{wiregfx_8c_ab524463dacbe156ad8377887abd07839}{angle\_x}}\ +\ 64)];}
+\DoxyCodeLine{00248\ \ \ \ \ int32\_t\ sin\_y\ =\ \doxymbox{\hyperlink{wiregfx_8c_a31dcfeb0361aa1f281db225a98b22e5f}{sin\_LUT}}[\doxymbox{\hyperlink{wiregfx_8c_a80b26bdd0e7515bcb7dab5e799e73d90}{angle\_y}}];}
+\DoxyCodeLine{00249\ \ \ \ \ int32\_t\ cos\_y\ =\ \doxymbox{\hyperlink{wiregfx_8c_a31dcfeb0361aa1f281db225a98b22e5f}{sin\_LUT}}[(uint8\_t)(\doxymbox{\hyperlink{wiregfx_8c_a80b26bdd0e7515bcb7dab5e799e73d90}{angle\_y}}\ +\ 64)];}
+\DoxyCodeLine{00250\ \ \ \ \ int32\_t\ sin\_z\ =\ \doxymbox{\hyperlink{wiregfx_8c_a31dcfeb0361aa1f281db225a98b22e5f}{sin\_LUT}}[\doxymbox{\hyperlink{wiregfx_8c_a06ef935d6fae1bed8d4fdde3ed2d8500}{angle\_z}}];}
+\DoxyCodeLine{00251\ \ \ \ \ int32\_t\ cos\_z\ =\ \doxymbox{\hyperlink{wiregfx_8c_a31dcfeb0361aa1f281db225a98b22e5f}{sin\_LUT}}[(uint8\_t)(\doxymbox{\hyperlink{wiregfx_8c_a06ef935d6fae1bed8d4fdde3ed2d8500}{angle\_z}}\ +\ 64)];}
+\DoxyCodeLine{00252\ }
+\DoxyCodeLine{00253\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a77620914b6d1247e7515a36c38672391}{ssd1306\_Fill}}(\doxymbox{\hyperlink{ssd1306_8h_a6f68a90e6eefe5396bcbec2cd699d500ac1e9bce8242f443c54c7405223d616cd}{Black}});}
+\DoxyCodeLine{00254\ }
+\DoxyCodeLine{00255\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ 14;\ i++)\ \{}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ int32\_t\ x\ =\ \doxymbox{\hyperlink{wiregfx_8c_a28fb0af1317ff851a80e435b55bf02d6}{sphere\_vertices}}[i].\doxymbox{\hyperlink{struct_point3_d_aac47db42875eea60c141fa2711bc05da}{x}};}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ int32\_t\ y\ =\ \doxymbox{\hyperlink{wiregfx_8c_a28fb0af1317ff851a80e435b55bf02d6}{sphere\_vertices}}[i].\doxymbox{\hyperlink{struct_point3_d_a95edfd4f1e1876312867eac04e74b657}{y}};}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ int32\_t\ z\ =\ \doxymbox{\hyperlink{wiregfx_8c_a28fb0af1317ff851a80e435b55bf02d6}{sphere\_vertices}}[i].\doxymbox{\hyperlink{struct_point3_d_a6ebcea10c74b8b9055838fc0d5aeddff}{z}};}
+\DoxyCodeLine{00259\ }
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Rotaciones\ matriciales}}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ int32\_t\ xy\ =\ (y\ *\ cos\_x\ -\/\ z\ *\ sin\_x)\ >>\ 7;}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ int32\_t\ xz\ =\ (y\ *\ sin\_x\ +\ z\ *\ cos\_x)\ >>\ 7;}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ y\ =\ xy;\ z\ =\ xz;}
+\DoxyCodeLine{00264\ }
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ int32\_t\ yx\ =\ (x\ *\ cos\_y\ +\ z\ *\ sin\_y)\ >>\ 7;}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ int32\_t\ yz\ =\ (-\/x\ *\ sin\_y\ +\ z\ *\ cos\_y)\ >>\ 7;}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ x\ =\ yx;\ z\ =\ yz;}
+\DoxyCodeLine{00268\ }
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ int32\_t\ zx\ =\ (x\ *\ cos\_z\ -\/\ y\ *\ sin\_z)\ >>\ 7;}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ int32\_t\ zy\ =\ (x\ *\ sin\_z\ +\ y\ *\ cos\_z)\ >>\ 7;}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ x\ =\ zx;\ y\ =\ zy;}
+\DoxyCodeLine{00272\ }
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ projected[i].\doxymbox{\hyperlink{struct_point2_d_a20dfae07a7e7084de11e3c0a90fd5ba0}{x}}\ =\ x\ +\ \doxymbox{\hyperlink{group___wire_g_f_x___config_gaffb36ca3a6519ca609cfa9a0d70a682a}{CENTER\_X}};}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ projected[i].\doxymbox{\hyperlink{struct_point2_d_a194b209717366ee3c45102701a49e922}{y}}\ =\ y\ +\ \doxymbox{\hyperlink{group___wire_g_f_x___config_ga65dba9379097de8ea0bb4afd9d504b2b}{CENTER\_Y}};}
+\DoxyCodeLine{00275\ \ \ \ \ \}}
+\DoxyCodeLine{00276\ }
+\DoxyCodeLine{00277\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ 24;\ i++)\ \{\ \textcolor{comment}{//\ 24\ aristas}}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a99529b2a48960312342d3c323aadcec8}{ssd1306\_Line}}(projected[\doxymbox{\hyperlink{wiregfx_8c_a77606d6068502259c5de0b0bdd4ddd14}{sphere\_edges}}[i][0]].x,\ projected[\doxymbox{\hyperlink{wiregfx_8c_a77606d6068502259c5de0b0bdd4ddd14}{sphere\_edges}}[i][0]].y,}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ projected[\doxymbox{\hyperlink{wiregfx_8c_a77606d6068502259c5de0b0bdd4ddd14}{sphere\_edges}}[i][1]].x,\ projected[\doxymbox{\hyperlink{wiregfx_8c_a77606d6068502259c5de0b0bdd4ddd14}{sphere\_edges}}[i][1]].y,\ \doxymbox{\hyperlink{ssd1306_8h_a6f68a90e6eefe5396bcbec2cd699d500ab548046646b36c12aa6ba841de500094}{White}});}
+\DoxyCodeLine{00280\ \ \ \ \ \}}
+\DoxyCodeLine{00281\ }
+\DoxyCodeLine{00282\ \ \ \ \ \doxymbox{\hyperlink{wiregfx_8c_ab524463dacbe156ad8377887abd07839}{angle\_x}}\ +=\ 1;\ \doxymbox{\hyperlink{wiregfx_8c_a80b26bdd0e7515bcb7dab5e799e73d90}{angle\_y}}\ +=\ 2;\ \doxymbox{\hyperlink{wiregfx_8c_a06ef935d6fae1bed8d4fdde3ed2d8500}{angle\_z}}\ +=\ 1;\ \textcolor{comment}{//\ Giro\ suave}}
+\DoxyCodeLine{00283\ \}}
+
+\end{DoxyCode}
+
+
+Hace referencia a \doxymbox{\hyperlink{wiregfx_8c_source_l00019}{angle\+\_\+x}}, \doxymbox{\hyperlink{wiregfx_8c_source_l00020}{angle\+\_\+y}}, \doxymbox{\hyperlink{wiregfx_8c_source_l00021}{angle\+\_\+z}}, \doxymbox{\hyperlink{ssd1306_8h_source_l00057}{Black}}, \doxymbox{\hyperlink{wiregfx_8h_source_l00024}{CENTER\+\_\+X}}, \doxymbox{\hyperlink{wiregfx_8h_source_l00025}{CENTER\+\_\+Y}}, \doxymbox{\hyperlink{wiregfx_8c_source_l00029}{sin\+\_\+\+LUT}}, \doxymbox{\hyperlink{wiregfx_8c_source_l00100}{sphere\+\_\+edges}}, \doxymbox{\hyperlink{wiregfx_8c_source_l00086}{sphere\+\_\+vertices}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00219}{ssd1306\+\_\+\+Fill()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00374}{ssd1306\+\_\+\+Line()}}, \doxymbox{\hyperlink{ssd1306_8h_source_l00058}{White}}, \doxymbox{\hyperlink{wiregfx_8c_source_l00243}{WIREGFX\+\_\+\+Graphics\+\_\+\+Draw\+Sphere()}}, \doxymbox{\hyperlink{wiregfx_8h_source_l00041}{Point2\+D::\+x}}, \doxymbox{\hyperlink{wiregfx_8h_source_l00032}{Point3\+D::\+x}}, \doxymbox{\hyperlink{wiregfx_8h_source_l00042}{Point2\+D::\+y}}, \doxymbox{\hyperlink{wiregfx_8h_source_l00033}{Point3\+D::\+y}} y \doxymbox{\hyperlink{wiregfx_8h_source_l00034}{Point3\+D::\+z}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{wiregfx_8c_source_l00243}{WIREGFX\+\_\+\+Graphics\+\_\+\+Draw\+Sphere()}}.
+
+Gráfico de llamadas de esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{wiregfx_8c_ab0f2ac846917b11ac3fa0a4325687066_cgraph}
+\end{center}
+\end{figure}
+Gráfico de llamadas a esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=247pt]{wiregfx_8c_ab0f2ac846917b11ac3fa0a4325687066_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{wiregfx_8c_ad2de8c930d3b77da950022208a3c581c}\index{wiregfx.c@{wiregfx.c}!WIREGFX\_Graphics\_DrawTesseract@{WIREGFX\_Graphics\_DrawTesseract}}
+\index{WIREGFX\_Graphics\_DrawTesseract@{WIREGFX\_Graphics\_DrawTesseract}!wiregfx.c@{wiregfx.c}}
+\doxyparagraph{\texorpdfstring{WIREGFX\_Graphics\_DrawTesseract()}{WIREGFX\_Graphics\_DrawTesseract()}}
+{\footnotesize\ttfamily \label{wiregfx_8c_ad2de8c930d3b77da950022208a3c581c} 
+void WIREGFX\+\_\+\+Graphics\+\_\+\+Draw\+Tesseract (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Renderiza un teseracto (hipercubo 4D) con proyección en perspectiva estereográfica. 
+
+\texorpdfstring{$<$}{<} Coordenada X del centro geométrico en pantalla (128 / 2)
+
+\texorpdfstring{$<$}{<} Coordenada Y del centro geométrico en pantalla (64 / 2)
+
+Definición en la línea \doxymbox{\hyperlink{wiregfx_8c_source_l00155}{155}} del archivo \doxymbox{\hyperlink{wiregfx_8c_source}{wiregfx.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00156\ \ \ \ \ \doxymbox{\hyperlink{struct_point2_d}{Point2D}}\ projected[16];}
+\DoxyCodeLine{00157\ \ \ \ \ int32\_t\ sin\_xz\ =\ \doxymbox{\hyperlink{wiregfx_8c_a31dcfeb0361aa1f281db225a98b22e5f}{sin\_LUT}}[\doxymbox{\hyperlink{wiregfx_8c_a1dd6556da34d6df771b77a181c129791}{angle\_xz}}];}
+\DoxyCodeLine{00158\ \ \ \ \ int32\_t\ cos\_xz\ =\ \doxymbox{\hyperlink{wiregfx_8c_a31dcfeb0361aa1f281db225a98b22e5f}{sin\_LUT}}[(uint8\_t)(\doxymbox{\hyperlink{wiregfx_8c_a1dd6556da34d6df771b77a181c129791}{angle\_xz}}\ +\ 64)];}
+\DoxyCodeLine{00159\ \ \ \ \ int32\_t\ sin\_yz\ =\ \doxymbox{\hyperlink{wiregfx_8c_a31dcfeb0361aa1f281db225a98b22e5f}{sin\_LUT}}[\doxymbox{\hyperlink{wiregfx_8c_ac19649c26af01b34b719bda7a4e0c5ff}{angle\_yz}}];}
+\DoxyCodeLine{00160\ \ \ \ \ int32\_t\ cos\_yz\ =\ \doxymbox{\hyperlink{wiregfx_8c_a31dcfeb0361aa1f281db225a98b22e5f}{sin\_LUT}}[(uint8\_t)(\doxymbox{\hyperlink{wiregfx_8c_ac19649c26af01b34b719bda7a4e0c5ff}{angle\_yz}}\ +\ 64)];}
+\DoxyCodeLine{00161\ \ \ \ \ int32\_t\ sin\_xw\ =\ \doxymbox{\hyperlink{wiregfx_8c_a31dcfeb0361aa1f281db225a98b22e5f}{sin\_LUT}}[\doxymbox{\hyperlink{wiregfx_8c_a05ecc5ecfd4f71d82e8b72bee2846b1d}{angle\_xw}}];}
+\DoxyCodeLine{00162\ \ \ \ \ int32\_t\ cos\_xw\ =\ \doxymbox{\hyperlink{wiregfx_8c_a31dcfeb0361aa1f281db225a98b22e5f}{sin\_LUT}}[(uint8\_t)(\doxymbox{\hyperlink{wiregfx_8c_a05ecc5ecfd4f71d82e8b72bee2846b1d}{angle\_xw}}\ +\ 64)];}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a77620914b6d1247e7515a36c38672391}{ssd1306\_Fill}}(\doxymbox{\hyperlink{ssd1306_8h_a6f68a90e6eefe5396bcbec2cd699d500ac1e9bce8242f443c54c7405223d616cd}{Black}});}
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00166\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ 16;\ i++)\ \{}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ int32\_t\ x\ =\ \doxymbox{\hyperlink{wiregfx_8c_afd9f889e92a18dad325e83cb67b6a526}{tesseract\_vertices}}[i].\doxymbox{\hyperlink{struct_point4_d_afa208b7de233e9c26e8647481f4cdb3c}{x}};}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ int32\_t\ y\ =\ \doxymbox{\hyperlink{wiregfx_8c_afd9f889e92a18dad325e83cb67b6a526}{tesseract\_vertices}}[i].\doxymbox{\hyperlink{struct_point4_d_ae0503121411b6aa6d384b86601dab3ba}{y}};}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ int32\_t\ z\ =\ \doxymbox{\hyperlink{wiregfx_8c_afd9f889e92a18dad325e83cb67b6a526}{tesseract\_vertices}}[i].\doxymbox{\hyperlink{struct_point4_d_a20d9e81a16908b478280514a28ff1b3e}{z}};}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ int32\_t\ w\ =\ \doxymbox{\hyperlink{wiregfx_8c_afd9f889e92a18dad325e83cb67b6a526}{tesseract\_vertices}}[i].\doxymbox{\hyperlink{struct_point4_d_aaf6ac6494d64b38cd1744f1d654a5a28}{w}};}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ int32\_t\ xw\_x\ =\ (x\ *\ cos\_xw\ -\/\ w\ *\ sin\_xw)\ >>\ 7;}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ int32\_t\ xw\_w\ =\ (x\ *\ sin\_xw\ +\ w\ *\ cos\_xw)\ >>\ 7;}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ x\ =\ xw\_x;\ w\ =\ xw\_w;}
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ int32\_t\ xz\_x\ =\ (x\ *\ cos\_xz\ -\/\ z\ *\ sin\_xz)\ >>\ 7;}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ int32\_t\ xz\_z\ =\ (x\ *\ sin\_xz\ +\ z\ *\ cos\_xz)\ >>\ 7;}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ x\ =\ xz\_x;\ z\ =\ xz\_z;}
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ int32\_t\ yz\_y\ =\ (y\ *\ cos\_yz\ -\/\ z\ *\ sin\_yz)\ >>\ 7;}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ int32\_t\ yz\_z\ =\ (y\ *\ sin\_yz\ +\ z\ *\ cos\_yz)\ >>\ 7;}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ y\ =\ yz\_y;\ z\ =\ yz\_z;}
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ int32\_t\ w\_factor\ =\ 48\ -\/\ w;}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ x\ =\ (x\ *\ w\_factor)\ >>\ 6;}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ y\ =\ (y\ *\ w\_factor)\ >>\ 6;}
+\DoxyCodeLine{00187\ }
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ projected[i].\doxymbox{\hyperlink{struct_point2_d_a20dfae07a7e7084de11e3c0a90fd5ba0}{x}}\ =\ x\ +\ \doxymbox{\hyperlink{group___wire_g_f_x___config_gaffb36ca3a6519ca609cfa9a0d70a682a}{CENTER\_X}};}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ projected[i].\doxymbox{\hyperlink{struct_point2_d_a194b209717366ee3c45102701a49e922}{y}}\ =\ y\ +\ \doxymbox{\hyperlink{group___wire_g_f_x___config_ga65dba9379097de8ea0bb4afd9d504b2b}{CENTER\_Y}};}
+\DoxyCodeLine{00190\ \ \ \ \ \}}
+\DoxyCodeLine{00191\ }
+\DoxyCodeLine{00192\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ 32;\ i++)\ \{}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a99529b2a48960312342d3c323aadcec8}{ssd1306\_Line}}(projected[\doxymbox{\hyperlink{wiregfx_8c_a2c25d0a928c29d1d3aa35427b5bc6b6d}{tesseract\_edges}}[i][0]].x,\ projected[\doxymbox{\hyperlink{wiregfx_8c_a2c25d0a928c29d1d3aa35427b5bc6b6d}{tesseract\_edges}}[i][0]].y,}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ projected[\doxymbox{\hyperlink{wiregfx_8c_a2c25d0a928c29d1d3aa35427b5bc6b6d}{tesseract\_edges}}[i][1]].x,\ projected[\doxymbox{\hyperlink{wiregfx_8c_a2c25d0a928c29d1d3aa35427b5bc6b6d}{tesseract\_edges}}[i][1]].y,\ \doxymbox{\hyperlink{ssd1306_8h_a6f68a90e6eefe5396bcbec2cd699d500ab548046646b36c12aa6ba841de500094}{White}});}
+\DoxyCodeLine{00195\ \ \ \ \ \}}
+\DoxyCodeLine{00196\ }
+\DoxyCodeLine{00197\ \ \ \ \ \doxymbox{\hyperlink{wiregfx_8c_a1dd6556da34d6df771b77a181c129791}{angle\_xz}}\ +=\ 1;\ \doxymbox{\hyperlink{wiregfx_8c_ac19649c26af01b34b719bda7a4e0c5ff}{angle\_yz}}\ +=\ 1;\ \doxymbox{\hyperlink{wiregfx_8c_a05ecc5ecfd4f71d82e8b72bee2846b1d}{angle\_xw}}\ +=\ 2;}
+\DoxyCodeLine{00198\ \}}
+
+\end{DoxyCode}
+
+
+Hace referencia a \doxymbox{\hyperlink{wiregfx_8c_source_l00024}{angle\+\_\+xw}}, \doxymbox{\hyperlink{wiregfx_8c_source_l00022}{angle\+\_\+xz}}, \doxymbox{\hyperlink{wiregfx_8c_source_l00023}{angle\+\_\+yz}}, \doxymbox{\hyperlink{ssd1306_8h_source_l00057}{Black}}, \doxymbox{\hyperlink{wiregfx_8h_source_l00024}{CENTER\+\_\+X}}, \doxymbox{\hyperlink{wiregfx_8h_source_l00025}{CENTER\+\_\+Y}}, \doxymbox{\hyperlink{wiregfx_8c_source_l00029}{sin\+\_\+\+LUT}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00219}{ssd1306\+\_\+\+Fill()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00374}{ssd1306\+\_\+\+Line()}}, \doxymbox{\hyperlink{wiregfx_8c_source_l00064}{tesseract\+\_\+edges}}, \doxymbox{\hyperlink{wiregfx_8c_source_l00057}{tesseract\+\_\+vertices}}, \doxymbox{\hyperlink{wiregfx_8h_source_l00052}{Point4\+D::\+w}}, \doxymbox{\hyperlink{ssd1306_8h_source_l00058}{White}}, \doxymbox{\hyperlink{wiregfx_8c_source_l00155}{WIREGFX\+\_\+\+Graphics\+\_\+\+Draw\+Tesseract()}}, \doxymbox{\hyperlink{wiregfx_8h_source_l00041}{Point2\+D::\+x}}, \doxymbox{\hyperlink{wiregfx_8h_source_l00049}{Point4\+D::\+x}}, \doxymbox{\hyperlink{wiregfx_8h_source_l00042}{Point2\+D::\+y}}, \doxymbox{\hyperlink{wiregfx_8h_source_l00050}{Point4\+D::\+y}} y \doxymbox{\hyperlink{wiregfx_8h_source_l00051}{Point4\+D::\+z}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{wiregfx_8c_source_l00293}{WIREGFX\+\_\+\+Display\+Task()}} y \doxymbox{\hyperlink{wiregfx_8c_source_l00155}{WIREGFX\+\_\+\+Graphics\+\_\+\+Draw\+Tesseract()}}.
+
+Gráfico de llamadas de esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{wiregfx_8c_ad2de8c930d3b77da950022208a3c581c_cgraph}
+\end{center}
+\end{figure}
+Gráfico de llamadas a esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{wiregfx_8c_ad2de8c930d3b77da950022208a3c581c_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{wiregfx_8c_a6713ee890930c608f8ce3238a1ce9443}\index{wiregfx.c@{wiregfx.c}!WIREGFX\_ResetCycle@{WIREGFX\_ResetCycle}}
+\index{WIREGFX\_ResetCycle@{WIREGFX\_ResetCycle}!wiregfx.c@{wiregfx.c}}
+\doxyparagraph{\texorpdfstring{WIREGFX\_ResetCycle()}{WIREGFX\_ResetCycle()}}
+{\footnotesize\ttfamily \label{wiregfx_8c_a6713ee890930c608f8ce3238a1ce9443} 
+void WIREGFX\+\_\+\+Reset\+Cycle (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Reinicia el ciclo de animación para comenzar inmediatamente desde el Cubo 3D. 
+
+
+
+Definición en la línea \doxymbox{\hyperlink{wiregfx_8c_source_l00288}{288}} del archivo \doxymbox{\hyperlink{wiregfx_8c_source}{wiregfx.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00289\ \ \ \ \ \doxymbox{\hyperlink{wiregfx_8c_aa36114bb09d841e9432302e300d3b781}{wiregfx\_last\_switch\_tick}}\ =\ \doxymbox{\hyperlink{group___h_a_l___exported___functions___group2_gac9b3a85a73735ac840d0dcb59bc0fdd6}{HAL\_GetTick}}();}
+\DoxyCodeLine{00290\ \ \ \ \ \doxymbox{\hyperlink{wiregfx_8c_ad227f5a9c4231508fefba8fbe1f994e6}{wiregfx\_figure\_index}}\ =\ 0;}
+\DoxyCodeLine{00291\ \}}
+
+\end{DoxyCode}
+
+
+Hace referencia a \doxymbox{\hyperlink{stm32f1xx__hal_8c_source_l00304}{HAL\+\_\+\+Get\+Tick()}}, \doxymbox{\hyperlink{wiregfx_8c_source_l00286}{wiregfx\+\_\+figure\+\_\+index}}, \doxymbox{\hyperlink{wiregfx_8c_source_l00285}{wiregfx\+\_\+last\+\_\+switch\+\_\+tick}} y \doxymbox{\hyperlink{wiregfx_8c_source_l00288}{WIREGFX\+\_\+\+Reset\+Cycle()}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{main_8c_source_l00767}{Set\+Robot\+Mode()}} y \doxymbox{\hyperlink{wiregfx_8c_source_l00288}{WIREGFX\+\_\+\+Reset\+Cycle()}}.
+
+Gráfico de llamadas de esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=312pt]{wiregfx_8c_a6713ee890930c608f8ce3238a1ce9443_cgraph}
+\end{center}
+\end{figure}
+Gráfico de llamadas a esta función:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{wiregfx_8c_a6713ee890930c608f8ce3238a1ce9443_icgraph}
+\end{center}
+\end{figure}
+
+
+\label{wiregfx_8c_doc-var-members}
+\Hypertarget{wiregfx_8c_doc-var-members}
+\doxysubsubsection{Documentación de variables}
+\Hypertarget{wiregfx_8c_ab524463dacbe156ad8377887abd07839}\index{wiregfx.c@{wiregfx.c}!angle\_x@{angle\_x}}
+\index{angle\_x@{angle\_x}!wiregfx.c@{wiregfx.c}}
+\doxyparagraph{\texorpdfstring{angle\_x}{angle\_x}}
+{\footnotesize\ttfamily \label{wiregfx_8c_ab524463dacbe156ad8377887abd07839} 
+uint8\+\_\+t angle\+\_\+x = 0\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Ángulo de rotación sobre el eje X (0 a 255 = 0° a 360°). 
+
+
+
+Definición en la línea \doxymbox{\hyperlink{wiregfx_8c_source_l00019}{19}} del archivo \doxymbox{\hyperlink{wiregfx_8c_source}{wiregfx.\+c}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{wiregfx_8c_source_l00114}{WIREGFX\+\_\+\+Graphics\+\_\+\+Draw\+Cube()}}, \doxymbox{\hyperlink{wiregfx_8c_source_l00200}{WIREGFX\+\_\+\+Graphics\+\_\+\+Draw\+Pyramid()}} y \doxymbox{\hyperlink{wiregfx_8c_source_l00243}{WIREGFX\+\_\+\+Graphics\+\_\+\+Draw\+Sphere()}}.
+
+\Hypertarget{wiregfx_8c_a05ecc5ecfd4f71d82e8b72bee2846b1d}\index{wiregfx.c@{wiregfx.c}!angle\_xw@{angle\_xw}}
+\index{angle\_xw@{angle\_xw}!wiregfx.c@{wiregfx.c}}
+\doxyparagraph{\texorpdfstring{angle\_xw}{angle\_xw}}
+{\footnotesize\ttfamily \label{wiregfx_8c_a05ecc5ecfd4f71d82e8b72bee2846b1d} 
+uint8\+\_\+t angle\+\_\+xw = 0\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Ángulo de rotación en el plano X-\/W de la 4ta dimensión. 
+
+
+
+Definición en la línea \doxymbox{\hyperlink{wiregfx_8c_source_l00024}{24}} del archivo \doxymbox{\hyperlink{wiregfx_8c_source}{wiregfx.\+c}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{wiregfx_8c_source_l00155}{WIREGFX\+\_\+\+Graphics\+\_\+\+Draw\+Tesseract()}}.
+
+\Hypertarget{wiregfx_8c_a1dd6556da34d6df771b77a181c129791}\index{wiregfx.c@{wiregfx.c}!angle\_xz@{angle\_xz}}
+\index{angle\_xz@{angle\_xz}!wiregfx.c@{wiregfx.c}}
+\doxyparagraph{\texorpdfstring{angle\_xz}{angle\_xz}}
+{\footnotesize\ttfamily \label{wiregfx_8c_a1dd6556da34d6df771b77a181c129791} 
+uint8\+\_\+t angle\+\_\+xz = 0\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Ángulo de rotación en el plano X-\/Z (para 4D). 
+
+
+
+Definición en la línea \doxymbox{\hyperlink{wiregfx_8c_source_l00022}{22}} del archivo \doxymbox{\hyperlink{wiregfx_8c_source}{wiregfx.\+c}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{wiregfx_8c_source_l00155}{WIREGFX\+\_\+\+Graphics\+\_\+\+Draw\+Tesseract()}}.
+
+\Hypertarget{wiregfx_8c_a80b26bdd0e7515bcb7dab5e799e73d90}\index{wiregfx.c@{wiregfx.c}!angle\_y@{angle\_y}}
+\index{angle\_y@{angle\_y}!wiregfx.c@{wiregfx.c}}
+\doxyparagraph{\texorpdfstring{angle\_y}{angle\_y}}
+{\footnotesize\ttfamily \label{wiregfx_8c_a80b26bdd0e7515bcb7dab5e799e73d90} 
+uint8\+\_\+t angle\+\_\+y = 0\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Ángulo de rotación sobre el eje Y. 
+
+
+
+Definición en la línea \doxymbox{\hyperlink{wiregfx_8c_source_l00020}{20}} del archivo \doxymbox{\hyperlink{wiregfx_8c_source}{wiregfx.\+c}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{wiregfx_8c_source_l00114}{WIREGFX\+\_\+\+Graphics\+\_\+\+Draw\+Cube()}}, \doxymbox{\hyperlink{wiregfx_8c_source_l00200}{WIREGFX\+\_\+\+Graphics\+\_\+\+Draw\+Pyramid()}} y \doxymbox{\hyperlink{wiregfx_8c_source_l00243}{WIREGFX\+\_\+\+Graphics\+\_\+\+Draw\+Sphere()}}.
+
+\Hypertarget{wiregfx_8c_ac19649c26af01b34b719bda7a4e0c5ff}\index{wiregfx.c@{wiregfx.c}!angle\_yz@{angle\_yz}}
+\index{angle\_yz@{angle\_yz}!wiregfx.c@{wiregfx.c}}
+\doxyparagraph{\texorpdfstring{angle\_yz}{angle\_yz}}
+{\footnotesize\ttfamily \label{wiregfx_8c_ac19649c26af01b34b719bda7a4e0c5ff} 
+uint8\+\_\+t angle\+\_\+yz = 0\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Ángulo de rotación en el plano Y-\/Z (para 4D). 
+
+
+
+Definición en la línea \doxymbox{\hyperlink{wiregfx_8c_source_l00023}{23}} del archivo \doxymbox{\hyperlink{wiregfx_8c_source}{wiregfx.\+c}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{wiregfx_8c_source_l00155}{WIREGFX\+\_\+\+Graphics\+\_\+\+Draw\+Tesseract()}}.
+
+\Hypertarget{wiregfx_8c_a06ef935d6fae1bed8d4fdde3ed2d8500}\index{wiregfx.c@{wiregfx.c}!angle\_z@{angle\_z}}
+\index{angle\_z@{angle\_z}!wiregfx.c@{wiregfx.c}}
+\doxyparagraph{\texorpdfstring{angle\_z}{angle\_z}}
+{\footnotesize\ttfamily \label{wiregfx_8c_a06ef935d6fae1bed8d4fdde3ed2d8500} 
+uint8\+\_\+t angle\+\_\+z = 0\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Ángulo de rotación sobre el eje Z. 
+
+
+
+Definición en la línea \doxymbox{\hyperlink{wiregfx_8c_source_l00021}{21}} del archivo \doxymbox{\hyperlink{wiregfx_8c_source}{wiregfx.\+c}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{wiregfx_8c_source_l00114}{WIREGFX\+\_\+\+Graphics\+\_\+\+Draw\+Cube()}}, \doxymbox{\hyperlink{wiregfx_8c_source_l00200}{WIREGFX\+\_\+\+Graphics\+\_\+\+Draw\+Pyramid()}} y \doxymbox{\hyperlink{wiregfx_8c_source_l00243}{WIREGFX\+\_\+\+Graphics\+\_\+\+Draw\+Sphere()}}.
+
+\Hypertarget{wiregfx_8c_aecc1a37d8a3eff4db9fdeb3a6d836215}\index{wiregfx.c@{wiregfx.c}!cube\_edges@{cube\_edges}}
+\index{cube\_edges@{cube\_edges}!wiregfx.c@{wiregfx.c}}
+\doxyparagraph{\texorpdfstring{cube\_edges}{cube\_edges}}
+{\footnotesize\ttfamily \label{wiregfx_8c_aecc1a37d8a3eff4db9fdeb3a6d836215} 
+const int cube\+\_\+edges\+[12]\+\+[2]\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Valor inicial:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ \{}
+\DoxyCodeLine{\ \ \ \ \{0,\ 1\},\ \{1,\ 2\},\ \{2,\ 3\},\ \{3,\ 0\},\ \{4,\ 5\},\ \{5,\ 6\},\ \{6,\ 7\},\ \{7,\ 4\},\ \{0,\ 4\},\ \{1,\ 5\},\ \{2,\ 6\},\ \{3,\ 7\}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Definición en la línea \doxymbox{\hyperlink{wiregfx_8c_source_l00053}{53}} del archivo \doxymbox{\hyperlink{wiregfx_8c_source}{wiregfx.\+c}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{wiregfx_8c_source_l00114}{WIREGFX\+\_\+\+Graphics\+\_\+\+Draw\+Cube()}}.
+
+\Hypertarget{wiregfx_8c_a3bb3396490d4e7b1654cb9e7bedc1e67}\index{wiregfx.c@{wiregfx.c}!cube\_vertices@{cube\_vertices}}
+\index{cube\_vertices@{cube\_vertices}!wiregfx.c@{wiregfx.c}}
+\doxyparagraph{\texorpdfstring{cube\_vertices}{cube\_vertices}}
+{\footnotesize\ttfamily \label{wiregfx_8c_a3bb3396490d4e7b1654cb9e7bedc1e67} 
+const \doxymbox{\hyperlink{struct_point3_d}{Point3D}} cube\+\_\+vertices\+[8]\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Valor inicial:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ \{}
+\DoxyCodeLine{\ \ \ \ \{-\/16,\ -\/16,\ -\/16\},\ \{\ 16,\ -\/16,\ -\/16\},\ \{\ 16,\ \ 16,\ -\/16\},\ \{-\/16,\ \ 16,\ -\/16\},}
+\DoxyCodeLine{\ \ \ \ \{-\/16,\ -\/16,\ \ 16\},\ \{\ 16,\ -\/16,\ \ 16\},\ \{\ 16,\ \ 16,\ \ 16\},\ \{-\/16,\ \ 16,\ \ 16\}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Definición en la línea \doxymbox{\hyperlink{wiregfx_8c_source_l00048}{48}} del archivo \doxymbox{\hyperlink{wiregfx_8c_source}{wiregfx.\+c}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{wiregfx_8c_source_l00114}{WIREGFX\+\_\+\+Graphics\+\_\+\+Draw\+Cube()}}.
+
+\Hypertarget{wiregfx_8c_a4d1acf92c5a782faa68ac209e4cfe788}\index{wiregfx.c@{wiregfx.c}!pyramid\_edges@{pyramid\_edges}}
+\index{pyramid\_edges@{pyramid\_edges}!wiregfx.c@{wiregfx.c}}
+\doxyparagraph{\texorpdfstring{pyramid\_edges}{pyramid\_edges}}
+{\footnotesize\ttfamily \label{wiregfx_8c_a4d1acf92c5a782faa68ac209e4cfe788} 
+const int pyramid\+\_\+edges\+[8]\+\+[2]\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Valor inicial:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ \{}
+\DoxyCodeLine{\ \ \ \ \{0,\ 1\},\ \{0,\ 2\},\ \{0,\ 3\},\ \{0,\ 4\},\ }
+\DoxyCodeLine{\ \ \ \ \{1,\ 2\},\ \{2,\ 3\},\ \{3,\ 4\},\ \{4,\ 1\}\ \ }
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Definición en la línea \doxymbox{\hyperlink{wiregfx_8c_source_l00079}{79}} del archivo \doxymbox{\hyperlink{wiregfx_8c_source}{wiregfx.\+c}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{wiregfx_8c_source_l00200}{WIREGFX\+\_\+\+Graphics\+\_\+\+Draw\+Pyramid()}}.
+
+\Hypertarget{wiregfx_8c_a4b15c5c7bddb3ff3ef6ebfdeb9261161}\index{wiregfx.c@{wiregfx.c}!pyramid\_vertices@{pyramid\_vertices}}
+\index{pyramid\_vertices@{pyramid\_vertices}!wiregfx.c@{wiregfx.c}}
+\doxyparagraph{\texorpdfstring{pyramid\_vertices}{pyramid\_vertices}}
+{\footnotesize\ttfamily \label{wiregfx_8c_a4b15c5c7bddb3ff3ef6ebfdeb9261161} 
+const \doxymbox{\hyperlink{struct_point3_d}{Point3D}} pyramid\+\_\+vertices\+[5]\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Valor inicial:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ \{}
+\DoxyCodeLine{\ \ \ \ \{\ \ 0,\ -\/20,\ \ \ 0\},\ }
+\DoxyCodeLine{\ \ \ \ \{-\/16,\ \ 16,\ -\/16\},\ }
+\DoxyCodeLine{\ \ \ \ \{\ 16,\ \ 16,\ -\/16\},\ }
+\DoxyCodeLine{\ \ \ \ \{\ 16,\ \ 16,\ \ 16\},\ }
+\DoxyCodeLine{\ \ \ \ \{-\/16,\ \ 16,\ \ 16\}\ \ }
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Definición en la línea \doxymbox{\hyperlink{wiregfx_8c_source_l00071}{71}} del archivo \doxymbox{\hyperlink{wiregfx_8c_source}{wiregfx.\+c}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{wiregfx_8c_source_l00200}{WIREGFX\+\_\+\+Graphics\+\_\+\+Draw\+Pyramid()}}.
+
+\Hypertarget{wiregfx_8c_a31dcfeb0361aa1f281db225a98b22e5f}\index{wiregfx.c@{wiregfx.c}!sin\_LUT@{sin\_LUT}}
+\index{sin\_LUT@{sin\_LUT}!wiregfx.c@{wiregfx.c}}
+\doxyparagraph{\texorpdfstring{sin\_LUT}{sin\_LUT}}
+{\footnotesize\ttfamily \label{wiregfx_8c_a31dcfeb0361aa1f281db225a98b22e5f} 
+const int8\+\_\+t sin\+\_\+\+LUT\+[256]}
+
+{\bfseries Valor inicial:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ \{}
+\DoxyCodeLine{\ \ \ \ 0,\ 3,\ 6,\ 9,\ 12,\ 15,\ 18,\ 21,\ 24,\ 28,\ 31,\ 34,\ 37,\ 40,\ 43,\ 46,}
+\DoxyCodeLine{\ \ \ \ 48,\ 51,\ 54,\ 57,\ 60,\ 63,\ 65,\ 68,\ 71,\ 73,\ 76,\ 78,\ 81,\ 83,\ 85,\ 88,}
+\DoxyCodeLine{\ \ \ \ 90,\ 92,\ 94,\ 96,\ 98,\ 100,\ 102,\ 104,\ 106,\ 108,\ 109,\ 111,\ 112,\ 114,\ 115,\ 117,}
+\DoxyCodeLine{\ \ \ \ 118,\ 119,\ 120,\ 121,\ 122,\ 123,\ 124,\ 124,\ 125,\ 126,\ 126,\ 126,\ 127,\ 127,\ 127,\ 127,}
+\DoxyCodeLine{\ \ \ \ 127,\ 127,\ 127,\ 127,\ 126,\ 126,\ 126,\ 125,\ 124,\ 124,\ 123,\ 122,\ 121,\ 120,\ 119,\ 118,}
+\DoxyCodeLine{\ \ \ \ 117,\ 115,\ 114,\ 112,\ 111,\ 109,\ 108,\ 106,\ 104,\ 102,\ 100,\ 98,\ 96,\ 94,\ 92,\ 90,}
+\DoxyCodeLine{\ \ \ \ 88,\ 85,\ 83,\ 81,\ 78,\ 76,\ 73,\ 71,\ 68,\ 65,\ 63,\ 60,\ 57,\ 54,\ 51,\ 48,}
+\DoxyCodeLine{\ \ \ \ 46,\ 43,\ 40,\ 37,\ 34,\ 31,\ 28,\ 24,\ 21,\ 18,\ 15,\ 12,\ 9,\ 6,\ 3,\ 0,}
+\DoxyCodeLine{\ \ \ \ -\/3,\ -\/6,\ -\/9,\ -\/12,\ -\/15,\ -\/18,\ -\/21,\ -\/24,\ -\/28,\ -\/31,\ -\/34,\ -\/37,\ -\/40,\ -\/43,\ -\/46,\ -\/48,}
+\DoxyCodeLine{\ \ \ \ -\/51,\ -\/54,\ -\/57,\ -\/60,\ -\/63,\ -\/65,\ -\/68,\ -\/71,\ -\/73,\ -\/76,\ -\/78,\ -\/81,\ -\/83,\ -\/85,\ -\/88,\ -\/90,}
+\DoxyCodeLine{\ \ \ \ -\/92,\ -\/94,\ -\/96,\ -\/98,\ -\/100,\ -\/102,\ -\/104,\ -\/106,\ -\/108,\ -\/109,\ -\/111,\ -\/112,\ -\/114,\ -\/115,\ -\/117,\ -\/118,}
+\DoxyCodeLine{\ \ \ \ -\/119,\ -\/120,\ -\/121,\ -\/122,\ -\/123,\ -\/124,\ -\/124,\ -\/125,\ -\/126,\ -\/126,\ -\/126,\ -\/127,\ -\/127,\ -\/127,\ -\/127,\ -\/127,}
+\DoxyCodeLine{\ \ \ \ -\/127,\ -\/127,\ -\/127,\ -\/126,\ -\/126,\ -\/126,\ -\/125,\ -\/124,\ -\/124,\ -\/123,\ -\/122,\ -\/121,\ -\/120,\ -\/119,\ -\/118,\ -\/117,}
+\DoxyCodeLine{\ \ \ \ -\/115,\ -\/114,\ -\/112,\ -\/111,\ -\/109,\ -\/108,\ -\/106,\ -\/104,\ -\/102,\ -\/100,\ -\/98,\ -\/96,\ -\/94,\ -\/92,\ -\/90,\ -\/88,}
+\DoxyCodeLine{\ \ \ \ -\/85,\ -\/83,\ -\/81,\ -\/78,\ -\/76,\ -\/73,\ -\/71,\ -\/68,\ -\/65,\ -\/63,\ -\/60,\ -\/57,\ -\/54,\ -\/51,\ -\/48,\ -\/46,}
+\DoxyCodeLine{\ \ \ \ -\/43,\ -\/40,\ -\/37,\ -\/34,\ -\/31,\ -\/28,\ -\/24,\ -\/21,\ -\/18,\ -\/15,\ -\/12,\ -\/9,\ -\/6,\ -\/3,\ 0}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Definición en la línea \doxymbox{\hyperlink{wiregfx_8c_source_l00029}{29}} del archivo \doxymbox{\hyperlink{wiregfx_8c_source}{wiregfx.\+c}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{wiregfx_8c_source_l00114}{WIREGFX\+\_\+\+Graphics\+\_\+\+Draw\+Cube()}}, \doxymbox{\hyperlink{wiregfx_8c_source_l00200}{WIREGFX\+\_\+\+Graphics\+\_\+\+Draw\+Pyramid()}}, \doxymbox{\hyperlink{wiregfx_8c_source_l00243}{WIREGFX\+\_\+\+Graphics\+\_\+\+Draw\+Sphere()}} y \doxymbox{\hyperlink{wiregfx_8c_source_l00155}{WIREGFX\+\_\+\+Graphics\+\_\+\+Draw\+Tesseract()}}.
+
+\Hypertarget{wiregfx_8c_a77606d6068502259c5de0b0bdd4ddd14}\index{wiregfx.c@{wiregfx.c}!sphere\_edges@{sphere\_edges}}
+\index{sphere\_edges@{sphere\_edges}!wiregfx.c@{wiregfx.c}}
+\doxyparagraph{\texorpdfstring{sphere\_edges}{sphere\_edges}}
+{\footnotesize\ttfamily \label{wiregfx_8c_a77606d6068502259c5de0b0bdd4ddd14} 
+const int sphere\+\_\+edges\+[24]\+\+[2]\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Valor inicial:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ \{}
+\DoxyCodeLine{\ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \{0,\ 2\},\ \{0,\ 3\},\ \{0,\ 4\},\ \{0,\ 5\},}
+\DoxyCodeLine{\ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \{2,\ 6\},\ \{3,\ 7\},\ \{4,\ 8\},\ \{5,\ 9\},}
+\DoxyCodeLine{\ \ \ \ \{2,\ 7\},\ \{3,\ 8\},\ \{4,\ 9\},\ \{5,\ 6\},\ }
+\DoxyCodeLine{\ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \{6,\ 10\},\ \{7,\ 11\},\ \{8,\ 12\},\ \{9,\ 13\},}
+\DoxyCodeLine{\ \ \ \ \{7,\ 10\},\ \{8,\ 11\},\ \{9,\ 12\},\ \{6,\ 13\},\ }
+\DoxyCodeLine{\ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \{10,\ 1\},\ \{11,\ 1\},\ \{12,\ 1\},\ \{13,\ 1\}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Definición en la línea \doxymbox{\hyperlink{wiregfx_8c_source_l00100}{100}} del archivo \doxymbox{\hyperlink{wiregfx_8c_source}{wiregfx.\+c}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{wiregfx_8c_source_l00243}{WIREGFX\+\_\+\+Graphics\+\_\+\+Draw\+Sphere()}}.
+
+\Hypertarget{wiregfx_8c_a28fb0af1317ff851a80e435b55bf02d6}\index{wiregfx.c@{wiregfx.c}!sphere\_vertices@{sphere\_vertices}}
+\index{sphere\_vertices@{sphere\_vertices}!wiregfx.c@{wiregfx.c}}
+\doxyparagraph{\texorpdfstring{sphere\_vertices}{sphere\_vertices}}
+{\footnotesize\ttfamily \label{wiregfx_8c_a28fb0af1317ff851a80e435b55bf02d6} 
+const \doxymbox{\hyperlink{struct_point3_d}{Point3D}} sphere\+\_\+vertices\+[14]\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Valor inicial:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ \{}
+\DoxyCodeLine{\ \ \ \ \{\ \ 0,\ -\/20,\ \ \ 0\},\ }
+\DoxyCodeLine{\ \ \ \ \{\ \ 0,\ \ 20,\ \ \ 0\},\ }
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \{\ 14,\ -\/10,\ \ \ 0\},\ \{\ \ 0,\ -\/10,\ \ 14\},\ \{-\/14,\ -\/10,\ \ \ 0\},\ \{\ \ 0,\ -\/10,\ -\/14\},}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \{\ 20,\ \ \ 0,\ \ \ 0\},\ \{\ \ 0,\ \ \ 0,\ \ 20\},\ \{-\/20,\ \ \ 0,\ \ \ 0\},\ \{\ \ 0,\ \ \ 0,\ -\/20\},}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \{\ 14,\ \ 10,\ \ \ 0\},\ \{\ \ 0,\ \ 10,\ \ 14\},\ \{-\/14,\ \ 10,\ \ \ 0\},\ \{\ \ 0,\ \ 10,\ -\/14\}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Definición en la línea \doxymbox{\hyperlink{wiregfx_8c_source_l00086}{86}} del archivo \doxymbox{\hyperlink{wiregfx_8c_source}{wiregfx.\+c}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{wiregfx_8c_source_l00243}{WIREGFX\+\_\+\+Graphics\+\_\+\+Draw\+Sphere()}}.
+
+\Hypertarget{wiregfx_8c_a2c25d0a928c29d1d3aa35427b5bc6b6d}\index{wiregfx.c@{wiregfx.c}!tesseract\_edges@{tesseract\_edges}}
+\index{tesseract\_edges@{tesseract\_edges}!wiregfx.c@{wiregfx.c}}
+\doxyparagraph{\texorpdfstring{tesseract\_edges}{tesseract\_edges}}
+{\footnotesize\ttfamily \label{wiregfx_8c_a2c25d0a928c29d1d3aa35427b5bc6b6d} 
+const int tesseract\+\_\+edges\+[32]\+\+[2]\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Valor inicial:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ \{}
+\DoxyCodeLine{\ \ \ \ \{0,1\},\ \{1,2\},\ \{2,3\},\ \{3,0\},\ \{4,5\},\ \{5,6\},\ \{6,7\},\ \{7,4\},\ \{0,4\},\ \{1,5\},\ \{2,6\},\ \{3,7\},}
+\DoxyCodeLine{\ \ \ \ \{8,9\},\ \{9,10\},\ \{10,11\},\ \{11,8\},\ \{12,13\},\ \{13,14\},\ \{14,15\},\ \{15,12\},\ \{8,12\},\ \{9,13\},\ \{10,14\},\ \{11,15\},}
+\DoxyCodeLine{\ \ \ \ \{0,8\},\ \{1,9\},\ \{2,10\},\ \{3,11\},\ \{4,12\},\ \{5,13\},\ \{6,14\},\ \{7,15\}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Definición en la línea \doxymbox{\hyperlink{wiregfx_8c_source_l00064}{64}} del archivo \doxymbox{\hyperlink{wiregfx_8c_source}{wiregfx.\+c}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{wiregfx_8c_source_l00155}{WIREGFX\+\_\+\+Graphics\+\_\+\+Draw\+Tesseract()}}.
+
+\Hypertarget{wiregfx_8c_afd9f889e92a18dad325e83cb67b6a526}\index{wiregfx.c@{wiregfx.c}!tesseract\_vertices@{tesseract\_vertices}}
+\index{tesseract\_vertices@{tesseract\_vertices}!wiregfx.c@{wiregfx.c}}
+\doxyparagraph{\texorpdfstring{tesseract\_vertices}{tesseract\_vertices}}
+{\footnotesize\ttfamily \label{wiregfx_8c_afd9f889e92a18dad325e83cb67b6a526} 
+const \doxymbox{\hyperlink{struct_point4_d}{Point4D}} tesseract\+\_\+vertices\+[16]\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Valor inicial:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ \{}
+\DoxyCodeLine{\ \ \ \ \{-\/16,\ -\/16,\ -\/16,\ -\/16\},\ \{\ 16,\ -\/16,\ -\/16,\ -\/16\},\ \{\ 16,\ \ 16,\ -\/16,\ -\/16\},\ \{-\/16,\ \ 16,\ -\/16,\ -\/16\},}
+\DoxyCodeLine{\ \ \ \ \{-\/16,\ -\/16,\ \ 16,\ -\/16\},\ \{\ 16,\ -\/16,\ \ 16,\ -\/16\},\ \{\ 16,\ \ 16,\ \ 16,\ -\/16\},\ \{-\/16,\ \ 16,\ \ 16,\ -\/16\},}
+\DoxyCodeLine{\ \ \ \ \{-\/16,\ -\/16,\ -\/16,\ \ 16\},\ \{\ 16,\ -\/16,\ -\/16,\ \ 16\},\ \{\ 16,\ \ 16,\ -\/16,\ \ 16\},\ \{-\/16,\ \ 16,\ -\/16,\ \ 16\},}
+\DoxyCodeLine{\ \ \ \ \{-\/16,\ -\/16,\ \ 16,\ \ 16\},\ \{\ 16,\ -\/16,\ \ 16,\ \ 16\},\ \{\ 16,\ \ 16,\ \ 16,\ \ 16\},\ \{-\/16,\ \ 16,\ \ 16,\ \ 16\}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Definición en la línea \doxymbox{\hyperlink{wiregfx_8c_source_l00057}{57}} del archivo \doxymbox{\hyperlink{wiregfx_8c_source}{wiregfx.\+c}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{wiregfx_8c_source_l00155}{WIREGFX\+\_\+\+Graphics\+\_\+\+Draw\+Tesseract()}}.
+
+\Hypertarget{wiregfx_8c_ad227f5a9c4231508fefba8fbe1f994e6}\index{wiregfx.c@{wiregfx.c}!wiregfx\_figure\_index@{wiregfx\_figure\_index}}
+\index{wiregfx\_figure\_index@{wiregfx\_figure\_index}!wiregfx.c@{wiregfx.c}}
+\doxyparagraph{\texorpdfstring{wiregfx\_figure\_index}{wiregfx\_figure\_index}}
+{\footnotesize\ttfamily \label{wiregfx_8c_ad227f5a9c4231508fefba8fbe1f994e6} 
+uint8\+\_\+t wiregfx\+\_\+figure\+\_\+index = 0\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definición en la línea \doxymbox{\hyperlink{wiregfx_8c_source_l00286}{286}} del archivo \doxymbox{\hyperlink{wiregfx_8c_source}{wiregfx.\+c}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{wiregfx_8c_source_l00293}{WIREGFX\+\_\+\+Display\+Task()}} y \doxymbox{\hyperlink{wiregfx_8c_source_l00288}{WIREGFX\+\_\+\+Reset\+Cycle()}}.
+
+\Hypertarget{wiregfx_8c_aa36114bb09d841e9432302e300d3b781}\index{wiregfx.c@{wiregfx.c}!wiregfx\_last\_switch\_tick@{wiregfx\_last\_switch\_tick}}
+\index{wiregfx\_last\_switch\_tick@{wiregfx\_last\_switch\_tick}!wiregfx.c@{wiregfx.c}}
+\doxyparagraph{\texorpdfstring{wiregfx\_last\_switch\_tick}{wiregfx\_last\_switch\_tick}}
+{\footnotesize\ttfamily \label{wiregfx_8c_aa36114bb09d841e9432302e300d3b781} 
+uint32\+\_\+t wiregfx\+\_\+last\+\_\+switch\+\_\+tick = 0\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definición en la línea \doxymbox{\hyperlink{wiregfx_8c_source_l00285}{285}} del archivo \doxymbox{\hyperlink{wiregfx_8c_source}{wiregfx.\+c}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{wiregfx_8c_source_l00293}{WIREGFX\+\_\+\+Display\+Task()}} y \doxymbox{\hyperlink{wiregfx_8c_source_l00288}{WIREGFX\+\_\+\+Reset\+Cycle()}}.
+

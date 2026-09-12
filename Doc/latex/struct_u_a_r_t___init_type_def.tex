@@ -1,0 +1,187 @@
+\doxysubsection{Referencia de la estructura UART\+\_\+\+Init\+Type\+Def}
+\hypertarget{struct_u_a_r_t___init_type_def}{}\label{struct_u_a_r_t___init_type_def}\index{UART\_InitTypeDef@{UART\_InitTypeDef}}
+
+
+UART Init Structure definition.  
+
+
+
+
+{\ttfamily \+\#include "{}stm32f1xx\+\_\+hal\+\_\+uart.\+h"{}}
+
+
+
+Diagrama de colaboración de UART\+\_\+\+Init\+Type\+Def:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=171pt]{struct_u_a_r_t___init_type_def__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsubsection*{Campos de datos}
+\begin{DoxyCompactItemize}
+\item 
+uint32\+\_\+t \doxymbox{\hyperlink{struct_u_a_r_t___init_type_def_ae460c2e4d7ddc67bca9f5756f45b1d83}{Baud\+Rate}}
+\begin{DoxyCompactList}\small\item\em This member configures the UART communication baud rate. \end{DoxyCompactList}\item 
+uint32\+\_\+t \doxymbox{\hyperlink{struct_u_a_r_t___init_type_def_adbf4734130666b94201c6658464c1622}{Hw\+Flow\+Ctl}}
+\begin{DoxyCompactList}\small\item\em Specifies whether the hardware flow control mode is enabled or disabled. \end{DoxyCompactList}\item 
+uint32\+\_\+t \doxymbox{\hyperlink{struct_u_a_r_t___init_type_def_ab2ee6ea5a5d4ca5ee6b759be197bcfcb}{Mode}}
+\begin{DoxyCompactList}\small\item\em Specifies whether the Receive or Transmit mode is enabled or disabled. \end{DoxyCompactList}\item 
+uint32\+\_\+t \doxymbox{\hyperlink{struct_u_a_r_t___init_type_def_a77c2c86a2186e09cbf022e27c0c82324}{Over\+Sampling}}
+\begin{DoxyCompactList}\small\item\em Specifies whether the Over sampling 8 is enabled or disabled, to achieve higher speed (up to f\+PCLK/\+8). \end{DoxyCompactList}\item 
+uint32\+\_\+t \doxymbox{\hyperlink{struct_u_a_r_t___init_type_def_adc92243425cb18cb8b5f03692841db48}{Parity}}
+\begin{DoxyCompactList}\small\item\em Specifies the parity mode. \end{DoxyCompactList}\item 
+uint32\+\_\+t \doxymbox{\hyperlink{struct_u_a_r_t___init_type_def_a6717dfe595617c7b2d57139d9cd306ef}{Stop\+Bits}}
+\begin{DoxyCompactList}\small\item\em Specifies the number of stop bits transmitted. \end{DoxyCompactList}\item 
+uint32\+\_\+t \doxymbox{\hyperlink{struct_u_a_r_t___init_type_def_a0f1cd85e62aa4fd4b36ee9e610e7789f}{Word\+Length}}
+\begin{DoxyCompactList}\small\item\em Specifies the number of data bits transmitted or received in a frame. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Descripción detallada}
+UART Init Structure definition. 
+
+Definición en la línea \doxymbox{\hyperlink{stm32f1xx__hal__uart_8h_source_l00046}{46}} del archivo \doxymbox{\hyperlink{stm32f1xx__hal__uart_8h_source}{stm32f1xx\+\_\+hal\+\_\+uart.\+h}}.
+
+
+
+\label{struct_u_a_r_t___init_type_def_doc-variable-members}
+\Hypertarget{struct_u_a_r_t___init_type_def_doc-variable-members}
+\doxysubsubsection{Documentación de campos}
+\Hypertarget{struct_u_a_r_t___init_type_def_ae460c2e4d7ddc67bca9f5756f45b1d83}\index{UART\_InitTypeDef@{UART\_InitTypeDef}!BaudRate@{BaudRate}}
+\index{BaudRate@{BaudRate}!UART\_InitTypeDef@{UART\_InitTypeDef}}
+\doxyparagraph{\texorpdfstring{BaudRate}{BaudRate}}
+{\footnotesize\ttfamily \label{struct_u_a_r_t___init_type_def_ae460c2e4d7ddc67bca9f5756f45b1d83} 
+uint32\+\_\+t UART\+\_\+\+Init\+Type\+Def::\+\+Baud\+Rate}
+
+
+
+This member configures the UART communication baud rate. 
+
+The baud rate is computed using the following formula:
+\begin{DoxyItemize}
+\item Integer\+Divider = ((PCLKx) / (16 \texorpdfstring{$\ast$}{*} (huart-\/\texorpdfstring{$>$}{>}Init.\+Baud\+Rate)))
+\item Fractional\+Divider = ((Integer\+Divider -\/ ((uint32\+\_\+t) Integer\+Divider)) \texorpdfstring{$\ast$}{*} 16) + 0.\+5 
+\end{DoxyItemize}
+
+Definición en la línea \doxymbox{\hyperlink{stm32f1xx__hal__uart_8h_source_l00048}{48}} del archivo \doxymbox{\hyperlink{stm32f1xx__hal__uart_8h_source}{stm32f1xx\+\_\+hal\+\_\+uart.\+h}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{main_8c_source_l03622}{MX\+\_\+\+USART1\+\_\+\+UART\+\_\+\+Init()}} y \doxymbox{\hyperlink{stm32f1xx__hal__uart_8c_source_l03695}{UART\+\_\+\+Set\+Config()}}.
+
+\Hypertarget{struct_u_a_r_t___init_type_def_adbf4734130666b94201c6658464c1622}\index{UART\_InitTypeDef@{UART\_InitTypeDef}!HwFlowCtl@{HwFlowCtl}}
+\index{HwFlowCtl@{HwFlowCtl}!UART\_InitTypeDef@{UART\_InitTypeDef}}
+\doxyparagraph{\texorpdfstring{HwFlowCtl}{HwFlowCtl}}
+{\footnotesize\ttfamily \label{struct_u_a_r_t___init_type_def_adbf4734130666b94201c6658464c1622} 
+uint32\+\_\+t UART\+\_\+\+Init\+Type\+Def::\+\+Hw\+Flow\+Ctl}
+
+
+
+Specifies whether the hardware flow control mode is enabled or disabled. 
+
+This parameter can be a value of \doxylink{group___u_a_r_t___hardware___flow___control}{UART Hardware Flow Control} 
+
+Definición en la línea \doxymbox{\hyperlink{stm32f1xx__hal__uart_8h_source_l00069}{69}} del archivo \doxymbox{\hyperlink{stm32f1xx__hal__uart_8h_source}{stm32f1xx\+\_\+hal\+\_\+uart.\+h}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{stm32f1xx__hal__uart_8c_source_l00354}{HAL\+\_\+\+UART\+\_\+\+Init()}}, \doxymbox{\hyperlink{main_8c_source_l03622}{MX\+\_\+\+USART1\+\_\+\+UART\+\_\+\+Init()}} y \doxymbox{\hyperlink{stm32f1xx__hal__uart_8c_source_l03695}{UART\+\_\+\+Set\+Config()}}.
+
+\Hypertarget{struct_u_a_r_t___init_type_def_ab2ee6ea5a5d4ca5ee6b759be197bcfcb}\index{UART\_InitTypeDef@{UART\_InitTypeDef}!Mode@{Mode}}
+\index{Mode@{Mode}!UART\_InitTypeDef@{UART\_InitTypeDef}}
+\doxyparagraph{\texorpdfstring{Mode}{Mode}}
+{\footnotesize\ttfamily \label{struct_u_a_r_t___init_type_def_ab2ee6ea5a5d4ca5ee6b759be197bcfcb} 
+uint32\+\_\+t UART\+\_\+\+Init\+Type\+Def::\+\+Mode}
+
+
+
+Specifies whether the Receive or Transmit mode is enabled or disabled. 
+
+This parameter can be a value of \doxylink{group___u_a_r_t___mode}{UART Transfer Mode} 
+
+Definición en la línea \doxymbox{\hyperlink{stm32f1xx__hal__uart_8h_source_l00066}{66}} del archivo \doxymbox{\hyperlink{stm32f1xx__hal__uart_8h_source}{stm32f1xx\+\_\+hal\+\_\+uart.\+h}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{main_8c_source_l03622}{MX\+\_\+\+USART1\+\_\+\+UART\+\_\+\+Init()}} y \doxymbox{\hyperlink{stm32f1xx__hal__uart_8c_source_l03695}{UART\+\_\+\+Set\+Config()}}.
+
+\Hypertarget{struct_u_a_r_t___init_type_def_a77c2c86a2186e09cbf022e27c0c82324}\index{UART\_InitTypeDef@{UART\_InitTypeDef}!OverSampling@{OverSampling}}
+\index{OverSampling@{OverSampling}!UART\_InitTypeDef@{UART\_InitTypeDef}}
+\doxyparagraph{\texorpdfstring{OverSampling}{OverSampling}}
+{\footnotesize\ttfamily \label{struct_u_a_r_t___init_type_def_a77c2c86a2186e09cbf022e27c0c82324} 
+uint32\+\_\+t UART\+\_\+\+Init\+Type\+Def::\+\+Over\+Sampling}
+
+
+
+Specifies whether the Over sampling 8 is enabled or disabled, to achieve higher speed (up to f\+PCLK/\+8). 
+
+This parameter can be a value of \doxylink{group___u_a_r_t___over___sampling}{UART Over Sampling}. This feature is only available on STM32\+F100xx family, so Over\+Sampling parameter should always be set to 16. 
+
+Definición en la línea \doxymbox{\hyperlink{stm32f1xx__hal__uart_8h_source_l00072}{72}} del archivo \doxymbox{\hyperlink{stm32f1xx__hal__uart_8h_source}{stm32f1xx\+\_\+hal\+\_\+uart.\+h}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{stm32f1xx__hal__uart_8c_source_l00432}{HAL\+\_\+\+Half\+Duplex\+\_\+\+Init()}}, \doxymbox{\hyperlink{stm32f1xx__hal__uart_8c_source_l00508}{HAL\+\_\+\+LIN\+\_\+\+Init()}}, \doxymbox{\hyperlink{stm32f1xx__hal__uart_8c_source_l00592}{HAL\+\_\+\+Multi\+Processor\+\_\+\+Init()}}, \doxymbox{\hyperlink{stm32f1xx__hal__uart_8c_source_l00354}{HAL\+\_\+\+UART\+\_\+\+Init()}}, \doxymbox{\hyperlink{main_8c_source_l03622}{MX\+\_\+\+USART1\+\_\+\+UART\+\_\+\+Init()}} y \doxymbox{\hyperlink{stm32f1xx__hal__uart_8c_source_l03695}{UART\+\_\+\+Set\+Config()}}.
+
+\Hypertarget{struct_u_a_r_t___init_type_def_adc92243425cb18cb8b5f03692841db48}\index{UART\_InitTypeDef@{UART\_InitTypeDef}!Parity@{Parity}}
+\index{Parity@{Parity}!UART\_InitTypeDef@{UART\_InitTypeDef}}
+\doxyparagraph{\texorpdfstring{Parity}{Parity}}
+{\footnotesize\ttfamily \label{struct_u_a_r_t___init_type_def_adc92243425cb18cb8b5f03692841db48} 
+uint32\+\_\+t UART\+\_\+\+Init\+Type\+Def::\+\+Parity}
+
+
+
+Specifies the parity mode. 
+
+This parameter can be a value of \doxylink{group___u_a_r_t___parity}{UART Parity} \begin{DoxyNote}{Nota}
+When parity is enabled, the computed parity is inserted at the MSB position of the transmitted data (9th bit when the word length is set to 9 data bits; 8th bit when the word length is set to 8 data bits). 
+\end{DoxyNote}
+
+
+Definición en la línea \doxymbox{\hyperlink{stm32f1xx__hal__uart_8h_source_l00059}{59}} del archivo \doxymbox{\hyperlink{stm32f1xx__hal__uart_8h_source}{stm32f1xx\+\_\+hal\+\_\+uart.\+h}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{stm32f1xx__hal__uart_8c_source_l01502}{HAL\+\_\+\+UART\+\_\+\+DMAResume()}}, \doxymbox{\hyperlink{stm32f1xx__hal__uart_8c_source_l01224}{HAL\+\_\+\+UART\+\_\+\+Receive()}}, \doxymbox{\hyperlink{stm32f1xx__hal__uart_8c_source_l01138}{HAL\+\_\+\+UART\+\_\+\+Transmit()}}, \doxymbox{\hyperlink{stm32f1xx__hal__uart_8c_source_l01591}{HAL\+\_\+\+UARTEx\+\_\+\+Receive\+To\+Idle()}}, \doxymbox{\hyperlink{main_8c_source_l03622}{MX\+\_\+\+USART1\+\_\+\+UART\+\_\+\+Init()}}, \doxymbox{\hyperlink{stm32f1xx__hal__uart_8c_source_l03594}{UART\+\_\+\+Receive\+\_\+\+IT()}}, \doxymbox{\hyperlink{stm32f1xx__hal__uart_8c_source_l03695}{UART\+\_\+\+Set\+Config()}}, \doxymbox{\hyperlink{stm32f1xx__hal__uart_8c_source_l03271}{UART\+\_\+\+Start\+\_\+\+Receive\+\_\+\+DMA()}}, \doxymbox{\hyperlink{stm32f1xx__hal__uart_8c_source_l03236}{UART\+\_\+\+Start\+\_\+\+Receive\+\_\+\+IT()}} y \doxymbox{\hyperlink{stm32f1xx__hal__uart_8c_source_l03529}{UART\+\_\+\+Transmit\+\_\+\+IT()}}.
+
+\Hypertarget{struct_u_a_r_t___init_type_def_a6717dfe595617c7b2d57139d9cd306ef}\index{UART\_InitTypeDef@{UART\_InitTypeDef}!StopBits@{StopBits}}
+\index{StopBits@{StopBits}!UART\_InitTypeDef@{UART\_InitTypeDef}}
+\doxyparagraph{\texorpdfstring{StopBits}{StopBits}}
+{\footnotesize\ttfamily \label{struct_u_a_r_t___init_type_def_a6717dfe595617c7b2d57139d9cd306ef} 
+uint32\+\_\+t UART\+\_\+\+Init\+Type\+Def::\+\+Stop\+Bits}
+
+
+
+Specifies the number of stop bits transmitted. 
+
+This parameter can be a value of \doxylink{group___u_a_r_t___stop___bits}{UART Number of Stop Bits} 
+
+Definición en la línea \doxymbox{\hyperlink{stm32f1xx__hal__uart_8h_source_l00056}{56}} del archivo \doxymbox{\hyperlink{stm32f1xx__hal__uart_8h_source}{stm32f1xx\+\_\+hal\+\_\+uart.\+h}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{main_8c_source_l03622}{MX\+\_\+\+USART1\+\_\+\+UART\+\_\+\+Init()}} y \doxymbox{\hyperlink{stm32f1xx__hal__uart_8c_source_l03695}{UART\+\_\+\+Set\+Config()}}.
+
+\Hypertarget{struct_u_a_r_t___init_type_def_a0f1cd85e62aa4fd4b36ee9e610e7789f}\index{UART\_InitTypeDef@{UART\_InitTypeDef}!WordLength@{WordLength}}
+\index{WordLength@{WordLength}!UART\_InitTypeDef@{UART\_InitTypeDef}}
+\doxyparagraph{\texorpdfstring{WordLength}{WordLength}}
+{\footnotesize\ttfamily \label{struct_u_a_r_t___init_type_def_a0f1cd85e62aa4fd4b36ee9e610e7789f} 
+uint32\+\_\+t UART\+\_\+\+Init\+Type\+Def::\+\+Word\+Length}
+
+
+
+Specifies the number of data bits transmitted or received in a frame. 
+
+This parameter can be a value of \doxylink{group___u_a_r_t___word___length}{UART Word Length} 
+
+Definición en la línea \doxymbox{\hyperlink{stm32f1xx__hal__uart_8h_source_l00053}{53}} del archivo \doxymbox{\hyperlink{stm32f1xx__hal__uart_8h_source}{stm32f1xx\+\_\+hal\+\_\+uart.\+h}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{stm32f1xx__hal__uart_8c_source_l00432}{HAL\+\_\+\+Half\+Duplex\+\_\+\+Init()}}, \doxymbox{\hyperlink{stm32f1xx__hal__uart_8c_source_l00508}{HAL\+\_\+\+LIN\+\_\+\+Init()}}, \doxymbox{\hyperlink{stm32f1xx__hal__uart_8c_source_l00592}{HAL\+\_\+\+Multi\+Processor\+\_\+\+Init()}}, \doxymbox{\hyperlink{stm32f1xx__hal__uart_8c_source_l00354}{HAL\+\_\+\+UART\+\_\+\+Init()}}, \doxymbox{\hyperlink{stm32f1xx__hal__uart_8c_source_l01224}{HAL\+\_\+\+UART\+\_\+\+Receive()}}, \doxymbox{\hyperlink{stm32f1xx__hal__uart_8c_source_l01138}{HAL\+\_\+\+UART\+\_\+\+Transmit()}}, \doxymbox{\hyperlink{stm32f1xx__hal__uart_8c_source_l01591}{HAL\+\_\+\+UARTEx\+\_\+\+Receive\+To\+Idle()}}, \doxymbox{\hyperlink{main_8c_source_l03622}{MX\+\_\+\+USART1\+\_\+\+UART\+\_\+\+Init()}}, \doxymbox{\hyperlink{stm32f1xx__hal__uart_8c_source_l03594}{UART\+\_\+\+Receive\+\_\+\+IT()}}, \doxymbox{\hyperlink{stm32f1xx__hal__uart_8c_source_l03695}{UART\+\_\+\+Set\+Config()}} y \doxymbox{\hyperlink{stm32f1xx__hal__uart_8c_source_l03529}{UART\+\_\+\+Transmit\+\_\+\+IT()}}.
+
+
+
+La documentación de esta estructura está generada del siguiente archivo:\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{stm32f1xx__hal__uart_8h}{stm32f1xx\+\_\+hal\+\_\+uart.\+h}}\end{DoxyCompactItemize}

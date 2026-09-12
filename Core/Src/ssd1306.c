@@ -1,3 +1,13 @@
+/**
+ * @file   ssd1306.c
+ * @author Olivier Van den Eede / Aleksander Alekseev / Gonzalo M. Buffa
+ * @brief  Implementación del controlador y primitivas de dibujo para el display OLED SSD1306.
+ * @details Gestiona el volcado asíncrono página por página mediante transferencias I2C DMA,
+ *          la manipulación directa de bits dentro del framebuffer y algoritmos gráficos clásicos
+ *          (algoritmo de trazado de líneas de Bresenham, círculos, rectángulos e inversión de color).
+ * @ingroup group_ui_graphics
+ */
+
 #include "ssd1306.h"
 #include <math.h>
 #include <stdlib.h>

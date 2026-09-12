@@ -1,0 +1,766 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>MICRO-Firmware: Interfaz OLED, Gráficos 3D y Botón (Display &amp; UI)</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="codefolding.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  extensions: ["tex2jax.js"],
+  jax: ["input/TeX","output/HTML-CSS"],
+});
+</script>
+<script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">MICRO-Firmware<span id="projectnumber">&#160;EX100923v01</span>
+   </div>
+   <div id="projectbrief">Firmware de Péndulo Invertido Autónomo de Dos Ruedas (STM32F103C8T6 - ARM Cortex-M3)</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Buscar" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('group__group__ui__graphics.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">Interfaz OLED, Gráficos 3D y Botón (Display &amp; UI) </div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Primitivas para display SSD1306, motor 3D/4D wireframe, pulsador multifunción y LED Heartbeat.  
+<a href="#details">Más...</a></p>
+<div id="dynsection-0" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Diagrama de colaboración de Interfaz OLED, Gráficos 3D y Botón (Display &amp; UI):</div>
+<div id="dynsection-0-summary" class="dynsummary">
+</div>
+<div id="dynsection-0-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group__group__ui__graphics.svg" width="387" height="54"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-groups" class="groupheader"><a id="groups" name="groups"></a>
+Temas</h2></td></tr>
+<tr class="memitem:WireGFX_5FConfig" id="r_WireGFX_5FConfig"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="group___wire_g_f_x___config.html">Parámetros de Centro y Perspectiva</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-files" class="groupheader"><a id="files" name="files"></a>
+Archivos</h2></td></tr>
+<tr class="memitem:fonts_2Ec" id="r_fonts_2Ec"><td class="memItemLeft">archivo &#160;</td><td class="memItemRight"><a class="el" href="fonts_8c.html">fonts.c</a></td></tr>
+<tr class="memdesc:fonts_8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definición de las matrices de píxeles para las fuentes tipográficas del display OLED. <br /></td></tr>
+<tr class="memitem:fonts_2Eh" id="r_fonts_2Eh"><td class="memItemLeft">archivo &#160;</td><td class="memItemRight"><a class="el" href="fonts_8h.html">fonts.h</a></td></tr>
+<tr class="memdesc:fonts_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Declaración de fuentes tipográficas matriciales para display OLED SSD1306. <br /></td></tr>
+<tr class="memitem:img_2Eh" id="r_img_2Eh"><td class="memItemLeft">archivo &#160;</td><td class="memItemRight"><a class="el" href="img_8h.html">img.h</a></td></tr>
+<tr class="memdesc:img_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mapas de bits monocromáticos (Bitmaps) para presentación en display OLED SSD1306. <br /></td></tr>
+<tr class="memitem:ssd1306_2Ec" id="r_ssd1306_2Ec"><td class="memItemLeft">archivo &#160;</td><td class="memItemRight"><a class="el" href="ssd1306_8c.html">ssd1306.c</a></td></tr>
+<tr class="memdesc:ssd1306_8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implementación del controlador y primitivas de dibujo para el display OLED SSD1306. <br /></td></tr>
+<tr class="memitem:ssd1306_2Eh" id="r_ssd1306_2Eh"><td class="memItemLeft">archivo &#160;</td><td class="memItemRight"><a class="el" href="ssd1306_8h.html">ssd1306.h</a></td></tr>
+<tr class="memdesc:ssd1306_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Driver de control y primitivas gráficas para display OLED monocromático SSD1306 (128x64). <br /></td></tr>
+<tr class="memitem:ssd1306_5Fconf_2Eh" id="r_ssd1306_5Fconf_2Eh"><td class="memItemLeft">archivo &#160;</td><td class="memItemRight"><a class="el" href="ssd1306__conf_8h.html">ssd1306_conf.h</a></td></tr>
+<tr class="memdesc:ssd1306__conf_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Archivo de configuración estática para el driver de pantalla OLED SSD1306. <br /></td></tr>
+<tr class="memitem:wiregfx_2Ec" id="r_wiregfx_2Ec"><td class="memItemLeft">archivo &#160;</td><td class="memItemRight"><a class="el" href="wiregfx_8c.html">wiregfx.c</a></td></tr>
+<tr class="memdesc:wiregfx_8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implementación del pipeline de renderizado alámbrico (Wireframe) 3D/4D en punto fijo. <br /></td></tr>
+<tr class="memitem:wiregfx_2Eh" id="r_wiregfx_2Eh"><td class="memItemLeft">archivo &#160;</td><td class="memItemRight"><a class="el" href="wiregfx_8h.html">wiregfx.h</a></td></tr>
+<tr class="memdesc:wiregfx_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Motor gráfico wireframe 3D/4D en punto fijo para pantalla OLED SSD1306. <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-member-group" class="groupheader"><a id="member-group" name="member-group"></a>
+Planificador Temporal y Temporizadores Cooperativos</h2></td></tr>
+<tr class="memitem:gad529a04bd298cf0801e0052c5da907c7" id="r_gad529a04bd298cf0801e0052c5da907c7"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group__group__main.html#gad529a04bd298cf0801e0052c5da907c7">heartBeatTask</a> (void)</td></tr>
+<tr class="memdesc:gad529a04bd298cf0801e0052c5da907c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Genera el patrón visual de parpadeo sincrónico en el LED PC13 (Heartbeat).  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-member-group" class="groupheader"><a id="member-group" name="member-group"></a>
+Máquina de Estados del Pulsador de Usuario</h2></td></tr>
+<tr class="memitem:ga2f07501694f5b96fb0fd85ee473c83eb" id="r_ga2f07501694f5b96fb0fd85ee473c83eb"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ga2f07501694f5b96fb0fd85ee473c83eb">initButton</a> (<a class="el" href="struct__s_button.html">_sButton</a> *button)</td></tr>
+<tr class="memdesc:ga2f07501694f5b96fb0fd85ee473c83eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inicializa los descriptores de estado y temporización del botón de usuario.  <br /></td></tr>
+<tr class="memitem:gaf7c4f477f9b957326bbb08d6ca119ac0" id="r_gaf7c4f477f9b957326bbb08d6ca119ac0"><td class="memItemLeft">uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#gaf7c4f477f9b957326bbb08d6ca119ac0">updateMefTask</a> (<a class="el" href="struct__s_button.html">_sButton</a> *button)</td></tr>
+<tr class="memdesc:gaf7c4f477f9b957326bbb08d6ca119ac0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Actualiza la MEF de bajo nivel de antirrebote (Debounce) del botón.  <br /></td></tr>
+<tr class="memitem:gae8f31d90f3ac9868df392f575913fe7d" id="r_gae8f31d90f3ac9868df392f575913fe7d"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#gae8f31d90f3ac9868df392f575913fe7d">buttonTask</a> (<a class="el" href="struct__s_button.html">_sButton</a> *button)</td></tr>
+<tr class="memdesc:gae8f31d90f3ac9868df392f575913fe7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interpreta los eventos de alto nivel del botón (multiclic de 1 a 5 clics y pulsación larga).  <br /></td></tr>
+<tr class="memitem:ga65dbf97ebe6b95c5571e8110d940f642" id="r_ga65dbf97ebe6b95c5571e8110d940f642"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ga65dbf97ebe6b95c5571e8110d940f642">buttonTimeout10ms</a> (<a class="el" href="struct__s_button.html">_sButton</a> *button)</td></tr>
+<tr class="memdesc:ga65dbf97ebe6b95c5571e8110d940f642"><td class="mdescLeft">&#160;</td><td class="mdescRight">Decrementa el temporizador de ventana multiclic del botón cada 10 ms.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-member-group" class="groupheader"><a id="member-group" name="member-group"></a>
+Lazos de Control Dinámico, PID y Navegación</h2></td></tr>
+<tr class="memitem:ga392b7d5c226c5d8393b4df5c5f835fd1" id="r_ga392b7d5c226c5d8393b4df5c5f835fd1"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group__group__control.html#ga392b7d5c226c5d8393b4df5c5f835fd1">HandleModeScreenTransition</a> (void)</td></tr>
+<tr class="memdesc:ga392b7d5c226c5d8393b4df5c5f835fd1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gestiona la transición limpia de interfaces visuales al cambiar el modo operativo.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Descripción detallada</h2>
+<div class="textblock"><p>Primitivas para display SSD1306, motor 3D/4D wireframe, pulsador multifunción y LED Heartbeat. </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Documentación de funciones</h2>
+<a id="gae8f31d90f3ac9868df392f575913fe7d" name="gae8f31d90f3ac9868df392f575913fe7d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae8f31d90f3ac9868df392f575913fe7d">&#9670;&#160;</a></span>buttonTask()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void buttonTask </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct__s_button.html">_sButton</a> *</td>          <td class="paramname"><span class="paramname"><em>button</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="main_8c.html">main.c</a>&quot;</code></p>
+
+<p>Interpreta los eventos de alto nivel del botón (multiclic de 1 a 5 clics y pulsación larga). </p>
+<p>Conmuta la variable global <span class="tt"><a class="el" href="main_8c.html#a7937637e0ec141695e3397a4eb429199">robotMode</a></span> (<span class="tt"><a class="el" href="group__group__main.html#ga5ef913d615749b343e42f0424064e937" title="Modos operativos principales del robot péndulo invertido gobernados por robotMode.">_eRobotMode</a></span>) según el número de clics registrados. </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">button</td><td>Puntero a la estructura <span class="tt"><a class="el" href="struct__s_button.html" title="Estructura de control y temporización del pulsador multifunción.">_sButton</a></span> con el estado del botón. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="main_8c_source.html#l02164">2164</a> del archivo <a class="el" href="main_8c_source.html">main.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2164</span>                                  {</div>
+<div class="line"><span class="lineno"> 2165</span>    <span class="comment">// 1. Evaluar si la ventana de clics múltiples terminó (time llegó a 0) sin eventos de liberación pendientes</span></div>
+<div class="line"><span class="lineno"> 2166</span>    <span class="keywordflow">if</span> (!button-&gt;<a class="code hl_variable" href="struct__s_button.html#a89aae2e1a5caaee3b017518a4973448e">isPressed</a> &amp;&amp; button-&gt;<a class="code hl_variable" href="struct__s_button.html#aba52ff7c5d18b686dfe7d23441b2e66c">time</a> == 0 &amp;&amp; button-&gt;<a class="code hl_variable" href="struct__s_button.html#a7664b4868cbb6eb989eff0d30e30c605">clickCount</a> &gt; 0 &amp;&amp; !button-&gt;<a class="code hl_variable" href="struct__s_button.html#a3ed6d0ad2029c6502c6e4241fdd7dc25">justReleased</a>) {</div>
+<div class="line"><span class="lineno"> 2167</span>        <span class="comment">// Retornar y reintentar en el próximo ciclo si el bus I2C está ocupado, previniendo bloqueos y jitter</span></div>
+<div class="line"><span class="lineno"> 2168</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="group___i2_c___exported___functions___group3.html#gad63373b093502b83d5f9bd5e292385f0">HAL_I2C_GetState</a>(&amp;<a class="code hl_variable" href="main_8c.html#ac379bcc152d860f08b1279fd3e232295">hi2c2</a>) != <a class="code hl_enumvalue" href="group___h_a_l__state__structure__definition.html#ggaef355af8eab251ae2a19ee164ad81c37af859ce60c5e462b0bfde3a5010bc72d1">HAL_I2C_STATE_READY</a>) {</div>
+<div class="line"><span class="lineno"> 2169</span>            <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno"> 2170</span>        }</div>
+<div class="line"><span class="lineno"> 2171</span> </div>
+<div class="line"><span class="lineno"> 2172</span>        <span class="keywordflow">switch</span> (button-&gt;<a class="code hl_variable" href="struct__s_button.html#a7664b4868cbb6eb989eff0d30e30c605">clickCount</a>) {</div>
+<div class="line"><span class="lineno"> 2173</span>            <span class="keywordflow">case</span> 1: <a class="code hl_function" href="main_8c.html#a4be6725935eb1d72095b766b2120782a">SetRobotMode</a>(<a class="code hl_enumvalue" href="group__group__main.html#gga5ef913d615749b343e42f0424064e937afb76bc9af4d33cb1941ce2198a22b5f1">STATE_SWING</a>); <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno"> 2174</span>            <span class="keywordflow">case</span> 2: <a class="code hl_function" href="main_8c.html#a4be6725935eb1d72095b766b2120782a">SetRobotMode</a>(<a class="code hl_enumvalue" href="group__group__main.html#gga5ef913d615749b343e42f0424064e937ab641b484c5de42c96f5a382ef25d557f">STATE_LINE_FOLLOWING</a>); <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno"> 2175</span>            <span class="keywordflow">case</span> 3: <a class="code hl_function" href="main_8c.html#a4be6725935eb1d72095b766b2120782a">SetRobotMode</a>(<a class="code hl_enumvalue" href="group__group__main.html#gga5ef913d615749b343e42f0424064e937acbd2746ad5303084bb979bc275aa15ef">STATE_DODGE</a>); <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno"> 2176</span>            <span class="keywordflow">case</span> 4: <a class="code hl_function" href="main_8c.html#a4be6725935eb1d72095b766b2120782a">SetRobotMode</a>(<a class="code hl_enumvalue" href="group__group__main.html#gga5ef913d615749b343e42f0424064e937a81a27a62c9d29883324be07483fdd10a">STATE_JOYSTICK</a>); <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno"> 2177</span>            <span class="keywordflow">case</span> 5: <a class="code hl_function" href="main_8c.html#a4be6725935eb1d72095b766b2120782a">SetRobotMode</a>(<a class="code hl_enumvalue" href="group__group__main.html#gga5ef913d615749b343e42f0424064e937a2ac9f0b5fbb6cfc38170ccc14dcf3263">STATE_3D_SCREEN</a>); <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno"> 2178</span>            <span class="keywordflow">default</span>: <a class="code hl_function" href="main_8c.html#a4be6725935eb1d72095b766b2120782a">SetRobotMode</a>(<a class="code hl_enumvalue" href="group__group__main.html#gga5ef913d615749b343e42f0424064e937ab641b484c5de42c96f5a382ef25d557f">STATE_LINE_FOLLOWING</a>); <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno"> 2179</span>        }</div>
+<div class="line"><span class="lineno"> 2180</span>        button-&gt;<a class="code hl_variable" href="struct__s_button.html#a7664b4868cbb6eb989eff0d30e30c605">clickCount</a> = 0; <span class="comment">// Resetear contador</span></div>
+<div class="line"><span class="lineno"> 2181</span>    }</div>
+<div class="line"><span class="lineno"> 2182</span> </div>
+<div class="line"><span class="lineno"> 2183</span>    <span class="comment">// 2. Solo tomamos decisiones de temporización de pulsación ante un EVENTO DE LIBERACIÓN</span></div>
+<div class="line"><span class="lineno"> 2184</span>    <span class="keywordflow">if</span> (button-&gt;<a class="code hl_variable" href="struct__s_button.html#a3ed6d0ad2029c6502c6e4241fdd7dc25">justReleased</a>) {</div>
+<div class="line"><span class="lineno"> 2185</span>        <span class="keywordflow">if</span> (button-&gt;<a class="code hl_variable" href="struct__s_button.html#aba52ff7c5d18b686dfe7d23441b2e66c">time</a> &gt;= <a class="code hl_define" href="main_8c.html#ab0f00f133cbd0474bfa5bfb72394bfbd">T3000MS</a>) {</div>
+<div class="line"><span class="lineno"> 2186</span>            button-&gt;<a class="code hl_variable" href="struct__s_button.html#a3ed6d0ad2029c6502c6e4241fdd7dc25">justReleased</a> = <a class="code hl_enumvalue" href="util_8h.html#a48dec3f0bf02a2f3b11fb90ae0fc4d4caa1e095cc966dbecf6a0d8aad75348d1a">FALSE</a>; <span class="comment">// Consumir el evento</span></div>
+<div class="line"><span class="lineno"> 2187</span>            button-&gt;<a class="code hl_variable" href="struct__s_button.html#aba52ff7c5d18b686dfe7d23441b2e66c">time</a> = 0; <span class="comment">// Sin acción por ahora, limpiar</span></div>
+<div class="line"><span class="lineno"> 2188</span>        }</div>
+<div class="line"><span class="lineno"> 2189</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (button-&gt;<a class="code hl_variable" href="struct__s_button.html#aba52ff7c5d18b686dfe7d23441b2e66c">time</a> &gt;= <a class="code hl_define" href="main_8c.html#a19b85936f2c773232d11b318adf1c9de">T2000MS</a> &amp;&amp; button-&gt;<a class="code hl_variable" href="struct__s_button.html#aba52ff7c5d18b686dfe7d23441b2e66c">time</a> &lt; <a class="code hl_define" href="main_8c.html#ab0f00f133cbd0474bfa5bfb72394bfbd">T3000MS</a>) {</div>
+<div class="line"><span class="lineno"> 2190</span>            <span class="keywordflow">if</span> (<a class="code hl_function" href="group___i2_c___exported___functions___group3.html#gad63373b093502b83d5f9bd5e292385f0">HAL_I2C_GetState</a>(&amp;<a class="code hl_variable" href="main_8c.html#ac379bcc152d860f08b1279fd3e232295">hi2c2</a>) != <a class="code hl_enumvalue" href="group___h_a_l__state__structure__definition.html#ggaef355af8eab251ae2a19ee164ad81c37af859ce60c5e462b0bfde3a5010bc72d1">HAL_I2C_STATE_READY</a>) {</div>
+<div class="line"><span class="lineno"> 2191</span>                <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno"> 2192</span>            }</div>
+<div class="line"><span class="lineno"> 2193</span>            button-&gt;<a class="code hl_variable" href="struct__s_button.html#a3ed6d0ad2029c6502c6e4241fdd7dc25">justReleased</a> = <a class="code hl_enumvalue" href="util_8h.html#a48dec3f0bf02a2f3b11fb90ae0fc4d4caa1e095cc966dbecf6a0d8aad75348d1a">FALSE</a>; <span class="comment">// Consumir el evento</span></div>
+<div class="line"><span class="lineno"> 2194</span>            <a class="code hl_function" href="main_8c.html#a4be6725935eb1d72095b766b2120782a">SetRobotMode</a>(<a class="code hl_enumvalue" href="group__group__main.html#gga5ef913d615749b343e42f0424064e937aa52b63031d0b61679533a443a366aaba">STATE_SECOND_SCREEN</a>);</div>
+<div class="line"><span class="lineno"> 2195</span>            button-&gt;<a class="code hl_variable" href="struct__s_button.html#a7664b4868cbb6eb989eff0d30e30c605">clickCount</a> = 0;  <span class="comment">// Abortar clics cortos pendientes</span></div>
+<div class="line"><span class="lineno"> 2196</span>            button-&gt;<a class="code hl_variable" href="struct__s_button.html#aba52ff7c5d18b686dfe7d23441b2e66c">time</a> = 0;        <span class="comment">// Limpiar</span></div>
+<div class="line"><span class="lineno"> 2197</span>        }</div>
+<div class="line"><span class="lineno"> 2198</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (button-&gt;<a class="code hl_variable" href="struct__s_button.html#aba52ff7c5d18b686dfe7d23441b2e66c">time</a> &gt;= <a class="code hl_define" href="main_8c.html#a9123e51e7f8ff19757a3d268d525bf57">T1000MS</a> &amp;&amp; button-&gt;<a class="code hl_variable" href="struct__s_button.html#aba52ff7c5d18b686dfe7d23441b2e66c">time</a> &lt; <a class="code hl_define" href="main_8c.html#a19b85936f2c773232d11b318adf1c9de">T2000MS</a>) {</div>
+<div class="line"><span class="lineno"> 2199</span>            <span class="keywordflow">if</span> (<a class="code hl_function" href="group___i2_c___exported___functions___group3.html#gad63373b093502b83d5f9bd5e292385f0">HAL_I2C_GetState</a>(&amp;<a class="code hl_variable" href="main_8c.html#ac379bcc152d860f08b1279fd3e232295">hi2c2</a>) != <a class="code hl_enumvalue" href="group___h_a_l__state__structure__definition.html#ggaef355af8eab251ae2a19ee164ad81c37af859ce60c5e462b0bfde3a5010bc72d1">HAL_I2C_STATE_READY</a>) {</div>
+<div class="line"><span class="lineno"> 2200</span>                <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno"> 2201</span>            }</div>
+<div class="line"><span class="lineno"> 2202</span>            button-&gt;<a class="code hl_variable" href="struct__s_button.html#a3ed6d0ad2029c6502c6e4241fdd7dc25">justReleased</a> = <a class="code hl_enumvalue" href="util_8h.html#a48dec3f0bf02a2f3b11fb90ae0fc4d4caa1e095cc966dbecf6a0d8aad75348d1a">FALSE</a>; <span class="comment">// Consumir el evento</span></div>
+<div class="line"><span class="lineno"> 2203</span>            <a class="code hl_function" href="main_8c.html#a4be6725935eb1d72095b766b2120782a">SetRobotMode</a>(<a class="code hl_enumvalue" href="group__group__main.html#gga5ef913d615749b343e42f0424064e937abc08c548b43efb25afd93a4143f71f1b">STATE_FIRST_SCREEN</a>);</div>
+<div class="line"><span class="lineno"> 2204</span>            button-&gt;<a class="code hl_variable" href="struct__s_button.html#a7664b4868cbb6eb989eff0d30e30c605">clickCount</a> = 0;  <span class="comment">// Abortar clics cortos pendientes</span></div>
+<div class="line"><span class="lineno"> 2205</span>            button-&gt;<a class="code hl_variable" href="struct__s_button.html#aba52ff7c5d18b686dfe7d23441b2e66c">time</a> = 0;        <span class="comment">// Limpiar</span></div>
+<div class="line"><span class="lineno"> 2206</span>        }</div>
+<div class="line"><span class="lineno"> 2207</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (button-&gt;<a class="code hl_variable" href="struct__s_button.html#aba52ff7c5d18b686dfe7d23441b2e66c">time</a> &lt; <a class="code hl_define" href="main_8c.html#a9123e51e7f8ff19757a3d268d525bf57">T1000MS</a>) {</div>
+<div class="line"><span class="lineno"> 2208</span>            button-&gt;<a class="code hl_variable" href="struct__s_button.html#a3ed6d0ad2029c6502c6e4241fdd7dc25">justReleased</a> = <a class="code hl_enumvalue" href="util_8h.html#a48dec3f0bf02a2f3b11fb90ae0fc4d4caa1e095cc966dbecf6a0d8aad75348d1a">FALSE</a>; <span class="comment">// Consumir el evento</span></div>
+<div class="line"><span class="lineno"> 2209</span>            <span class="comment">// Clic corto detectado (duración &lt; 1s) -&gt; Sumar al contador y arrancar ventana de 400ms reutilizando &#39;time&#39;</span></div>
+<div class="line"><span class="lineno"> 2210</span>            button-&gt;<a class="code hl_variable" href="struct__s_button.html#a7664b4868cbb6eb989eff0d30e30c605">clickCount</a>++;</div>
+<div class="line"><span class="lineno"> 2211</span>            button-&gt;<a class="code hl_variable" href="struct__s_button.html#aba52ff7c5d18b686dfe7d23441b2e66c">time</a> = <a class="code hl_define" href="main_8c.html#ab76123318c055bce04dd1bf0321c9773">T400MS</a>; </div>
+<div class="line"><span class="lineno"> 2212</span>        }</div>
+<div class="line"><span class="lineno"> 2213</span>    }</div>
+<div class="line"><span class="lineno"> 2214</span>}</div>
+<div class="ttc" id="agroup___h_a_l__state__structure__definition_html_ggaef355af8eab251ae2a19ee164ad81c37af859ce60c5e462b0bfde3a5010bc72d1"><div class="ttname"><a href="group___h_a_l__state__structure__definition.html#ggaef355af8eab251ae2a19ee164ad81c37af859ce60c5e462b0bfde3a5010bc72d1">HAL_I2C_STATE_READY</a></div><div class="ttdeci">@ HAL_I2C_STATE_READY</div><div class="ttdoc">Peripheral Initialized and ready for use.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8h_source.html#l00109">stm32f1xx_hal_i2c.h:109</a></div></div>
+<div class="ttc" id="agroup___i2_c___exported___functions___group3_html_gad63373b093502b83d5f9bd5e292385f0"><div class="ttname"><a href="group___i2_c___exported___functions___group3.html#gad63373b093502b83d5f9bd5e292385f0">HAL_I2C_GetState</a></div><div class="ttdeci">HAL_I2C_StateTypeDef HAL_I2C_GetState(I2C_HandleTypeDef *hi2c)</div><div class="ttdoc">Return the I2C handle state.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8c_source.html#l05319">stm32f1xx_hal_i2c.c:5319</a></div></div>
+<div class="ttc" id="agroup__group__main_html_gga5ef913d615749b343e42f0424064e937a2ac9f0b5fbb6cfc38170ccc14dcf3263"><div class="ttname"><a href="group__group__main.html#gga5ef913d615749b343e42f0424064e937a2ac9f0b5fbb6cfc38170ccc14dcf3263">STATE_3D_SCREEN</a></div><div class="ttdeci">@ STATE_3D_SCREEN</div><div class="ttdoc">Modo 3D Screen (5 clics): Gemelo digital wireframe en OLED (Cubo-&gt;Teseracto-&gt;Pirámide) con balance ac...</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00099">main.c:99</a></div></div>
+<div class="ttc" id="agroup__group__main_html_gga5ef913d615749b343e42f0424064e937a81a27a62c9d29883324be07483fdd10a"><div class="ttname"><a href="group__group__main.html#gga5ef913d615749b343e42f0424064e937a81a27a62c9d29883324be07483fdd10a">STATE_JOYSTICK</a></div><div class="ttdeci">@ STATE_JOYSTICK</div><div class="ttdoc">Modo Joystick (4 clics): Control interactivo remoto desde PC/App vía UDP con watchdog.</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00098">main.c:98</a></div></div>
+<div class="ttc" id="agroup__group__main_html_gga5ef913d615749b343e42f0424064e937aa52b63031d0b61679533a443a366aaba"><div class="ttname"><a href="group__group__main.html#gga5ef913d615749b343e42f0424064e937aa52b63031d0b61679533a443a366aaba">STATE_SECOND_SCREEN</a></div><div class="ttdeci">@ STATE_SECOND_SCREEN</div><div class="ttdoc">Modo Diagnóstico Dinámico (Pulsación 2s): Muestra velocidad, ángulo y salida PID, motores apagados.</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00101">main.c:101</a></div></div>
+<div class="ttc" id="agroup__group__main_html_gga5ef913d615749b343e42f0424064e937ab641b484c5de42c96f5a382ef25d557f"><div class="ttname"><a href="group__group__main.html#gga5ef913d615749b343e42f0424064e937ab641b484c5de42c96f5a382ef25d557f">STATE_LINE_FOLLOWING</a></div><div class="ttdeci">@ STATE_LINE_FOLLOWING</div><div class="ttdoc">Modo Seguidor de Línea (2 clics): Navegación autónoma por pista con sensores IR.</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00096">main.c:96</a></div></div>
+<div class="ttc" id="agroup__group__main_html_gga5ef913d615749b343e42f0424064e937abc08c548b43efb25afd93a4143f71f1b"><div class="ttname"><a href="group__group__main.html#gga5ef913d615749b343e42f0424064e937abc08c548b43efb25afd93a4143f71f1b">STATE_FIRST_SCREEN</a></div><div class="ttdeci">@ STATE_FIRST_SCREEN</div><div class="ttdoc">Modo Diagnóstico RAW (Pulsación 1s): Muestra lecturas crudas de ADC y MPU6050, motores apagados.</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00100">main.c:100</a></div></div>
+<div class="ttc" id="agroup__group__main_html_gga5ef913d615749b343e42f0424064e937acbd2746ad5303084bb979bc275aa15ef"><div class="ttname"><a href="group__group__main.html#gga5ef913d615749b343e42f0424064e937acbd2746ad5303084bb979bc275aa15ef">STATE_DODGE</a></div><div class="ttdeci">@ STATE_DODGE</div><div class="ttdoc">Modo Evasión de Obstáculos (3 clics): Detección frontal, giro 90° y seguimiento de pared.</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00097">main.c:97</a></div></div>
+<div class="ttc" id="agroup__group__main_html_gga5ef913d615749b343e42f0424064e937afb76bc9af4d33cb1941ce2198a22b5f1"><div class="ttname"><a href="group__group__main.html#gga5ef913d615749b343e42f0424064e937afb76bc9af4d33cb1941ce2198a22b5f1">STATE_SWING</a></div><div class="ttdeci">@ STATE_SWING</div><div class="ttdoc">Modo Swing (1 clic): Balanceo estático en el lugar, display OLED apagado.</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00095">main.c:95</a></div></div>
+<div class="ttc" id="amain_8c_html_a19b85936f2c773232d11b318adf1c9de"><div class="ttname"><a href="main_8c.html#a19b85936f2c773232d11b318adf1c9de">T2000MS</a></div><div class="ttdeci">#define T2000MS</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00114">main.c:114</a></div></div>
+<div class="ttc" id="amain_8c_html_a4be6725935eb1d72095b766b2120782a"><div class="ttname"><a href="main_8c.html#a4be6725935eb1d72095b766b2120782a">SetRobotMode</a></div><div class="ttdeci">void SetRobotMode(_eRobotMode newMode)</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00767">main.c:767</a></div></div>
+<div class="ttc" id="amain_8c_html_a9123e51e7f8ff19757a3d268d525bf57"><div class="ttname"><a href="main_8c.html#a9123e51e7f8ff19757a3d268d525bf57">T1000MS</a></div><div class="ttdeci">#define T1000MS</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00113">main.c:113</a></div></div>
+<div class="ttc" id="amain_8c_html_ab0f00f133cbd0474bfa5bfb72394bfbd"><div class="ttname"><a href="main_8c.html#ab0f00f133cbd0474bfa5bfb72394bfbd">T3000MS</a></div><div class="ttdeci">#define T3000MS</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00115">main.c:115</a></div></div>
+<div class="ttc" id="amain_8c_html_ab76123318c055bce04dd1bf0321c9773"><div class="ttname"><a href="main_8c.html#ab76123318c055bce04dd1bf0321c9773">T400MS</a></div><div class="ttdeci">#define T400MS</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00116">main.c:116</a></div></div>
+<div class="ttc" id="amain_8c_html_ac379bcc152d860f08b1279fd3e232295"><div class="ttname"><a href="main_8c.html#ac379bcc152d860f08b1279fd3e232295">hi2c2</a></div><div class="ttdeci">I2C_HandleTypeDef hi2c2</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00231">main.c:231</a></div></div>
+<div class="ttc" id="astruct__s_button_html_a3ed6d0ad2029c6502c6e4241fdd7dc25"><div class="ttname"><a href="struct__s_button.html#a3ed6d0ad2029c6502c6e4241fdd7dc25">_sButton::justReleased</a></div><div class="ttdeci">uint8_t justReleased</div><div class="ttdoc">Bandera de evento generada inmediatamente al soltar el botón.</div><div class="ttdef"><b>Definición</b> <a href="util_8h_source.html#l00169">util.h:169</a></div></div>
+<div class="ttc" id="astruct__s_button_html_a7664b4868cbb6eb989eff0d30e30c605"><div class="ttname"><a href="struct__s_button.html#a7664b4868cbb6eb989eff0d30e30c605">_sButton::clickCount</a></div><div class="ttdeci">uint8_t clickCount</div><div class="ttdoc">Contador de pulsaciones detectadas en la ventana temporal.</div><div class="ttdef"><b>Definición</b> <a href="util_8h_source.html#l00168">util.h:168</a></div></div>
+<div class="ttc" id="astruct__s_button_html_a89aae2e1a5caaee3b017518a4973448e"><div class="ttname"><a href="struct__s_button.html#a89aae2e1a5caaee3b017518a4973448e">_sButton::isPressed</a></div><div class="ttdeci">uint8_t isPressed</div><div class="ttdoc">Bandera booleana que indica si el botón está efectivamente oprimido.</div><div class="ttdef"><b>Definición</b> <a href="util_8h_source.html#l00166">util.h:166</a></div></div>
+<div class="ttc" id="astruct__s_button_html_aba52ff7c5d18b686dfe7d23441b2e66c"><div class="ttname"><a href="struct__s_button.html#aba52ff7c5d18b686dfe7d23441b2e66c">_sButton::time</a></div><div class="ttdeci">uint16_t time</div><div class="ttdoc">Contador de permanencia temporal en milisegundos.</div><div class="ttdef"><b>Definición</b> <a href="util_8h_source.html#l00167">util.h:167</a></div></div>
+<div class="ttc" id="autil_8h_html_a48dec3f0bf02a2f3b11fb90ae0fc4d4caa1e095cc966dbecf6a0d8aad75348d1a"><div class="ttname"><a href="util_8h.html#a48dec3f0bf02a2f3b11fb90ae0fc4d4caa1e095cc966dbecf6a0d8aad75348d1a">FALSE</a></div><div class="ttdeci">@ FALSE</div><div class="ttdoc">Estado lógico Falso (0).</div><div class="ttdef"><b>Definición</b> <a href="util_8h_source.html#l00022">util.h:22</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="main_8c_source.html#l02164">buttonTask()</a>, <a class="el" href="util_8h_source.html#l00168">_sButton::clickCount</a>, <a class="el" href="util_8h_source.html#l00022">FALSE</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l05319">HAL_I2C_GetState()</a>, <a class="el" href="stm32f1xx__hal__i2c_8h_source.html#l00109">HAL_I2C_STATE_READY</a>, <a class="el" href="main_8c_source.html#l00231">hi2c2</a>, <a class="el" href="util_8h_source.html#l00166">_sButton::isPressed</a>, <a class="el" href="util_8h_source.html#l00169">_sButton::justReleased</a>, <a class="el" href="main_8c_source.html#l00767">SetRobotMode()</a>, <a class="el" href="main_8c_source.html#l00099">STATE_3D_SCREEN</a>, <a class="el" href="main_8c_source.html#l00097">STATE_DODGE</a>, <a class="el" href="main_8c_source.html#l00100">STATE_FIRST_SCREEN</a>, <a class="el" href="main_8c_source.html#l00098">STATE_JOYSTICK</a>, <a class="el" href="main_8c_source.html#l00096">STATE_LINE_FOLLOWING</a>, <a class="el" href="main_8c_source.html#l00101">STATE_SECOND_SCREEN</a>, <a class="el" href="main_8c_source.html#l00095">STATE_SWING</a>, <a class="el" href="main_8c_source.html#l00113">T1000MS</a>, <a class="el" href="main_8c_source.html#l00114">T2000MS</a>, <a class="el" href="main_8c_source.html#l00115">T3000MS</a>, <a class="el" href="main_8c_source.html#l00116">T400MS</a> y <a class="el" href="util_8h_source.html#l00167">_sButton::time</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="main_8c_source.html#l02164">buttonTask()</a>, <a class="el" href="main_8c_source.html#l03056">main()</a> y <a class="el" href="group__group__comm.html#gaef53b41afe84bf3a4c3f95ab5a56a3c4">USBTask()</a>.</p>
+<div id="dynsection-1" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-1-summary" class="dynsummary">
+</div>
+<div id="dynsection-1-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="group__group__ui__graphics_gae8f31d90f3ac9868df392f575913fe7d_cgraph.svg" width="100%" height="570"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div id="dynsection-2" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-2-summary" class="dynsummary">
+</div>
+<div id="dynsection-2-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group__group__ui__graphics_gae8f31d90f3ac9868df392f575913fe7d_icgraph.svg" width="222" height="136"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ga65dbf97ebe6b95c5571e8110d940f642" name="ga65dbf97ebe6b95c5571e8110d940f642"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga65dbf97ebe6b95c5571e8110d940f642">&#9670;&#160;</a></span>buttonTimeout10ms()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void buttonTimeout10ms </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct__s_button.html">_sButton</a> *</td>          <td class="paramname"><span class="paramname"><em>button</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="main_8c.html">main.c</a>&quot;</code></p>
+
+<p>Decrementa el temporizador de ventana multiclic del botón cada 10 ms. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">button</td><td>Puntero a la estructura <span class="tt"><a class="el" href="struct__s_button.html" title="Estructura de control y temporización del pulsador multifunción.">_sButton</a></span>. </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; Peripheral base address in the alias region</p>
+<p>&lt; Puerto GPIO del pulsador de usuario (Puerto B)</p>
+<p>&lt; Pin del pulsador multifunción de usuario</p>
+
+<p class="definition">Definición en la línea <a class="el" href="main_8c_source.html#l02110">2110</a> del archivo <a class="el" href="main_8c_source.html">main.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2110</span>                                        {</div>
+<div class="line"><span class="lineno"> 2111</span>    <span class="keyword">static</span> uint8_t timeToDebounce = 0;</div>
+<div class="line"><span class="lineno"> 2112</span>    <span class="keyword">static</span> uint8_t release_ticks = 0;</div>
+<div class="line"><span class="lineno"> 2113</span>    <span class="keyword">static</span> uint8_t was_pressed = <a class="code hl_enumvalue" href="util_8h.html#a48dec3f0bf02a2f3b11fb90ae0fc4d4caa1e095cc966dbecf6a0d8aad75348d1a">FALSE</a>;</div>
+<div class="line"><span class="lineno"> 2114</span> </div>
+<div class="line"><span class="lineno"> 2115</span>    <span class="comment">// Leer el estado físico instantáneo del pin</span></div>
+<div class="line"><span class="lineno"> 2116</span>    <a class="code hl_enumeration" href="util_8h.html#ae01c58988e4d37977423a5aab26ab5fa">_eEvent</a> current_pin = (<a class="code hl_function" href="group___g_p_i_o___exported___functions___group2.html#gaf2b819ea6551319ddd5670db318d2e4e">HAL_GPIO_ReadPin</a>(<a class="code hl_define" href="group___hardware___pinout.html#ga6fc0123f44685ed0ecbb6e33c31d61a2">SW0_GPIO_Port</a>, <a class="code hl_define" href="group___hardware___pinout.html#ga8cfad64c817b1b87958ec365c00fe484">SW0_Pin</a>) == <a class="code hl_enumvalue" href="group___g_p_i_o___exported___types.html#gga5b3ef0486b179415581eb342e0ea6b43a90af2af95004ea61d76950ff3f2f6ec2">GPIO_PIN_RESET</a>) ? <a class="code hl_enumvalue" href="util_8h.html#ae01c58988e4d37977423a5aab26ab5faa5ef9a100ac8b4b8d6dec477c377b7901">PRESSED</a> : <a class="code hl_enumvalue" href="util_8h.html#ae01c58988e4d37977423a5aab26ab5faacdb8b9a398ffbd729218a27d00d8fa45">NOT_PRESSED</a>;</div>
+<div class="line"><span class="lineno"> 2117</span> </div>
+<div class="line"><span class="lineno"> 2118</span>    <span class="comment">// Si el botón está actualmente presionado, aplicamos un filtro de liberación lento contra rebotes por vibración</span></div>
+<div class="line"><span class="lineno"> 2119</span>    <span class="keywordflow">if</span> (button-&gt;<a class="code hl_variable" href="struct__s_button.html#a89aae2e1a5caaee3b017518a4973448e">isPressed</a>) {</div>
+<div class="line"><span class="lineno"> 2120</span>        <span class="keywordflow">if</span> (current_pin == <a class="code hl_enumvalue" href="util_8h.html#ae01c58988e4d37977423a5aab26ab5faacdb8b9a398ffbd729218a27d00d8fa45">NOT_PRESSED</a>) {</div>
+<div class="line"><span class="lineno"> 2121</span>            release_ticks++;</div>
+<div class="line"><span class="lineno"> 2122</span>            <span class="keywordflow">if</span> (release_ticks &gt;= 8) { <span class="comment">// Requiere 80ms estables de liberación física para confirmar soltado</span></div>
+<div class="line"><span class="lineno"> 2123</span>                button-&gt;<a class="code hl_variable" href="struct__s_button.html#ad8a59931a8518aa96b000d6d07cb0e9b">stateInput</a> = <a class="code hl_enumvalue" href="util_8h.html#ae01c58988e4d37977423a5aab26ab5faacdb8b9a398ffbd729218a27d00d8fa45">NOT_PRESSED</a>;</div>
+<div class="line"><span class="lineno"> 2124</span>                release_ticks = 0;</div>
+<div class="line"><span class="lineno"> 2125</span>            }</div>
+<div class="line"><span class="lineno"> 2126</span>        } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno"> 2127</span>            button-&gt;<a class="code hl_variable" href="struct__s_button.html#ad8a59931a8518aa96b000d6d07cb0e9b">stateInput</a> = <a class="code hl_enumvalue" href="util_8h.html#ae01c58988e4d37977423a5aab26ab5faa5ef9a100ac8b4b8d6dec477c377b7901">PRESSED</a>;</div>
+<div class="line"><span class="lineno"> 2128</span>            release_ticks = 0;</div>
+<div class="line"><span class="lineno"> 2129</span>        }</div>
+<div class="line"><span class="lineno"> 2130</span>        timeToDebounce = 0; <span class="comment">// Sincronizar</span></div>
+<div class="line"><span class="lineno"> 2131</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno"> 2132</span>        <span class="comment">// Si no está presionado, se utiliza el debouncer rápido de 50ms original del proyecto</span></div>
+<div class="line"><span class="lineno"> 2133</span>        release_ticks = 0;</div>
+<div class="line"><span class="lineno"> 2134</span>        <span class="keywordflow">if</span>(timeToDebounce &gt; <a class="code hl_define" href="main_8c.html#a171ef18ea7b584f85234640a918da857">DEBOUNCE</a>){</div>
+<div class="line"><span class="lineno"> 2135</span>            timeToDebounce = 0;</div>
+<div class="line"><span class="lineno"> 2136</span>            button-&gt;<a class="code hl_variable" href="struct__s_button.html#ad8a59931a8518aa96b000d6d07cb0e9b">stateInput</a> = current_pin;</div>
+<div class="line"><span class="lineno"> 2137</span>        } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno"> 2138</span>            timeToDebounce++;</div>
+<div class="line"><span class="lineno"> 2139</span>        }</div>
+<div class="line"><span class="lineno"> 2140</span>    }</div>
+<div class="line"><span class="lineno"> 2141</span> </div>
+<div class="line"><span class="lineno"> 2142</span>    <span class="comment">// Lógica unificada para el acumulador / temporizador &quot;time&quot;</span></div>
+<div class="line"><span class="lineno"> 2143</span>    <span class="keywordflow">if</span> (button-&gt;<a class="code hl_variable" href="struct__s_button.html#a89aae2e1a5caaee3b017518a4973448e">isPressed</a>) {</div>
+<div class="line"><span class="lineno"> 2144</span>        <span class="keywordflow">if</span> (!was_pressed) {</div>
+<div class="line"><span class="lineno"> 2145</span>            button-&gt;<a class="code hl_variable" href="struct__s_button.html#aba52ff7c5d18b686dfe7d23441b2e66c">time</a> = 0; <span class="comment">// Reiniciar para empezar a cronometrar la pulsación actual desde cero</span></div>
+<div class="line"><span class="lineno"> 2146</span>            was_pressed = <a class="code hl_enumvalue" href="util_8h.html#a48dec3f0bf02a2f3b11fb90ae0fc4d4caa82764c3079aea4e60c80e45befbb839">TRUE</a>;</div>
+<div class="line"><span class="lineno"> 2147</span>        }</div>
+<div class="line"><span class="lineno"> 2148</span>        button-&gt;<a class="code hl_variable" href="struct__s_button.html#aba52ff7c5d18b686dfe7d23441b2e66c">time</a> += 10;</div>
+<div class="line"><span class="lineno"> 2149</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno"> 2150</span>        was_pressed = <a class="code hl_enumvalue" href="util_8h.html#a48dec3f0bf02a2f3b11fb90ae0fc4d4caa1e095cc966dbecf6a0d8aad75348d1a">FALSE</a>;</div>
+<div class="line"><span class="lineno"> 2151</span>        <span class="comment">// Si no está presionado y hay clics acumulados, decrementamos la ventana de multiclic</span></div>
+<div class="line"><span class="lineno"> 2152</span>        <span class="keywordflow">if</span> (button-&gt;<a class="code hl_variable" href="struct__s_button.html#a7664b4868cbb6eb989eff0d30e30c605">clickCount</a> &gt; 0 &amp;&amp; button-&gt;<a class="code hl_variable" href="struct__s_button.html#aba52ff7c5d18b686dfe7d23441b2e66c">time</a> &gt; 0) {</div>
+<div class="line"><span class="lineno"> 2153</span>            <span class="keywordflow">if</span> (button-&gt;<a class="code hl_variable" href="struct__s_button.html#aba52ff7c5d18b686dfe7d23441b2e66c">time</a> &gt;= 10) {</div>
+<div class="line"><span class="lineno"> 2154</span>                button-&gt;<a class="code hl_variable" href="struct__s_button.html#aba52ff7c5d18b686dfe7d23441b2e66c">time</a> -= 10;</div>
+<div class="line"><span class="lineno"> 2155</span>            } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno"> 2156</span>                button-&gt;<a class="code hl_variable" href="struct__s_button.html#aba52ff7c5d18b686dfe7d23441b2e66c">time</a> = 0;</div>
+<div class="line"><span class="lineno"> 2157</span>            }</div>
+<div class="line"><span class="lineno"> 2158</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (button-&gt;<a class="code hl_variable" href="struct__s_button.html#a7664b4868cbb6eb989eff0d30e30c605">clickCount</a> == 0) {</div>
+<div class="line"><span class="lineno"> 2159</span>            button-&gt;<a class="code hl_variable" href="struct__s_button.html#aba52ff7c5d18b686dfe7d23441b2e66c">time</a> = 0;</div>
+<div class="line"><span class="lineno"> 2160</span>        }</div>
+<div class="line"><span class="lineno"> 2161</span>    }</div>
+<div class="line"><span class="lineno"> 2162</span>}</div>
+<div class="ttc" id="agroup___g_p_i_o___exported___functions___group2_html_gaf2b819ea6551319ddd5670db318d2e4e"><div class="ttname"><a href="group___g_p_i_o___exported___functions___group2.html#gaf2b819ea6551319ddd5670db318d2e4e">HAL_GPIO_ReadPin</a></div><div class="ttdeci">GPIO_PinState HAL_GPIO_ReadPin(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin)</div><div class="ttdoc">Reads the specified input port pin.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__gpio_8c_source.html#l00431">stm32f1xx_hal_gpio.c:431</a></div></div>
+<div class="ttc" id="agroup___g_p_i_o___exported___types_html_gga5b3ef0486b179415581eb342e0ea6b43a90af2af95004ea61d76950ff3f2f6ec2"><div class="ttname"><a href="group___g_p_i_o___exported___types.html#gga5b3ef0486b179415581eb342e0ea6b43a90af2af95004ea61d76950ff3f2f6ec2">GPIO_PIN_RESET</a></div><div class="ttdeci">@ GPIO_PIN_RESET</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__gpio_8h_source.html#l00066">stm32f1xx_hal_gpio.h:66</a></div></div>
+<div class="ttc" id="agroup___hardware___pinout_html_ga6fc0123f44685ed0ecbb6e33c31d61a2"><div class="ttname"><a href="group___hardware___pinout.html#ga6fc0123f44685ed0ecbb6e33c31d61a2">SW0_GPIO_Port</a></div><div class="ttdeci">#define SW0_GPIO_Port</div><div class="ttdoc">Puerto GPIO del pulsador de usuario (Puerto B).</div><div class="ttdef"><b>Definición</b> <a href="main_8h_source.html#l00040">main.h:40</a></div></div>
+<div class="ttc" id="agroup___hardware___pinout_html_ga8cfad64c817b1b87958ec365c00fe484"><div class="ttname"><a href="group___hardware___pinout.html#ga8cfad64c817b1b87958ec365c00fe484">SW0_Pin</a></div><div class="ttdeci">#define SW0_Pin</div><div class="ttdoc">Pin del pulsador multifunción de usuario.</div><div class="ttdef"><b>Definición</b> <a href="main_8h_source.html#l00039">main.h:39</a></div></div>
+<div class="ttc" id="amain_8c_html_a171ef18ea7b584f85234640a918da857"><div class="ttname"><a href="main_8c.html#a171ef18ea7b584f85234640a918da857">DEBOUNCE</a></div><div class="ttdeci">#define DEBOUNCE</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00119">main.c:119</a></div></div>
+<div class="ttc" id="astruct__s_button_html_ad8a59931a8518aa96b000d6d07cb0e9b"><div class="ttname"><a href="struct__s_button.html#ad8a59931a8518aa96b000d6d07cb0e9b">_sButton::stateInput</a></div><div class="ttdeci">_eEvent stateInput</div><div class="ttdoc">Lectura cruda del pin GPIO filtrada.</div><div class="ttdef"><b>Definición</b> <a href="util_8h_source.html#l00165">util.h:165</a></div></div>
+<div class="ttc" id="autil_8h_html_a48dec3f0bf02a2f3b11fb90ae0fc4d4caa82764c3079aea4e60c80e45befbb839"><div class="ttname"><a href="util_8h.html#a48dec3f0bf02a2f3b11fb90ae0fc4d4caa82764c3079aea4e60c80e45befbb839">TRUE</a></div><div class="ttdeci">@ TRUE</div><div class="ttdoc">Estado lógico Verdadero (1).</div><div class="ttdef"><b>Definición</b> <a href="util_8h_source.html#l00023">util.h:23</a></div></div>
+<div class="ttc" id="autil_8h_html_ae01c58988e4d37977423a5aab26ab5fa"><div class="ttname"><a href="util_8h.html#ae01c58988e4d37977423a5aab26ab5fa">_eEvent</a></div><div class="ttdeci">_eEvent</div><div class="ttdoc">Eventos de entrada procesados por la máquina de estados del botón.</div><div class="ttdef"><b>Definición</b> <a href="util_8h_source.html#l00151">util.h:151</a></div></div>
+<div class="ttc" id="autil_8h_html_ae01c58988e4d37977423a5aab26ab5faa5ef9a100ac8b4b8d6dec477c377b7901"><div class="ttname"><a href="util_8h.html#ae01c58988e4d37977423a5aab26ab5faa5ef9a100ac8b4b8d6dec477c377b7901">PRESSED</a></div><div class="ttdeci">@ PRESSED</div><div class="ttdoc">Nivel lógico activo detectado en el pin del botón.</div><div class="ttdef"><b>Definición</b> <a href="util_8h_source.html#l00152">util.h:152</a></div></div>
+<div class="ttc" id="autil_8h_html_ae01c58988e4d37977423a5aab26ab5faacdb8b9a398ffbd729218a27d00d8fa45"><div class="ttname"><a href="util_8h.html#ae01c58988e4d37977423a5aab26ab5faacdb8b9a398ffbd729218a27d00d8fa45">NOT_PRESSED</a></div><div class="ttdeci">@ NOT_PRESSED</div><div class="ttdoc">Nivel lógico inactivo detectado en el pin del botón.</div><div class="ttdef"><b>Definición</b> <a href="util_8h_source.html#l00153">util.h:153</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="main_8c_source.html#l02110">buttonTimeout10ms()</a>, <a class="el" href="util_8h_source.html#l00168">_sButton::clickCount</a>, <a class="el" href="main_8c_source.html#l00119">DEBOUNCE</a>, <a class="el" href="util_8h_source.html#l00022">FALSE</a>, <a class="el" href="stm32f1xx__hal__gpio_8h_source.html#l00066">GPIO_PIN_RESET</a>, <a class="el" href="stm32f1xx__hal__gpio_8c_source.html#l00431">HAL_GPIO_ReadPin()</a>, <a class="el" href="util_8h_source.html#l00166">_sButton::isPressed</a>, <a class="el" href="util_8h_source.html#l00153">NOT_PRESSED</a>, <a class="el" href="util_8h_source.html#l00152">PRESSED</a>, <a class="el" href="util_8h_source.html#l00165">_sButton::stateInput</a>, <a class="el" href="main_8h_source.html#l00040">SW0_GPIO_Port</a>, <a class="el" href="main_8h_source.html#l00039">SW0_Pin</a>, <a class="el" href="util_8h_source.html#l00167">_sButton::time</a> y <a class="el" href="util_8h_source.html#l00023">TRUE</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="main_8c_source.html#l02110">buttonTimeout10ms()</a>, <a class="el" href="main_8c_source.html#l01441">do10ms()</a> y <a class="el" href="group__group__comm.html#gaef53b41afe84bf3a4c3f95ab5a56a3c4">USBTask()</a>.</p>
+<div id="dynsection-3" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-3-summary" class="dynsummary">
+</div>
+<div id="dynsection-3-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group__group__ui__graphics_ga65dbf97ebe6b95c5571e8110d940f642_cgraph.svg" width="340" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-4" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-4-summary" class="dynsummary">
+</div>
+<div id="dynsection-4-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group__group__ui__graphics_ga65dbf97ebe6b95c5571e8110d940f642_icgraph.svg" width="388" height="136"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ga392b7d5c226c5d8393b4df5c5f835fd1" name="ga392b7d5c226c5d8393b4df5c5f835fd1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga392b7d5c226c5d8393b4df5c5f835fd1">&#9670;&#160;</a></span>HandleModeScreenTransition()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void HandleModeScreenTransition </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="main_8c.html">main.c</a>&quot;</code></p>
+
+<p>Gestiona la transición limpia de interfaces visuales al cambiar el modo operativo. </p>
+<p>Silencia temporalmente los motores para evitar tirones durante escrituras I2C síncronas. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="main_8c_source.html#l02975">2975</a> del archivo <a class="el" href="main_8c_source.html">main.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2975</span>                                      {</div>
+<div class="line"><span class="lineno"> 2976</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="main_8c.html#a7937637e0ec141695e3397a4eb429199">robotMode</a> != <a class="code hl_variable" href="main_8c.html#a195502054f48c74f0167966e98598713">lastMode</a>) {</div>
+<div class="line"><span class="lineno"> 2977</span>        <a class="code hl_variable" href="main_8c.html#a195502054f48c74f0167966e98598713">lastMode</a> = <a class="code hl_variable" href="main_8c.html#a7937637e0ec141695e3397a4eb429199">robotMode</a>;</div>
+<div class="line"><span class="lineno"> 2978</span> </div>
+<div class="line"><span class="lineno"> 2979</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="main_8c.html#a7937637e0ec141695e3397a4eb429199">robotMode</a> == <a class="code hl_enumvalue" href="group__group__main.html#gga5ef913d615749b343e42f0424064e937afb76bc9af4d33cb1941ce2198a22b5f1">STATE_SWING</a> || <a class="code hl_variable" href="main_8c.html#a7937637e0ec141695e3397a4eb429199">robotMode</a> == <a class="code hl_enumvalue" href="group__group__main.html#gga5ef913d615749b343e42f0424064e937ab641b484c5de42c96f5a382ef25d557f">STATE_LINE_FOLLOWING</a> || <a class="code hl_variable" href="main_8c.html#a7937637e0ec141695e3397a4eb429199">robotMode</a> == <a class="code hl_enumvalue" href="group__group__main.html#gga5ef913d615749b343e42f0424064e937acbd2746ad5303084bb979bc275aa15ef">STATE_DODGE</a> || <a class="code hl_variable" href="main_8c.html#a7937637e0ec141695e3397a4eb429199">robotMode</a> == <a class="code hl_enumvalue" href="group__group__main.html#gga5ef913d615749b343e42f0424064e937a46854d200d334ed65c5b8542eee92421">STATE_STANDBY</a> || <a class="code hl_variable" href="main_8c.html#a7937637e0ec141695e3397a4eb429199">robotMode</a> == <a class="code hl_enumvalue" href="group__group__main.html#gga5ef913d615749b343e42f0424064e937a81a27a62c9d29883324be07483fdd10a">STATE_JOYSTICK</a>) {</div>
+<div class="line"><span class="lineno"> 2980</span>            <span class="comment">// Esperar a que el bus I2C esté listo</span></div>
+<div class="line"><span class="lineno"> 2981</span>            <span class="keywordflow">while</span> (<a class="code hl_function" href="group___i2_c___exported___functions___group3.html#gad63373b093502b83d5f9bd5e292385f0">HAL_I2C_GetState</a>(&amp;<a class="code hl_variable" href="main_8c.html#ac379bcc152d860f08b1279fd3e232295">hi2c2</a>) != <a class="code hl_enumvalue" href="group___h_a_l__state__structure__definition.html#ggaef355af8eab251ae2a19ee164ad81c37af859ce60c5e462b0bfde3a5010bc72d1">HAL_I2C_STATE_READY</a>) {</div>
+<div class="line"><span class="lineno"> 2982</span>                <span class="comment">// Espera activa segura</span></div>
+<div class="line"><span class="lineno"> 2983</span>            }</div>
+<div class="line"><span class="lineno"> 2984</span> </div>
+<div class="line"><span class="lineno"> 2985</span>            <a class="code hl_function" href="ssd1306_8h.html#a63e99c8591f89a39d542c519eac7294f">ssd1306_SetDisplayOn</a>(1);</div>
+<div class="line"><span class="lineno"> 2986</span>            <a class="code hl_function" href="ssd1306_8h.html#a77620914b6d1247e7515a36c38672391">ssd1306_Fill</a>(<a class="code hl_enumvalue" href="ssd1306_8h.html#a6f68a90e6eefe5396bcbec2cd699d500ac1e9bce8242f443c54c7405223d616cd">Black</a>);</div>
+<div class="line"><span class="lineno"> 2987</span> </div>
+<div class="line"><span class="lineno"> 2988</span>            <span class="keywordflow">if</span> (<a class="code hl_variable" href="main_8c.html#a7937637e0ec141695e3397a4eb429199">robotMode</a> == <a class="code hl_enumvalue" href="group__group__main.html#gga5ef913d615749b343e42f0424064e937a46854d200d334ed65c5b8542eee92421">STATE_STANDBY</a>) {</div>
+<div class="line"><span class="lineno"> 2989</span>                <span class="comment">// Centrar &quot;&gt;&gt;&gt;MODO 0 - STANDBY&lt;&lt;&lt;&quot;</span></div>
+<div class="line"><span class="lineno"> 2990</span>                <a class="code hl_function" href="ssd1306_8h.html#a43b18d938dee01ee07fb8c364ea57996">ssd1306_SetCursor</a>((128 - 12 * 7) / 2, 20);</div>
+<div class="line"><span class="lineno"> 2991</span>                <a class="code hl_function" href="ssd1306_8h.html#ac4cbd10dc54485513439a84d9b18c729">ssd1306_WriteString</a>(<span class="stringliteral">&quot;&gt;&gt;&gt;MODO 0&lt;&lt;&lt;&quot;</span>, <a class="code hl_variable" href="fonts_8h.html#a0c25f61fad82321049bc227058706235">Font_7x10</a>, <a class="code hl_enumvalue" href="ssd1306_8h.html#a6f68a90e6eefe5396bcbec2cd699d500ab548046646b36c12aa6ba841de500094">White</a>);</div>
+<div class="line"><span class="lineno"> 2992</span>                <a class="code hl_function" href="ssd1306_8h.html#a43b18d938dee01ee07fb8c364ea57996">ssd1306_SetCursor</a>((128 - 7 * 7) / 2, 34);</div>
+<div class="line"><span class="lineno"> 2993</span>                <a class="code hl_function" href="ssd1306_8h.html#ac4cbd10dc54485513439a84d9b18c729">ssd1306_WriteString</a>(<span class="stringliteral">&quot;STANDBY&quot;</span>, <a class="code hl_variable" href="fonts_8h.html#a0c25f61fad82321049bc227058706235">Font_7x10</a>, <a class="code hl_enumvalue" href="ssd1306_8h.html#a6f68a90e6eefe5396bcbec2cd699d500ab548046646b36c12aa6ba841de500094">White</a>);</div>
+<div class="line"><span class="lineno"> 2994</span>            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code hl_variable" href="main_8c.html#a7937637e0ec141695e3397a4eb429199">robotMode</a> == <a class="code hl_enumvalue" href="group__group__main.html#gga5ef913d615749b343e42f0424064e937afb76bc9af4d33cb1941ce2198a22b5f1">STATE_SWING</a>) {</div>
+<div class="line"><span class="lineno"> 2995</span>                <span class="comment">// Centrar &quot;&gt;&gt;&gt;MODO 1 -  BALANCEO&lt;&lt;&lt;&quot;</span></div>
+<div class="line"><span class="lineno"> 2996</span>                <span class="comment">// Primera línea: &quot;&gt;&gt;&gt;MODO 1&lt;&lt;&lt;&quot; (12 caracteres)</span></div>
+<div class="line"><span class="lineno"> 2997</span>                <a class="code hl_function" href="ssd1306_8h.html#a43b18d938dee01ee07fb8c364ea57996">ssd1306_SetCursor</a>((128 - 12 * 7) / 2, 20);</div>
+<div class="line"><span class="lineno"> 2998</span>                <a class="code hl_function" href="ssd1306_8h.html#ac4cbd10dc54485513439a84d9b18c729">ssd1306_WriteString</a>(<span class="stringliteral">&quot;&gt;&gt;&gt;MODO 1&lt;&lt;&lt;&quot;</span>, <a class="code hl_variable" href="fonts_8h.html#a0c25f61fad82321049bc227058706235">Font_7x10</a>, <a class="code hl_enumvalue" href="ssd1306_8h.html#a6f68a90e6eefe5396bcbec2cd699d500ab548046646b36c12aa6ba841de500094">White</a>);</div>
+<div class="line"><span class="lineno"> 2999</span>                <span class="comment">// Segunda línea: &quot;BALANCEO&quot; (8 caracteres)</span></div>
+<div class="line"><span class="lineno"> 3000</span>                <a class="code hl_function" href="ssd1306_8h.html#a43b18d938dee01ee07fb8c364ea57996">ssd1306_SetCursor</a>((128 - 8 * 7) / 2, 34);</div>
+<div class="line"><span class="lineno"> 3001</span>                <a class="code hl_function" href="ssd1306_8h.html#ac4cbd10dc54485513439a84d9b18c729">ssd1306_WriteString</a>(<span class="stringliteral">&quot;BALANCEO&quot;</span>, <a class="code hl_variable" href="fonts_8h.html#a0c25f61fad82321049bc227058706235">Font_7x10</a>, <a class="code hl_enumvalue" href="ssd1306_8h.html#a6f68a90e6eefe5396bcbec2cd699d500ab548046646b36c12aa6ba841de500094">White</a>);</div>
+<div class="line"><span class="lineno"> 3002</span>            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code hl_variable" href="main_8c.html#a7937637e0ec141695e3397a4eb429199">robotMode</a> == <a class="code hl_enumvalue" href="group__group__main.html#gga5ef913d615749b343e42f0424064e937ab641b484c5de42c96f5a382ef25d557f">STATE_LINE_FOLLOWING</a>) {</div>
+<div class="line"><span class="lineno"> 3003</span>                <span class="comment">// Centrar &quot;&gt;&gt;&gt;MODO 2 - SEGUIMIENTO LINEA&lt;&lt;&lt;&quot;</span></div>
+<div class="line"><span class="lineno"> 3004</span>                <span class="comment">// Primera línea: &quot;&gt;&gt;&gt;MODO 2&lt;&lt;&lt;&quot; (12 caracteres)</span></div>
+<div class="line"><span class="lineno"> 3005</span>                <a class="code hl_function" href="ssd1306_8h.html#a43b18d938dee01ee07fb8c364ea57996">ssd1306_SetCursor</a>((128 - 12 * 7) / 2, 20);</div>
+<div class="line"><span class="lineno"> 3006</span>                <a class="code hl_function" href="ssd1306_8h.html#ac4cbd10dc54485513439a84d9b18c729">ssd1306_WriteString</a>(<span class="stringliteral">&quot;&gt;&gt;&gt;MODO 2&lt;&lt;&lt;&quot;</span>, <a class="code hl_variable" href="fonts_8h.html#a0c25f61fad82321049bc227058706235">Font_7x10</a>, <a class="code hl_enumvalue" href="ssd1306_8h.html#a6f68a90e6eefe5396bcbec2cd699d500ab548046646b36c12aa6ba841de500094">White</a>);</div>
+<div class="line"><span class="lineno"> 3007</span>                <span class="comment">// Segunda línea: &quot;SEGUIMIENTO LINEA&quot; (17 caracteres)</span></div>
+<div class="line"><span class="lineno"> 3008</span>                <a class="code hl_function" href="ssd1306_8h.html#a43b18d938dee01ee07fb8c364ea57996">ssd1306_SetCursor</a>((128 - 17 * 7) / 2, 34);</div>
+<div class="line"><span class="lineno"> 3009</span>                <a class="code hl_function" href="ssd1306_8h.html#ac4cbd10dc54485513439a84d9b18c729">ssd1306_WriteString</a>(<span class="stringliteral">&quot;SEGUIMIENTO LINEA&quot;</span>, <a class="code hl_variable" href="fonts_8h.html#a0c25f61fad82321049bc227058706235">Font_7x10</a>, <a class="code hl_enumvalue" href="ssd1306_8h.html#a6f68a90e6eefe5396bcbec2cd699d500ab548046646b36c12aa6ba841de500094">White</a>);</div>
+<div class="line"><span class="lineno"> 3010</span>            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code hl_variable" href="main_8c.html#a7937637e0ec141695e3397a4eb429199">robotMode</a> == <a class="code hl_enumvalue" href="group__group__main.html#gga5ef913d615749b343e42f0424064e937acbd2746ad5303084bb979bc275aa15ef">STATE_DODGE</a>) {</div>
+<div class="line"><span class="lineno"> 3011</span>                <span class="comment">// Centrar &quot;&gt;&gt;&gt;MODO 3 - ESQUIVAR&lt;&lt;&lt;&quot;</span></div>
+<div class="line"><span class="lineno"> 3012</span>                <span class="comment">// Primera línea: &quot;&gt;&gt;&gt;MODO 3&lt;&lt;&lt;&quot; (12 caracteres)</span></div>
+<div class="line"><span class="lineno"> 3013</span>                <a class="code hl_function" href="ssd1306_8h.html#a43b18d938dee01ee07fb8c364ea57996">ssd1306_SetCursor</a>((128 - 12 * 7) / 2, 20);</div>
+<div class="line"><span class="lineno"> 3014</span>                <a class="code hl_function" href="ssd1306_8h.html#ac4cbd10dc54485513439a84d9b18c729">ssd1306_WriteString</a>(<span class="stringliteral">&quot;&gt;&gt;&gt;MODO 3&lt;&lt;&lt;&quot;</span>, <a class="code hl_variable" href="fonts_8h.html#a0c25f61fad82321049bc227058706235">Font_7x10</a>, <a class="code hl_enumvalue" href="ssd1306_8h.html#a6f68a90e6eefe5396bcbec2cd699d500ab548046646b36c12aa6ba841de500094">White</a>);</div>
+<div class="line"><span class="lineno"> 3015</span>                <span class="comment">// Segunda línea: &quot;ESQUIVAR&quot; (8 caracteres)</span></div>
+<div class="line"><span class="lineno"> 3016</span>                <a class="code hl_function" href="ssd1306_8h.html#a43b18d938dee01ee07fb8c364ea57996">ssd1306_SetCursor</a>((128 - 8 * 7) / 2, 34);</div>
+<div class="line"><span class="lineno"> 3017</span>                <a class="code hl_function" href="ssd1306_8h.html#ac4cbd10dc54485513439a84d9b18c729">ssd1306_WriteString</a>(<span class="stringliteral">&quot;ESQUIVAR&quot;</span>, <a class="code hl_variable" href="fonts_8h.html#a0c25f61fad82321049bc227058706235">Font_7x10</a>, <a class="code hl_enumvalue" href="ssd1306_8h.html#a6f68a90e6eefe5396bcbec2cd699d500ab548046646b36c12aa6ba841de500094">White</a>);</div>
+<div class="line"><span class="lineno"> 3018</span>            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code hl_variable" href="main_8c.html#a7937637e0ec141695e3397a4eb429199">robotMode</a> == <a class="code hl_enumvalue" href="group__group__main.html#gga5ef913d615749b343e42f0424064e937a81a27a62c9d29883324be07483fdd10a">STATE_JOYSTICK</a>) {</div>
+<div class="line"><span class="lineno"> 3019</span>                <span class="comment">// Centrar &quot;&gt;&gt;&gt;MODO 4 - JOYSTICK&lt;&lt;&lt;&quot;</span></div>
+<div class="line"><span class="lineno"> 3020</span>                <span class="comment">// Primera línea: &quot;&gt;&gt;&gt;MODO 4&lt;&lt;&lt;&quot; (12 caracteres)</span></div>
+<div class="line"><span class="lineno"> 3021</span>                <a class="code hl_function" href="ssd1306_8h.html#a43b18d938dee01ee07fb8c364ea57996">ssd1306_SetCursor</a>((128 - 12 * 7) / 2, 20);</div>
+<div class="line"><span class="lineno"> 3022</span>                <a class="code hl_function" href="ssd1306_8h.html#ac4cbd10dc54485513439a84d9b18c729">ssd1306_WriteString</a>(<span class="stringliteral">&quot;&gt;&gt;&gt;MODO 4&lt;&lt;&lt;&quot;</span>, <a class="code hl_variable" href="fonts_8h.html#a0c25f61fad82321049bc227058706235">Font_7x10</a>, <a class="code hl_enumvalue" href="ssd1306_8h.html#a6f68a90e6eefe5396bcbec2cd699d500ab548046646b36c12aa6ba841de500094">White</a>);</div>
+<div class="line"><span class="lineno"> 3023</span>                <span class="comment">// Segunda línea: &quot;JOYSTICK&quot; (8 caracteres)</span></div>
+<div class="line"><span class="lineno"> 3024</span>                <a class="code hl_function" href="ssd1306_8h.html#a43b18d938dee01ee07fb8c364ea57996">ssd1306_SetCursor</a>((128 - 8 * 7) / 2, 34);</div>
+<div class="line"><span class="lineno"> 3025</span>                <a class="code hl_function" href="ssd1306_8h.html#ac4cbd10dc54485513439a84d9b18c729">ssd1306_WriteString</a>(<span class="stringliteral">&quot;JOYSTICK&quot;</span>, <a class="code hl_variable" href="fonts_8h.html#a0c25f61fad82321049bc227058706235">Font_7x10</a>, <a class="code hl_enumvalue" href="ssd1306_8h.html#a6f68a90e6eefe5396bcbec2cd699d500ab548046646b36c12aa6ba841de500094">White</a>);</div>
+<div class="line"><span class="lineno"> 3026</span>            }</div>
+<div class="line"><span class="lineno"> 3027</span> </div>
+<div class="line"><span class="lineno"> 3028</span>            <span class="comment">// Silenciado de motores durante el refresco síncrono I2C</span></div>
+<div class="line"><span class="lineno"> 3029</span>            <a class="code hl_variable" href="main_8c.html#a01fbadbc06f6d9eb904682faf2fdcadd">lPulse1</a> = 0;</div>
+<div class="line"><span class="lineno"> 3030</span>            <a class="code hl_variable" href="main_8c.html#a92327bf6e6417262b514bda6815b3d38">lPulse3</a> = 0;</div>
+<div class="line"><span class="lineno"> 3031</span>            <a class="code hl_variable" href="main_8c.html#ace6ab4da683a858d209c6eedf9972d7d">rPulse2</a> = 0;</div>
+<div class="line"><span class="lineno"> 3032</span>            <a class="code hl_variable" href="main_8c.html#a63f663a6adce80f0d2eee663685dfc4d">rPulse4</a> = 0;</div>
+<div class="line"><span class="lineno"> 3033</span>            <a class="code hl_function" href="group__group__control.html#ga40f8ea2b8a2f79835ff0e5ab6436893a">PWM_Control</a>();</div>
+<div class="line"><span class="lineno"> 3034</span> </div>
+<div class="line"><span class="lineno"> 3035</span>            <a class="code hl_function" href="ssd1306_8h.html#aeca33ad55a12e5a6c23250a01c9e5032">ssd1306_UpdateScreen</a>();</div>
+<div class="line"><span class="lineno"> 3036</span> </div>
+<div class="line"><span class="lineno"> 3037</span>            <a class="code hl_define" href="main_8c.html#a39b2881ad499b829fadc434c42826207">RUN_PID</a> = <a class="code hl_enumvalue" href="util_8h.html#a48dec3f0bf02a2f3b11fb90ae0fc4d4caa1e095cc966dbecf6a0d8aad75348d1a">FALSE</a>;</div>
+<div class="line"><span class="lineno"> 3038</span>            <a class="code hl_variable" href="main_8c.html#a59bdb22b7224146301488db0f7f2c550">integral</a> = 0;</div>
+<div class="line"><span class="lineno"> 3039</span>            <a class="code hl_variable" href="main_8c.html#aca6a2f2b3f4915d25c346a598b8a3dc1">last_error</a> = 0;</div>
+<div class="line"><span class="lineno"> 3040</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code hl_variable" href="main_8c.html#a7937637e0ec141695e3397a4eb429199">robotMode</a> == <a class="code hl_enumvalue" href="group__group__main.html#gga5ef913d615749b343e42f0424064e937a2ac9f0b5fbb6cfc38170ccc14dcf3263">STATE_3D_SCREEN</a>) {</div>
+<div class="line"><span class="lineno"> 3041</span>            <span class="keywordflow">while</span> (<a class="code hl_function" href="group___i2_c___exported___functions___group3.html#gad63373b093502b83d5f9bd5e292385f0">HAL_I2C_GetState</a>(&amp;<a class="code hl_variable" href="main_8c.html#ac379bcc152d860f08b1279fd3e232295">hi2c2</a>) != <a class="code hl_enumvalue" href="group___h_a_l__state__structure__definition.html#ggaef355af8eab251ae2a19ee164ad81c37af859ce60c5e462b0bfde3a5010bc72d1">HAL_I2C_STATE_READY</a>) {</div>
+<div class="line"><span class="lineno"> 3042</span>                <span class="comment">// Espera activa segura</span></div>
+<div class="line"><span class="lineno"> 3043</span>            }</div>
+<div class="line"><span class="lineno"> 3044</span>            <a class="code hl_function" href="ssd1306_8h.html#a1052f348684f4611334bab03e2f21dda">ssd1306_ResetDMAState</a>();</div>
+<div class="line"><span class="lineno"> 3045</span>            <a class="code hl_function" href="ssd1306_8h.html#a63e99c8591f89a39d542c519eac7294f">ssd1306_SetDisplayOn</a>(1);</div>
+<div class="line"><span class="lineno"> 3046</span>        }</div>
+<div class="line"><span class="lineno"> 3047</span>    }</div>
+<div class="line"><span class="lineno"> 3048</span>}</div>
+<div class="ttc" id="afonts_8h_html_a0c25f61fad82321049bc227058706235"><div class="ttname"><a href="fonts_8h.html#a0c25f61fad82321049bc227058706235">Font_7x10</a></div><div class="ttdeci">const SSD1306_Font_t Font_7x10</div><div class="ttdoc">Tipografía estándar compacta de 7x10 píxeles.</div><div class="ttdef"><b>Definición</b> <a href="fonts_8c_source.html#l00214">fonts.c:214</a></div></div>
+<div class="ttc" id="agroup__group__control_html_ga40f8ea2b8a2f79835ff0e5ab6436893a"><div class="ttname"><a href="group__group__control.html#ga40f8ea2b8a2f79835ff0e5ab6436893a">PWM_Control</a></div><div class="ttdeci">void PWM_Control(void)</div><div class="ttdoc">Inyecta los ciclos de trabajo PWM calculados sobre los canales del temporizador TIM3.</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l01718">main.c:1718</a></div></div>
+<div class="ttc" id="agroup__group__main_html_gga5ef913d615749b343e42f0424064e937a46854d200d334ed65c5b8542eee92421"><div class="ttname"><a href="group__group__main.html#gga5ef913d615749b343e42f0424064e937a46854d200d334ed65c5b8542eee92421">STATE_STANDBY</a></div><div class="ttdeci">@ STATE_STANDBY</div><div class="ttdoc">Modo Reposo: Motores desenergizados (PWM 0%), sistema en espera segura.</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00094">main.c:94</a></div></div>
+<div class="ttc" id="amain_8c_html_a01fbadbc06f6d9eb904682faf2fdcadd"><div class="ttname"><a href="main_8c.html#a01fbadbc06f6d9eb904682faf2fdcadd">lPulse1</a></div><div class="ttdeci">uint16_t lPulse1</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00327">main.c:327</a></div></div>
+<div class="ttc" id="amain_8c_html_a195502054f48c74f0167966e98598713"><div class="ttname"><a href="main_8c.html#a195502054f48c74f0167966e98598713">lastMode</a></div><div class="ttdeci">volatile _eRobotMode lastMode</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00244">main.c:244</a></div></div>
+<div class="ttc" id="amain_8c_html_a39b2881ad499b829fadc434c42826207"><div class="ttname"><a href="main_8c.html#a39b2881ad499b829fadc434c42826207">RUN_PID</a></div><div class="ttdeci">#define RUN_PID</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00219">main.c:219</a></div></div>
+<div class="ttc" id="amain_8c_html_a59bdb22b7224146301488db0f7f2c550"><div class="ttname"><a href="main_8c.html#a59bdb22b7224146301488db0f7f2c550">integral</a></div><div class="ttdeci">int32_t integral</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00408">main.c:408</a></div></div>
+<div class="ttc" id="amain_8c_html_a63f663a6adce80f0d2eee663685dfc4d"><div class="ttname"><a href="main_8c.html#a63f663a6adce80f0d2eee663685dfc4d">rPulse4</a></div><div class="ttdeci">uint16_t rPulse4</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00330">main.c:330</a></div></div>
+<div class="ttc" id="amain_8c_html_a7937637e0ec141695e3397a4eb429199"><div class="ttname"><a href="main_8c.html#a7937637e0ec141695e3397a4eb429199">robotMode</a></div><div class="ttdeci">volatile _eRobotMode robotMode</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00243">main.c:243</a></div></div>
+<div class="ttc" id="amain_8c_html_a92327bf6e6417262b514bda6815b3d38"><div class="ttname"><a href="main_8c.html#a92327bf6e6417262b514bda6815b3d38">lPulse3</a></div><div class="ttdeci">uint16_t lPulse3</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00329">main.c:329</a></div></div>
+<div class="ttc" id="amain_8c_html_aca6a2f2b3f4915d25c346a598b8a3dc1"><div class="ttname"><a href="main_8c.html#aca6a2f2b3f4915d25c346a598b8a3dc1">last_error</a></div><div class="ttdeci">int32_t last_error</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00406">main.c:406</a></div></div>
+<div class="ttc" id="amain_8c_html_ace6ab4da683a858d209c6eedf9972d7d"><div class="ttname"><a href="main_8c.html#ace6ab4da683a858d209c6eedf9972d7d">rPulse2</a></div><div class="ttdeci">uint16_t rPulse2</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00328">main.c:328</a></div></div>
+<div class="ttc" id="assd1306_8h_html_a1052f348684f4611334bab03e2f21dda"><div class="ttname"><a href="ssd1306_8h.html#a1052f348684f4611334bab03e2f21dda">ssd1306_ResetDMAState</a></div><div class="ttdeci">void ssd1306_ResetDMAState(void)</div><div class="ttdef"><b>Definición</b> <a href="ssd1306_8c_source.html#l00283">ssd1306.c:283</a></div></div>
+<div class="ttc" id="assd1306_8h_html_a43b18d938dee01ee07fb8c364ea57996"><div class="ttname"><a href="ssd1306_8h.html#a43b18d938dee01ee07fb8c364ea57996">ssd1306_SetCursor</a></div><div class="ttdeci">void ssd1306_SetCursor(uint8_t x, uint8_t y)</div><div class="ttdef"><b>Definición</b> <a href="ssd1306_8c_source.html#l00368">ssd1306.c:368</a></div></div>
+<div class="ttc" id="assd1306_8h_html_a63e99c8591f89a39d542c519eac7294f"><div class="ttname"><a href="ssd1306_8h.html#a63e99c8591f89a39d542c519eac7294f">ssd1306_SetDisplayOn</a></div><div class="ttdeci">void ssd1306_SetDisplayOn(const uint8_t on)</div><div class="ttdef"><b>Definición</b> <a href="ssd1306_8c_source.html#l00681">ssd1306.c:681</a></div></div>
+<div class="ttc" id="assd1306_8h_html_a6f68a90e6eefe5396bcbec2cd699d500ab548046646b36c12aa6ba841de500094"><div class="ttname"><a href="ssd1306_8h.html#a6f68a90e6eefe5396bcbec2cd699d500ab548046646b36c12aa6ba841de500094">White</a></div><div class="ttdeci">@ White</div><div class="ttdoc">Píxel encendido (Color emisor blanco/azul según el display).</div><div class="ttdef"><b>Definición</b> <a href="ssd1306_8h_source.html#l00058">ssd1306.h:58</a></div></div>
+<div class="ttc" id="assd1306_8h_html_a6f68a90e6eefe5396bcbec2cd699d500ac1e9bce8242f443c54c7405223d616cd"><div class="ttname"><a href="ssd1306_8h.html#a6f68a90e6eefe5396bcbec2cd699d500ac1e9bce8242f443c54c7405223d616cd">Black</a></div><div class="ttdeci">@ Black</div><div class="ttdoc">Píxel apagado (Fondo negro).</div><div class="ttdef"><b>Definición</b> <a href="ssd1306_8h_source.html#l00057">ssd1306.h:57</a></div></div>
+<div class="ttc" id="assd1306_8h_html_a77620914b6d1247e7515a36c38672391"><div class="ttname"><a href="ssd1306_8h.html#a77620914b6d1247e7515a36c38672391">ssd1306_Fill</a></div><div class="ttdeci">void ssd1306_Fill(SSD1306_COLOR color)</div><div class="ttdef"><b>Definición</b> <a href="ssd1306_8c_source.html#l00219">ssd1306.c:219</a></div></div>
+<div class="ttc" id="assd1306_8h_html_ac4cbd10dc54485513439a84d9b18c729"><div class="ttname"><a href="ssd1306_8h.html#ac4cbd10dc54485513439a84d9b18c729">ssd1306_WriteString</a></div><div class="ttdeci">char ssd1306_WriteString(char *str, SSD1306_Font_t Font, SSD1306_COLOR color)</div><div class="ttdef"><b>Definición</b> <a href="ssd1306_8c_source.html#l00354">ssd1306.c:354</a></div></div>
+<div class="ttc" id="assd1306_8h_html_aeca33ad55a12e5a6c23250a01c9e5032"><div class="ttname"><a href="ssd1306_8h.html#aeca33ad55a12e5a6c23250a01c9e5032">ssd1306_UpdateScreen</a></div><div class="ttdeci">void ssd1306_UpdateScreen(void)</div><div class="ttdef"><b>Definición</b> <a href="ssd1306_8c_source.html#l00224">ssd1306.c:224</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="ssd1306_8h_source.html#l00057">Black</a>, <a class="el" href="util_8h_source.html#l00022">FALSE</a>, <a class="el" href="fonts_8c_source.html#l00214">Font_7x10</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l05319">HAL_I2C_GetState()</a>, <a class="el" href="stm32f1xx__hal__i2c_8h_source.html#l00109">HAL_I2C_STATE_READY</a>, <a class="el" href="main_8c_source.html#l02975">HandleModeScreenTransition()</a>, <a class="el" href="main_8c_source.html#l00231">hi2c2</a>, <a class="el" href="main_8c_source.html#l00408">integral</a>, <a class="el" href="main_8c_source.html#l00406">last_error</a>, <a class="el" href="main_8c_source.html#l00244">lastMode</a>, <a class="el" href="main_8c_source.html#l00327">lPulse1</a>, <a class="el" href="main_8c_source.html#l00329">lPulse3</a>, <a class="el" href="main_8c_source.html#l01718">PWM_Control()</a>, <a class="el" href="main_8c_source.html#l00243">robotMode</a>, <a class="el" href="main_8c_source.html#l00328">rPulse2</a>, <a class="el" href="main_8c_source.html#l00330">rPulse4</a>, <a class="el" href="main_8c_source.html#l00219">RUN_PID</a>, <a class="el" href="ssd1306_8c_source.html#l00219">ssd1306_Fill()</a>, <a class="el" href="ssd1306_8c_source.html#l00283">ssd1306_ResetDMAState()</a>, <a class="el" href="ssd1306_8c_source.html#l00368">ssd1306_SetCursor()</a>, <a class="el" href="ssd1306_8c_source.html#l00681">ssd1306_SetDisplayOn()</a>, <a class="el" href="ssd1306_8c_source.html#l00224">ssd1306_UpdateScreen()</a>, <a class="el" href="ssd1306_8c_source.html#l00354">ssd1306_WriteString()</a>, <a class="el" href="main_8c_source.html#l00099">STATE_3D_SCREEN</a>, <a class="el" href="main_8c_source.html#l00097">STATE_DODGE</a>, <a class="el" href="main_8c_source.html#l00098">STATE_JOYSTICK</a>, <a class="el" href="main_8c_source.html#l00096">STATE_LINE_FOLLOWING</a>, <a class="el" href="main_8c_source.html#l00094">STATE_STANDBY</a>, <a class="el" href="main_8c_source.html#l00095">STATE_SWING</a> y <a class="el" href="ssd1306_8h_source.html#l00058">White</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="main_8c_source.html#l02975">HandleModeScreenTransition()</a>, <a class="el" href="main_8c_source.html#l03056">main()</a> y <a class="el" href="group__group__comm.html#gaef53b41afe84bf3a4c3f95ab5a56a3c4">USBTask()</a>.</p>
+<div id="dynsection-5" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-5-summary" class="dynsummary">
+</div>
+<div id="dynsection-5-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="group__group__control_ga392b7d5c226c5d8393b4df5c5f835fd1_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div id="dynsection-6" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-6-summary" class="dynsummary">
+</div>
+<div id="dynsection-6-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group__group__control_ga392b7d5c226c5d8393b4df5c5f835fd1_icgraph.svg" width="328" height="136"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="gad529a04bd298cf0801e0052c5da907c7" name="gad529a04bd298cf0801e0052c5da907c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad529a04bd298cf0801e0052c5da907c7">&#9670;&#160;</a></span>heartBeatTask()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void heartBeatTask </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="main_8c.html">main.c</a>&quot;</code></p>
+
+<p>Genera el patrón visual de parpadeo sincrónico en el LED PC13 (Heartbeat). </p>
+<p>Modula el LED según la máscara de 20 ranuras de 100 ms (<span class="tt"><a class="el" href="main_8c.html#aa8714e52b7faf9cd0bec6e009005e7c1">heartBeatMask</a>[]</span>) para identificar a simple vista el modo activo de la MEF. </p>
+<p>&lt; Peripheral base address in the alias region</p>
+<p>&lt; Puerto GPIO del LED indicador (Puerto C)</p>
+<p>&lt; Pin del LED indicador integrado (Heartbeat activo a nivel bajo)</p>
+<p>&lt; Peripheral base address in the alias region</p>
+<p>&lt; Puerto GPIO del LED indicador (Puerto C)</p>
+<p>&lt; Pin del LED indicador integrado (Heartbeat activo a nivel bajo)</p>
+
+<p class="definition">Definición en la línea <a class="el" href="main_8c_source.html#l01476">1476</a> del archivo <a class="el" href="main_8c_source.html">main.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1476</span>                     {</div>
+<div class="line"><span class="lineno"> 1477</span>    <span class="keyword">static</span> uint8_t times = 0;</div>
+<div class="line"><span class="lineno"> 1478</span> </div>
+<div class="line"><span class="lineno"> 1479</span>    <span class="keywordflow">if</span> (~<a class="code hl_variable" href="main_8c.html#aa8714e52b7faf9cd0bec6e009005e7c1">heartBeatMask</a>[<a class="code hl_variable" href="main_8c.html#ae67c613f33a34cb36dab446183c8c075">hbIndex</a>] &amp; (1 &lt;&lt; times)) {</div>
+<div class="line"><span class="lineno"> 1480</span>        <a class="code hl_function" href="group___g_p_i_o___exported___functions___group2.html#gaf4b97bdf533a02f51ef696d43b6da5c4">HAL_GPIO_WritePin</a>(<a class="code hl_define" href="group___hardware___pinout.html#ga3cf393d21586a4097159246e8aca13a2">LED_GPIO_Port</a>, <a class="code hl_define" href="group___hardware___pinout.html#gac969c4fccd009dd70b69992d92cbe81a">LED_Pin</a>, <a class="code hl_enumvalue" href="group___g_p_i_o___exported___types.html#gga5b3ef0486b179415581eb342e0ea6b43a746c062509db3ad1e47beed7527f9f8a">GPIO_PIN_SET</a>);</div>
+<div class="line"><span class="lineno"> 1481</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno"> 1482</span>        <a class="code hl_function" href="group___g_p_i_o___exported___functions___group2.html#gaf4b97bdf533a02f51ef696d43b6da5c4">HAL_GPIO_WritePin</a>(<a class="code hl_define" href="group___hardware___pinout.html#ga3cf393d21586a4097159246e8aca13a2">LED_GPIO_Port</a>, <a class="code hl_define" href="group___hardware___pinout.html#gac969c4fccd009dd70b69992d92cbe81a">LED_Pin</a>, <a class="code hl_enumvalue" href="group___g_p_i_o___exported___types.html#gga5b3ef0486b179415581eb342e0ea6b43a90af2af95004ea61d76950ff3f2f6ec2">GPIO_PIN_RESET</a>);</div>
+<div class="line"><span class="lineno"> 1483</span>    }</div>
+<div class="line"><span class="lineno"> 1484</span> </div>
+<div class="line"><span class="lineno"> 1485</span>    times++;</div>
+<div class="line"><span class="lineno"> 1486</span>    <span class="keywordflow">if</span> (times &gt;= 20) {</div>
+<div class="line"><span class="lineno"> 1487</span>        times = 0; <span class="comment">// Acotado a ciclo síncrono de exactly 2.0 segundos (20 ranuras x 100ms)</span></div>
+<div class="line"><span class="lineno"> 1488</span>    }</div>
+<div class="line"><span class="lineno"> 1489</span>}</div>
+<div class="ttc" id="agroup___g_p_i_o___exported___functions___group2_html_gaf4b97bdf533a02f51ef696d43b6da5c4"><div class="ttname"><a href="group___g_p_i_o___exported___functions___group2.html#gaf4b97bdf533a02f51ef696d43b6da5c4">HAL_GPIO_WritePin</a></div><div class="ttdeci">void HAL_GPIO_WritePin(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin, GPIO_PinState PinState)</div><div class="ttdoc">Sets or clears the selected data port bit.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__gpio_8c_source.html#l00465">stm32f1xx_hal_gpio.c:465</a></div></div>
+<div class="ttc" id="agroup___g_p_i_o___exported___types_html_gga5b3ef0486b179415581eb342e0ea6b43a746c062509db3ad1e47beed7527f9f8a"><div class="ttname"><a href="group___g_p_i_o___exported___types.html#gga5b3ef0486b179415581eb342e0ea6b43a746c062509db3ad1e47beed7527f9f8a">GPIO_PIN_SET</a></div><div class="ttdeci">@ GPIO_PIN_SET</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__gpio_8h_source.html#l00067">stm32f1xx_hal_gpio.h:67</a></div></div>
+<div class="ttc" id="agroup___hardware___pinout_html_ga3cf393d21586a4097159246e8aca13a2"><div class="ttname"><a href="group___hardware___pinout.html#ga3cf393d21586a4097159246e8aca13a2">LED_GPIO_Port</a></div><div class="ttdeci">#define LED_GPIO_Port</div><div class="ttdoc">Puerto GPIO del LED indicador (Puerto C).</div><div class="ttdef"><b>Definición</b> <a href="main_8h_source.html#l00038">main.h:38</a></div></div>
+<div class="ttc" id="agroup___hardware___pinout_html_gac969c4fccd009dd70b69992d92cbe81a"><div class="ttname"><a href="group___hardware___pinout.html#gac969c4fccd009dd70b69992d92cbe81a">LED_Pin</a></div><div class="ttdeci">#define LED_Pin</div><div class="ttdoc">Pin del LED indicador integrado (Heartbeat activo a nivel bajo).</div><div class="ttdef"><b>Definición</b> <a href="main_8h_source.html#l00037">main.h:37</a></div></div>
+<div class="ttc" id="amain_8c_html_aa8714e52b7faf9cd0bec6e009005e7c1"><div class="ttname"><a href="main_8c.html#aa8714e52b7faf9cd0bec6e009005e7c1">heartBeatMask</a></div><div class="ttdeci">uint32_t heartBeatMask[]</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00252">main.c:252</a></div></div>
+<div class="ttc" id="amain_8c_html_ae67c613f33a34cb36dab446183c8c075"><div class="ttname"><a href="main_8c.html#ae67c613f33a34cb36dab446183c8c075">hbIndex</a></div><div class="ttdeci">uint8_t hbIndex</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00263">main.c:263</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__hal__gpio_8h_source.html#l00066">GPIO_PIN_RESET</a>, <a class="el" href="stm32f1xx__hal__gpio_8h_source.html#l00067">GPIO_PIN_SET</a>, <a class="el" href="stm32f1xx__hal__gpio_8c_source.html#l00465">HAL_GPIO_WritePin()</a>, <a class="el" href="main_8c_source.html#l00263">hbIndex</a>, <a class="el" href="main_8c_source.html#l00252">heartBeatMask</a>, <a class="el" href="main_8c_source.html#l01476">heartBeatTask()</a>, <a class="el" href="main_8h_source.html#l00038">LED_GPIO_Port</a> y <a class="el" href="main_8h_source.html#l00037">LED_Pin</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="main_8c_source.html#l01441">do10ms()</a>, <a class="el" href="main_8c_source.html#l01476">heartBeatTask()</a> y <a class="el" href="group__group__comm.html#gaef53b41afe84bf3a4c3f95ab5a56a3c4">USBTask()</a>.</p>
+<div id="dynsection-7" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-7-summary" class="dynsummary">
+</div>
+<div id="dynsection-7-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group__group__main_gad529a04bd298cf0801e0052c5da907c7_cgraph.svg" width="308" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-8" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-8-summary" class="dynsummary">
+</div>
+<div id="dynsection-8-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group__group__main_gad529a04bd298cf0801e0052c5da907c7_icgraph.svg" width="358" height="136"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ga2f07501694f5b96fb0fd85ee473c83eb" name="ga2f07501694f5b96fb0fd85ee473c83eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2f07501694f5b96fb0fd85ee473c83eb">&#9670;&#160;</a></span>initButton()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void initButton </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct__s_button.html">_sButton</a> *</td>          <td class="paramname"><span class="paramname"><em>button</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="main_8c.html">main.c</a>&quot;</code></p>
+
+<p>Inicializa los descriptores de estado y temporización del botón de usuario. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">button</td><td>Puntero a la estructura <span class="tt"><a class="el" href="struct__s_button.html" title="Estructura de control y temporización del pulsador multifunción.">_sButton</a></span>. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="main_8c_source.html#l02064">2064</a> del archivo <a class="el" href="main_8c_source.html">main.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2064</span>                                 {</div>
+<div class="line"><span class="lineno"> 2065</span>    button-&gt;<a class="code hl_variable" href="struct__s_button.html#a1289fe209a109362956009f566d46d5b">currentState</a> = <a class="code hl_enumvalue" href="util_8h.html#a6de6f3d8e74aa6ec71bf5cb6bae49e98a37666936297216dce293b0aa31c474b8">BUTTON_UP</a>;</div>
+<div class="line"><span class="lineno"> 2066</span>    button-&gt;<a class="code hl_variable" href="struct__s_button.html#ad8a59931a8518aa96b000d6d07cb0e9b">stateInput</a> = <a class="code hl_enumvalue" href="util_8h.html#ae01c58988e4d37977423a5aab26ab5faa5856f037cd70ecf6fca11999c11a4a0d">NO_EVENT</a>;</div>
+<div class="line"><span class="lineno"> 2067</span>    button-&gt;<a class="code hl_variable" href="struct__s_button.html#a89aae2e1a5caaee3b017518a4973448e">isPressed</a> = <a class="code hl_enumvalue" href="util_8h.html#a48dec3f0bf02a2f3b11fb90ae0fc4d4caa1e095cc966dbecf6a0d8aad75348d1a">FALSE</a>;</div>
+<div class="line"><span class="lineno"> 2068</span>    button-&gt;<a class="code hl_variable" href="struct__s_button.html#aba52ff7c5d18b686dfe7d23441b2e66c">time</a> = 0;</div>
+<div class="line"><span class="lineno"> 2069</span>    button-&gt;<a class="code hl_variable" href="struct__s_button.html#a7664b4868cbb6eb989eff0d30e30c605">clickCount</a> = 0;</div>
+<div class="line"><span class="lineno"> 2070</span>    button-&gt;<a class="code hl_variable" href="struct__s_button.html#a3ed6d0ad2029c6502c6e4241fdd7dc25">justReleased</a> = <a class="code hl_enumvalue" href="util_8h.html#a48dec3f0bf02a2f3b11fb90ae0fc4d4caa1e095cc966dbecf6a0d8aad75348d1a">FALSE</a>;</div>
+<div class="line"><span class="lineno"> 2071</span>}</div>
+<div class="ttc" id="astruct__s_button_html_a1289fe209a109362956009f566d46d5b"><div class="ttname"><a href="struct__s_button.html#a1289fe209a109362956009f566d46d5b">_sButton::currentState</a></div><div class="ttdeci">_eButtonState currentState</div><div class="ttdoc">Estado actual en la máquina de estados de debouncing.</div><div class="ttdef"><b>Definición</b> <a href="util_8h_source.html#l00164">util.h:164</a></div></div>
+<div class="ttc" id="autil_8h_html_a6de6f3d8e74aa6ec71bf5cb6bae49e98a37666936297216dce293b0aa31c474b8"><div class="ttname"><a href="util_8h.html#a6de6f3d8e74aa6ec71bf5cb6bae49e98a37666936297216dce293b0aa31c474b8">BUTTON_UP</a></div><div class="ttdeci">@ BUTTON_UP</div><div class="ttdoc">Botón en reposo / no presionado.</div><div class="ttdef"><b>Definición</b> <a href="util_8h_source.html#l00142">util.h:142</a></div></div>
+<div class="ttc" id="autil_8h_html_ae01c58988e4d37977423a5aab26ab5faa5856f037cd70ecf6fca11999c11a4a0d"><div class="ttname"><a href="util_8h.html#ae01c58988e4d37977423a5aab26ab5faa5856f037cd70ecf6fca11999c11a4a0d">NO_EVENT</a></div><div class="ttdeci">@ NO_EVENT</div><div class="ttdoc">Sin cambios de estado en el intervalo de muestreo.</div><div class="ttdef"><b>Definición</b> <a href="util_8h_source.html#l00154">util.h:154</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="util_8h_source.html#l00142">BUTTON_UP</a>, <a class="el" href="util_8h_source.html#l00168">_sButton::clickCount</a>, <a class="el" href="util_8h_source.html#l00164">_sButton::currentState</a>, <a class="el" href="util_8h_source.html#l00022">FALSE</a>, <a class="el" href="main_8c_source.html#l02064">initButton()</a>, <a class="el" href="util_8h_source.html#l00166">_sButton::isPressed</a>, <a class="el" href="util_8h_source.html#l00169">_sButton::justReleased</a>, <a class="el" href="util_8h_source.html#l00154">NO_EVENT</a>, <a class="el" href="util_8h_source.html#l00165">_sButton::stateInput</a> y <a class="el" href="util_8h_source.html#l00167">_sButton::time</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="main_8c_source.html#l02064">initButton()</a>, <a class="el" href="main_8c_source.html#l03056">main()</a> y <a class="el" href="group__group__comm.html#gaef53b41afe84bf3a4c3f95ab5a56a3c4">USBTask()</a>.</p>
+<div id="dynsection-9" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-9-summary" class="dynsummary">
+</div>
+<div id="dynsection-9-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group__group__ui__graphics_ga2f07501694f5b96fb0fd85ee473c83eb_cgraph.svg" width="87" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-10" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-10-summary" class="dynsummary">
+</div>
+<div id="dynsection-10-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group__group__ui__graphics_ga2f07501694f5b96fb0fd85ee473c83eb_icgraph.svg" width="212" height="136"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="gaf7c4f477f9b957326bbb08d6ca119ac0" name="gaf7c4f477f9b957326bbb08d6ca119ac0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf7c4f477f9b957326bbb08d6ca119ac0">&#9670;&#160;</a></span>updateMefTask()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t updateMefTask </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct__s_button.html">_sButton</a> *</td>          <td class="paramname"><span class="paramname"><em>button</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="main_8c.html">main.c</a>&quot;</code></p>
+
+<p>Actualiza la MEF de bajo nivel de antirrebote (Debounce) del botón. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">button</td><td>Puntero a la estructura <span class="tt"><a class="el" href="struct__s_button.html" title="Estructura de control y temporización del pulsador multifunción.">_sButton</a></span>. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Estado activo o inactivo del botón tras el filtrado. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="main_8c_source.html#l02073">2073</a> del archivo <a class="el" href="main_8c_source.html">main.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2073</span>                                       {</div>
+<div class="line"><span class="lineno"> 2074</span>    uint8_t action=<a class="code hl_enumvalue" href="util_8h.html#a48dec3f0bf02a2f3b11fb90ae0fc4d4caa1e095cc966dbecf6a0d8aad75348d1a">FALSE</a>;</div>
+<div class="line"><span class="lineno"> 2075</span> </div>
+<div class="line"><span class="lineno"> 2076</span>    <span class="keywordflow">switch</span> (button-&gt;<a class="code hl_variable" href="struct__s_button.html#a1289fe209a109362956009f566d46d5b">currentState</a>){</div>
+<div class="line"><span class="lineno"> 2077</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="util_8h.html#a6de6f3d8e74aa6ec71bf5cb6bae49e98a37666936297216dce293b0aa31c474b8">BUTTON_UP</a>:</div>
+<div class="line"><span class="lineno"> 2078</span>            <span class="keywordflow">if</span>(button-&gt;<a class="code hl_variable" href="struct__s_button.html#ad8a59931a8518aa96b000d6d07cb0e9b">stateInput</a>==<a class="code hl_enumvalue" href="util_8h.html#ae01c58988e4d37977423a5aab26ab5faa5ef9a100ac8b4b8d6dec477c377b7901">PRESSED</a>)</div>
+<div class="line"><span class="lineno"> 2079</span>                button-&gt;<a class="code hl_variable" href="struct__s_button.html#a1289fe209a109362956009f566d46d5b">currentState</a>=<a class="code hl_enumvalue" href="util_8h.html#a6de6f3d8e74aa6ec71bf5cb6bae49e98a4c5560be280ccf3e4ef5a385a6dd62dc">BUTTON_FALLING</a>;</div>
+<div class="line"><span class="lineno"> 2080</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno"> 2081</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="util_8h.html#a6de6f3d8e74aa6ec71bf5cb6bae49e98a4c5560be280ccf3e4ef5a385a6dd62dc">BUTTON_FALLING</a>:</div>
+<div class="line"><span class="lineno"> 2082</span>            <span class="keywordflow">if</span>(button-&gt;<a class="code hl_variable" href="struct__s_button.html#ad8a59931a8518aa96b000d6d07cb0e9b">stateInput</a>==<a class="code hl_enumvalue" href="util_8h.html#ae01c58988e4d37977423a5aab26ab5faa5ef9a100ac8b4b8d6dec477c377b7901">PRESSED</a>){</div>
+<div class="line"><span class="lineno"> 2083</span>                button-&gt;<a class="code hl_variable" href="struct__s_button.html#a1289fe209a109362956009f566d46d5b">currentState</a>=<a class="code hl_enumvalue" href="util_8h.html#a6de6f3d8e74aa6ec71bf5cb6bae49e98a0c7746cfbcac16484b2266e6f51e5e0b">BUTTON_DOWN</a>;</div>
+<div class="line"><span class="lineno"> 2084</span>                button-&gt;<a class="code hl_variable" href="struct__s_button.html#a89aae2e1a5caaee3b017518a4973448e">isPressed</a>=<a class="code hl_enumvalue" href="util_8h.html#a48dec3f0bf02a2f3b11fb90ae0fc4d4caa82764c3079aea4e60c80e45befbb839">TRUE</a>;</div>
+<div class="line"><span class="lineno"> 2085</span>            }<span class="keywordflow">else</span>{</div>
+<div class="line"><span class="lineno"> 2086</span>                button-&gt;<a class="code hl_variable" href="struct__s_button.html#a1289fe209a109362956009f566d46d5b">currentState</a>=<a class="code hl_enumvalue" href="util_8h.html#a6de6f3d8e74aa6ec71bf5cb6bae49e98a37666936297216dce293b0aa31c474b8">BUTTON_UP</a>;</div>
+<div class="line"><span class="lineno"> 2087</span>            }</div>
+<div class="line"><span class="lineno"> 2088</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno"> 2089</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="util_8h.html#a6de6f3d8e74aa6ec71bf5cb6bae49e98a0c7746cfbcac16484b2266e6f51e5e0b">BUTTON_DOWN</a>:</div>
+<div class="line"><span class="lineno"> 2090</span>            <span class="keywordflow">if</span>(button-&gt;<a class="code hl_variable" href="struct__s_button.html#ad8a59931a8518aa96b000d6d07cb0e9b">stateInput</a>==<a class="code hl_enumvalue" href="util_8h.html#ae01c58988e4d37977423a5aab26ab5faacdb8b9a398ffbd729218a27d00d8fa45">NOT_PRESSED</a>)</div>
+<div class="line"><span class="lineno"> 2091</span>                button-&gt;<a class="code hl_variable" href="struct__s_button.html#a1289fe209a109362956009f566d46d5b">currentState</a>=<a class="code hl_enumvalue" href="util_8h.html#a6de6f3d8e74aa6ec71bf5cb6bae49e98a5783aad8af274c748e903acf713c430f">BUTTON_RISING</a>;</div>
+<div class="line"><span class="lineno"> 2092</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno"> 2093</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="util_8h.html#a6de6f3d8e74aa6ec71bf5cb6bae49e98a5783aad8af274c748e903acf713c430f">BUTTON_RISING</a>:</div>
+<div class="line"><span class="lineno"> 2094</span>            <span class="keywordflow">if</span>(button-&gt;<a class="code hl_variable" href="struct__s_button.html#ad8a59931a8518aa96b000d6d07cb0e9b">stateInput</a>==<a class="code hl_enumvalue" href="util_8h.html#ae01c58988e4d37977423a5aab26ab5faacdb8b9a398ffbd729218a27d00d8fa45">NOT_PRESSED</a>){</div>
+<div class="line"><span class="lineno"> 2095</span>                button-&gt;<a class="code hl_variable" href="struct__s_button.html#a1289fe209a109362956009f566d46d5b">currentState</a>=<a class="code hl_enumvalue" href="util_8h.html#a6de6f3d8e74aa6ec71bf5cb6bae49e98a37666936297216dce293b0aa31c474b8">BUTTON_UP</a>;</div>
+<div class="line"><span class="lineno"> 2096</span>                button-&gt;<a class="code hl_variable" href="struct__s_button.html#a89aae2e1a5caaee3b017518a4973448e">isPressed</a> = <a class="code hl_enumvalue" href="util_8h.html#a48dec3f0bf02a2f3b11fb90ae0fc4d4caa1e095cc966dbecf6a0d8aad75348d1a">FALSE</a>;</div>
+<div class="line"><span class="lineno"> 2097</span>                button-&gt;<a class="code hl_variable" href="struct__s_button.html#a3ed6d0ad2029c6502c6e4241fdd7dc25">justReleased</a> = <a class="code hl_enumvalue" href="util_8h.html#a48dec3f0bf02a2f3b11fb90ae0fc4d4caa82764c3079aea4e60c80e45befbb839">TRUE</a>; <span class="comment">// Capturar flanco de subida de liberación</span></div>
+<div class="line"><span class="lineno"> 2098</span>                action=<a class="code hl_enumvalue" href="util_8h.html#a48dec3f0bf02a2f3b11fb90ae0fc4d4caa82764c3079aea4e60c80e45befbb839">TRUE</a>;</div>
+<div class="line"><span class="lineno"> 2099</span>            }<span class="keywordflow">else</span>{</div>
+<div class="line"><span class="lineno"> 2100</span>                button-&gt;<a class="code hl_variable" href="struct__s_button.html#a1289fe209a109362956009f566d46d5b">currentState</a>=<a class="code hl_enumvalue" href="util_8h.html#a6de6f3d8e74aa6ec71bf5cb6bae49e98a0c7746cfbcac16484b2266e6f51e5e0b">BUTTON_DOWN</a>;</div>
+<div class="line"><span class="lineno"> 2101</span>            }</div>
+<div class="line"><span class="lineno"> 2102</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno"> 2103</span>        <span class="keywordflow">default</span>:</div>
+<div class="line"><span class="lineno"> 2104</span>            button-&gt;<a class="code hl_variable" href="struct__s_button.html#a1289fe209a109362956009f566d46d5b">currentState</a>=<a class="code hl_enumvalue" href="util_8h.html#a6de6f3d8e74aa6ec71bf5cb6bae49e98a37666936297216dce293b0aa31c474b8">BUTTON_UP</a>;</div>
+<div class="line"><span class="lineno"> 2105</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno"> 2106</span>    }</div>
+<div class="line"><span class="lineno"> 2107</span>    <span class="keywordflow">return</span> action;</div>
+<div class="line"><span class="lineno"> 2108</span>}</div>
+<div class="ttc" id="autil_8h_html_a6de6f3d8e74aa6ec71bf5cb6bae49e98a0c7746cfbcac16484b2266e6f51e5e0b"><div class="ttname"><a href="util_8h.html#a6de6f3d8e74aa6ec71bf5cb6bae49e98a0c7746cfbcac16484b2266e6f51e5e0b">BUTTON_DOWN</a></div><div class="ttdeci">@ BUTTON_DOWN</div><div class="ttdoc">Botón presionado de manera sostenida (nivel lógico activo).</div><div class="ttdef"><b>Definición</b> <a href="util_8h_source.html#l00141">util.h:141</a></div></div>
+<div class="ttc" id="autil_8h_html_a6de6f3d8e74aa6ec71bf5cb6bae49e98a4c5560be280ccf3e4ef5a385a6dd62dc"><div class="ttname"><a href="util_8h.html#a6de6f3d8e74aa6ec71bf5cb6bae49e98a4c5560be280ccf3e4ef5a385a6dd62dc">BUTTON_FALLING</a></div><div class="ttdeci">@ BUTTON_FALLING</div><div class="ttdoc">Flanco descendente detectado (transición de presionado a no presionado).</div><div class="ttdef"><b>Definición</b> <a href="util_8h_source.html#l00144">util.h:144</a></div></div>
+<div class="ttc" id="autil_8h_html_a6de6f3d8e74aa6ec71bf5cb6bae49e98a5783aad8af274c748e903acf713c430f"><div class="ttname"><a href="util_8h.html#a6de6f3d8e74aa6ec71bf5cb6bae49e98a5783aad8af274c748e903acf713c430f">BUTTON_RISING</a></div><div class="ttdeci">@ BUTTON_RISING</div><div class="ttdoc">Flanco ascendente detectado (transición de no presionado a presionado).</div><div class="ttdef"><b>Definición</b> <a href="util_8h_source.html#l00143">util.h:143</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="util_8h_source.html#l00141">BUTTON_DOWN</a>, <a class="el" href="util_8h_source.html#l00144">BUTTON_FALLING</a>, <a class="el" href="util_8h_source.html#l00143">BUTTON_RISING</a>, <a class="el" href="util_8h_source.html#l00142">BUTTON_UP</a>, <a class="el" href="util_8h_source.html#l00164">_sButton::currentState</a>, <a class="el" href="util_8h_source.html#l00022">FALSE</a>, <a class="el" href="util_8h_source.html#l00166">_sButton::isPressed</a>, <a class="el" href="util_8h_source.html#l00169">_sButton::justReleased</a>, <a class="el" href="util_8h_source.html#l00153">NOT_PRESSED</a>, <a class="el" href="util_8h_source.html#l00152">PRESSED</a>, <a class="el" href="util_8h_source.html#l00165">_sButton::stateInput</a>, <a class="el" href="util_8h_source.html#l00023">TRUE</a> y <a class="el" href="main_8c_source.html#l02073">updateMefTask()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="main_8c_source.html#l03056">main()</a>, <a class="el" href="main_8c_source.html#l02073">updateMefTask()</a> y <a class="el" href="group__group__comm.html#gaef53b41afe84bf3a4c3f95ab5a56a3c4">USBTask()</a>.</p>
+<div id="dynsection-11" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-11-summary" class="dynsummary">
+</div>
+<div id="dynsection-11-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group__group__ui__graphics_gaf7c4f477f9b957326bbb08d6ca119ac0_cgraph.svg" width="122" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-12" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-12-summary" class="dynsummary">
+</div>
+<div id="dynsection-12-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group__group__ui__graphics_gaf7c4f477f9b957326bbb08d6ca119ac0_icgraph.svg" width="247" height="136"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generado el <span class="timestamp"></span> para MICRO-Firmware por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

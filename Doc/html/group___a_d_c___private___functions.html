@@ -1,0 +1,611 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>MICRO-Firmware: ADC Private Functions</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="codefolding.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  extensions: ["tex2jax.js"],
+  jax: ["input/TeX","output/HTML-CSS"],
+});
+</script>
+<script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">MICRO-Firmware<span id="projectnumber">&#160;EX100923v01</span>
+   </div>
+   <div id="projectbrief">Firmware de Péndulo Invertido Autónomo de Dos Ruedas (STM32F103C8T6 - ARM Cortex-M3)</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Buscar" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('group___a_d_c___private___functions.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">ADC Private Functions <div class="ingroups"><a class="el" href="group___s_t_m32_f1xx___h_a_l___driver.html">STM32F1xx_HAL_Driver</a> &raquo; <a class="el" href="group___a_d_c.html">ADC</a></div></div></div>
+</div><!--header-->
+<div class="contents">
+<div id="dynsection-0" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Diagrama de colaboración de ADC Private Functions:</div>
+<div id="dynsection-0-summary" class="dynsummary">
+</div>
+<div id="dynsection-0-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___a_d_c___private___functions.svg" width="266" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Funciones</h2></td></tr>
+<tr class="memitem:ga646e302bd6f80b1a063f31b556806630" id="r_ga646e302bd6f80b1a063f31b556806630"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="#ga646e302bd6f80b1a063f31b556806630">ADC_ConversionStop_Disable</a> (<a class="el" href="group___a_d_c___exported___types.html#ga46483fcdb7a528252920c304ec59d006">ADC_HandleTypeDef</a> *hadc)</td></tr>
+<tr class="memdesc:ga646e302bd6f80b1a063f31b556806630"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stop ADC conversion and disable the selected ADC.  <br /></td></tr>
+<tr class="memitem:ga055840e53820295bac4f4f0998ffcfb0" id="r_ga055840e53820295bac4f4f0998ffcfb0"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ga055840e53820295bac4f4f0998ffcfb0">ADC_DMAConvCplt</a> (<a class="el" href="group___d_m_a___exported___types.html#ga41b754a906b86bce54dc79938970138b">DMA_HandleTypeDef</a> *hdma)</td></tr>
+<tr class="memdesc:ga055840e53820295bac4f4f0998ffcfb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">DMA transfer complete callback.  <br /></td></tr>
+<tr class="memitem:gaede41b9e917d64ad31fbbb8ae9fab79c" id="r_gaede41b9e917d64ad31fbbb8ae9fab79c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#gaede41b9e917d64ad31fbbb8ae9fab79c">ADC_DMAError</a> (<a class="el" href="group___d_m_a___exported___types.html#ga41b754a906b86bce54dc79938970138b">DMA_HandleTypeDef</a> *hdma)</td></tr>
+<tr class="memdesc:gaede41b9e917d64ad31fbbb8ae9fab79c"><td class="mdescLeft">&#160;</td><td class="mdescRight">DMA error callback.  <br /></td></tr>
+<tr class="memitem:ga27abcd16a928caf2b6c719ea67c12b25" id="r_ga27abcd16a928caf2b6c719ea67c12b25"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ga27abcd16a928caf2b6c719ea67c12b25">ADC_DMAHalfConvCplt</a> (<a class="el" href="group___d_m_a___exported___types.html#ga41b754a906b86bce54dc79938970138b">DMA_HandleTypeDef</a> *hdma)</td></tr>
+<tr class="memdesc:ga27abcd16a928caf2b6c719ea67c12b25"><td class="mdescLeft">&#160;</td><td class="mdescRight">DMA half transfer complete callback.  <br /></td></tr>
+<tr class="memitem:ga034b9253bac7f083ec43b5b09873ebf1" id="r_ga034b9253bac7f083ec43b5b09873ebf1"><td class="memItemLeft"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a>&#160;</td><td class="memItemRight"><a class="el" href="#ga034b9253bac7f083ec43b5b09873ebf1">ADC_Enable</a> (<a class="el" href="group___a_d_c___exported___types.html#ga46483fcdb7a528252920c304ec59d006">ADC_HandleTypeDef</a> *hadc)</td></tr>
+<tr class="memdesc:ga034b9253bac7f083ec43b5b09873ebf1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable the selected ADC.  <br /></td></tr>
+<tr class="memitem:gae7b1bbe670aef90157adbb5616202df3" id="r_gae7b1bbe670aef90157adbb5616202df3"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#gae7b1bbe670aef90157adbb5616202df3">ADC_StabilizationTime</a> (uint32_t DelayUs)</td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Descripción detallada</h2>
+<div class="textblock"></div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Documentación de funciones</h2>
+<a id="ga646e302bd6f80b1a063f31b556806630" name="ga646e302bd6f80b1a063f31b556806630"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga646e302bd6f80b1a063f31b556806630">&#9670;&#160;</a></span>ADC_ConversionStop_Disable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a> ADC_ConversionStop_Disable </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group___a_d_c___exported___types.html#ga46483fcdb7a528252920c304ec59d006">ADC_HandleTypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>hadc</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__adc_8h.html">stm32f1xx_hal_adc.h</a>&quot;</code></p>
+
+<p>Stop ADC conversion and disable the selected ADC. </p>
+<dl class="section note"><dt>Nota</dt><dd>Prerequisite condition to use this function: ADC conversions must be stopped to disable the ADC. </dd></dl>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">hadc</td><td>ADC handle </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname"><a class="el" href="group___h_a_l.html" title="HAL module driver.">HAL</a></td><td>status. </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; 0x00000001</p>
+<p>&lt; ADC enable</p>
+<p>&lt; 0x00000001</p>
+<p>&lt; ADC enable</p>
+<p>&lt; 0x00000001</p>
+<p>&lt; ADC enable</p>
+<p>&lt; 0x00000001</p>
+<p>&lt; ADC enable</p>
+<p>&lt; 0x00000001</p>
+<p>&lt; ADC enable</p>
+<p>&lt; 0x00000001</p>
+<p>&lt; ADC enable</p>
+<p>&lt; 0x00000001</p>
+<p>&lt; ADC enable</p>
+<p>&lt; Internal error occurrence</p>
+<p>&lt; ADC IP internal error: if problem of clocking, enable/disable, erroneous state <br  />
+</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__adc_8c_source.html#l02273">2273</a> del archivo <a class="el" href="stm32f1xx__hal__adc_8c_source.html">stm32f1xx_hal_adc.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2292</span>{</div>
+<div class="line"><span class="lineno"> 2293</span>  uint32_t tickstart = 0U;</div>
+<div class="line"><span class="lineno"> 2294</span>  </div>
+<div class="line"><span class="lineno"> 2295</span>  <span class="comment">/* Verification if ADC is not already disabled */</span></div>
+<div class="line"><span class="lineno"> 2296</span>  <span class="keywordflow">if</span> (<a class="code hl_define" href="group___a_d_c___private___macros.html#gafe3a7a04ff078c62ae98b19403f696c7">ADC_IS_ENABLE</a>(hadc) != <a class="code hl_enumvalue" href="group___exported__types.html#gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05">RESET</a>)</div>
+<div class="line"><span class="lineno"> 2297</span>  {</div>
+<div class="line"><span class="lineno"> 2298</span>    <span class="comment">/* Disable the ADC peripheral */</span></div>
+<div class="line"><span class="lineno"> 2299</span>    <a class="code hl_define" href="group___a_d_c___exported___macros.html#ga8afd5963c41c0a30c5cf1fec5c5710b3">__HAL_ADC_DISABLE</a>(hadc);</div>
+<div class="line"><span class="lineno"> 2300</span>     </div>
+<div class="line"><span class="lineno"> 2301</span>    <span class="comment">/* Get tick count */</span></div>
+<div class="line"><span class="lineno"> 2302</span>    tickstart = <a class="code hl_function" href="group___h_a_l___exported___functions___group2.html#gac9b3a85a73735ac840d0dcb59bc0fdd6">HAL_GetTick</a>();</div>
+<div class="line"><span class="lineno"> 2303</span>    </div>
+<div class="line"><span class="lineno"> 2304</span>    <span class="comment">/* Wait for ADC effectively disabled */</span></div>
+<div class="line"><span class="lineno"> 2305</span>    <span class="keywordflow">while</span>(<a class="code hl_define" href="group___a_d_c___private___macros.html#gafe3a7a04ff078c62ae98b19403f696c7">ADC_IS_ENABLE</a>(hadc) != <a class="code hl_enumvalue" href="group___exported__types.html#gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05">RESET</a>)</div>
+<div class="line"><span class="lineno"> 2306</span>    {</div>
+<div class="line"><span class="lineno"> 2307</span>      <span class="keywordflow">if</span>((<a class="code hl_function" href="group___h_a_l___exported___functions___group2.html#gac9b3a85a73735ac840d0dcb59bc0fdd6">HAL_GetTick</a>() - tickstart) &gt; <a class="code hl_define" href="group___a_d_c___private___constants.html#ga2b268ea01bfa472a0c004fb34cc48c38">ADC_DISABLE_TIMEOUT</a>)</div>
+<div class="line"><span class="lineno"> 2308</span>      {</div>
+<div class="ttc" id="agroup___a_d_c___exported___macros_html_ga8afd5963c41c0a30c5cf1fec5c5710b3"><div class="ttname"><a href="group___a_d_c___exported___macros.html#ga8afd5963c41c0a30c5cf1fec5c5710b3">__HAL_ADC_DISABLE</a></div><div class="ttdeci">#define __HAL_ADC_DISABLE(__HANDLE__)</div><div class="ttdoc">Disable the ADC peripheral.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__adc_8h_source.html#l00515">stm32f1xx_hal_adc.h:515</a></div></div>
+<div class="ttc" id="agroup___a_d_c___private___constants_html_ga2b268ea01bfa472a0c004fb34cc48c38"><div class="ttname"><a href="group___a_d_c___private___constants.html#ga2b268ea01bfa472a0c004fb34cc48c38">ADC_DISABLE_TIMEOUT</a></div><div class="ttdeci">#define ADC_DISABLE_TIMEOUT</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__adc_8c_source.html#l00341">stm32f1xx_hal_adc.c:341</a></div></div>
+<div class="ttc" id="agroup___a_d_c___private___macros_html_gafe3a7a04ff078c62ae98b19403f696c7"><div class="ttname"><a href="group___a_d_c___private___macros.html#gafe3a7a04ff078c62ae98b19403f696c7">ADC_IS_ENABLE</a></div><div class="ttdeci">#define ADC_IS_ENABLE(__HANDLE__)</div><div class="ttdoc">Verification of ADC state: enabled or disabled.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__adc_8h_source.html#l00615">stm32f1xx_hal_adc.h:615</a></div></div>
+<div class="ttc" id="agroup___exported__types_html_gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05"><div class="ttname"><a href="group___exported__types.html#gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05">RESET</a></div><div class="ttdeci">@ RESET</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx_8h_source.html#l00152">stm32f1xx.h:152</a></div></div>
+<div class="ttc" id="agroup___h_a_l___exported___functions___group2_html_gac9b3a85a73735ac840d0dcb59bc0fdd6"><div class="ttname"><a href="group___h_a_l___exported___functions___group2.html#gac9b3a85a73735ac840d0dcb59bc0fdd6">HAL_GetTick</a></div><div class="ttdeci">uint32_t HAL_GetTick(void)</div><div class="ttdoc">Provides a tick value in millisecond.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal_8c_source.html#l00304">stm32f1xx_hal.c:304</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__hal__def_8h_source.html#l00041">HAL_ERROR</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal__adc_8c_source.html#l00623">HAL_ADC_DeInit()</a>, <a class="el" href="stm32f1xx__hal__adc_8c_source.html#l00411">HAL_ADC_Init()</a>, <a class="el" href="stm32f1xx__hal__adc_8c_source.html#l01141">HAL_ADC_Stop()</a>, <a class="el" href="stm32f1xx__hal__adc__ex_8c_source.html#l00119">HAL_ADCEx_Calibration_Start()</a> y <a class="el" href="stm32f1xx__hal__adc__ex_8c_source.html#l00318">HAL_ADCEx_InjectedStop()</a>.</p>
+<div id="dynsection-1" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-1-summary" class="dynsummary">
+</div>
+<div id="dynsection-1-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___a_d_c___private___functions_ga646e302bd6f80b1a063f31b556806630_icgraph.svg" width="643" height="376"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ga055840e53820295bac4f4f0998ffcfb0" name="ga055840e53820295bac4f4f0998ffcfb0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga055840e53820295bac4f4f0998ffcfb0">&#9670;&#160;</a></span>ADC_DMAConvCplt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ADC_DMAConvCplt </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group___d_m_a___exported___types.html#ga41b754a906b86bce54dc79938970138b">DMA_HandleTypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>hdma</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__adc_8h.html">stm32f1xx_hal_adc.h</a>&quot;</code></p>
+
+<p>DMA transfer complete callback. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">hdma</td><td>pointer to DMA handle. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; Internal error occurrence</p>
+<p>&lt; DMA error occurrence</p>
+<p>&lt; Conversion data available on group regular</p>
+<p>&lt; 0x000E0000</p>
+<p>&lt; ADC group regular external trigger source</p>
+<p>&lt; 0x00080000</p>
+<p>&lt; 0x00040000</p>
+<p>&lt; 0x00020000</p>
+<p>&lt; A conversion on group regular is ongoing or can occur (either by continuous mode, external trigger, low power auto power-on, multimode ADC master control)</p>
+<p>&lt; A conversion on group injected is ongoing or can occur (either by auto-injection mode, external trigger, low power auto power-on, multimode ADC master control)</p>
+<p>&lt; ADC peripheral ready for use</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__adc_8c_source.html#l02315">2315</a> del archivo <a class="el" href="stm32f1xx__hal__adc_8c_source.html">stm32f1xx_hal_adc.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2334</span>{</div>
+<div class="line"><span class="lineno"> 2335</span>  <span class="comment">/* Retrieve ADC handle corresponding to current DMA handle */</span></div>
+<div class="line"><span class="lineno"> 2336</span>  <a class="code hl_typedef" href="group___a_d_c___exported___types.html#ga46483fcdb7a528252920c304ec59d006">ADC_HandleTypeDef</a>* hadc = ( <a class="code hl_typedef" href="group___a_d_c___exported___types.html#ga46483fcdb7a528252920c304ec59d006">ADC_HandleTypeDef</a>* )((<a class="code hl_typedef" href="group___d_m_a___exported___types.html#ga41b754a906b86bce54dc79938970138b">DMA_HandleTypeDef</a>* )hdma)-&gt;Parent;</div>
+<div class="line"><span class="lineno"> 2337</span> </div>
+<div class="line"><span class="lineno"> 2338</span>  <span class="comment">/* Update state machine on conversion status if not in error state */</span></div>
+<div class="line"><span class="lineno"> 2339</span>  <span class="keywordflow">if</span> (<a class="code hl_define" href="stm32f1xx__hal__def_8h.html#a82637a84fbdca0e2a25496089b549924">HAL_IS_BIT_CLR</a>(hadc-&gt;<a class="code hl_variable" href="struct_____a_d_c___handle_type_def.html#a9eb04e7e29ef7e1f3facc16dfd8f7c50">State</a>, <a class="code hl_define" href="group___a_d_c___exported___types.html#ga65b592627f1f9277f4b89bfc33a9e641">HAL_ADC_STATE_ERROR_INTERNAL</a> | <a class="code hl_define" href="group___a_d_c___exported___types.html#ga5a1b4881d17e72aa0823797958221172">HAL_ADC_STATE_ERROR_DMA</a>))</div>
+<div class="line"><span class="lineno"> 2340</span>  {</div>
+<div class="line"><span class="lineno"> 2341</span>    <span class="comment">/* Update ADC state machine */</span></div>
+<div class="line"><span class="lineno"> 2342</span>    <a class="code hl_define" href="group___exported__macros.html#ga26474f43799fbade9cf300e21dd3a91a">SET_BIT</a>(hadc-&gt;<a class="code hl_variable" href="struct_____a_d_c___handle_type_def.html#a9eb04e7e29ef7e1f3facc16dfd8f7c50">State</a>, <a class="code hl_define" href="group___a_d_c___exported___types.html#gae2da191bffb720a553a1e39c10929711">HAL_ADC_STATE_REG_EOC</a>);</div>
+<div class="line"><span class="lineno"> 2343</span>    </div>
+<div class="line"><span class="lineno"> 2344</span>    <span class="comment">/* Determine whether any further conversion upcoming on group regular     */</span></div>
+<div class="line"><span class="lineno"> 2345</span>    <span class="comment">/* by external trigger, continuous mode or scan sequence on going.        */</span></div>
+<div class="line"><span class="lineno"> 2346</span>    <span class="comment">/* Note: On STM32F1 devices, in case of sequencer enabled                 */</span></div>
+<div class="line"><span class="lineno"> 2347</span>    <span class="comment">/*       (several ranks selected), end of conversion flag is raised       */</span></div>
+<div class="line"><span class="lineno"> 2348</span>    <span class="comment">/*       at the end of the sequence.                                      */</span></div>
+<div class="line"><span class="lineno"> 2349</span>    <span class="keywordflow">if</span>(<a class="code hl_define" href="group___a_d_c___private___macros.html#ga2ccb82ecf85d6c6d1ff2cdf9b6a82d2b">ADC_IS_SOFTWARE_START_REGULAR</a>(hadc)        &amp;&amp; </div>
+<div class="line"><span class="lineno"> 2350</span>       (hadc-&gt;<a class="code hl_variable" href="struct_____a_d_c___handle_type_def.html#a8b8e5224f15359298d706b3da0a2bd87">Init</a>.<a class="code hl_variable" href="struct_a_d_c___init_type_def.html#a1fc1365e223886a079d7c673f0f90b56">ContinuousConvMode</a> == <a class="code hl_enumvalue" href="group___exported__types.html#ggac9a7e9a35d2513ec15c3b537aaa4fba1ad3a9df141be0ccf10389b640f492b26d">DISABLE</a>)   )</div>
+<div class="line"><span class="lineno"> 2351</span>    {</div>
+<div class="line"><span class="lineno"> 2352</span>      <span class="comment">/* Set ADC state */</span></div>
+<div class="line"><span class="lineno"> 2353</span>      <a class="code hl_define" href="group___exported__macros.html#ga133aae6fc0d41bffab39ab223a7001de">CLEAR_BIT</a>(hadc-&gt;<a class="code hl_variable" href="struct_____a_d_c___handle_type_def.html#a9eb04e7e29ef7e1f3facc16dfd8f7c50">State</a>, <a class="code hl_define" href="group___a_d_c___exported___types.html#ga516d4b4ebc261c241c69d96aae19acc3">HAL_ADC_STATE_REG_BUSY</a>);   </div>
+<div class="line"><span class="lineno"> 2354</span>      </div>
+<div class="line"><span class="lineno"> 2355</span>      <span class="keywordflow">if</span> (<a class="code hl_define" href="stm32f1xx__hal__def_8h.html#a82637a84fbdca0e2a25496089b549924">HAL_IS_BIT_CLR</a>(hadc-&gt;<a class="code hl_variable" href="struct_____a_d_c___handle_type_def.html#a9eb04e7e29ef7e1f3facc16dfd8f7c50">State</a>, <a class="code hl_define" href="group___a_d_c___exported___types.html#ga0044d240de80a70923b5c970d19ba24b">HAL_ADC_STATE_INJ_BUSY</a>))</div>
+<div class="ttc" id="agroup___a_d_c___exported___types_html_ga0044d240de80a70923b5c970d19ba24b"><div class="ttname"><a href="group___a_d_c___exported___types.html#ga0044d240de80a70923b5c970d19ba24b">HAL_ADC_STATE_INJ_BUSY</a></div><div class="ttdeci">#define HAL_ADC_STATE_INJ_BUSY</div><div class="ttdoc">A conversion on group injected is ongoing or can occur (either by auto-injection mode,...</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__adc_8h_source.html#l00157">stm32f1xx_hal_adc.h:157</a></div></div>
+<div class="ttc" id="agroup___a_d_c___exported___types_html_ga46483fcdb7a528252920c304ec59d006"><div class="ttname"><a href="group___a_d_c___exported___types.html#ga46483fcdb7a528252920c304ec59d006">ADC_HandleTypeDef</a></div><div class="ttdeci">struct __ADC_HandleTypeDef ADC_HandleTypeDef</div><div class="ttdoc">ADC handle Structure definition.</div></div>
+<div class="ttc" id="agroup___a_d_c___exported___types_html_ga516d4b4ebc261c241c69d96aae19acc3"><div class="ttname"><a href="group___a_d_c___exported___types.html#ga516d4b4ebc261c241c69d96aae19acc3">HAL_ADC_STATE_REG_BUSY</a></div><div class="ttdeci">#define HAL_ADC_STATE_REG_BUSY</div><div class="ttdoc">A conversion on group regular is ongoing or can occur (either by continuous mode, external trigger,...</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__adc_8h_source.html#l00150">stm32f1xx_hal_adc.h:150</a></div></div>
+<div class="ttc" id="agroup___a_d_c___exported___types_html_ga5a1b4881d17e72aa0823797958221172"><div class="ttname"><a href="group___a_d_c___exported___types.html#ga5a1b4881d17e72aa0823797958221172">HAL_ADC_STATE_ERROR_DMA</a></div><div class="ttdeci">#define HAL_ADC_STATE_ERROR_DMA</div><div class="ttdoc">DMA error occurrence.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__adc_8h_source.html#l00147">stm32f1xx_hal_adc.h:147</a></div></div>
+<div class="ttc" id="agroup___a_d_c___exported___types_html_ga65b592627f1f9277f4b89bfc33a9e641"><div class="ttname"><a href="group___a_d_c___exported___types.html#ga65b592627f1f9277f4b89bfc33a9e641">HAL_ADC_STATE_ERROR_INTERNAL</a></div><div class="ttdeci">#define HAL_ADC_STATE_ERROR_INTERNAL</div><div class="ttdoc">Internal error occurrence.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__adc_8h_source.html#l00145">stm32f1xx_hal_adc.h:145</a></div></div>
+<div class="ttc" id="agroup___a_d_c___exported___types_html_gae2da191bffb720a553a1e39c10929711"><div class="ttname"><a href="group___a_d_c___exported___types.html#gae2da191bffb720a553a1e39c10929711">HAL_ADC_STATE_REG_EOC</a></div><div class="ttdeci">#define HAL_ADC_STATE_REG_EOC</div><div class="ttdoc">Conversion data available on group regular.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__adc_8h_source.html#l00152">stm32f1xx_hal_adc.h:152</a></div></div>
+<div class="ttc" id="agroup___a_d_c___private___macros_html_ga2ccb82ecf85d6c6d1ff2cdf9b6a82d2b"><div class="ttname"><a href="group___a_d_c___private___macros.html#ga2ccb82ecf85d6c6d1ff2cdf9b6a82d2b">ADC_IS_SOFTWARE_START_REGULAR</a></div><div class="ttdeci">#define ADC_IS_SOFTWARE_START_REGULAR(__HANDLE__)</div><div class="ttdoc">Test if conversion trigger of regular group is software start or external trigger.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__adc_8h_source.html#l00625">stm32f1xx_hal_adc.h:625</a></div></div>
+<div class="ttc" id="agroup___d_m_a___exported___types_html_ga41b754a906b86bce54dc79938970138b"><div class="ttname"><a href="group___d_m_a___exported___types.html#ga41b754a906b86bce54dc79938970138b">DMA_HandleTypeDef</a></div><div class="ttdeci">struct __DMA_HandleTypeDef DMA_HandleTypeDef</div><div class="ttdoc">DMA handle Structure definition.</div></div>
+<div class="ttc" id="agroup___exported__macros_html_ga133aae6fc0d41bffab39ab223a7001de"><div class="ttname"><a href="group___exported__macros.html#ga133aae6fc0d41bffab39ab223a7001de">CLEAR_BIT</a></div><div class="ttdeci">#define CLEAR_BIT(REG, BIT)</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx_8h_source.html#l00179">stm32f1xx.h:179</a></div></div>
+<div class="ttc" id="agroup___exported__macros_html_ga26474f43799fbade9cf300e21dd3a91a"><div class="ttname"><a href="group___exported__macros.html#ga26474f43799fbade9cf300e21dd3a91a">SET_BIT</a></div><div class="ttdeci">#define SET_BIT(REG, BIT)</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx_8h_source.html#l00177">stm32f1xx.h:177</a></div></div>
+<div class="ttc" id="agroup___exported__types_html_ggac9a7e9a35d2513ec15c3b537aaa4fba1ad3a9df141be0ccf10389b640f492b26d"><div class="ttname"><a href="group___exported__types.html#ggac9a7e9a35d2513ec15c3b537aaa4fba1ad3a9df141be0ccf10389b640f492b26d">DISABLE</a></div><div class="ttdeci">@ DISABLE</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx_8h_source.html#l00158">stm32f1xx.h:158</a></div></div>
+<div class="ttc" id="astm32f1xx__hal__def_8h_html_a82637a84fbdca0e2a25496089b549924"><div class="ttname"><a href="stm32f1xx__hal__def_8h.html#a82637a84fbdca0e2a25496089b549924">HAL_IS_BIT_CLR</a></div><div class="ttdeci">#define HAL_IS_BIT_CLR(REG, BIT)</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__def_8h_source.html#l00059">stm32f1xx_hal_def.h:59</a></div></div>
+<div class="ttc" id="astruct_____a_d_c___handle_type_def_html_a8b8e5224f15359298d706b3da0a2bd87"><div class="ttname"><a href="struct_____a_d_c___handle_type_def.html#a8b8e5224f15359298d706b3da0a2bd87">__ADC_HandleTypeDef::Init</a></div><div class="ttdeci">ADC_InitTypeDef Init</div><div class="ttdoc">ADC required parameters.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__adc_8h_source.html#l00178">stm32f1xx_hal_adc.h:178</a></div></div>
+<div class="ttc" id="astruct_____a_d_c___handle_type_def_html_a9eb04e7e29ef7e1f3facc16dfd8f7c50"><div class="ttname"><a href="struct_____a_d_c___handle_type_def.html#a9eb04e7e29ef7e1f3facc16dfd8f7c50">__ADC_HandleTypeDef::State</a></div><div class="ttdeci">volatile uint32_t State</div><div class="ttdoc">&lt; Defines &#39;read / write&#39; permissions</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__adc_8h_source.html#l00184">stm32f1xx_hal_adc.h:184</a></div></div>
+<div class="ttc" id="astruct_a_d_c___init_type_def_html_a1fc1365e223886a079d7c673f0f90b56"><div class="ttname"><a href="struct_a_d_c___init_type_def.html#a1fc1365e223886a079d7c673f0f90b56">ADC_InitTypeDef::ContinuousConvMode</a></div><div class="ttdeci">FunctionalState ContinuousConvMode</div><div class="ttdoc">Specifies whether the conversion is performed in single mode (one conversion) or continuous mode for ...</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__adc_8h_source.html#l00067">stm32f1xx_hal_adc.h:67</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__hal__adc_8h_source.html#l00238">HAL_ADC_ERROR_INTERNAL</a>, <a class="el" href="stm32f1xx__hal__def_8h_source.html#l00041">HAL_ERROR</a> y <a class="el" href="stm32f1xx_8h_source.html#l00177">SET_BIT</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="#gae7b1bbe670aef90157adbb5616202df3">ADC_StabilizationTime()</a>, <a class="el" href="stm32f1xx__hal__adc_8c_source.html#l01539">HAL_ADC_Start_DMA()</a> y <a class="el" href="stm32f1xx__hal__adc__ex_8c_source.html#l00659">HAL_ADCEx_MultiModeStart_DMA()</a>.</p>
+<div id="dynsection-2" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-2-summary" class="dynsummary">
+</div>
+<div id="dynsection-2-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___a_d_c___private___functions_ga055840e53820295bac4f4f0998ffcfb0_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="gaede41b9e917d64ad31fbbb8ae9fab79c" name="gaede41b9e917d64ad31fbbb8ae9fab79c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaede41b9e917d64ad31fbbb8ae9fab79c">&#9670;&#160;</a></span>ADC_DMAError()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ADC_DMAError </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group___d_m_a___exported___types.html#ga41b754a906b86bce54dc79938970138b">DMA_HandleTypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>hdma</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__adc_8h.html">stm32f1xx_hal_adc.h</a>&quot;</code></p>
+
+<p>DMA error callback. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">hdma</td><td>pointer to DMA handle. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; DMA error occurrence</p>
+<p>&lt; DMA transfer error <br  />
+</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__adc_8c_source.html#l02380">2380</a> del archivo <a class="el" href="stm32f1xx__hal__adc_8c_source.html">stm32f1xx_hal_adc.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2381</span>{</div>
+<div class="line"><span class="lineno"> 2382</span>  <span class="comment">/* Retrieve ADC handle corresponding to current DMA handle */</span></div>
+<div class="line"><span class="lineno"> 2383</span>  <a class="code hl_typedef" href="group___a_d_c___exported___types.html#ga46483fcdb7a528252920c304ec59d006">ADC_HandleTypeDef</a>* hadc = ( <a class="code hl_typedef" href="group___a_d_c___exported___types.html#ga46483fcdb7a528252920c304ec59d006">ADC_HandleTypeDef</a>* )((<a class="code hl_typedef" href="group___d_m_a___exported___types.html#ga41b754a906b86bce54dc79938970138b">DMA_HandleTypeDef</a>* )hdma)-&gt;Parent;</div>
+<div class="line"><span class="lineno"> 2384</span>  </div>
+<div class="line"><span class="lineno"> 2385</span>  <span class="comment">/* Half conversion callback */</span></div>
+<div class="line"><span class="lineno"> 2386</span><span class="preprocessor">#if (USE_HAL_ADC_REGISTER_CALLBACKS == 1)</span></div>
+<div class="line"><span class="lineno"> 2387</span>    hadc-&gt;ConvHalfCpltCallback(hadc);</div>
+<div class="line"><span class="lineno"> 2388</span><span class="preprocessor">#else</span></div>
+<div class="line"><span class="lineno"> 2389</span>  <a class="code hl_function" href="group___a_d_c___exported___functions___group2.html#gad3a0db6cec6f9395f8bdae5f90dac47c">HAL_ADC_ConvHalfCpltCallback</a>(hadc);</div>
+<div class="line"><span class="lineno"> 2390</span><span class="preprocessor">#endif </span><span class="comment">/* USE_HAL_ADC_REGISTER_CALLBACKS */</span><span class="preprocessor"></span></div>
+<div class="line"><span class="lineno"> 2391</span>}</div>
+<div class="line"><span class="lineno"> 2392</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno"> 2393</span><span class="comment">/**</span></div>
+<div class="line"><span class="lineno"> 2394</span><span class="comment">  * @brief  DMA error callback </span></div>
+<div class="line"><span class="lineno"> 2395</span><span class="comment">  * @param  hdma: pointer to DMA handle.</span></div>
+<div class="line"><span class="lineno"> 2396</span><span class="comment">  * @retval None</span></div>
+<div class="line"><span class="lineno"> 2397</span><span class="comment">  */</span></div>
+<div class="ttc" id="agroup___a_d_c___exported___functions___group2_html_gad3a0db6cec6f9395f8bdae5f90dac47c"><div class="ttname"><a href="group___a_d_c___exported___functions___group2.html#gad3a0db6cec6f9395f8bdae5f90dac47c">HAL_ADC_ConvHalfCpltCallback</a></div><div class="ttdeci">void HAL_ADC_ConvHalfCpltCallback(ADC_HandleTypeDef *hadc)</div><div class="ttdoc">Conversion DMA half-transfer callback in non blocking mode.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__adc_8c_source.html#l01905">stm32f1xx_hal_adc.c:1905</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__hal__adc_8c_source.html#l02362">ADC_DMAHalfConvCplt()</a> y <a class="el" href="stm32f1xx__hal__adc_8c_source.html#l01905">HAL_ADC_ConvHalfCpltCallback()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="#gae7b1bbe670aef90157adbb5616202df3">ADC_StabilizationTime()</a>, <a class="el" href="stm32f1xx__hal__adc_8c_source.html#l01539">HAL_ADC_Start_DMA()</a> y <a class="el" href="stm32f1xx__hal__adc__ex_8c_source.html#l00659">HAL_ADCEx_MultiModeStart_DMA()</a>.</p>
+<div id="dynsection-3" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-3-summary" class="dynsummary">
+</div>
+<div id="dynsection-3-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___a_d_c___private___functions_gaede41b9e917d64ad31fbbb8ae9fab79c_cgraph.svg" width="639" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-4" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-4-summary" class="dynsummary">
+</div>
+<div id="dynsection-4-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___a_d_c___private___functions_gaede41b9e917d64ad31fbbb8ae9fab79c_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="ga27abcd16a928caf2b6c719ea67c12b25" name="ga27abcd16a928caf2b6c719ea67c12b25"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga27abcd16a928caf2b6c719ea67c12b25">&#9670;&#160;</a></span>ADC_DMAHalfConvCplt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ADC_DMAHalfConvCplt </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group___d_m_a___exported___types.html#ga41b754a906b86bce54dc79938970138b">DMA_HandleTypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>hdma</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__adc_8h.html">stm32f1xx_hal_adc.h</a>&quot;</code></p>
+
+<p>DMA half transfer complete callback. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">hdma</td><td>pointer to DMA handle. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__adc_8c_source.html#l02362">2362</a> del archivo <a class="el" href="stm32f1xx__hal__adc_8c_source.html">stm32f1xx_hal_adc.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2369</span>  {</div>
+<div class="line"><span class="lineno"> 2370</span>    <span class="comment">/* Call DMA error callback */</span></div>
+<div class="line"><span class="lineno"> 2371</span>    hadc-&gt;DMA_Handle-&gt;XferErrorCallback(hdma);</div>
+<div class="line"><span class="lineno"> 2372</span>  }</div>
+<div class="line"><span class="lineno"> 2373</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="main_8c_source.html#l00675">HAL_ADC_ConvCpltCallback()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal__adc_8c_source.html#l02380">ADC_DMAError()</a>, <a class="el" href="#gae7b1bbe670aef90157adbb5616202df3">ADC_StabilizationTime()</a>, <a class="el" href="stm32f1xx__hal__adc_8c_source.html#l01539">HAL_ADC_Start_DMA()</a> y <a class="el" href="stm32f1xx__hal__adc__ex_8c_source.html#l00659">HAL_ADCEx_MultiModeStart_DMA()</a>.</p>
+<div id="dynsection-5" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-5-summary" class="dynsummary">
+</div>
+<div id="dynsection-5-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___a_d_c___private___functions_ga27abcd16a928caf2b6c719ea67c12b25_cgraph.svg" width="422" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-6" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-6-summary" class="dynsummary">
+</div>
+<div id="dynsection-6-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___a_d_c___private___functions_ga27abcd16a928caf2b6c719ea67c12b25_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="ga034b9253bac7f083ec43b5b09873ebf1" name="ga034b9253bac7f083ec43b5b09873ebf1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga034b9253bac7f083ec43b5b09873ebf1">&#9670;&#160;</a></span>ADC_Enable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="stm32f1xx__hal__def_8h.html#a63c0679d1cb8b8c684fbb0632743478f">HAL_StatusTypeDef</a> ADC_Enable </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group___a_d_c___exported___types.html#ga46483fcdb7a528252920c304ec59d006">ADC_HandleTypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>hadc</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__adc_8h.html">stm32f1xx_hal_adc.h</a>&quot;</code></p>
+
+<p>Enable the selected ADC. </p>
+<dl class="section note"><dt>Nota</dt><dd>Prerequisite condition to use this function: ADC must be disabled and voltage regulator must be enabled (done into <a class="el" href="group___a_d_c___exported___functions___group1.html#ga33ddb73d4880bd425aaa43c5c52bb13a" title="Initializes the ADC peripheral and regular group according to   parameters specified in structure &quot;AD...">HAL_ADC_Init()</a>). </dd></dl>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">hadc</td><td>ADC handle </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname"><a class="el" href="group___h_a_l.html" title="HAL module driver.">HAL</a></td><td>status. </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; Defines 'read / write' permissions</p>
+<p>&lt; 0x00000001</p>
+<p>&lt; ADC enable</p>
+<p>&lt; 0x00000001</p>
+<p>&lt; ADC enable</p>
+<p>&lt; 0x00000001</p>
+<p>&lt; ADC enable</p>
+<p>&lt; 0x00000001</p>
+<p>&lt; ADC enable</p>
+<p>&lt; 0x00000001</p>
+<p>&lt; ADC enable</p>
+<p>&lt; 0x00000001</p>
+<p>&lt; ADC enable</p>
+<p>&lt; 0x00000001</p>
+<p>&lt; ADC enable</p>
+<p>&lt; Internal error occurrence</p>
+<p>&lt; ADC IP internal error: if problem of clocking, enable/disable, erroneous state <br  />
+</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__adc_8c_source.html#l02214">2214</a> del archivo <a class="el" href="stm32f1xx__hal__adc_8c_source.html">stm32f1xx_hal_adc.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2233</span>{</div>
+<div class="line"><span class="lineno"> 2234</span>  uint32_t tickstart = 0U;</div>
+<div class="line"><span class="lineno"> 2235</span>  __IO uint32_t wait_loop_index = 0U;</div>
+<div class="line"><span class="lineno"> 2236</span>  </div>
+<div class="line"><span class="lineno"> 2237</span>  <span class="comment">/* ADC enable and wait for ADC ready (in case of ADC is disabled or         */</span></div>
+<div class="line"><span class="lineno"> 2238</span>  <span class="comment">/* enabling phase not yet completed: flag ADC ready not yet set).           */</span></div>
+<div class="line"><span class="lineno"> 2239</span>  <span class="comment">/* Timeout implemented to not be stuck if ADC cannot be enabled (possible   */</span></div>
+<div class="line"><span class="lineno"> 2240</span>  <span class="comment">/* causes: ADC clock not running, ...).                                     */</span></div>
+<div class="line"><span class="lineno"> 2241</span>  <span class="keywordflow">if</span> (<a class="code hl_define" href="group___a_d_c___private___macros.html#gafe3a7a04ff078c62ae98b19403f696c7">ADC_IS_ENABLE</a>(hadc) == <a class="code hl_enumvalue" href="group___exported__types.html#gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05">RESET</a>)</div>
+<div class="line"><span class="lineno"> 2242</span>  {</div>
+<div class="line"><span class="lineno"> 2243</span>    <span class="comment">/* Enable the Peripheral */</span></div>
+<div class="line"><span class="lineno"> 2244</span>    <a class="code hl_define" href="group___a_d_c___exported___macros.html#gaadf16862da7593def189559423c287f4">__HAL_ADC_ENABLE</a>(hadc);</div>
+<div class="line"><span class="lineno"> 2245</span>    </div>
+<div class="line"><span class="lineno"> 2246</span>    <span class="comment">/* Delay for ADC stabilization time */</span></div>
+<div class="line"><span class="lineno"> 2247</span>    <span class="comment">/* Compute number of CPU cycles to wait for */</span></div>
+<div class="line"><span class="lineno"> 2248</span>    wait_loop_index = (<a class="code hl_define" href="group___a_d_c___private___constants.html#gad0d1562099d9e378dd1d33b3519cd0c2">ADC_STAB_DELAY_US</a> * (<a class="code hl_variable" href="group___s_t_m32_f1xx___system___private___variables.html#gaa3cd3e43291e81e795d642b79b6088e6">SystemCoreClock</a> / 1000000U));</div>
+<div class="line"><span class="lineno"> 2249</span>    <span class="keywordflow">while</span>(wait_loop_index != 0U)</div>
+<div class="line"><span class="lineno"> 2250</span>    {</div>
+<div class="line"><span class="lineno"> 2251</span>      wait_loop_index--;</div>
+<div class="line"><span class="lineno"> 2252</span>    }</div>
+<div class="line"><span class="lineno"> 2253</span>    </div>
+<div class="line"><span class="lineno"> 2254</span>    <span class="comment">/* Get tick count */</span></div>
+<div class="line"><span class="lineno"> 2255</span>    tickstart = <a class="code hl_function" href="group___h_a_l___exported___functions___group2.html#gac9b3a85a73735ac840d0dcb59bc0fdd6">HAL_GetTick</a>();</div>
+<div class="line"><span class="lineno"> 2256</span> </div>
+<div class="line"><span class="lineno"> 2257</span>    <span class="comment">/* Wait for ADC effectively enabled */</span></div>
+<div class="line"><span class="lineno"> 2258</span>    <span class="keywordflow">while</span>(<a class="code hl_define" href="group___a_d_c___private___macros.html#gafe3a7a04ff078c62ae98b19403f696c7">ADC_IS_ENABLE</a>(hadc) == <a class="code hl_enumvalue" href="group___exported__types.html#gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05">RESET</a>)</div>
+<div class="line"><span class="lineno"> 2259</span>    {</div>
+<div class="line"><span class="lineno"> 2260</span>      <span class="keywordflow">if</span>((<a class="code hl_function" href="group___h_a_l___exported___functions___group2.html#gac9b3a85a73735ac840d0dcb59bc0fdd6">HAL_GetTick</a>() - tickstart) &gt; <a class="code hl_define" href="group___a_d_c___private___constants.html#gac60dabae20327f91cbd7c93bf1d5c40f">ADC_ENABLE_TIMEOUT</a>)</div>
+<div class="line"><span class="lineno"> 2261</span>      {</div>
+<div class="line"><span class="lineno"> 2262</span>        <span class="comment">/* New check to avoid false timeout detection in case of preemption */</span></div>
+<div class="line"><span class="lineno"> 2263</span>        <span class="keywordflow">if</span>(<a class="code hl_define" href="group___a_d_c___private___macros.html#gafe3a7a04ff078c62ae98b19403f696c7">ADC_IS_ENABLE</a>(hadc) == <a class="code hl_enumvalue" href="group___exported__types.html#gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05">RESET</a>)</div>
+<div class="line"><span class="lineno"> 2264</span>        {</div>
+<div class="ttc" id="agroup___a_d_c___exported___macros_html_gaadf16862da7593def189559423c287f4"><div class="ttname"><a href="group___a_d_c___exported___macros.html#gaadf16862da7593def189559423c287f4">__HAL_ADC_ENABLE</a></div><div class="ttdeci">#define __HAL_ADC_ENABLE(__HANDLE__)</div><div class="ttdoc">Enable the ADC peripheral.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__adc_8h_source.html#l00507">stm32f1xx_hal_adc.h:507</a></div></div>
+<div class="ttc" id="agroup___a_d_c___private___constants_html_gac60dabae20327f91cbd7c93bf1d5c40f"><div class="ttname"><a href="group___a_d_c___private___constants.html#gac60dabae20327f91cbd7c93bf1d5c40f">ADC_ENABLE_TIMEOUT</a></div><div class="ttdeci">#define ADC_ENABLE_TIMEOUT</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__adc_8c_source.html#l00340">stm32f1xx_hal_adc.c:340</a></div></div>
+<div class="ttc" id="agroup___a_d_c___private___constants_html_gad0d1562099d9e378dd1d33b3519cd0c2"><div class="ttname"><a href="group___a_d_c___private___constants.html#gad0d1562099d9e378dd1d33b3519cd0c2">ADC_STAB_DELAY_US</a></div><div class="ttdeci">#define ADC_STAB_DELAY_US</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__adc_8c_source.html#l00346">stm32f1xx_hal_adc.c:346</a></div></div>
+<div class="ttc" id="agroup___s_t_m32_f1xx___system___private___variables_html_gaa3cd3e43291e81e795d642b79b6088e6"><div class="ttname"><a href="group___s_t_m32_f1xx___system___private___variables.html#gaa3cd3e43291e81e795d642b79b6088e6">SystemCoreClock</a></div><div class="ttdeci">uint32_t SystemCoreClock</div><div class="ttdoc">System Clock Frequency (Core Clock).</div><div class="ttdef"><b>Definición</b> <a href="system__stm32f1xx_8c_source.html#l00114">system_stm32f1xx.c:114</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__hal__adc_8h_source.html#l00507">__HAL_ADC_ENABLE</a>, <a class="el" href="stm32f1xx__hal__def_8h_source.html#l00104">__HAL_UNLOCK</a>, <a class="el" href="stm32f1xx__hal__adc_8c_source.html#l02214">ADC_Enable()</a>, <a class="el" href="stm32f1xx__hal__adc_8c_source.html#l00340">ADC_ENABLE_TIMEOUT</a>, <a class="el" href="stm32f1xx__hal__adc_8h_source.html#l00615">ADC_IS_ENABLE</a>, <a class="el" href="stm32f1xx__hal__adc_8c_source.html#l00346">ADC_STAB_DELAY_US</a>, <a class="el" href="stm32f1xx__hal__adc_8h_source.html#l00186">__ADC_HandleTypeDef::ErrorCode</a>, <a class="el" href="stm32f1xx__hal__adc_8h_source.html#l00238">HAL_ADC_ERROR_INTERNAL</a>, <a class="el" href="stm32f1xx__hal__adc_8h_source.html#l00145">HAL_ADC_STATE_ERROR_INTERNAL</a>, <a class="el" href="stm32f1xx__hal_8c_source.html#l00304">HAL_GetTick()</a>, <a class="el" href="stm32f1xx_8h_source.html#l00152">RESET</a>, <a class="el" href="stm32f1xx_8h_source.html#l00177">SET_BIT</a>, <a class="el" href="stm32f1xx__hal__adc_8h_source.html#l00184">__ADC_HandleTypeDef::State</a> y <a class="el" href="system__stm32f1xx_8c_source.html#l00114">SystemCoreClock</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal__adc_8c_source.html#l02214">ADC_Enable()</a>, <a class="el" href="stm32f1xx__hal__adc_8c_source.html#l01030">HAL_ADC_Start()</a>, <a class="el" href="stm32f1xx__hal__adc_8c_source.html#l01539">HAL_ADC_Start_DMA()</a>, <a class="el" href="stm32f1xx__hal__adc__ex_8c_source.html#l00119">HAL_ADCEx_Calibration_Start()</a> y <a class="el" href="stm32f1xx__hal__adc__ex_8c_source.html#l00659">HAL_ADCEx_MultiModeStart_DMA()</a>.</p>
+<div id="dynsection-7" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-7-summary" class="dynsummary">
+</div>
+<div id="dynsection-7-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___a_d_c___private___functions_ga034b9253bac7f083ec43b5b09873ebf1_cgraph.svg" width="256" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-8" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-8-summary" class="dynsummary">
+</div>
+<div id="dynsection-8-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___a_d_c___private___functions_ga034b9253bac7f083ec43b5b09873ebf1_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="gae7b1bbe670aef90157adbb5616202df3" name="gae7b1bbe670aef90157adbb5616202df3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae7b1bbe670aef90157adbb5616202df3">&#9670;&#160;</a></span>ADC_StabilizationTime()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ADC_StabilizationTime </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>DelayUs</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__adc_8h.html">stm32f1xx_hal_adc.h</a>&quot;</code></p>
+
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__hal__adc_8c_source.html#l02315">ADC_DMAConvCplt()</a>, <a class="el" href="stm32f1xx__hal__adc_8c_source.html#l02380">ADC_DMAError()</a>, <a class="el" href="stm32f1xx__hal__adc_8c_source.html#l02362">ADC_DMAHalfConvCplt()</a> y <a class="el" href="#gae7b1bbe670aef90157adbb5616202df3">ADC_StabilizationTime()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="#gae7b1bbe670aef90157adbb5616202df3">ADC_StabilizationTime()</a>.</p>
+<div id="dynsection-9" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-9-summary" class="dynsummary">
+</div>
+<div id="dynsection-9-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___a_d_c___private___functions_gae7b1bbe670aef90157adbb5616202df3_cgraph.svg" width="100%" height="404"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div id="dynsection-10" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-10-summary" class="dynsummary">
+</div>
+<div id="dynsection-10-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___a_d_c___private___functions_gae7b1bbe670aef90157adbb5616202df3_icgraph.svg" width="168" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generado el <span class="timestamp"></span> para MICRO-Firmware por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

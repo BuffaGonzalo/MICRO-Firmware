@@ -1,0 +1,107 @@
+\doxysubsubsubsection{TIM Private Macros }
+\hypertarget{group___t_i_m___l_l___private___macros}{}\label{group___t_i_m___l_l___private___macros}\index{TIM Private Macros@{TIM Private Macros}}
+Diagrama de colaboración de TIM Private Macros:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=252pt]{group___t_i_m___l_l___private___macros}
+\end{center}
+\end{figure}
+\doxysubsubsubsubsubsection*{defines}
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{group___t_i_m___l_l___private___macros_gaa34e63ce6e2dcff12485be5073234c75}{TIM\+\_\+\+CALC\+\_\+\+DTS}}(\+\_\+\+\_\+\+TIMCLK\+\_\+\_,  \+\_\+\+\_\+\+CKD\+\_\+\_)
+\begin{DoxyCompactList}\small\item\em Calculate the deadtime sampling period(in ps). \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group___t_i_m___l_l___private___macros_ga40322c422d50741ac303ba77678973d8}{TIM\+\_\+\+GET\+\_\+\+CHANNEL\+\_\+\+INDEX}}(\+\_\+\+\_\+\+CHANNEL\+\_\+\_)
+\begin{DoxyCompactList}\small\item\em Convert channel id into channel index. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsubsubsubsection{Descripción detallada}
+
+
+\label{group___t_i_m___l_l___private___macros_doc-define-members}
+\Hypertarget{group___t_i_m___l_l___private___macros_doc-define-members}
+\doxysubsubsubsubsection{Documentación de «define»}
+\Hypertarget{group___t_i_m___l_l___private___macros_gaa34e63ce6e2dcff12485be5073234c75}\index{TIM Private Macros@{TIM Private Macros}!TIM\_CALC\_DTS@{TIM\_CALC\_DTS}}
+\index{TIM\_CALC\_DTS@{TIM\_CALC\_DTS}!TIM Private Macros@{TIM Private Macros}}
+\doxyparagraph{\texorpdfstring{TIM\_CALC\_DTS}{TIM\_CALC\_DTS}}
+{\footnotesize\ttfamily \label{group___t_i_m___l_l___private___macros_gaa34e63ce6e2dcff12485be5073234c75} 
+\+\#define TIM\+\_\+\+CALC\+\_\+\+DTS(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+\+TIMCLK\+\_\+\_}{, }\item[{}]{\+\_\+\+\_\+\+CKD\+\_\+\_}{}\end{DoxyParamCaption})}
+
+
+
+{\ttfamily \+\#include "{}\doxymbox{\hyperlink{stm32f1xx__ll__tim_8h}{stm32f1xx\+\_\+ll\+\_\+tim.\+h}}"{}}
+
+{\bfseries Valor:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(((\_\_CKD\_\_)\ ==\ \doxymbox{\hyperlink{group___t_i_m___l_l___e_c___c_l_o_c_k_d_i_v_i_s_i_o_n_ga914b25d169753402e0d1829e79d85c89}{LL\_TIM\_CLOCKDIVISION\_DIV1}})\ ?\ ((uint64\_t)1000000000000U/(\_\_TIMCLK\_\_))\ \ \ \ \ \ \ \ \ :\ \(\backslash\)}
+\DoxyCodeLine{\ ((\_\_CKD\_\_)\ ==\ \doxymbox{\hyperlink{group___t_i_m___l_l___e_c___c_l_o_c_k_d_i_v_i_s_i_o_n_ga7e4700c12152a559576e41a64d57b9ce}{LL\_TIM\_CLOCKDIVISION\_DIV2}})\ ?\ ((uint64\_t)1000000000000U/((\_\_TIMCLK\_\_)\ >>\ 1U))\ :\ \(\backslash\)}
+\DoxyCodeLine{\ ((uint64\_t)1000000000000U/((\_\_TIMCLK\_\_)\ >>\ 2U)))}
+
+\end{DoxyCode}
+
+
+Calculate the deadtime sampling period(in ps). 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em \+\_\+\+\_\+\+TIMCLK\+\_\+\_} & timer input clock frequency (in Hz). \\
+\hline
+{\em \+\_\+\+\_\+\+CKD\+\_\+\_} & This parameter can be one of the following values: \begin{DoxyItemize}
+\item \doxylink{group___t_i_m___l_l___e_c___c_l_o_c_k_d_i_v_i_s_i_o_n_ga914b25d169753402e0d1829e79d85c89}{LL\+\_\+\+TIM\+\_\+\+CLOCKDIVISION\+\_\+\+DIV1} \item \doxylink{group___t_i_m___l_l___e_c___c_l_o_c_k_d_i_v_i_s_i_o_n_ga7e4700c12152a559576e41a64d57b9ce}{LL\+\_\+\+TIM\+\_\+\+CLOCKDIVISION\+\_\+\+DIV2} \item \doxylink{group___t_i_m___l_l___e_c___c_l_o_c_k_d_i_v_i_s_i_o_n_ga5c8aa6a57ae074e877da7e782cb5778e}{LL\+\_\+\+TIM\+\_\+\+CLOCKDIVISION\+\_\+\+DIV4} \end{DoxyItemize}
+\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Valores devueltos}
+{\em none} & \\
+\hline
+\end{DoxyRetVals}
+
+
+Definición en la línea \doxymbox{\hyperlink{stm32f1xx__ll__tim_8h_source_l00158}{158}} del archivo \doxymbox{\hyperlink{stm32f1xx__ll__tim_8h_source}{stm32f1xx\+\_\+ll\+\_\+tim.\+h}}.
+
+\Hypertarget{group___t_i_m___l_l___private___macros_ga40322c422d50741ac303ba77678973d8}\index{TIM Private Macros@{TIM Private Macros}!TIM\_GET\_CHANNEL\_INDEX@{TIM\_GET\_CHANNEL\_INDEX}}
+\index{TIM\_GET\_CHANNEL\_INDEX@{TIM\_GET\_CHANNEL\_INDEX}!TIM Private Macros@{TIM Private Macros}}
+\doxyparagraph{\texorpdfstring{TIM\_GET\_CHANNEL\_INDEX}{TIM\_GET\_CHANNEL\_INDEX}}
+{\footnotesize\ttfamily \label{group___t_i_m___l_l___private___macros_ga40322c422d50741ac303ba77678973d8} 
+\+\#define TIM\+\_\+\+GET\+\_\+\+CHANNEL\+\_\+\+INDEX(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+\+CHANNEL\+\_\+\_}{}\end{DoxyParamCaption})}
+
+
+
+{\ttfamily \+\#include "{}\doxymbox{\hyperlink{stm32f1xx__ll__tim_8h}{stm32f1xx\+\_\+ll\+\_\+tim.\+h}}"{}}
+
+{\bfseries Valor:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(((\_\_CHANNEL\_\_)\ ==\ \doxymbox{\hyperlink{group___t_i_m___l_l___e_c___c_h_a_n_n_e_l_ga2ad16c31e3393406636330fe77cba4ef}{LL\_TIM\_CHANNEL\_CH1}})\ ?\ 0U\ :\(\backslash\)}
+\DoxyCodeLine{\ ((\_\_CHANNEL\_\_)\ ==\ \doxymbox{\hyperlink{group___t_i_m___l_l___e_c___c_h_a_n_n_e_l_ga0e15974f67b104fcf0fbdee24586adff}{LL\_TIM\_CHANNEL\_CH1N}})\ ?\ 1U\ :\(\backslash\)}
+\DoxyCodeLine{\ ((\_\_CHANNEL\_\_)\ ==\ \doxymbox{\hyperlink{group___t_i_m___l_l___e_c___c_h_a_n_n_e_l_gab221d65fd739904ab6f87a6b4517b37f}{LL\_TIM\_CHANNEL\_CH2}})\ ?\ 2U\ :\(\backslash\)}
+\DoxyCodeLine{\ ((\_\_CHANNEL\_\_)\ ==\ \doxymbox{\hyperlink{group___t_i_m___l_l___e_c___c_h_a_n_n_e_l_ga36f6aea9df37644409132aa706c39166}{LL\_TIM\_CHANNEL\_CH2N}})\ ?\ 3U\ :\(\backslash\)}
+\DoxyCodeLine{\ ((\_\_CHANNEL\_\_)\ ==\ \doxymbox{\hyperlink{group___t_i_m___l_l___e_c___c_h_a_n_n_e_l_gadf8976549b99e72752e4d514c2057cdc}{LL\_TIM\_CHANNEL\_CH3}})\ ?\ 4U\ :\(\backslash\)}
+\DoxyCodeLine{\ ((\_\_CHANNEL\_\_)\ ==\ \doxymbox{\hyperlink{group___t_i_m___l_l___e_c___c_h_a_n_n_e_l_ga5aa659f907e989e5eb1e1e675193c488}{LL\_TIM\_CHANNEL\_CH3N}})\ ?\ 5U\ :\ 6U)}
+
+\end{DoxyCode}
+
+
+Convert channel id into channel index. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em \+\_\+\+\_\+\+CHANNEL\+\_\+\_} & This parameter can be one of the following values: \begin{DoxyItemize}
+\item \doxylink{group___t_i_m___l_l___e_c___c_h_a_n_n_e_l_ga2ad16c31e3393406636330fe77cba4ef}{LL\+\_\+\+TIM\+\_\+\+CHANNEL\+\_\+\+CH1} \item \doxylink{group___t_i_m___l_l___e_c___c_h_a_n_n_e_l_ga0e15974f67b104fcf0fbdee24586adff}{LL\+\_\+\+TIM\+\_\+\+CHANNEL\+\_\+\+CH1N} \item \doxylink{group___t_i_m___l_l___e_c___c_h_a_n_n_e_l_gab221d65fd739904ab6f87a6b4517b37f}{LL\+\_\+\+TIM\+\_\+\+CHANNEL\+\_\+\+CH2} \item \doxylink{group___t_i_m___l_l___e_c___c_h_a_n_n_e_l_ga36f6aea9df37644409132aa706c39166}{LL\+\_\+\+TIM\+\_\+\+CHANNEL\+\_\+\+CH2N} \item \doxylink{group___t_i_m___l_l___e_c___c_h_a_n_n_e_l_gadf8976549b99e72752e4d514c2057cdc}{LL\+\_\+\+TIM\+\_\+\+CHANNEL\+\_\+\+CH3} \item \doxylink{group___t_i_m___l_l___e_c___c_h_a_n_n_e_l_ga5aa659f907e989e5eb1e1e675193c488}{LL\+\_\+\+TIM\+\_\+\+CHANNEL\+\_\+\+CH3N} \item \doxylink{group___t_i_m___l_l___e_c___c_h_a_n_n_e_l_gaa7115ab12c4d454ca49bfed657fc4dd5}{LL\+\_\+\+TIM\+\_\+\+CHANNEL\+\_\+\+CH4} \end{DoxyItemize}
+\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Valores devueltos}
+{\em none} & \\
+\hline
+\end{DoxyRetVals}
+
+
+Definición en la línea \doxymbox{\hyperlink{stm32f1xx__ll__tim_8h_source_l00142}{142}} del archivo \doxymbox{\hyperlink{stm32f1xx__ll__tim_8h_source}{stm32f1xx\+\_\+ll\+\_\+tim.\+h}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{stm32f1xx__ll__tim_8h_source_l02187}{LL\+\_\+\+TIM\+\_\+\+IC\+\_\+\+Config()}}, \doxymbox{\hyperlink{stm32f1xx__ll__tim_8h_source_l02240}{LL\+\_\+\+TIM\+\_\+\+IC\+\_\+\+Get\+Active\+Input()}}, \doxymbox{\hyperlink{stm32f1xx__ll__tim_8h_source_l02366}{LL\+\_\+\+TIM\+\_\+\+IC\+\_\+\+Get\+Filter()}}, \doxymbox{\hyperlink{stm32f1xx__ll__tim_8h_source_l02419}{LL\+\_\+\+TIM\+\_\+\+IC\+\_\+\+Get\+Polarity()}}, \doxymbox{\hyperlink{stm32f1xx__ll__tim_8h_source_l02291}{LL\+\_\+\+TIM\+\_\+\+IC\+\_\+\+Get\+Prescaler()}}, \doxymbox{\hyperlink{stm32f1xx__ll__tim_8h_source_l02216}{LL\+\_\+\+TIM\+\_\+\+IC\+\_\+\+Set\+Active\+Input()}}, \doxymbox{\hyperlink{stm32f1xx__ll__tim_8h_source_l02329}{LL\+\_\+\+TIM\+\_\+\+IC\+\_\+\+Set\+Filter()}}, \doxymbox{\hyperlink{stm32f1xx__ll__tim_8h_source_l02393}{LL\+\_\+\+TIM\+\_\+\+IC\+\_\+\+Set\+Polarity()}}, \doxymbox{\hyperlink{stm32f1xx__ll__tim_8h_source_l02266}{LL\+\_\+\+TIM\+\_\+\+IC\+\_\+\+Set\+Prescaler()}}, \doxymbox{\hyperlink{stm32f1xx__ll__tim_8h_source_l01629}{LL\+\_\+\+TIM\+\_\+\+OC\+\_\+\+Config\+Output()}}, \doxymbox{\hyperlink{stm32f1xx__ll__tim_8h_source_l01989}{LL\+\_\+\+TIM\+\_\+\+OC\+\_\+\+Disable\+Clear()}}, \doxymbox{\hyperlink{stm32f1xx__ll__tim_8h_source_l01855}{LL\+\_\+\+TIM\+\_\+\+OC\+\_\+\+Disable\+Fast()}}, \doxymbox{\hyperlink{stm32f1xx__ll__tim_8h_source_l01920}{LL\+\_\+\+TIM\+\_\+\+OC\+\_\+\+Disable\+Preload()}}, \doxymbox{\hyperlink{stm32f1xx__ll__tim_8h_source_l01966}{LL\+\_\+\+TIM\+\_\+\+OC\+\_\+\+Enable\+Clear()}}, \doxymbox{\hyperlink{stm32f1xx__ll__tim_8h_source_l01833}{LL\+\_\+\+TIM\+\_\+\+OC\+\_\+\+Enable\+Fast()}}, \doxymbox{\hyperlink{stm32f1xx__ll__tim_8h_source_l01899}{LL\+\_\+\+TIM\+\_\+\+OC\+\_\+\+Enable\+Preload()}}, \doxymbox{\hyperlink{stm32f1xx__ll__tim_8h_source_l01812}{LL\+\_\+\+TIM\+\_\+\+OC\+\_\+\+Get\+Idle\+State()}}, \doxymbox{\hyperlink{stm32f1xx__ll__tim_8h_source_l01693}{LL\+\_\+\+TIM\+\_\+\+OC\+\_\+\+Get\+Mode()}}, \doxymbox{\hyperlink{stm32f1xx__ll__tim_8h_source_l01751}{LL\+\_\+\+TIM\+\_\+\+OC\+\_\+\+Get\+Polarity()}}, \doxymbox{\hyperlink{stm32f1xx__ll__tim_8h_source_l02014}{LL\+\_\+\+TIM\+\_\+\+OC\+\_\+\+Is\+Enabled\+Clear()}}, \doxymbox{\hyperlink{stm32f1xx__ll__tim_8h_source_l01877}{LL\+\_\+\+TIM\+\_\+\+OC\+\_\+\+Is\+Enabled\+Fast()}}, \doxymbox{\hyperlink{stm32f1xx__ll__tim_8h_source_l01941}{LL\+\_\+\+TIM\+\_\+\+OC\+\_\+\+Is\+Enabled\+Preload()}}, \doxymbox{\hyperlink{stm32f1xx__ll__tim_8h_source_l01784}{LL\+\_\+\+TIM\+\_\+\+OC\+\_\+\+Set\+Idle\+State()}}, \doxymbox{\hyperlink{stm32f1xx__ll__tim_8h_source_l01664}{LL\+\_\+\+TIM\+\_\+\+OC\+\_\+\+Set\+Mode()}} y \doxymbox{\hyperlink{stm32f1xx__ll__tim_8h_source_l01723}{LL\+\_\+\+TIM\+\_\+\+OC\+\_\+\+Set\+Polarity()}}.
+

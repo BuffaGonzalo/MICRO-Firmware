@@ -1,0 +1,372 @@
+\doxysubsubsubsubsection{Configuration of ADC transversal scope: analog watchdog }
+\hypertarget{group___a_d_c___l_l___e_f___configuration___a_d_c___analog_watchdog}{}\label{group___a_d_c___l_l___e_f___configuration___a_d_c___analog_watchdog}\index{Configuration of ADC transversal scope: analog watchdog@{Configuration of ADC transversal scope: analog watchdog}}
+Diagrama de colaboración de Configuration of ADC transversal scope: analog watchdog:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group___a_d_c___l_l___e_f___configuration___a_d_c___analog_watchdog}
+\end{center}
+\end{figure}
+\doxysubsubsubsubsubsubsection*{Funciones}
+\begin{DoxyCompactItemize}
+\item 
+static \+\_\+\+\_\+inline uint32\+\_\+t \doxymbox{\hyperlink{group___a_d_c___l_l___e_f___configuration___a_d_c___analog_watchdog_ga2e2395639fd11769389e228664d6aece}{LL\+\_\+\+ADC\+\_\+\+Get\+Analog\+WDMonit\+Channels}} (\doxymbox{\hyperlink{struct_a_d_c___type_def}{ADC\+\_\+\+Type\+Def}} \texorpdfstring{$\ast$}{*}ADCx)
+\begin{DoxyCompactList}\small\item\em Get ADC analog watchdog monitored channel. \end{DoxyCompactList}\item 
+static \+\_\+\+\_\+inline uint32\+\_\+t \doxymbox{\hyperlink{group___a_d_c___l_l___e_f___configuration___a_d_c___analog_watchdog_ga8e40a1ca1cce20a7b471f8deca70c9cc}{LL\+\_\+\+ADC\+\_\+\+Get\+Analog\+WDThresholds}} (\doxymbox{\hyperlink{struct_a_d_c___type_def}{ADC\+\_\+\+Type\+Def}} \texorpdfstring{$\ast$}{*}ADCx, uint32\+\_\+t AWDThresholds\+High\+Low)
+\begin{DoxyCompactList}\small\item\em Get ADC analog watchdog threshold value of threshold high or threshold low. \end{DoxyCompactList}\item 
+static \+\_\+\+\_\+inline void \doxymbox{\hyperlink{group___a_d_c___l_l___e_f___configuration___a_d_c___analog_watchdog_gaf7dd0433a8ca9a600b18df92e35e6f96}{LL\+\_\+\+ADC\+\_\+\+Set\+Analog\+WDMonit\+Channels}} (\doxymbox{\hyperlink{struct_a_d_c___type_def}{ADC\+\_\+\+Type\+Def}} \texorpdfstring{$\ast$}{*}ADCx, uint32\+\_\+t AWDChannel\+Group)
+\begin{DoxyCompactList}\small\item\em Set ADC analog watchdog monitored channels: a single channel or all channels, on ADC groups regular and-\/or injected. \end{DoxyCompactList}\item 
+static \+\_\+\+\_\+inline void \doxymbox{\hyperlink{group___a_d_c___l_l___e_f___configuration___a_d_c___analog_watchdog_ga4f76ed70880161e808ffb4f399c8cc47}{LL\+\_\+\+ADC\+\_\+\+Set\+Analog\+WDThresholds}} (\doxymbox{\hyperlink{struct_a_d_c___type_def}{ADC\+\_\+\+Type\+Def}} \texorpdfstring{$\ast$}{*}ADCx, uint32\+\_\+t AWDThresholds\+High\+Low, uint32\+\_\+t AWDThreshold\+Value)
+\begin{DoxyCompactList}\small\item\em Set ADC analog watchdog threshold value of threshold high or low. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsubsubsubsubsection{Descripción detallada}
+
+
+\label{group___a_d_c___l_l___e_f___configuration___a_d_c___analog_watchdog_doc-func-members}
+\Hypertarget{group___a_d_c___l_l___e_f___configuration___a_d_c___analog_watchdog_doc-func-members}
+\doxysubsubsubsubsubsection{Documentación de funciones}
+\Hypertarget{group___a_d_c___l_l___e_f___configuration___a_d_c___analog_watchdog_ga2e2395639fd11769389e228664d6aece}\index{Configuration of ADC transversal scope: analog watchdog@{Configuration of ADC transversal scope: analog watchdog}!LL\_ADC\_GetAnalogWDMonitChannels@{LL\_ADC\_GetAnalogWDMonitChannels}}
+\index{LL\_ADC\_GetAnalogWDMonitChannels@{LL\_ADC\_GetAnalogWDMonitChannels}!Configuration of ADC transversal scope: analog watchdog@{Configuration of ADC transversal scope: analog watchdog}}
+\doxyparagraph{\texorpdfstring{LL\_ADC\_GetAnalogWDMonitChannels()}{LL\_ADC\_GetAnalogWDMonitChannels()}}
+{\footnotesize\ttfamily \label{group___a_d_c___l_l___e_f___configuration___a_d_c___analog_watchdog_ga2e2395639fd11769389e228664d6aece} 
+\+\_\+\+\_\+inline uint32\+\_\+t LL\+\_\+\+ADC\+\_\+\+Get\+Analog\+WDMonit\+Channels (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{struct_a_d_c___type_def}{ADC\+\_\+\+Type\+Def}} \texorpdfstring{$\ast$}{*}}]{ADCx}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+{\ttfamily \+\#include "{}\doxymbox{\hyperlink{stm32f1xx__ll__adc_8h}{stm32f1xx\+\_\+ll\+\_\+adc.\+h}}"{}}
+
+
+
+Get ADC analog watchdog monitored channel. 
+
+\begin{DoxyNote}{Nota}
+Usage of the returned channel number:
+\begin{DoxyItemize}
+\item To reinject this channel into another function LL\+\_\+\+ADC\+\_\+xxx: the returned channel number is only partly formatted on definition of literals LL\+\_\+\+ADC\+\_\+\+CHANNEL\+\_\+x. Therefore, it has to be compared with parts of literals LL\+\_\+\+ADC\+\_\+\+CHANNEL\+\_\+x or using helper macro \doxylink{group___a_d_c___l_l___e_m___h_e_l_p_e_r___m_a_c_r_o_ga11b528ebb75ee65deafce2dd57bb7569}{\+\_\+\+\_\+\+LL\+\_\+\+ADC\+\_\+\+CHANNEL\+\_\+\+TO\+\_\+\+DECIMAL\+\_\+\+NB()}. Then the selected literal LL\+\_\+\+ADC\+\_\+\+CHANNEL\+\_\+x can be used as parameter for another function.
+\item To get the channel number in decimal format: process the returned value with the helper macro \doxylink{group___a_d_c___l_l___e_m___h_e_l_p_e_r___m_a_c_r_o_ga11b528ebb75ee65deafce2dd57bb7569}{\+\_\+\+\_\+\+LL\+\_\+\+ADC\+\_\+\+CHANNEL\+\_\+\+TO\+\_\+\+DECIMAL\+\_\+\+NB()}. Applicable only when the analog watchdog is set to monitor one channel. 
+\end{DoxyItemize}
+
+On this STM32 series, there is only 1 kind of analog watchdog instance:
+\begin{DoxyItemize}
+\item AWD standard (instance AWD1):
+\begin{DoxyItemize}
+\item channels monitored: can monitor 1 channel or all channels.
+\item groups monitored: ADC groups regular and-\/or injected.
+\item resolution: resolution is not limited (corresponds to ADC resolution configured). @rmtoll CR1 AWD1\+CH LL\+\_\+\+ADC\+\_\+\+Get\+Analog\+WDMonit\+Channels~\newline
+ CR1 AWD1\+SGL LL\+\_\+\+ADC\+\_\+\+Get\+Analog\+WDMonit\+Channels~\newline
+ CR1 AWD1\+EN LL\+\_\+\+ADC\+\_\+\+Get\+Analog\+WDMonit\+Channels 
+\end{DoxyItemize}
+\end{DoxyItemize}
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parámetros}
+{\em ADCx} & ADC instance \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Valores devueltos}
+{\em Returned} & value can be one of the following values: \begin{DoxyItemize}
+\item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga9ebfe5a499db40f87b9eb9e98d56f08f}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+DISABLE} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga75ca2706e687106e85561262998c2577}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+ALL\+\_\+\+CHANNELS\+\_\+\+REG} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga477665ceb4983b24435d4d703e94c723}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+ALL\+\_\+\+CHANNELS\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_gae03a54e862957504f04ed2178588cf07}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+ALL\+\_\+\+CHANNELS\+\_\+\+REG\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga255bae5c5f9e9368f18090b0698d2e22}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+0\+\_\+\+REG} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga5466ee77166acc3c0ee9c68f7a869901}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+0\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_gaadda84b13fe1341b10845a7603f35060}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+0\+\_\+\+REG\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga645eebdc1ba871fc2793c208cf8e9a5b}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+1\+\_\+\+REG} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga4ff35f980baa695ae3e32abab24b888a}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+1\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga7e2785f112eefda9dddd3de9e4d592d7}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+1\+\_\+\+REG\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga32093a0d9f2956b7be9b6dd918671aab}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+2\+\_\+\+REG} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga0455b0abac99da9705a5c82749f3d111}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+2\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga90ab41519bc8be8795b6687d6bf9bbb0}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+2\+\_\+\+REG\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga09ae45d1567b23fccf0fd47fe9145904}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+3\+\_\+\+REG} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_gaf674bbe70ae2ace7fb99f4a27de7063b}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+3\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga1b2bc279bbaa5a20a0f081c60926c2b1}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+3\+\_\+\+REG\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga83074f9f9f4cefbf52005a946b26f570}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+4\+\_\+\+REG} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_gadf5731060c7a5781a2a9770942f23ae1}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+4\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga7eee17f245d84e34cf41299b53e5acbd}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+4\+\_\+\+REG\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga89c0bc1e591b8aebe6a4783c7dc6ad15}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+5\+\_\+\+REG} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga2bf527b9b770ee71057102a9288bc79c}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+5\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_gadcf4b1d9d1dd971ab542cd615cf1bb06}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+5\+\_\+\+REG\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga06423213ad952e3fdf6717a1ea766cca}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+6\+\_\+\+REG} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga28fc2d6a43e7beb60d2f6050ebaf90a0}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+6\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga6a5f5094cda9d7c63b2f599ec4a39bef}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+6\+\_\+\+REG\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga34a076cfbb9e03670631789f089aec97}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+7\+\_\+\+REG} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_gad0b46ff84613efcedcd48cbef05db5f9}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+7\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga7b06c6c344e04abe41af739087794309}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+7\+\_\+\+REG\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga4d9a91e8483fb73cc07bd3d084fed969}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+8\+\_\+\+REG} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga2f063978ee2792f146d9cb6ad4a3214c}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+8\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga1b8789fa9286ed933be0d5bd5bba3124}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+8\+\_\+\+REG\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_gac239050c45c3ac127499204abd0fc24f}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+9\+\_\+\+REG} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga1120253ba14cc0619e197d6bdbd51b32}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+9\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_gac01ae56de33e5e18190869e1f385bc39}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+9\+\_\+\+REG\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga45ff20ba9bf17c1530d9b88e8b16a2b0}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+10\+\_\+\+REG} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga3464c8f012cbd853c8d48c22ff386d33}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+10\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_gaa844fecac50587cf12dc8685e7d8f1e2}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+10\+\_\+\+REG\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_gafed1585c005b7a6d2fbe1f8c905491eb}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+11\+\_\+\+REG} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga956418db427b438ee77e613b29d71d8f}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+11\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_gadcb3b8a2980264804d81b736d2bcc0e8}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+11\+\_\+\+REG\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_gae2c2602752f435f321f158564571e377}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+12\+\_\+\+REG} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga498293bde174d8827681c1f5d04154c4}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+12\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_gad7e2c72c572881056ba7b4e143476760}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+12\+\_\+\+REG\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga236301b36b921d6425e02bb4f5ecd3ac}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+13\+\_\+\+REG} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga52827d83af2b92e31f1b7f4d283950df}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+13\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga3007f509eed4b057b08be8be895ac52b}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+13\+\_\+\+REG\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga1117c07106022c579f87ae7d664f1fce}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+14\+\_\+\+REG} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga48b6cab808b3c1d629c2d457f0217290}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+14\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_gac1dfab342801edf23d8813e836cac355}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+14\+\_\+\+REG\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_gaf21d41b3ac5e8982f03f0ec6c8bc9012}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+15\+\_\+\+REG} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga578ce840cb0bcd78828aa9d9824071f3}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+15\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga031a9a5f553f8582352221161c11b89e}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+15\+\_\+\+REG\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga93d9c1aa54330c6b0ff8f49a57851d55}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+16\+\_\+\+REG} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_gaa6e7f9769c6110067ac65ae3a5fb7ca2}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+16\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga379f30a806784636a0f851768e6f6452}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+16\+\_\+\+REG\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga72747c23175fb5867967f465ea0485d6}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+17\+\_\+\+REG} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga2a49475b98761b2322c39a9f1025ea71}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+17\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_gae8a8c3058c40854280e2e235c9de167a}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+17\+\_\+\+REG\+\_\+\+INJ} \end{DoxyItemize}
+\\
+\hline
+\end{DoxyRetVals}
+\texorpdfstring{$<$}{<} 0x00800000
+
+\texorpdfstring{$<$}{<} ADC analog watchdog 1 enable on scope ADC group regular
+
+\texorpdfstring{$<$}{<} 0x00400000
+
+\texorpdfstring{$<$}{<} ADC analog watchdog 1 enable on scope ADC group injected
+
+\texorpdfstring{$<$}{<} 0x00000200
+
+\texorpdfstring{$<$}{<} ADC analog watchdog 1 monitoring a single channel or all channels
+
+\texorpdfstring{$<$}{<} 0x0000001F
+
+\texorpdfstring{$<$}{<} ADC analog watchdog 1 monitored channel selection
+
+Definición en la línea \doxymbox{\hyperlink{stm32f1xx__ll__adc_8h_source_l03109}{3109}} del archivo \doxymbox{\hyperlink{stm32f1xx__ll__adc_8h_source}{stm32f1xx\+\_\+ll\+\_\+adc.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{03110\ \{}
+\DoxyCodeLine{03111\ \ \ \textcolor{keywordflow}{return}\ (uint32\_t)(\doxymbox{\hyperlink{group___exported__macros_ga822bb1bb9710d5f2fa6396b84e583c33}{READ\_BIT}}(ADCx-\/>\doxymbox{\hyperlink{struct_a_d_c___type_def_a29fed74ebdf1224d19d6d3006b47374c}{CR1}},\ (\doxymbox{\hyperlink{group___peripheral___registers___bits___definition_ga6e006d43fcb9fe1306745c95a1bdd651}{ADC\_CR1\_AWDEN}}\ |\ \doxymbox{\hyperlink{group___peripheral___registers___bits___definition_ga4886de74bcd3a1e545094089f76fd0b3}{ADC\_CR1\_JAWDEN}}\ |\ \doxymbox{\hyperlink{group___peripheral___registers___bits___definition_ga5c9fc31f19c04033dfa98e982519c451}{ADC\_CR1\_AWDSGL}}\ |\ \doxymbox{\hyperlink{group___peripheral___registers___bits___definition_gad8bb755c7059bb2d4f5e2e999d2a2677}{ADC\_CR1\_AWDCH}})));}
+\DoxyCodeLine{03112\ \}}
+
+\end{DoxyCode}
+
+
+Hace referencia a \doxymbox{\hyperlink{stm32f103xb_8h_source_l03312}{ADC\+\_\+\+CR1\+\_\+\+AWDCH}}, \doxymbox{\hyperlink{stm32f103xb_8h_source_l03364}{ADC\+\_\+\+CR1\+\_\+\+AWDEN}}, \doxymbox{\hyperlink{stm32f103xb_8h_source_l03333}{ADC\+\_\+\+CR1\+\_\+\+AWDSGL}}, \doxymbox{\hyperlink{stm32f103xb_8h_source_l03361}{ADC\+\_\+\+CR1\+\_\+\+JAWDEN}}, \doxymbox{\hyperlink{stm32f103xb_8h_source_l00146}{ADC\+\_\+\+Type\+Def::\+\+CR1}}, \doxymbox{\hyperlink{stm32f1xx__ll__adc_8h_source_l03109}{LL\+\_\+\+ADC\+\_\+\+Get\+Analog\+WDMonit\+Channels()}} y \doxymbox{\hyperlink{stm32f1xx_8h_source_l00181}{READ\+\_\+\+BIT}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{stm32f1xx__ll__adc_8h_source_l03109}{LL\+\_\+\+ADC\+\_\+\+Get\+Analog\+WDMonit\+Channels()}}.
+
+Gráfico de llamadas de esta función:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=267pt]{group___a_d_c___l_l___e_f___configuration___a_d_c___analog_watchdog_ga2e2395639fd11769389e228664d6aece_cgraph}
+\end{center}
+\end{figure}
+Gráfico de llamadas a esta función:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=267pt]{group___a_d_c___l_l___e_f___configuration___a_d_c___analog_watchdog_ga2e2395639fd11769389e228664d6aece_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group___a_d_c___l_l___e_f___configuration___a_d_c___analog_watchdog_ga8e40a1ca1cce20a7b471f8deca70c9cc}\index{Configuration of ADC transversal scope: analog watchdog@{Configuration of ADC transversal scope: analog watchdog}!LL\_ADC\_GetAnalogWDThresholds@{LL\_ADC\_GetAnalogWDThresholds}}
+\index{LL\_ADC\_GetAnalogWDThresholds@{LL\_ADC\_GetAnalogWDThresholds}!Configuration of ADC transversal scope: analog watchdog@{Configuration of ADC transversal scope: analog watchdog}}
+\doxyparagraph{\texorpdfstring{LL\_ADC\_GetAnalogWDThresholds()}{LL\_ADC\_GetAnalogWDThresholds()}}
+{\footnotesize\ttfamily \label{group___a_d_c___l_l___e_f___configuration___a_d_c___analog_watchdog_ga8e40a1ca1cce20a7b471f8deca70c9cc} 
+\+\_\+\+\_\+inline uint32\+\_\+t LL\+\_\+\+ADC\+\_\+\+Get\+Analog\+WDThresholds (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{struct_a_d_c___type_def}{ADC\+\_\+\+Type\+Def}} \texorpdfstring{$\ast$}{*}}]{ADCx}{, }\item[{uint32\+\_\+t}]{AWDThresholds\+High\+Low}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+{\ttfamily \+\#include "{}\doxymbox{\hyperlink{stm32f1xx__ll__adc_8h}{stm32f1xx\+\_\+ll\+\_\+adc.\+h}}"{}}
+
+
+
+Get ADC analog watchdog threshold value of threshold high or threshold low. 
+
+\begin{DoxyNote}{Nota}
+In case of ADC resolution different of 12 bits, analog watchdog thresholds data require a specific shift. Use helper macro \doxylink{group___a_d_c___l_l___e_m___h_e_l_p_e_r___m_a_c_r_o_ga352e0833fe7776abbe2cd70d2962111f}{\+\_\+\+\_\+\+LL\+\_\+\+ADC\+\_\+\+ANALOGWD\+\_\+\+GET\+\_\+\+THRESHOLD\+\_\+\+RESOLUTION()}. @rmtoll HTR HT LL\+\_\+\+ADC\+\_\+\+Get\+Analog\+WDThresholds~\newline
+ LTR LT LL\+\_\+\+ADC\+\_\+\+Get\+Analog\+WDThresholds 
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parámetros}
+{\em ADCx} & ADC instance \\
+\hline
+{\em AWDThresholds\+High\+Low} & This parameter can be one of the following values: \begin{DoxyItemize}
+\item \doxylink{group___a_d_c___l_l___e_c___a_w_d___t_h_r_e_s_h_o_l_d_s_gafcbab650f422dc97e3a7937adff244b6}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+THRESHOLD\+\_\+\+HIGH} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___t_h_r_e_s_h_o_l_d_s_gad714d9676b4e47368ea59423fb9bafed}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+THRESHOLD\+\_\+\+LOW} \end{DoxyItemize}
+\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Valores devueltos}
+{\em Value} & between Min\+\_\+\+Data=0x000 and Max\+\_\+\+Data=0x\+FFF \\
+\hline
+\end{DoxyRetVals}
+\texorpdfstring{$<$}{<} Defines \textquotesingle{}read / write\textquotesingle{} permissions
+
+\texorpdfstring{$<$}{<} Defines \textquotesingle{}read / write\textquotesingle{} permissions
+
+\texorpdfstring{$<$}{<} 0x00000\+FFF
+
+\texorpdfstring{$<$}{<} ADC analog watchdog 1 threshold high
+
+Definición en la línea \doxymbox{\hyperlink{stm32f1xx__ll__adc_8h_source_l03156}{3156}} del archivo \doxymbox{\hyperlink{stm32f1xx__ll__adc_8h_source}{stm32f1xx\+\_\+ll\+\_\+adc.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{03157\ \{}
+\DoxyCodeLine{03158\ \ \ \_\_IO\ uint32\_t\ *preg\ =\ \doxymbox{\hyperlink{group___a_d_c___l_l___private___macros_ga592d1b4673f3094d03f3fe01848cea41}{\_\_ADC\_PTR\_REG\_OFFSET}}(ADCx-\/>\doxymbox{\hyperlink{struct_a_d_c___type_def_a2aafe30a367f715d836c240619803470}{HTR}},\ AWDThresholdsHighLow);}
+\DoxyCodeLine{03159\ \ \ }
+\DoxyCodeLine{03160\ \ \ \textcolor{keywordflow}{return}\ (uint32\_t)(\doxymbox{\hyperlink{group___exported__macros_ga822bb1bb9710d5f2fa6396b84e583c33}{READ\_BIT}}(*preg,\ \doxymbox{\hyperlink{group___peripheral___registers___bits___definition_gad685f031174465e636ef75a5bd7b637d}{ADC\_HTR\_HT}}));}
+\DoxyCodeLine{03161\ \}}
+
+\end{DoxyCode}
+
+
+Hace referencia a \doxymbox{\hyperlink{stm32f1xx__ll__adc_8h_source_l00227}{\+\_\+\+\_\+\+ADC\+\_\+\+PTR\+\_\+\+REG\+\_\+\+OFFSET}}, \doxymbox{\hyperlink{stm32f103xb_8h_source_l03572}{ADC\+\_\+\+HTR\+\_\+\+HT}}, \doxymbox{\hyperlink{stm32f103xb_8h_source_l00154}{ADC\+\_\+\+Type\+Def::\+\+HTR}}, \doxymbox{\hyperlink{stm32f1xx__ll__adc_8h_source_l03156}{LL\+\_\+\+ADC\+\_\+\+Get\+Analog\+WDThresholds()}} y \doxymbox{\hyperlink{stm32f1xx_8h_source_l00181}{READ\+\_\+\+BIT}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{stm32f1xx__ll__adc_8h_source_l03156}{LL\+\_\+\+ADC\+\_\+\+Get\+Analog\+WDThresholds()}}.
+
+Gráfico de llamadas de esta función:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=250pt]{group___a_d_c___l_l___e_f___configuration___a_d_c___analog_watchdog_ga8e40a1ca1cce20a7b471f8deca70c9cc_cgraph}
+\end{center}
+\end{figure}
+Gráfico de llamadas a esta función:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=250pt]{group___a_d_c___l_l___e_f___configuration___a_d_c___analog_watchdog_ga8e40a1ca1cce20a7b471f8deca70c9cc_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group___a_d_c___l_l___e_f___configuration___a_d_c___analog_watchdog_gaf7dd0433a8ca9a600b18df92e35e6f96}\index{Configuration of ADC transversal scope: analog watchdog@{Configuration of ADC transversal scope: analog watchdog}!LL\_ADC\_SetAnalogWDMonitChannels@{LL\_ADC\_SetAnalogWDMonitChannels}}
+\index{LL\_ADC\_SetAnalogWDMonitChannels@{LL\_ADC\_SetAnalogWDMonitChannels}!Configuration of ADC transversal scope: analog watchdog@{Configuration of ADC transversal scope: analog watchdog}}
+\doxyparagraph{\texorpdfstring{LL\_ADC\_SetAnalogWDMonitChannels()}{LL\_ADC\_SetAnalogWDMonitChannels()}}
+{\footnotesize\ttfamily \label{group___a_d_c___l_l___e_f___configuration___a_d_c___analog_watchdog_gaf7dd0433a8ca9a600b18df92e35e6f96} 
+\+\_\+\+\_\+inline void LL\+\_\+\+ADC\+\_\+\+Set\+Analog\+WDMonit\+Channels (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{struct_a_d_c___type_def}{ADC\+\_\+\+Type\+Def}} \texorpdfstring{$\ast$}{*}}]{ADCx}{, }\item[{uint32\+\_\+t}]{AWDChannel\+Group}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+{\ttfamily \+\#include "{}\doxymbox{\hyperlink{stm32f1xx__ll__adc_8h}{stm32f1xx\+\_\+ll\+\_\+adc.\+h}}"{}}
+
+
+
+Set ADC analog watchdog monitored channels: a single channel or all channels, on ADC groups regular and-\/or injected. 
+
+\begin{DoxyNote}{Nota}
+Once monitored channels are selected, analog watchdog is enabled. 
+
+In case of need to define a single channel to monitor with analog watchdog from sequencer channel definition, use helper macro \doxylink{group___a_d_c___l_l___e_m___h_e_l_p_e_r___m_a_c_r_o_gab842462663bf4c5aaf8f81bae98d8ab0}{\+\_\+\+\_\+\+LL\+\_\+\+ADC\+\_\+\+ANALOGWD\+\_\+\+CHANNEL\+\_\+\+GROUP()}. 
+
+On this STM32 series, there is only 1 kind of analog watchdog instance:
+\begin{DoxyItemize}
+\item AWD standard (instance AWD1):
+\begin{DoxyItemize}
+\item channels monitored: can monitor 1 channel or all channels.
+\item groups monitored: ADC groups regular and-\/or injected.
+\item resolution: resolution is not limited (corresponds to ADC resolution configured). @rmtoll CR1 AWD1\+CH LL\+\_\+\+ADC\+\_\+\+Set\+Analog\+WDMonit\+Channels~\newline
+ CR1 AWD1\+SGL LL\+\_\+\+ADC\+\_\+\+Set\+Analog\+WDMonit\+Channels~\newline
+ CR1 AWD1\+EN LL\+\_\+\+ADC\+\_\+\+Set\+Analog\+WDMonit\+Channels 
+\end{DoxyItemize}
+\end{DoxyItemize}
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parámetros}
+{\em ADCx} & ADC instance \\
+\hline
+{\em AWDChannel\+Group} & This parameter can be one of the following values: \begin{DoxyItemize}
+\item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga9ebfe5a499db40f87b9eb9e98d56f08f}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+DISABLE} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga75ca2706e687106e85561262998c2577}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+ALL\+\_\+\+CHANNELS\+\_\+\+REG} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga477665ceb4983b24435d4d703e94c723}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+ALL\+\_\+\+CHANNELS\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_gae03a54e862957504f04ed2178588cf07}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+ALL\+\_\+\+CHANNELS\+\_\+\+REG\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga255bae5c5f9e9368f18090b0698d2e22}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+0\+\_\+\+REG} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga5466ee77166acc3c0ee9c68f7a869901}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+0\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_gaadda84b13fe1341b10845a7603f35060}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+0\+\_\+\+REG\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga645eebdc1ba871fc2793c208cf8e9a5b}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+1\+\_\+\+REG} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga4ff35f980baa695ae3e32abab24b888a}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+1\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga7e2785f112eefda9dddd3de9e4d592d7}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+1\+\_\+\+REG\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga32093a0d9f2956b7be9b6dd918671aab}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+2\+\_\+\+REG} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga0455b0abac99da9705a5c82749f3d111}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+2\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga90ab41519bc8be8795b6687d6bf9bbb0}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+2\+\_\+\+REG\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga09ae45d1567b23fccf0fd47fe9145904}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+3\+\_\+\+REG} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_gaf674bbe70ae2ace7fb99f4a27de7063b}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+3\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga1b2bc279bbaa5a20a0f081c60926c2b1}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+3\+\_\+\+REG\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga83074f9f9f4cefbf52005a946b26f570}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+4\+\_\+\+REG} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_gadf5731060c7a5781a2a9770942f23ae1}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+4\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga7eee17f245d84e34cf41299b53e5acbd}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+4\+\_\+\+REG\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga89c0bc1e591b8aebe6a4783c7dc6ad15}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+5\+\_\+\+REG} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga2bf527b9b770ee71057102a9288bc79c}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+5\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_gadcf4b1d9d1dd971ab542cd615cf1bb06}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+5\+\_\+\+REG\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga06423213ad952e3fdf6717a1ea766cca}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+6\+\_\+\+REG} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga28fc2d6a43e7beb60d2f6050ebaf90a0}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+6\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga6a5f5094cda9d7c63b2f599ec4a39bef}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+6\+\_\+\+REG\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga34a076cfbb9e03670631789f089aec97}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+7\+\_\+\+REG} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_gad0b46ff84613efcedcd48cbef05db5f9}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+7\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga7b06c6c344e04abe41af739087794309}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+7\+\_\+\+REG\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga4d9a91e8483fb73cc07bd3d084fed969}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+8\+\_\+\+REG} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga2f063978ee2792f146d9cb6ad4a3214c}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+8\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga1b8789fa9286ed933be0d5bd5bba3124}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+8\+\_\+\+REG\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_gac239050c45c3ac127499204abd0fc24f}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+9\+\_\+\+REG} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga1120253ba14cc0619e197d6bdbd51b32}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+9\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_gac01ae56de33e5e18190869e1f385bc39}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+9\+\_\+\+REG\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga45ff20ba9bf17c1530d9b88e8b16a2b0}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+10\+\_\+\+REG} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga3464c8f012cbd853c8d48c22ff386d33}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+10\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_gaa844fecac50587cf12dc8685e7d8f1e2}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+10\+\_\+\+REG\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_gafed1585c005b7a6d2fbe1f8c905491eb}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+11\+\_\+\+REG} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga956418db427b438ee77e613b29d71d8f}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+11\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_gadcb3b8a2980264804d81b736d2bcc0e8}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+11\+\_\+\+REG\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_gae2c2602752f435f321f158564571e377}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+12\+\_\+\+REG} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga498293bde174d8827681c1f5d04154c4}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+12\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_gad7e2c72c572881056ba7b4e143476760}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+12\+\_\+\+REG\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga236301b36b921d6425e02bb4f5ecd3ac}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+13\+\_\+\+REG} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga52827d83af2b92e31f1b7f4d283950df}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+13\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga3007f509eed4b057b08be8be895ac52b}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+13\+\_\+\+REG\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga1117c07106022c579f87ae7d664f1fce}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+14\+\_\+\+REG} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga48b6cab808b3c1d629c2d457f0217290}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+14\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_gac1dfab342801edf23d8813e836cac355}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+14\+\_\+\+REG\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_gaf21d41b3ac5e8982f03f0ec6c8bc9012}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+15\+\_\+\+REG} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga578ce840cb0bcd78828aa9d9824071f3}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+15\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga031a9a5f553f8582352221161c11b89e}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+15\+\_\+\+REG\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga93d9c1aa54330c6b0ff8f49a57851d55}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+16\+\_\+\+REG} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_gaa6e7f9769c6110067ac65ae3a5fb7ca2}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+16\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga379f30a806784636a0f851768e6f6452}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+16\+\_\+\+REG\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga72747c23175fb5867967f465ea0485d6}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+17\+\_\+\+REG} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga2a49475b98761b2322c39a9f1025ea71}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+17\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_gae8a8c3058c40854280e2e235c9de167a}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CHANNEL\+\_\+17\+\_\+\+REG\+\_\+\+INJ} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_gae6bf344a37d002a57e9b9b4e749eeff8}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CH\+\_\+\+VREFINT\+\_\+\+REG} (1) \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_gafbb4d421f2c85360b559a2c6829840ad}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CH\+\_\+\+VREFINT\+\_\+\+INJ} (1) \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga1fd7287ac44177a92067f095bfd16d83}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CH\+\_\+\+VREFINT\+\_\+\+REG\+\_\+\+INJ} (1) \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_ga7d3ccd25179002a95f06ea3b1e84ba2d}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CH\+\_\+\+TEMPSENSOR\+\_\+\+REG} (1) \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_gae2f25aa60ff0287dd6630265890c9a99}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CH\+\_\+\+TEMPSENSOR\+\_\+\+INJ} (1) \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___c_h_a_n_n_e_l_s_gaaed7a17024fef86c233ce4fba4fc7cf7}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+CH\+\_\+\+TEMPSENSOR\+\_\+\+REG\+\_\+\+INJ} (1)\end{DoxyItemize}
+(1) On STM32\+F1, parameter available only on ADC instance: ADC1. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Valores devueltos}
+{\em None} & \\
+\hline
+\end{DoxyRetVals}
+\texorpdfstring{$<$}{<} 0x00800000
+
+\texorpdfstring{$<$}{<} ADC analog watchdog 1 enable on scope ADC group regular
+
+\texorpdfstring{$<$}{<} 0x00400000
+
+\texorpdfstring{$<$}{<} ADC analog watchdog 1 enable on scope ADC group injected
+
+\texorpdfstring{$<$}{<} 0x00000200
+
+\texorpdfstring{$<$}{<} ADC analog watchdog 1 monitoring a single channel or all channels
+
+\texorpdfstring{$<$}{<} 0x0000001F
+
+\texorpdfstring{$<$}{<} ADC analog watchdog 1 monitored channel selection
+
+Definición en la línea \doxymbox{\hyperlink{stm32f1xx__ll__adc_8h_source_l03016}{3016}} del archivo \doxymbox{\hyperlink{stm32f1xx__ll__adc_8h_source}{stm32f1xx\+\_\+ll\+\_\+adc.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{03017\ \{}
+\DoxyCodeLine{03018\ \ \ \doxymbox{\hyperlink{group___exported__macros_ga6553c99f510c3bab8cc0a91602053247}{MODIFY\_REG}}(ADCx-\/>\doxymbox{\hyperlink{struct_a_d_c___type_def_a29fed74ebdf1224d19d6d3006b47374c}{CR1}},}
+\DoxyCodeLine{03019\ \ \ \ \ \ \ \ \ \ \ \ \ \ (\doxymbox{\hyperlink{group___peripheral___registers___bits___definition_ga6e006d43fcb9fe1306745c95a1bdd651}{ADC\_CR1\_AWDEN}}\ |\ \doxymbox{\hyperlink{group___peripheral___registers___bits___definition_ga4886de74bcd3a1e545094089f76fd0b3}{ADC\_CR1\_JAWDEN}}\ |\ \doxymbox{\hyperlink{group___peripheral___registers___bits___definition_ga5c9fc31f19c04033dfa98e982519c451}{ADC\_CR1\_AWDSGL}}\ |\ \doxymbox{\hyperlink{group___peripheral___registers___bits___definition_gad8bb755c7059bb2d4f5e2e999d2a2677}{ADC\_CR1\_AWDCH}}),}
+\DoxyCodeLine{03020\ \ \ \ \ \ \ \ \ \ \ \ \ \ AWDChannelGroup);}
+\DoxyCodeLine{03021\ \}}
+
+\end{DoxyCode}
+
+
+Hace referencia a \doxymbox{\hyperlink{stm32f103xb_8h_source_l03312}{ADC\+\_\+\+CR1\+\_\+\+AWDCH}}, \doxymbox{\hyperlink{stm32f103xb_8h_source_l03364}{ADC\+\_\+\+CR1\+\_\+\+AWDEN}}, \doxymbox{\hyperlink{stm32f103xb_8h_source_l03333}{ADC\+\_\+\+CR1\+\_\+\+AWDSGL}}, \doxymbox{\hyperlink{stm32f103xb_8h_source_l03361}{ADC\+\_\+\+CR1\+\_\+\+JAWDEN}}, \doxymbox{\hyperlink{stm32f103xb_8h_source_l00146}{ADC\+\_\+\+Type\+Def::\+\+CR1}}, \doxymbox{\hyperlink{stm32f1xx__ll__adc_8h_source_l03016}{LL\+\_\+\+ADC\+\_\+\+Set\+Analog\+WDMonit\+Channels()}} y \doxymbox{\hyperlink{stm32f1xx_8h_source_l00189}{MODIFY\+\_\+\+REG}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{stm32f1xx__ll__adc_8h_source_l03016}{LL\+\_\+\+ADC\+\_\+\+Set\+Analog\+WDMonit\+Channels()}}.
+
+Gráfico de llamadas de esta función:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=266pt]{group___a_d_c___l_l___e_f___configuration___a_d_c___analog_watchdog_gaf7dd0433a8ca9a600b18df92e35e6f96_cgraph}
+\end{center}
+\end{figure}
+Gráfico de llamadas a esta función:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=266pt]{group___a_d_c___l_l___e_f___configuration___a_d_c___analog_watchdog_gaf7dd0433a8ca9a600b18df92e35e6f96_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group___a_d_c___l_l___e_f___configuration___a_d_c___analog_watchdog_ga4f76ed70880161e808ffb4f399c8cc47}\index{Configuration of ADC transversal scope: analog watchdog@{Configuration of ADC transversal scope: analog watchdog}!LL\_ADC\_SetAnalogWDThresholds@{LL\_ADC\_SetAnalogWDThresholds}}
+\index{LL\_ADC\_SetAnalogWDThresholds@{LL\_ADC\_SetAnalogWDThresholds}!Configuration of ADC transversal scope: analog watchdog@{Configuration of ADC transversal scope: analog watchdog}}
+\doxyparagraph{\texorpdfstring{LL\_ADC\_SetAnalogWDThresholds()}{LL\_ADC\_SetAnalogWDThresholds()}}
+{\footnotesize\ttfamily \label{group___a_d_c___l_l___e_f___configuration___a_d_c___analog_watchdog_ga4f76ed70880161e808ffb4f399c8cc47} 
+\+\_\+\+\_\+inline void LL\+\_\+\+ADC\+\_\+\+Set\+Analog\+WDThresholds (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{struct_a_d_c___type_def}{ADC\+\_\+\+Type\+Def}} \texorpdfstring{$\ast$}{*}}]{ADCx}{, }\item[{uint32\+\_\+t}]{AWDThresholds\+High\+Low}{, }\item[{uint32\+\_\+t}]{AWDThreshold\+Value}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+{\ttfamily \+\#include "{}\doxymbox{\hyperlink{stm32f1xx__ll__adc_8h}{stm32f1xx\+\_\+ll\+\_\+adc.\+h}}"{}}
+
+
+
+Set ADC analog watchdog threshold value of threshold high or low. 
+
+\begin{DoxyNote}{Nota}
+On this STM32 series, there is only 1 kind of analog watchdog instance:
+\begin{DoxyItemize}
+\item AWD standard (instance AWD1):
+\begin{DoxyItemize}
+\item channels monitored: can monitor 1 channel or all channels.
+\item groups monitored: ADC groups regular and-\/or injected.
+\item resolution: resolution is not limited (corresponds to ADC resolution configured). @rmtoll HTR HT LL\+\_\+\+ADC\+\_\+\+Set\+Analog\+WDThresholds~\newline
+ LTR LT LL\+\_\+\+ADC\+\_\+\+Set\+Analog\+WDThresholds 
+\end{DoxyItemize}
+\end{DoxyItemize}
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parámetros}
+{\em ADCx} & ADC instance \\
+\hline
+{\em AWDThresholds\+High\+Low} & This parameter can be one of the following values: \begin{DoxyItemize}
+\item \doxylink{group___a_d_c___l_l___e_c___a_w_d___t_h_r_e_s_h_o_l_d_s_gafcbab650f422dc97e3a7937adff244b6}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+THRESHOLD\+\_\+\+HIGH} \item \doxylink{group___a_d_c___l_l___e_c___a_w_d___t_h_r_e_s_h_o_l_d_s_gad714d9676b4e47368ea59423fb9bafed}{LL\+\_\+\+ADC\+\_\+\+AWD\+\_\+\+THRESHOLD\+\_\+\+LOW} \end{DoxyItemize}
+\\
+\hline
+{\em AWDThreshold\+Value} & Value between Min\+\_\+\+Data=0x000 and Max\+\_\+\+Data=0x\+FFF \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Valores devueltos}
+{\em None} & \\
+\hline
+\end{DoxyRetVals}
+\texorpdfstring{$<$}{<} Defines \textquotesingle{}read / write\textquotesingle{} permissions
+
+\texorpdfstring{$<$}{<} Defines \textquotesingle{}read / write\textquotesingle{} permissions
+
+\texorpdfstring{$<$}{<} 0x00000\+FFF
+
+\texorpdfstring{$<$}{<} ADC analog watchdog 1 threshold high
+
+Definición en la línea \doxymbox{\hyperlink{stm32f1xx__ll__adc_8h_source_l03133}{3133}} del archivo \doxymbox{\hyperlink{stm32f1xx__ll__adc_8h_source}{stm32f1xx\+\_\+ll\+\_\+adc.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{03134\ \{}
+\DoxyCodeLine{03135\ \ \ \_\_IO\ uint32\_t\ *preg\ =\ \doxymbox{\hyperlink{group___a_d_c___l_l___private___macros_ga592d1b4673f3094d03f3fe01848cea41}{\_\_ADC\_PTR\_REG\_OFFSET}}(ADCx-\/>\doxymbox{\hyperlink{struct_a_d_c___type_def_a2aafe30a367f715d836c240619803470}{HTR}},\ AWDThresholdsHighLow);}
+\DoxyCodeLine{03136\ \ \ }
+\DoxyCodeLine{03137\ \ \ \doxymbox{\hyperlink{group___exported__macros_ga6553c99f510c3bab8cc0a91602053247}{MODIFY\_REG}}(*preg,}
+\DoxyCodeLine{03138\ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___peripheral___registers___bits___definition_gad685f031174465e636ef75a5bd7b637d}{ADC\_HTR\_HT}},}
+\DoxyCodeLine{03139\ \ \ \ \ \ \ \ \ \ \ \ \ \ AWDThresholdValue);}
+\DoxyCodeLine{03140\ \}}
+
+\end{DoxyCode}
+
+
+Hace referencia a \doxymbox{\hyperlink{stm32f1xx__ll__adc_8h_source_l00227}{\+\_\+\+\_\+\+ADC\+\_\+\+PTR\+\_\+\+REG\+\_\+\+OFFSET}}, \doxymbox{\hyperlink{stm32f103xb_8h_source_l03572}{ADC\+\_\+\+HTR\+\_\+\+HT}}, \doxymbox{\hyperlink{stm32f103xb_8h_source_l00154}{ADC\+\_\+\+Type\+Def::\+\+HTR}}, \doxymbox{\hyperlink{stm32f1xx__ll__adc_8h_source_l03133}{LL\+\_\+\+ADC\+\_\+\+Set\+Analog\+WDThresholds()}} y \doxymbox{\hyperlink{stm32f1xx_8h_source_l00189}{MODIFY\+\_\+\+REG}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{stm32f1xx__ll__adc_8h_source_l03133}{LL\+\_\+\+ADC\+\_\+\+Set\+Analog\+WDThresholds()}}.
+
+Gráfico de llamadas de esta función:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=249pt]{group___a_d_c___l_l___e_f___configuration___a_d_c___analog_watchdog_ga4f76ed70880161e808ffb4f399c8cc47_cgraph}
+\end{center}
+\end{figure}
+Gráfico de llamadas a esta función:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=249pt]{group___a_d_c___l_l___e_f___configuration___a_d_c___analog_watchdog_ga4f76ed70880161e808ffb4f399c8cc47_icgraph}
+\end{center}
+\end{figure}

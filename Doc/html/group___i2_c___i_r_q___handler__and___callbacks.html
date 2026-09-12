@@ -1,0 +1,1271 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>MICRO-Firmware: IRQ Handler and Callbacks</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="codefolding.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  extensions: ["tex2jax.js"],
+  jax: ["input/TeX","output/HTML-CSS"],
+});
+</script>
+<script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">MICRO-Firmware<span id="projectnumber">&#160;EX100923v01</span>
+   </div>
+   <div id="projectbrief">Firmware de Péndulo Invertido Autónomo de Dos Ruedas (STM32F103C8T6 - ARM Cortex-M3)</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Buscar" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('group___i2_c___i_r_q___handler__and___callbacks.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">IRQ Handler and Callbacks <div class="ingroups"><a class="el" href="group___s_t_m32_f1xx___h_a_l___driver.html">STM32F1xx_HAL_Driver</a> &raquo; <a class="el" href="group___i2_c.html">I2C</a> &raquo; <a class="el" href="group___i2_c___exported___functions.html">I2C Exported Functions</a></div></div></div>
+</div><!--header-->
+<div class="contents">
+<div id="dynsection-0" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Diagrama de colaboración de IRQ Handler and Callbacks:</div>
+<div id="dynsection-0-summary" class="dynsummary">
+</div>
+<div id="dynsection-0-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___i2_c___i_r_q___handler__and___callbacks.svg" width="400" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Funciones</h2></td></tr>
+<tr class="memitem:ga27f415f548efb8689e563cbb40f1717e" id="r_ga27f415f548efb8689e563cbb40f1717e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ga27f415f548efb8689e563cbb40f1717e">HAL_I2C_AbortCpltCallback</a> (<a class="el" href="struct_i2_c___handle_type_def.html">I2C_HandleTypeDef</a> *hi2c)</td></tr>
+<tr class="memdesc:ga27f415f548efb8689e563cbb40f1717e"><td class="mdescLeft">&#160;</td><td class="mdescRight">I2C abort callback.  <br /></td></tr>
+<tr class="memitem:ga593bdcbdea83a7c51c77642d3a3ce025" id="r_ga593bdcbdea83a7c51c77642d3a3ce025"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ga593bdcbdea83a7c51c77642d3a3ce025">HAL_I2C_AddrCallback</a> (<a class="el" href="struct_i2_c___handle_type_def.html">I2C_HandleTypeDef</a> *hi2c, uint8_t TransferDirection, uint16_t AddrMatchCode)</td></tr>
+<tr class="memdesc:ga593bdcbdea83a7c51c77642d3a3ce025"><td class="mdescLeft">&#160;</td><td class="mdescRight">Slave Address Match callback.  <br /></td></tr>
+<tr class="memitem:ga78739c0d57d55034a9c8bc39c8ee6bc2" id="r_ga78739c0d57d55034a9c8bc39c8ee6bc2"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ga78739c0d57d55034a9c8bc39c8ee6bc2">HAL_I2C_ER_IRQHandler</a> (<a class="el" href="struct_i2_c___handle_type_def.html">I2C_HandleTypeDef</a> *hi2c)</td></tr>
+<tr class="memdesc:ga78739c0d57d55034a9c8bc39c8ee6bc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function handles I2C error interrupt request.  <br /></td></tr>
+<tr class="memitem:ga2e0d4f2d78cfb6cc55fba5d5d67b7d21" id="r_ga2e0d4f2d78cfb6cc55fba5d5d67b7d21"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ga2e0d4f2d78cfb6cc55fba5d5d67b7d21">HAL_I2C_ErrorCallback</a> (<a class="el" href="struct_i2_c___handle_type_def.html">I2C_HandleTypeDef</a> *hi2c)</td></tr>
+<tr class="memdesc:ga2e0d4f2d78cfb6cc55fba5d5d67b7d21"><td class="mdescLeft">&#160;</td><td class="mdescRight">I2C error callback.  <br /></td></tr>
+<tr class="memitem:ga0cd3cc56c83b85a65e31c945c854d9d5" id="r_ga0cd3cc56c83b85a65e31c945c854d9d5"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ga0cd3cc56c83b85a65e31c945c854d9d5">HAL_I2C_EV_IRQHandler</a> (<a class="el" href="struct_i2_c___handle_type_def.html">I2C_HandleTypeDef</a> *hi2c)</td></tr>
+<tr class="memdesc:ga0cd3cc56c83b85a65e31c945c854d9d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function handles I2C event interrupt request.  <br /></td></tr>
+<tr class="memitem:ga309fbd7f108a901a9716ad347407ebc3" id="r_ga309fbd7f108a901a9716ad347407ebc3"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ga309fbd7f108a901a9716ad347407ebc3">HAL_I2C_ListenCpltCallback</a> (<a class="el" href="struct_i2_c___handle_type_def.html">I2C_HandleTypeDef</a> *hi2c)</td></tr>
+<tr class="memdesc:ga309fbd7f108a901a9716ad347407ebc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Listen Complete callback.  <br /></td></tr>
+<tr class="memitem:ga0eec5bf219f59231426f50ff75decae2" id="r_ga0eec5bf219f59231426f50ff75decae2"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ga0eec5bf219f59231426f50ff75decae2">HAL_I2C_MasterRxCpltCallback</a> (<a class="el" href="struct_i2_c___handle_type_def.html">I2C_HandleTypeDef</a> *hi2c)</td></tr>
+<tr class="memdesc:ga0eec5bf219f59231426f50ff75decae2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Master Rx Transfer completed callback.  <br /></td></tr>
+<tr class="memitem:ga5fb7c995ebe42b63dcc3b6cf92c804af" id="r_ga5fb7c995ebe42b63dcc3b6cf92c804af"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ga5fb7c995ebe42b63dcc3b6cf92c804af">HAL_I2C_MasterTxCpltCallback</a> (<a class="el" href="struct_i2_c___handle_type_def.html">I2C_HandleTypeDef</a> *hi2c)</td></tr>
+<tr class="memdesc:ga5fb7c995ebe42b63dcc3b6cf92c804af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Master Tx Transfer completed callback.  <br /></td></tr>
+<tr class="memitem:gac16a95413b35f05c5ce725fefd8531a5" id="r_gac16a95413b35f05c5ce725fefd8531a5"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#gac16a95413b35f05c5ce725fefd8531a5">HAL_I2C_MemRxCpltCallback</a> (<a class="el" href="struct_i2_c___handle_type_def.html">I2C_HandleTypeDef</a> *hi2c)</td></tr>
+<tr class="memdesc:gac16a95413b35f05c5ce725fefd8531a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Memory Rx Transfer completed callback.  <br /></td></tr>
+<tr class="memitem:ga874f6104d2cdbced9f2ab6e941ec58f0" id="r_ga874f6104d2cdbced9f2ab6e941ec58f0"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ga874f6104d2cdbced9f2ab6e941ec58f0">HAL_I2C_MemTxCpltCallback</a> (<a class="el" href="struct_i2_c___handle_type_def.html">I2C_HandleTypeDef</a> *hi2c)</td></tr>
+<tr class="memdesc:ga874f6104d2cdbced9f2ab6e941ec58f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Memory Tx Transfer completed callback.  <br /></td></tr>
+<tr class="memitem:ga41d038c01af0234359db8b5384bea869" id="r_ga41d038c01af0234359db8b5384bea869"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ga41d038c01af0234359db8b5384bea869">HAL_I2C_SlaveRxCpltCallback</a> (<a class="el" href="struct_i2_c___handle_type_def.html">I2C_HandleTypeDef</a> *hi2c)</td></tr>
+<tr class="memdesc:ga41d038c01af0234359db8b5384bea869"><td class="mdescLeft">&#160;</td><td class="mdescRight">Slave Rx Transfer completed callback.  <br /></td></tr>
+<tr class="memitem:gafc6294ce15921f0a87148519335ba4f5" id="r_gafc6294ce15921f0a87148519335ba4f5"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#gafc6294ce15921f0a87148519335ba4f5">HAL_I2C_SlaveTxCpltCallback</a> (<a class="el" href="struct_i2_c___handle_type_def.html">I2C_HandleTypeDef</a> *hi2c)</td></tr>
+<tr class="memdesc:gafc6294ce15921f0a87148519335ba4f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Slave Tx Transfer completed callback.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Descripción detallada</h2>
+<div class="textblock"></div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Documentación de funciones</h2>
+<a id="ga27f415f548efb8689e563cbb40f1717e" name="ga27f415f548efb8689e563cbb40f1717e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga27f415f548efb8689e563cbb40f1717e">&#9670;&#160;</a></span>HAL_I2C_AbortCpltCallback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group___u_s_b_d___d_e_f___exported___macros.html#ga5181eb756a197a06d1c4ed1f40a065bc">__weak</a> void HAL_I2C_AbortCpltCallback </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_i2_c___handle_type_def.html">I2C_HandleTypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>hi2c</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__i2c_8h.html">stm32f1xx_hal_i2c.h</a>&quot;</code></p>
+
+<p>I2C abort callback. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">hi2c</td><td>Pointer to a <a class="el" href="struct_i2_c___handle_type_def.html">I2C_HandleTypeDef</a> structure that contains the configuration information for the specified I2C. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l05284">5284</a> del archivo <a class="el" href="stm32f1xx__hal__i2c_8c_source.html">stm32f1xx_hal_i2c.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 5285</span>{</div>
+<div class="line"><span class="lineno"> 5286</span>  <span class="comment">/* Prevent unused argument(s) compilation warning */</span></div>
+<div class="line"><span class="lineno"> 5287</span>  UNUSED(hi2c);</div>
+<div class="line"><span class="lineno"> 5288</span> </div>
+<div class="line"><span class="lineno"> 5289</span>  <span class="comment">/* NOTE : This function should not be modified, when the callback is needed,</span></div>
+<div class="line"><span class="lineno"> 5290</span><span class="comment">            the HAL_I2C_AbortCpltCallback could be implemented in the user file</span></div>
+<div class="line"><span class="lineno"> 5291</span><span class="comment">   */</span></div>
+<div class="line"><span class="lineno"> 5292</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="usbd__def_8h_source.html#l00283">__weak</a> y <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l05284">HAL_I2C_AbortCpltCallback()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l05284">HAL_I2C_AbortCpltCallback()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l00463">HAL_I2C_Init()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l07220">I2C_DMAAbort()</a> y <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l06515">I2C_ITError()</a>.</p>
+<div id="dynsection-1" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-1-summary" class="dynsummary">
+</div>
+<div id="dynsection-1-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___i2_c___i_r_q___handler__and___callbacks_ga27f415f548efb8689e563cbb40f1717e_cgraph.svg" width="199" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-2" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-2-summary" class="dynsummary">
+</div>
+<div id="dynsection-2-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___i2_c___i_r_q___handler__and___callbacks_ga27f415f548efb8689e563cbb40f1717e_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="ga593bdcbdea83a7c51c77642d3a3ce025" name="ga593bdcbdea83a7c51c77642d3a3ce025"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga593bdcbdea83a7c51c77642d3a3ce025">&#9670;&#160;</a></span>HAL_I2C_AddrCallback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group___u_s_b_d___d_e_f___exported___macros.html#ga5181eb756a197a06d1c4ed1f40a065bc">__weak</a> void HAL_I2C_AddrCallback </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_i2_c___handle_type_def.html">I2C_HandleTypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>hi2c</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>TransferDirection</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t</td>          <td class="paramname"><span class="paramname"><em>AddrMatchCode</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__i2c_8h.html">stm32f1xx_hal_i2c.h</a>&quot;</code></p>
+
+<p>Slave Address Match callback. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">hi2c</td><td>Pointer to a <a class="el" href="struct_i2_c___handle_type_def.html">I2C_HandleTypeDef</a> structure that contains the configuration information for the specified I2C. </td></tr>
+    <tr><td class="paramname">TransferDirection</td><td>Master request Transfer Direction (Write/Read), value of <a class="el" href="group___i2_c___xfer_direction__definition.html" title="I2C XferDirection definition">I2C XferDirection definition</a> </td></tr>
+    <tr><td class="paramname">AddrMatchCode</td><td>Address Match Code </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l05202">5202</a> del archivo <a class="el" href="stm32f1xx__hal__i2c_8c_source.html">stm32f1xx_hal_i2c.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 5203</span>{</div>
+<div class="line"><span class="lineno"> 5204</span>  <span class="comment">/* Prevent unused argument(s) compilation warning */</span></div>
+<div class="line"><span class="lineno"> 5205</span>  UNUSED(hi2c);</div>
+<div class="line"><span class="lineno"> 5206</span>  UNUSED(TransferDirection);</div>
+<div class="line"><span class="lineno"> 5207</span>  UNUSED(AddrMatchCode);</div>
+<div class="line"><span class="lineno"> 5208</span> </div>
+<div class="line"><span class="lineno"> 5209</span>  <span class="comment">/* NOTE : This function should not be modified, when the callback is needed,</span></div>
+<div class="line"><span class="lineno"> 5210</span><span class="comment">            the HAL_I2C_AddrCallback() could be implemented in the user file</span></div>
+<div class="line"><span class="lineno"> 5211</span><span class="comment">   */</span></div>
+<div class="line"><span class="lineno"> 5212</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="usbd__def_8h_source.html#l00283">__weak</a> y <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l05202">HAL_I2C_AddrCallback()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l05202">HAL_I2C_AddrCallback()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l00463">HAL_I2C_Init()</a> y <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l06226">I2C_Slave_ADDR()</a>.</p>
+<div id="dynsection-3" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-3-summary" class="dynsummary">
+</div>
+<div id="dynsection-3-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___i2_c___i_r_q___handler__and___callbacks_ga593bdcbdea83a7c51c77642d3a3ce025_cgraph.svg" width="171" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-4" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-4-summary" class="dynsummary">
+</div>
+<div id="dynsection-4-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___i2_c___i_r_q___handler__and___callbacks_ga593bdcbdea83a7c51c77642d3a3ce025_icgraph.svg" width="100%" height="458"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="ga78739c0d57d55034a9c8bc39c8ee6bc2" name="ga78739c0d57d55034a9c8bc39c8ee6bc2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga78739c0d57d55034a9c8bc39c8ee6bc2">&#9670;&#160;</a></span>HAL_I2C_ER_IRQHandler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void HAL_I2C_ER_IRQHandler </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_i2_c___handle_type_def.html">I2C_HandleTypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>hi2c</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__i2c_8h.html">stm32f1xx_hal_i2c.h</a>&quot;</code></p>
+
+<p>This function handles I2C error interrupt request. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">hi2c</td><td>Pointer to a <a class="el" href="struct_i2_c___handle_type_def.html">I2C_HandleTypeDef</a> structure that contains the configuration information for the specified I2C. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; No error <br  />
+</p>
+<p>&lt; 0x00000100</p>
+<p>&lt; Error Interrupt Enable</p>
+<p>&lt; 0x00000100</p>
+<p>&lt; Error Interrupt Enable</p>
+<p>&lt; BERR error <br  />
+</p>
+<p>&lt; 0x00008000</p>
+<p>&lt; Software Reset</p>
+<p>&lt; 0x00000100</p>
+<p>&lt; Error Interrupt Enable</p>
+<p>&lt; 0x00000100</p>
+<p>&lt; Error Interrupt Enable</p>
+<p>&lt; ARLO error <br  />
+</p>
+<p>&lt; 0x00000100</p>
+<p>&lt; Error Interrupt Enable</p>
+<p>&lt; 0x00000100</p>
+<p>&lt; Error Interrupt Enable</p>
+<p>&lt; Mask State define, keep only RX and TX bits <br  />
+</p>
+<p>&lt; Slave Busy TX, combinaison of State LSB and Mode enum <br  />
+</p>
+<p>&lt; AF error <br  />
+</p>
+<p>&lt; 0x00000200</p>
+<p>&lt; Stop Generation</p>
+<p>&lt; 0x00000100</p>
+<p>&lt; Error Interrupt Enable</p>
+<p>&lt; 0x00000100</p>
+<p>&lt; Error Interrupt Enable</p>
+<p>&lt; OVR error <br  />
+</p>
+<p>&lt; No error <br  />
+</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l05054">5054</a> del archivo <a class="el" href="stm32f1xx__hal__i2c_8c_source.html">stm32f1xx_hal_i2c.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 5055</span>{</div>
+<div class="line"><span class="lineno"> 5056</span>  <a class="code hl_enumeration" href="group___h_a_l__mode__structure__definition.html#gabcbb7b844f2ffd63c4e530c117882062">HAL_I2C_ModeTypeDef</a> tmp1;</div>
+<div class="line"><span class="lineno"> 5057</span>  uint32_t tmp2;</div>
+<div class="line"><span class="lineno"> 5058</span>  <a class="code hl_enumeration" href="group___h_a_l__state__structure__definition.html#gaef355af8eab251ae2a19ee164ad81c37">HAL_I2C_StateTypeDef</a> tmp3;</div>
+<div class="line"><span class="lineno"> 5059</span>  uint32_t tmp4;</div>
+<div class="line"><span class="lineno"> 5060</span>  uint32_t sr1itflags = <a class="code hl_define" href="group___exported__macros.html#gae7f188a4d26c9e713a48414783421071">READ_REG</a>(hi2c-&gt;<a class="code hl_variable" href="struct_i2_c___handle_type_def.html#ad83b15a12a41fb3958c55085adf931dd">Instance</a>-&gt;<a class="code hl_variable" href="struct_i2_c___type_def.html#a9d1be1c0155534aaac27f3c232da20bf">SR1</a>);</div>
+<div class="line"><span class="lineno"> 5061</span>  uint32_t itsources  = <a class="code hl_define" href="group___exported__macros.html#gae7f188a4d26c9e713a48414783421071">READ_REG</a>(hi2c-&gt;<a class="code hl_variable" href="struct_i2_c___handle_type_def.html#ad83b15a12a41fb3958c55085adf931dd">Instance</a>-&gt;<a class="code hl_variable" href="struct_i2_c___type_def.html#a1df3df299001d46702436167d4a02eeb">CR2</a>);</div>
+<div class="line"><span class="lineno"> 5062</span>  uint32_t <a class="code hl_variable" href="main_8c.html#a435d80d6e18cdc373bc78289eefca9ec">error</a>      = <a class="code hl_define" href="group___i2_c___error___code__definition.html#ga0b8ca289091d942032c89484b6211d0d">HAL_I2C_ERROR_NONE</a>;</div>
+<div class="line"><span class="lineno"> 5063</span>  <a class="code hl_enumeration" href="group___h_a_l__mode__structure__definition.html#gabcbb7b844f2ffd63c4e530c117882062">HAL_I2C_ModeTypeDef</a> CurrentMode   = hi2c-&gt;<a class="code hl_variable" href="struct_i2_c___handle_type_def.html#a8d7e007aa2b72428703613edefb47200">Mode</a>;</div>
+<div class="line"><span class="lineno"> 5064</span> </div>
+<div class="line"><span class="lineno"> 5065</span>  <span class="comment">/* I2C Bus error interrupt occurred ----------------------------------------*/</span></div>
+<div class="line"><span class="lineno"> 5066</span>  <span class="keywordflow">if</span> ((<a class="code hl_define" href="group___i2_c___i_s___r_t_c___definitions.html#ga31873e0595e29c80cffe00c2d2e073ab">I2C_CHECK_FLAG</a>(sr1itflags, <a class="code hl_define" href="group___i2_c___flag__definition.html#ga0454176b6ddd5c402abc3ef5953a21ad">I2C_FLAG_BERR</a>) != <a class="code hl_enumvalue" href="group___exported__types.html#gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05">RESET</a>) &amp;&amp; (<a class="code hl_define" href="group___i2_c___i_s___r_t_c___definitions.html#gacc7c83a67d99d759923c6907f1a1751f">I2C_CHECK_IT_SOURCE</a>(itsources, <a class="code hl_define" href="group___i2_c___interrupt__configuration__definition.html#gadba3667b439cbf4ba1e6e9aec961ab03">I2C_IT_ERR</a>) != <a class="code hl_enumvalue" href="group___exported__types.html#gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05">RESET</a>))</div>
+<div class="line"><span class="lineno"> 5067</span>  {</div>
+<div class="line"><span class="lineno"> 5068</span>    <a class="code hl_variable" href="main_8c.html#a435d80d6e18cdc373bc78289eefca9ec">error</a> |= <a class="code hl_define" href="group___i2_c___error___code__definition.html#gab9f6e39431ee764ada50fd63f0ad2fbf">HAL_I2C_ERROR_BERR</a>;</div>
+<div class="line"><span class="lineno"> 5069</span> </div>
+<div class="line"><span class="lineno"> 5070</span>    <span class="comment">/* Clear BERR flag */</span></div>
+<div class="line"><span class="lineno"> 5071</span>    <a class="code hl_define" href="group___i2_c___exported___macros.html#ga933e2ea67e86db857a06b70a93be1186">__HAL_I2C_CLEAR_FLAG</a>(hi2c, <a class="code hl_define" href="group___i2_c___flag__definition.html#ga0454176b6ddd5c402abc3ef5953a21ad">I2C_FLAG_BERR</a>);</div>
+<div class="line"><span class="lineno"> 5072</span> </div>
+<div class="line"><span class="lineno"> 5073</span>    <span class="comment">/* Workaround: Start cannot be generated after a misplaced Stop */</span></div>
+<div class="line"><span class="lineno"> 5074</span>    <a class="code hl_define" href="group___exported__macros.html#ga26474f43799fbade9cf300e21dd3a91a">SET_BIT</a>(hi2c-&gt;<a class="code hl_variable" href="struct_i2_c___handle_type_def.html#ad83b15a12a41fb3958c55085adf931dd">Instance</a>-&gt;<a class="code hl_variable" href="struct_i2_c___type_def.html#aad25a5e7db9084d99bcb471ce1773584">CR1</a>, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#ga8dc661ef13da02e5bcb943f2003d576d">I2C_CR1_SWRST</a>);</div>
+<div class="line"><span class="lineno"> 5075</span>  }</div>
+<div class="line"><span class="lineno"> 5076</span> </div>
+<div class="line"><span class="lineno"> 5077</span>  <span class="comment">/* I2C Arbitration Lost error interrupt occurred ---------------------------*/</span></div>
+<div class="line"><span class="lineno"> 5078</span>  <span class="keywordflow">if</span> ((<a class="code hl_define" href="group___i2_c___i_s___r_t_c___definitions.html#ga31873e0595e29c80cffe00c2d2e073ab">I2C_CHECK_FLAG</a>(sr1itflags, <a class="code hl_define" href="group___i2_c___flag__definition.html#gae1e67936f4780e42b8bbe04ac9c20a7b">I2C_FLAG_ARLO</a>) != <a class="code hl_enumvalue" href="group___exported__types.html#gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05">RESET</a>) &amp;&amp; (<a class="code hl_define" href="group___i2_c___i_s___r_t_c___definitions.html#gacc7c83a67d99d759923c6907f1a1751f">I2C_CHECK_IT_SOURCE</a>(itsources, <a class="code hl_define" href="group___i2_c___interrupt__configuration__definition.html#gadba3667b439cbf4ba1e6e9aec961ab03">I2C_IT_ERR</a>) != <a class="code hl_enumvalue" href="group___exported__types.html#gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05">RESET</a>))</div>
+<div class="line"><span class="lineno"> 5079</span>  {</div>
+<div class="line"><span class="lineno"> 5080</span>    <a class="code hl_variable" href="main_8c.html#a435d80d6e18cdc373bc78289eefca9ec">error</a> |= <a class="code hl_define" href="group___i2_c___error___code__definition.html#ga048b36222884bfe80ce2d37fa868690b">HAL_I2C_ERROR_ARLO</a>;</div>
+<div class="line"><span class="lineno"> 5081</span> </div>
+<div class="line"><span class="lineno"> 5082</span>    <span class="comment">/* Clear ARLO flag */</span></div>
+<div class="line"><span class="lineno"> 5083</span>    <a class="code hl_define" href="group___i2_c___exported___macros.html#ga933e2ea67e86db857a06b70a93be1186">__HAL_I2C_CLEAR_FLAG</a>(hi2c, <a class="code hl_define" href="group___i2_c___flag__definition.html#gae1e67936f4780e42b8bbe04ac9c20a7b">I2C_FLAG_ARLO</a>);</div>
+<div class="line"><span class="lineno"> 5084</span>  }</div>
+<div class="line"><span class="lineno"> 5085</span> </div>
+<div class="line"><span class="lineno"> 5086</span>  <span class="comment">/* I2C Acknowledge failure error interrupt occurred ------------------------*/</span></div>
+<div class="line"><span class="lineno"> 5087</span>  <span class="keywordflow">if</span> ((<a class="code hl_define" href="group___i2_c___i_s___r_t_c___definitions.html#ga31873e0595e29c80cffe00c2d2e073ab">I2C_CHECK_FLAG</a>(sr1itflags, <a class="code hl_define" href="group___i2_c___flag__definition.html#ga2f89dbba9b964e6ade1480705e7a97d4">I2C_FLAG_AF</a>) != <a class="code hl_enumvalue" href="group___exported__types.html#gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05">RESET</a>) &amp;&amp; (<a class="code hl_define" href="group___i2_c___i_s___r_t_c___definitions.html#gacc7c83a67d99d759923c6907f1a1751f">I2C_CHECK_IT_SOURCE</a>(itsources, <a class="code hl_define" href="group___i2_c___interrupt__configuration__definition.html#gadba3667b439cbf4ba1e6e9aec961ab03">I2C_IT_ERR</a>) != <a class="code hl_enumvalue" href="group___exported__types.html#gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05">RESET</a>))</div>
+<div class="line"><span class="lineno"> 5088</span>  {</div>
+<div class="line"><span class="lineno"> 5089</span>    tmp1 = CurrentMode;</div>
+<div class="line"><span class="lineno"> 5090</span>    tmp2 = hi2c-&gt;<a class="code hl_variable" href="struct_i2_c___handle_type_def.html#a0cee9b9e6117118c0054e2fdfe3c008a">XferCount</a>;</div>
+<div class="line"><span class="lineno"> 5091</span>    tmp3 = hi2c-&gt;<a class="code hl_variable" href="struct_i2_c___handle_type_def.html#a81143e877c3550f15dbf8b285e4eaee6">State</a>;</div>
+<div class="line"><span class="lineno"> 5092</span>    tmp4 = hi2c-&gt;<a class="code hl_variable" href="struct_i2_c___handle_type_def.html#afcd728d6d60533c6e94f9743bcbe09b6">PreviousState</a>;</div>
+<div class="line"><span class="lineno"> 5093</span>    <span class="keywordflow">if</span> ((tmp1 == <a class="code hl_enumvalue" href="group___h_a_l__mode__structure__definition.html#ggabcbb7b844f2ffd63c4e530c117882062a817358d19d278261f2047a5ec8ec6b53">HAL_I2C_MODE_SLAVE</a>) &amp;&amp; (tmp2 == 0U) &amp;&amp; \</div>
+<div class="line"><span class="lineno"> 5094</span>        ((tmp3 == <a class="code hl_enumvalue" href="group___h_a_l__state__structure__definition.html#ggaef355af8eab251ae2a19ee164ad81c37acb3a9e3d4d1076e0f4e65f91ca0161bc">HAL_I2C_STATE_BUSY_TX</a>) || (tmp3 == <a class="code hl_enumvalue" href="group___h_a_l__state__structure__definition.html#ggaef355af8eab251ae2a19ee164ad81c37a14d22553a60819b276582e08459f30b0">HAL_I2C_STATE_BUSY_TX_LISTEN</a>) || \</div>
+<div class="line"><span class="lineno"> 5095</span>         ((tmp3 == <a class="code hl_enumvalue" href="group___h_a_l__state__structure__definition.html#ggaef355af8eab251ae2a19ee164ad81c37a13518f06f54c7515100e86bb8d6e0779">HAL_I2C_STATE_LISTEN</a>) &amp;&amp; (tmp4 == <a class="code hl_define" href="group___i2_c___private___define.html#ga18073cb0c7dee602da82701b86f026e6">I2C_STATE_SLAVE_BUSY_TX</a>))))</div>
+<div class="line"><span class="lineno"> 5096</span>    {</div>
+<div class="line"><span class="lineno"> 5097</span>      <a class="code hl_function" href="group___i2_c___private___functions.html#gae3f5c2149004e8ffaeebd438ee465769">I2C_Slave_AF</a>(hi2c);</div>
+<div class="line"><span class="lineno"> 5098</span>    }</div>
+<div class="line"><span class="lineno"> 5099</span>    <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno"> 5100</span>    {</div>
+<div class="line"><span class="lineno"> 5101</span>      <span class="comment">/* Clear AF flag */</span></div>
+<div class="line"><span class="lineno"> 5102</span>      <a class="code hl_define" href="group___i2_c___exported___macros.html#ga933e2ea67e86db857a06b70a93be1186">__HAL_I2C_CLEAR_FLAG</a>(hi2c, <a class="code hl_define" href="group___i2_c___flag__definition.html#ga2f89dbba9b964e6ade1480705e7a97d4">I2C_FLAG_AF</a>);</div>
+<div class="line"><span class="lineno"> 5103</span> </div>
+<div class="line"><span class="lineno"> 5104</span>      <a class="code hl_variable" href="main_8c.html#a435d80d6e18cdc373bc78289eefca9ec">error</a> |= <a class="code hl_define" href="group___i2_c___error___code__definition.html#gad1cc236ad6ba5cafe66aecb0dbedc65a">HAL_I2C_ERROR_AF</a>;</div>
+<div class="line"><span class="lineno"> 5105</span> </div>
+<div class="line"><span class="lineno"> 5106</span>      <span class="comment">/* Do not generate a STOP in case of Slave receive non acknowledge during transfer (mean not at the end of transfer) */</span></div>
+<div class="line"><span class="lineno"> 5107</span>      <span class="keywordflow">if</span> ((CurrentMode == <a class="code hl_enumvalue" href="group___h_a_l__mode__structure__definition.html#ggabcbb7b844f2ffd63c4e530c117882062a1eea98660a170dd7b191c9dfe46da6d2">HAL_I2C_MODE_MASTER</a>) || (CurrentMode == <a class="code hl_enumvalue" href="group___h_a_l__mode__structure__definition.html#ggabcbb7b844f2ffd63c4e530c117882062a3f592bd942f973242aac6b7df79f3f1e">HAL_I2C_MODE_MEM</a>))</div>
+<div class="line"><span class="lineno"> 5108</span>      {</div>
+<div class="line"><span class="lineno"> 5109</span>        <span class="comment">/* Generate Stop */</span></div>
+<div class="line"><span class="lineno"> 5110</span>        <a class="code hl_define" href="group___exported__macros.html#ga26474f43799fbade9cf300e21dd3a91a">SET_BIT</a>(hi2c-&gt;<a class="code hl_variable" href="struct_i2_c___handle_type_def.html#ad83b15a12a41fb3958c55085adf931dd">Instance</a>-&gt;<a class="code hl_variable" href="struct_i2_c___type_def.html#aad25a5e7db9084d99bcb471ce1773584">CR1</a>, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#gace70293f3dfa24d448b600fc58e45223">I2C_CR1_STOP</a>);</div>
+<div class="line"><span class="lineno"> 5111</span>      }</div>
+<div class="line"><span class="lineno"> 5112</span>    }</div>
+<div class="line"><span class="lineno"> 5113</span>  }</div>
+<div class="line"><span class="lineno"> 5114</span> </div>
+<div class="line"><span class="lineno"> 5115</span>  <span class="comment">/* I2C Over-Run/Under-Run interrupt occurred -------------------------------*/</span></div>
+<div class="line"><span class="lineno"> 5116</span>  <span class="keywordflow">if</span> ((<a class="code hl_define" href="group___i2_c___i_s___r_t_c___definitions.html#ga31873e0595e29c80cffe00c2d2e073ab">I2C_CHECK_FLAG</a>(sr1itflags, <a class="code hl_define" href="group___i2_c___flag__definition.html#gab579673c8ac920db199aa7f18e547fb3">I2C_FLAG_OVR</a>) != <a class="code hl_enumvalue" href="group___exported__types.html#gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05">RESET</a>) &amp;&amp; (<a class="code hl_define" href="group___i2_c___i_s___r_t_c___definitions.html#gacc7c83a67d99d759923c6907f1a1751f">I2C_CHECK_IT_SOURCE</a>(itsources, <a class="code hl_define" href="group___i2_c___interrupt__configuration__definition.html#gadba3667b439cbf4ba1e6e9aec961ab03">I2C_IT_ERR</a>) != <a class="code hl_enumvalue" href="group___exported__types.html#gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05">RESET</a>))</div>
+<div class="line"><span class="lineno"> 5117</span>  {</div>
+<div class="line"><span class="lineno"> 5118</span>    <a class="code hl_variable" href="main_8c.html#a435d80d6e18cdc373bc78289eefca9ec">error</a> |= <a class="code hl_define" href="group___i2_c___error___code__definition.html#ga38d8f9beb4c681eba786f6154d4f594a">HAL_I2C_ERROR_OVR</a>;</div>
+<div class="line"><span class="lineno"> 5119</span>    <span class="comment">/* Clear OVR flag */</span></div>
+<div class="line"><span class="lineno"> 5120</span>    <a class="code hl_define" href="group___i2_c___exported___macros.html#ga933e2ea67e86db857a06b70a93be1186">__HAL_I2C_CLEAR_FLAG</a>(hi2c, <a class="code hl_define" href="group___i2_c___flag__definition.html#gab579673c8ac920db199aa7f18e547fb3">I2C_FLAG_OVR</a>);</div>
+<div class="line"><span class="lineno"> 5121</span>  }</div>
+<div class="line"><span class="lineno"> 5122</span> </div>
+<div class="line"><span class="lineno"> 5123</span>  <span class="comment">/* Call the Error Callback in case of Error detected -----------------------*/</span></div>
+<div class="line"><span class="lineno"> 5124</span>  <span class="keywordflow">if</span> (<a class="code hl_variable" href="main_8c.html#a435d80d6e18cdc373bc78289eefca9ec">error</a> != <a class="code hl_define" href="group___i2_c___error___code__definition.html#ga0b8ca289091d942032c89484b6211d0d">HAL_I2C_ERROR_NONE</a>)</div>
+<div class="line"><span class="lineno"> 5125</span>  {</div>
+<div class="line"><span class="lineno"> 5126</span>    hi2c-&gt;<a class="code hl_variable" href="struct_i2_c___handle_type_def.html#af3d0adb5083bd3cfbbf13c1607aea528">ErrorCode</a> |= <a class="code hl_variable" href="main_8c.html#a435d80d6e18cdc373bc78289eefca9ec">error</a>;</div>
+<div class="line"><span class="lineno"> 5127</span>    <a class="code hl_function" href="group___i2_c___private___functions.html#ga3588d28323cb0fb777ddfff3262e4104">I2C_ITError</a>(hi2c);</div>
+<div class="line"><span class="lineno"> 5128</span>  }</div>
+<div class="line"><span class="lineno"> 5129</span>}</div>
+<div class="ttc" id="agroup___exported__macros_html_ga26474f43799fbade9cf300e21dd3a91a"><div class="ttname"><a href="group___exported__macros.html#ga26474f43799fbade9cf300e21dd3a91a">SET_BIT</a></div><div class="ttdeci">#define SET_BIT(REG, BIT)</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx_8h_source.html#l00177">stm32f1xx.h:177</a></div></div>
+<div class="ttc" id="agroup___exported__macros_html_gae7f188a4d26c9e713a48414783421071"><div class="ttname"><a href="group___exported__macros.html#gae7f188a4d26c9e713a48414783421071">READ_REG</a></div><div class="ttdeci">#define READ_REG(REG)</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx_8h_source.html#l00187">stm32f1xx.h:187</a></div></div>
+<div class="ttc" id="agroup___exported__types_html_gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05"><div class="ttname"><a href="group___exported__types.html#gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05">RESET</a></div><div class="ttdeci">@ RESET</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx_8h_source.html#l00152">stm32f1xx.h:152</a></div></div>
+<div class="ttc" id="agroup___h_a_l__mode__structure__definition_html_gabcbb7b844f2ffd63c4e530c117882062"><div class="ttname"><a href="group___h_a_l__mode__structure__definition.html#gabcbb7b844f2ffd63c4e530c117882062">HAL_I2C_ModeTypeDef</a></div><div class="ttdeci">HAL_I2C_ModeTypeDef</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8h_source.html#l00146">stm32f1xx_hal_i2c.h:147</a></div></div>
+<div class="ttc" id="agroup___h_a_l__mode__structure__definition_html_ggabcbb7b844f2ffd63c4e530c117882062a1eea98660a170dd7b191c9dfe46da6d2"><div class="ttname"><a href="group___h_a_l__mode__structure__definition.html#ggabcbb7b844f2ffd63c4e530c117882062a1eea98660a170dd7b191c9dfe46da6d2">HAL_I2C_MODE_MASTER</a></div><div class="ttdeci">@ HAL_I2C_MODE_MASTER</div><div class="ttdoc">I2C communication is in Master Mode.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8h_source.html#l00149">stm32f1xx_hal_i2c.h:149</a></div></div>
+<div class="ttc" id="agroup___h_a_l__mode__structure__definition_html_ggabcbb7b844f2ffd63c4e530c117882062a3f592bd942f973242aac6b7df79f3f1e"><div class="ttname"><a href="group___h_a_l__mode__structure__definition.html#ggabcbb7b844f2ffd63c4e530c117882062a3f592bd942f973242aac6b7df79f3f1e">HAL_I2C_MODE_MEM</a></div><div class="ttdeci">@ HAL_I2C_MODE_MEM</div><div class="ttdoc">I2C communication is in Memory Mode.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8h_source.html#l00151">stm32f1xx_hal_i2c.h:151</a></div></div>
+<div class="ttc" id="agroup___h_a_l__mode__structure__definition_html_ggabcbb7b844f2ffd63c4e530c117882062a817358d19d278261f2047a5ec8ec6b53"><div class="ttname"><a href="group___h_a_l__mode__structure__definition.html#ggabcbb7b844f2ffd63c4e530c117882062a817358d19d278261f2047a5ec8ec6b53">HAL_I2C_MODE_SLAVE</a></div><div class="ttdeci">@ HAL_I2C_MODE_SLAVE</div><div class="ttdoc">I2C communication is in Slave Mode.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8h_source.html#l00150">stm32f1xx_hal_i2c.h:150</a></div></div>
+<div class="ttc" id="agroup___h_a_l__state__structure__definition_html_gaef355af8eab251ae2a19ee164ad81c37"><div class="ttname"><a href="group___h_a_l__state__structure__definition.html#gaef355af8eab251ae2a19ee164ad81c37">HAL_I2C_StateTypeDef</a></div><div class="ttdeci">HAL_I2C_StateTypeDef</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8h_source.html#l00106">stm32f1xx_hal_i2c.h:107</a></div></div>
+<div class="ttc" id="agroup___h_a_l__state__structure__definition_html_ggaef355af8eab251ae2a19ee164ad81c37a13518f06f54c7515100e86bb8d6e0779"><div class="ttname"><a href="group___h_a_l__state__structure__definition.html#ggaef355af8eab251ae2a19ee164ad81c37a13518f06f54c7515100e86bb8d6e0779">HAL_I2C_STATE_LISTEN</a></div><div class="ttdeci">@ HAL_I2C_STATE_LISTEN</div><div class="ttdoc">Address Listen Mode is ongoing.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8h_source.html#l00113">stm32f1xx_hal_i2c.h:113</a></div></div>
+<div class="ttc" id="agroup___h_a_l__state__structure__definition_html_ggaef355af8eab251ae2a19ee164ad81c37a14d22553a60819b276582e08459f30b0"><div class="ttname"><a href="group___h_a_l__state__structure__definition.html#ggaef355af8eab251ae2a19ee164ad81c37a14d22553a60819b276582e08459f30b0">HAL_I2C_STATE_BUSY_TX_LISTEN</a></div><div class="ttdeci">@ HAL_I2C_STATE_BUSY_TX_LISTEN</div><div class="ttdoc">Address Listen Mode and Data Transmission process is ongoing.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8h_source.html#l00114">stm32f1xx_hal_i2c.h:114</a></div></div>
+<div class="ttc" id="agroup___h_a_l__state__structure__definition_html_ggaef355af8eab251ae2a19ee164ad81c37acb3a9e3d4d1076e0f4e65f91ca0161bc"><div class="ttname"><a href="group___h_a_l__state__structure__definition.html#ggaef355af8eab251ae2a19ee164ad81c37acb3a9e3d4d1076e0f4e65f91ca0161bc">HAL_I2C_STATE_BUSY_TX</a></div><div class="ttdeci">@ HAL_I2C_STATE_BUSY_TX</div><div class="ttdoc">Data Transmission process is ongoing.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8h_source.html#l00111">stm32f1xx_hal_i2c.h:111</a></div></div>
+<div class="ttc" id="agroup___i2_c___error___code__definition_html_ga048b36222884bfe80ce2d37fa868690b"><div class="ttname"><a href="group___i2_c___error___code__definition.html#ga048b36222884bfe80ce2d37fa868690b">HAL_I2C_ERROR_ARLO</a></div><div class="ttdeci">#define HAL_I2C_ERROR_ARLO</div><div class="ttdoc">ARLO error.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8h_source.html#l00165">stm32f1xx_hal_i2c.h:165</a></div></div>
+<div class="ttc" id="agroup___i2_c___error___code__definition_html_ga0b8ca289091d942032c89484b6211d0d"><div class="ttname"><a href="group___i2_c___error___code__definition.html#ga0b8ca289091d942032c89484b6211d0d">HAL_I2C_ERROR_NONE</a></div><div class="ttdeci">#define HAL_I2C_ERROR_NONE</div><div class="ttdoc">No error.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8h_source.html#l00163">stm32f1xx_hal_i2c.h:163</a></div></div>
+<div class="ttc" id="agroup___i2_c___error___code__definition_html_ga38d8f9beb4c681eba786f6154d4f594a"><div class="ttname"><a href="group___i2_c___error___code__definition.html#ga38d8f9beb4c681eba786f6154d4f594a">HAL_I2C_ERROR_OVR</a></div><div class="ttdeci">#define HAL_I2C_ERROR_OVR</div><div class="ttdoc">OVR error.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8h_source.html#l00167">stm32f1xx_hal_i2c.h:167</a></div></div>
+<div class="ttc" id="agroup___i2_c___error___code__definition_html_gab9f6e39431ee764ada50fd63f0ad2fbf"><div class="ttname"><a href="group___i2_c___error___code__definition.html#gab9f6e39431ee764ada50fd63f0ad2fbf">HAL_I2C_ERROR_BERR</a></div><div class="ttdeci">#define HAL_I2C_ERROR_BERR</div><div class="ttdoc">BERR error.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8h_source.html#l00164">stm32f1xx_hal_i2c.h:164</a></div></div>
+<div class="ttc" id="agroup___i2_c___error___code__definition_html_gad1cc236ad6ba5cafe66aecb0dbedc65a"><div class="ttname"><a href="group___i2_c___error___code__definition.html#gad1cc236ad6ba5cafe66aecb0dbedc65a">HAL_I2C_ERROR_AF</a></div><div class="ttdeci">#define HAL_I2C_ERROR_AF</div><div class="ttdoc">AF error.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8h_source.html#l00166">stm32f1xx_hal_i2c.h:166</a></div></div>
+<div class="ttc" id="agroup___i2_c___exported___macros_html_ga933e2ea67e86db857a06b70a93be1186"><div class="ttname"><a href="group___i2_c___exported___macros.html#ga933e2ea67e86db857a06b70a93be1186">__HAL_I2C_CLEAR_FLAG</a></div><div class="ttdeci">#define __HAL_I2C_CLEAR_FLAG(__HANDLE__, __FLAG__)</div><div class="ttdoc">Clears the I2C pending flags which are cleared by writing 0 in a specific bit.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8h_source.html#l00489">stm32f1xx_hal_i2c.h:489</a></div></div>
+<div class="ttc" id="agroup___i2_c___flag__definition_html_ga0454176b6ddd5c402abc3ef5953a21ad"><div class="ttname"><a href="group___i2_c___flag__definition.html#ga0454176b6ddd5c402abc3ef5953a21ad">I2C_FLAG_BERR</a></div><div class="ttdeci">#define I2C_FLAG_BERR</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8h_source.html#l00388">stm32f1xx_hal_i2c.h:388</a></div></div>
+<div class="ttc" id="agroup___i2_c___flag__definition_html_ga2f89dbba9b964e6ade1480705e7a97d4"><div class="ttname"><a href="group___i2_c___flag__definition.html#ga2f89dbba9b964e6ade1480705e7a97d4">I2C_FLAG_AF</a></div><div class="ttdeci">#define I2C_FLAG_AF</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8h_source.html#l00386">stm32f1xx_hal_i2c.h:386</a></div></div>
+<div class="ttc" id="agroup___i2_c___flag__definition_html_gab579673c8ac920db199aa7f18e547fb3"><div class="ttname"><a href="group___i2_c___flag__definition.html#gab579673c8ac920db199aa7f18e547fb3">I2C_FLAG_OVR</a></div><div class="ttdeci">#define I2C_FLAG_OVR</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8h_source.html#l00385">stm32f1xx_hal_i2c.h:385</a></div></div>
+<div class="ttc" id="agroup___i2_c___flag__definition_html_gae1e67936f4780e42b8bbe04ac9c20a7b"><div class="ttname"><a href="group___i2_c___flag__definition.html#gae1e67936f4780e42b8bbe04ac9c20a7b">I2C_FLAG_ARLO</a></div><div class="ttdeci">#define I2C_FLAG_ARLO</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8h_source.html#l00387">stm32f1xx_hal_i2c.h:387</a></div></div>
+<div class="ttc" id="agroup___i2_c___i_s___r_t_c___definitions_html_ga31873e0595e29c80cffe00c2d2e073ab"><div class="ttname"><a href="group___i2_c___i_s___r_t_c___definitions.html#ga31873e0595e29c80cffe00c2d2e073ab">I2C_CHECK_FLAG</a></div><div class="ttdeci">#define I2C_CHECK_FLAG(__ISR__, __FLAG__)</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8h_source.html#l00705">stm32f1xx_hal_i2c.h:705</a></div></div>
+<div class="ttc" id="agroup___i2_c___i_s___r_t_c___definitions_html_gacc7c83a67d99d759923c6907f1a1751f"><div class="ttname"><a href="group___i2_c___i_s___r_t_c___definitions.html#gacc7c83a67d99d759923c6907f1a1751f">I2C_CHECK_IT_SOURCE</a></div><div class="ttdeci">#define I2C_CHECK_IT_SOURCE(__CR1__, __IT__)</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8h_source.html#l00706">stm32f1xx_hal_i2c.h:706</a></div></div>
+<div class="ttc" id="agroup___i2_c___interrupt__configuration__definition_html_gadba3667b439cbf4ba1e6e9aec961ab03"><div class="ttname"><a href="group___i2_c___interrupt__configuration__definition.html#gadba3667b439cbf4ba1e6e9aec961ab03">I2C_IT_ERR</a></div><div class="ttdeci">#define I2C_IT_ERR</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8h_source.html#l00376">stm32f1xx_hal_i2c.h:376</a></div></div>
+<div class="ttc" id="agroup___i2_c___private___define_html_ga18073cb0c7dee602da82701b86f026e6"><div class="ttname"><a href="group___i2_c___private___define.html#ga18073cb0c7dee602da82701b86f026e6">I2C_STATE_SLAVE_BUSY_TX</a></div><div class="ttdeci">#define I2C_STATE_SLAVE_BUSY_TX</div><div class="ttdoc">Slave Busy TX, combinaison of State LSB and Mode enum.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8c_source.html#l00347">stm32f1xx_hal_i2c.c:347</a></div></div>
+<div class="ttc" id="agroup___i2_c___private___functions_html_ga3588d28323cb0fb777ddfff3262e4104"><div class="ttname"><a href="group___i2_c___private___functions.html#ga3588d28323cb0fb777ddfff3262e4104">I2C_ITError</a></div><div class="ttdeci">static void I2C_ITError(I2C_HandleTypeDef *hi2c)</div><div class="ttdoc">I2C interrupts error process.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8c_source.html#l06515">stm32f1xx_hal_i2c.c:6515</a></div></div>
+<div class="ttc" id="agroup___i2_c___private___functions_html_gae3f5c2149004e8ffaeebd438ee465769"><div class="ttname"><a href="group___i2_c___private___functions.html#gae3f5c2149004e8ffaeebd438ee465769">I2C_Slave_AF</a></div><div class="ttdeci">static void I2C_Slave_AF(I2C_HandleTypeDef *hi2c)</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8c_source.html#l06446">stm32f1xx_hal_i2c.c:6446</a></div></div>
+<div class="ttc" id="agroup___peripheral___registers___bits___definition_html_ga8dc661ef13da02e5bcb943f2003d576d"><div class="ttname"><a href="group___peripheral___registers___bits___definition.html#ga8dc661ef13da02e5bcb943f2003d576d">I2C_CR1_SWRST</a></div><div class="ttdeci">#define I2C_CR1_SWRST</div><div class="ttdoc">Software Reset.</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l09252">stm32f103xb.h:9252</a></div></div>
+<div class="ttc" id="agroup___peripheral___registers___bits___definition_html_gace70293f3dfa24d448b600fc58e45223"><div class="ttname"><a href="group___peripheral___registers___bits___definition.html#gace70293f3dfa24d448b600fc58e45223">I2C_CR1_STOP</a></div><div class="ttdeci">#define I2C_CR1_STOP</div><div class="ttdoc">Stop Generation.</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l09237">stm32f103xb.h:9237</a></div></div>
+<div class="ttc" id="amain_8c_html_a435d80d6e18cdc373bc78289eefca9ec"><div class="ttname"><a href="main_8c.html#a435d80d6e18cdc373bc78289eefca9ec">error</a></div><div class="ttdeci">int32_t error</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00405">main.c:405</a></div></div>
+<div class="ttc" id="astruct_i2_c___handle_type_def_html_a0cee9b9e6117118c0054e2fdfe3c008a"><div class="ttname"><a href="struct_i2_c___handle_type_def.html#a0cee9b9e6117118c0054e2fdfe3c008a">I2C_HandleTypeDef::XferCount</a></div><div class="ttdeci">volatile uint16_t XferCount</div><div class="ttdoc">&lt; Defines &#39;read / write&#39; permissions</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8h_source.html#l00198">stm32f1xx_hal_i2c.h:198</a></div></div>
+<div class="ttc" id="astruct_i2_c___handle_type_def_html_a81143e877c3550f15dbf8b285e4eaee6"><div class="ttname"><a href="struct_i2_c___handle_type_def.html#a81143e877c3550f15dbf8b285e4eaee6">I2C_HandleTypeDef::State</a></div><div class="ttdeci">volatile HAL_I2C_StateTypeDef State</div><div class="ttdoc">&lt; Defines &#39;read / write&#39; permissions</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8h_source.html#l00211">stm32f1xx_hal_i2c.h:211</a></div></div>
+<div class="ttc" id="astruct_i2_c___handle_type_def_html_a8d7e007aa2b72428703613edefb47200"><div class="ttname"><a href="struct_i2_c___handle_type_def.html#a8d7e007aa2b72428703613edefb47200">I2C_HandleTypeDef::Mode</a></div><div class="ttdeci">volatile HAL_I2C_ModeTypeDef Mode</div><div class="ttdoc">&lt; Defines &#39;read / write&#39; permissions</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8h_source.html#l00213">stm32f1xx_hal_i2c.h:213</a></div></div>
+<div class="ttc" id="astruct_i2_c___handle_type_def_html_ad83b15a12a41fb3958c55085adf931dd"><div class="ttname"><a href="struct_i2_c___handle_type_def.html#ad83b15a12a41fb3958c55085adf931dd">I2C_HandleTypeDef::Instance</a></div><div class="ttdeci">I2C_TypeDef * Instance</div><div class="ttdoc">I2C registers base address.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8h_source.html#l00190">stm32f1xx_hal_i2c.h:190</a></div></div>
+<div class="ttc" id="astruct_i2_c___handle_type_def_html_af3d0adb5083bd3cfbbf13c1607aea528"><div class="ttname"><a href="struct_i2_c___handle_type_def.html#af3d0adb5083bd3cfbbf13c1607aea528">I2C_HandleTypeDef::ErrorCode</a></div><div class="ttdeci">volatile uint32_t ErrorCode</div><div class="ttdoc">&lt; Defines &#39;read / write&#39; permissions</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8h_source.html#l00215">stm32f1xx_hal_i2c.h:215</a></div></div>
+<div class="ttc" id="astruct_i2_c___handle_type_def_html_afcd728d6d60533c6e94f9743bcbe09b6"><div class="ttname"><a href="struct_i2_c___handle_type_def.html#afcd728d6d60533c6e94f9743bcbe09b6">I2C_HandleTypeDef::PreviousState</a></div><div class="ttdeci">volatile uint32_t PreviousState</div><div class="ttdoc">&lt; Defines &#39;read / write&#39; permissions</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8h_source.html#l00202">stm32f1xx_hal_i2c.h:202</a></div></div>
+<div class="ttc" id="astruct_i2_c___type_def_html_a1df3df299001d46702436167d4a02eeb"><div class="ttname"><a href="struct_i2_c___type_def.html#a1df3df299001d46702436167d4a02eeb">I2C_TypeDef::CR2</a></div><div class="ttdeci">volatile uint32_t CR2</div><div class="ttdoc">&lt; Defines &#39;read / write&#39; permissions</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l00387">stm32f103xb.h:387</a></div></div>
+<div class="ttc" id="astruct_i2_c___type_def_html_a9d1be1c0155534aaac27f3c232da20bf"><div class="ttname"><a href="struct_i2_c___type_def.html#a9d1be1c0155534aaac27f3c232da20bf">I2C_TypeDef::SR1</a></div><div class="ttdeci">volatile uint32_t SR1</div><div class="ttdoc">&lt; Defines &#39;read / write&#39; permissions</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l00391">stm32f103xb.h:391</a></div></div>
+<div class="ttc" id="astruct_i2_c___type_def_html_aad25a5e7db9084d99bcb471ce1773584"><div class="ttname"><a href="struct_i2_c___type_def.html#aad25a5e7db9084d99bcb471ce1773584">I2C_TypeDef::CR1</a></div><div class="ttdeci">volatile uint32_t CR1</div><div class="ttdoc">&lt; Defines &#39;read / write&#39; permissions</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l00386">stm32f103xb.h:386</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__hal__i2c_8h_source.html#l00489">__HAL_I2C_CLEAR_FLAG</a>, <a class="el" href="stm32f103xb_8h_source.html#l00386">I2C_TypeDef::CR1</a>, <a class="el" href="stm32f103xb_8h_source.html#l00387">I2C_TypeDef::CR2</a>, <a class="el" href="main_8c_source.html#l00405">error</a>, <a class="el" href="stm32f1xx__hal__i2c_8h_source.html#l00215">I2C_HandleTypeDef::ErrorCode</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l05054">HAL_I2C_ER_IRQHandler()</a>, <a class="el" href="stm32f1xx__hal__i2c_8h_source.html#l00166">HAL_I2C_ERROR_AF</a>, <a class="el" href="stm32f1xx__hal__i2c_8h_source.html#l00165">HAL_I2C_ERROR_ARLO</a>, <a class="el" href="stm32f1xx__hal__i2c_8h_source.html#l00164">HAL_I2C_ERROR_BERR</a>, <a class="el" href="stm32f1xx__hal__i2c_8h_source.html#l00163">HAL_I2C_ERROR_NONE</a>, <a class="el" href="stm32f1xx__hal__i2c_8h_source.html#l00167">HAL_I2C_ERROR_OVR</a>, <a class="el" href="stm32f1xx__hal__i2c_8h_source.html#l00149">HAL_I2C_MODE_MASTER</a>, <a class="el" href="stm32f1xx__hal__i2c_8h_source.html#l00151">HAL_I2C_MODE_MEM</a>, <a class="el" href="stm32f1xx__hal__i2c_8h_source.html#l00150">HAL_I2C_MODE_SLAVE</a>, <a class="el" href="stm32f1xx__hal__i2c_8h_source.html#l00111">HAL_I2C_STATE_BUSY_TX</a>, <a class="el" href="stm32f1xx__hal__i2c_8h_source.html#l00114">HAL_I2C_STATE_BUSY_TX_LISTEN</a>, <a class="el" href="stm32f1xx__hal__i2c_8h_source.html#l00113">HAL_I2C_STATE_LISTEN</a>, <a class="el" href="stm32f1xx__hal__i2c_8h_source.html#l00705">I2C_CHECK_FLAG</a>, <a class="el" href="stm32f1xx__hal__i2c_8h_source.html#l00706">I2C_CHECK_IT_SOURCE</a>, <a class="el" href="stm32f103xb_8h_source.html#l09237">I2C_CR1_STOP</a>, <a class="el" href="stm32f103xb_8h_source.html#l09252">I2C_CR1_SWRST</a>, <a class="el" href="stm32f1xx__hal__i2c_8h_source.html#l00386">I2C_FLAG_AF</a>, <a class="el" href="stm32f1xx__hal__i2c_8h_source.html#l00387">I2C_FLAG_ARLO</a>, <a class="el" href="stm32f1xx__hal__i2c_8h_source.html#l00388">I2C_FLAG_BERR</a>, <a class="el" href="stm32f1xx__hal__i2c_8h_source.html#l00385">I2C_FLAG_OVR</a>, <a class="el" href="stm32f1xx__hal__i2c_8h_source.html#l00376">I2C_IT_ERR</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l06515">I2C_ITError()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l06446">I2C_Slave_AF()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l00347">I2C_STATE_SLAVE_BUSY_TX</a>, <a class="el" href="stm32f1xx__hal__i2c_8h_source.html#l00190">I2C_HandleTypeDef::Instance</a>, <a class="el" href="stm32f1xx__hal__i2c_8h_source.html#l00213">I2C_HandleTypeDef::Mode</a>, <a class="el" href="stm32f1xx__hal__i2c_8h_source.html#l00202">I2C_HandleTypeDef::PreviousState</a>, <a class="el" href="stm32f1xx_8h_source.html#l00187">READ_REG</a>, <a class="el" href="stm32f1xx_8h_source.html#l00152">RESET</a>, <a class="el" href="stm32f1xx_8h_source.html#l00177">SET_BIT</a>, <a class="el" href="stm32f103xb_8h_source.html#l00391">I2C_TypeDef::SR1</a>, <a class="el" href="stm32f1xx__hal__i2c_8h_source.html#l00211">I2C_HandleTypeDef::State</a> y <a class="el" href="stm32f1xx__hal__i2c_8h_source.html#l00198">I2C_HandleTypeDef::XferCount</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l05054">HAL_I2C_ER_IRQHandler()</a> y <a class="el" href="stm32f1xx__it_8c_source.html#l00401">I2C2_ER_IRQHandler()</a>.</p>
+<div id="dynsection-5" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-5-summary" class="dynsummary">
+</div>
+<div id="dynsection-5-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___i2_c___i_r_q___handler__and___callbacks_ga78739c0d57d55034a9c8bc39c8ee6bc2_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div id="dynsection-6" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-6-summary" class="dynsummary">
+</div>
+<div id="dynsection-6-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___i2_c___i_r_q___handler__and___callbacks_ga78739c0d57d55034a9c8bc39c8ee6bc2_icgraph.svg" width="388" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ga2e0d4f2d78cfb6cc55fba5d5d67b7d21" name="ga2e0d4f2d78cfb6cc55fba5d5d67b7d21"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2e0d4f2d78cfb6cc55fba5d5d67b7d21">&#9670;&#160;</a></span>HAL_I2C_ErrorCallback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group___u_s_b_d___d_e_f___exported___macros.html#ga5181eb756a197a06d1c4ed1f40a065bc">__weak</a> void HAL_I2C_ErrorCallback </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_i2_c___handle_type_def.html">I2C_HandleTypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>hi2c</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__i2c_8h.html">stm32f1xx_hal_i2c.h</a>&quot;</code></p>
+
+<p>I2C error callback. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">hi2c</td><td>Pointer to a <a class="el" href="struct_i2_c___handle_type_def.html">I2C_HandleTypeDef</a> structure that contains the configuration information for the specified I2C. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l05268">5268</a> del archivo <a class="el" href="stm32f1xx__hal__i2c_8c_source.html">stm32f1xx_hal_i2c.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 5269</span>{</div>
+<div class="line"><span class="lineno"> 5270</span>  <span class="comment">/* Prevent unused argument(s) compilation warning */</span></div>
+<div class="line"><span class="lineno"> 5271</span>  UNUSED(hi2c);</div>
+<div class="line"><span class="lineno"> 5272</span> </div>
+<div class="line"><span class="lineno"> 5273</span>  <span class="comment">/* NOTE : This function should not be modified, when the callback is needed,</span></div>
+<div class="line"><span class="lineno"> 5274</span><span class="comment">            the HAL_I2C_ErrorCallback could be implemented in the user file</span></div>
+<div class="line"><span class="lineno"> 5275</span><span class="comment">   */</span></div>
+<div class="line"><span class="lineno"> 5276</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="usbd__def_8h_source.html#l00283">__weak</a> y <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l05268">HAL_I2C_ErrorCallback()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l05268">HAL_I2C_ErrorCallback()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l00463">HAL_I2C_Init()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l07220">I2C_DMAAbort()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l07185">I2C_DMAError()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l07040">I2C_DMAXferCplt()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l06515">I2C_ITError()</a> y <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l05625">I2C_MasterReceive_RXNE()</a>.</p>
+<div id="dynsection-7" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-7-summary" class="dynsummary">
+</div>
+<div id="dynsection-7-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___i2_c___i_r_q___handler__and___callbacks_ga2e0d4f2d78cfb6cc55fba5d5d67b7d21_cgraph.svg" width="172" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-8" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-8-summary" class="dynsummary">
+</div>
+<div id="dynsection-8-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___i2_c___i_r_q___handler__and___callbacks_ga2e0d4f2d78cfb6cc55fba5d5d67b7d21_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="ga0cd3cc56c83b85a65e31c945c854d9d5" name="ga0cd3cc56c83b85a65e31c945c854d9d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga0cd3cc56c83b85a65e31c945c854d9d5">&#9670;&#160;</a></span>HAL_I2C_EV_IRQHandler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void HAL_I2C_EV_IRQHandler </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_i2_c___handle_type_def.html">I2C_HandleTypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>hi2c</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__i2c_8h.html">stm32f1xx_hal_i2c.h</a>&quot;</code></p>
+
+<p>This function handles I2C event interrupt request. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">hi2c</td><td>Pointer to a <a class="el" href="struct_i2_c___handle_type_def.html">I2C_HandleTypeDef</a> structure that contains the configuration information for the specified I2C. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<p>&lt; 0x00000200</p>
+<p>&lt; Event Interrupt Enable</p>
+<p>&lt; 0x00000200</p>
+<p>&lt; Event Interrupt Enable</p>
+<p>&lt; 0x00000200</p>
+<p>&lt; Event Interrupt Enable</p>
+<p>&lt; 0x00000200</p>
+<p>&lt; Event Interrupt Enable</p>
+<p>&lt; 0x00000200</p>
+<p>&lt; Event Interrupt Enable</p>
+<p>&lt; 0x00000200</p>
+<p>&lt; Event Interrupt Enable</p>
+<p>&lt; 0x00000800</p>
+<p>&lt; DMA Requests Enable</p>
+<p>&lt; 0x00000800</p>
+<p>&lt; DMA Requests Enable</p>
+<p>&lt; 0x00000400</p>
+<p>&lt; Buffer Interrupt Enable</p>
+<p>&lt; 0x00000400</p>
+<p>&lt; Buffer Interrupt Enable</p>
+<p>&lt; 0x00000200</p>
+<p>&lt; Event Interrupt Enable</p>
+<p>&lt; 0x00000200</p>
+<p>&lt; Event Interrupt Enable</p>
+<p>&lt; 0x00000800</p>
+<p>&lt; DMA Requests Enable</p>
+<p>&lt; 0x00000800</p>
+<p>&lt; DMA Requests Enable</p>
+<p>&lt; 0x00000400</p>
+<p>&lt; Buffer Interrupt Enable</p>
+<p>&lt; 0x00000400</p>
+<p>&lt; Buffer Interrupt Enable</p>
+<p>&lt; 0x00000200</p>
+<p>&lt; Event Interrupt Enable</p>
+<p>&lt; 0x00000200</p>
+<p>&lt; Event Interrupt Enable</p>
+<p>&lt; No error <br  />
+</p>
+<p>&lt; 0x00000200</p>
+<p>&lt; Event Interrupt Enable</p>
+<p>&lt; 0x00000200</p>
+<p>&lt; Event Interrupt Enable</p>
+<p>&lt; No error <br  />
+</p>
+<p>&lt; 0x00000200</p>
+<p>&lt; Event Interrupt Enable</p>
+<p>&lt; 0x00000200</p>
+<p>&lt; Event Interrupt Enable</p>
+<p>&lt; 0x00000400</p>
+<p>&lt; Buffer Interrupt Enable</p>
+<p>&lt; 0x00000400</p>
+<p>&lt; Buffer Interrupt Enable</p>
+<p>&lt; 0x00000200</p>
+<p>&lt; Event Interrupt Enable</p>
+<p>&lt; 0x00000200</p>
+<p>&lt; Event Interrupt Enable</p>
+<p>&lt; 0x00000400</p>
+<p>&lt; Buffer Interrupt Enable</p>
+<p>&lt; 0x00000400</p>
+<p>&lt; Buffer Interrupt Enable</p>
+<p>&lt; 0x00000200</p>
+<p>&lt; Event Interrupt Enable</p>
+<p>&lt; 0x00000200</p>
+<p>&lt; Event Interrupt Enable</p>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l04885">4885</a> del archivo <a class="el" href="stm32f1xx__hal__i2c_8c_source.html">stm32f1xx_hal_i2c.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 4886</span>{</div>
+<div class="line"><span class="lineno"> 4887</span>  uint32_t sr1itflags;</div>
+<div class="line"><span class="lineno"> 4888</span>  uint32_t sr2itflags               = 0U;</div>
+<div class="line"><span class="lineno"> 4889</span>  uint32_t itsources                = <a class="code hl_define" href="group___exported__macros.html#gae7f188a4d26c9e713a48414783421071">READ_REG</a>(hi2c-&gt;<a class="code hl_variable" href="struct_i2_c___handle_type_def.html#ad83b15a12a41fb3958c55085adf931dd">Instance</a>-&gt;<a class="code hl_variable" href="struct_i2_c___type_def.html#a1df3df299001d46702436167d4a02eeb">CR2</a>);</div>
+<div class="line"><span class="lineno"> 4890</span>  uint32_t CurrentXferOptions       = hi2c-&gt;<a class="code hl_variable" href="struct_i2_c___handle_type_def.html#ac08def6fde3afcbbdb1c630387a1f673">XferOptions</a>;</div>
+<div class="line"><span class="lineno"> 4891</span>  <a class="code hl_enumeration" href="group___h_a_l__mode__structure__definition.html#gabcbb7b844f2ffd63c4e530c117882062">HAL_I2C_ModeTypeDef</a> CurrentMode   = hi2c-&gt;<a class="code hl_variable" href="struct_i2_c___handle_type_def.html#a8d7e007aa2b72428703613edefb47200">Mode</a>;</div>
+<div class="line"><span class="lineno"> 4892</span>  <a class="code hl_enumeration" href="group___h_a_l__state__structure__definition.html#gaef355af8eab251ae2a19ee164ad81c37">HAL_I2C_StateTypeDef</a> CurrentState = hi2c-&gt;<a class="code hl_variable" href="struct_i2_c___handle_type_def.html#a81143e877c3550f15dbf8b285e4eaee6">State</a>;</div>
+<div class="line"><span class="lineno"> 4893</span> </div>
+<div class="line"><span class="lineno"> 4894</span>  <span class="comment">/* Master or Memory mode selected */</span></div>
+<div class="line"><span class="lineno"> 4895</span>  <span class="keywordflow">if</span> ((CurrentMode == <a class="code hl_enumvalue" href="group___h_a_l__mode__structure__definition.html#ggabcbb7b844f2ffd63c4e530c117882062a1eea98660a170dd7b191c9dfe46da6d2">HAL_I2C_MODE_MASTER</a>) || (CurrentMode == <a class="code hl_enumvalue" href="group___h_a_l__mode__structure__definition.html#ggabcbb7b844f2ffd63c4e530c117882062a3f592bd942f973242aac6b7df79f3f1e">HAL_I2C_MODE_MEM</a>))</div>
+<div class="line"><span class="lineno"> 4896</span>  {</div>
+<div class="line"><span class="lineno"> 4897</span>    sr2itflags   = <a class="code hl_define" href="group___exported__macros.html#gae7f188a4d26c9e713a48414783421071">READ_REG</a>(hi2c-&gt;<a class="code hl_variable" href="struct_i2_c___handle_type_def.html#ad83b15a12a41fb3958c55085adf931dd">Instance</a>-&gt;<a class="code hl_variable" href="struct_i2_c___type_def.html#aef4b88e6fe03997bc9b8a5b12d48a7f5">SR2</a>);</div>
+<div class="line"><span class="lineno"> 4898</span>    sr1itflags   = <a class="code hl_define" href="group___exported__macros.html#gae7f188a4d26c9e713a48414783421071">READ_REG</a>(hi2c-&gt;<a class="code hl_variable" href="struct_i2_c___handle_type_def.html#ad83b15a12a41fb3958c55085adf931dd">Instance</a>-&gt;<a class="code hl_variable" href="struct_i2_c___type_def.html#a9d1be1c0155534aaac27f3c232da20bf">SR1</a>);</div>
+<div class="line"><span class="lineno"> 4899</span> </div>
+<div class="line"><span class="lineno"> 4900</span>    <span class="comment">/* Exit IRQ event until Start Bit detected in case of Other frame requested */</span></div>
+<div class="line"><span class="lineno"> 4901</span>    <span class="keywordflow">if</span> ((<a class="code hl_define" href="group___i2_c___i_s___r_t_c___definitions.html#ga31873e0595e29c80cffe00c2d2e073ab">I2C_CHECK_FLAG</a>(sr1itflags, <a class="code hl_define" href="group___i2_c___flag__definition.html#gae009ab84be03fcc438625b1c39376ad4">I2C_FLAG_SB</a>) == <a class="code hl_enumvalue" href="group___exported__types.html#gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05">RESET</a>) &amp;&amp; (<a class="code hl_define" href="group___i2_c___i_s___r_t_c___definitions.html#ga13a3986011ca018dd12ff39ea3bec11b">IS_I2C_TRANSFER_OTHER_OPTIONS_REQUEST</a>(CurrentXferOptions) == 1U))</div>
+<div class="line"><span class="lineno"> 4902</span>    {</div>
+<div class="line"><span class="lineno"> 4903</span>      <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno"> 4904</span>    }</div>
+<div class="line"><span class="lineno"> 4905</span> </div>
+<div class="line"><span class="lineno"> 4906</span>    <span class="comment">/* SB Set ----------------------------------------------------------------*/</span></div>
+<div class="line"><span class="lineno"> 4907</span>    <span class="keywordflow">if</span> ((<a class="code hl_define" href="group___i2_c___i_s___r_t_c___definitions.html#ga31873e0595e29c80cffe00c2d2e073ab">I2C_CHECK_FLAG</a>(sr1itflags, <a class="code hl_define" href="group___i2_c___flag__definition.html#gae009ab84be03fcc438625b1c39376ad4">I2C_FLAG_SB</a>) != <a class="code hl_enumvalue" href="group___exported__types.html#gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05">RESET</a>) &amp;&amp; (<a class="code hl_define" href="group___i2_c___i_s___r_t_c___definitions.html#gacc7c83a67d99d759923c6907f1a1751f">I2C_CHECK_IT_SOURCE</a>(itsources, <a class="code hl_define" href="group___i2_c___interrupt__configuration__definition.html#gadd59efa313e1598a084a1e5ec3905b02">I2C_IT_EVT</a>) != <a class="code hl_enumvalue" href="group___exported__types.html#gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05">RESET</a>))</div>
+<div class="line"><span class="lineno"> 4908</span>    {</div>
+<div class="line"><span class="lineno"> 4909</span>      <span class="comment">/* Convert OTHER_xxx XferOptions if any */</span></div>
+<div class="line"><span class="lineno"> 4910</span>      <a class="code hl_function" href="group___i2_c___private___functions.html#gab175ae4207b9677b4020dcff061fc65c">I2C_ConvertOtherXferOptions</a>(hi2c);</div>
+<div class="line"><span class="lineno"> 4911</span> </div>
+<div class="line"><span class="lineno"> 4912</span>      <a class="code hl_function" href="group___i2_c___private___functions.html#ga17a8e3cce04c6744c35495d983018e6e">I2C_Master_SB</a>(hi2c);</div>
+<div class="line"><span class="lineno"> 4913</span>    }</div>
+<div class="line"><span class="lineno"> 4914</span>    <span class="comment">/* ADD10 Set -------------------------------------------------------------*/</span></div>
+<div class="line"><span class="lineno"> 4915</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((<a class="code hl_define" href="group___i2_c___i_s___r_t_c___definitions.html#ga31873e0595e29c80cffe00c2d2e073ab">I2C_CHECK_FLAG</a>(sr1itflags, <a class="code hl_define" href="group___i2_c___flag__definition.html#ga316c78cbf34b74da96d69f702a0d1444">I2C_FLAG_ADD10</a>) != <a class="code hl_enumvalue" href="group___exported__types.html#gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05">RESET</a>) &amp;&amp; (<a class="code hl_define" href="group___i2_c___i_s___r_t_c___definitions.html#gacc7c83a67d99d759923c6907f1a1751f">I2C_CHECK_IT_SOURCE</a>(itsources, <a class="code hl_define" href="group___i2_c___interrupt__configuration__definition.html#gadd59efa313e1598a084a1e5ec3905b02">I2C_IT_EVT</a>) != <a class="code hl_enumvalue" href="group___exported__types.html#gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05">RESET</a>))</div>
+<div class="line"><span class="lineno"> 4916</span>    {</div>
+<div class="line"><span class="lineno"> 4917</span>      <a class="code hl_function" href="group___i2_c___private___functions.html#gaf77e042e6ed06a74c8d978dffbf40991">I2C_Master_ADD10</a>(hi2c);</div>
+<div class="line"><span class="lineno"> 4918</span>    }</div>
+<div class="line"><span class="lineno"> 4919</span>    <span class="comment">/* ADDR Set --------------------------------------------------------------*/</span></div>
+<div class="line"><span class="lineno"> 4920</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((<a class="code hl_define" href="group___i2_c___i_s___r_t_c___definitions.html#ga31873e0595e29c80cffe00c2d2e073ab">I2C_CHECK_FLAG</a>(sr1itflags, <a class="code hl_define" href="group___i2_c___flag__definition.html#ga5472d1196e934e0cc471aba8f66af416">I2C_FLAG_ADDR</a>) != <a class="code hl_enumvalue" href="group___exported__types.html#gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05">RESET</a>) &amp;&amp; (<a class="code hl_define" href="group___i2_c___i_s___r_t_c___definitions.html#gacc7c83a67d99d759923c6907f1a1751f">I2C_CHECK_IT_SOURCE</a>(itsources, <a class="code hl_define" href="group___i2_c___interrupt__configuration__definition.html#gadd59efa313e1598a084a1e5ec3905b02">I2C_IT_EVT</a>) != <a class="code hl_enumvalue" href="group___exported__types.html#gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05">RESET</a>))</div>
+<div class="line"><span class="lineno"> 4921</span>    {</div>
+<div class="line"><span class="lineno"> 4922</span>      <a class="code hl_function" href="group___i2_c___private___functions.html#ga3a49b562b77befd72c6063af4516c77f">I2C_Master_ADDR</a>(hi2c);</div>
+<div class="line"><span class="lineno"> 4923</span>    }</div>
+<div class="line"><span class="lineno"> 4924</span>    <span class="comment">/* I2C in mode Transmitter -----------------------------------------------*/</span></div>
+<div class="line"><span class="lineno"> 4925</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code hl_define" href="group___i2_c___i_s___r_t_c___definitions.html#ga31873e0595e29c80cffe00c2d2e073ab">I2C_CHECK_FLAG</a>(sr2itflags, <a class="code hl_define" href="group___i2_c___flag__definition.html#ga0359a5f960670d51cb17e659d32498ea">I2C_FLAG_TRA</a>) != <a class="code hl_enumvalue" href="group___exported__types.html#gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05">RESET</a>)</div>
+<div class="line"><span class="lineno"> 4926</span>    {</div>
+<div class="line"><span class="lineno"> 4927</span>      <span class="comment">/* Do not check buffer and BTF flag if a Xfer DMA is on going */</span></div>
+<div class="line"><span class="lineno"> 4928</span>      <span class="keywordflow">if</span> (<a class="code hl_define" href="group___exported__macros.html#ga822bb1bb9710d5f2fa6396b84e583c33">READ_BIT</a>(hi2c-&gt;<a class="code hl_variable" href="struct_i2_c___handle_type_def.html#ad83b15a12a41fb3958c55085adf931dd">Instance</a>-&gt;<a class="code hl_variable" href="struct_i2_c___type_def.html#a1df3df299001d46702436167d4a02eeb">CR2</a>, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#gadb81d5c91486b873bd0bf279a4ffcf69">I2C_CR2_DMAEN</a>) != <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#gadb81d5c91486b873bd0bf279a4ffcf69">I2C_CR2_DMAEN</a>)</div>
+<div class="line"><span class="lineno"> 4929</span>      {</div>
+<div class="line"><span class="lineno"> 4930</span>        <span class="comment">/* TXE set and BTF reset -----------------------------------------------*/</span></div>
+<div class="line"><span class="lineno"> 4931</span>        <span class="keywordflow">if</span> ((<a class="code hl_define" href="group___i2_c___i_s___r_t_c___definitions.html#ga31873e0595e29c80cffe00c2d2e073ab">I2C_CHECK_FLAG</a>(sr1itflags, <a class="code hl_define" href="group___i2_c___flag__definition.html#gaeda14a3e9d02ff20a0d001bba9328f3d">I2C_FLAG_TXE</a>) != <a class="code hl_enumvalue" href="group___exported__types.html#gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05">RESET</a>) &amp;&amp; (<a class="code hl_define" href="group___i2_c___i_s___r_t_c___definitions.html#gacc7c83a67d99d759923c6907f1a1751f">I2C_CHECK_IT_SOURCE</a>(itsources, <a class="code hl_define" href="group___i2_c___interrupt__configuration__definition.html#gad3ff3f405b882aa4d2f91310aa1cc0df">I2C_IT_BUF</a>) != <a class="code hl_enumvalue" href="group___exported__types.html#gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05">RESET</a>) &amp;&amp; (<a class="code hl_define" href="group___i2_c___i_s___r_t_c___definitions.html#ga31873e0595e29c80cffe00c2d2e073ab">I2C_CHECK_FLAG</a>(sr1itflags, <a class="code hl_define" href="group___i2_c___flag__definition.html#ga4dc3d44342007a5cd21c3baa0d938606">I2C_FLAG_BTF</a>) == <a class="code hl_enumvalue" href="group___exported__types.html#gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05">RESET</a>))</div>
+<div class="line"><span class="lineno"> 4932</span>        {</div>
+<div class="line"><span class="lineno"> 4933</span>          <a class="code hl_function" href="group___i2_c___private___functions.html#ga7887c523198c3e81d7194233ce30d129">I2C_MasterTransmit_TXE</a>(hi2c);</div>
+<div class="line"><span class="lineno"> 4934</span>        }</div>
+<div class="line"><span class="lineno"> 4935</span>        <span class="comment">/* BTF set -------------------------------------------------------------*/</span></div>
+<div class="line"><span class="lineno"> 4936</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((<a class="code hl_define" href="group___i2_c___i_s___r_t_c___definitions.html#ga31873e0595e29c80cffe00c2d2e073ab">I2C_CHECK_FLAG</a>(sr1itflags, <a class="code hl_define" href="group___i2_c___flag__definition.html#ga4dc3d44342007a5cd21c3baa0d938606">I2C_FLAG_BTF</a>) != <a class="code hl_enumvalue" href="group___exported__types.html#gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05">RESET</a>) &amp;&amp; (<a class="code hl_define" href="group___i2_c___i_s___r_t_c___definitions.html#gacc7c83a67d99d759923c6907f1a1751f">I2C_CHECK_IT_SOURCE</a>(itsources, <a class="code hl_define" href="group___i2_c___interrupt__configuration__definition.html#gadd59efa313e1598a084a1e5ec3905b02">I2C_IT_EVT</a>) != <a class="code hl_enumvalue" href="group___exported__types.html#gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05">RESET</a>))</div>
+<div class="line"><span class="lineno"> 4937</span>        {</div>
+<div class="line"><span class="lineno"> 4938</span>          <span class="keywordflow">if</span> (CurrentState == <a class="code hl_enumvalue" href="group___h_a_l__state__structure__definition.html#ggaef355af8eab251ae2a19ee164ad81c37acb3a9e3d4d1076e0f4e65f91ca0161bc">HAL_I2C_STATE_BUSY_TX</a>)</div>
+<div class="line"><span class="lineno"> 4939</span>          {</div>
+<div class="line"><span class="lineno"> 4940</span>            <a class="code hl_function" href="group___i2_c___private___functions.html#gac94a51e380a191f7dbd3d0265045054a">I2C_MasterTransmit_BTF</a>(hi2c);</div>
+<div class="line"><span class="lineno"> 4941</span>          }</div>
+<div class="line"><span class="lineno"> 4942</span>          <span class="keywordflow">else</span> <span class="comment">/* HAL_I2C_MODE_MEM */</span></div>
+<div class="line"><span class="lineno"> 4943</span>          {</div>
+<div class="line"><span class="lineno"> 4944</span>            <span class="keywordflow">if</span> (CurrentMode == <a class="code hl_enumvalue" href="group___h_a_l__mode__structure__definition.html#ggabcbb7b844f2ffd63c4e530c117882062a3f592bd942f973242aac6b7df79f3f1e">HAL_I2C_MODE_MEM</a>)</div>
+<div class="line"><span class="lineno"> 4945</span>            {</div>
+<div class="line"><span class="lineno"> 4946</span>              <a class="code hl_function" href="group___i2_c___private___functions.html#ga5022ddc6341906342976a3574eecab7f">I2C_MemoryTransmit_TXE_BTF</a>(hi2c);</div>
+<div class="line"><span class="lineno"> 4947</span>            }</div>
+<div class="line"><span class="lineno"> 4948</span>          }</div>
+<div class="line"><span class="lineno"> 4949</span>        }</div>
+<div class="line"><span class="lineno"> 4950</span>        <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno"> 4951</span>        {</div>
+<div class="line"><span class="lineno"> 4952</span>          <span class="comment">/* Do nothing */</span></div>
+<div class="line"><span class="lineno"> 4953</span>        }</div>
+<div class="line"><span class="lineno"> 4954</span>      }</div>
+<div class="line"><span class="lineno"> 4955</span>    }</div>
+<div class="line"><span class="lineno"> 4956</span>    <span class="comment">/* I2C in mode Receiver --------------------------------------------------*/</span></div>
+<div class="line"><span class="lineno"> 4957</span>    <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno"> 4958</span>    {</div>
+<div class="line"><span class="lineno"> 4959</span>      <span class="comment">/* Do not check buffer and BTF flag if a Xfer DMA is on going */</span></div>
+<div class="line"><span class="lineno"> 4960</span>      <span class="keywordflow">if</span> (<a class="code hl_define" href="group___exported__macros.html#ga822bb1bb9710d5f2fa6396b84e583c33">READ_BIT</a>(hi2c-&gt;<a class="code hl_variable" href="struct_i2_c___handle_type_def.html#ad83b15a12a41fb3958c55085adf931dd">Instance</a>-&gt;<a class="code hl_variable" href="struct_i2_c___type_def.html#a1df3df299001d46702436167d4a02eeb">CR2</a>, <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#gadb81d5c91486b873bd0bf279a4ffcf69">I2C_CR2_DMAEN</a>) != <a class="code hl_define" href="group___peripheral___registers___bits___definition.html#gadb81d5c91486b873bd0bf279a4ffcf69">I2C_CR2_DMAEN</a>)</div>
+<div class="line"><span class="lineno"> 4961</span>      {</div>
+<div class="line"><span class="lineno"> 4962</span>        <span class="comment">/* RXNE set and BTF reset -----------------------------------------------*/</span></div>
+<div class="line"><span class="lineno"> 4963</span>        <span class="keywordflow">if</span> ((<a class="code hl_define" href="group___i2_c___i_s___r_t_c___definitions.html#ga31873e0595e29c80cffe00c2d2e073ab">I2C_CHECK_FLAG</a>(sr1itflags, <a class="code hl_define" href="group___i2_c___flag__definition.html#gad53c5b70a186f699f187c7a641ab0dac">I2C_FLAG_RXNE</a>) != <a class="code hl_enumvalue" href="group___exported__types.html#gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05">RESET</a>) &amp;&amp; (<a class="code hl_define" href="group___i2_c___i_s___r_t_c___definitions.html#gacc7c83a67d99d759923c6907f1a1751f">I2C_CHECK_IT_SOURCE</a>(itsources, <a class="code hl_define" href="group___i2_c___interrupt__configuration__definition.html#gad3ff3f405b882aa4d2f91310aa1cc0df">I2C_IT_BUF</a>) != <a class="code hl_enumvalue" href="group___exported__types.html#gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05">RESET</a>) &amp;&amp; (<a class="code hl_define" href="group___i2_c___i_s___r_t_c___definitions.html#ga31873e0595e29c80cffe00c2d2e073ab">I2C_CHECK_FLAG</a>(sr1itflags, <a class="code hl_define" href="group___i2_c___flag__definition.html#ga4dc3d44342007a5cd21c3baa0d938606">I2C_FLAG_BTF</a>) == <a class="code hl_enumvalue" href="group___exported__types.html#gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05">RESET</a>))</div>
+<div class="line"><span class="lineno"> 4964</span>        {</div>
+<div class="line"><span class="lineno"> 4965</span>          <a class="code hl_function" href="group___i2_c___private___functions.html#ga808d7f90345f854f03cc54741cef31f4">I2C_MasterReceive_RXNE</a>(hi2c);</div>
+<div class="line"><span class="lineno"> 4966</span>        }</div>
+<div class="line"><span class="lineno"> 4967</span>        <span class="comment">/* BTF set -------------------------------------------------------------*/</span></div>
+<div class="line"><span class="lineno"> 4968</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((<a class="code hl_define" href="group___i2_c___i_s___r_t_c___definitions.html#ga31873e0595e29c80cffe00c2d2e073ab">I2C_CHECK_FLAG</a>(sr1itflags, <a class="code hl_define" href="group___i2_c___flag__definition.html#ga4dc3d44342007a5cd21c3baa0d938606">I2C_FLAG_BTF</a>) != <a class="code hl_enumvalue" href="group___exported__types.html#gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05">RESET</a>) &amp;&amp; (<a class="code hl_define" href="group___i2_c___i_s___r_t_c___definitions.html#gacc7c83a67d99d759923c6907f1a1751f">I2C_CHECK_IT_SOURCE</a>(itsources, <a class="code hl_define" href="group___i2_c___interrupt__configuration__definition.html#gadd59efa313e1598a084a1e5ec3905b02">I2C_IT_EVT</a>) != <a class="code hl_enumvalue" href="group___exported__types.html#gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05">RESET</a>))</div>
+<div class="line"><span class="lineno"> 4969</span>        {</div>
+<div class="line"><span class="lineno"> 4970</span>          <a class="code hl_function" href="group___i2_c___private___functions.html#ga67782f49bc5140c1b3103cb9bc2cff5a">I2C_MasterReceive_BTF</a>(hi2c);</div>
+<div class="line"><span class="lineno"> 4971</span>        }</div>
+<div class="line"><span class="lineno"> 4972</span>        <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno"> 4973</span>        {</div>
+<div class="line"><span class="lineno"> 4974</span>          <span class="comment">/* Do nothing */</span></div>
+<div class="line"><span class="lineno"> 4975</span>        }</div>
+<div class="line"><span class="lineno"> 4976</span>      }</div>
+<div class="line"><span class="lineno"> 4977</span>    }</div>
+<div class="line"><span class="lineno"> 4978</span>  }</div>
+<div class="line"><span class="lineno"> 4979</span>  <span class="comment">/* Slave mode selected */</span></div>
+<div class="line"><span class="lineno"> 4980</span>  <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno"> 4981</span>  {</div>
+<div class="line"><span class="lineno"> 4982</span>    <span class="comment">/* If an error is detected, read only SR1 register to prevent */</span></div>
+<div class="line"><span class="lineno"> 4983</span>    <span class="comment">/* a clear of ADDR flags by reading SR2 after reading SR1 in Error treatment */</span></div>
+<div class="line"><span class="lineno"> 4984</span>    <span class="keywordflow">if</span> (hi2c-&gt;<a class="code hl_variable" href="struct_i2_c___handle_type_def.html#af3d0adb5083bd3cfbbf13c1607aea528">ErrorCode</a> != <a class="code hl_define" href="group___i2_c___error___code__definition.html#ga0b8ca289091d942032c89484b6211d0d">HAL_I2C_ERROR_NONE</a>)</div>
+<div class="line"><span class="lineno"> 4985</span>    {</div>
+<div class="line"><span class="lineno"> 4986</span>      sr1itflags   = <a class="code hl_define" href="group___exported__macros.html#gae7f188a4d26c9e713a48414783421071">READ_REG</a>(hi2c-&gt;<a class="code hl_variable" href="struct_i2_c___handle_type_def.html#ad83b15a12a41fb3958c55085adf931dd">Instance</a>-&gt;<a class="code hl_variable" href="struct_i2_c___type_def.html#a9d1be1c0155534aaac27f3c232da20bf">SR1</a>);</div>
+<div class="line"><span class="lineno"> 4987</span>    }</div>
+<div class="line"><span class="lineno"> 4988</span>    <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno"> 4989</span>    {</div>
+<div class="line"><span class="lineno"> 4990</span>      sr2itflags   = <a class="code hl_define" href="group___exported__macros.html#gae7f188a4d26c9e713a48414783421071">READ_REG</a>(hi2c-&gt;<a class="code hl_variable" href="struct_i2_c___handle_type_def.html#ad83b15a12a41fb3958c55085adf931dd">Instance</a>-&gt;<a class="code hl_variable" href="struct_i2_c___type_def.html#aef4b88e6fe03997bc9b8a5b12d48a7f5">SR2</a>);</div>
+<div class="line"><span class="lineno"> 4991</span>      sr1itflags   = <a class="code hl_define" href="group___exported__macros.html#gae7f188a4d26c9e713a48414783421071">READ_REG</a>(hi2c-&gt;<a class="code hl_variable" href="struct_i2_c___handle_type_def.html#ad83b15a12a41fb3958c55085adf931dd">Instance</a>-&gt;<a class="code hl_variable" href="struct_i2_c___type_def.html#a9d1be1c0155534aaac27f3c232da20bf">SR1</a>);</div>
+<div class="line"><span class="lineno"> 4992</span>    }</div>
+<div class="line"><span class="lineno"> 4993</span> </div>
+<div class="line"><span class="lineno"> 4994</span>    <span class="comment">/* ADDR set --------------------------------------------------------------*/</span></div>
+<div class="line"><span class="lineno"> 4995</span>    <span class="keywordflow">if</span> ((<a class="code hl_define" href="group___i2_c___i_s___r_t_c___definitions.html#ga31873e0595e29c80cffe00c2d2e073ab">I2C_CHECK_FLAG</a>(sr1itflags, <a class="code hl_define" href="group___i2_c___flag__definition.html#ga5472d1196e934e0cc471aba8f66af416">I2C_FLAG_ADDR</a>) != <a class="code hl_enumvalue" href="group___exported__types.html#gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05">RESET</a>) &amp;&amp; (<a class="code hl_define" href="group___i2_c___i_s___r_t_c___definitions.html#gacc7c83a67d99d759923c6907f1a1751f">I2C_CHECK_IT_SOURCE</a>(itsources, <a class="code hl_define" href="group___i2_c___interrupt__configuration__definition.html#gadd59efa313e1598a084a1e5ec3905b02">I2C_IT_EVT</a>) != <a class="code hl_enumvalue" href="group___exported__types.html#gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05">RESET</a>))</div>
+<div class="line"><span class="lineno"> 4996</span>    {</div>
+<div class="line"><span class="lineno"> 4997</span>      <span class="comment">/* Now time to read SR2, this will clear ADDR flag automatically */</span></div>
+<div class="line"><span class="lineno"> 4998</span>      <span class="keywordflow">if</span> (hi2c-&gt;<a class="code hl_variable" href="struct_i2_c___handle_type_def.html#af3d0adb5083bd3cfbbf13c1607aea528">ErrorCode</a> != <a class="code hl_define" href="group___i2_c___error___code__definition.html#ga0b8ca289091d942032c89484b6211d0d">HAL_I2C_ERROR_NONE</a>)</div>
+<div class="line"><span class="lineno"> 4999</span>      {</div>
+<div class="line"><span class="lineno"> 5000</span>        sr2itflags   = <a class="code hl_define" href="group___exported__macros.html#gae7f188a4d26c9e713a48414783421071">READ_REG</a>(hi2c-&gt;<a class="code hl_variable" href="struct_i2_c___handle_type_def.html#ad83b15a12a41fb3958c55085adf931dd">Instance</a>-&gt;<a class="code hl_variable" href="struct_i2_c___type_def.html#aef4b88e6fe03997bc9b8a5b12d48a7f5">SR2</a>);</div>
+<div class="line"><span class="lineno"> 5001</span>      }</div>
+<div class="line"><span class="lineno"> 5002</span>      <a class="code hl_function" href="group___i2_c___private___functions.html#ga51bd30d9cb5a8fc518238e0b4fb819c1">I2C_Slave_ADDR</a>(hi2c, sr2itflags);</div>
+<div class="line"><span class="lineno"> 5003</span>    }</div>
+<div class="line"><span class="lineno"> 5004</span>    <span class="comment">/* STOPF set --------------------------------------------------------------*/</span></div>
+<div class="line"><span class="lineno"> 5005</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((<a class="code hl_define" href="group___i2_c___i_s___r_t_c___definitions.html#ga31873e0595e29c80cffe00c2d2e073ab">I2C_CHECK_FLAG</a>(sr1itflags, <a class="code hl_define" href="group___i2_c___flag__definition.html#gacc7d993963e199a6ddba391dab8da896">I2C_FLAG_STOPF</a>) != <a class="code hl_enumvalue" href="group___exported__types.html#gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05">RESET</a>) &amp;&amp; (<a class="code hl_define" href="group___i2_c___i_s___r_t_c___definitions.html#gacc7c83a67d99d759923c6907f1a1751f">I2C_CHECK_IT_SOURCE</a>(itsources, <a class="code hl_define" href="group___i2_c___interrupt__configuration__definition.html#gadd59efa313e1598a084a1e5ec3905b02">I2C_IT_EVT</a>) != <a class="code hl_enumvalue" href="group___exported__types.html#gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05">RESET</a>))</div>
+<div class="line"><span class="lineno"> 5006</span>    {</div>
+<div class="line"><span class="lineno"> 5007</span>      <a class="code hl_function" href="group___i2_c___private___functions.html#ga6ae3c635dfb8578575655f3b0c956246">I2C_Slave_STOPF</a>(hi2c);</div>
+<div class="line"><span class="lineno"> 5008</span>    }</div>
+<div class="line"><span class="lineno"> 5009</span>    <span class="comment">/* I2C in mode Transmitter -----------------------------------------------*/</span></div>
+<div class="line"><span class="lineno"> 5010</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((CurrentState == <a class="code hl_enumvalue" href="group___h_a_l__state__structure__definition.html#ggaef355af8eab251ae2a19ee164ad81c37acb3a9e3d4d1076e0f4e65f91ca0161bc">HAL_I2C_STATE_BUSY_TX</a>) || (CurrentState == <a class="code hl_enumvalue" href="group___h_a_l__state__structure__definition.html#ggaef355af8eab251ae2a19ee164ad81c37a14d22553a60819b276582e08459f30b0">HAL_I2C_STATE_BUSY_TX_LISTEN</a>))</div>
+<div class="line"><span class="lineno"> 5011</span>    {</div>
+<div class="line"><span class="lineno"> 5012</span>      <span class="comment">/* TXE set and BTF reset -----------------------------------------------*/</span></div>
+<div class="line"><span class="lineno"> 5013</span>      <span class="keywordflow">if</span> ((<a class="code hl_define" href="group___i2_c___i_s___r_t_c___definitions.html#ga31873e0595e29c80cffe00c2d2e073ab">I2C_CHECK_FLAG</a>(sr1itflags, <a class="code hl_define" href="group___i2_c___flag__definition.html#gaeda14a3e9d02ff20a0d001bba9328f3d">I2C_FLAG_TXE</a>) != <a class="code hl_enumvalue" href="group___exported__types.html#gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05">RESET</a>) &amp;&amp; (<a class="code hl_define" href="group___i2_c___i_s___r_t_c___definitions.html#gacc7c83a67d99d759923c6907f1a1751f">I2C_CHECK_IT_SOURCE</a>(itsources, <a class="code hl_define" href="group___i2_c___interrupt__configuration__definition.html#gad3ff3f405b882aa4d2f91310aa1cc0df">I2C_IT_BUF</a>) != <a class="code hl_enumvalue" href="group___exported__types.html#gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05">RESET</a>) &amp;&amp; (<a class="code hl_define" href="group___i2_c___i_s___r_t_c___definitions.html#ga31873e0595e29c80cffe00c2d2e073ab">I2C_CHECK_FLAG</a>(sr1itflags, <a class="code hl_define" href="group___i2_c___flag__definition.html#ga4dc3d44342007a5cd21c3baa0d938606">I2C_FLAG_BTF</a>) == <a class="code hl_enumvalue" href="group___exported__types.html#gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05">RESET</a>))</div>
+<div class="line"><span class="lineno"> 5014</span>      {</div>
+<div class="line"><span class="lineno"> 5015</span>        <a class="code hl_function" href="group___i2_c___private___functions.html#ga4ed675c2018b3a05eba0d3ed18173359">I2C_SlaveTransmit_TXE</a>(hi2c);</div>
+<div class="line"><span class="lineno"> 5016</span>      }</div>
+<div class="line"><span class="lineno"> 5017</span>      <span class="comment">/* BTF set -------------------------------------------------------------*/</span></div>
+<div class="line"><span class="lineno"> 5018</span>      <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((<a class="code hl_define" href="group___i2_c___i_s___r_t_c___definitions.html#ga31873e0595e29c80cffe00c2d2e073ab">I2C_CHECK_FLAG</a>(sr1itflags, <a class="code hl_define" href="group___i2_c___flag__definition.html#ga4dc3d44342007a5cd21c3baa0d938606">I2C_FLAG_BTF</a>) != <a class="code hl_enumvalue" href="group___exported__types.html#gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05">RESET</a>) &amp;&amp; (<a class="code hl_define" href="group___i2_c___i_s___r_t_c___definitions.html#gacc7c83a67d99d759923c6907f1a1751f">I2C_CHECK_IT_SOURCE</a>(itsources, <a class="code hl_define" href="group___i2_c___interrupt__configuration__definition.html#gadd59efa313e1598a084a1e5ec3905b02">I2C_IT_EVT</a>) != <a class="code hl_enumvalue" href="group___exported__types.html#gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05">RESET</a>))</div>
+<div class="line"><span class="lineno"> 5019</span>      {</div>
+<div class="line"><span class="lineno"> 5020</span>        <a class="code hl_function" href="group___i2_c___private___functions.html#ga5198376bf60b5d3259e426cc3b22986d">I2C_SlaveTransmit_BTF</a>(hi2c);</div>
+<div class="line"><span class="lineno"> 5021</span>      }</div>
+<div class="line"><span class="lineno"> 5022</span>      <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno"> 5023</span>      {</div>
+<div class="line"><span class="lineno"> 5024</span>        <span class="comment">/* Do nothing */</span></div>
+<div class="line"><span class="lineno"> 5025</span>      }</div>
+<div class="line"><span class="lineno"> 5026</span>    }</div>
+<div class="line"><span class="lineno"> 5027</span>    <span class="comment">/* I2C in mode Receiver --------------------------------------------------*/</span></div>
+<div class="line"><span class="lineno"> 5028</span>    <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno"> 5029</span>    {</div>
+<div class="line"><span class="lineno"> 5030</span>      <span class="comment">/* RXNE set and BTF reset ----------------------------------------------*/</span></div>
+<div class="line"><span class="lineno"> 5031</span>      <span class="keywordflow">if</span> ((<a class="code hl_define" href="group___i2_c___i_s___r_t_c___definitions.html#ga31873e0595e29c80cffe00c2d2e073ab">I2C_CHECK_FLAG</a>(sr1itflags, <a class="code hl_define" href="group___i2_c___flag__definition.html#gad53c5b70a186f699f187c7a641ab0dac">I2C_FLAG_RXNE</a>) != <a class="code hl_enumvalue" href="group___exported__types.html#gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05">RESET</a>) &amp;&amp; (<a class="code hl_define" href="group___i2_c___i_s___r_t_c___definitions.html#gacc7c83a67d99d759923c6907f1a1751f">I2C_CHECK_IT_SOURCE</a>(itsources, <a class="code hl_define" href="group___i2_c___interrupt__configuration__definition.html#gad3ff3f405b882aa4d2f91310aa1cc0df">I2C_IT_BUF</a>) != <a class="code hl_enumvalue" href="group___exported__types.html#gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05">RESET</a>) &amp;&amp; (<a class="code hl_define" href="group___i2_c___i_s___r_t_c___definitions.html#ga31873e0595e29c80cffe00c2d2e073ab">I2C_CHECK_FLAG</a>(sr1itflags, <a class="code hl_define" href="group___i2_c___flag__definition.html#ga4dc3d44342007a5cd21c3baa0d938606">I2C_FLAG_BTF</a>) == <a class="code hl_enumvalue" href="group___exported__types.html#gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05">RESET</a>))</div>
+<div class="line"><span class="lineno"> 5032</span>      {</div>
+<div class="line"><span class="lineno"> 5033</span>        <a class="code hl_function" href="group___i2_c___private___functions.html#ga4d5c028a8ab0094808a0048ca6bd5574">I2C_SlaveReceive_RXNE</a>(hi2c);</div>
+<div class="line"><span class="lineno"> 5034</span>      }</div>
+<div class="line"><span class="lineno"> 5035</span>      <span class="comment">/* BTF set -------------------------------------------------------------*/</span></div>
+<div class="line"><span class="lineno"> 5036</span>      <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((<a class="code hl_define" href="group___i2_c___i_s___r_t_c___definitions.html#ga31873e0595e29c80cffe00c2d2e073ab">I2C_CHECK_FLAG</a>(sr1itflags, <a class="code hl_define" href="group___i2_c___flag__definition.html#ga4dc3d44342007a5cd21c3baa0d938606">I2C_FLAG_BTF</a>) != <a class="code hl_enumvalue" href="group___exported__types.html#gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05">RESET</a>) &amp;&amp; (<a class="code hl_define" href="group___i2_c___i_s___r_t_c___definitions.html#gacc7c83a67d99d759923c6907f1a1751f">I2C_CHECK_IT_SOURCE</a>(itsources, <a class="code hl_define" href="group___i2_c___interrupt__configuration__definition.html#gadd59efa313e1598a084a1e5ec3905b02">I2C_IT_EVT</a>) != <a class="code hl_enumvalue" href="group___exported__types.html#gga89136caac2e14c55151f527ac02daaffa589b7d94a3d91d145720e2fed0eb3a05">RESET</a>))</div>
+<div class="line"><span class="lineno"> 5037</span>      {</div>
+<div class="line"><span class="lineno"> 5038</span>        <a class="code hl_function" href="group___i2_c___private___functions.html#ga52a8b24022707bf5f7878809ae302daa">I2C_SlaveReceive_BTF</a>(hi2c);</div>
+<div class="line"><span class="lineno"> 5039</span>      }</div>
+<div class="line"><span class="lineno"> 5040</span>      <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno"> 5041</span>      {</div>
+<div class="line"><span class="lineno"> 5042</span>        <span class="comment">/* Do nothing */</span></div>
+<div class="line"><span class="lineno"> 5043</span>      }</div>
+<div class="line"><span class="lineno"> 5044</span>    }</div>
+<div class="line"><span class="lineno"> 5045</span>  }</div>
+<div class="line"><span class="lineno"> 5046</span>}</div>
+<div class="ttc" id="agroup___exported__macros_html_ga822bb1bb9710d5f2fa6396b84e583c33"><div class="ttname"><a href="group___exported__macros.html#ga822bb1bb9710d5f2fa6396b84e583c33">READ_BIT</a></div><div class="ttdeci">#define READ_BIT(REG, BIT)</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx_8h_source.html#l00181">stm32f1xx.h:181</a></div></div>
+<div class="ttc" id="agroup___i2_c___flag__definition_html_ga0359a5f960670d51cb17e659d32498ea"><div class="ttname"><a href="group___i2_c___flag__definition.html#ga0359a5f960670d51cb17e659d32498ea">I2C_FLAG_TRA</a></div><div class="ttdeci">#define I2C_FLAG_TRA</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8h_source.html#l00398">stm32f1xx_hal_i2c.h:398</a></div></div>
+<div class="ttc" id="agroup___i2_c___flag__definition_html_ga316c78cbf34b74da96d69f702a0d1444"><div class="ttname"><a href="group___i2_c___flag__definition.html#ga316c78cbf34b74da96d69f702a0d1444">I2C_FLAG_ADD10</a></div><div class="ttdeci">#define I2C_FLAG_ADD10</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8h_source.html#l00392">stm32f1xx_hal_i2c.h:392</a></div></div>
+<div class="ttc" id="agroup___i2_c___flag__definition_html_ga4dc3d44342007a5cd21c3baa0d938606"><div class="ttname"><a href="group___i2_c___flag__definition.html#ga4dc3d44342007a5cd21c3baa0d938606">I2C_FLAG_BTF</a></div><div class="ttdeci">#define I2C_FLAG_BTF</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8h_source.html#l00393">stm32f1xx_hal_i2c.h:393</a></div></div>
+<div class="ttc" id="agroup___i2_c___flag__definition_html_ga5472d1196e934e0cc471aba8f66af416"><div class="ttname"><a href="group___i2_c___flag__definition.html#ga5472d1196e934e0cc471aba8f66af416">I2C_FLAG_ADDR</a></div><div class="ttdeci">#define I2C_FLAG_ADDR</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8h_source.html#l00394">stm32f1xx_hal_i2c.h:394</a></div></div>
+<div class="ttc" id="agroup___i2_c___flag__definition_html_gacc7d993963e199a6ddba391dab8da896"><div class="ttname"><a href="group___i2_c___flag__definition.html#gacc7d993963e199a6ddba391dab8da896">I2C_FLAG_STOPF</a></div><div class="ttdeci">#define I2C_FLAG_STOPF</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8h_source.html#l00391">stm32f1xx_hal_i2c.h:391</a></div></div>
+<div class="ttc" id="agroup___i2_c___flag__definition_html_gad53c5b70a186f699f187c7a641ab0dac"><div class="ttname"><a href="group___i2_c___flag__definition.html#gad53c5b70a186f699f187c7a641ab0dac">I2C_FLAG_RXNE</a></div><div class="ttdeci">#define I2C_FLAG_RXNE</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8h_source.html#l00390">stm32f1xx_hal_i2c.h:390</a></div></div>
+<div class="ttc" id="agroup___i2_c___flag__definition_html_gae009ab84be03fcc438625b1c39376ad4"><div class="ttname"><a href="group___i2_c___flag__definition.html#gae009ab84be03fcc438625b1c39376ad4">I2C_FLAG_SB</a></div><div class="ttdeci">#define I2C_FLAG_SB</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8h_source.html#l00395">stm32f1xx_hal_i2c.h:395</a></div></div>
+<div class="ttc" id="agroup___i2_c___flag__definition_html_gaeda14a3e9d02ff20a0d001bba9328f3d"><div class="ttname"><a href="group___i2_c___flag__definition.html#gaeda14a3e9d02ff20a0d001bba9328f3d">I2C_FLAG_TXE</a></div><div class="ttdeci">#define I2C_FLAG_TXE</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8h_source.html#l00389">stm32f1xx_hal_i2c.h:389</a></div></div>
+<div class="ttc" id="agroup___i2_c___i_s___r_t_c___definitions_html_ga13a3986011ca018dd12ff39ea3bec11b"><div class="ttname"><a href="group___i2_c___i_s___r_t_c___definitions.html#ga13a3986011ca018dd12ff39ea3bec11b">IS_I2C_TRANSFER_OTHER_OPTIONS_REQUEST</a></div><div class="ttdeci">#define IS_I2C_TRANSFER_OTHER_OPTIONS_REQUEST(REQUEST)</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8h_source.html#l00702">stm32f1xx_hal_i2c.h:702</a></div></div>
+<div class="ttc" id="agroup___i2_c___interrupt__configuration__definition_html_gad3ff3f405b882aa4d2f91310aa1cc0df"><div class="ttname"><a href="group___i2_c___interrupt__configuration__definition.html#gad3ff3f405b882aa4d2f91310aa1cc0df">I2C_IT_BUF</a></div><div class="ttdeci">#define I2C_IT_BUF</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8h_source.html#l00374">stm32f1xx_hal_i2c.h:374</a></div></div>
+<div class="ttc" id="agroup___i2_c___interrupt__configuration__definition_html_gadd59efa313e1598a084a1e5ec3905b02"><div class="ttname"><a href="group___i2_c___interrupt__configuration__definition.html#gadd59efa313e1598a084a1e5ec3905b02">I2C_IT_EVT</a></div><div class="ttdeci">#define I2C_IT_EVT</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8h_source.html#l00375">stm32f1xx_hal_i2c.h:375</a></div></div>
+<div class="ttc" id="agroup___i2_c___private___functions_html_ga17a8e3cce04c6744c35495d983018e6e"><div class="ttname"><a href="group___i2_c___private___functions.html#ga17a8e3cce04c6744c35495d983018e6e">I2C_Master_SB</a></div><div class="ttdeci">static void I2C_Master_SB(I2C_HandleTypeDef *hi2c)</div><div class="ttdoc">Handle SB flag for Master.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8c_source.html#l05873">stm32f1xx_hal_i2c.c:5873</a></div></div>
+<div class="ttc" id="agroup___i2_c___private___functions_html_ga3a49b562b77befd72c6063af4516c77f"><div class="ttname"><a href="group___i2_c___private___functions.html#ga3a49b562b77befd72c6063af4516c77f">I2C_Master_ADDR</a></div><div class="ttdeci">static void I2C_Master_ADDR(I2C_HandleTypeDef *hi2c)</div><div class="ttdoc">Handle ADDR flag for Master.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8c_source.html#l05953">stm32f1xx_hal_i2c.c:5953</a></div></div>
+<div class="ttc" id="agroup___i2_c___private___functions_html_ga4d5c028a8ab0094808a0048ca6bd5574"><div class="ttname"><a href="group___i2_c___private___functions.html#ga4d5c028a8ab0094808a0048ca6bd5574">I2C_SlaveReceive_RXNE</a></div><div class="ttdeci">static void I2C_SlaveReceive_RXNE(I2C_HandleTypeDef *hi2c)</div><div class="ttdoc">Handle RXNE flag for Slave.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8c_source.html#l06163">stm32f1xx_hal_i2c.c:6163</a></div></div>
+<div class="ttc" id="agroup___i2_c___private___functions_html_ga4ed675c2018b3a05eba0d3ed18173359"><div class="ttname"><a href="group___i2_c___private___functions.html#ga4ed675c2018b3a05eba0d3ed18173359">I2C_SlaveTransmit_TXE</a></div><div class="ttdeci">static void I2C_SlaveTransmit_TXE(I2C_HandleTypeDef *hi2c)</div><div class="ttdoc">Handle TXE flag for Slave.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8c_source.html#l06101">stm32f1xx_hal_i2c.c:6101</a></div></div>
+<div class="ttc" id="agroup___i2_c___private___functions_html_ga5022ddc6341906342976a3574eecab7f"><div class="ttname"><a href="group___i2_c___private___functions.html#ga5022ddc6341906342976a3574eecab7f">I2C_MemoryTransmit_TXE_BTF</a></div><div class="ttdeci">static void I2C_MemoryTransmit_TXE_BTF(I2C_HandleTypeDef *hi2c)</div><div class="ttdoc">Handle TXE and BTF flag for Memory transmitter.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8c_source.html#l05538">stm32f1xx_hal_i2c.c:5538</a></div></div>
+<div class="ttc" id="agroup___i2_c___private___functions_html_ga5198376bf60b5d3259e426cc3b22986d"><div class="ttname"><a href="group___i2_c___private___functions.html#ga5198376bf60b5d3259e426cc3b22986d">I2C_SlaveTransmit_BTF</a></div><div class="ttdeci">static void I2C_SlaveTransmit_BTF(I2C_HandleTypeDef *hi2c)</div><div class="ttdoc">Handle BTF flag for Slave transmitter.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8c_source.html#l06142">stm32f1xx_hal_i2c.c:6142</a></div></div>
+<div class="ttc" id="agroup___i2_c___private___functions_html_ga51bd30d9cb5a8fc518238e0b4fb819c1"><div class="ttname"><a href="group___i2_c___private___functions.html#ga51bd30d9cb5a8fc518238e0b4fb819c1">I2C_Slave_ADDR</a></div><div class="ttdeci">static void I2C_Slave_ADDR(I2C_HandleTypeDef *hi2c, uint32_t IT2Flags)</div><div class="ttdoc">Handle ADD flag for Slave.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8c_source.html#l06226">stm32f1xx_hal_i2c.c:6226</a></div></div>
+<div class="ttc" id="agroup___i2_c___private___functions_html_ga52a8b24022707bf5f7878809ae302daa"><div class="ttname"><a href="group___i2_c___private___functions.html#ga52a8b24022707bf5f7878809ae302daa">I2C_SlaveReceive_BTF</a></div><div class="ttdeci">static void I2C_SlaveReceive_BTF(I2C_HandleTypeDef *hi2c)</div><div class="ttdoc">Handle BTF flag for Slave receiver.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8c_source.html#l06204">stm32f1xx_hal_i2c.c:6204</a></div></div>
+<div class="ttc" id="agroup___i2_c___private___functions_html_ga67782f49bc5140c1b3103cb9bc2cff5a"><div class="ttname"><a href="group___i2_c___private___functions.html#ga67782f49bc5140c1b3103cb9bc2cff5a">I2C_MasterReceive_BTF</a></div><div class="ttdeci">static void I2C_MasterReceive_BTF(I2C_HandleTypeDef *hi2c)</div><div class="ttdoc">Handle BTF flag for Master receiver.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8c_source.html#l05744">stm32f1xx_hal_i2c.c:5744</a></div></div>
+<div class="ttc" id="agroup___i2_c___private___functions_html_ga6ae3c635dfb8578575655f3b0c956246"><div class="ttname"><a href="group___i2_c___private___functions.html#ga6ae3c635dfb8578575655f3b0c956246">I2C_Slave_STOPF</a></div><div class="ttdeci">static void I2C_Slave_STOPF(I2C_HandleTypeDef *hi2c)</div><div class="ttdoc">Handle STOPF flag for Slave.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8c_source.html#l06277">stm32f1xx_hal_i2c.c:6277</a></div></div>
+<div class="ttc" id="agroup___i2_c___private___functions_html_ga7887c523198c3e81d7194233ce30d129"><div class="ttname"><a href="group___i2_c___private___functions.html#ga7887c523198c3e81d7194233ce30d129">I2C_MasterTransmit_TXE</a></div><div class="ttdeci">static void I2C_MasterTransmit_TXE(I2C_HandleTypeDef *hi2c)</div><div class="ttdoc">Handle TXE flag for Master.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8c_source.html#l05365">stm32f1xx_hal_i2c.c:5365</a></div></div>
+<div class="ttc" id="agroup___i2_c___private___functions_html_ga808d7f90345f854f03cc54741cef31f4"><div class="ttname"><a href="group___i2_c___private___functions.html#ga808d7f90345f854f03cc54741cef31f4">I2C_MasterReceive_RXNE</a></div><div class="ttdeci">static void I2C_MasterReceive_RXNE(I2C_HandleTypeDef *hi2c)</div><div class="ttdoc">Handle RXNE flag for Master.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8c_source.html#l05625">stm32f1xx_hal_i2c.c:5625</a></div></div>
+<div class="ttc" id="agroup___i2_c___private___functions_html_gab175ae4207b9677b4020dcff061fc65c"><div class="ttname"><a href="group___i2_c___private___functions.html#gab175ae4207b9677b4020dcff061fc65c">I2C_ConvertOtherXferOptions</a></div><div class="ttdeci">static void I2C_ConvertOtherXferOptions(I2C_HandleTypeDef *hi2c)</div><div class="ttdoc">Convert I2Cx OTHER_xxx XferOptions to functional XferOptions.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8c_source.html#l07634">stm32f1xx_hal_i2c.c:7634</a></div></div>
+<div class="ttc" id="agroup___i2_c___private___functions_html_gac94a51e380a191f7dbd3d0265045054a"><div class="ttname"><a href="group___i2_c___private___functions.html#gac94a51e380a191f7dbd3d0265045054a">I2C_MasterTransmit_BTF</a></div><div class="ttdeci">static void I2C_MasterTransmit_BTF(I2C_HandleTypeDef *hi2c)</div><div class="ttdoc">Handle BTF flag for Master transmitter.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8c_source.html#l05459">stm32f1xx_hal_i2c.c:5459</a></div></div>
+<div class="ttc" id="agroup___i2_c___private___functions_html_gaf77e042e6ed06a74c8d978dffbf40991"><div class="ttname"><a href="group___i2_c___private___functions.html#gaf77e042e6ed06a74c8d978dffbf40991">I2C_Master_ADD10</a></div><div class="ttdeci">static void I2C_Master_ADD10(I2C_HandleTypeDef *hi2c)</div><div class="ttdoc">Handle ADD10 flag for Master.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8c_source.html#l05934">stm32f1xx_hal_i2c.c:5934</a></div></div>
+<div class="ttc" id="agroup___peripheral___registers___bits___definition_html_gadb81d5c91486b873bd0bf279a4ffcf69"><div class="ttname"><a href="group___peripheral___registers___bits___definition.html#gadb81d5c91486b873bd0bf279a4ffcf69">I2C_CR2_DMAEN</a></div><div class="ttdeci">#define I2C_CR2_DMAEN</div><div class="ttdoc">DMA Requests Enable.</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l09276">stm32f103xb.h:9276</a></div></div>
+<div class="ttc" id="astruct_i2_c___handle_type_def_html_ac08def6fde3afcbbdb1c630387a1f673"><div class="ttname"><a href="struct_i2_c___handle_type_def.html#ac08def6fde3afcbbdb1c630387a1f673">I2C_HandleTypeDef::XferOptions</a></div><div class="ttdeci">volatile uint32_t XferOptions</div><div class="ttdoc">&lt; Defines &#39;read / write&#39; permissions</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__i2c_8h_source.html#l00200">stm32f1xx_hal_i2c.h:200</a></div></div>
+<div class="ttc" id="astruct_i2_c___type_def_html_aef4b88e6fe03997bc9b8a5b12d48a7f5"><div class="ttname"><a href="struct_i2_c___type_def.html#aef4b88e6fe03997bc9b8a5b12d48a7f5">I2C_TypeDef::SR2</a></div><div class="ttdeci">volatile uint32_t SR2</div><div class="ttdoc">&lt; Defines &#39;read / write&#39; permissions</div><div class="ttdef"><b>Definición</b> <a href="stm32f103xb_8h_source.html#l00392">stm32f103xb.h:392</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f103xb_8h_source.html#l00387">I2C_TypeDef::CR2</a>, <a class="el" href="stm32f1xx__hal__i2c_8h_source.html#l00215">I2C_HandleTypeDef::ErrorCode</a>, <a class="el" href="stm32f1xx__hal__i2c_8h_source.html#l00163">HAL_I2C_ERROR_NONE</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l04885">HAL_I2C_EV_IRQHandler()</a>, <a class="el" href="stm32f1xx__hal__i2c_8h_source.html#l00149">HAL_I2C_MODE_MASTER</a>, <a class="el" href="stm32f1xx__hal__i2c_8h_source.html#l00151">HAL_I2C_MODE_MEM</a>, <a class="el" href="stm32f1xx__hal__i2c_8h_source.html#l00111">HAL_I2C_STATE_BUSY_TX</a>, <a class="el" href="stm32f1xx__hal__i2c_8h_source.html#l00114">HAL_I2C_STATE_BUSY_TX_LISTEN</a>, <a class="el" href="stm32f1xx__hal__i2c_8h_source.html#l00705">I2C_CHECK_FLAG</a>, <a class="el" href="stm32f1xx__hal__i2c_8h_source.html#l00706">I2C_CHECK_IT_SOURCE</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l07634">I2C_ConvertOtherXferOptions()</a>, <a class="el" href="stm32f103xb_8h_source.html#l09276">I2C_CR2_DMAEN</a>, <a class="el" href="stm32f1xx__hal__i2c_8h_source.html#l00392">I2C_FLAG_ADD10</a>, <a class="el" href="stm32f1xx__hal__i2c_8h_source.html#l00394">I2C_FLAG_ADDR</a>, <a class="el" href="stm32f1xx__hal__i2c_8h_source.html#l00393">I2C_FLAG_BTF</a>, <a class="el" href="stm32f1xx__hal__i2c_8h_source.html#l00390">I2C_FLAG_RXNE</a>, <a class="el" href="stm32f1xx__hal__i2c_8h_source.html#l00395">I2C_FLAG_SB</a>, <a class="el" href="stm32f1xx__hal__i2c_8h_source.html#l00391">I2C_FLAG_STOPF</a>, <a class="el" href="stm32f1xx__hal__i2c_8h_source.html#l00398">I2C_FLAG_TRA</a>, <a class="el" href="stm32f1xx__hal__i2c_8h_source.html#l00389">I2C_FLAG_TXE</a>, <a class="el" href="stm32f1xx__hal__i2c_8h_source.html#l00374">I2C_IT_BUF</a>, <a class="el" href="stm32f1xx__hal__i2c_8h_source.html#l00375">I2C_IT_EVT</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l05934">I2C_Master_ADD10()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l05953">I2C_Master_ADDR()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l05873">I2C_Master_SB()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l05744">I2C_MasterReceive_BTF()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l05625">I2C_MasterReceive_RXNE()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l05459">I2C_MasterTransmit_BTF()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l05365">I2C_MasterTransmit_TXE()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l05538">I2C_MemoryTransmit_TXE_BTF()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l06226">I2C_Slave_ADDR()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l06277">I2C_Slave_STOPF()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l06204">I2C_SlaveReceive_BTF()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l06163">I2C_SlaveReceive_RXNE()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l06142">I2C_SlaveTransmit_BTF()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l06101">I2C_SlaveTransmit_TXE()</a>, <a class="el" href="stm32f1xx__hal__i2c_8h_source.html#l00190">I2C_HandleTypeDef::Instance</a>, <a class="el" href="stm32f1xx__hal__i2c_8h_source.html#l00702">IS_I2C_TRANSFER_OTHER_OPTIONS_REQUEST</a>, <a class="el" href="stm32f1xx__hal__i2c_8h_source.html#l00213">I2C_HandleTypeDef::Mode</a>, <a class="el" href="stm32f1xx_8h_source.html#l00181">READ_BIT</a>, <a class="el" href="stm32f1xx_8h_source.html#l00187">READ_REG</a>, <a class="el" href="stm32f1xx_8h_source.html#l00152">RESET</a>, <a class="el" href="stm32f103xb_8h_source.html#l00391">I2C_TypeDef::SR1</a>, <a class="el" href="stm32f103xb_8h_source.html#l00392">I2C_TypeDef::SR2</a>, <a class="el" href="stm32f1xx__hal__i2c_8h_source.html#l00211">I2C_HandleTypeDef::State</a> y <a class="el" href="stm32f1xx__hal__i2c_8h_source.html#l00200">I2C_HandleTypeDef::XferOptions</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l04885">HAL_I2C_EV_IRQHandler()</a> y <a class="el" href="stm32f1xx__it_8c_source.html#l00387">I2C2_EV_IRQHandler()</a>.</p>
+<div id="dynsection-9" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-9-summary" class="dynsummary">
+</div>
+<div id="dynsection-9-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___i2_c___i_r_q___handler__and___callbacks_ga0cd3cc56c83b85a65e31c945c854d9d5_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div id="dynsection-10" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-10-summary" class="dynsummary">
+</div>
+<div id="dynsection-10-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___i2_c___i_r_q___handler__and___callbacks_ga0cd3cc56c83b85a65e31c945c854d9d5_icgraph.svg" width="386" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ga309fbd7f108a901a9716ad347407ebc3" name="ga309fbd7f108a901a9716ad347407ebc3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga309fbd7f108a901a9716ad347407ebc3">&#9670;&#160;</a></span>HAL_I2C_ListenCpltCallback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group___u_s_b_d___d_e_f___exported___macros.html#ga5181eb756a197a06d1c4ed1f40a065bc">__weak</a> void HAL_I2C_ListenCpltCallback </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_i2_c___handle_type_def.html">I2C_HandleTypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>hi2c</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__i2c_8h.html">stm32f1xx_hal_i2c.h</a>&quot;</code></p>
+
+<p>Listen Complete callback. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">hi2c</td><td>Pointer to a <a class="el" href="struct_i2_c___handle_type_def.html">I2C_HandleTypeDef</a> structure that contains the configuration information for the specified I2C. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l05220">5220</a> del archivo <a class="el" href="stm32f1xx__hal__i2c_8c_source.html">stm32f1xx_hal_i2c.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 5221</span>{</div>
+<div class="line"><span class="lineno"> 5222</span>  <span class="comment">/* Prevent unused argument(s) compilation warning */</span></div>
+<div class="line"><span class="lineno"> 5223</span>  UNUSED(hi2c);</div>
+<div class="line"><span class="lineno"> 5224</span> </div>
+<div class="line"><span class="lineno"> 5225</span>  <span class="comment">/* NOTE : This function should not be modified, when the callback is needed,</span></div>
+<div class="line"><span class="lineno"> 5226</span><span class="comment">            the HAL_I2C_ListenCpltCallback() could be implemented in the user file</span></div>
+<div class="line"><span class="lineno"> 5227</span><span class="comment">  */</span></div>
+<div class="line"><span class="lineno"> 5228</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="usbd__def_8h_source.html#l00283">__weak</a> y <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l05220">HAL_I2C_ListenCpltCallback()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l00463">HAL_I2C_Init()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l05220">HAL_I2C_ListenCpltCallback()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l06515">I2C_ITError()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l06446">I2C_Slave_AF()</a> y <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l06277">I2C_Slave_STOPF()</a>.</p>
+<div id="dynsection-11" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-11-summary" class="dynsummary">
+</div>
+<div id="dynsection-11-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___i2_c___i_r_q___handler__and___callbacks_ga309fbd7f108a901a9716ad347407ebc3_cgraph.svg" width="203" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-12" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-12-summary" class="dynsummary">
+</div>
+<div id="dynsection-12-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___i2_c___i_r_q___handler__and___callbacks_ga309fbd7f108a901a9716ad347407ebc3_icgraph.svg" width="100%" height="570"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="ga0eec5bf219f59231426f50ff75decae2" name="ga0eec5bf219f59231426f50ff75decae2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga0eec5bf219f59231426f50ff75decae2">&#9670;&#160;</a></span>HAL_I2C_MasterRxCpltCallback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group___u_s_b_d___d_e_f___exported___macros.html#ga5181eb756a197a06d1c4ed1f40a065bc">__weak</a> void HAL_I2C_MasterRxCpltCallback </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_i2_c___handle_type_def.html">I2C_HandleTypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>hi2c</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__i2c_8h.html">stm32f1xx_hal_i2c.h</a>&quot;</code></p>
+
+<p>Master Rx Transfer completed callback. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">hi2c</td><td>Pointer to a <a class="el" href="struct_i2_c___handle_type_def.html">I2C_HandleTypeDef</a> structure that contains the configuration information for the specified I2C. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l05153">5153</a> del archivo <a class="el" href="stm32f1xx__hal__i2c_8c_source.html">stm32f1xx_hal_i2c.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 5154</span>{</div>
+<div class="line"><span class="lineno"> 5155</span>  <span class="comment">/* Prevent unused argument(s) compilation warning */</span></div>
+<div class="line"><span class="lineno"> 5156</span>  UNUSED(hi2c);</div>
+<div class="line"><span class="lineno"> 5157</span> </div>
+<div class="line"><span class="lineno"> 5158</span>  <span class="comment">/* NOTE : This function should not be modified, when the callback is needed,</span></div>
+<div class="line"><span class="lineno"> 5159</span><span class="comment">            the HAL_I2C_MasterRxCpltCallback could be implemented in the user file</span></div>
+<div class="line"><span class="lineno"> 5160</span><span class="comment">   */</span></div>
+<div class="line"><span class="lineno"> 5161</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="usbd__def_8h_source.html#l00283">__weak</a> y <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l05153">HAL_I2C_MasterRxCpltCallback()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l00463">HAL_I2C_Init()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l05153">HAL_I2C_MasterRxCpltCallback()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l07040">I2C_DMAXferCplt()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l05744">I2C_MasterReceive_BTF()</a> y <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l05625">I2C_MasterReceive_RXNE()</a>.</p>
+<div id="dynsection-13" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-13-summary" class="dynsummary">
+</div>
+<div id="dynsection-13-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___i2_c___i_r_q___handler__and___callbacks_ga0eec5bf219f59231426f50ff75decae2_cgraph.svg" width="226" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-14" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-14-summary" class="dynsummary">
+</div>
+<div id="dynsection-14-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___i2_c___i_r_q___handler__and___callbacks_ga0eec5bf219f59231426f50ff75decae2_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="ga5fb7c995ebe42b63dcc3b6cf92c804af" name="ga5fb7c995ebe42b63dcc3b6cf92c804af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5fb7c995ebe42b63dcc3b6cf92c804af">&#9670;&#160;</a></span>HAL_I2C_MasterTxCpltCallback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group___u_s_b_d___d_e_f___exported___macros.html#ga5181eb756a197a06d1c4ed1f40a065bc">__weak</a> void HAL_I2C_MasterTxCpltCallback </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_i2_c___handle_type_def.html">I2C_HandleTypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>hi2c</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__i2c_8h.html">stm32f1xx_hal_i2c.h</a>&quot;</code></p>
+
+<p>Master Tx Transfer completed callback. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">hi2c</td><td>Pointer to a <a class="el" href="struct_i2_c___handle_type_def.html">I2C_HandleTypeDef</a> structure that contains the configuration information for the specified I2C. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l05137">5137</a> del archivo <a class="el" href="stm32f1xx__hal__i2c_8c_source.html">stm32f1xx_hal_i2c.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 5138</span>{</div>
+<div class="line"><span class="lineno"> 5139</span>  <span class="comment">/* Prevent unused argument(s) compilation warning */</span></div>
+<div class="line"><span class="lineno"> 5140</span>  UNUSED(hi2c);</div>
+<div class="line"><span class="lineno"> 5141</span> </div>
+<div class="line"><span class="lineno"> 5142</span>  <span class="comment">/* NOTE : This function should not be modified, when the callback is needed,</span></div>
+<div class="line"><span class="lineno"> 5143</span><span class="comment">            the HAL_I2C_MasterTxCpltCallback could be implemented in the user file</span></div>
+<div class="line"><span class="lineno"> 5144</span><span class="comment">   */</span></div>
+<div class="line"><span class="lineno"> 5145</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="usbd__def_8h_source.html#l00283">__weak</a> y <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l05137">HAL_I2C_MasterTxCpltCallback()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l00463">HAL_I2C_Init()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l05137">HAL_I2C_MasterTxCpltCallback()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l05459">I2C_MasterTransmit_BTF()</a> y <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l05365">I2C_MasterTransmit_TXE()</a>.</p>
+<div id="dynsection-15" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-15-summary" class="dynsummary">
+</div>
+<div id="dynsection-15-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___i2_c___i_r_q___handler__and___callbacks_ga5fb7c995ebe42b63dcc3b6cf92c804af_cgraph.svg" width="223" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-16" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-16-summary" class="dynsummary">
+</div>
+<div id="dynsection-16-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___i2_c___i_r_q___handler__and___callbacks_ga5fb7c995ebe42b63dcc3b6cf92c804af_icgraph.svg" width="100%" height="486"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="gac16a95413b35f05c5ce725fefd8531a5" name="gac16a95413b35f05c5ce725fefd8531a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac16a95413b35f05c5ce725fefd8531a5">&#9670;&#160;</a></span>HAL_I2C_MemRxCpltCallback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void HAL_I2C_MemRxCpltCallback </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_i2_c___handle_type_def.html">I2C_HandleTypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>hi2c</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__i2c_8h.html">stm32f1xx_hal_i2c.h</a>&quot;</code></p>
+
+<p>Memory Rx Transfer completed callback. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">hi2c</td><td>Pointer to a <a class="el" href="struct_i2_c___handle_type_def.html">I2C_HandleTypeDef</a> structure that contains the configuration information for the specified I2C. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l05252">5252</a> del archivo <a class="el" href="stm32f1xx__hal__i2c_8c_source.html">stm32f1xx_hal_i2c.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 5253</span>{</div>
+<div class="line"><span class="lineno"> 5254</span>  <span class="comment">/* Prevent unused argument(s) compilation warning */</span></div>
+<div class="line"><span class="lineno"> 5255</span>  UNUSED(hi2c);</div>
+<div class="line"><span class="lineno"> 5256</span> </div>
+<div class="line"><span class="lineno"> 5257</span>  <span class="comment">/* NOTE : This function should not be modified, when the callback is needed,</span></div>
+<div class="line"><span class="lineno"> 5258</span><span class="comment">            the HAL_I2C_MemRxCpltCallback could be implemented in the user file</span></div>
+<div class="line"><span class="lineno"> 5259</span><span class="comment">   */</span></div>
+<div class="line"><span class="lineno"> 5260</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="usbd__def_8h_source.html#l00283">__weak</a> y <a class="el" href="main_8c_source.html#l00686">HAL_I2C_MemRxCpltCallback()</a>.</p>
+<div id="dynsection-17" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-17-summary" class="dynsummary">
+</div>
+<div id="dynsection-17-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___i2_c___i_r_q___handler__and___callbacks_gac16a95413b35f05c5ce725fefd8531a5_cgraph.svg" width="466" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ga874f6104d2cdbced9f2ab6e941ec58f0" name="ga874f6104d2cdbced9f2ab6e941ec58f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga874f6104d2cdbced9f2ab6e941ec58f0">&#9670;&#160;</a></span>HAL_I2C_MemTxCpltCallback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void HAL_I2C_MemTxCpltCallback </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_i2_c___handle_type_def.html">I2C_HandleTypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>hi2c</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__i2c_8h.html">stm32f1xx_hal_i2c.h</a>&quot;</code></p>
+
+<p>Memory Tx Transfer completed callback. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">hi2c</td><td>Pointer to a <a class="el" href="struct_i2_c___handle_type_def.html">I2C_HandleTypeDef</a> structure that contains the configuration information for the specified I2C. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l05236">5236</a> del archivo <a class="el" href="stm32f1xx__hal__i2c_8c_source.html">stm32f1xx_hal_i2c.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 5237</span>{</div>
+<div class="line"><span class="lineno"> 5238</span>  <span class="comment">/* Prevent unused argument(s) compilation warning */</span></div>
+<div class="line"><span class="lineno"> 5239</span>  UNUSED(hi2c);</div>
+<div class="line"><span class="lineno"> 5240</span> </div>
+<div class="line"><span class="lineno"> 5241</span>  <span class="comment">/* NOTE : This function should not be modified, when the callback is needed,</span></div>
+<div class="line"><span class="lineno"> 5242</span><span class="comment">            the HAL_I2C_MemTxCpltCallback could be implemented in the user file</span></div>
+<div class="line"><span class="lineno"> 5243</span><span class="comment">   */</span></div>
+<div class="line"><span class="lineno"> 5244</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="usbd__def_8h_source.html#l00283">__weak</a> y <a class="el" href="main_8c_source.html#l00682">HAL_I2C_MemTxCpltCallback()</a>.</p>
+<div id="dynsection-18" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-18-summary" class="dynsummary">
+</div>
+<div id="dynsection-18-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___i2_c___i_r_q___handler__and___callbacks_ga874f6104d2cdbced9f2ab6e941ec58f0_cgraph.svg" width="462" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ga41d038c01af0234359db8b5384bea869" name="ga41d038c01af0234359db8b5384bea869"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga41d038c01af0234359db8b5384bea869">&#9670;&#160;</a></span>HAL_I2C_SlaveRxCpltCallback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group___u_s_b_d___d_e_f___exported___macros.html#ga5181eb756a197a06d1c4ed1f40a065bc">__weak</a> void HAL_I2C_SlaveRxCpltCallback </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_i2_c___handle_type_def.html">I2C_HandleTypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>hi2c</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__i2c_8h.html">stm32f1xx_hal_i2c.h</a>&quot;</code></p>
+
+<p>Slave Rx Transfer completed callback. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">hi2c</td><td>Pointer to a <a class="el" href="struct_i2_c___handle_type_def.html">I2C_HandleTypeDef</a> structure that contains the configuration information for the specified I2C. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l05184">5184</a> del archivo <a class="el" href="stm32f1xx__hal__i2c_8c_source.html">stm32f1xx_hal_i2c.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 5185</span>{</div>
+<div class="line"><span class="lineno"> 5186</span>  <span class="comment">/* Prevent unused argument(s) compilation warning */</span></div>
+<div class="line"><span class="lineno"> 5187</span>  UNUSED(hi2c);</div>
+<div class="line"><span class="lineno"> 5188</span> </div>
+<div class="line"><span class="lineno"> 5189</span>  <span class="comment">/* NOTE : This function should not be modified, when the callback is needed,</span></div>
+<div class="line"><span class="lineno"> 5190</span><span class="comment">            the HAL_I2C_SlaveRxCpltCallback could be implemented in the user file</span></div>
+<div class="line"><span class="lineno"> 5191</span><span class="comment">   */</span></div>
+<div class="line"><span class="lineno"> 5192</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="usbd__def_8h_source.html#l00283">__weak</a> y <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l05184">HAL_I2C_SlaveRxCpltCallback()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l00463">HAL_I2C_Init()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l05184">HAL_I2C_SlaveRxCpltCallback()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l07040">I2C_DMAXferCplt()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l06277">I2C_Slave_STOPF()</a> y <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l06163">I2C_SlaveReceive_RXNE()</a>.</p>
+<div id="dynsection-19" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-19-summary" class="dynsummary">
+</div>
+<div id="dynsection-19-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___i2_c___i_r_q___handler__and___callbacks_ga41d038c01af0234359db8b5384bea869_cgraph.svg" width="219" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-20" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-20-summary" class="dynsummary">
+</div>
+<div id="dynsection-20-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___i2_c___i_r_q___handler__and___callbacks_ga41d038c01af0234359db8b5384bea869_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="gafc6294ce15921f0a87148519335ba4f5" name="gafc6294ce15921f0a87148519335ba4f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gafc6294ce15921f0a87148519335ba4f5">&#9670;&#160;</a></span>HAL_I2C_SlaveTxCpltCallback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group___u_s_b_d___d_e_f___exported___macros.html#ga5181eb756a197a06d1c4ed1f40a065bc">__weak</a> void HAL_I2C_SlaveTxCpltCallback </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_i2_c___handle_type_def.html">I2C_HandleTypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>hi2c</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="stm32f1xx__hal__i2c_8h.html">stm32f1xx_hal_i2c.h</a>&quot;</code></p>
+
+<p>Slave Tx Transfer completed callback. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">hi2c</td><td>Pointer to a <a class="el" href="struct_i2_c___handle_type_def.html">I2C_HandleTypeDef</a> structure that contains the configuration information for the specified I2C. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l05168">5168</a> del archivo <a class="el" href="stm32f1xx__hal__i2c_8c_source.html">stm32f1xx_hal_i2c.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 5169</span>{</div>
+<div class="line"><span class="lineno"> 5170</span>  <span class="comment">/* Prevent unused argument(s) compilation warning */</span></div>
+<div class="line"><span class="lineno"> 5171</span>  UNUSED(hi2c);</div>
+<div class="line"><span class="lineno"> 5172</span> </div>
+<div class="line"><span class="lineno"> 5173</span>  <span class="comment">/* NOTE : This function should not be modified, when the callback is needed,</span></div>
+<div class="line"><span class="lineno"> 5174</span><span class="comment">            the HAL_I2C_SlaveTxCpltCallback could be implemented in the user file</span></div>
+<div class="line"><span class="lineno"> 5175</span><span class="comment">   */</span></div>
+<div class="line"><span class="lineno"> 5176</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="usbd__def_8h_source.html#l00283">__weak</a> y <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l05168">HAL_I2C_SlaveTxCpltCallback()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l00463">HAL_I2C_Init()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l05168">HAL_I2C_SlaveTxCpltCallback()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l07040">I2C_DMAXferCplt()</a>, <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l06446">I2C_Slave_AF()</a> y <a class="el" href="stm32f1xx__hal__i2c_8c_source.html#l06101">I2C_SlaveTransmit_TXE()</a>.</p>
+<div id="dynsection-21" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-21-summary" class="dynsummary">
+</div>
+<div id="dynsection-21-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___i2_c___i_r_q___handler__and___callbacks_gafc6294ce15921f0a87148519335ba4f5_cgraph.svg" width="216" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-22" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-22-summary" class="dynsummary">
+</div>
+<div id="dynsection-22-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="group___i2_c___i_r_q___handler__and___callbacks_gafc6294ce15921f0a87148519335ba4f5_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generado el <span class="timestamp"></span> para MICRO-Firmware por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>

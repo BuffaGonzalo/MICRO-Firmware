@@ -1,0 +1,701 @@
+\doxysubsection{ssd1306.\+c}
+\hypertarget{ssd1306_8c_source}{}\label{ssd1306_8c_source}\index{ssd1306.c@{ssd1306.c}}
+\doxymbox{\hyperlink{ssd1306_8c}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00001}00001\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00002}00002\ \textcolor{comment}{\ *\ @file\ \ \ ssd1306.c}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00003}00003\ \textcolor{comment}{\ *\ @author\ Olivier\ Van\ den\ Eede\ /\ Aleksander\ Alekseev\ /\ Gonzalo\ M.\ Buffa}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00004}00004\ \textcolor{comment}{\ *\ @brief\ \ Implementación\ del\ controlador\ y\ primitivas\ de\ dibujo\ para\ el\ display\ OLED\ SSD1306.}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00005}00005\ \textcolor{comment}{\ *\ @details\ Gestiona\ el\ volcado\ asíncrono\ página\ por\ página\ mediante\ transferencias\ I2C\ DMA,}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00006}00006\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ la\ manipulación\ directa\ de\ bits\ dentro\ del\ framebuffer\ y\ algoritmos\ gráficos\ clásicos}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00007}00007\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ (algoritmo\ de\ trazado\ de\ líneas\ de\ Bresenham,\ círculos,\ rectángulos\ e\ inversión\ de\ color).}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00008}00008\ \textcolor{comment}{\ *\ @ingroup\ group\_ui\_graphics}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00009}00009\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00011}00011\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{ssd1306_8h}{ssd1306.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00012}00012\ \textcolor{preprocessor}{\#include\ <math.h>}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00013}00013\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00014}00014\ \textcolor{preprocessor}{\#include\ <string.h>}\ \ \textcolor{comment}{//\ For\ memcpy}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00016}00016\ \textcolor{comment}{//extern\ volatile\ uint8\_t\ SSD1306\_TxCplt;}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00017}\doxymbox{\hyperlink{ssd1306_8c_a8fe192f07adfd9775d3d37ddbb0d0b48}{00017}}\ \textcolor{keyword}{static}\ uint8\_t\ *\doxymbox{\hyperlink{ssd1306_8c_a8fe192f07adfd9775d3d37ddbb0d0b48}{SSD1306\_TxCplt}}\ =\ \doxymbox{\hyperlink{group___u_s_b___d_e_f___exported___defines_ga070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}};}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00018}\doxymbox{\hyperlink{ssd1306_8c_ab6ce8029f86ab67c7277c618c6620ba7}{00018}}\ \textcolor{keyword}{static}\ void\ (*\doxymbox{\hyperlink{mpu6050_8c_ab6ce8029f86ab67c7277c618c6620ba7}{memWrite}})(uint8\_t\ address,\ uint8\_t\ *data,\ uint8\_t\ size,\ uint8\_t\ type)\ =\ \doxymbox{\hyperlink{group___u_s_b___d_e_f___exported___defines_ga070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}};}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00019}\doxymbox{\hyperlink{ssd1306_8c_a461e8dddcc0e2e8c35b873bbf438adbc}{00019}}\ \textcolor{keyword}{static}\ void\ (*\doxymbox{\hyperlink{ssd1306_8c_a461e8dddcc0e2e8c35b873bbf438adbc}{memWriteDMA}})(uint8\_t\ address,\ uint8\_t\ *data,\ uint8\_t\ size,\ uint8\_t\ type)\ =\ \doxymbox{\hyperlink{group___u_s_b___d_e_f___exported___defines_ga070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}};}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00021}00021\ \textcolor{comment}{//\ Variables\ estáticas\ globales\ del\ archivo\ para\ controlar\ el\ estado\ del\ DMA}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00022}\doxymbox{\hyperlink{ssd1306_8c_ab681895f02fc3440f7336bf4905e0fbc}{00022}}\ \textcolor{keyword}{static}\ uint8\_t\ \doxymbox{\hyperlink{ssd1306_8c_ab681895f02fc3440f7336bf4905e0fbc}{ssd1306\_dma\_current\_page}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00023}\doxymbox{\hyperlink{ssd1306_8c_adb16d108fa0be0d0c794b87ec04331ad}{00023}}\ \textcolor{keyword}{static}\ uint8\_t\ \doxymbox{\hyperlink{ssd1306_8c_adb16d108fa0be0d0c794b87ec04331ad}{ssd1306\_dma\_state}}\ =\ 1;}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00025}00025\ \textcolor{preprocessor}{\#if\ defined(SSD1306\_USE\_I2C)}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00027}\doxymbox{\hyperlink{ssd1306_8h_a0de0de5160661b862134dd0ac9023236}{00027}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{ssd1306_8h_a0de0de5160661b862134dd0ac9023236}{ssd1306\_Reset}}(\textcolor{keywordtype}{void})\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00028}00028\ \ \ \ \ \textcolor{comment}{/*\ for\ I2C\ -\/\ do\ nothing\ */}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00029}00029\ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00031}00031\ \textcolor{comment}{//\ Send\ a\ byte\ to\ the\ command\ register}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00032}\doxymbox{\hyperlink{ssd1306_8h_a15046f764dd1127bce472d5924356ba0}{00032}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{ssd1306_8h_a15046f764dd1127bce472d5924356ba0}{ssd1306\_WriteCommand}}(uint8\_t\ \textcolor{keywordtype}{byte})\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00033}00033\ \ \ \ \ \doxymbox{\hyperlink{mpu6050_8c_ab6ce8029f86ab67c7277c618c6620ba7}{memWrite}}(\doxymbox{\hyperlink{ssd1306__conf_8h_a40b6cafd3649547b7cf9629607d04a28}{SSD1306\_I2C\_ADDR}},\ \&\textcolor{keywordtype}{byte},\ 1,\ 0x00);}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00034}00034\ \ \ \ \ \textcolor{comment}{//HAL\_I2C\_Mem\_Write(\&SSD1306\_I2C\_PORT,\ SSD1306\_I2C\_ADDR,\ 0x00,\ 1,\ \&byte,\ 1,\ HAL\_MAX\_DELAY);}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00035}00035\ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00037}\doxymbox{\hyperlink{ssd1306_8h_a2a3a3f65f10ea3f9c9ea20f14eb1e8ba}{00037}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{ssd1306_8h_a2a3a3f65f10ea3f9c9ea20f14eb1e8ba}{ssd1306\_WriteCommandDMA}}(uint8\_t\ \textcolor{keywordtype}{byte})\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00038}00038\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8c_a461e8dddcc0e2e8c35b873bbf438adbc}{memWriteDMA}}(\doxymbox{\hyperlink{ssd1306__conf_8h_a40b6cafd3649547b7cf9629607d04a28}{SSD1306\_I2C\_ADDR}},\ \&\textcolor{keywordtype}{byte},\ 1,\ 0x00);}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00039}00039\ \ \ \ \ \textcolor{comment}{//HAL\_I2C\_Mem\_Write\_DMA(\&SSD1306\_I2C\_PORT,\ SSD1306\_I2C\_ADDR,\ 0x00,\ 1,\ \&byte,\ 1);}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00040}00040\ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00042}00042\ \textcolor{comment}{//\ Send\ data}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00043}\doxymbox{\hyperlink{ssd1306_8h_a0b365c4271ce6d5551e637de49bdc8a3}{00043}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{ssd1306_8h_a0b365c4271ce6d5551e637de49bdc8a3}{ssd1306\_WriteData}}(uint8\_t*\ buffer,\ \textcolor{keywordtype}{size\_t}\ buff\_size)\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00044}00044\ \ \ \ \ \doxymbox{\hyperlink{mpu6050_8c_ab6ce8029f86ab67c7277c618c6620ba7}{memWrite}}(\doxymbox{\hyperlink{ssd1306__conf_8h_a40b6cafd3649547b7cf9629607d04a28}{SSD1306\_I2C\_ADDR}},\ buffer,\ buff\_size,\ 0x40);}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00045}00045\ \ \ \ \ \textcolor{comment}{//HAL\_I2C\_Mem\_Write(\&SSD1306\_I2C\_PORT,\ SSD1306\_I2C\_ADDR,\ 0x40,\ 1,\ buffer,\ buff\_size,\ HAL\_MAX\_DELAY);}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00046}00046\ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00048}\doxymbox{\hyperlink{ssd1306_8h_ab51332a2a02f02a28e23362189646cc4}{00048}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{ssd1306_8h_ab51332a2a02f02a28e23362189646cc4}{ssd1306\_WriteDataDMA}}(uint8\_t*\ buffer,\ \textcolor{keywordtype}{size\_t}\ buff\_size)\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00049}00049\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8c_a461e8dddcc0e2e8c35b873bbf438adbc}{memWriteDMA}}(\doxymbox{\hyperlink{ssd1306__conf_8h_a40b6cafd3649547b7cf9629607d04a28}{SSD1306\_I2C\_ADDR}},\ buffer,\ buff\_size,\ 0x40);}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00050}00050\ \ \ \ \ \textcolor{comment}{//HAL\_I2C\_Mem\_Write\_DMA(\&SSD1306\_I2C\_PORT,\ SSD1306\_I2C\_ADDR,\ 0x40,\ 1,\ buffer,\ buff\_size);}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00051}00051\ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00053}00053\ \textcolor{preprocessor}{\#elif\ defined(SSD1306\_USE\_SPI)}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00055}00055\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{ssd1306_8h_a0de0de5160661b862134dd0ac9023236}{ssd1306\_Reset}}(\textcolor{keywordtype}{void})\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00056}00056\ \ \ \ \ \textcolor{comment}{//\ CS\ =\ High\ (not\ selected)}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00057}00057\ \ \ \ \ \doxymbox{\hyperlink{group___g_p_i_o___exported___functions___group2_gaf4b97bdf533a02f51ef696d43b6da5c4}{HAL\_GPIO\_WritePin}}(SSD1306\_CS\_Port,\ SSD1306\_CS\_Pin,\ \doxymbox{\hyperlink{group___g_p_i_o___exported___types_gga5b3ef0486b179415581eb342e0ea6b43a746c062509db3ad1e47beed7527f9f8a}{GPIO\_PIN\_SET}});}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00059}00059\ \ \ \ \ \textcolor{comment}{//\ Reset\ the\ OLED}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00060}00060\ \ \ \ \ \doxymbox{\hyperlink{group___g_p_i_o___exported___functions___group2_gaf4b97bdf533a02f51ef696d43b6da5c4}{HAL\_GPIO\_WritePin}}(SSD1306\_Reset\_Port,\ SSD1306\_Reset\_Pin,\ \doxymbox{\hyperlink{group___g_p_i_o___exported___types_gga5b3ef0486b179415581eb342e0ea6b43a90af2af95004ea61d76950ff3f2f6ec2}{GPIO\_PIN\_RESET}});}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00061}00061\ \ \ \ \ \doxymbox{\hyperlink{group___h_a_l___exported___functions___group2_gab1dc1e6b438daacfe38a312a90221330}{HAL\_Delay}}(10);}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00062}00062\ \ \ \ \ \doxymbox{\hyperlink{group___g_p_i_o___exported___functions___group2_gaf4b97bdf533a02f51ef696d43b6da5c4}{HAL\_GPIO\_WritePin}}(SSD1306\_Reset\_Port,\ SSD1306\_Reset\_Pin,\ \doxymbox{\hyperlink{group___g_p_i_o___exported___types_gga5b3ef0486b179415581eb342e0ea6b43a746c062509db3ad1e47beed7527f9f8a}{GPIO\_PIN\_SET}});}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00063}00063\ \ \ \ \ \doxymbox{\hyperlink{group___h_a_l___exported___functions___group2_gab1dc1e6b438daacfe38a312a90221330}{HAL\_Delay}}(10);}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00064}00064\ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00065}00065\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00066}00066\ \textcolor{comment}{//\ Send\ a\ byte\ to\ the\ command\ register}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00067}00067\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{ssd1306_8h_a15046f764dd1127bce472d5924356ba0}{ssd1306\_WriteCommand}}(uint8\_t\ \textcolor{keywordtype}{byte})\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00068}00068\ \ \ \ \ \doxymbox{\hyperlink{group___g_p_i_o___exported___functions___group2_gaf4b97bdf533a02f51ef696d43b6da5c4}{HAL\_GPIO\_WritePin}}(SSD1306\_CS\_Port,\ SSD1306\_CS\_Pin,\ \doxymbox{\hyperlink{group___g_p_i_o___exported___types_gga5b3ef0486b179415581eb342e0ea6b43a90af2af95004ea61d76950ff3f2f6ec2}{GPIO\_PIN\_RESET}});\ \textcolor{comment}{//\ select\ OLED}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00069}00069\ \ \ \ \ \doxymbox{\hyperlink{group___g_p_i_o___exported___functions___group2_gaf4b97bdf533a02f51ef696d43b6da5c4}{HAL\_GPIO\_WritePin}}(SSD1306\_DC\_Port,\ SSD1306\_DC\_Pin,\ \doxymbox{\hyperlink{group___g_p_i_o___exported___types_gga5b3ef0486b179415581eb342e0ea6b43a90af2af95004ea61d76950ff3f2f6ec2}{GPIO\_PIN\_RESET}});\ \textcolor{comment}{//\ command}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00070}00070\ \ \ \ \ HAL\_SPI\_Transmit(\&SSD1306\_SPI\_PORT,\ (uint8\_t\ *)\ \&\textcolor{keywordtype}{byte},\ 1,\ \doxymbox{\hyperlink{stm32f1xx__hal__def_8h_aad28bc64749c50dcedd6bf819fdc6974}{HAL\_MAX\_DELAY}});}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00071}00071\ \ \ \ \ \doxymbox{\hyperlink{group___g_p_i_o___exported___functions___group2_gaf4b97bdf533a02f51ef696d43b6da5c4}{HAL\_GPIO\_WritePin}}(SSD1306\_CS\_Port,\ SSD1306\_CS\_Pin,\ \doxymbox{\hyperlink{group___g_p_i_o___exported___types_gga5b3ef0486b179415581eb342e0ea6b43a746c062509db3ad1e47beed7527f9f8a}{GPIO\_PIN\_SET}});\ \textcolor{comment}{//\ un-\/select\ OLED}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00072}00072\ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00073}00073\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00074}00074\ \textcolor{comment}{//\ Send\ data}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00075}00075\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{ssd1306_8h_a0b365c4271ce6d5551e637de49bdc8a3}{ssd1306\_WriteData}}(uint8\_t*\ buffer,\ \textcolor{keywordtype}{size\_t}\ buff\_size)\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00076}00076\ \ \ \ \ \doxymbox{\hyperlink{group___g_p_i_o___exported___functions___group2_gaf4b97bdf533a02f51ef696d43b6da5c4}{HAL\_GPIO\_WritePin}}(SSD1306\_CS\_Port,\ SSD1306\_CS\_Pin,\ \doxymbox{\hyperlink{group___g_p_i_o___exported___types_gga5b3ef0486b179415581eb342e0ea6b43a90af2af95004ea61d76950ff3f2f6ec2}{GPIO\_PIN\_RESET}});\ \textcolor{comment}{//\ select\ OLED}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00077}00077\ \ \ \ \ \doxymbox{\hyperlink{group___g_p_i_o___exported___functions___group2_gaf4b97bdf533a02f51ef696d43b6da5c4}{HAL\_GPIO\_WritePin}}(SSD1306\_DC\_Port,\ SSD1306\_DC\_Pin,\ \doxymbox{\hyperlink{group___g_p_i_o___exported___types_gga5b3ef0486b179415581eb342e0ea6b43a746c062509db3ad1e47beed7527f9f8a}{GPIO\_PIN\_SET}});\ \textcolor{comment}{//\ data}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00078}00078\ \ \ \ \ HAL\_SPI\_Transmit(\&SSD1306\_SPI\_PORT,\ buffer,\ buff\_size,\ \doxymbox{\hyperlink{stm32f1xx__hal__def_8h_aad28bc64749c50dcedd6bf819fdc6974}{HAL\_MAX\_DELAY}});}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00079}00079\ \ \ \ \ \doxymbox{\hyperlink{group___g_p_i_o___exported___functions___group2_gaf4b97bdf533a02f51ef696d43b6da5c4}{HAL\_GPIO\_WritePin}}(SSD1306\_CS\_Port,\ SSD1306\_CS\_Pin,\ \doxymbox{\hyperlink{group___g_p_i_o___exported___types_gga5b3ef0486b179415581eb342e0ea6b43a746c062509db3ad1e47beed7527f9f8a}{GPIO\_PIN\_SET}});\ \textcolor{comment}{//\ un-\/select\ OLED}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00080}00080\ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00081}00081\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00082}00082\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00083}00083\ \textcolor{preprocessor}{\#error\ "{}You\ should\ define\ SSD1306\_USE\_SPI\ or\ SSD1306\_USE\_I2C\ macro"{}}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00084}00084\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00085}00085\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00086}00086\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00087}00087\ \textcolor{comment}{//\ Screenbuffer}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00088}\doxymbox{\hyperlink{ssd1306_8c_ad9e745ffe57814bcd1306909ab8fe59e}{00088}}\ \textcolor{keyword}{static}\ uint8\_t\ \doxymbox{\hyperlink{ssd1306_8c_ad9e745ffe57814bcd1306909ab8fe59e}{SSD1306\_Buffer}}[\doxymbox{\hyperlink{ssd1306_8h_a8fa5d8d60ba1f95d0bf58d83a39678b9}{SSD1306\_BUFFER\_SIZE}}];}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00089}00089\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00090}00090\ \textcolor{comment}{//\ Screen\ object}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00091}\doxymbox{\hyperlink{ssd1306_8c_accc32c7a4d874d3ab78d39867722e28a}{00091}}\ \textcolor{keyword}{static}\ \doxymbox{\hyperlink{struct_s_s_d1306__t}{SSD1306\_t}}\ \doxymbox{\hyperlink{main_8c_ac634d6ee59a5746651149844d4736c7a}{SSD1306}};}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00092}00092\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00093}00093\ \textcolor{comment}{/*\ Fills\ the\ Screenbuffer\ with\ values\ from\ a\ given\ buffer\ of\ a\ fixed\ length\ */}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00094}\doxymbox{\hyperlink{ssd1306_8h_a8bb327077b18ac6f3d618d7fe8a6fd33}{00094}}\ \doxymbox{\hyperlink{ssd1306_8h_a3cd087bf4d4acf17315ed0ee9905af26}{SSD1306\_Error\_t}}\ \doxymbox{\hyperlink{ssd1306_8h_a8bb327077b18ac6f3d618d7fe8a6fd33}{ssd1306\_FillBuffer}}(uint8\_t*\ buf,\ uint32\_t\ len)\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00095}00095\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a3cd087bf4d4acf17315ed0ee9905af26}{SSD1306\_Error\_t}}\ ret\ =\ \doxymbox{\hyperlink{ssd1306_8h_a3cd087bf4d4acf17315ed0ee9905af26a2039f63beb20aacaf905a6702b837b25}{SSD1306\_ERR}};}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00096}00096\ \ \ \ \ \textcolor{keywordflow}{if}\ (len\ <=\ \doxymbox{\hyperlink{ssd1306_8h_a8fa5d8d60ba1f95d0bf58d83a39678b9}{SSD1306\_BUFFER\_SIZE}})\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00097}00097\ \ \ \ \ \ \ \ \ memcpy(\doxymbox{\hyperlink{ssd1306_8c_ad9e745ffe57814bcd1306909ab8fe59e}{SSD1306\_Buffer}},buf,len);}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00098}00098\ \ \ \ \ \ \ \ \ ret\ =\ \doxymbox{\hyperlink{ssd1306_8h_a3cd087bf4d4acf17315ed0ee9905af26ab26e32b0f76830ed30b1607ee99cce34}{SSD1306\_OK}};}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00099}00099\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00100}00100\ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00101}00101\ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00102}00102\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00103}\doxymbox{\hyperlink{ssd1306_8h_a0e5a3b00cea05402262d40360c6c0497}{00103}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{ssd1306_8h_a0e5a3b00cea05402262d40360c6c0497}{ssd1306\_Attach\_MemWriteDMA}}(\textcolor{keywordtype}{void}(*PtrRx)(uint8\_t\ address,\ uint8\_t\ *data,\ uint8\_t\ size,\ uint8\_t\ type))\{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00104}00104\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8c_a461e8dddcc0e2e8c35b873bbf438adbc}{memWriteDMA}}\ =\ PtrRx;}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00105}00105\ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00106}00106\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00107}\doxymbox{\hyperlink{ssd1306_8h_a05ce6c2aa343a909fc30a1ad1da01b0e}{00107}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{ssd1306_8h_a05ce6c2aa343a909fc30a1ad1da01b0e}{ssd1306\_Attach\_MemWrite}}(\textcolor{keywordtype}{void}(*PtrRx)(uint8\_t\ address,\ uint8\_t\ *data,\ uint8\_t\ size,\ uint8\_t\ type))\{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00108}00108\ \ \ \ \ \doxymbox{\hyperlink{mpu6050_8c_ab6ce8029f86ab67c7277c618c6620ba7}{memWrite}}\ =\ PtrRx;}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00109}00109\ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00110}00110\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00111}\doxymbox{\hyperlink{ssd1306_8h_a95a49d07c86bacc5776dde80f700156b}{00111}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{ssd1306_8h_a95a49d07c86bacc5776dde80f700156b}{ssd1306\_ADC\_ConfCpltCallback}}(\textcolor{keyword}{volatile}\ uint8\_t\ *PtrRx)\{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00112}00112\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8c_a8fe192f07adfd9775d3d37ddbb0d0b48}{SSD1306\_TxCplt}}\ =\ (uint8\_t\ *)PtrRx;}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00113}00113\ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00114}00114\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00115}00115\ \textcolor{comment}{/*\ Initialize\ the\ oled\ screen\ */}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00116}\doxymbox{\hyperlink{ssd1306_8h_ade2c3a936ceecc5b8a1d965cc302d2ed}{00116}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{ssd1306_8h_ade2c3a936ceecc5b8a1d965cc302d2ed}{ssd1306\_Init}}(\textcolor{keywordtype}{void})\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00117}00117\ \ \ \ \ \textcolor{comment}{//\ Reset\ OLED}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00118}00118\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a0de0de5160661b862134dd0ac9023236}{ssd1306\_Reset}}();}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00119}00119\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00120}00120\ \ \ \ \ \textcolor{comment}{//\ Wait\ for\ the\ screen\ to\ boot}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00121}00121\ \ \ \ \ \doxymbox{\hyperlink{group___h_a_l___exported___functions___group2_gab1dc1e6b438daacfe38a312a90221330}{HAL\_Delay}}(100);}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00122}00122\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00123}00123\ \ \ \ \ \textcolor{comment}{//\ Init\ OLED}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00124}00124\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a63e99c8591f89a39d542c519eac7294f}{ssd1306\_SetDisplayOn}}(0);\ \textcolor{comment}{//display\ off}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00125}00125\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00126}00126\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a15046f764dd1127bce472d5924356ba0}{ssd1306\_WriteCommand}}(0x20);\ \textcolor{comment}{//Set\ Memory\ Addressing\ Mode}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00127}00127\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a15046f764dd1127bce472d5924356ba0}{ssd1306\_WriteCommand}}(0x00);\ \textcolor{comment}{//\ 00b,Horizontal\ Addressing\ Mode;\ 01b,Vertical\ Addressing\ Mode;}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00128}00128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 10b,Page\ Addressing\ Mode\ (RESET);\ 11b,Invalid}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00129}00129\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00130}00130\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a15046f764dd1127bce472d5924356ba0}{ssd1306\_WriteCommand}}(0xB0);\ \textcolor{comment}{//Set\ Page\ Start\ Address\ for\ Page\ Addressing\ Mode,0-\/7}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00131}00131\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00132}00132\ \textcolor{preprocessor}{\#ifdef\ SSD1306\_MIRROR\_VERT}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00133}00133\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a15046f764dd1127bce472d5924356ba0}{ssd1306\_WriteCommand}}(0xC0);\ \textcolor{comment}{//\ Mirror\ vertically}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00134}00134\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00135}00135\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a15046f764dd1127bce472d5924356ba0}{ssd1306\_WriteCommand}}(0xC8);\ \textcolor{comment}{//Set\ COM\ Output\ Scan\ Direction}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00136}00136\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00137}00137\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00138}00138\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a15046f764dd1127bce472d5924356ba0}{ssd1306\_WriteCommand}}(0x00);\ \textcolor{comment}{//-\/-\/-\/set\ low\ column\ address}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00139}00139\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a15046f764dd1127bce472d5924356ba0}{ssd1306\_WriteCommand}}(0x10);\ \textcolor{comment}{//-\/-\/-\/set\ high\ column\ address}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00140}00140\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00141}00141\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a15046f764dd1127bce472d5924356ba0}{ssd1306\_WriteCommand}}(0x40);\ \textcolor{comment}{//-\/-\/set\ start\ line\ address\ -\/\ CHECK}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00142}00142\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00143}00143\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a64253e858fadc2e9909db0baa31009c6}{ssd1306\_SetContrast}}(0xFF);}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00144}00144\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00145}00145\ \textcolor{preprocessor}{\#ifdef\ SSD1306\_MIRROR\_HORIZ}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00146}00146\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a15046f764dd1127bce472d5924356ba0}{ssd1306\_WriteCommand}}(0xA0);\ \textcolor{comment}{//\ Mirror\ horizontally}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00147}00147\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00148}00148\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a15046f764dd1127bce472d5924356ba0}{ssd1306\_WriteCommand}}(0xA1);\ \textcolor{comment}{//-\/-\/set\ segment\ re-\/map\ 0\ to\ 127\ -\/\ CHECK}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00149}00149\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00150}00150\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00151}00151\ \textcolor{preprocessor}{\#ifdef\ SSD1306\_INVERSE\_COLOR}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00152}00152\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a15046f764dd1127bce472d5924356ba0}{ssd1306\_WriteCommand}}(0xA7);\ \textcolor{comment}{//-\/-\/set\ inverse\ color}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00153}00153\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00154}00154\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a15046f764dd1127bce472d5924356ba0}{ssd1306\_WriteCommand}}(0xA6);\ \textcolor{comment}{//-\/-\/set\ normal\ color}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00155}00155\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00156}00156\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00157}00157\ \textcolor{comment}{//\ Set\ multiplex\ ratio.}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00158}00158\ \textcolor{preprocessor}{\#if\ (SSD1306\_HEIGHT\ ==\ 128)}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00159}00159\ \ \ \ \ \textcolor{comment}{//\ Found\ in\ the\ Luma\ Python\ lib\ for\ SH1106.}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00160}00160\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a15046f764dd1127bce472d5924356ba0}{ssd1306\_WriteCommand}}(0xFF);}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00161}00161\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00162}00162\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a15046f764dd1127bce472d5924356ba0}{ssd1306\_WriteCommand}}(0xA8);\ \textcolor{comment}{//-\/-\/set\ multiplex\ ratio(1\ to\ 64)\ -\/\ CHECK}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00163}00163\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00164}00164\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00165}00165\ \textcolor{preprocessor}{\#if\ (SSD1306\_HEIGHT\ ==\ 32)}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00166}00166\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a15046f764dd1127bce472d5924356ba0}{ssd1306\_WriteCommand}}(0x1F);\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00167}00167\ \textcolor{preprocessor}{\#elif\ (SSD1306\_HEIGHT\ ==\ 64)}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00168}00168\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a15046f764dd1127bce472d5924356ba0}{ssd1306\_WriteCommand}}(0x3F);\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00169}00169\ \textcolor{preprocessor}{\#elif\ (SSD1306\_HEIGHT\ ==\ 128)}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00170}00170\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a15046f764dd1127bce472d5924356ba0}{ssd1306\_WriteCommand}}(0x3F);\ \textcolor{comment}{//\ Seems\ to\ work\ for\ 128px\ high\ displays\ too.}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00171}00171\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00172}00172\ \textcolor{preprocessor}{\#error\ "{}Only\ 32,\ 64,\ or\ 128\ lines\ of\ height\ are\ supported!"{}}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00173}00173\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00174}00174\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00175}00175\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a15046f764dd1127bce472d5924356ba0}{ssd1306\_WriteCommand}}(0xA4);\ \textcolor{comment}{//0xa4,Output\ follows\ RAM\ content;0xa5,Output\ ignores\ RAM\ content}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00176}00176\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00177}00177\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a15046f764dd1127bce472d5924356ba0}{ssd1306\_WriteCommand}}(0xD3);\ \textcolor{comment}{//-\/set\ display\ offset\ -\/\ CHECK}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00178}00178\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a15046f764dd1127bce472d5924356ba0}{ssd1306\_WriteCommand}}(0x00);\ \textcolor{comment}{//-\/not\ offset}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00179}00179\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00180}00180\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a15046f764dd1127bce472d5924356ba0}{ssd1306\_WriteCommand}}(0xD5);\ \textcolor{comment}{//-\/-\/set\ display\ clock\ divide\ ratio/oscillator\ frequency}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00181}00181\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a15046f764dd1127bce472d5924356ba0}{ssd1306\_WriteCommand}}(0xF0);\ \textcolor{comment}{//-\/-\/set\ divide\ ratio}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00182}00182\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00183}00183\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a15046f764dd1127bce472d5924356ba0}{ssd1306\_WriteCommand}}(0xD9);\ \textcolor{comment}{//-\/-\/set\ pre-\/charge\ period}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00184}00184\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a15046f764dd1127bce472d5924356ba0}{ssd1306\_WriteCommand}}(0x22);\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00185}00185\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00186}00186\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a15046f764dd1127bce472d5924356ba0}{ssd1306\_WriteCommand}}(0xDA);\ \textcolor{comment}{//-\/-\/set\ com\ pins\ hardware\ configuration\ -\/\ CHECK}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00187}00187\ \textcolor{preprocessor}{\#if\ (SSD1306\_HEIGHT\ ==\ 32)}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00188}00188\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a15046f764dd1127bce472d5924356ba0}{ssd1306\_WriteCommand}}(0x02);}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00189}00189\ \textcolor{preprocessor}{\#elif\ (SSD1306\_HEIGHT\ ==\ 64)}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00190}00190\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a15046f764dd1127bce472d5924356ba0}{ssd1306\_WriteCommand}}(0x12);}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00191}00191\ \textcolor{preprocessor}{\#elif\ (SSD1306\_HEIGHT\ ==\ 128)}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00192}00192\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a15046f764dd1127bce472d5924356ba0}{ssd1306\_WriteCommand}}(0x12);}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00193}00193\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00194}00194\ \textcolor{preprocessor}{\#error\ "{}Only\ 32,\ 64,\ or\ 128\ lines\ of\ height\ are\ supported!"{}}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00195}00195\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00196}00196\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00197}00197\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a15046f764dd1127bce472d5924356ba0}{ssd1306\_WriteCommand}}(0xDB);\ \textcolor{comment}{//-\/-\/set\ vcomh}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00198}00198\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a15046f764dd1127bce472d5924356ba0}{ssd1306\_WriteCommand}}(0x20);\ \textcolor{comment}{//0x20,0.77xVcc}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00199}00199\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00200}00200\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a15046f764dd1127bce472d5924356ba0}{ssd1306\_WriteCommand}}(0x8D);\ \textcolor{comment}{//-\/-\/set\ DC-\/DC\ enable}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00201}00201\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a15046f764dd1127bce472d5924356ba0}{ssd1306\_WriteCommand}}(0x14);\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00202}00202\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a63e99c8591f89a39d542c519eac7294f}{ssd1306\_SetDisplayOn}}(1);\ \textcolor{comment}{//-\/-\/turn\ on\ SSD1306\ panel}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00203}00203\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00204}00204\ \ \ \ \ \textcolor{comment}{//\ Clear\ screen}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00205}00205\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a77620914b6d1247e7515a36c38672391}{ssd1306\_Fill}}(\doxymbox{\hyperlink{ssd1306_8h_a6f68a90e6eefe5396bcbec2cd699d500ac1e9bce8242f443c54c7405223d616cd}{Black}});}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00206}00206\ \ \ \ \ \textcolor{comment}{//ssd1306\_Fill(White);}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00207}00207\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00208}00208\ \ \ \ \ \textcolor{comment}{//\ Flush\ buffer\ to\ screen}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00209}00209\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_aeca33ad55a12e5a6c23250a01c9e5032}{ssd1306\_UpdateScreen}}();}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00210}00210\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00211}00211\ \ \ \ \ \textcolor{comment}{//\ Set\ default\ values\ for\ screen\ object}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00212}00212\ \ \ \ \ \doxymbox{\hyperlink{main_8c_ac634d6ee59a5746651149844d4736c7a}{SSD1306}}.CurrentX\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00213}00213\ \ \ \ \ \doxymbox{\hyperlink{main_8c_ac634d6ee59a5746651149844d4736c7a}{SSD1306}}.CurrentY\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00214}00214\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00215}00215\ \ \ \ \ \doxymbox{\hyperlink{main_8c_ac634d6ee59a5746651149844d4736c7a}{SSD1306}}.Initialized\ =\ 1;}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00216}00216\ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00217}00217\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00218}00218\ \textcolor{comment}{/*\ Fill\ the\ whole\ screen\ with\ the\ given\ color\ */}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00219}\doxymbox{\hyperlink{ssd1306_8h_a77620914b6d1247e7515a36c38672391}{00219}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{ssd1306_8h_a77620914b6d1247e7515a36c38672391}{ssd1306\_Fill}}(\doxymbox{\hyperlink{ssd1306_8h_a6f68a90e6eefe5396bcbec2cd699d500}{SSD1306\_COLOR}}\ color)\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00220}00220\ \ \ \ \ memset(\doxymbox{\hyperlink{ssd1306_8c_ad9e745ffe57814bcd1306909ab8fe59e}{SSD1306\_Buffer}},\ (color\ ==\ \doxymbox{\hyperlink{ssd1306_8h_a6f68a90e6eefe5396bcbec2cd699d500ac1e9bce8242f443c54c7405223d616cd}{Black}})\ ?\ 0x00\ :\ 0xFF,\ \textcolor{keyword}{sizeof}(\doxymbox{\hyperlink{ssd1306_8c_ad9e745ffe57814bcd1306909ab8fe59e}{SSD1306\_Buffer}}));}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00221}00221\ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00222}00222\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00223}00223\ \textcolor{comment}{/*\ Write\ the\ screenbuffer\ with\ changed\ to\ the\ screen\ */}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00224}\doxymbox{\hyperlink{ssd1306_8h_aeca33ad55a12e5a6c23250a01c9e5032}{00224}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{ssd1306_8h_aeca33ad55a12e5a6c23250a01c9e5032}{ssd1306\_UpdateScreen}}(\textcolor{keywordtype}{void})\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00225}00225\ \ \ \ \ \textcolor{comment}{//\ Write\ data\ to\ each\ page\ of\ RAM.\ Number\ of\ pages}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00226}00226\ \ \ \ \ \textcolor{comment}{//\ depends\ on\ the\ screen\ height:}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00227}00227\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00228}00228\ \ \ \ \ \textcolor{comment}{//\ \ *\ 32px\ \ \ ==\ \ 4\ pages}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00229}00229\ \ \ \ \ \textcolor{comment}{//\ \ *\ 64px\ \ \ ==\ \ 8\ pages}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00230}00230\ \ \ \ \ \textcolor{comment}{//\ \ *\ 128px\ \ ==\ \ 16\ pages}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00231}00231\ \ \ \ \ \textcolor{keywordflow}{for}(uint8\_t\ i\ =\ 0;\ i\ <\ \doxymbox{\hyperlink{ssd1306_8h_a4e9409448a0df95c1686670e09b457b7}{SSD1306\_HEIGHT}}/8;\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00232}00232\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a15046f764dd1127bce472d5924356ba0}{ssd1306\_WriteCommand}}(0xB0\ +\ i);\ \textcolor{comment}{//\ Set\ the\ current\ RAM\ page\ address.}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00233}00233\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a15046f764dd1127bce472d5924356ba0}{ssd1306\_WriteCommand}}(0x00\ +\ \doxymbox{\hyperlink{ssd1306_8h_aae17756c37924c52f02b7a8c7fc06791}{SSD1306\_X\_OFFSET\_LOWER}});}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00234}00234\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a15046f764dd1127bce472d5924356ba0}{ssd1306\_WriteCommand}}(0x10\ +\ \doxymbox{\hyperlink{ssd1306_8h_a883305bc0adf9bdc4c0b4c7d5c7befda}{SSD1306\_X\_OFFSET\_UPPER}});}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00235}00235\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a0b365c4271ce6d5551e637de49bdc8a3}{ssd1306\_WriteData}}(\&\doxymbox{\hyperlink{ssd1306_8c_ad9e745ffe57814bcd1306909ab8fe59e}{SSD1306\_Buffer}}[\doxymbox{\hyperlink{ssd1306_8h_ae5a2aa8865dd03537b97fd1c9037371b}{SSD1306\_WIDTH}}*i],\doxymbox{\hyperlink{ssd1306_8h_ae5a2aa8865dd03537b97fd1c9037371b}{SSD1306\_WIDTH}});}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00236}00236\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00237}00237\ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00238}00238\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00239}00239\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00240}00240\ \textcolor{comment}{/*\ Write\ the\ screenbuffer\ with\ changed\ to\ the\ screen\ */}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00241}\doxymbox{\hyperlink{ssd1306_8h_ab4427df8c1eeed4ac139a8499109eff9}{00241}}\ \textcolor{keywordtype}{char}\ \doxymbox{\hyperlink{ssd1306_8h_ab4427df8c1eeed4ac139a8499109eff9}{ssd1306\_UpdateScreenDMA}}(\textcolor{keywordtype}{void})\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00242}00242\ \ \ \ \ \textcolor{comment}{//\ Write\ data\ to\ each\ page\ of\ RAM.\ Number\ of\ pages}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00243}00243\ \ \ \ \ \textcolor{comment}{//\ depends\ on\ the\ screen\ height:}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00244}00244\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00245}00245\ \ \ \ \ \textcolor{comment}{//\ \ *\ 32px\ \ \ ==\ \ 4\ pages}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00246}00246\ \ \ \ \ \textcolor{comment}{//\ \ *\ 64px\ \ \ ==\ \ 8\ pages}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00247}00247\ \ \ \ \ \textcolor{comment}{//\ \ *\ 128px\ \ ==\ \ 16\ pages}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00248}00248\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00249}00249\ \ \ \ \ \textcolor{comment}{//\ Only\ proceed\ if\ I2C\ is\ ready\ or\ we're\ starting\ a\ new\ transaction}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00250}00250\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00251}00251\ \ \ \ \ \textcolor{keywordflow}{if}\ (*\doxymbox{\hyperlink{ssd1306_8c_a8fe192f07adfd9775d3d37ddbb0d0b48}{SSD1306\_TxCplt}}\ ||\ \doxymbox{\hyperlink{ssd1306_8c_adb16d108fa0be0d0c794b87ec04331ad}{ssd1306\_dma\_state}}\ ==\ 1)\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00252}00252\ \ \ \ \ \ \ \ \ *\doxymbox{\hyperlink{ssd1306_8c_a8fe192f07adfd9775d3d37ddbb0d0b48}{SSD1306\_TxCplt}}\ =\ 0;\ \ \textcolor{comment}{//\ Reset\ completion\ flag}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00253}00253\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00254}00254\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (\doxymbox{\hyperlink{ssd1306_8c_adb16d108fa0be0d0c794b87ec04331ad}{ssd1306\_dma\_state}})\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00255}00255\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 1:\ \ \textcolor{comment}{//\ Set\ page\ address}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00256}00256\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a2a3a3f65f10ea3f9c9ea20f14eb1e8ba}{ssd1306\_WriteCommandDMA}}(0xB0\ +\ \doxymbox{\hyperlink{ssd1306_8c_ab681895f02fc3440f7336bf4905e0fbc}{ssd1306\_dma\_current\_page}});}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00257}00257\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8c_adb16d108fa0be0d0c794b87ec04331ad}{ssd1306\_dma\_state}}\ =\ 2;}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00258}00258\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00259}00259\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 2:\ \ \textcolor{comment}{//\ Set\ column\ address\ low\ nibble}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00260}00260\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a2a3a3f65f10ea3f9c9ea20f14eb1e8ba}{ssd1306\_WriteCommandDMA}}(0x00\ +\ \doxymbox{\hyperlink{ssd1306_8h_aae17756c37924c52f02b7a8c7fc06791}{SSD1306\_X\_OFFSET\_LOWER}});}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00261}00261\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8c_adb16d108fa0be0d0c794b87ec04331ad}{ssd1306\_dma\_state}}\ =\ 3;}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00262}00262\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00263}00263\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 3:\ \ \textcolor{comment}{//\ Set\ column\ address\ high\ nibble}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00264}00264\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a2a3a3f65f10ea3f9c9ea20f14eb1e8ba}{ssd1306\_WriteCommandDMA}}(0x10\ +\ \doxymbox{\hyperlink{ssd1306_8h_a883305bc0adf9bdc4c0b4c7d5c7befda}{SSD1306\_X\_OFFSET\_UPPER}});}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00265}00265\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8c_adb16d108fa0be0d0c794b87ec04331ad}{ssd1306\_dma\_state}}\ =\ 4;}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00266}00266\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00267}00267\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 4:\ \ \textcolor{comment}{//\ Write\ page\ data}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00268}00268\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_ab51332a2a02f02a28e23362189646cc4}{ssd1306\_WriteDataDMA}}(\&\doxymbox{\hyperlink{ssd1306_8c_ad9e745ffe57814bcd1306909ab8fe59e}{SSD1306\_Buffer}}[\doxymbox{\hyperlink{ssd1306_8h_ae5a2aa8865dd03537b97fd1c9037371b}{SSD1306\_WIDTH}}*\doxymbox{\hyperlink{ssd1306_8c_ab681895f02fc3440f7336bf4905e0fbc}{ssd1306\_dma\_current\_page}}],\doxymbox{\hyperlink{ssd1306_8h_ae5a2aa8865dd03537b97fd1c9037371b}{SSD1306\_WIDTH}});}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00269}00269\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8c_ab681895f02fc3440f7336bf4905e0fbc}{ssd1306\_dma\_current\_page}}++;}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00270}00270\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8c_adb16d108fa0be0d0c794b87ec04331ad}{ssd1306\_dma\_state}}\ =\ 1;\ \ \textcolor{comment}{//\ Start\ over\ with\ next\ page}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00271}00271\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00272}00272\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{ssd1306_8c_ab681895f02fc3440f7336bf4905e0fbc}{ssd1306\_dma\_current\_page}}\ >\ 7)\{\textcolor{comment}{//SSD1306\_HEIGHT/8)\ \{}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00273}00273\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8c_ab681895f02fc3440f7336bf4905e0fbc}{ssd1306\_dma\_current\_page}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00274}00274\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00275}00275\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00276}00276\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00277}00277\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00278}00278\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00279}00279\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00280}00280\ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00281}00281\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00282}00282\ \textcolor{comment}{/*\ Reiniciar\ el\ estado\ del\ DMA\ e\ I2C\ de\ la\ pantalla\ OLED\ */}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00283}\doxymbox{\hyperlink{ssd1306_8h_a1052f348684f4611334bab03e2f21dda}{00283}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{ssd1306_8h_a1052f348684f4611334bab03e2f21dda}{ssd1306\_ResetDMAState}}(\textcolor{keywordtype}{void})\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00284}00284\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8c_ab681895f02fc3440f7336bf4905e0fbc}{ssd1306\_dma\_current\_page}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00285}00285\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8c_adb16d108fa0be0d0c794b87ec04331ad}{ssd1306\_dma\_state}}\ =\ 1;}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00286}00286\ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{ssd1306_8c_a8fe192f07adfd9775d3d37ddbb0d0b48}{SSD1306\_TxCplt}}\ !=\ \doxymbox{\hyperlink{group___u_s_b___d_e_f___exported___defines_ga070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}})\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00287}00287\ \ \ \ \ \ \ \ \ *\doxymbox{\hyperlink{ssd1306_8c_a8fe192f07adfd9775d3d37ddbb0d0b48}{SSD1306\_TxCplt}}\ =\ 1;\ \textcolor{comment}{//\ Forzar\ bandera\ de\ transmisión\ a\ "{}completado/listo"{}}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00288}00288\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00289}00289\ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00290}00290\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00291}00291\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00292}00292\ \textcolor{comment}{\ *\ Draw\ one\ pixel\ in\ the\ screenbuffer}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00293}00293\ \textcolor{comment}{\ *\ X\ =>\ X\ Coordinate}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00294}00294\ \textcolor{comment}{\ *\ Y\ =>\ Y\ Coordinate}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00295}00295\ \textcolor{comment}{\ *\ color\ =>\ Pixel\ color}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00296}00296\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00297}\doxymbox{\hyperlink{ssd1306_8h_ad43cbb77ed1f735535e7251ca47ecf87}{00297}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{ssd1306_8h_ad43cbb77ed1f735535e7251ca47ecf87}{ssd1306\_DrawPixel}}(uint8\_t\ x,\ uint8\_t\ y,\ \doxymbox{\hyperlink{ssd1306_8h_a6f68a90e6eefe5396bcbec2cd699d500}{SSD1306\_COLOR}}\ color)\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00298}00298\ \ \ \ \ \textcolor{keywordflow}{if}(x\ >=\ \doxymbox{\hyperlink{ssd1306_8h_ae5a2aa8865dd03537b97fd1c9037371b}{SSD1306\_WIDTH}}\ ||\ y\ >=\ \doxymbox{\hyperlink{ssd1306_8h_a4e9409448a0df95c1686670e09b457b7}{SSD1306\_HEIGHT}})\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00299}00299\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Don't\ write\ outside\ the\ buffer}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00300}00300\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00301}00301\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00302}00302\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00303}00303\ \ \ \ \ \textcolor{comment}{//\ Draw\ in\ the\ right\ color}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00304}00304\ \ \ \ \ \textcolor{keywordflow}{if}(color\ ==\ \doxymbox{\hyperlink{ssd1306_8h_a6f68a90e6eefe5396bcbec2cd699d500ab548046646b36c12aa6ba841de500094}{White}})\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00305}00305\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8c_ad9e745ffe57814bcd1306909ab8fe59e}{SSD1306\_Buffer}}[x\ +\ (y\ /\ 8)\ *\ \doxymbox{\hyperlink{ssd1306_8h_ae5a2aa8865dd03537b97fd1c9037371b}{SSD1306\_WIDTH}}]\ |=\ 1\ <<\ (y\ \%\ 8);}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00306}00306\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00307}00307\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8c_ad9e745ffe57814bcd1306909ab8fe59e}{SSD1306\_Buffer}}[x\ +\ (y\ /\ 8)\ *\ \doxymbox{\hyperlink{ssd1306_8h_ae5a2aa8865dd03537b97fd1c9037371b}{SSD1306\_WIDTH}}]\ \&=\ \string~(1\ <<\ (y\ \%\ 8));}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00308}00308\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00309}00309\ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00310}00310\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00311}00311\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00312}00312\ \textcolor{comment}{\ *\ Draw\ 1\ char\ to\ the\ screen\ buffer}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00313}00313\ \textcolor{comment}{\ *\ ch\ \ \ \ \ \ \ =>\ char\ om\ weg\ te\ schrijven}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00314}00314\ \textcolor{comment}{\ *\ Font\ \ \ \ \ =>\ Font\ waarmee\ we\ gaan\ schrijven}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00315}00315\ \textcolor{comment}{\ *\ color\ \ \ \ =>\ Black\ or\ White}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00316}00316\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00317}\doxymbox{\hyperlink{ssd1306_8h_ad719a0894e48463c66314931fd422e2d}{00317}}\ \textcolor{keywordtype}{char}\ \doxymbox{\hyperlink{ssd1306_8h_ad719a0894e48463c66314931fd422e2d}{ssd1306\_WriteChar}}(\textcolor{keywordtype}{char}\ ch,\ \doxymbox{\hyperlink{struct_s_s_d1306___font__t}{SSD1306\_Font\_t}}\ Font,\ \doxymbox{\hyperlink{ssd1306_8h_a6f68a90e6eefe5396bcbec2cd699d500}{SSD1306\_COLOR}}\ color)\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00318}00318\ \ \ \ \ uint32\_t\ i,\ b,\ j;}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00319}00319\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00320}00320\ \ \ \ \ \textcolor{comment}{//\ Check\ if\ character\ is\ valid}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00321}00321\ \ \ \ \ \textcolor{keywordflow}{if}\ (ch\ <\ 32\ ||\ ch\ >\ 126)}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00322}00322\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00323}00323\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00324}00324\ \ \ \ \ \textcolor{comment}{//\ Char\ width\ is\ not\ equal\ to\ font\ width\ for\ proportional\ font}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00325}00325\ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ char\_width\ =\ Font.\doxymbox{\hyperlink{struct_s_s_d1306___font__t_a2027e1bd9dc2a24c361689d59debc04a}{char\_width}}\ ?\ Font.\doxymbox{\hyperlink{struct_s_s_d1306___font__t_a2027e1bd9dc2a24c361689d59debc04a}{char\_width}}[ch-\/32]\ :\ Font.\doxymbox{\hyperlink{struct_s_s_d1306___font__t_a7f3656d2b7d2bfdf0061adfb8a3e0012}{width}};}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00326}00326\ \ \ \ \ \textcolor{comment}{//\ Check\ remaining\ space\ on\ current\ line}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00327}00327\ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{ssd1306_8h_ae5a2aa8865dd03537b97fd1c9037371b}{SSD1306\_WIDTH}}\ <\ (\doxymbox{\hyperlink{main_8c_ac634d6ee59a5746651149844d4736c7a}{SSD1306}}.CurrentX\ +\ char\_width)\ ||}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00328}00328\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a4e9409448a0df95c1686670e09b457b7}{SSD1306\_HEIGHT}}\ <\ (\doxymbox{\hyperlink{main_8c_ac634d6ee59a5746651149844d4736c7a}{SSD1306}}.CurrentY\ +\ Font.\doxymbox{\hyperlink{struct_s_s_d1306___font__t_afcb703d025256bae9276de008e5d6523}{height}}))}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00329}00329\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00330}00330\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Not\ enough\ space\ on\ current\ line}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00331}00331\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00332}00332\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00333}00333\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00334}00334\ \ \ \ \ \textcolor{comment}{//\ Use\ the\ font\ to\ write}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00335}00335\ \ \ \ \ \textcolor{keywordflow}{for}(i\ =\ 0;\ i\ <\ Font.\doxymbox{\hyperlink{struct_s_s_d1306___font__t_afcb703d025256bae9276de008e5d6523}{height}};\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00336}00336\ \ \ \ \ \ \ \ \ b\ =\ Font.\doxymbox{\hyperlink{struct_s_s_d1306___font__t_a4ba70314c56c84d5ffee83df0ddabc43}{data}}[(ch\ -\/\ 32)\ *\ Font.\doxymbox{\hyperlink{struct_s_s_d1306___font__t_afcb703d025256bae9276de008e5d6523}{height}}\ +\ i];}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00337}00337\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(j\ =\ 0;\ j\ <\ char\_width;\ j++)\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00338}00338\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}((b\ <<\ j)\ \&\ 0x8000)\ \ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00339}00339\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_ad43cbb77ed1f735535e7251ca47ecf87}{ssd1306\_DrawPixel}}(\doxymbox{\hyperlink{main_8c_ac634d6ee59a5746651149844d4736c7a}{SSD1306}}.CurrentX\ +\ j,\ (\doxymbox{\hyperlink{main_8c_ac634d6ee59a5746651149844d4736c7a}{SSD1306}}.CurrentY\ +\ i),\ (\doxymbox{\hyperlink{ssd1306_8h_a6f68a90e6eefe5396bcbec2cd699d500}{SSD1306\_COLOR}})\ color);}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00340}00340\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00341}00341\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_ad43cbb77ed1f735535e7251ca47ecf87}{ssd1306\_DrawPixel}}(\doxymbox{\hyperlink{main_8c_ac634d6ee59a5746651149844d4736c7a}{SSD1306}}.CurrentX\ +\ j,\ (\doxymbox{\hyperlink{main_8c_ac634d6ee59a5746651149844d4736c7a}{SSD1306}}.CurrentY\ +\ i),\ (\doxymbox{\hyperlink{ssd1306_8h_a6f68a90e6eefe5396bcbec2cd699d500}{SSD1306\_COLOR}})!color);}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00342}00342\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00343}00343\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00344}00344\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00345}00345\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00346}00346\ \ \ \ \ \textcolor{comment}{//\ The\ current\ space\ is\ now\ taken}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00347}00347\ \ \ \ \ \doxymbox{\hyperlink{main_8c_ac634d6ee59a5746651149844d4736c7a}{SSD1306}}.CurrentX\ +=\ char\_width;}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00348}00348\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00349}00349\ \ \ \ \ \textcolor{comment}{//\ Return\ written\ char\ for\ validation}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00350}00350\ \ \ \ \ \textcolor{keywordflow}{return}\ ch;}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00351}00351\ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00352}00352\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00353}00353\ \textcolor{comment}{/*\ Write\ full\ string\ to\ screenbuffer\ */}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00354}\doxymbox{\hyperlink{ssd1306_8h_ac4cbd10dc54485513439a84d9b18c729}{00354}}\ \textcolor{keywordtype}{char}\ \doxymbox{\hyperlink{ssd1306_8h_ac4cbd10dc54485513439a84d9b18c729}{ssd1306\_WriteString}}(\textcolor{keywordtype}{char}*\ str,\ \doxymbox{\hyperlink{struct_s_s_d1306___font__t}{SSD1306\_Font\_t}}\ Font,\ \doxymbox{\hyperlink{ssd1306_8h_a6f68a90e6eefe5396bcbec2cd699d500}{SSD1306\_COLOR}}\ color)\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00355}00355\ \ \ \ \ \textcolor{keywordflow}{while}\ (*str)\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00356}00356\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{ssd1306_8h_ad719a0894e48463c66314931fd422e2d}{ssd1306\_WriteChar}}(*str,\ Font,\ color)\ !=\ *str)\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00357}00357\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Char\ could\ not\ be\ written}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00358}00358\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *str;}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00359}00359\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00360}00360\ \ \ \ \ \ \ \ \ str++;}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00361}00361\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00362}00362\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00363}00363\ \ \ \ \ \textcolor{comment}{//\ Everything\ ok}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00364}00364\ \ \ \ \ \textcolor{keywordflow}{return}\ *str;}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00365}00365\ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00366}00366\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00367}00367\ \textcolor{comment}{/*\ Position\ the\ cursor\ */}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00368}\doxymbox{\hyperlink{ssd1306_8h_a43b18d938dee01ee07fb8c364ea57996}{00368}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{ssd1306_8h_a43b18d938dee01ee07fb8c364ea57996}{ssd1306\_SetCursor}}(uint8\_t\ x,\ uint8\_t\ y)\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00369}00369\ \ \ \ \ \doxymbox{\hyperlink{main_8c_ac634d6ee59a5746651149844d4736c7a}{SSD1306}}.CurrentX\ =\ x;}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00370}00370\ \ \ \ \ \doxymbox{\hyperlink{main_8c_ac634d6ee59a5746651149844d4736c7a}{SSD1306}}.CurrentY\ =\ y;}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00371}00371\ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00372}00372\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00373}00373\ \textcolor{comment}{/*\ Draw\ line\ by\ Bresenhem's\ algorithm\ */}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00374}\doxymbox{\hyperlink{ssd1306_8h_a99529b2a48960312342d3c323aadcec8}{00374}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{ssd1306_8h_a99529b2a48960312342d3c323aadcec8}{ssd1306\_Line}}(uint8\_t\ x1,\ uint8\_t\ y1,\ uint8\_t\ x2,\ uint8\_t\ y2,\ \doxymbox{\hyperlink{ssd1306_8h_a6f68a90e6eefe5396bcbec2cd699d500}{SSD1306\_COLOR}}\ color)\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00375}00375\ \ \ \ \ int32\_t\ deltaX\ =\ abs(x2\ -\/\ x1);}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00376}00376\ \ \ \ \ int32\_t\ deltaY\ =\ abs(y2\ -\/\ y1);}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00377}00377\ \ \ \ \ int32\_t\ signX\ =\ ((x1\ <\ x2)\ ?\ 1\ :\ -\/1);}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00378}00378\ \ \ \ \ int32\_t\ signY\ =\ ((y1\ <\ y2)\ ?\ 1\ :\ -\/1);}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00379}00379\ \ \ \ \ int32\_t\ \doxymbox{\hyperlink{main_8c_a435d80d6e18cdc373bc78289eefca9ec}{error}}\ =\ deltaX\ -\/\ deltaY;}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00380}00380\ \ \ \ \ int32\_t\ error2;}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00381}00381\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00382}00382\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_ad43cbb77ed1f735535e7251ca47ecf87}{ssd1306\_DrawPixel}}(x2,\ y2,\ color);}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00383}00383\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00384}00384\ \ \ \ \ \textcolor{keywordflow}{while}((x1\ !=\ x2)\ ||\ (y1\ !=\ y2))\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00385}00385\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_ad43cbb77ed1f735535e7251ca47ecf87}{ssd1306\_DrawPixel}}(x1,\ y1,\ color);}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00386}00386\ \ \ \ \ \ \ \ \ error2\ =\ \doxymbox{\hyperlink{main_8c_a435d80d6e18cdc373bc78289eefca9ec}{error}}\ *\ 2;}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00387}00387\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(error2\ >\ -\/deltaY)\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00388}00388\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{main_8c_a435d80d6e18cdc373bc78289eefca9ec}{error}}\ -\/=\ deltaY;}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00389}00389\ \ \ \ \ \ \ \ \ \ \ \ \ x1\ +=\ signX;}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00390}00390\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00391}00391\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00392}00392\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(error2\ <\ deltaX)\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00393}00393\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{main_8c_a435d80d6e18cdc373bc78289eefca9ec}{error}}\ +=\ deltaX;}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00394}00394\ \ \ \ \ \ \ \ \ \ \ \ \ y1\ +=\ signY;}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00395}00395\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00396}00396\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00397}00397\ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00398}00398\ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00399}00399\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00400}00400\ \textcolor{comment}{/*\ Draw\ polyline\ */}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00401}\doxymbox{\hyperlink{ssd1306_8h_adc17a31b0fc997f923c96ac07400e3f8}{00401}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{ssd1306_8h_adc17a31b0fc997f923c96ac07400e3f8}{ssd1306\_Polyline}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{struct_s_s_d1306___v_e_r_t_e_x}{SSD1306\_VERTEX}}\ *par\_vertex,\ uint16\_t\ par\_size,\ \doxymbox{\hyperlink{ssd1306_8h_a6f68a90e6eefe5396bcbec2cd699d500}{SSD1306\_COLOR}}\ color)\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00402}00402\ \ \ \ \ uint16\_t\ i;}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00403}00403\ \ \ \ \ \textcolor{keywordflow}{if}(par\_vertex\ ==\ \doxymbox{\hyperlink{group___u_s_b___d_e_f___exported___defines_ga070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}})\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00404}00404\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00405}00405\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00406}00406\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00407}00407\ \ \ \ \ \textcolor{keywordflow}{for}(i\ =\ 1;\ i\ <\ par\_size;\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00408}00408\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a99529b2a48960312342d3c323aadcec8}{ssd1306\_Line}}(par\_vertex[i\ -\/\ 1].x,\ par\_vertex[i\ -\/\ 1].y,\ par\_vertex[i].x,\ par\_vertex[i].y,\ color);}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00409}00409\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00410}00410\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00411}00411\ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00412}00412\ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00413}00413\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00414}00414\ \textcolor{comment}{/*\ Convert\ Degrees\ to\ Radians\ */}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00415}00415\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00416}00416\ \textcolor{comment}{static\ float\ ssd1306\_DegToRad(float\ par\_deg)\ \{}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00417}00417\ \textcolor{comment}{\ \ \ \ return\ par\_deg\ *\ (3.14f\ /\ 180.0f);}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00418}00418\ \textcolor{comment}{\}}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00419}00419\ \textcolor{comment}{*/}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00420}00420\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00421}00421\ \textcolor{comment}{/*\ Normalize\ degree\ to\ [0;360]\ */}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00422}00422\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00423}00423\ \textcolor{comment}{static\ uint16\_t\ ssd1306\_NormalizeTo0\_360(uint16\_t\ par\_deg)\ \{}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00424}00424\ \textcolor{comment}{\ \ \ \ uint16\_t\ loc\_angle;}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00425}00425\ \textcolor{comment}{\ \ \ \ if(par\_deg\ <=\ 360)\ \{}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00426}00426\ \textcolor{comment}{\ \ \ \ \ \ \ \ loc\_angle\ =\ par\_deg;}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00427}00427\ \textcolor{comment}{\ \ \ \ \}\ else\ \{}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00428}00428\ \textcolor{comment}{\ \ \ \ \ \ \ \ loc\_angle\ =\ par\_deg\ \%\ 360;}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00429}00429\ \textcolor{comment}{\ \ \ \ \ \ \ \ loc\_angle\ =\ (loc\_angle\ ?\ loc\_angle\ :\ 360);}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00430}00430\ \textcolor{comment}{\ \ \ \ \}}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00431}00431\ \textcolor{comment}{\ \ \ \ return\ loc\_angle;}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00432}00432\ \textcolor{comment}{\}}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00433}00433\ \textcolor{comment}{*/}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00434}00434\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00435}00435\ \textcolor{comment}{\ *\ DrawArc.\ Draw\ angle\ is\ beginning\ from\ 4\ quart\ of\ trigonometric\ circle\ (3pi/2)}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00436}00436\ \textcolor{comment}{\ *\ start\_angle\ in\ degree}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00437}00437\ \textcolor{comment}{\ *\ sweep\ in\ degree}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00438}00438\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00439}00439\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00440}00440\ \textcolor{comment}{void\ ssd1306\_DrawArc(uint8\_t\ x,\ uint8\_t\ y,\ uint8\_t\ radius,\ uint16\_t\ start\_angle,\ uint16\_t\ sweep,\ SSD1306\_COLOR\ color)\ \{}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00441}00441\ \textcolor{comment}{\ \ \ \ static\ const\ uint8\_t\ CIRCLE\_APPROXIMATION\_SEGMENTS\ =\ 36;}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00442}00442\ \textcolor{comment}{\ \ \ \ float\ approx\_degree;}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00443}00443\ \textcolor{comment}{\ \ \ \ uint32\_t\ approx\_segments;}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00444}00444\ \textcolor{comment}{\ \ \ \ uint8\_t\ xp1,xp2;}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00445}00445\ \textcolor{comment}{\ \ \ \ uint8\_t\ yp1,yp2;}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00446}00446\ \textcolor{comment}{\ \ \ \ uint32\_t\ count;}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00447}00447\ \textcolor{comment}{\ \ \ \ uint32\_t\ loc\_sweep;}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00448}00448\ \textcolor{comment}{\ \ \ \ float\ rad;}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00449}00449\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00450}00450\ \textcolor{comment}{\ \ \ \ loc\_sweep\ =\ ssd1306\_NormalizeTo0\_360(sweep);}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00451}00451\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00452}00452\ \textcolor{comment}{\ \ \ \ count\ =\ (ssd1306\_NormalizeTo0\_360(start\_angle)\ *\ CIRCLE\_APPROXIMATION\_SEGMENTS)\ /\ 360;}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00453}00453\ \textcolor{comment}{\ \ \ \ approx\_segments\ =\ (loc\_sweep\ *\ CIRCLE\_APPROXIMATION\_SEGMENTS)\ /\ 360;}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00454}00454\ \textcolor{comment}{\ \ \ \ approx\_degree\ =\ loc\_sweep\ /\ (float)approx\_segments;}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00455}00455\ \textcolor{comment}{\ \ \ \ while(count\ <\ approx\_segments)}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00456}00456\ \textcolor{comment}{\ \ \ \ \{}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00457}00457\ \textcolor{comment}{\ \ \ \ \ \ \ \ rad\ =\ ssd1306\_DegToRad(count*approx\_degree);}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00458}00458\ \textcolor{comment}{\ \ \ \ \ \ \ \ xp1\ =\ x\ +\ (int8\_t)(sinf(rad)*radius);}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00459}00459\ \textcolor{comment}{\ \ \ \ \ \ \ \ yp1\ =\ y\ +\ (int8\_t)(cosf(rad)*radius);}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00460}00460\ \textcolor{comment}{\ \ \ \ \ \ \ \ count++;}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00461}00461\ \textcolor{comment}{\ \ \ \ \ \ \ \ if(count\ !=\ approx\_segments)\ \{}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00462}00462\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ rad\ =\ ssd1306\_DegToRad(count*approx\_degree);}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00463}00463\ \textcolor{comment}{\ \ \ \ \ \ \ \ \}\ else\ \{}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00464}00464\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ rad\ =\ ssd1306\_DegToRad(loc\_sweep);}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00465}00465\ \textcolor{comment}{\ \ \ \ \ \ \ \ \}}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00466}00466\ \textcolor{comment}{\ \ \ \ \ \ \ \ xp2\ =\ x\ +\ (int8\_t)(sinf(rad)*radius);}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00467}00467\ \textcolor{comment}{\ \ \ \ \ \ \ \ yp2\ =\ y\ +\ (int8\_t)(cosf(rad)*radius);}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00468}00468\ \textcolor{comment}{\ \ \ \ \ \ \ \ ssd1306\_Line(xp1,yp1,xp2,yp2,color);}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00469}00469\ \textcolor{comment}{\ \ \ \ \}}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00470}00470\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00471}00471\ \textcolor{comment}{\ \ \ \ return;}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00472}00472\ \textcolor{comment}{\}}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00473}00473\ \textcolor{comment}{*/}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00474}00474\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00475}00475\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00476}00476\ \textcolor{comment}{\ *\ Draw\ arc\ with\ radius\ line}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00477}00477\ \textcolor{comment}{\ *\ Angle\ is\ beginning\ from\ 4\ quart\ of\ trigonometric\ circle\ (3pi/2)}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00478}00478\ \textcolor{comment}{\ *\ start\_angle:\ start\ angle\ in\ degree}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00479}00479\ \textcolor{comment}{\ *\ sweep:\ finish\ angle\ in\ degree}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00480}00480\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00481}00481\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00482}00482\ \textcolor{comment}{void\ ssd1306\_DrawArcWithRadiusLine(uint8\_t\ x,\ uint8\_t\ y,\ uint8\_t\ radius,\ uint16\_t\ start\_angle,\ uint16\_t\ sweep,\ SSD1306\_COLOR\ color)\ \{}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00483}00483\ \textcolor{comment}{\ \ \ \ const\ uint32\_t\ CIRCLE\_APPROXIMATION\_SEGMENTS\ =\ 36;}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00484}00484\ \textcolor{comment}{\ \ \ \ float\ approx\_degree;}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00485}00485\ \textcolor{comment}{\ \ \ \ uint32\_t\ approx\_segments;}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00486}00486\ \textcolor{comment}{\ \ \ \ uint8\_t\ xp1;}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00487}00487\ \textcolor{comment}{\ \ \ \ uint8\_t\ xp2\ =\ 0;}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00488}00488\ \textcolor{comment}{\ \ \ \ uint8\_t\ yp1;}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00489}00489\ \textcolor{comment}{\ \ \ \ uint8\_t\ yp2\ =\ 0;}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00490}00490\ \textcolor{comment}{\ \ \ \ uint32\_t\ count;}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00491}00491\ \textcolor{comment}{\ \ \ \ uint32\_t\ loc\_sweep;}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00492}00492\ \textcolor{comment}{\ \ \ \ float\ rad;}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00493}00493\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00494}00494\ \textcolor{comment}{\ \ \ \ loc\_sweep\ =\ ssd1306\_NormalizeTo0\_360(sweep);}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00495}00495\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00496}00496\ \textcolor{comment}{\ \ \ \ count\ =\ (ssd1306\_NormalizeTo0\_360(start\_angle)\ *\ CIRCLE\_APPROXIMATION\_SEGMENTS)\ /\ 360;}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00497}00497\ \textcolor{comment}{\ \ \ \ approx\_segments\ =\ (loc\_sweep\ *\ CIRCLE\_APPROXIMATION\_SEGMENTS)\ /\ 360;}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00498}00498\ \textcolor{comment}{\ \ \ \ approx\_degree\ =\ loc\_sweep\ /\ (float)approx\_segments;}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00499}00499\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00500}00500\ \textcolor{comment}{\ \ \ \ rad\ =\ ssd1306\_DegToRad(count*approx\_degree);}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00501}00501\ \textcolor{comment}{\ \ \ \ uint8\_t\ first\_point\_x\ =\ x\ +\ (int8\_t)(sinf(rad)*radius);}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00502}00502\ \textcolor{comment}{\ \ \ \ uint8\_t\ first\_point\_y\ =\ y\ +\ (int8\_t)(cosf(rad)*radius);}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00503}00503\ \textcolor{comment}{\ \ \ \ while\ (count\ <\ approx\_segments)\ \{}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00504}00504\ \textcolor{comment}{\ \ \ \ \ \ \ \ rad\ =\ ssd1306\_DegToRad(count*approx\_degree);}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00505}00505\ \textcolor{comment}{\ \ \ \ \ \ \ \ xp1\ =\ x\ +\ (int8\_t)(sinf(rad)*radius);}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00506}00506\ \textcolor{comment}{\ \ \ \ \ \ \ \ yp1\ =\ y\ +\ (int8\_t)(cosf(rad)*radius);}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00507}00507\ \textcolor{comment}{\ \ \ \ \ \ \ \ count++;}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00508}00508\ \textcolor{comment}{\ \ \ \ \ \ \ \ if\ (count\ !=\ approx\_segments)\ \{}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00509}00509\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ rad\ =\ ssd1306\_DegToRad(count*approx\_degree);}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00510}00510\ \textcolor{comment}{\ \ \ \ \ \ \ \ \}\ else\ \{}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00511}00511\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ rad\ =\ ssd1306\_DegToRad(loc\_sweep);}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00512}00512\ \textcolor{comment}{\ \ \ \ \ \ \ \ \}}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00513}00513\ \textcolor{comment}{\ \ \ \ \ \ \ \ xp2\ =\ x\ +\ (int8\_t)(sinf(rad)*radius);}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00514}00514\ \textcolor{comment}{\ \ \ \ \ \ \ \ yp2\ =\ y\ +\ (int8\_t)(cosf(rad)*radius);}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00515}00515\ \textcolor{comment}{\ \ \ \ \ \ \ \ ssd1306\_Line(xp1,yp1,xp2,yp2,color);}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00516}00516\ \textcolor{comment}{\ \ \ \ \}}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00517}00517\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00518}00518\ \textcolor{comment}{\ \ \ \ //\ Radius\ line}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00519}00519\ \textcolor{comment}{\ \ \ \ ssd1306\_Line(x,y,first\_point\_x,first\_point\_y,color);}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00520}00520\ \textcolor{comment}{\ \ \ \ ssd1306\_Line(x,y,xp2,yp2,color);}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00521}00521\ \textcolor{comment}{\ \ \ \ return;}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00522}00522\ \textcolor{comment}{\}}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00523}00523\ \textcolor{comment}{*/}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00524}00524\ \textcolor{comment}{/*\ Draw\ circle\ by\ Bresenhem's\ algorithm\ */}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00525}\doxymbox{\hyperlink{ssd1306_8h_aba29c2eec5717b63c7c49d6fd8e44262}{00525}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{ssd1306_8h_aba29c2eec5717b63c7c49d6fd8e44262}{ssd1306\_DrawCircle}}(uint8\_t\ par\_x,uint8\_t\ par\_y,uint8\_t\ par\_r,\doxymbox{\hyperlink{ssd1306_8h_a6f68a90e6eefe5396bcbec2cd699d500}{SSD1306\_COLOR}}\ par\_color)\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00526}00526\ \ \ \ \ int32\_t\ x\ =\ -\/par\_r;}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00527}00527\ \ \ \ \ int32\_t\ y\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00528}00528\ \ \ \ \ int32\_t\ err\ =\ 2\ -\/\ 2\ *\ par\_r;}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00529}00529\ \ \ \ \ int32\_t\ e2;}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00530}00530\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00531}00531\ \ \ \ \ \textcolor{keywordflow}{if}\ (par\_x\ >=\ \doxymbox{\hyperlink{ssd1306_8h_ae5a2aa8865dd03537b97fd1c9037371b}{SSD1306\_WIDTH}}\ ||\ par\_y\ >=\ \doxymbox{\hyperlink{ssd1306_8h_a4e9409448a0df95c1686670e09b457b7}{SSD1306\_HEIGHT}})\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00532}00532\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00533}00533\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00534}00534\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00535}00535\ \ \ \ \ \textcolor{keywordflow}{do}\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00536}00536\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_ad43cbb77ed1f735535e7251ca47ecf87}{ssd1306\_DrawPixel}}(par\_x\ -\/\ x,\ par\_y\ +\ y,\ par\_color);}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00537}00537\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_ad43cbb77ed1f735535e7251ca47ecf87}{ssd1306\_DrawPixel}}(par\_x\ +\ x,\ par\_y\ +\ y,\ par\_color);}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00538}00538\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_ad43cbb77ed1f735535e7251ca47ecf87}{ssd1306\_DrawPixel}}(par\_x\ +\ x,\ par\_y\ -\/\ y,\ par\_color);}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00539}00539\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_ad43cbb77ed1f735535e7251ca47ecf87}{ssd1306\_DrawPixel}}(par\_x\ -\/\ x,\ par\_y\ -\/\ y,\ par\_color);}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00540}00540\ \ \ \ \ \ \ \ \ e2\ =\ err;}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00541}00541\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00542}00542\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (e2\ <=\ y)\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00543}00543\ \ \ \ \ \ \ \ \ \ \ \ \ y++;}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00544}00544\ \ \ \ \ \ \ \ \ \ \ \ \ err\ =\ err\ +\ (y\ *\ 2\ +\ 1);}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00545}00545\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(-\/x\ ==\ y\ \&\&\ e2\ <=\ x)\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00546}00546\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ e2\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00547}00547\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00548}00548\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00549}00549\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00550}00550\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (e2\ >\ x)\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00551}00551\ \ \ \ \ \ \ \ \ \ \ \ \ x++;}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00552}00552\ \ \ \ \ \ \ \ \ \ \ \ \ err\ =\ err\ +\ (x\ *\ 2\ +\ 1);}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00553}00553\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00554}00554\ \ \ \ \ \}\ \textcolor{keywordflow}{while}\ (x\ <=\ 0);}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00555}00555\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00556}00556\ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00557}00557\ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00558}00558\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00559}00559\ \textcolor{comment}{/*\ Draw\ filled\ circle.\ Pixel\ positions\ calculated\ using\ Bresenham's\ algorithm\ */}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00560}\doxymbox{\hyperlink{ssd1306_8h_a5bcfb77d7573fa8afbbed1f5a7292ff3}{00560}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{ssd1306_8h_a5bcfb77d7573fa8afbbed1f5a7292ff3}{ssd1306\_FillCircle}}(uint8\_t\ par\_x,uint8\_t\ par\_y,uint8\_t\ par\_r,\doxymbox{\hyperlink{ssd1306_8h_a6f68a90e6eefe5396bcbec2cd699d500}{SSD1306\_COLOR}}\ par\_color)\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00561}00561\ \ \ \ \ int32\_t\ x\ =\ -\/par\_r;}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00562}00562\ \ \ \ \ int32\_t\ y\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00563}00563\ \ \ \ \ int32\_t\ err\ =\ 2\ -\/\ 2\ *\ par\_r;}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00564}00564\ \ \ \ \ int32\_t\ e2;}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00565}00565\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00566}00566\ \ \ \ \ \textcolor{keywordflow}{if}\ (par\_x\ >=\ \doxymbox{\hyperlink{ssd1306_8h_ae5a2aa8865dd03537b97fd1c9037371b}{SSD1306\_WIDTH}}\ ||\ par\_y\ >=\ \doxymbox{\hyperlink{ssd1306_8h_a4e9409448a0df95c1686670e09b457b7}{SSD1306\_HEIGHT}})\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00567}00567\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00568}00568\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00569}00569\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00570}00570\ \ \ \ \ \textcolor{keywordflow}{do}\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00571}00571\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (uint8\_t\ \_y\ =\ (par\_y\ +\ y);\ \_y\ >=\ (par\_y\ -\/\ y);\ \_y-\/-\/)\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00572}00572\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (uint8\_t\ \_x\ =\ (par\_x\ -\/\ x);\ \_x\ >=\ (par\_x\ +\ x);\ \_x-\/-\/)\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00573}00573\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_ad43cbb77ed1f735535e7251ca47ecf87}{ssd1306\_DrawPixel}}(\_x,\ \_y,\ par\_color);}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00574}00574\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00575}00575\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00576}00576\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00577}00577\ \ \ \ \ \ \ \ \ e2\ =\ err;}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00578}00578\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (e2\ <=\ y)\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00579}00579\ \ \ \ \ \ \ \ \ \ \ \ \ y++;}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00580}00580\ \ \ \ \ \ \ \ \ \ \ \ \ err\ =\ err\ +\ (y\ *\ 2\ +\ 1);}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00581}00581\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (-\/x\ ==\ y\ \&\&\ e2\ <=\ x)\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00582}00582\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ e2\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00583}00583\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00584}00584\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00585}00585\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00586}00586\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (e2\ >\ x)\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00587}00587\ \ \ \ \ \ \ \ \ \ \ \ \ x++;}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00588}00588\ \ \ \ \ \ \ \ \ \ \ \ \ err\ =\ err\ +\ (x\ *\ 2\ +\ 1);}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00589}00589\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00590}00590\ \ \ \ \ \}\ \textcolor{keywordflow}{while}\ (x\ <=\ 0);}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00591}00591\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00592}00592\ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00593}00593\ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00594}00594\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00595}00595\ \textcolor{comment}{/*\ Draw\ a\ rectangle\ */}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00596}\doxymbox{\hyperlink{ssd1306_8h_ad830158e99d94a1bd3b93192aff6b5b7}{00596}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{ssd1306_8h_ad830158e99d94a1bd3b93192aff6b5b7}{ssd1306\_DrawRectangle}}(uint8\_t\ x1,\ uint8\_t\ y1,\ uint8\_t\ x2,\ uint8\_t\ y2,\ \doxymbox{\hyperlink{ssd1306_8h_a6f68a90e6eefe5396bcbec2cd699d500}{SSD1306\_COLOR}}\ color)\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00597}00597\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a99529b2a48960312342d3c323aadcec8}{ssd1306\_Line}}(x1,y1,x2,y1,color);}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00598}00598\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a99529b2a48960312342d3c323aadcec8}{ssd1306\_Line}}(x2,y1,x2,y2,color);}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00599}00599\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a99529b2a48960312342d3c323aadcec8}{ssd1306\_Line}}(x2,y2,x1,y2,color);}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00600}00600\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a99529b2a48960312342d3c323aadcec8}{ssd1306\_Line}}(x1,y2,x1,y1,color);}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00601}00601\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00602}00602\ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00603}00603\ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00604}00604\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00605}00605\ \textcolor{comment}{/*\ Draw\ a\ filled\ rectangle\ */}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00606}\doxymbox{\hyperlink{ssd1306_8h_aabb10c31ffb533c3b96765581653e6c8}{00606}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{ssd1306_8h_aabb10c31ffb533c3b96765581653e6c8}{ssd1306\_FillRectangle}}(uint8\_t\ x1,\ uint8\_t\ y1,\ uint8\_t\ x2,\ uint8\_t\ y2,\ \doxymbox{\hyperlink{ssd1306_8h_a6f68a90e6eefe5396bcbec2cd699d500}{SSD1306\_COLOR}}\ color)\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00607}00607\ \ \ \ \ uint8\_t\ x\_start\ =\ ((x1<=x2)\ ?\ x1\ :\ x2);}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00608}00608\ \ \ \ \ uint8\_t\ x\_end\ \ \ =\ ((x1<=x2)\ ?\ x2\ :\ x1);}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00609}00609\ \ \ \ \ uint8\_t\ y\_start\ =\ ((y1<=y2)\ ?\ y1\ :\ y2);}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00610}00610\ \ \ \ \ uint8\_t\ y\_end\ \ \ =\ ((y1<=y2)\ ?\ y2\ :\ y1);}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00611}00611\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00612}00612\ \ \ \ \ \textcolor{keywordflow}{for}\ (uint8\_t\ y=\ y\_start;\ (y<=\ y\_end)\&\&(y<\doxymbox{\hyperlink{ssd1306_8h_a4e9409448a0df95c1686670e09b457b7}{SSD1306\_HEIGHT}});\ y++)\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00613}00613\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (uint8\_t\ x=\ x\_start;\ (x<=\ x\_end)\&\&(x<\doxymbox{\hyperlink{ssd1306_8h_ae5a2aa8865dd03537b97fd1c9037371b}{SSD1306\_WIDTH}});\ x++)\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00614}00614\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_ad43cbb77ed1f735535e7251ca47ecf87}{ssd1306\_DrawPixel}}(x,\ y,\ color);}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00615}00615\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00616}00616\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00617}00617\ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00618}00618\ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00619}00619\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00620}\doxymbox{\hyperlink{ssd1306_8h_a2b960c6628fe479b7ba5fb642c7a4eca}{00620}}\ \doxymbox{\hyperlink{ssd1306_8h_a3cd087bf4d4acf17315ed0ee9905af26}{SSD1306\_Error\_t}}\ \doxymbox{\hyperlink{ssd1306_8h_a2b960c6628fe479b7ba5fb642c7a4eca}{ssd1306\_InvertRectangle}}(uint8\_t\ x1,\ uint8\_t\ y1,\ uint8\_t\ x2,\ uint8\_t\ y2)\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00621}00621\ \ \ \textcolor{keywordflow}{if}\ ((x2\ >=\ \doxymbox{\hyperlink{ssd1306_8h_ae5a2aa8865dd03537b97fd1c9037371b}{SSD1306\_WIDTH}})\ ||\ (y2\ >=\ \doxymbox{\hyperlink{ssd1306_8h_a4e9409448a0df95c1686670e09b457b7}{SSD1306\_HEIGHT}}))\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00622}00622\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{ssd1306_8h_a3cd087bf4d4acf17315ed0ee9905af26a2039f63beb20aacaf905a6702b837b25}{SSD1306\_ERR}};}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00623}00623\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00624}00624\ \ \ \textcolor{keywordflow}{if}\ ((x1\ >\ x2)\ ||\ (y1\ >\ y2))\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00625}00625\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{ssd1306_8h_a3cd087bf4d4acf17315ed0ee9905af26a2039f63beb20aacaf905a6702b837b25}{SSD1306\_ERR}};}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00626}00626\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00627}00627\ \ \ uint32\_t\ i;}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00628}00628\ \ \ \textcolor{keywordflow}{if}\ ((y1\ /\ 8)\ !=\ (y2\ /\ 8))\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00629}00629\ \ \ \ \ \textcolor{comment}{/*\ if\ rectangle\ doesn't\ lie\ on\ one\ 8px\ row\ */}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00630}00630\ \ \ \ \ \textcolor{keywordflow}{for}\ (uint32\_t\ x\ =\ x1;\ x\ <=\ x2;\ x++)\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00631}00631\ \ \ \ \ \ \ i\ =\ x\ +\ (y1\ /\ 8)\ *\ \doxymbox{\hyperlink{ssd1306_8h_ae5a2aa8865dd03537b97fd1c9037371b}{SSD1306\_WIDTH}};}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00632}00632\ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8c_ad9e745ffe57814bcd1306909ab8fe59e}{SSD1306\_Buffer}}[i]\ \string^=\ 0xFF\ <<\ (y1\ \%\ 8);}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00633}00633\ \ \ \ \ \ \ i\ +=\ \doxymbox{\hyperlink{ssd1306_8h_ae5a2aa8865dd03537b97fd1c9037371b}{SSD1306\_WIDTH}};}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00634}00634\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (;\ i\ <\ x\ +\ (y2\ /\ 8)\ *\ \doxymbox{\hyperlink{ssd1306_8h_ae5a2aa8865dd03537b97fd1c9037371b}{SSD1306\_WIDTH}};\ i\ +=\ \doxymbox{\hyperlink{ssd1306_8h_ae5a2aa8865dd03537b97fd1c9037371b}{SSD1306\_WIDTH}})\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00635}00635\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8c_ad9e745ffe57814bcd1306909ab8fe59e}{SSD1306\_Buffer}}[i]\ \string^=\ 0xFF;}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00636}00636\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00637}00637\ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8c_ad9e745ffe57814bcd1306909ab8fe59e}{SSD1306\_Buffer}}[i]\ \string^=\ 0xFF\ >>\ (7\ -\/\ (y2\ \%\ 8));}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00638}00638\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00639}00639\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00640}00640\ \ \ \ \ \textcolor{comment}{/*\ if\ rectangle\ lies\ on\ one\ 8px\ row\ */}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00641}00641\ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ mask\ =\ (0xFF\ <<\ (y1\ \%\ 8))\ \&\ (0xFF\ >>\ (7\ -\/\ (y2\ \%\ 8)));}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00642}00642\ \ \ \ \ \textcolor{keywordflow}{for}\ (i\ =\ x1\ +\ (y1\ /\ 8)\ *\ \doxymbox{\hyperlink{ssd1306_8h_ae5a2aa8865dd03537b97fd1c9037371b}{SSD1306\_WIDTH}};}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00643}00643\ \ \ \ \ \ \ \ \ \ i\ <=\ (uint32\_t)x2\ +\ (y2\ /\ 8)\ *\ \doxymbox{\hyperlink{ssd1306_8h_ae5a2aa8865dd03537b97fd1c9037371b}{SSD1306\_WIDTH}};\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00644}00644\ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8c_ad9e745ffe57814bcd1306909ab8fe59e}{SSD1306\_Buffer}}[i]\ \string^=\ mask;}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00645}00645\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00646}00646\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00647}00647\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{ssd1306_8h_a3cd087bf4d4acf17315ed0ee9905af26ab26e32b0f76830ed30b1607ee99cce34}{SSD1306\_OK}};}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00648}00648\ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00649}00649\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00650}00650\ \textcolor{comment}{/*\ Draw\ a\ bitmap\ */}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00651}\doxymbox{\hyperlink{ssd1306_8h_a300c2bd821ca433fbd32000ec6c90406}{00651}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{ssd1306_8h_a300c2bd821ca433fbd32000ec6c90406}{ssd1306\_DrawBitmap}}(uint8\_t\ x,\ uint8\_t\ y,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ bitmap,\ uint8\_t\ w,\ uint8\_t\ h,\ \doxymbox{\hyperlink{ssd1306_8h_a6f68a90e6eefe5396bcbec2cd699d500}{SSD1306\_COLOR}}\ color)\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00652}00652\ \ \ \ \ int16\_t\ byteWidth\ =\ (w\ +\ 7)\ /\ 8;\ \textcolor{comment}{//\ Bitmap\ scanline\ pad\ =\ whole\ byte}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00653}00653\ \ \ \ \ uint8\_t\ \textcolor{keywordtype}{byte}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00654}00654\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00655}00655\ \ \ \ \ \textcolor{keywordflow}{if}\ (x\ >=\ \doxymbox{\hyperlink{ssd1306_8h_ae5a2aa8865dd03537b97fd1c9037371b}{SSD1306\_WIDTH}}\ ||\ y\ >=\ \doxymbox{\hyperlink{ssd1306_8h_a4e9409448a0df95c1686670e09b457b7}{SSD1306\_HEIGHT}})\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00656}00656\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00657}00657\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00658}00658\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00659}00659\ \ \ \ \ \textcolor{keywordflow}{for}\ (uint8\_t\ j\ =\ 0;\ j\ <\ h;\ j++,\ y++)\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00660}00660\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (uint8\_t\ i\ =\ 0;\ i\ <\ w;\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00661}00661\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (i\ \&\ 7)\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00662}00662\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{byte}\ <<=\ 1;}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00663}00663\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00664}00664\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{byte}\ =\ (*(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *)(\&bitmap[j\ *\ byteWidth\ +\ i\ /\ 8]));}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00665}00665\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00666}00666\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00667}00667\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keywordtype}{byte}\ \&\ 0x80)\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00668}00668\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_ad43cbb77ed1f735535e7251ca47ecf87}{ssd1306\_DrawPixel}}(x\ +\ i,\ y,\ color);}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00669}00669\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00670}00670\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00671}00671\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00672}00672\ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00673}00673\ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00674}00674\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00675}\doxymbox{\hyperlink{ssd1306_8h_a64253e858fadc2e9909db0baa31009c6}{00675}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{ssd1306_8h_a64253e858fadc2e9909db0baa31009c6}{ssd1306\_SetContrast}}(\textcolor{keyword}{const}\ uint8\_t\ value)\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00676}00676\ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ kSetContrastControlRegister\ =\ 0x81;}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00677}00677\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a15046f764dd1127bce472d5924356ba0}{ssd1306\_WriteCommand}}(kSetContrastControlRegister);}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00678}00678\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a15046f764dd1127bce472d5924356ba0}{ssd1306\_WriteCommand}}(value);}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00679}00679\ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00680}00680\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00681}\doxymbox{\hyperlink{ssd1306_8h_a63e99c8591f89a39d542c519eac7294f}{00681}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{ssd1306_8h_a63e99c8591f89a39d542c519eac7294f}{ssd1306\_SetDisplayOn}}(\textcolor{keyword}{const}\ uint8\_t\ on)\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00682}00682\ \ \ \ \ uint8\_t\ value;}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00683}00683\ \ \ \ \ \textcolor{keywordflow}{if}\ (on)\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00684}00684\ \ \ \ \ \ \ \ \ value\ =\ 0xAF;\ \ \ \textcolor{comment}{//\ Display\ on}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00685}00685\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{main_8c_ac634d6ee59a5746651149844d4736c7a}{SSD1306}}.DisplayOn\ =\ 1;}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00686}00686\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00687}00687\ \ \ \ \ \ \ \ \ value\ =\ 0xAE;\ \ \ \textcolor{comment}{//\ Display\ off}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00688}00688\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{main_8c_ac634d6ee59a5746651149844d4736c7a}{SSD1306}}.DisplayOn\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00689}00689\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00690}00690\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a15046f764dd1127bce472d5924356ba0}{ssd1306\_WriteCommand}}(value);}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00691}00691\ \}}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00692}00692\ }
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00693}\doxymbox{\hyperlink{ssd1306_8h_a347cccbf4dd745d26538280b3b1d15df}{00693}}\ uint8\_t\ \doxymbox{\hyperlink{ssd1306_8h_a347cccbf4dd745d26538280b3b1d15df}{ssd1306\_GetDisplayOn}}()\ \{}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00694}00694\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{main_8c_ac634d6ee59a5746651149844d4736c7a}{SSD1306}}.DisplayOn;}
+\DoxyCodeLine{\Hypertarget{ssd1306_8c_source_l00695}00695\ \}}
+
+\end{DoxyCode}

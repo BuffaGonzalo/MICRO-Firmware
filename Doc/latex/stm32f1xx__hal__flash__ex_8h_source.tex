@@ -1,0 +1,789 @@
+\doxysubsection{stm32f1xx\+\_\+hal\+\_\+flash\+\_\+ex.\+h}
+\hypertarget{stm32f1xx__hal__flash__ex_8h_source}{}\label{stm32f1xx__hal__flash__ex_8h_source}\index{stm32f1xx\_hal\_flash\_ex.h@{stm32f1xx\_hal\_flash\_ex.h}}
+\doxymbox{\hyperlink{stm32f1xx__hal__flash__ex_8h}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00001}00001\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00002}00002\ \textcolor{comment}{\ \ ******************************************************************************}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00003}00003\ \textcolor{comment}{\ \ *\ @file\ \ \ \ stm32f1xx\_hal\_flash\_ex.h}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00004}00004\ \textcolor{comment}{\ \ *\ @author\ \ MCD\ Application\ Team}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00005}00005\ \textcolor{comment}{\ \ *\ @brief\ \ \ Header\ file\ of\ Flash\ HAL\ Extended\ module.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00006}00006\ \textcolor{comment}{\ \ ******************************************************************************}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00007}00007\ \textcolor{comment}{\ \ *\ @attention}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00008}00008\ \textcolor{comment}{\ \ *}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00009}00009\ \textcolor{comment}{\ \ *\ Copyright\ (c)\ 2016\ STMicroelectronics.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00010}00010\ \textcolor{comment}{\ \ *\ All\ rights\ reserved.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00011}00011\ \textcolor{comment}{\ \ *}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00012}00012\ \textcolor{comment}{\ \ *\ This\ software\ is\ licensed\ under\ terms\ that\ can\ be\ found\ in\ the\ LICENSE\ file\ in}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00013}00013\ \textcolor{comment}{\ \ *\ the\ root\ directory\ of\ this\ software\ component.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00014}00014\ \textcolor{comment}{\ \ *\ If\ no\ LICENSE\ file\ comes\ with\ this\ software,\ it\ is\ provided\ AS-\/IS.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00015}00015\ \textcolor{comment}{\ \ ******************************************************************************}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00016}00016\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00018}00018\ \textcolor{comment}{/*\ Define\ to\ prevent\ recursive\ inclusion\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00019}00019\ \textcolor{preprocessor}{\#ifndef\ \_\_STM32F1xx\_HAL\_FLASH\_EX\_H}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00020}00020\ \textcolor{preprocessor}{\#define\ \_\_STM32F1xx\_HAL\_FLASH\_EX\_H}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00022}00022\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00023}00023\ \ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00024}00024\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00026}00026\ \textcolor{comment}{/*\ Includes\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00027}00027\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{stm32f1xx__hal__def_8h}{stm32f1xx\_hal\_def.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00028}00028\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00029}00029\ \textcolor{comment}{/**\ @addtogroup\ STM32F1xx\_HAL\_Driver}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00030}00030\ \textcolor{comment}{\ \ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00031}00031\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00032}00032\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00033}00033\ \textcolor{comment}{/**\ @addtogroup\ FLASHEx}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00034}00034\ \textcolor{comment}{\ \ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00035}00035\ \textcolor{comment}{\ \ */}\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00036}00036\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00037}00037\ \textcolor{comment}{/**\ @addtogroup\ FLASHEx\_Private\_Constants}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00038}00038\ \textcolor{comment}{\ \ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00039}00039\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00041}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___private___constants_ga2329f89a17061e62bf5d160cc0962e5c}{00041}}\ \textcolor{preprocessor}{\#define\ FLASH\_SIZE\_DATA\_REGISTER\ \ \ \ \ 0x1FFFF7E0U}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00042}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___private___constants_ga8683863609a82753ffb7499d219a1de8}{00042}}\ \textcolor{preprocessor}{\#define\ OBR\_REG\_INDEX\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 1U}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00043}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___private___constants_gae39dae7013f649bda7af96a79663b3f1}{00043}}\ \textcolor{preprocessor}{\#define\ SR\_FLAG\_MASK\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((uint32\_t)(FLASH\_SR\_BSY\ |\ FLASH\_SR\_PGERR\ |\ FLASH\_SR\_WRPRTERR\ |\ FLASH\_SR\_EOP))}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00044}00044\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00045}00045\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00046}00046\ \textcolor{comment}{\ \ *\ @\}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00047}00047\ \textcolor{comment}{\ \ */}\ \ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00048}00048\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00049}00049\ \textcolor{comment}{/**\ @addtogroup\ FLASHEx\_Private\_Macros}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00050}00050\ \textcolor{comment}{\ \ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00051}00051\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00053}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___private___macros_gaf15a6822d2421a33b6857059348ab476}{00053}}\ \textcolor{preprocessor}{\#define\ IS\_FLASH\_TYPEERASE(VALUE)\ \ \ (((VALUE)\ ==\ FLASH\_TYPEERASE\_PAGES)\ ||\ ((VALUE)\ ==\ FLASH\_TYPEERASE\_MASSERASE))}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00055}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___private___macros_ga87cd48c2373f47668470a38892ed07e3}{00055}}\ \textcolor{preprocessor}{\#define\ IS\_OPTIONBYTE(VALUE)\ \ \ \ \ \ \ \ (((VALUE)\ <=\ (OPTIONBYTE\_WRP\ |\ OPTIONBYTE\_RDP\ |\ OPTIONBYTE\_USER\ |\ OPTIONBYTE\_DATA)))}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00057}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___private___macros_ga8164622401a6cacf006679166de93c21}{00057}}\ \textcolor{preprocessor}{\#define\ IS\_WRPSTATE(VALUE)\ \ \ \ \ \ \ \ \ \ (((VALUE)\ ==\ OB\_WRPSTATE\_DISABLE)\ ||\ ((VALUE)\ ==\ OB\_WRPSTATE\_ENABLE))}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00059}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___private___macros_ga8d602a97cd688390b3d1956d9970e712}{00059}}\ \textcolor{preprocessor}{\#define\ IS\_OB\_RDP\_LEVEL(LEVEL)\ \ \ \ \ \ (((LEVEL)\ ==\ OB\_RDP\_LEVEL\_0)\ ||\ ((LEVEL)\ ==\ OB\_RDP\_LEVEL\_1))}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00061}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___private___macros_ga73fcac8d5f301a5c98518374ae926633}{00061}}\ \textcolor{preprocessor}{\#define\ IS\_OB\_DATA\_ADDRESS(ADDRESS)\ (((ADDRESS)\ ==\ OB\_DATA\_ADDRESS\_DATA0)\ ||\ ((ADDRESS)\ ==\ OB\_DATA\_ADDRESS\_DATA1))\ }}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00063}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___private___macros_gaf2871652c08e76499d9449be6556f12c}{00063}}\ \textcolor{preprocessor}{\#define\ IS\_OB\_IWDG\_SOURCE(SOURCE)\ \ \ (((SOURCE)\ ==\ OB\_IWDG\_SW)\ ||\ ((SOURCE)\ ==\ OB\_IWDG\_HW))}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00064}00064\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00065}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___private___macros_ga131ae3434f300c8317dd6b3b349c7cab}{00065}}\ \textcolor{preprocessor}{\#define\ IS\_OB\_STOP\_SOURCE(SOURCE)\ \ \ (((SOURCE)\ ==\ OB\_STOP\_NO\_RST)\ ||\ ((SOURCE)\ ==\ OB\_STOP\_RST))}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00067}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___private___macros_ga8a05393df3a5e89551b4e2e1e8c5b884}{00067}}\ \textcolor{preprocessor}{\#define\ IS\_OB\_STDBY\_SOURCE(SOURCE)\ \ (((SOURCE)\ ==\ OB\_STDBY\_NO\_RST)\ ||\ ((SOURCE)\ ==\ OB\_STDBY\_RST))}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00069}00069\ \textcolor{preprocessor}{\#if\ defined(FLASH\_BANK2\_END)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00070}00070\ \textcolor{preprocessor}{\#define\ IS\_OB\_BOOT1(BOOT1)\ \ \ \ \ \ \ \ \ (((BOOT1)\ ==\ OB\_BOOT1\_RESET)\ ||\ ((BOOT1)\ ==\ OB\_BOOT1\_SET))}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00071}00071\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ FLASH\_BANK2\_END\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00072}00072\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00073}00073\ \textcolor{comment}{/*\ Low\ Density\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00074}00074\ \textcolor{preprocessor}{\#if\ (defined(STM32F101x6)\ ||\ defined(STM32F102x6)\ ||\ defined(STM32F103x6))}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00075}00075\ \textcolor{preprocessor}{\#define\ IS\_FLASH\_NB\_PAGES(ADDRESS,NBPAGES)\ (((*((uint16\_t\ *)FLASH\_SIZE\_DATA\_REGISTER))\ ==\ 0x20U)\ ?\ ((ADDRESS)+((NBPAGES)*FLASH\_PAGE\_SIZE)-\/\ 1\ <=\ 0x08007FFFU)\ :\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00076}00076\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((ADDRESS)+((NBPAGES)*FLASH\_PAGE\_SIZE)-\/\ 1\ <=\ 0x08003FFFU))}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00077}00077\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ STM32F101x6\ ||\ STM32F102x6\ ||\ STM32F103x6\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00078}00078\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00079}00079\ \textcolor{comment}{/*\ Medium\ Density\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00080}00080\ \textcolor{preprocessor}{\#if\ (defined(STM32F100xB)\ ||\ defined(STM32F101xB)\ ||\ defined(STM32F102xB)\ ||\ defined(STM32F103xB))}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00081}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___private___macros_gaba549bf655e360311b0cd69878ba5bc1}{00081}}\ \textcolor{preprocessor}{\#define\ IS\_FLASH\_NB\_PAGES(ADDRESS,NBPAGES)\ (((*((uint16\_t\ *)FLASH\_SIZE\_DATA\_REGISTER))\ ==\ 0x80U)\ ?\ ((ADDRESS)+((NBPAGES)*FLASH\_PAGE\_SIZE)-\/1\ <=\ 0x0801FFFFU)\ :\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00082}00082\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (((*((uint16\_t\ *)FLASH\_SIZE\_DATA\_REGISTER))\ ==\ 0x40U)\ ?\ ((ADDRESS)+((NBPAGES)*FLASH\_PAGE\_SIZE)-\/1\ <=\ 0x0800FFFFU)\ :\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00083}00083\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (((*((uint16\_t\ *)FLASH\_SIZE\_DATA\_REGISTER))\ ==\ 0x20U)\ ?\ ((ADDRESS)+((NBPAGES)*FLASH\_PAGE\_SIZE)-\/1\ <=\ 0x08007FFFU)\ :\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00084}00084\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((ADDRESS)+((NBPAGES)*FLASH\_PAGE\_SIZE)-\/1\ <=\ 0x08003FFFU))))}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00085}00085\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ STM32F100xB\ ||\ STM32F101xB\ ||\ STM32F102xB\ ||\ STM32F103xB*/}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00086}00086\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00087}00087\ \textcolor{comment}{/*\ High\ Density\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00088}00088\ \textcolor{preprocessor}{\#if\ (defined(STM32F100xE)\ ||\ defined(STM32F101xE)\ ||\ defined(STM32F103xE))}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00089}00089\ \textcolor{preprocessor}{\#define\ IS\_FLASH\_NB\_PAGES(ADDRESS,NBPAGES)\ (((*((uint16\_t\ *)FLASH\_SIZE\_DATA\_REGISTER))\ ==\ 0x200U)\ ?\ ((ADDRESS)+((NBPAGES)*FLASH\_PAGE\_SIZE)-\/1\ <=\ 0x0807FFFFU)\ :\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00090}00090\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (((*((uint16\_t\ *)FLASH\_SIZE\_DATA\_REGISTER))\ ==\ 0x180U)\ ?\ ((ADDRESS)+((NBPAGES)*FLASH\_PAGE\_SIZE)-\/1\ <=\ 0x0805FFFFU)\ :\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00091}00091\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((ADDRESS)+((NBPAGES)*FLASH\_PAGE\_SIZE)-\/1\ <=\ 0x0803FFFFU)))}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00092}00092\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ STM32F100xE\ ||\ STM32F101xE\ ||\ STM32F103xE\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00093}00093\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00094}00094\ \textcolor{comment}{/*\ XL\ Density\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00095}00095\ \textcolor{preprocessor}{\#if\ defined(FLASH\_BANK2\_END)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00096}00096\ \textcolor{preprocessor}{\#define\ IS\_FLASH\_NB\_PAGES(ADDRESS,NBPAGES)\ (((*((uint16\_t\ *)FLASH\_SIZE\_DATA\_REGISTER))\ ==\ 0x400U)\ ?\ ((ADDRESS)+((NBPAGES)*FLASH\_PAGE\_SIZE)-\/1\ <=\ 0x080FFFFFU)\ :\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00097}00097\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((ADDRESS)+((NBPAGES)*FLASH\_PAGE\_SIZE)-\/1\ <=\ 0x080BFFFFU))}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00098}00098\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ FLASH\_BANK2\_END\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00099}00099\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00100}00100\ \textcolor{comment}{/*\ Connectivity\ Line\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00101}00101\ \textcolor{preprocessor}{\#if\ (defined(STM32F105xC)\ ||\ defined(STM32F107xC))}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00102}00102\ \textcolor{preprocessor}{\#define\ IS\_FLASH\_NB\_PAGES(ADDRESS,NBPAGES)\ (((*((uint16\_t\ *)FLASH\_SIZE\_DATA\_REGISTER))\ ==\ 0x100U)\ ?\ ((ADDRESS)+((NBPAGES)*FLASH\_PAGE\_SIZE)-\/1\ <=\ 0x0803FFFFU)\ :\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00103}00103\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (((*((uint16\_t\ *)FLASH\_SIZE\_DATA\_REGISTER))\ ==\ \ 0x80U)\ ?\ ((ADDRESS)+((NBPAGES)*FLASH\_PAGE\_SIZE)-\/1\ <=\ 0x0801FFFFU)\ :\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00104}00104\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((ADDRESS)+((NBPAGES)*FLASH\_PAGE\_SIZE)-\/1\ <=\ 0x0800FFFFU)))}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00105}00105\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ STM32F105xC\ ||\ STM32F107xC\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00106}00106\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00107}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___private___macros_ga0833946dba77c6e2537b4afe94c2bfe1}{00107}}\ \textcolor{preprocessor}{\#define\ IS\_OB\_WRP(PAGE)\ (((PAGE)\ !=\ 0x0000000U))}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00108}00108\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00109}00109\ \textcolor{preprocessor}{\#if\ defined(FLASH\_BANK2\_END)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00110}00110\ \textcolor{preprocessor}{\#define\ IS\_FLASH\_BANK(BANK)\ (((BANK)\ ==\ FLASH\_BANK\_1)\ \ ||\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00111}00111\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((BANK)\ ==\ FLASH\_BANK\_2)\ \ ||\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00112}00112\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((BANK)\ ==\ FLASH\_BANK\_BOTH))}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00113}00113\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00114}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___private___macros_ga13845f67e09ef81901c6fa683f13f086}{00114}}\ \textcolor{preprocessor}{\#define\ IS\_FLASH\_BANK(BANK)\ (((BANK)\ ==\ FLASH\_BANK\_1))}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00115}00115\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ FLASH\_BANK2\_END\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00116}00116\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00117}00117\ \textcolor{comment}{/*\ Low\ Density\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00118}00118\ \textcolor{preprocessor}{\#if\ (defined(STM32F101x6)\ ||\ defined(STM32F102x6)\ ||\ defined(STM32F103x6))}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00119}00119\ \textcolor{preprocessor}{\#define\ IS\_FLASH\_PROGRAM\_ADDRESS(ADDRESS)\ \ (((ADDRESS)\ >=\ FLASH\_BASE)\ \&\&\ (((*((uint16\_t\ *)FLASH\_SIZE\_DATA\_REGISTER))\ ==\ 0x20U)\ ?\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00120}00120\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((ADDRESS)\ <=\ FLASH\_BANK1\_END)\ :\ \ ((ADDRESS)\ <=\ 0x08003FFFU)))}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00121}00121\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00122}00122\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ STM32F101x6\ ||\ STM32F102x6\ ||\ STM32F103x6\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00123}00123\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00124}00124\ \textcolor{comment}{/*\ Medium\ Density\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00125}00125\ \textcolor{preprocessor}{\#if\ (defined(STM32F100xB)\ ||\ defined(STM32F101xB)\ ||\ defined(STM32F102xB)\ ||\ defined(STM32F103xB))}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00126}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___private___macros_ga90c8441d56b937cea616856695a8a20a}{00126}}\ \textcolor{preprocessor}{\#define\ IS\_FLASH\_PROGRAM\_ADDRESS(ADDRESS)\ (((ADDRESS)\ >=\ FLASH\_BASE)\ \&\&\ (((*((uint16\_t\ *)FLASH\_SIZE\_DATA\_REGISTER))\ ==\ 0x80U)\ ?\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00127}00127\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((ADDRESS)\ <=\ FLASH\_BANK1\_END)\ :\ \ (((*((uint16\_t\ *)FLASH\_SIZE\_DATA\_REGISTER))\ ==\ 0x40U)\ ?\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00128}00128\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((ADDRESS)\ <=\ 0x0800FFFF)\ :\ \ (((*((uint16\_t\ *)FLASH\_SIZE\_DATA\_REGISTER))\ ==\ 0x20U)\ ?\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00129}00129\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((ADDRESS)\ <=\ 0x08007FFF)\ :\ \ ((ADDRESS)\ <=\ 0x08003FFFU)))))}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00130}00130\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00131}00131\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ STM32F100xB\ ||\ STM32F101xB\ ||\ STM32F102xB\ ||\ STM32F103xB*/}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00132}00132\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00133}00133\ \textcolor{comment}{/*\ High\ Density\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00134}00134\ \textcolor{preprocessor}{\#if\ (defined(STM32F100xE)\ ||\ defined(STM32F101xE)\ ||\ defined(STM32F103xE))}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00135}00135\ \textcolor{preprocessor}{\#define\ IS\_FLASH\_PROGRAM\_ADDRESS(ADDRESS)\ (((ADDRESS)\ >=\ FLASH\_BASE)\ \&\&\ (((*((uint16\_t\ *)FLASH\_SIZE\_DATA\_REGISTER))\ ==\ 0x200U)\ ?\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00136}00136\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((ADDRESS)\ <=\ FLASH\_BANK1\_END)\ :\ \ (((*((uint16\_t\ *)FLASH\_SIZE\_DATA\_REGISTER))\ ==\ 0x180U)\ ?\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00137}00137\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((ADDRESS)\ <=\ 0x0805FFFFU)\ :\ \ ((ADDRESS)\ <=\ 0x0803FFFFU))))}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00138}00138\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00139}00139\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ STM32F100xE\ ||\ STM32F101xE\ ||\ STM32F103xE\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00140}00140\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00141}00141\ \textcolor{comment}{/*\ XL\ Density\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00142}00142\ \textcolor{preprocessor}{\#if\ defined(FLASH\_BANK2\_END)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00143}00143\ \textcolor{preprocessor}{\#define\ IS\_FLASH\_PROGRAM\_ADDRESS(ADDRESS)\ (((ADDRESS)\ >=\ FLASH\_BASE)\ \&\&\ (((*((uint16\_t\ *)FLASH\_SIZE\_DATA\_REGISTER))\ ==\ 0x400U)\ ?\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00144}00144\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((ADDRESS)\ <=\ FLASH\_BANK2\_END)\ :\ \ ((ADDRESS)\ <=\ 0x080BFFFFU)))}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00145}00145\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00146}00146\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ FLASH\_BANK2\_END\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00147}00147\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00148}00148\ \textcolor{comment}{/*\ Connectivity\ Line\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00149}00149\ \textcolor{preprocessor}{\#if\ (defined(STM32F105xC)\ ||\ defined(STM32F107xC))}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00150}00150\ \textcolor{preprocessor}{\#define\ IS\_FLASH\_PROGRAM\_ADDRESS(ADDRESS)\ (((ADDRESS)\ >=\ FLASH\_BASE)\ \&\&\ (((*((uint16\_t\ *)FLASH\_SIZE\_DATA\_REGISTER))\ ==\ 0x100U)\ ?\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00151}00151\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((ADDRESS)\ <=\ FLASH\_BANK1\_END)\ :\ \ (((*((uint16\_t\ *)FLASH\_SIZE\_DATA\_REGISTER))\ ==\ 0x80U)\ ?\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00152}00152\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((ADDRESS)\ <=\ 0x0801FFFFU)\ :\ \ ((ADDRESS)\ <=\ 0x0800FFFFU))))}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00153}00153\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00154}00154\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ STM32F105xC\ ||\ STM32F107xC\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00155}00155\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00156}00156\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00157}00157\ \textcolor{comment}{\ \ *\ @\}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00158}00158\ \textcolor{comment}{\ \ */}\ \ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00159}00159\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00160}00160\ \textcolor{comment}{/*\ Exported\ types\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00161}00161\ \textcolor{comment}{/**\ @defgroup\ FLASHEx\_Exported\_Types\ FLASHEx\ Exported\ Types}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00162}00162\ \textcolor{comment}{\ \ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00163}00163\ \textcolor{comment}{\ \ */}\ \ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00164}00164\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00165}00165\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00166}00166\ \textcolor{comment}{\ \ *\ @brief\ \ FLASH\ Erase\ structure\ definition}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00167}00167\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00168}\doxymbox{\hyperlink{struct_f_l_a_s_h___erase_init_type_def}{00168}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00169}00169\ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00170}\doxymbox{\hyperlink{struct_f_l_a_s_h___erase_init_type_def_a5d08471046a663db76d2252848a7d66c}{00170}}\ \ \ uint32\_t\ \doxymbox{\hyperlink{struct_f_l_a_s_h___erase_init_type_def_a5d08471046a663db76d2252848a7d66c}{TypeErase}};\ \ \ \textcolor{comment}{/*!<\ TypeErase:\ Mass\ erase\ or\ page\ erase.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00171}00171\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ This\ parameter\ can\ be\ a\ value\ of\ @ref\ FLASHEx\_Type\_Erase\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00172}00172\ \ \ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00173}\doxymbox{\hyperlink{struct_f_l_a_s_h___erase_init_type_def_a9590db921fb8d36daf38e097f68fc14f}{00173}}\ \ \ uint32\_t\ \doxymbox{\hyperlink{struct_f_l_a_s_h___erase_init_type_def_a9590db921fb8d36daf38e097f68fc14f}{Banks}};\ \ \ \ \ \ \ \textcolor{comment}{/*!<\ Select\ banks\ to\ erase\ when\ Mass\ erase\ is\ enabled.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00174}00174\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ This\ parameter\ must\ be\ a\ value\ of\ @ref\ FLASHEx\_Banks\ */}\ \ \ \ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00175}00175\ \ \ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00176}\doxymbox{\hyperlink{struct_f_l_a_s_h___erase_init_type_def_ab078898fc3e86294ce8335f6c03387b1}{00176}}\ \ \ uint32\_t\ \doxymbox{\hyperlink{struct_f_l_a_s_h___erase_init_type_def_ab078898fc3e86294ce8335f6c03387b1}{PageAddress}};\ \textcolor{comment}{/*!<\ PageAdress:\ Initial\ FLASH\ page\ address\ to\ erase\ when\ mass\ erase\ is\ disabled}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00177}00177\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ This\ parameter\ must\ be\ a\ number\ between\ Min\_Data\ =\ 0x08000000\ and\ Max\_Data\ =\ FLASH\_BANKx\_END\ }}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00178}00178\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (x\ =\ 1\ or\ 2\ depending\ on\ devices)*/}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00179}00179\ \ \ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00180}\doxymbox{\hyperlink{struct_f_l_a_s_h___erase_init_type_def_ad18bd4b3caaccd0d51a4faf3c6b3b57f}{00180}}\ \ \ uint32\_t\ \doxymbox{\hyperlink{struct_f_l_a_s_h___erase_init_type_def_ad18bd4b3caaccd0d51a4faf3c6b3b57f}{NbPages}};\ \ \ \ \ \textcolor{comment}{/*!<\ NbPages:\ Number\ of\ pagess\ to\ be\ erased.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00181}00181\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ This\ parameter\ must\ be\ a\ value\ between\ Min\_Data\ =\ 1\ and\ Max\_Data\ =\ (max\ number\ of\ pages\ -\/\ value\ of\ initial\ page)*/}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00182}00182\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00183}00183\ \}\ \doxymbox{\hyperlink{struct_f_l_a_s_h___erase_init_type_def}{FLASH\_EraseInitTypeDef}};}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00184}00184\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00185}00185\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00186}00186\ \textcolor{comment}{\ \ *\ @brief\ \ FLASH\ Options\ bytes\ program\ structure\ definition}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00187}00187\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00188}\doxymbox{\hyperlink{struct_f_l_a_s_h___o_b_program_init_type_def}{00188}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00189}00189\ \{}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00190}\doxymbox{\hyperlink{struct_f_l_a_s_h___o_b_program_init_type_def_a46bffc2a63ea02e15b9187856535d890}{00190}}\ \ \ uint32\_t\ \doxymbox{\hyperlink{struct_f_l_a_s_h___o_b_program_init_type_def_a46bffc2a63ea02e15b9187856535d890}{OptionType}};\ \ \textcolor{comment}{/*!<\ OptionType:\ Option\ byte\ to\ be\ configured.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00191}00191\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ This\ parameter\ can\ be\ a\ value\ of\ @ref\ FLASHEx\_OB\_Type\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00192}00192\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00193}\doxymbox{\hyperlink{struct_f_l_a_s_h___o_b_program_init_type_def_a2607ba046f7a3af46e7209b8f1e9e20d}{00193}}\ \ \ uint32\_t\ \doxymbox{\hyperlink{struct_f_l_a_s_h___o_b_program_init_type_def_a2607ba046f7a3af46e7209b8f1e9e20d}{WRPState}};\ \ \ \ \textcolor{comment}{/*!<\ WRPState:\ Write\ protection\ activation\ or\ deactivation.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00194}00194\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ This\ parameter\ can\ be\ a\ value\ of\ @ref\ FLASHEx\_OB\_WRP\_State\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00195}00195\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00196}\doxymbox{\hyperlink{struct_f_l_a_s_h___o_b_program_init_type_def_a5cf7b06b58d7ed6b94390732cfe2db8c}{00196}}\ \ \ uint32\_t\ \doxymbox{\hyperlink{struct_f_l_a_s_h___o_b_program_init_type_def_a5cf7b06b58d7ed6b94390732cfe2db8c}{WRPPage}};\ \ \ \ \ \textcolor{comment}{/*!<\ WRPPage:\ specifies\ the\ page(s)\ to\ be\ write\ protected}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00197}00197\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ This\ parameter\ can\ be\ a\ value\ of\ @ref\ FLASHEx\_OB\_Write\_Protection\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00198}00198\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00199}\doxymbox{\hyperlink{struct_f_l_a_s_h___o_b_program_init_type_def_a5fdf437b5f79d79945f5c0777f76d0eb}{00199}}\ \ \ uint32\_t\ \doxymbox{\hyperlink{struct_f_l_a_s_h___o_b_program_init_type_def_a5fdf437b5f79d79945f5c0777f76d0eb}{Banks}};\ \ \ \ \ \ \ \ \textcolor{comment}{/*!<\ Select\ banks\ for\ WRP\ activation/deactivation\ of\ all\ sectors.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00200}00200\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ This\ parameter\ must\ be\ a\ value\ of\ @ref\ FLASHEx\_Banks\ */}\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00201}00201\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00202}\doxymbox{\hyperlink{struct_f_l_a_s_h___o_b_program_init_type_def_a165bbb65be0086a30b13895594d274b1}{00202}}\ \ \ uint8\_t\ \doxymbox{\hyperlink{struct_f_l_a_s_h___o_b_program_init_type_def_a165bbb65be0086a30b13895594d274b1}{RDPLevel}};\ \ \ \ \ \textcolor{comment}{/*!<\ RDPLevel:\ Set\ the\ read\ protection\ level..}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00203}00203\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ This\ parameter\ can\ be\ a\ value\ of\ @ref\ FLASHEx\_OB\_Read\_Protection\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00204}00204\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00205}00205\ \textcolor{preprocessor}{\#if\ defined(FLASH\_BANK2\_END)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00206}00206\ \ \ uint8\_t\ \doxymbox{\hyperlink{struct_f_l_a_s_h___o_b_program_init_type_def_ae6c9b55d49bc9627a2319ba680a924de}{USERConfig}};\ \ \ \textcolor{comment}{/*!<\ USERConfig:\ Program\ the\ FLASH\ User\ Option\ Byte:\ }}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00207}00207\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ IWDG\ /\ STOP\ /\ STDBY\ /\ BOOT1}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00208}00208\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ This\ parameter\ can\ be\ a\ combination\ of\ @ref\ FLASHEx\_OB\_IWatchdog,\ @ref\ FLASHEx\_OB\_nRST\_STOP,\ }}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00209}00209\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ @ref\ FLASHEx\_OB\_nRST\_STDBY,\ @ref\ FLASHEx\_OB\_BOOT1\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00210}00210\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00211}\doxymbox{\hyperlink{struct_f_l_a_s_h___o_b_program_init_type_def_ae6c9b55d49bc9627a2319ba680a924de}{00211}}\ \ \ uint8\_t\ \doxymbox{\hyperlink{struct_f_l_a_s_h___o_b_program_init_type_def_ae6c9b55d49bc9627a2319ba680a924de}{USERConfig}};\ \ \ \textcolor{comment}{/*!<\ USERConfig:\ Program\ the\ FLASH\ User\ Option\ Byte:\ }}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00212}00212\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ IWDG\ /\ STOP\ /\ STDBY}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00213}00213\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ This\ parameter\ can\ be\ a\ combination\ of\ @ref\ FLASHEx\_OB\_IWatchdog,\ @ref\ FLASHEx\_OB\_nRST\_STOP,\ }}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00214}00214\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ @ref\ FLASHEx\_OB\_nRST\_STDBY\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00215}00215\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ FLASH\_BANK2\_END\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00216}00216\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00217}\doxymbox{\hyperlink{struct_f_l_a_s_h___o_b_program_init_type_def_ae4c47bdfa9e7d8f9969c89df5d8fbd34}{00217}}\ \ \ uint32\_t\ \doxymbox{\hyperlink{struct_f_l_a_s_h___o_b_program_init_type_def_ae4c47bdfa9e7d8f9969c89df5d8fbd34}{DATAAddress}};\ \textcolor{comment}{/*!<\ DATAAddress:\ Address\ of\ the\ option\ byte\ DATA\ to\ be\ programmed}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00218}00218\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ This\ parameter\ can\ be\ a\ value\ of\ @ref\ FLASHEx\_OB\_Data\_Address\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00219}00219\ \ \ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00220}\doxymbox{\hyperlink{struct_f_l_a_s_h___o_b_program_init_type_def_ad161cc6d98053b7fc00661014140ca11}{00220}}\ \ \ uint8\_t\ \doxymbox{\hyperlink{struct_f_l_a_s_h___o_b_program_init_type_def_ad161cc6d98053b7fc00661014140ca11}{DATAData}};\ \ \ \ \ \textcolor{comment}{/*!<\ DATAData:\ Data\ to\ be\ stored\ in\ the\ option\ byte\ DATA}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00221}00221\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ This\ parameter\ must\ be\ a\ number\ between\ Min\_Data\ =\ 0x00\ and\ Max\_Data\ =\ 0xFF\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00222}00222\ \}\ \doxymbox{\hyperlink{struct_f_l_a_s_h___o_b_program_init_type_def}{FLASH\_OBProgramInitTypeDef}};}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00223}00223\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00224}00224\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00225}00225\ \textcolor{comment}{\ \ *\ @\}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00226}00226\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00227}00227\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00228}00228\ \textcolor{comment}{/*\ Exported\ constants\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00229}00229\ \textcolor{comment}{/**\ @defgroup\ FLASHEx\_Exported\_Constants\ FLASHEx\ Exported\ Constants}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00230}00230\ \textcolor{comment}{\ \ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00231}00231\ \textcolor{comment}{\ \ */}\ \ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00232}00232\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00233}00233\ \textcolor{comment}{/**\ @defgroup\ FLASHEx\_Constants\ FLASH\ Constants}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00234}00234\ \textcolor{comment}{\ \ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00235}00235\ \textcolor{comment}{\ \ */}\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00236}00236\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00237}00237\ \textcolor{comment}{/**\ @defgroup\ FLASHEx\_Page\_Size\ Page\ Size}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00238}00238\ \textcolor{comment}{\ \ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00239}00239\ \textcolor{comment}{\ \ */}\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00240}00240\ \textcolor{preprocessor}{\#if\ (defined(STM32F101x6)\ ||\ defined(STM32F102x6)\ ||\ defined(STM32F103x6)\ ||\ defined(STM32F100xB)\ ||\ defined(STM32F101xB)\ ||\ defined(STM32F102xB)\ ||\ defined(STM32F103xB))}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00241}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___page___size_ga4cc14e2c99ae7f8e5a8e371d03c8532c}{00241}}\ \textcolor{preprocessor}{\#define\ FLASH\_PAGE\_SIZE\ \ \ \ \ \ \ \ \ \ 0x400U}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00242}00242\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ STM32F101x6\ ||\ STM32F102x6\ ||\ STM32F103x6\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00243}00243\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ STM32F100xB\ ||\ STM32F101xB\ ||\ STM32F102xB\ ||\ STM32F103xB\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00244}00244\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00245}00245\ \textcolor{preprocessor}{\#if\ (defined(STM32F100xE)\ ||\ defined(STM32F101xE)\ ||\ defined(STM32F103xE)\ ||\ defined(STM32F101xG)\ ||\ defined(STM32F103xG)\ ||\ defined(STM32F105xC)\ ||\ defined(STM32F107xC))}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00246}00246\ \textcolor{preprocessor}{\#define\ FLASH\_PAGE\_SIZE\ \ \ \ \ \ \ \ \ \ 0x800U}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00247}00247\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ STM32F100xB\ ||\ STM32F101xB\ ||\ STM32F102xB\ ||\ STM32F103xB\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00248}00248\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ STM32F101xG\ ||\ STM32F103xG\ */}\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00249}00249\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ STM32F105xC\ ||\ STM32F107xC\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00250}00250\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00251}00251\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00252}00252\ \textcolor{comment}{\ \ *\ @\}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00253}00253\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00254}00254\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00255}00255\ \textcolor{comment}{/**\ @defgroup\ FLASHEx\_Type\_Erase\ Type\ Erase}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00256}00256\ \textcolor{comment}{\ \ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00257}00257\ \textcolor{comment}{\ \ */}\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00258}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___type___erase_ga3664ce55155ec4990873c51737d787ce}{00258}}\ \textcolor{preprocessor}{\#define\ FLASH\_TYPEERASE\_PAGES\ \ \ \ \ 0x00U\ \ }\textcolor{comment}{/*!<Pages\ erase\ only*/}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00259}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___type___erase_ga9bc03534e69c625e1b4f0f05c3852243}{00259}}\ \textcolor{preprocessor}{\#define\ FLASH\_TYPEERASE\_MASSERASE\ 0x02U\ \ }\textcolor{comment}{/*!<Flash\ mass\ erase\ activation*/}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00260}00260\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00261}00261\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00262}00262\ \textcolor{comment}{\ \ *\ @\}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00263}00263\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00264}00264\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00265}00265\ \textcolor{comment}{/**\ @defgroup\ FLASHEx\_Banks\ Banks}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00266}00266\ \textcolor{comment}{\ \ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00267}00267\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00268}00268\ \textcolor{preprocessor}{\#if\ defined(FLASH\_BANK2\_END)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00269}00269\ \textcolor{preprocessor}{\#define\ FLASH\_BANK\_1\ \ \ \ \ 1U\ }\textcolor{comment}{/*!<\ Bank\ 1\ \ \ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00270}00270\ \textcolor{preprocessor}{\#define\ FLASH\_BANK\_2\ \ \ \ \ 2U\ }\textcolor{comment}{/*!<\ Bank\ 2\ \ \ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00271}00271\ \textcolor{preprocessor}{\#define\ FLASH\_BANK\_BOTH\ \ ((uint32\_t)FLASH\_BANK\_1\ |\ FLASH\_BANK\_2)\ }\textcolor{comment}{/*!<\ Bank1\ and\ Bank2\ \ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00272}00272\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00273}00273\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00274}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___banks_ga8ac3f24496e5de6a2f6bd3ff77f0ca53}{00274}}\ \textcolor{preprocessor}{\#define\ FLASH\_BANK\_1\ \ \ \ \ 1U\ }\textcolor{comment}{/*!<\ Bank\ 1\ \ \ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00275}00275\ \textcolor{preprocessor}{\#endif}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00276}00276\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00277}00277\ \textcolor{comment}{\ \ *\ @\}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00278}00278\ \textcolor{comment}{\ \ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00279}00279\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00280}00280\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00281}00281\ \textcolor{comment}{\ \ *\ @\}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00282}00282\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00283}00283\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00284}00284\ \textcolor{comment}{/**\ @defgroup\ FLASHEx\_OptionByte\_Constants\ Option\ Byte\ Constants}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00285}00285\ \textcolor{comment}{\ \ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00286}00286\ \textcolor{comment}{\ \ */}\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00287}00287\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00288}00288\ \textcolor{comment}{/**\ @defgroup\ FLASHEx\_OB\_Type\ Option\ Bytes\ Type}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00289}00289\ \textcolor{comment}{\ \ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00290}00290\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00291}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___o_b___type_ga48712a166ea192ddcda0f2653679f9ec}{00291}}\ \textcolor{preprocessor}{\#define\ OPTIONBYTE\_WRP\ \ \ \ \ \ \ \ \ \ \ \ 0x01U\ \ }\textcolor{comment}{/*!<WRP\ option\ byte\ configuration*/}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00292}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___o_b___type_ga8f0bdb21ef13bae39d5d8b6619e2df06}{00292}}\ \textcolor{preprocessor}{\#define\ OPTIONBYTE\_RDP\ \ \ \ \ \ \ \ \ \ \ \ 0x02U\ \ }\textcolor{comment}{/*!<RDP\ option\ byte\ configuration*/}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00293}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___o_b___type_gac7d843e666e15c79688a1914e8ffe7a5}{00293}}\ \textcolor{preprocessor}{\#define\ OPTIONBYTE\_USER\ \ \ \ \ \ \ \ \ \ \ 0x04U\ \ }\textcolor{comment}{/*!<USER\ option\ byte\ configuration*/}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00294}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___o_b___type_gad0c29c84acfb46de1708a670529175a5}{00294}}\ \textcolor{preprocessor}{\#define\ OPTIONBYTE\_DATA\ \ \ \ \ \ \ \ \ \ \ 0x08U\ \ }\textcolor{comment}{/*!<DATA\ option\ byte\ configuration*/}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00295}00295\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00296}00296\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00297}00297\ \textcolor{comment}{\ \ *\ @\}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00298}00298\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00299}00299\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00300}00300\ \textcolor{comment}{/**\ @defgroup\ FLASHEx\_OB\_WRP\_State\ Option\ Byte\ WRP\ State}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00301}00301\ \textcolor{comment}{\ \ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00302}00302\ \textcolor{comment}{\ \ */}\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00303}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___o_b___w_r_p___state_gaa34eb6205fe554f65a311ee974d5a4ab}{00303}}\ \textcolor{preprocessor}{\#define\ OB\_WRPSTATE\_DISABLE\ \ \ \ \ \ \ 0x00U\ \ }\textcolor{comment}{/*!<Disable\ the\ write\ protection\ of\ the\ desired\ pages*/}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00304}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___o_b___w_r_p___state_ga9fc463145ab57616baa36d95523186a1}{00304}}\ \textcolor{preprocessor}{\#define\ OB\_WRPSTATE\_ENABLE\ \ \ \ \ \ \ \ 0x01U\ \ }\textcolor{comment}{/*!<Enable\ the\ write\ protection\ of\ the\ desired\ pagess*/}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00305}00305\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00306}00306\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00307}00307\ \textcolor{comment}{\ \ *\ @\}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00308}00308\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00309}00309\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00310}00310\ \textcolor{comment}{/**\ @defgroup\ FLASHEx\_OB\_Write\_Protection\ Option\ Bytes\ Write\ Protection}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00311}00311\ \textcolor{comment}{\ \ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00312}00312\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00313}00313\ \textcolor{comment}{/*\ STM32\ Low\ and\ Medium\ density\ devices\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00314}00314\ \textcolor{preprocessor}{\#if\ \ defined(STM32F101x6)\ ||\ defined(STM32F102x6)\ ||\ defined(STM32F103x6)\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00315}00315\ \textcolor{preprocessor}{\ \ ||\ defined(STM32F100xB)\ ||\ defined(STM32F101xB)\ ||\ defined(STM32F102xB)\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00316}00316\ \textcolor{preprocessor}{\ \ ||\ defined(STM32F103xB)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00317}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___o_b___write___protection_ga646ed3fd969888eaef350f7bdd4126fb}{00317}}\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES0TO3\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x00000001U\ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 0\ to\ 3\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00318}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___o_b___write___protection_ga1d58cb74f104368e56326bfe9d6e6d27}{00318}}\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES4TO7\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x00000002U\ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 4\ to\ 7\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00319}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___o_b___write___protection_gaf7327bb020eefac05c350aeadd1716e9}{00319}}\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES8TO11\ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x00000004U\ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 8\ to\ 11\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00320}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___o_b___write___protection_ga6376038f4b7eb5528e4c9cf9ff744d24}{00320}}\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES12TO15\ \ \ \ \ \ \ \ \ \ \ \ \ 0x00000008U\ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 12\ to\ 15\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00321}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___o_b___write___protection_ga6a5f436d8ebf0eeae3bd5319721f4f7b}{00321}}\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES16TO19\ \ \ \ \ \ \ \ \ \ \ \ \ 0x00000010U\ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 16\ to\ 19\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00322}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___o_b___write___protection_ga555cc11a2c0cefd265aadd8d9bfc0923}{00322}}\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES20TO23\ \ \ \ \ \ \ \ \ \ \ \ \ 0x00000020U\ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 20\ to\ 23\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00323}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___o_b___write___protection_gaa97a0dafdb9a27ce22352af06072a756}{00323}}\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES24TO27\ \ \ \ \ \ \ \ \ \ \ \ \ 0x00000040U\ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 24\ to\ 27\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00324}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___o_b___write___protection_ga5c30ae66e0e3292d57d4e9499744bad8}{00324}}\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES28TO31\ \ \ \ \ \ \ \ \ \ \ \ \ 0x00000080U\ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 28\ to\ 31\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00325}00325\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ STM32F101x6\ ||\ STM32F102x6\ ||\ STM32F103x6\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00326}00326\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ STM32F100xB\ ||\ STM32F101xB\ ||\ STM32F102xB\ ||\ STM32F103xB\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00327}00327\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00328}00328\ \textcolor{comment}{/*\ STM32\ Medium-\/density\ devices\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00329}00329\ \textcolor{preprocessor}{\#if\ \ defined(STM32F100xB)\ ||\ defined(STM32F101xB)\ ||\ defined(STM32F102xB)\ ||\ defined(STM32F103xB)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00330}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___o_b___write___protection_ga023beeb4f60189ee0c5dd3c1ed866041}{00330}}\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES32TO35\ \ \ \ \ \ \ \ \ \ \ \ \ 0x00000100U\ \ \ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 32\ to\ 35\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00331}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___o_b___write___protection_ga920ed55da0f143ff5af9c913066a5435}{00331}}\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES36TO39\ \ \ \ \ \ \ \ \ \ \ \ \ 0x00000200U\ \ \ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 36\ to\ 39\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00332}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___o_b___write___protection_ga71ed911429bfa1ddbd6eaff8481a048f}{00332}}\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES40TO43\ \ \ \ \ \ \ \ \ \ \ \ \ 0x00000400U\ \ \ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 40\ to\ 43\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00333}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___o_b___write___protection_ga9a14faf28359873bd5a57674548ade1a}{00333}}\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES44TO47\ \ \ \ \ \ \ \ \ \ \ \ \ 0x00000800U\ \ \ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 44\ to\ 47\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00334}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___o_b___write___protection_gabc18100a63afe4f47f156231e7872ec6}{00334}}\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES48TO51\ \ \ \ \ \ \ \ \ \ \ \ \ 0x00001000U\ \ \ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 48\ to\ 51\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00335}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___o_b___write___protection_gaf9e9f42eacaac1b1fbd33d1b92de34bc}{00335}}\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES52TO55\ \ \ \ \ \ \ \ \ \ \ \ \ 0x00002000U\ \ \ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 52\ to\ 55\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00336}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___o_b___write___protection_ga0eb36f24d5fee13c5e7a6b617ed30c36}{00336}}\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES56TO59\ \ \ \ \ \ \ \ \ \ \ \ \ 0x00004000U\ \ \ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 56\ to\ 59\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00337}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___o_b___write___protection_gaf3f1bedfb399e0f771fbbbfb2b3a7338}{00337}}\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES60TO63\ \ \ \ \ \ \ \ \ \ \ \ \ 0x00008000U\ \ \ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 60\ to\ 63\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00338}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___o_b___write___protection_ga789f0bdc68c6592ab133d33d465628f4}{00338}}\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES64TO67\ \ \ \ \ \ \ \ \ \ \ \ \ 0x00010000U\ \ \ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 64\ to\ 67\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00339}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___o_b___write___protection_ga0a29fd118f5c095b63d4c1f2e5eade6c}{00339}}\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES68TO71\ \ \ \ \ \ \ \ \ \ \ \ \ 0x00020000U\ \ \ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 68\ to\ 71\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00340}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___o_b___write___protection_ga1ea64e0454920f4174967db73333cbb0}{00340}}\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES72TO75\ \ \ \ \ \ \ \ \ \ \ \ \ 0x00040000U\ \ \ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 72\ to\ 75\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00341}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___o_b___write___protection_gacb2edc778fa8eb2cd2c42271be062ee0}{00341}}\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES76TO79\ \ \ \ \ \ \ \ \ \ \ \ \ 0x00080000U\ \ \ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 76\ to\ 79\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00342}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___o_b___write___protection_ga2e6ea50c77c156ed7db98bb3eb9b37f2}{00342}}\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES80TO83\ \ \ \ \ \ \ \ \ \ \ \ \ 0x00100000U\ \ \ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 80\ to\ 83\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00343}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___o_b___write___protection_gab3a8de0a6437e794bacf779c24c808c2}{00343}}\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES84TO87\ \ \ \ \ \ \ \ \ \ \ \ \ 0x00200000U\ \ \ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 84\ to\ 87\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00344}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___o_b___write___protection_ga2b5387224bd86b0fbb0b5b9aac44e4ac}{00344}}\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES88TO91\ \ \ \ \ \ \ \ \ \ \ \ \ 0x00400000U\ \ \ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 88\ to\ 91\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00345}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___o_b___write___protection_ga7ec3f70e5450435035ef19fb54118189}{00345}}\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES92TO95\ \ \ \ \ \ \ \ \ \ \ \ \ 0x00800000U\ \ \ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 92\ to\ 95\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00346}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___o_b___write___protection_ga961a807d1721eaf2f019bcbfbcd7d122}{00346}}\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES96TO99\ \ \ \ \ \ \ \ \ \ \ \ \ 0x01000000U\ \ \ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 96\ to\ 99\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00347}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___o_b___write___protection_gaafdcd35bb0c18e1c6d9cfc55faeb205c}{00347}}\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES100TO103\ \ \ \ \ \ \ \ \ \ \ 0x02000000U\ \ \ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 100\ to\ 103\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00348}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___o_b___write___protection_gad96a8afd19b3d2f52d7d1d61544115be}{00348}}\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES104TO107\ \ \ \ \ \ \ \ \ \ \ 0x04000000U\ \ \ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 104\ to\ 107\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00349}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___o_b___write___protection_gafa747cf00e50b1235fef504108a9bc8c}{00349}}\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES108TO111\ \ \ \ \ \ \ \ \ \ \ 0x08000000U\ \ \ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 108\ to\ 111\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00350}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___o_b___write___protection_ga3599f24efb1250731b399991003cd94c}{00350}}\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES112TO115\ \ \ \ \ \ \ \ \ \ \ 0x10000000U\ \ \ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 112\ to\ 115\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00351}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___o_b___write___protection_ga9c82f6a42c9c0f0ba5b77322944db557}{00351}}\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES116TO119\ \ \ \ \ \ \ \ \ \ \ 0x20000000U\ \ \ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 115\ to\ 119\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00352}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___o_b___write___protection_gaf25a916568579c3d807a76d555ce582d}{00352}}\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES120TO123\ \ \ \ \ \ \ \ \ \ \ 0x40000000U\ \ \ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 120\ to\ 123\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00353}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___o_b___write___protection_ga3d6aeb9a27ac6705abc901fae0673fa5}{00353}}\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES124TO127\ \ \ \ \ \ \ \ \ \ \ 0x80000000U\ \ \ \ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 124\ to\ 127\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00354}00354\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ STM32F100xB\ ||\ STM32F101xB\ ||\ STM32F102xB\ ||\ STM32F103xB\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00355}00355\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00356}00356\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00357}00357\ \textcolor{comment}{/*\ STM32\ High-\/density,\ XL-\/density\ and\ Connectivity\ line\ devices\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00358}00358\ \textcolor{preprocessor}{\#if\ \ defined(STM32F100xE)\ ||\ defined(STM32F101xE)\ ||\ defined(STM32F103xE)\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00359}00359\ \textcolor{preprocessor}{\ \ ||\ defined(STM32F101xG)\ ||\ defined(STM32F103xG)\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00360}00360\ \textcolor{preprocessor}{\ \ ||\ defined(STM32F105xC)\ ||\ defined(STM32F107xC)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00361}00361\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES0TO1\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x00000001U\ \ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 0\ TO\ 1\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00362}00362\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES2TO3\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x00000002U\ \ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 2\ TO\ 3\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00363}00363\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES4TO5\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x00000004U\ \ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 4\ TO\ 5\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00364}00364\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES6TO7\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x00000008U\ \ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 6\ TO\ 7\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00365}00365\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES8TO9\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x00000010U\ \ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 8\ TO\ 9\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00366}00366\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES10TO11\ \ \ \ \ \ \ \ \ \ \ \ \ 0x00000020U\ \ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 10\ TO\ 11\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00367}00367\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES12TO13\ \ \ \ \ \ \ \ \ \ \ \ \ 0x00000040U\ \ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 12\ TO\ 13\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00368}00368\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES14TO15\ \ \ \ \ \ \ \ \ \ \ \ \ 0x00000080U\ \ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 14\ TO\ 15\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00369}00369\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES16TO17\ \ \ \ \ \ \ \ \ \ \ \ \ 0x00000100U\ \ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 16\ TO\ 17\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00370}00370\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES18TO19\ \ \ \ \ \ \ \ \ \ \ \ \ 0x00000200U\ \ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 18\ TO\ 19\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00371}00371\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES20TO21\ \ \ \ \ \ \ \ \ \ \ \ \ 0x00000400U\ \ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 20\ TO\ 21\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00372}00372\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES22TO23\ \ \ \ \ \ \ \ \ \ \ \ \ 0x00000800U\ \ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 22\ TO\ 23\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00373}00373\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES24TO25\ \ \ \ \ \ \ \ \ \ \ \ \ 0x00001000U\ \ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 24\ TO\ 25\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00374}00374\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES26TO27\ \ \ \ \ \ \ \ \ \ \ \ \ 0x00002000U\ \ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 26\ TO\ 27\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00375}00375\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES28TO29\ \ \ \ \ \ \ \ \ \ \ \ \ 0x00004000U\ \ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 28\ TO\ 29\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00376}00376\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES30TO31\ \ \ \ \ \ \ \ \ \ \ \ \ 0x00008000U\ \ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 30\ TO\ 31\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00377}00377\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES32TO33\ \ \ \ \ \ \ \ \ \ \ \ \ 0x00010000U\ \ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 32\ TO\ 33\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00378}00378\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES34TO35\ \ \ \ \ \ \ \ \ \ \ \ \ 0x00020000U\ \ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 34\ TO\ 35\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00379}00379\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES36TO37\ \ \ \ \ \ \ \ \ \ \ \ \ 0x00040000U\ \ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 36\ TO\ 37\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00380}00380\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES38TO39\ \ \ \ \ \ \ \ \ \ \ \ \ 0x00080000U\ \ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 38\ TO\ 39\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00381}00381\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES40TO41\ \ \ \ \ \ \ \ \ \ \ \ \ 0x00100000U\ \ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 40\ TO\ 41\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00382}00382\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES42TO43\ \ \ \ \ \ \ \ \ \ \ \ \ 0x00200000U\ \ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 42\ TO\ 43\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00383}00383\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES44TO45\ \ \ \ \ \ \ \ \ \ \ \ \ 0x00400000U\ \ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 44\ TO\ 45\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00384}00384\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES46TO47\ \ \ \ \ \ \ \ \ \ \ \ \ 0x00800000U\ \ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 46\ TO\ 47\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00385}00385\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES48TO49\ \ \ \ \ \ \ \ \ \ \ \ \ 0x01000000U\ \ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 48\ TO\ 49\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00386}00386\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES50TO51\ \ \ \ \ \ \ \ \ \ \ \ \ 0x02000000U\ \ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 50\ TO\ 51\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00387}00387\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES52TO53\ \ \ \ \ \ \ \ \ \ \ \ \ 0x04000000U\ \ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 52\ TO\ 53\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00388}00388\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES54TO55\ \ \ \ \ \ \ \ \ \ \ \ \ 0x08000000U\ \ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 54\ TO\ 55\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00389}00389\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES56TO57\ \ \ \ \ \ \ \ \ \ \ \ \ 0x10000000U\ \ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 56\ TO\ 57\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00390}00390\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES58TO59\ \ \ \ \ \ \ \ \ \ \ \ \ 0x20000000U\ \ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 58\ TO\ 59\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00391}00391\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES60TO61\ \ \ \ \ \ \ \ \ \ \ \ \ 0x40000000U\ \ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 60\ TO\ 61\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00392}00392\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES62TO127\ \ \ \ \ \ \ \ \ \ \ \ 0x80000000U\ \ \ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 62\ TO\ 127\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00393}00393\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES62TO255\ \ \ \ \ \ \ \ \ \ \ \ 0x80000000U\ \ \ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 62\ TO\ 255\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00394}00394\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES62TO511\ \ \ \ \ \ \ \ \ \ \ \ 0x80000000U\ \ \ }\textcolor{comment}{/*!<\ Write\ protection\ of\ page\ 62\ TO\ 511\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00395}00395\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ STM32F100xB\ ||\ STM32F101xB\ ||\ STM32F102xB\ ||\ STM32F103xB\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00396}00396\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ STM32F101xG\ ||\ STM32F103xG\ */}\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00397}00397\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ STM32F105xC\ ||\ STM32F107xC\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00398}00398\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00399}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___o_b___write___protection_ga0cc7fc37c49d200418353f977e35139c}{00399}}\ \textcolor{preprocessor}{\#define\ OB\_WRP\_ALLPAGES\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0xFFFFFFFFU\ \ }\textcolor{comment}{/*!<\ Write\ protection\ of\ all\ Pages\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00400}00400\ \ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00401}00401\ \textcolor{comment}{/*\ Low\ Density\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00402}00402\ \textcolor{preprocessor}{\#if\ \ defined(STM32F101x6)\ ||\ defined(STM32F102x6)\ ||\ defined(STM32F103x6)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00403}00403\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES0TO31MASK\ \ \ \ \ \ \ \ \ \ 0x000000FFU\ }}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00404}00404\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ STM32F101x6\ ||\ STM32F102x6\ ||\ STM32F103x6\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00405}00405\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00406}00406\ \textcolor{comment}{/*\ Medium\ Density\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00407}00407\ \textcolor{preprocessor}{\#if\ \ defined(STM32F100xB)\ ||\ defined(STM32F101xB)\ ||\ defined(STM32F102xB)\ ||\ defined(STM32F103xB)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00408}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___o_b___write___protection_ga1c7bcead4496bd011c66d79c6740d7d7}{00408}}\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES0TO31MASK\ \ \ \ \ \ \ \ \ \ 0x000000FFU}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00409}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___o_b___write___protection_ga06b1666694d0f9d172fcfac8ed630b87}{00409}}\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES32TO63MASK\ \ \ \ \ \ \ \ \ 0x0000FF00U}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00410}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___o_b___write___protection_ga5441570333511e8236fb98c57f789637}{00410}}\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES64TO95MASK\ \ \ \ \ \ \ \ \ 0x00FF0000U}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00411}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___o_b___write___protection_gaf30804e3b3595154330088860516f539}{00411}}\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES96TO127MASK\ \ \ \ \ \ \ \ 0xFF000000U}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00412}00412\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ STM32F100xB\ ||\ STM32F101xB\ ||\ STM32F102xB\ ||\ STM32F103xB*/}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00413}00413\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00414}00414\ \textcolor{comment}{/*\ High\ Density\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00415}00415\ \textcolor{preprocessor}{\#if\ \ defined(STM32F100xE)\ ||\ defined(STM32F101xE)\ ||\ defined(STM32F103xE)\ \ }}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00416}00416\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES0TO15MASK\ \ \ \ \ \ \ \ \ \ 0x000000FFU}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00417}00417\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES16TO31MASK\ \ \ \ \ \ \ \ \ 0x0000FF00U}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00418}00418\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES32TO47MASK\ \ \ \ \ \ \ \ \ 0x00FF0000U}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00419}00419\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES48TO255MASK\ \ \ \ \ \ \ \ 0xFF000000U}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00420}00420\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ STM32F100xE\ ||\ STM32F101xE\ ||\ STM32F103xE\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00421}00421\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00422}00422\ \textcolor{comment}{/*\ XL\ Density\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00423}00423\ \textcolor{preprocessor}{\#if\ \ defined(STM32F101xG)\ ||\ defined(STM32F103xG)\ }}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00424}00424\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES0TO15MASK\ \ \ \ \ \ \ \ \ \ 0x000000FFU}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00425}00425\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES16TO31MASK\ \ \ \ \ \ \ \ \ 0x0000FF00U}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00426}00426\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES32TO47MASK\ \ \ \ \ \ \ \ \ 0x00FF0000U}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00427}00427\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES48TO511MASK\ \ \ \ \ \ \ \ 0xFF000000U}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00428}00428\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ STM32F101xG\ ||\ STM32F103xG\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00429}00429\ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00430}00430\ \textcolor{comment}{/*\ Connectivity\ line\ devices\ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00431}00431\ \textcolor{preprocessor}{\#if\ defined(STM32F105xC)\ ||\ defined(STM32F107xC)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00432}00432\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES0TO15MASK\ \ \ \ \ \ \ \ \ \ 0x000000FFU}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00433}00433\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES16TO31MASK\ \ \ \ \ \ \ \ \ 0x0000FF00U}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00434}00434\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES32TO47MASK\ \ \ \ \ \ \ \ \ 0x00FF0000U}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00435}00435\ \textcolor{preprocessor}{\#define\ OB\_WRP\_PAGES48TO127MASK\ \ \ \ \ \ \ \ 0xFF000000U}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00436}00436\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ STM32F105xC\ ||\ STM32F107xC\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00437}00437\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00438}00438\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00439}00439\ \textcolor{comment}{\ \ *\ @\}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00440}00440\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00441}00441\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00442}00442\ \textcolor{comment}{/**\ @defgroup\ FLASHEx\_OB\_Read\_Protection\ Option\ Byte\ Read\ Protection}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00443}00443\ \textcolor{comment}{\ \ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00444}00444\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00445}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___o_b___read___protection_ga22c7871bda267a2844ab9ca9f7bd38e4}{00445}}\ \textcolor{preprocessor}{\#define\ OB\_RDP\_LEVEL\_0\ \ \ \ \ \ \ \ \ \ \ \ ((uint8\_t)0xA5)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00446}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___o_b___read___protection_ga778207f0d12d87bbff9d55e985aba5bc}{00446}}\ \textcolor{preprocessor}{\#define\ OB\_RDP\_LEVEL\_1\ \ \ \ \ \ \ \ \ \ \ \ ((uint8\_t)0x00)}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00447}00447\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00448}00448\ \textcolor{comment}{\ \ *\ @\}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00449}00449\ \textcolor{comment}{\ \ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00450}00450\ \ \ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00451}00451\ \textcolor{comment}{/**\ @defgroup\ FLASHEx\_OB\_IWatchdog\ Option\ Byte\ IWatchdog}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00452}00452\ \textcolor{comment}{\ \ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00453}00453\ \textcolor{comment}{\ \ */}\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00454}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___o_b___i_watchdog_ga5a357e232c955444c3f2ccb9a937ffce}{00454}}\ \textcolor{preprocessor}{\#define\ OB\_IWDG\_SW\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((uint16\_t)0x0001)\ \ }\textcolor{comment}{/*!<\ Software\ IWDG\ selected\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00455}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___o_b___i_watchdog_gadfcbfa963d79c339ec8e2d5a7734e47a}{00455}}\ \textcolor{preprocessor}{\#define\ OB\_IWDG\_HW\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((uint16\_t)0x0000)\ \ }\textcolor{comment}{/*!<\ Hardware\ IWDG\ selected\ */}\textcolor{preprocessor}{}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00456}00456\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00457}00457\ \textcolor{comment}{\ \ *\ @\}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00458}00458\ \textcolor{comment}{\ \ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00459}00459\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00460}00460\ \textcolor{comment}{/**\ @defgroup\ FLASHEx\_OB\_nRST\_STOP\ Option\ Byte\ nRST\ STOP}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00461}00461\ \textcolor{comment}{\ \ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00462}00462\ \textcolor{comment}{\ \ */}\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00463}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___o_b__n_r_s_t___s_t_o_p_ga7344fe0ec25c5eb2d11db7c855325436}{00463}}\ \textcolor{preprocessor}{\#define\ OB\_STOP\_NO\_RST\ \ \ \ \ \ \ \ \ \ \ \ ((uint16\_t)0x0002)\ }\textcolor{comment}{/*!<\ No\ reset\ generated\ when\ entering\ in\ STOP\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00464}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___o_b__n_r_s_t___s_t_o_p_gaef92c03b1f279c532bfa13d3bb074b57}{00464}}\ \textcolor{preprocessor}{\#define\ OB\_STOP\_RST\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((uint16\_t)0x0000)\ }\textcolor{comment}{/*!<\ Reset\ generated\ when\ entering\ in\ STOP\ */}\textcolor{preprocessor}{}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00465}00465\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00466}00466\ \textcolor{comment}{\ \ *\ @\}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00467}00467\ \textcolor{comment}{\ \ */}\textcolor{preprocessor}{\ }}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00468}00468\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00469}00469\ \textcolor{comment}{/**\ @defgroup\ FLASHEx\_OB\_nRST\_STDBY\ Option\ Byte\ nRST\ STDBY}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00470}00470\ \textcolor{comment}{\ \ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00471}00471\ \textcolor{comment}{\ \ */}\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00472}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___o_b__n_r_s_t___s_t_d_b_y_gad776ed7b3b9a98013aac9976eedb7e94}{00472}}\ \textcolor{preprocessor}{\#define\ OB\_STDBY\_NO\_RST\ \ \ \ \ \ \ \ \ \ \ ((uint16\_t)0x0004)\ }\textcolor{comment}{/*!<\ No\ reset\ generated\ when\ entering\ in\ STANDBY\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00473}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___o_b__n_r_s_t___s_t_d_b_y_ga69451a6f69247528f58735c9c83499ce}{00473}}\ \textcolor{preprocessor}{\#define\ OB\_STDBY\_RST\ \ \ \ \ \ \ \ \ \ \ \ \ \ ((uint16\_t)0x0000)\ }\textcolor{comment}{/*!<\ Reset\ generated\ when\ entering\ in\ STANDBY\ */}\textcolor{preprocessor}{}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00474}00474\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00475}00475\ \textcolor{comment}{\ \ *\ @\}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00476}00476\ \textcolor{comment}{\ \ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00477}00477\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00478}00478\ \textcolor{preprocessor}{\#if\ defined(FLASH\_BANK2\_END)}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00479}00479\ \textcolor{comment}{/**\ @defgroup\ FLASHEx\_OB\_BOOT1\ Option\ Byte\ BOOT1}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00480}00480\ \textcolor{comment}{\ \ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00481}00481\ \textcolor{comment}{\ \ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00482}00482\ \textcolor{preprocessor}{\#define\ OB\_BOOT1\_RESET\ \ \ \ \ \ \ \ \ \ \ \ ((uint16\_t)0x0000)\ }\textcolor{comment}{/*!<\ BOOT1\ Reset\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00483}00483\ \textcolor{preprocessor}{\#define\ OB\_BOOT1\_SET\ \ \ \ \ \ \ \ \ \ \ \ \ \ ((uint16\_t)0x0008)\ }\textcolor{comment}{/*!<\ BOOT1\ Set\ */}\textcolor{preprocessor}{}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00484}00484\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00485}00485\ \textcolor{comment}{\ \ *\ @\}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00486}00486\ \textcolor{comment}{\ \ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00487}00487\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ FLASH\_BANK2\_END\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00488}00488\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00489}00489\ \textcolor{comment}{/**\ @defgroup\ FLASHEx\_OB\_Data\_Address\ \ Option\ Byte\ Data\ Address}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00490}00490\ \textcolor{comment}{\ \ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00491}00491\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00492}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___o_b___data___address_gab29881e9575bfff3504b84afa20cafbe}{00492}}\ \textcolor{preprocessor}{\#define\ OB\_DATA\_ADDRESS\_DATA0\ \ \ \ \ 0x1FFFF804U}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00493}\doxymbox{\hyperlink{group___f_l_a_s_h_ex___o_b___data___address_ga33cb1b378fd742c722f5bdce21c65b0e}{00493}}\ \textcolor{preprocessor}{\#define\ OB\_DATA\_ADDRESS\_DATA1\ \ \ \ \ 0x1FFFF806U}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00494}00494\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00495}00495\ \textcolor{comment}{\ \ *\ @\}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00496}00496\ \textcolor{comment}{\ \ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00497}00497\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00498}00498\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00499}00499\ \textcolor{comment}{\ \ *\ @\}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00500}00500\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00501}00501\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00502}00502\ \textcolor{comment}{/**\ @addtogroup\ FLASHEx\_Constants}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00503}00503\ \textcolor{comment}{\ \ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00504}00504\ \textcolor{comment}{\ \ */}\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00505}00505\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00506}00506\ \textcolor{comment}{/**\ @defgroup\ FLASH\_Flag\_definition\ Flag\ definition}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00507}00507\ \textcolor{comment}{\ \ *\ @brief\ Flag\ definition}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00508}00508\ \textcolor{comment}{\ \ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00509}00509\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00510}00510\ \textcolor{preprocessor}{\#if\ defined(FLASH\_BANK2\_END)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00511}00511\ \textcolor{preprocessor}{\ \#define\ FLASH\_FLAG\_BSY\ \ \ \ \ \ \ \ \ \ \ \ \ FLASH\_FLAG\_BSY\_BANK1\ \ \ \ \ \ \ }\textcolor{comment}{/*!<\ FLASH\ Bank1\ Busy\ flag\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}\textcolor{preprocessor}{\ }}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00512}00512\ \textcolor{preprocessor}{\ \#define\ FLASH\_FLAG\_PGERR\ \ \ \ \ \ \ \ \ \ \ FLASH\_FLAG\_PGERR\_BANK1\ \ \ \ \ }\textcolor{comment}{/*!<\ FLASH\ Bank1\ Programming\ error\ flag\ \ \ \ \ \ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00513}00513\ \textcolor{preprocessor}{\ \#define\ FLASH\_FLAG\_WRPERR\ \ \ \ \ \ \ \ \ \ FLASH\_FLAG\_WRPERR\_BANK1\ \ \ \ }\textcolor{comment}{/*!<\ FLASH\ Bank1\ Write\ protected\ error\ flag\ \ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00514}00514\ \textcolor{preprocessor}{\ \#define\ FLASH\_FLAG\_EOP\ \ \ \ \ \ \ \ \ \ \ \ \ FLASH\_FLAG\_EOP\_BANK1\ \ \ \ \ \ \ }\textcolor{comment}{/*!<\ FLASH\ Bank1\ End\ of\ Operation\ flag\ \ \ \ \ \ \ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00515}00515\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00516}00516\ \textcolor{preprocessor}{\ \#define\ FLASH\_FLAG\_BSY\_BANK1\ \ \ \ \ \ \ FLASH\_SR\_BSY\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{/*!<\ FLASH\ Bank1\ Busy\ flag\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}\textcolor{preprocessor}{\ }}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00517}00517\ \textcolor{preprocessor}{\ \#define\ FLASH\_FLAG\_PGERR\_BANK1\ \ \ \ \ FLASH\_SR\_PGERR\ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{/*!<\ FLASH\ Bank1\ Programming\ error\ flag\ \ \ \ \ \ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00518}00518\ \textcolor{preprocessor}{\ \#define\ FLASH\_FLAG\_WRPERR\_BANK1\ \ \ \ FLASH\_SR\_WRPRTERR\ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{/*!<\ FLASH\ Bank1\ Write\ protected\ error\ flag\ \ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00519}00519\ \textcolor{preprocessor}{\ \#define\ FLASH\_FLAG\_EOP\_BANK1\ \ \ \ \ \ \ FLASH\_SR\_EOP\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{/*!<\ FLASH\ Bank1\ End\ of\ Operation\ flag\ \ \ \ \ \ \ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00520}00520\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00521}00521\ \textcolor{preprocessor}{\ \#define\ FLASH\_FLAG\_BSY\_BANK2\ \ \ \ \ \ \ (FLASH\_SR2\_BSY\ <<\ 16U)\ \ \ \ \ \ }\textcolor{comment}{/*!<\ FLASH\ Bank2\ Busy\ flag\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}\textcolor{preprocessor}{\ }}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00522}00522\ \textcolor{preprocessor}{\ \#define\ FLASH\_FLAG\_PGERR\_BANK2\ \ \ \ \ (FLASH\_SR2\_PGERR\ <<\ 16U)\ \ \ \ }\textcolor{comment}{/*!<\ FLASH\ Bank2\ Programming\ error\ flag\ \ \ \ \ \ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00523}00523\ \textcolor{preprocessor}{\ \#define\ FLASH\_FLAG\_WRPERR\_BANK2\ \ \ \ (FLASH\_SR2\_WRPRTERR\ <<\ 16U)\ }\textcolor{comment}{/*!<\ FLASH\ Bank2\ Write\ protected\ error\ flag\ \ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00524}00524\ \textcolor{preprocessor}{\ \#define\ FLASH\_FLAG\_EOP\_BANK2\ \ \ \ \ \ \ (FLASH\_SR2\_EOP\ <<\ 16U)\ \ \ \ \ \ }\textcolor{comment}{/*!<\ FLASH\ Bank2\ End\ of\ Operation\ flag\ \ \ \ \ \ \ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00525}00525\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00526}00526\ \textcolor{preprocessor}{\#else\ \ }}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00527}00527\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00528}\doxymbox{\hyperlink{group___f_l_a_s_h___flag__definition_gad3bc368f954ad7744deda3315da2fff7}{00528}}\ \textcolor{preprocessor}{\ \#define\ FLASH\_FLAG\_BSY\ \ \ \ \ \ \ \ \ \ \ \ \ FLASH\_SR\_BSY\ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{/*!<\ FLASH\ Busy\ flag\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}\textcolor{preprocessor}{\ }}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00529}\doxymbox{\hyperlink{group___f_l_a_s_h___flag__definition_gae2ef62dee0a5ca01e6226746039b6f20}{00529}}\ \textcolor{preprocessor}{\ \#define\ FLASH\_FLAG\_PGERR\ \ \ \ \ \ \ \ \ \ \ FLASH\_SR\_PGERR\ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{/*!<\ FLASH\ Programming\ error\ flag\ \ \ \ \ \ \ \ \ \ \ \ \ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00530}\doxymbox{\hyperlink{group___f_l_a_s_h___flag__definition_ga6abf64f916992585899369166db3f266}{00530}}\ \textcolor{preprocessor}{\ \#define\ FLASH\_FLAG\_WRPERR\ \ \ \ \ \ \ \ \ \ FLASH\_SR\_WRPRTERR\ \ \ \ \ \ \ \ \ }\textcolor{comment}{/*!<\ FLASH\ Write\ protected\ error\ flag\ \ \ \ \ \ \ \ \ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00531}\doxymbox{\hyperlink{group___f_l_a_s_h___flag__definition_gaf043ba4d8f837350bfc7754a99fae5a9}{00531}}\ \textcolor{preprocessor}{\ \#define\ FLASH\_FLAG\_EOP\ \ \ \ \ \ \ \ \ \ \ \ \ FLASH\_SR\_EOP\ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{/*!<\ FLASH\ End\ of\ Operation\ flag\ \ \ \ \ \ \ \ \ \ \ \ \ \ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00532}00532\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00533}00533\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00534}\doxymbox{\hyperlink{group___f_l_a_s_h___flag__definition_gacb2c4c991a260c3f110cd8c72f302864}{00534}}\ \textcolor{preprocessor}{\ \#define\ FLASH\_FLAG\_OPTVERR\ \ \ \ \ \ \ \ \ ((OBR\_REG\_INDEX\ <<\ 8U\ |\ FLASH\_OBR\_OPTERR))\ }\textcolor{comment}{/*!<\ Option\ Byte\ Error\ \ \ \ \ \ \ \ */}\textcolor{preprocessor}{}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00535}00535\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00536}00536\ \textcolor{comment}{\ \ *\ @\}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00537}00537\ \textcolor{comment}{\ \ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00538}00538\ \ \ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00539}00539\ \textcolor{comment}{/**\ @defgroup\ FLASH\_Interrupt\_definition\ Interrupt\ definition}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00540}00540\ \textcolor{comment}{\ \ *\ @brief\ FLASH\ Interrupt\ definition}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00541}00541\ \textcolor{comment}{\ \ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00542}00542\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00543}00543\ \textcolor{preprocessor}{\#if\ defined(FLASH\_BANK2\_END)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00544}00544\ \textcolor{preprocessor}{\ \#define\ FLASH\_IT\_EOP\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FLASH\_IT\_EOP\_BANK1\ \ \ \ \ \ \ \ }\textcolor{comment}{/*!<\ End\ of\ FLASH\ Operation\ Interrupt\ source\ Bank1\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00545}00545\ \textcolor{preprocessor}{\ \#define\ FLASH\_IT\_ERR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FLASH\_IT\_ERR\_BANK1\ \ \ \ \ \ \ \ }\textcolor{comment}{/*!<\ Error\ Interrupt\ source\ Bank1\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00546}00546\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00547}00547\ \textcolor{preprocessor}{\ \#define\ FLASH\_IT\_EOP\_BANK1\ \ \ \ \ \ \ \ \ FLASH\_CR\_EOPIE\ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{/*!<\ End\ of\ FLASH\ Operation\ Interrupt\ source\ Bank1\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00548}00548\ \textcolor{preprocessor}{\ \#define\ FLASH\_IT\_ERR\_BANK1\ \ \ \ \ \ \ \ \ FLASH\_CR\_ERRIE\ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{/*!<\ Error\ Interrupt\ source\ Bank1\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00549}00549\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00550}00550\ \textcolor{preprocessor}{\ \#define\ FLASH\_IT\_EOP\_BANK2\ \ \ \ \ \ \ \ \ (FLASH\_CR2\_EOPIE\ <<\ 16U)\ \ \ }\textcolor{comment}{/*!<\ End\ of\ FLASH\ Operation\ Interrupt\ source\ Bank2\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00551}00551\ \textcolor{preprocessor}{\ \#define\ FLASH\_IT\_ERR\_BANK2\ \ \ \ \ \ \ \ \ (FLASH\_CR2\_ERRIE\ <<\ 16U)\ \ \ }\textcolor{comment}{/*!<\ Error\ Interrupt\ source\ Bank2\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00552}00552\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00553}00553\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00554}00554\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00555}\doxymbox{\hyperlink{group___f_l_a_s_h___interrupt__definition_gaea20e80e1806d58a7544cfe8659e7f11}{00555}}\ \textcolor{preprocessor}{\ \#define\ FLASH\_IT\_EOP\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FLASH\_CR\_EOPIE\ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{/*!<\ End\ of\ FLASH\ Operation\ Interrupt\ source\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00556}\doxymbox{\hyperlink{group___f_l_a_s_h___interrupt__definition_ga4e2c23ab8c1b9a5ee49bf6d695d9ae8c}{00556}}\ \textcolor{preprocessor}{\ \#define\ FLASH\_IT\_ERR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FLASH\_CR\_ERRIE\ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{/*!<\ Error\ Interrupt\ source\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00557}00557\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00558}00558\ \textcolor{preprocessor}{\#endif}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00559}00559\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00560}00560\ \textcolor{comment}{\ \ *\ @\}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00561}00561\ \textcolor{comment}{\ \ */}\textcolor{preprocessor}{\ \ }}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00562}00562\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00563}00563\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00564}00564\ \textcolor{comment}{\ \ *\ @\}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00565}00565\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00566}00566\ \ \ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00567}00567\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00568}00568\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00569}00569\ \textcolor{comment}{\ \ *\ @\}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00570}00570\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00571}00571\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00572}00572\ \textcolor{comment}{/*\ Exported\ macro\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00573}00573\ \textcolor{comment}{/**\ @defgroup\ FLASHEx\_Exported\_Macros\ FLASHEx\ Exported\ Macros}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00574}00574\ \textcolor{comment}{\ \ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00575}00575\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00576}00576\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00577}00577\ \textcolor{comment}{/**\ @defgroup\ FLASH\_Interrupt\ Interrupt}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00578}00578\ \textcolor{comment}{\ *\ \ @brief\ macros\ to\ handle\ FLASH\ interrupts}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00579}00579\ \textcolor{comment}{\ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00580}00580\ \textcolor{comment}{\ */}\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00581}00581\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00582}00582\ \textcolor{preprocessor}{\#if\ defined(FLASH\_BANK2\_END)}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00583}00583\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00584}00584\ \textcolor{comment}{\ \ *\ @brief\ \ Enable\ the\ specified\ FLASH\ interrupt.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00585}00585\ \textcolor{comment}{\ \ *\ @param\ \ \_\_INTERRUPT\_\_\ \ FLASH\ interrupt\ }}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00586}00586\ \textcolor{comment}{\ \ *\ \ \ \ \ This\ parameter\ can\ be\ any\ combination\ of\ the\ following\ values:}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00587}00587\ \textcolor{comment}{\ \ *\ \ \ \ \ @arg\ @ref\ FLASH\_IT\_EOP\_BANK1\ End\ of\ FLASH\ Operation\ Interrupt\ on\ bank1}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00588}00588\ \textcolor{comment}{\ \ *\ \ \ \ \ @arg\ @ref\ FLASH\_IT\_ERR\_BANK1\ Error\ Interrupt\ on\ bank1}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00589}00589\ \textcolor{comment}{\ \ *\ \ \ \ \ @arg\ @ref\ FLASH\_IT\_EOP\_BANK2\ End\ of\ FLASH\ Operation\ Interrupt\ on\ bank2}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00590}00590\ \textcolor{comment}{\ \ *\ \ \ \ \ @arg\ @ref\ FLASH\_IT\_ERR\_BANK2\ Error\ Interrupt\ on\ bank2}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00591}00591\ \textcolor{comment}{\ \ *\ @retval\ none}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00592}00592\ \textcolor{comment}{\ \ */}\textcolor{preprocessor}{\ }}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00593}00593\ \textcolor{preprocessor}{\#define\ \_\_HAL\_FLASH\_ENABLE\_IT(\_\_INTERRUPT\_\_)\ \ do\ \{\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00594}00594\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{/*\ Enable\ Bank1\ IT\ */}\textcolor{preprocessor}{\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00595}00595\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SET\_BIT(FLASH-\/>CR,\ ((\_\_INTERRUPT\_\_)\ \&\ 0x0000FFFFU));\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00596}00596\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{/*\ Enable\ Bank2\ IT\ */}\textcolor{preprocessor}{\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00597}00597\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SET\_BIT(FLASH-\/>CR2,\ ((\_\_INTERRUPT\_\_)\ >>\ 16U));\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00598}00598\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ while(0U)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00599}00599\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00600}00600\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00601}00601\ \textcolor{comment}{\ \ *\ @brief\ \ Disable\ the\ specified\ FLASH\ interrupt.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00602}00602\ \textcolor{comment}{\ \ *\ @param\ \ \_\_INTERRUPT\_\_\ \ FLASH\ interrupt\ }}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00603}00603\ \textcolor{comment}{\ \ *\ \ \ \ \ This\ parameter\ can\ be\ any\ combination\ of\ the\ following\ values:}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00604}00604\ \textcolor{comment}{\ \ *\ \ \ \ \ @arg\ @ref\ FLASH\_IT\_EOP\_BANK1\ End\ of\ FLASH\ Operation\ Interrupt\ on\ bank1}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00605}00605\ \textcolor{comment}{\ \ *\ \ \ \ \ @arg\ @ref\ FLASH\_IT\_ERR\_BANK1\ Error\ Interrupt\ on\ bank1}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00606}00606\ \textcolor{comment}{\ \ *\ \ \ \ \ @arg\ @ref\ FLASH\_IT\_EOP\_BANK2\ End\ of\ FLASH\ Operation\ Interrupt\ on\ bank2}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00607}00607\ \textcolor{comment}{\ \ *\ \ \ \ \ @arg\ @ref\ FLASH\_IT\_ERR\_BANK2\ Error\ Interrupt\ on\ bank2}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00608}00608\ \textcolor{comment}{\ \ *\ @retval\ none}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00609}00609\ \textcolor{comment}{\ \ */}\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00610}00610\ \textcolor{preprocessor}{\#define\ \_\_HAL\_FLASH\_DISABLE\_IT(\_\_INTERRUPT\_\_)\ \ do\ \{\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00611}00611\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{/*\ Disable\ Bank1\ IT\ */}\textcolor{preprocessor}{\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00612}00612\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CLEAR\_BIT(FLASH-\/>CR,\ ((\_\_INTERRUPT\_\_)\ \&\ 0x0000FFFFU));\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00613}00613\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{/*\ Disable\ Bank2\ IT\ */}\textcolor{preprocessor}{\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00614}00614\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CLEAR\_BIT(FLASH-\/>CR2,\ ((\_\_INTERRUPT\_\_)\ >>\ 16U));\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00615}00615\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ while(0U)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00616}00616\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00617}00617\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00618}00618\ \textcolor{comment}{\ \ *\ @brief\ \ Get\ the\ specified\ FLASH\ flag\ status.\ }}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00619}00619\ \textcolor{comment}{\ \ *\ @param\ \ \_\_FLAG\_\_\ specifies\ the\ FLASH\ flag\ to\ check.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00620}00620\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ This\ parameter\ can\ be\ one\ of\ the\ following\ values:}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00621}00621\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ \ @arg\ @ref\ FLASH\_FLAG\_EOP\_BANK1\ \ \ \ FLASH\ End\ of\ Operation\ flag\ on\ bank1}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00622}00622\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ \ @arg\ @ref\ FLASH\_FLAG\_WRPERR\_BANK1\ FLASH\ Write\ protected\ error\ flag\ on\ bank1}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00623}00623\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ \ @arg\ @ref\ FLASH\_FLAG\_PGERR\_BANK1\ \ FLASH\ Programming\ error\ flag\ on\ bank1}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00624}00624\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ \ @arg\ @ref\ FLASH\_FLAG\_BSY\_BANK1\ \ \ \ FLASH\ Busy\ flag\ on\ bank1}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00625}00625\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ \ @arg\ @ref\ FLASH\_FLAG\_EOP\_BANK2\ \ \ \ FLASH\ End\ of\ Operation\ flag\ on\ bank2}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00626}00626\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ \ @arg\ @ref\ FLASH\_FLAG\_WRPERR\_BANK2\ FLASH\ Write\ protected\ error\ flag\ on\ bank2}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00627}00627\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ \ @arg\ @ref\ FLASH\_FLAG\_PGERR\_BANK2\ \ FLASH\ Programming\ error\ flag\ on\ bank2}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00628}00628\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ \ @arg\ @ref\ FLASH\_FLAG\_BSY\_BANK2\ \ \ \ FLASH\ Busy\ flag\ on\ bank2}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00629}00629\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ \ @arg\ @ref\ FLASH\_FLAG\_OPTVERR\ \ Loaded\ OB\ and\ its\ complement\ do\ not\ match}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00630}00630\ \textcolor{comment}{\ \ *\ @retval\ The\ new\ state\ of\ \_\_FLAG\_\_\ (SET\ or\ RESET).}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00631}00631\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00632}00632\ \textcolor{preprocessor}{\#define\ \_\_HAL\_FLASH\_GET\_FLAG(\_\_FLAG\_\_)\ (((\_\_FLAG\_\_)\ ==\ FLASH\_FLAG\_OPTVERR)\ ?\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00633}00633\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (FLASH-\/>OBR\ \&\ FLASH\_OBR\_OPTERR)\ :\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00634}00634\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((((\_\_FLAG\_\_)\ \&\ SR\_FLAG\_MASK)\ !=\ RESET)?\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00635}00635\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (FLASH-\/>SR\ \&\ ((\_\_FLAG\_\_)\ \&\ SR\_FLAG\_MASK))\ :\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00636}00636\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (FLASH-\/>SR2\ \&\ ((\_\_FLAG\_\_)\ >>\ 16U))))}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00637}00637\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00638}00638\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00639}00639\ \textcolor{comment}{\ \ *\ @brief\ \ Clear\ the\ specified\ FLASH\ flag.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00640}00640\ \textcolor{comment}{\ \ *\ @param\ \ \_\_FLAG\_\_\ specifies\ the\ FLASH\ flags\ to\ clear.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00641}00641\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ This\ parameter\ can\ be\ any\ combination\ of\ the\ following\ values:}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00642}00642\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ \ @arg\ @ref\ FLASH\_FLAG\_EOP\_BANK1\ \ \ \ FLASH\ End\ of\ Operation\ flag\ on\ bank1}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00643}00643\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ \ @arg\ @ref\ FLASH\_FLAG\_WRPERR\_BANK1\ FLASH\ Write\ protected\ error\ flag\ on\ bank1}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00644}00644\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ \ @arg\ @ref\ FLASH\_FLAG\_PGERR\_BANK1\ \ FLASH\ Programming\ error\ flag\ on\ bank1}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00645}00645\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ \ @arg\ @ref\ FLASH\_FLAG\_BSY\_BANK1\ \ \ \ FLASH\ Busy\ flag\ on\ bank1}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00646}00646\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ \ @arg\ @ref\ FLASH\_FLAG\_EOP\_BANK2\ \ \ \ FLASH\ End\ of\ Operation\ flag\ on\ bank2}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00647}00647\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ \ @arg\ @ref\ FLASH\_FLAG\_WRPERR\_BANK2\ FLASH\ Write\ protected\ error\ flag\ on\ bank2}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00648}00648\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ \ @arg\ @ref\ FLASH\_FLAG\_PGERR\_BANK2\ \ FLASH\ Programming\ error\ flag\ on\ bank2}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00649}00649\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ \ @arg\ @ref\ FLASH\_FLAG\_BSY\_BANK2\ \ \ \ FLASH\ Busy\ flag\ on\ bank2}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00650}00650\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ \ @arg\ @ref\ FLASH\_FLAG\_OPTVERR\ \ Loaded\ OB\ and\ its\ complement\ do\ not\ match}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00651}00651\ \textcolor{comment}{\ \ *\ @retval\ none}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00652}00652\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00653}00653\ \textcolor{preprocessor}{\#define\ \_\_HAL\_FLASH\_CLEAR\_FLAG(\_\_FLAG\_\_)\ \ do\ \{\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00654}00654\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{/*\ Clear\ FLASH\_FLAG\_OPTVERR\ flag\ */}\textcolor{preprocessor}{\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00655}00655\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ if\ ((\_\_FLAG\_\_)\ ==\ FLASH\_FLAG\_OPTVERR)\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00656}00656\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00657}00657\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CLEAR\_BIT(FLASH-\/>OBR,\ FLASH\_OBR\_OPTERR);\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00658}00658\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00659}00659\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ else\ \{\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00660}00660\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{/*\ Clear\ Flag\ in\ Bank1\ */}\textcolor{preprocessor}{\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00661}00661\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ if\ (((\_\_FLAG\_\_)\ \&\ SR\_FLAG\_MASK)\ !=\ RESET)\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00662}00662\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00663}00663\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FLASH-\/>SR\ \ =\ ((\_\_FLAG\_\_)\ \&\ SR\_FLAG\_MASK);\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00664}00664\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00665}00665\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{/*\ Clear\ Flag\ in\ Bank2\ */}\textcolor{preprocessor}{\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00666}00666\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ if\ (((\_\_FLAG\_\_)\ >>\ 16U)\ !=\ RESET)\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00667}00667\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00668}00668\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FLASH-\/>SR2\ =\ ((\_\_FLAG\_\_)\ >>\ 16U);\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00669}00669\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00670}00670\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00671}00671\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ while(0U)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00672}00672\ \textcolor{preprocessor}{\#else}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00673}00673\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00674}00674\ \textcolor{comment}{\ \ *\ @brief\ \ Enable\ the\ specified\ FLASH\ interrupt.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00675}00675\ \textcolor{comment}{\ \ *\ @param\ \ \_\_INTERRUPT\_\_\ \ FLASH\ interrupt\ }}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00676}00676\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ This\ parameter\ can\ be\ any\ combination\ of\ the\ following\ values:}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00677}00677\ \textcolor{comment}{\ \ *\ \ \ \ \ @arg\ @ref\ FLASH\_IT\_EOP\ End\ of\ FLASH\ Operation\ Interrupt}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00678}00678\ \textcolor{comment}{\ \ *\ \ \ \ \ @arg\ @ref\ FLASH\_IT\_ERR\ Error\ Interrupt\ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00679}00679\ \textcolor{comment}{\ \ *\ @retval\ none}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00680}00680\ \textcolor{comment}{\ \ */}\textcolor{preprocessor}{\ }}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00681}\doxymbox{\hyperlink{group___f_l_a_s_h___interrupt_ga13fa137a911f02a2f94fb9fb0762a340}{00681}}\ \textcolor{preprocessor}{\#define\ \_\_HAL\_FLASH\_ENABLE\_IT(\_\_INTERRUPT\_\_)\ \ (FLASH-\/>CR\ |=\ (\_\_INTERRUPT\_\_))}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00682}00682\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00683}00683\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00684}00684\ \textcolor{comment}{\ \ *\ @brief\ \ Disable\ the\ specified\ FLASH\ interrupt.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00685}00685\ \textcolor{comment}{\ \ *\ @param\ \ \_\_INTERRUPT\_\_\ \ FLASH\ interrupt\ }}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00686}00686\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ This\ parameter\ can\ be\ any\ combination\ of\ the\ following\ values:}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00687}00687\ \textcolor{comment}{\ \ *\ \ \ \ \ @arg\ @ref\ FLASH\_IT\_EOP\ End\ of\ FLASH\ Operation\ Interrupt}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00688}00688\ \textcolor{comment}{\ \ *\ \ \ \ \ @arg\ @ref\ FLASH\_IT\_ERR\ Error\ Interrupt\ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00689}00689\ \textcolor{comment}{\ \ *\ @retval\ none}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00690}00690\ \textcolor{comment}{\ \ */}\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00691}\doxymbox{\hyperlink{group___f_l_a_s_h___interrupt_ga1f40f507b5d4b3a4da68e4244a1097ee}{00691}}\ \textcolor{preprocessor}{\#define\ \_\_HAL\_FLASH\_DISABLE\_IT(\_\_INTERRUPT\_\_)\ \ \ (FLASH-\/>CR\ \&=\ \string~(\_\_INTERRUPT\_\_))}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00692}00692\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00693}00693\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00694}00694\ \textcolor{comment}{\ \ *\ @brief\ \ Get\ the\ specified\ FLASH\ flag\ status.\ }}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00695}00695\ \textcolor{comment}{\ \ *\ @param\ \ \_\_FLAG\_\_\ specifies\ the\ FLASH\ flag\ to\ check.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00696}00696\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ This\ parameter\ can\ be\ one\ of\ the\ following\ values:}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00697}00697\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ \ @arg\ @ref\ FLASH\_FLAG\_EOP\ \ \ \ FLASH\ End\ of\ Operation\ flag\ }}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00698}00698\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ \ @arg\ @ref\ FLASH\_FLAG\_WRPERR\ FLASH\ Write\ protected\ error\ flag\ }}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00699}00699\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ \ @arg\ @ref\ FLASH\_FLAG\_PGERR\ \ FLASH\ Programming\ error\ flag}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00700}00700\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ \ @arg\ @ref\ FLASH\_FLAG\_BSY\ \ \ \ FLASH\ Busy\ flag}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00701}00701\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ \ @arg\ @ref\ FLASH\_FLAG\_OPTVERR\ \ Loaded\ OB\ and\ its\ complement\ do\ not\ match}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00702}00702\ \textcolor{comment}{\ \ *\ @retval\ The\ new\ state\ of\ \_\_FLAG\_\_\ (SET\ or\ RESET).}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00703}00703\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00704}\doxymbox{\hyperlink{group___f_l_a_s_h___interrupt_ga0d3dd161fecc0e47c9e109c7c28672c1}{00704}}\ \textcolor{preprocessor}{\#define\ \_\_HAL\_FLASH\_GET\_FLAG(\_\_FLAG\_\_)\ \ (((\_\_FLAG\_\_)\ ==\ FLASH\_FLAG\_OPTVERR)\ ?\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00705}00705\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (FLASH-\/>OBR\ \&\ FLASH\_OBR\_OPTERR)\ :\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00706}00706\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (FLASH-\/>SR\ \&\ (\_\_FLAG\_\_)))}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00707}00707\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00708}00708\ \textcolor{comment}{\ \ *\ @brief\ \ Clear\ the\ specified\ FLASH\ flag.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00709}00709\ \textcolor{comment}{\ \ *\ @param\ \ \_\_FLAG\_\_\ specifies\ the\ FLASH\ flags\ to\ clear.}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00710}00710\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ This\ parameter\ can\ be\ any\ combination\ of\ the\ following\ values:}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00711}00711\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ \ @arg\ @ref\ FLASH\_FLAG\_EOP\ \ \ \ FLASH\ End\ of\ Operation\ flag\ }}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00712}00712\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ \ @arg\ @ref\ FLASH\_FLAG\_WRPERR\ FLASH\ Write\ protected\ error\ flag\ }}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00713}00713\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ \ @arg\ @ref\ FLASH\_FLAG\_PGERR\ \ FLASH\ Programming\ error\ flag\ }}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00714}00714\ \textcolor{comment}{\ \ *\ \ \ \ \ \ \ \ \ \ \ \ @arg\ @ref\ FLASH\_FLAG\_OPTVERR\ \ Loaded\ OB\ and\ its\ complement\ do\ not\ match}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00715}00715\ \textcolor{comment}{\ \ *\ @retval\ none}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00716}00716\ \textcolor{comment}{\ \ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00717}\doxymbox{\hyperlink{group___f_l_a_s_h___interrupt_ga68e49c4675761e2ec35153e747de7622}{00717}}\ \textcolor{preprocessor}{\#define\ \_\_HAL\_FLASH\_CLEAR\_FLAG(\_\_FLAG\_\_)\ \ \ do\ \{\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00718}00718\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{/*\ Clear\ FLASH\_FLAG\_OPTVERR\ flag\ */}\textcolor{preprocessor}{\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00719}00719\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ if\ ((\_\_FLAG\_\_)\ ==\ FLASH\_FLAG\_OPTVERR)\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00720}00720\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00721}00721\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CLEAR\_BIT(FLASH-\/>OBR,\ FLASH\_OBR\_OPTERR);\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00722}00722\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00723}00723\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ else\ \{\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00724}00724\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{/*\ Clear\ Flag\ in\ Bank1\ */}\textcolor{preprocessor}{\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00725}00725\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FLASH-\/>SR\ \ =\ (\_\_FLAG\_\_);\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00726}00726\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00727}00727\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ while(0U)}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00728}00728\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00729}00729\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00730}00730\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00731}00731\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00732}00732\ \textcolor{comment}{\ \ *\ @\}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00733}00733\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00734}00734\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00735}00735\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00736}00736\ \textcolor{comment}{\ \ *\ @\}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00737}00737\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00738}00738\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00739}00739\ \textcolor{comment}{/*\ Exported\ functions\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00740}00740\ \textcolor{comment}{/**\ @addtogroup\ FLASHEx\_Exported\_Functions}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00741}00741\ \textcolor{comment}{\ \ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00742}00742\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00743}00743\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00744}00744\ \textcolor{comment}{/**\ @addtogroup\ FLASHEx\_Exported\_Functions\_Group1}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00745}00745\ \textcolor{comment}{\ \ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00746}00746\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00747}00747\ \textcolor{comment}{/*\ IO\ operation\ functions\ *****************************************************/}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00748}00748\ \doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\_StatusTypeDef}}\ \ \doxymbox{\hyperlink{group___f_l_a_s_h_ex___exported___functions___group1_ga9c4e0c7b4f528b7cccae6ad610eb5953}{HAL\_FLASHEx\_Erase}}(\doxymbox{\hyperlink{struct_f_l_a_s_h___erase_init_type_def}{FLASH\_EraseInitTypeDef}}\ *pEraseInit,\ uint32\_t\ *PageError);}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00749}00749\ \doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\_StatusTypeDef}}\ \ \doxymbox{\hyperlink{group___f_l_a_s_h_ex___exported___functions___group1_gaf58c6764859e4febc21abe462dfb2615}{HAL\_FLASHEx\_Erase\_IT}}(\doxymbox{\hyperlink{struct_f_l_a_s_h___erase_init_type_def}{FLASH\_EraseInitTypeDef}}\ *pEraseInit);}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00750}00750\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00751}00751\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00752}00752\ \textcolor{comment}{\ \ *\ @\}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00753}00753\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00754}00754\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00755}00755\ \textcolor{comment}{/**\ @addtogroup\ FLASHEx\_Exported\_Functions\_Group2}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00756}00756\ \textcolor{comment}{\ \ *\ @\{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00757}00757\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00758}00758\ \textcolor{comment}{/*\ Peripheral\ Control\ functions\ ***********************************************/}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00759}00759\ \doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\_StatusTypeDef}}\ \ \doxymbox{\hyperlink{group___f_l_a_s_h_ex___exported___functions___group2_ga74d4265b88afed50efe9fda0f025979a}{HAL\_FLASHEx\_OBErase}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00760}00760\ \doxymbox{\hyperlink{stm32f1xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\_StatusTypeDef}}\ \ \doxymbox{\hyperlink{group___f_l_a_s_h_ex___exported___functions___group2_ga001dd4a8defa9eb24a17c4df5953a41d}{HAL\_FLASHEx\_OBProgram}}(\doxymbox{\hyperlink{struct_f_l_a_s_h___o_b_program_init_type_def}{FLASH\_OBProgramInitTypeDef}}\ *pOBInit);}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00761}00761\ \textcolor{keywordtype}{void}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___f_l_a_s_h_ex___exported___functions___group2_ga6d45d5442b8147533b1100ec40fe75d7}{HAL\_FLASHEx\_OBGetConfig}}(\doxymbox{\hyperlink{struct_f_l_a_s_h___o_b_program_init_type_def}{FLASH\_OBProgramInitTypeDef}}\ *pOBInit);}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00762}00762\ uint32\_t\ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{group___f_l_a_s_h_ex___exported___functions___group2_ga683593291451ae3e0dd1a6426ba72b3a}{HAL\_FLASHEx\_OBGetUserData}}(uint32\_t\ DATAAdress);\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00763}00763\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00764}00764\ \textcolor{comment}{\ \ *\ @\}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00765}00765\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00766}00766\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00767}00767\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00768}00768\ \textcolor{comment}{\ \ *\ @\}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00769}00769\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00770}00770\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00771}00771\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00772}00772\ \textcolor{comment}{\ \ *\ @\}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00773}00773\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00774}00774\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00775}00775\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00776}00776\ \textcolor{comment}{\ \ *\ @\}}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00777}00777\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00778}00778\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00779}00779\ \}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00780}00780\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00781}00781\ }
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00782}00782\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_STM32F1xx\_HAL\_FLASH\_EX\_H\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{stm32f1xx__hal__flash__ex_8h_source_l00783}00783\ }
+
+\end{DoxyCode}

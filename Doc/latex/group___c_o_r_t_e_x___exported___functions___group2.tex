@@ -1,0 +1,611 @@
+\doxysubsubsubsubsection{Peripheral Control functions }
+\hypertarget{group___c_o_r_t_e_x___exported___functions___group2}{}\label{group___c_o_r_t_e_x___exported___functions___group2}\index{Peripheral Control functions@{Peripheral Control functions}}
+
+
+Cortex control functions.  
+
+
+Diagrama de colaboración de Peripheral Control functions:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group___c_o_r_t_e_x___exported___functions___group2}
+\end{center}
+\end{figure}
+\doxysubsubsubsubsubsubsection*{Funciones}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{group___c_o_r_t_e_x___exported___functions___group2_ga0c7d007acf1339ca1bb46f3c6e018ff5}{HAL\+\_\+\+NVIC\+\_\+\+Clear\+Pending\+IRQ}} (\doxymbox{\hyperlink{group___peripheral__interrupt__number__definition_ga7e1129cd8a196f4284d41db3e82ad5c8}{IRQn\+\_\+\+Type}} IRQn)
+\begin{DoxyCompactList}\small\item\em Clears the pending bit of an external interrupt. \end{DoxyCompactList}\item 
+uint32\+\_\+t \doxymbox{\hyperlink{group___c_o_r_t_e_x___exported___functions___group2_gad3f7598e54fb3d74eaf9abedef704c57}{HAL\+\_\+\+NVIC\+\_\+\+Get\+Active}} (\doxymbox{\hyperlink{group___peripheral__interrupt__number__definition_ga7e1129cd8a196f4284d41db3e82ad5c8}{IRQn\+\_\+\+Type}} IRQn)
+\begin{DoxyCompactList}\small\item\em Gets active interrupt ( reads the active register in NVIC and returns the active bit). \end{DoxyCompactList}\item 
+uint32\+\_\+t \doxymbox{\hyperlink{group___c_o_r_t_e_x___exported___functions___group2_ga3bd5802a96f0dcbc00ac3b89b134da3b}{HAL\+\_\+\+NVIC\+\_\+\+Get\+Pending\+IRQ}} (\doxymbox{\hyperlink{group___peripheral__interrupt__number__definition_ga7e1129cd8a196f4284d41db3e82ad5c8}{IRQn\+\_\+\+Type}} IRQn)
+\begin{DoxyCompactList}\small\item\em Gets Pending Interrupt (reads the pending register in the NVIC and returns the pending bit for the specified interrupt). \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{group___c_o_r_t_e_x___exported___functions___group2_ga6a21c9d904b0bcf4cb060f7c5c39b6f5}{HAL\+\_\+\+NVIC\+\_\+\+Get\+Priority}} (\doxymbox{\hyperlink{group___peripheral__interrupt__number__definition_ga7e1129cd8a196f4284d41db3e82ad5c8}{IRQn\+\_\+\+Type}} IRQn, uint32\+\_\+t Priority\+Group, uint32\+\_\+t \texorpdfstring{$\ast$}{*}p\+Preempt\+Priority, uint32\+\_\+t \texorpdfstring{$\ast$}{*}p\+Sub\+Priority)
+\begin{DoxyCompactList}\small\item\em Gets the priority of an interrupt. \end{DoxyCompactList}\item 
+uint32\+\_\+t \doxymbox{\hyperlink{group___c_o_r_t_e_x___exported___functions___group2_gaa02bc953fd4fce22248c491a93c4ce40}{HAL\+\_\+\+NVIC\+\_\+\+Get\+Priority\+Grouping}} (void)
+\begin{DoxyCompactList}\small\item\em Gets the priority grouping field from the NVIC Interrupt Controller. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{group___c_o_r_t_e_x___exported___functions___group2_gaecf50f6c6d0e1fa5f8bd8c1b45309f18}{HAL\+\_\+\+NVIC\+\_\+\+Set\+Pending\+IRQ}} (\doxymbox{\hyperlink{group___peripheral__interrupt__number__definition_ga7e1129cd8a196f4284d41db3e82ad5c8}{IRQn\+\_\+\+Type}} IRQn)
+\begin{DoxyCompactList}\small\item\em Sets Pending bit of an external interrupt. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{group___c_o_r_t_e_x___exported___functions___group2_gab75cd87f2fa51dee8cb5a97b910e2593}{HAL\+\_\+\+SYSTICK\+\_\+\+Callback}} (void)
+\begin{DoxyCompactList}\small\item\em SYSTICK callback. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{group___c_o_r_t_e_x___exported___functions___group2_ga3284dc8428996f5b6aa6b3b99e643788}{HAL\+\_\+\+SYSTICK\+\_\+\+CLKSource\+Config}} (uint32\+\_\+t CLKSource)
+\begin{DoxyCompactList}\small\item\em Configures the Sys\+Tick clock source. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{group___c_o_r_t_e_x___exported___functions___group2_ga5b66b62383261c1e0acef98d344aa4c1}{HAL\+\_\+\+SYSTICK\+\_\+\+IRQHandler}} (void)
+\begin{DoxyCompactList}\small\item\em This function handles SYSTICK interrupt request. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsubsubsubsubsection{Descripción detallada}
+Cortex control functions. 
+
+\begin{DoxyVerb}  ==============================================================================
+                      ##### Peripheral Control functions #####
+  ==============================================================================
+    [..]
+      This subsection provides a set of functions allowing to control the CORTEX
+      (NVIC, SYSTICK, MPU) functionalities. 
+\end{DoxyVerb}
+ 
+
+\label{group___c_o_r_t_e_x___exported___functions___group2_doc-func-members}
+\Hypertarget{group___c_o_r_t_e_x___exported___functions___group2_doc-func-members}
+\doxysubsubsubsubsubsection{Documentación de funciones}
+\Hypertarget{group___c_o_r_t_e_x___exported___functions___group2_ga0c7d007acf1339ca1bb46f3c6e018ff5}\index{Peripheral Control functions@{Peripheral Control functions}!HAL\_NVIC\_ClearPendingIRQ@{HAL\_NVIC\_ClearPendingIRQ}}
+\index{HAL\_NVIC\_ClearPendingIRQ@{HAL\_NVIC\_ClearPendingIRQ}!Peripheral Control functions@{Peripheral Control functions}}
+\doxyparagraph{\texorpdfstring{HAL\_NVIC\_ClearPendingIRQ()}{HAL\_NVIC\_ClearPendingIRQ()}}
+{\footnotesize\ttfamily \label{group___c_o_r_t_e_x___exported___functions___group2_ga0c7d007acf1339ca1bb46f3c6e018ff5} 
+void HAL\+\_\+\+NVIC\+\_\+\+Clear\+Pending\+IRQ (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group___peripheral__interrupt__number__definition_ga7e1129cd8a196f4284d41db3e82ad5c8}{IRQn\+\_\+\+Type}}}]{IRQn}{}\end{DoxyParamCaption})}
+
+
+
+{\ttfamily \+\#include "{}\doxymbox{\hyperlink{stm32f1xx__hal__cortex_8h}{stm32f1xx\+\_\+hal\+\_\+cortex.\+h}}"{}}
+
+
+
+Clears the pending bit of an external interrupt. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em IRQn} & External interrupt number. This parameter can be an enumerator of \doxylink{group___peripheral__interrupt__number__definition_ga7e1129cd8a196f4284d41db3e82ad5c8}{IRQn\+\_\+\+Type} enumeration (For the complete STM32 Devices IRQ Channels list, please refer to the appropriate CMSIS device file (stm32f10xxx.\+h)) ~\newline
+ \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Valores devueltos}
+{\em None} & \\
+\hline
+\end{DoxyRetVals}
+
+
+Definición en la línea \doxymbox{\hyperlink{stm32f1xx__hal__cortex_8c_source_l00445}{445}} del archivo \doxymbox{\hyperlink{stm32f1xx__hal__cortex_8c_source}{stm32f1xx\+\_\+hal\+\_\+cortex.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00446\ \{}
+\DoxyCodeLine{00447\ \ \ \textcolor{comment}{/*\ Check\ the\ parameters\ */}}
+\DoxyCodeLine{00448\ \ \ \doxymbox{\hyperlink{stm32f1xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\doxymbox{\hyperlink{group___c_o_r_t_e_x___private___macros_ga9b8dcac4ed8e88c14d9bb04e369dad6a}{IS\_NVIC\_DEVICE\_IRQ}}(IRQn));}
+\DoxyCodeLine{00449\ }
+\DoxyCodeLine{00450\ \ \ \textcolor{comment}{/*\ Clear\ pending\ interrupt\ */}}
+\DoxyCodeLine{00451\ \ \ NVIC\_ClearPendingIRQ(IRQn);}
+\DoxyCodeLine{00452\ \}}
+
+\end{DoxyCode}
+
+
+Hace referencia a \doxymbox{\hyperlink{stm32f1xx__hal__conf_8h_source_l00373}{assert\+\_\+param}}, \doxymbox{\hyperlink{stm32f1xx__hal__cortex_8c_source_l00445}{HAL\+\_\+\+NVIC\+\_\+\+Clear\+Pending\+IRQ()}} y \doxymbox{\hyperlink{stm32f1xx__hal__cortex_8h_source_l00317}{IS\+\_\+\+NVIC\+\_\+\+DEVICE\+\_\+\+IRQ}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{stm32f1xx__hal__cortex_8c_source_l00445}{HAL\+\_\+\+NVIC\+\_\+\+Clear\+Pending\+IRQ()}}.
+
+Gráfico de llamadas de esta función:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=227pt]{group___c_o_r_t_e_x___exported___functions___group2_ga0c7d007acf1339ca1bb46f3c6e018ff5_cgraph}
+\end{center}
+\end{figure}
+Gráfico de llamadas a esta función:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=227pt]{group___c_o_r_t_e_x___exported___functions___group2_ga0c7d007acf1339ca1bb46f3c6e018ff5_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group___c_o_r_t_e_x___exported___functions___group2_gad3f7598e54fb3d74eaf9abedef704c57}\index{Peripheral Control functions@{Peripheral Control functions}!HAL\_NVIC\_GetActive@{HAL\_NVIC\_GetActive}}
+\index{HAL\_NVIC\_GetActive@{HAL\_NVIC\_GetActive}!Peripheral Control functions@{Peripheral Control functions}}
+\doxyparagraph{\texorpdfstring{HAL\_NVIC\_GetActive()}{HAL\_NVIC\_GetActive()}}
+{\footnotesize\ttfamily \label{group___c_o_r_t_e_x___exported___functions___group2_gad3f7598e54fb3d74eaf9abedef704c57} 
+uint32\+\_\+t HAL\+\_\+\+NVIC\+\_\+\+Get\+Active (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group___peripheral__interrupt__number__definition_ga7e1129cd8a196f4284d41db3e82ad5c8}{IRQn\+\_\+\+Type}}}]{IRQn}{}\end{DoxyParamCaption})}
+
+
+
+{\ttfamily \+\#include "{}\doxymbox{\hyperlink{stm32f1xx__hal__cortex_8h}{stm32f1xx\+\_\+hal\+\_\+cortex.\+h}}"{}}
+
+
+
+Gets active interrupt ( reads the active register in NVIC and returns the active bit). 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em IRQn} & External interrupt number This parameter can be an enumerator of \doxylink{group___peripheral__interrupt__number__definition_ga7e1129cd8a196f4284d41db3e82ad5c8}{IRQn\+\_\+\+Type} enumeration (For the complete STM32 Devices IRQ Channels list, please refer to the appropriate CMSIS device file (stm32f10xxx.\+h)) ~\newline
+ \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Valores devueltos}
+{\em status} & -\/ 0 Interrupt status is not pending.
+\begin{DoxyItemize}
+\item 1 Interrupt status is pending. 
+\end{DoxyItemize}\\
+\hline
+\end{DoxyRetVals}
+
+
+Definición en la línea \doxymbox{\hyperlink{stm32f1xx__hal__cortex_8c_source_l00462}{462}} del archivo \doxymbox{\hyperlink{stm32f1xx__hal__cortex_8c_source}{stm32f1xx\+\_\+hal\+\_\+cortex.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00463\ \{}
+\DoxyCodeLine{00464\ \ \ \textcolor{comment}{/*\ Check\ the\ parameters\ */}}
+\DoxyCodeLine{00465\ \ \ \doxymbox{\hyperlink{stm32f1xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\doxymbox{\hyperlink{group___c_o_r_t_e_x___private___macros_ga9b8dcac4ed8e88c14d9bb04e369dad6a}{IS\_NVIC\_DEVICE\_IRQ}}(IRQn));}
+\DoxyCodeLine{00466\ }
+\DoxyCodeLine{00467\ \ \ \textcolor{comment}{/*\ Return\ 1\ if\ active\ else\ 0\ */}}
+\DoxyCodeLine{00468\ \ \ \textcolor{keywordflow}{return}\ NVIC\_GetActive(IRQn);}
+\DoxyCodeLine{00469\ \}}
+
+\end{DoxyCode}
+
+
+Hace referencia a \doxymbox{\hyperlink{stm32f1xx__hal__conf_8h_source_l00373}{assert\+\_\+param}}, \doxymbox{\hyperlink{stm32f1xx__hal__cortex_8c_source_l00462}{HAL\+\_\+\+NVIC\+\_\+\+Get\+Active()}} y \doxymbox{\hyperlink{stm32f1xx__hal__cortex_8h_source_l00317}{IS\+\_\+\+NVIC\+\_\+\+DEVICE\+\_\+\+IRQ}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{stm32f1xx__hal__cortex_8c_source_l00462}{HAL\+\_\+\+NVIC\+\_\+\+Get\+Active()}}.
+
+Gráfico de llamadas de esta función:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=194pt]{group___c_o_r_t_e_x___exported___functions___group2_gad3f7598e54fb3d74eaf9abedef704c57_cgraph}
+\end{center}
+\end{figure}
+Gráfico de llamadas a esta función:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=194pt]{group___c_o_r_t_e_x___exported___functions___group2_gad3f7598e54fb3d74eaf9abedef704c57_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group___c_o_r_t_e_x___exported___functions___group2_ga3bd5802a96f0dcbc00ac3b89b134da3b}\index{Peripheral Control functions@{Peripheral Control functions}!HAL\_NVIC\_GetPendingIRQ@{HAL\_NVIC\_GetPendingIRQ}}
+\index{HAL\_NVIC\_GetPendingIRQ@{HAL\_NVIC\_GetPendingIRQ}!Peripheral Control functions@{Peripheral Control functions}}
+\doxyparagraph{\texorpdfstring{HAL\_NVIC\_GetPendingIRQ()}{HAL\_NVIC\_GetPendingIRQ()}}
+{\footnotesize\ttfamily \label{group___c_o_r_t_e_x___exported___functions___group2_ga3bd5802a96f0dcbc00ac3b89b134da3b} 
+uint32\+\_\+t HAL\+\_\+\+NVIC\+\_\+\+Get\+Pending\+IRQ (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group___peripheral__interrupt__number__definition_ga7e1129cd8a196f4284d41db3e82ad5c8}{IRQn\+\_\+\+Type}}}]{IRQn}{}\end{DoxyParamCaption})}
+
+
+
+{\ttfamily \+\#include "{}\doxymbox{\hyperlink{stm32f1xx__hal__cortex_8h}{stm32f1xx\+\_\+hal\+\_\+cortex.\+h}}"{}}
+
+
+
+Gets Pending Interrupt (reads the pending register in the NVIC and returns the pending bit for the specified interrupt). 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em IRQn} & External interrupt number. This parameter can be an enumerator of \doxylink{group___peripheral__interrupt__number__definition_ga7e1129cd8a196f4284d41db3e82ad5c8}{IRQn\+\_\+\+Type} enumeration (For the complete STM32 Devices IRQ Channels list, please refer to the appropriate CMSIS device file (stm32f10xxx.\+h)) ~\newline
+ \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Valores devueltos}
+{\em status} & -\/ 0 Interrupt status is not pending.
+\begin{DoxyItemize}
+\item 1 Interrupt status is pending. 
+\end{DoxyItemize}\\
+\hline
+\end{DoxyRetVals}
+
+
+Definición en la línea \doxymbox{\hyperlink{stm32f1xx__hal__cortex_8c_source_l00429}{429}} del archivo \doxymbox{\hyperlink{stm32f1xx__hal__cortex_8c_source}{stm32f1xx\+\_\+hal\+\_\+cortex.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00430\ \{}
+\DoxyCodeLine{00431\ \ \ \textcolor{comment}{/*\ Check\ the\ parameters\ */}}
+\DoxyCodeLine{00432\ \ \ \doxymbox{\hyperlink{stm32f1xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\doxymbox{\hyperlink{group___c_o_r_t_e_x___private___macros_ga9b8dcac4ed8e88c14d9bb04e369dad6a}{IS\_NVIC\_DEVICE\_IRQ}}(IRQn));}
+\DoxyCodeLine{00433\ }
+\DoxyCodeLine{00434\ \ \ \textcolor{comment}{/*\ Return\ 1\ if\ pending\ else\ 0\ */}}
+\DoxyCodeLine{00435\ \ \ \textcolor{keywordflow}{return}\ NVIC\_GetPendingIRQ(IRQn);}
+\DoxyCodeLine{00436\ \}}
+
+\end{DoxyCode}
+
+
+Hace referencia a \doxymbox{\hyperlink{stm32f1xx__hal__conf_8h_source_l00373}{assert\+\_\+param}}, \doxymbox{\hyperlink{stm32f1xx__hal__cortex_8c_source_l00429}{HAL\+\_\+\+NVIC\+\_\+\+Get\+Pending\+IRQ()}} y \doxymbox{\hyperlink{stm32f1xx__hal__cortex_8h_source_l00317}{IS\+\_\+\+NVIC\+\_\+\+DEVICE\+\_\+\+IRQ}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{stm32f1xx__hal__cortex_8c_source_l00429}{HAL\+\_\+\+NVIC\+\_\+\+Get\+Pending\+IRQ()}}.
+
+Gráfico de llamadas de esta función:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{group___c_o_r_t_e_x___exported___functions___group2_ga3bd5802a96f0dcbc00ac3b89b134da3b_cgraph}
+\end{center}
+\end{figure}
+Gráfico de llamadas a esta función:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{group___c_o_r_t_e_x___exported___functions___group2_ga3bd5802a96f0dcbc00ac3b89b134da3b_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group___c_o_r_t_e_x___exported___functions___group2_ga6a21c9d904b0bcf4cb060f7c5c39b6f5}\index{Peripheral Control functions@{Peripheral Control functions}!HAL\_NVIC\_GetPriority@{HAL\_NVIC\_GetPriority}}
+\index{HAL\_NVIC\_GetPriority@{HAL\_NVIC\_GetPriority}!Peripheral Control functions@{Peripheral Control functions}}
+\doxyparagraph{\texorpdfstring{HAL\_NVIC\_GetPriority()}{HAL\_NVIC\_GetPriority()}}
+{\footnotesize\ttfamily \label{group___c_o_r_t_e_x___exported___functions___group2_ga6a21c9d904b0bcf4cb060f7c5c39b6f5} 
+void HAL\+\_\+\+NVIC\+\_\+\+Get\+Priority (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group___peripheral__interrupt__number__definition_ga7e1129cd8a196f4284d41db3e82ad5c8}{IRQn\+\_\+\+Type}}}]{IRQn}{, }\item[{uint32\+\_\+t}]{Priority\+Group}{, }\item[{uint32\+\_\+t \texorpdfstring{$\ast$}{*}}]{p\+Preempt\+Priority}{, }\item[{uint32\+\_\+t \texorpdfstring{$\ast$}{*}}]{p\+Sub\+Priority}{}\end{DoxyParamCaption})}
+
+
+
+{\ttfamily \+\#include "{}\doxymbox{\hyperlink{stm32f1xx__hal__cortex_8h}{stm32f1xx\+\_\+hal\+\_\+cortex.\+h}}"{}}
+
+
+
+Gets the priority of an interrupt. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em IRQn} & External interrupt number. This parameter can be an enumerator of \doxylink{group___peripheral__interrupt__number__definition_ga7e1129cd8a196f4284d41db3e82ad5c8}{IRQn\+\_\+\+Type} enumeration (For the complete STM32 Devices IRQ Channels list, please refer to the appropriate CMSIS device file (stm32f10xxx.\+h)) \\
+\hline
+{\em Priority\+Group} & the priority grouping bits length. This parameter can be one of the following values: \begin{DoxyItemize}
+\item NVIC\+\_\+\+PRIORITYGROUP\+\_\+0: 0 bits for preemption priority 4 bits for subpriority \item NVIC\+\_\+\+PRIORITYGROUP\+\_\+1: 1 bits for preemption priority 3 bits for subpriority \item NVIC\+\_\+\+PRIORITYGROUP\+\_\+2: 2 bits for preemption priority 2 bits for subpriority \item NVIC\+\_\+\+PRIORITYGROUP\+\_\+3: 3 bits for preemption priority 1 bits for subpriority \item NVIC\+\_\+\+PRIORITYGROUP\+\_\+4: 4 bits for preemption priority 0 bits for subpriority \end{DoxyItemize}
+\\
+\hline
+{\em p\+Preempt\+Priority} & Pointer on the Preemptive priority value (starting from 0). \\
+\hline
+{\em p\+Sub\+Priority} & Pointer on the Subpriority value (starting from 0). \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Valores devueltos}
+{\em None} & \\
+\hline
+\end{DoxyRetVals}
+
+
+Definición en la línea \doxymbox{\hyperlink{stm32f1xx__hal__cortex_8c_source_l00396}{396}} del archivo \doxymbox{\hyperlink{stm32f1xx__hal__cortex_8c_source}{stm32f1xx\+\_\+hal\+\_\+cortex.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00397\ \{}
+\DoxyCodeLine{00398\ \ \ \textcolor{comment}{/*\ Check\ the\ parameters\ */}}
+\DoxyCodeLine{00399\ \ \ \doxymbox{\hyperlink{stm32f1xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\doxymbox{\hyperlink{group___c_o_r_t_e_x___private___macros_ga6569304a39fe4f91bd59b6a586c8ede9}{IS\_NVIC\_PRIORITY\_GROUP}}(PriorityGroup));}
+\DoxyCodeLine{00400\ \ \textcolor{comment}{/*\ Get\ priority\ for\ Cortex-\/M\ system\ or\ device\ specific\ interrupts\ */}}
+\DoxyCodeLine{00401\ \ \ NVIC\_DecodePriority(NVIC\_GetPriority(IRQn),\ PriorityGroup,\ pPreemptPriority,\ pSubPriority);}
+\DoxyCodeLine{00402\ \}}
+
+\end{DoxyCode}
+
+
+Hace referencia a \doxymbox{\hyperlink{stm32f1xx__hal__conf_8h_source_l00373}{assert\+\_\+param}}, \doxymbox{\hyperlink{stm32f1xx__hal__cortex_8c_source_l00396}{HAL\+\_\+\+NVIC\+\_\+\+Get\+Priority()}} y \doxymbox{\hyperlink{stm32f1xx__hal__cortex_8h_source_l00307}{IS\+\_\+\+NVIC\+\_\+\+PRIORITY\+\_\+\+GROUP}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{stm32f1xx__hal__cortex_8c_source_l00396}{HAL\+\_\+\+NVIC\+\_\+\+Get\+Priority()}}.
+
+Gráfico de llamadas de esta función:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=197pt]{group___c_o_r_t_e_x___exported___functions___group2_ga6a21c9d904b0bcf4cb060f7c5c39b6f5_cgraph}
+\end{center}
+\end{figure}
+Gráfico de llamadas a esta función:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=197pt]{group___c_o_r_t_e_x___exported___functions___group2_ga6a21c9d904b0bcf4cb060f7c5c39b6f5_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group___c_o_r_t_e_x___exported___functions___group2_gaa02bc953fd4fce22248c491a93c4ce40}\index{Peripheral Control functions@{Peripheral Control functions}!HAL\_NVIC\_GetPriorityGrouping@{HAL\_NVIC\_GetPriorityGrouping}}
+\index{HAL\_NVIC\_GetPriorityGrouping@{HAL\_NVIC\_GetPriorityGrouping}!Peripheral Control functions@{Peripheral Control functions}}
+\doxyparagraph{\texorpdfstring{HAL\_NVIC\_GetPriorityGrouping()}{HAL\_NVIC\_GetPriorityGrouping()}}
+{\footnotesize\ttfamily \label{group___c_o_r_t_e_x___exported___functions___group2_gaa02bc953fd4fce22248c491a93c4ce40} 
+uint32\+\_\+t HAL\+\_\+\+NVIC\+\_\+\+Get\+Priority\+Grouping (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+{\ttfamily \+\#include "{}\doxymbox{\hyperlink{stm32f1xx__hal__cortex_8h}{stm32f1xx\+\_\+hal\+\_\+cortex.\+h}}"{}}
+
+
+
+Gets the priority grouping field from the NVIC Interrupt Controller. 
+
+
+\begin{DoxyRetVals}{Valores devueltos}
+{\em Priority} & grouping field (SCB-\/\texorpdfstring{$>$}{>}AIRCR \+[10:8] PRIGROUP field) \\
+\hline
+\end{DoxyRetVals}
+
+
+Definición en la línea \doxymbox{\hyperlink{stm32f1xx__hal__cortex_8c_source_l00369}{369}} del archivo \doxymbox{\hyperlink{stm32f1xx__hal__cortex_8c_source}{stm32f1xx\+\_\+hal\+\_\+cortex.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00370\ \{}
+\DoxyCodeLine{00371\ \ \ \textcolor{comment}{/*\ Get\ the\ PRIGROUP[10:8]\ field\ value\ */}}
+\DoxyCodeLine{00372\ \ \ \textcolor{keywordflow}{return}\ NVIC\_GetPriorityGrouping();}
+\DoxyCodeLine{00373\ \}}
+
+\end{DoxyCode}
+
+
+Hace referencia a \doxymbox{\hyperlink{stm32f1xx__hal__cortex_8c_source_l00369}{HAL\+\_\+\+NVIC\+\_\+\+Get\+Priority\+Grouping()}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{stm32f1xx__hal__cortex_8c_source_l00369}{HAL\+\_\+\+NVIC\+\_\+\+Get\+Priority\+Grouping()}}.
+
+Gráfico de llamadas de esta función:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=236pt]{group___c_o_r_t_e_x___exported___functions___group2_gaa02bc953fd4fce22248c491a93c4ce40_cgraph}
+\end{center}
+\end{figure}
+Gráfico de llamadas a esta función:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=236pt]{group___c_o_r_t_e_x___exported___functions___group2_gaa02bc953fd4fce22248c491a93c4ce40_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group___c_o_r_t_e_x___exported___functions___group2_gaecf50f6c6d0e1fa5f8bd8c1b45309f18}\index{Peripheral Control functions@{Peripheral Control functions}!HAL\_NVIC\_SetPendingIRQ@{HAL\_NVIC\_SetPendingIRQ}}
+\index{HAL\_NVIC\_SetPendingIRQ@{HAL\_NVIC\_SetPendingIRQ}!Peripheral Control functions@{Peripheral Control functions}}
+\doxyparagraph{\texorpdfstring{HAL\_NVIC\_SetPendingIRQ()}{HAL\_NVIC\_SetPendingIRQ()}}
+{\footnotesize\ttfamily \label{group___c_o_r_t_e_x___exported___functions___group2_gaecf50f6c6d0e1fa5f8bd8c1b45309f18} 
+void HAL\+\_\+\+NVIC\+\_\+\+Set\+Pending\+IRQ (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group___peripheral__interrupt__number__definition_ga7e1129cd8a196f4284d41db3e82ad5c8}{IRQn\+\_\+\+Type}}}]{IRQn}{}\end{DoxyParamCaption})}
+
+
+
+{\ttfamily \+\#include "{}\doxymbox{\hyperlink{stm32f1xx__hal__cortex_8h}{stm32f1xx\+\_\+hal\+\_\+cortex.\+h}}"{}}
+
+
+
+Sets Pending bit of an external interrupt. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em IRQn} & External interrupt number This parameter can be an enumerator of \doxylink{group___peripheral__interrupt__number__definition_ga7e1129cd8a196f4284d41db3e82ad5c8}{IRQn\+\_\+\+Type} enumeration (For the complete STM32 Devices IRQ Channels list, please refer to the appropriate CMSIS device file (stm32f10xxx.\+h)) ~\newline
+ \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Valores devueltos}
+{\em None} & \\
+\hline
+\end{DoxyRetVals}
+
+
+Definición en la línea \doxymbox{\hyperlink{stm32f1xx__hal__cortex_8c_source_l00411}{411}} del archivo \doxymbox{\hyperlink{stm32f1xx__hal__cortex_8c_source}{stm32f1xx\+\_\+hal\+\_\+cortex.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00412\ \{}
+\DoxyCodeLine{00413\ \ \ \textcolor{comment}{/*\ Check\ the\ parameters\ */}}
+\DoxyCodeLine{00414\ \ \ \doxymbox{\hyperlink{stm32f1xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\doxymbox{\hyperlink{group___c_o_r_t_e_x___private___macros_ga9b8dcac4ed8e88c14d9bb04e369dad6a}{IS\_NVIC\_DEVICE\_IRQ}}(IRQn));}
+\DoxyCodeLine{00415\ \ \ }
+\DoxyCodeLine{00416\ \ \ \textcolor{comment}{/*\ Set\ interrupt\ pending\ */}}
+\DoxyCodeLine{00417\ \ \ NVIC\_SetPendingIRQ(IRQn);}
+\DoxyCodeLine{00418\ \}}
+
+\end{DoxyCode}
+
+
+Hace referencia a \doxymbox{\hyperlink{stm32f1xx__hal__conf_8h_source_l00373}{assert\+\_\+param}}, \doxymbox{\hyperlink{stm32f1xx__hal__cortex_8c_source_l00411}{HAL\+\_\+\+NVIC\+\_\+\+Set\+Pending\+IRQ()}} y \doxymbox{\hyperlink{stm32f1xx__hal__cortex_8h_source_l00317}{IS\+\_\+\+NVIC\+\_\+\+DEVICE\+\_\+\+IRQ}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{stm32f1xx__hal__cortex_8c_source_l00411}{HAL\+\_\+\+NVIC\+\_\+\+Set\+Pending\+IRQ()}}.
+
+Gráfico de llamadas de esta función:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=219pt]{group___c_o_r_t_e_x___exported___functions___group2_gaecf50f6c6d0e1fa5f8bd8c1b45309f18_cgraph}
+\end{center}
+\end{figure}
+Gráfico de llamadas a esta función:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=219pt]{group___c_o_r_t_e_x___exported___functions___group2_gaecf50f6c6d0e1fa5f8bd8c1b45309f18_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group___c_o_r_t_e_x___exported___functions___group2_gab75cd87f2fa51dee8cb5a97b910e2593}\index{Peripheral Control functions@{Peripheral Control functions}!HAL\_SYSTICK\_Callback@{HAL\_SYSTICK\_Callback}}
+\index{HAL\_SYSTICK\_Callback@{HAL\_SYSTICK\_Callback}!Peripheral Control functions@{Peripheral Control functions}}
+\doxyparagraph{\texorpdfstring{HAL\_SYSTICK\_Callback()}{HAL\_SYSTICK\_Callback()}}
+{\footnotesize\ttfamily \label{group___c_o_r_t_e_x___exported___functions___group2_gab75cd87f2fa51dee8cb5a97b910e2593} 
+\doxymbox{\hyperlink{group___u_s_b_d___d_e_f___exported___macros_ga5181eb756a197a06d1c4ed1f40a065bc}{\+\_\+\+\_\+weak}} void HAL\+\_\+\+SYSTICK\+\_\+\+Callback (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+{\ttfamily \+\#include "{}\doxymbox{\hyperlink{stm32f1xx__hal__cortex_8h}{stm32f1xx\+\_\+hal\+\_\+cortex.\+h}}"{}}
+
+
+
+SYSTICK callback. 
+
+
+\begin{DoxyRetVals}{Valores devueltos}
+{\em None} & \\
+\hline
+\end{DoxyRetVals}
+
+
+Definición en la línea \doxymbox{\hyperlink{stm32f1xx__hal__cortex_8c_source_l00506}{506}} del archivo \doxymbox{\hyperlink{stm32f1xx__hal__cortex_8c_source}{stm32f1xx\+\_\+hal\+\_\+cortex.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00507\ \{}
+\DoxyCodeLine{00508\ \ \ \textcolor{comment}{/*\ NOTE\ :\ This\ function\ Should\ not\ be\ modified,\ when\ the\ callback\ is\ needed,}}
+\DoxyCodeLine{00509\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ the\ HAL\_SYSTICK\_Callback\ could\ be\ implemented\ in\ the\ user\ file}}
+\DoxyCodeLine{00510\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00511\ \}}
+
+\end{DoxyCode}
+
+
+Hace referencia a \doxymbox{\hyperlink{usbd__def_8h_source_l00283}{\+\_\+\+\_\+weak}} y \doxymbox{\hyperlink{stm32f1xx__hal__cortex_8c_source_l00506}{HAL\+\_\+\+SYSTICK\+\_\+\+Callback()}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{stm32f1xx__hal__cortex_8c_source_l00506}{HAL\+\_\+\+SYSTICK\+\_\+\+Callback()}} y \doxymbox{\hyperlink{stm32f1xx__hal__cortex_8c_source_l00497}{HAL\+\_\+\+SYSTICK\+\_\+\+IRQHandler()}}.
+
+Gráfico de llamadas de esta función:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=208pt]{group___c_o_r_t_e_x___exported___functions___group2_gab75cd87f2fa51dee8cb5a97b910e2593_cgraph}
+\end{center}
+\end{figure}
+Gráfico de llamadas a esta función:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group___c_o_r_t_e_x___exported___functions___group2_gab75cd87f2fa51dee8cb5a97b910e2593_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group___c_o_r_t_e_x___exported___functions___group2_ga3284dc8428996f5b6aa6b3b99e643788}\index{Peripheral Control functions@{Peripheral Control functions}!HAL\_SYSTICK\_CLKSourceConfig@{HAL\_SYSTICK\_CLKSourceConfig}}
+\index{HAL\_SYSTICK\_CLKSourceConfig@{HAL\_SYSTICK\_CLKSourceConfig}!Peripheral Control functions@{Peripheral Control functions}}
+\doxyparagraph{\texorpdfstring{HAL\_SYSTICK\_CLKSourceConfig()}{HAL\_SYSTICK\_CLKSourceConfig()}}
+{\footnotesize\ttfamily \label{group___c_o_r_t_e_x___exported___functions___group2_ga3284dc8428996f5b6aa6b3b99e643788} 
+void HAL\+\_\+\+SYSTICK\+\_\+\+CLKSource\+Config (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{CLKSource}{}\end{DoxyParamCaption})}
+
+
+
+{\ttfamily \+\#include "{}\doxymbox{\hyperlink{stm32f1xx__hal__cortex_8h}{stm32f1xx\+\_\+hal\+\_\+cortex.\+h}}"{}}
+
+
+
+Configures the Sys\+Tick clock source. 
+
+
+\begin{DoxyParams}{Parámetros}
+{\em CLKSource} & specifies the Sys\+Tick clock source. This parameter can be one of the following values: \begin{DoxyItemize}
+\item SYSTICK\+\_\+\+CLKSOURCE\+\_\+\+HCLK\+\_\+\+DIV8: AHB clock divided by 8 selected as Sys\+Tick clock source. \item SYSTICK\+\_\+\+CLKSOURCE\+\_\+\+HCLK: AHB clock selected as Sys\+Tick clock source. \end{DoxyItemize}
+\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Valores devueltos}
+{\em None} & \\
+\hline
+\end{DoxyRetVals}
+\texorpdfstring{$<$}{<} System Control Space Base Address
+
+\texorpdfstring{$<$}{<} Sys\+Tick Base Address
+
+\texorpdfstring{$<$}{<} Sys\+Tick configuration struct
+
+\texorpdfstring{$<$}{<} System Control Space Base Address
+
+\texorpdfstring{$<$}{<} Sys\+Tick Base Address
+
+\texorpdfstring{$<$}{<} Sys\+Tick configuration struct
+
+Definición en la línea \doxymbox{\hyperlink{stm32f1xx__hal__cortex_8c_source_l00479}{479}} del archivo \doxymbox{\hyperlink{stm32f1xx__hal__cortex_8c_source}{stm32f1xx\+\_\+hal\+\_\+cortex.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00480\ \{}
+\DoxyCodeLine{00481\ \ \ \textcolor{comment}{/*\ Check\ the\ parameters\ */}}
+\DoxyCodeLine{00482\ \ \ \doxymbox{\hyperlink{stm32f1xx__hal__conf_8h_a631dea7b230e600555f979c62af1de21}{assert\_param}}(\doxymbox{\hyperlink{group___c_o_r_t_e_x___private___macros_ga22d6291f6aed29442cf4cd9098fa0784}{IS\_SYSTICK\_CLK\_SOURCE}}(CLKSource));}
+\DoxyCodeLine{00483\ \ \ \textcolor{keywordflow}{if}\ (CLKSource\ ==\ \doxymbox{\hyperlink{group___c_o_r_t_e_x___sys_tick__clock__source_ga6f6582df23b6fbc578325e453b9893b7}{SYSTICK\_CLKSOURCE\_HCLK}})}
+\DoxyCodeLine{00484\ \ \ \{}
+\DoxyCodeLine{00485\ \ \ \ \ SysTick-\/>CTRL\ |=\ \doxymbox{\hyperlink{group___c_o_r_t_e_x___sys_tick__clock__source_ga6f6582df23b6fbc578325e453b9893b7}{SYSTICK\_CLKSOURCE\_HCLK}};}
+\DoxyCodeLine{00486\ \ \ \}}
+\DoxyCodeLine{00487\ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00488\ \ \ \{}
+\DoxyCodeLine{00489\ \ \ \ \ SysTick-\/>CTRL\ \&=\ \doxymbox{\hyperlink{group___c_o_r_t_e_x___sys_tick__clock__source_ga6f6582df23b6fbc578325e453b9893b7}{\string~SYSTICK\_CLKSOURCE\_HCLK}};}
+\DoxyCodeLine{00490\ \ \ \}}
+\DoxyCodeLine{00491\ \}}
+
+\end{DoxyCode}
+
+
+Hace referencia a \doxymbox{\hyperlink{stm32f1xx__hal__conf_8h_source_l00373}{assert\+\_\+param}}, \doxymbox{\hyperlink{stm32f1xx__hal__cortex_8c_source_l00479}{HAL\+\_\+\+SYSTICK\+\_\+\+CLKSource\+Config()}}, \doxymbox{\hyperlink{stm32f1xx__hal__cortex_8h_source_l00319}{IS\+\_\+\+SYSTICK\+\_\+\+CLK\+\_\+\+SOURCE}} y \doxymbox{\hyperlink{stm32f1xx__hal__cortex_8h_source_l00107}{SYSTICK\+\_\+\+CLKSOURCE\+\_\+\+HCLK}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{stm32f1xx__hal__cortex_8c_source_l00479}{HAL\+\_\+\+SYSTICK\+\_\+\+CLKSource\+Config()}}.
+
+Gráfico de llamadas de esta función:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=248pt]{group___c_o_r_t_e_x___exported___functions___group2_ga3284dc8428996f5b6aa6b3b99e643788_cgraph}
+\end{center}
+\end{figure}
+Gráfico de llamadas a esta función:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=248pt]{group___c_o_r_t_e_x___exported___functions___group2_ga3284dc8428996f5b6aa6b3b99e643788_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{group___c_o_r_t_e_x___exported___functions___group2_ga5b66b62383261c1e0acef98d344aa4c1}\index{Peripheral Control functions@{Peripheral Control functions}!HAL\_SYSTICK\_IRQHandler@{HAL\_SYSTICK\_IRQHandler}}
+\index{HAL\_SYSTICK\_IRQHandler@{HAL\_SYSTICK\_IRQHandler}!Peripheral Control functions@{Peripheral Control functions}}
+\doxyparagraph{\texorpdfstring{HAL\_SYSTICK\_IRQHandler()}{HAL\_SYSTICK\_IRQHandler()}}
+{\footnotesize\ttfamily \label{group___c_o_r_t_e_x___exported___functions___group2_ga5b66b62383261c1e0acef98d344aa4c1} 
+void HAL\+\_\+\+SYSTICK\+\_\+\+IRQHandler (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+{\ttfamily \+\#include "{}\doxymbox{\hyperlink{stm32f1xx__hal__cortex_8h}{stm32f1xx\+\_\+hal\+\_\+cortex.\+h}}"{}}
+
+
+
+This function handles SYSTICK interrupt request. 
+
+
+\begin{DoxyRetVals}{Valores devueltos}
+{\em None} & \\
+\hline
+\end{DoxyRetVals}
+
+
+Definición en la línea \doxymbox{\hyperlink{stm32f1xx__hal__cortex_8c_source_l00497}{497}} del archivo \doxymbox{\hyperlink{stm32f1xx__hal__cortex_8c_source}{stm32f1xx\+\_\+hal\+\_\+cortex.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00498\ \{}
+\DoxyCodeLine{00499\ \ \ \doxymbox{\hyperlink{group___c_o_r_t_e_x___exported___functions___group2_gab75cd87f2fa51dee8cb5a97b910e2593}{HAL\_SYSTICK\_Callback}}();}
+\DoxyCodeLine{00500\ \}}
+
+\end{DoxyCode}
+
+
+Hace referencia a \doxymbox{\hyperlink{stm32f1xx__hal__cortex_8c_source_l00506}{HAL\+\_\+\+SYSTICK\+\_\+\+Callback()}} y \doxymbox{\hyperlink{stm32f1xx__hal__cortex_8c_source_l00497}{HAL\+\_\+\+SYSTICK\+\_\+\+IRQHandler()}}.
+
+
+
+Referenciado por \doxymbox{\hyperlink{stm32f1xx__hal__cortex_8c_source_l00497}{HAL\+\_\+\+SYSTICK\+\_\+\+IRQHandler()}}.
+
+Gráfico de llamadas de esta función:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group___c_o_r_t_e_x___exported___functions___group2_ga5b66b62383261c1e0acef98d344aa4c1_cgraph}
+\end{center}
+\end{figure}
+Gráfico de llamadas a esta función:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=221pt]{group___c_o_r_t_e_x___exported___functions___group2_ga5b66b62383261c1e0acef98d344aa4c1_icgraph}
+\end{center}
+\end{figure}

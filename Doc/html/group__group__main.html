@@ -1,0 +1,404 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.18.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>MICRO-Firmware: Núcleo y Planificador del Sistema (Core &amp; Scheduler)</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="codefolding.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  extensions: ["tex2jax.js"],
+  jax: ["input/TeX","output/HTML-CSS"],
+});
+</script>
+<script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">MICRO-Firmware<span id="projectnumber">&#160;EX100923v01</span>
+   </div>
+   <div id="projectbrief">Firmware de Péndulo Invertido Autónomo de Dos Ruedas (STM32F103C8T6 - ARM Cortex-M3)</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.18.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="application/json" id="doxygen-config">
+{
+  "relPath": "",
+  "generateTreeView": true,
+  "searchEngine": true,
+  "serverBasedSearch": false,
+  "disableIndex": false,
+  "dynamicMenus": true,
+  "fullSidebar": false
+}
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Buscar" accesskey="S"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('group__group__main.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">Núcleo y Planificador del Sistema (Core &amp; Scheduler) </div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Inicialización, bucle principal cooperativo y gestión de la MEF general.  
+<a href="#details">Más...</a></p>
+<div id="dynsection-0" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Diagrama de colaboración de Núcleo y Planificador del Sistema (Core &amp; Scheduler):</div>
+<div id="dynsection-0-summary" class="dynsummary">
+</div>
+<div id="dynsection-0-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group__group__main.svg" width="499" height="120"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-groups" class="groupheader"><a id="groups" name="groups"></a>
+Temas</h2></td></tr>
+<tr class="memitem:group_5Fsystem" id="r_group_5Fsystem"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="group__group__system.html">Abstracción de Hardware y Sistema STM32 (System &amp; HAL)</a></td></tr>
+<tr class="memdesc:group__group__system"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manejadores de interrupciones NVIC, configuración de periféricos HAL y soporte de bajo nivel. <br /></td></tr>
+<tr class="memitem:Hardware_5FPinout" id="r_Hardware_5FPinout"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="group___hardware___pinout.html">Asignaciones de Pines GPIO de la Placa</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-files" class="groupheader"><a id="files" name="files"></a>
+Archivos</h2></td></tr>
+<tr class="memitem:main_2Eh" id="r_main_2Eh"><td class="memItemLeft">archivo &#160;</td><td class="memItemRight"><a class="el" href="main_8h.html">main.h</a></td></tr>
+<tr class="memdesc:main_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cabecera principal de la aplicación, constantes de hardware y prototipos del sistema. <br /></td></tr>
+<tr class="memitem:util_2Eh" id="r_util_2Eh"><td class="memItemLeft">archivo &#160;</td><td class="memItemRight"><a class="el" href="util_8h.html">util.h</a></td></tr>
+<tr class="memdesc:util_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Declaración de tipos fundamentales, enumeraciones, estructuras y uniones del proyecto. <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumeraciones</h2></td></tr>
+<tr class="memitem:ga5ef913d615749b343e42f0424064e937" id="r_ga5ef913d615749b343e42f0424064e937"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="#ga5ef913d615749b343e42f0424064e937">_eRobotMode</a> { <br />
+&#160;&#160;<a class="el" href="#gga5ef913d615749b343e42f0424064e937a46854d200d334ed65c5b8542eee92421">STATE_STANDBY</a> = 0
+, <a class="el" href="#gga5ef913d615749b343e42f0424064e937afb76bc9af4d33cb1941ce2198a22b5f1">STATE_SWING</a> = 1
+, <a class="el" href="#gga5ef913d615749b343e42f0424064e937ab641b484c5de42c96f5a382ef25d557f">STATE_LINE_FOLLOWING</a> = 2
+, <a class="el" href="#gga5ef913d615749b343e42f0424064e937acbd2746ad5303084bb979bc275aa15ef">STATE_DODGE</a> = 3
+, <br />
+&#160;&#160;<a class="el" href="#gga5ef913d615749b343e42f0424064e937a81a27a62c9d29883324be07483fdd10a">STATE_JOYSTICK</a> = 4
+, <a class="el" href="#gga5ef913d615749b343e42f0424064e937a2ac9f0b5fbb6cfc38170ccc14dcf3263">STATE_3D_SCREEN</a> = 5
+, <a class="el" href="#gga5ef913d615749b343e42f0424064e937abc08c548b43efb25afd93a4143f71f1b">STATE_FIRST_SCREEN</a> = 6
+, <a class="el" href="#gga5ef913d615749b343e42f0424064e937aa52b63031d0b61679533a443a366aaba">STATE_SECOND_SCREEN</a> = 7
+<br />
+ }</td></tr>
+<tr class="memdesc:ga5ef913d615749b343e42f0424064e937"><td class="mdescLeft">&#160;</td><td class="mdescRight">Modos operativos principales del robot péndulo invertido gobernados por robotMode.  <a href="#ga5ef913d615749b343e42f0424064e937">Más...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-member-group" class="groupheader"><a id="member-group" name="member-group"></a>
+Planificador Temporal y Temporizadores Cooperativos</h2></td></tr>
+<tr class="memitem:ga25c8340008640e2668417e765f918b01" id="r_ga25c8340008640e2668417e765f918b01"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ga25c8340008640e2668417e765f918b01">do10ms</a> (void)</td></tr>
+<tr class="memdesc:ga25c8340008640e2668417e765f918b01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tarea periódica de 10 ms ejecutada en el bucle principal.  <br /></td></tr>
+<tr class="memitem:gad529a04bd298cf0801e0052c5da907c7" id="r_gad529a04bd298cf0801e0052c5da907c7"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#gad529a04bd298cf0801e0052c5da907c7">heartBeatTask</a> (void)</td></tr>
+<tr class="memdesc:gad529a04bd298cf0801e0052c5da907c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Genera el patrón visual de parpadeo sincrónico en el LED PC13 (Heartbeat).  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Descripción detallada</h2>
+<div class="textblock"><p>Inicialización, bucle principal cooperativo y gestión de la MEF general. </p>
+</div><a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Documentación de enumeraciones</h2>
+<a id="ga5ef913d615749b343e42f0424064e937" name="ga5ef913d615749b343e42f0424064e937"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5ef913d615749b343e42f0424064e937">&#9670;&#160;</a></span>_eRobotMode</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="#ga5ef913d615749b343e42f0424064e937">_eRobotMode</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="main_8c.html">main.c</a>&quot;</code></p>
+
+<p>Modos operativos principales del robot péndulo invertido gobernados por robotMode. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Valores de enumeraciones</th></tr><tr><td class="fieldname"><a id="gga5ef913d615749b343e42f0424064e937a46854d200d334ed65c5b8542eee92421" name="gga5ef913d615749b343e42f0424064e937a46854d200d334ed65c5b8542eee92421"></a>STATE_STANDBY&#160;</td><td class="fielddoc"><p>Modo Reposo: Motores desenergizados (PWM 0%), sistema en espera segura. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga5ef913d615749b343e42f0424064e937afb76bc9af4d33cb1941ce2198a22b5f1" name="gga5ef913d615749b343e42f0424064e937afb76bc9af4d33cb1941ce2198a22b5f1"></a>STATE_SWING&#160;</td><td class="fielddoc"><p>Modo Swing (1 clic): Balanceo estático en el lugar, display OLED apagado. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga5ef913d615749b343e42f0424064e937ab641b484c5de42c96f5a382ef25d557f" name="gga5ef913d615749b343e42f0424064e937ab641b484c5de42c96f5a382ef25d557f"></a>STATE_LINE_FOLLOWING&#160;</td><td class="fielddoc"><p>Modo Seguidor de Línea (2 clics): Navegación autónoma por pista con sensores IR. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga5ef913d615749b343e42f0424064e937acbd2746ad5303084bb979bc275aa15ef" name="gga5ef913d615749b343e42f0424064e937acbd2746ad5303084bb979bc275aa15ef"></a>STATE_DODGE&#160;</td><td class="fielddoc"><p>Modo Evasión de Obstáculos (3 clics): Detección frontal, giro 90° y seguimiento de pared. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga5ef913d615749b343e42f0424064e937a81a27a62c9d29883324be07483fdd10a" name="gga5ef913d615749b343e42f0424064e937a81a27a62c9d29883324be07483fdd10a"></a>STATE_JOYSTICK&#160;</td><td class="fielddoc"><p>Modo Joystick (4 clics): Control interactivo remoto desde PC/App vía UDP con watchdog. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga5ef913d615749b343e42f0424064e937a2ac9f0b5fbb6cfc38170ccc14dcf3263" name="gga5ef913d615749b343e42f0424064e937a2ac9f0b5fbb6cfc38170ccc14dcf3263"></a>STATE_3D_SCREEN&#160;</td><td class="fielddoc"><p>Modo 3D Screen (5 clics): Gemelo digital wireframe en OLED (Cubo-&gt;Teseracto-&gt;Pirámide) con balance activo. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga5ef913d615749b343e42f0424064e937abc08c548b43efb25afd93a4143f71f1b" name="gga5ef913d615749b343e42f0424064e937abc08c548b43efb25afd93a4143f71f1b"></a>STATE_FIRST_SCREEN&#160;</td><td class="fielddoc"><p>Modo Diagnóstico RAW (Pulsación 1s): Muestra lecturas crudas de ADC y MPU6050, motores apagados. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga5ef913d615749b343e42f0424064e937aa52b63031d0b61679533a443a366aaba" name="gga5ef913d615749b343e42f0424064e937aa52b63031d0b61679533a443a366aaba"></a>STATE_SECOND_SCREEN&#160;</td><td class="fielddoc"><p>Modo Diagnóstico Dinámico (Pulsación 2s): Muestra velocidad, ángulo y salida PID, motores apagados. </p>
+</td></tr>
+</table>
+
+<p class="definition">Definición en la línea <a class="el" href="main_8c_source.html#l00093">93</a> del archivo <a class="el" href="main_8c_source.html">main.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   93</span>             {</div>
+<div class="line"><span class="lineno">   94</span>    <a class="code hl_enumvalue" href="#gga5ef913d615749b343e42f0424064e937a46854d200d334ed65c5b8542eee92421">STATE_STANDBY</a> = 0,        <span class="comment">/*!&lt; Modo Reposo: Motores desenergizados (PWM 0%), sistema en espera segura */</span></div>
+<div class="line"><span class="lineno">   95</span>    <a class="code hl_enumvalue" href="#gga5ef913d615749b343e42f0424064e937afb76bc9af4d33cb1941ce2198a22b5f1">STATE_SWING</a> = 1,          <span class="comment">/*!&lt; Modo Swing (1 clic): Balanceo estático en el lugar, display OLED apagado */</span></div>
+<div class="line"><span class="lineno">   96</span>    <a class="code hl_enumvalue" href="#gga5ef913d615749b343e42f0424064e937ab641b484c5de42c96f5a382ef25d557f">STATE_LINE_FOLLOWING</a> = 2, <span class="comment">/*!&lt; Modo Seguidor de Línea (2 clics): Navegación autónoma por pista con sensores IR */</span></div>
+<div class="line"><span class="lineno">   97</span>    <a class="code hl_enumvalue" href="#gga5ef913d615749b343e42f0424064e937acbd2746ad5303084bb979bc275aa15ef">STATE_DODGE</a> = 3,          <span class="comment">/*!&lt; Modo Evasión de Obstáculos (3 clics): Detección frontal, giro 90° y seguimiento de pared */</span></div>
+<div class="line"><span class="lineno">   98</span>    <a class="code hl_enumvalue" href="#gga5ef913d615749b343e42f0424064e937a81a27a62c9d29883324be07483fdd10a">STATE_JOYSTICK</a> = 4,       <span class="comment">/*!&lt; Modo Joystick (4 clics): Control interactivo remoto desde PC/App vía UDP con watchdog */</span></div>
+<div class="line"><span class="lineno">   99</span>    <a class="code hl_enumvalue" href="#gga5ef913d615749b343e42f0424064e937a2ac9f0b5fbb6cfc38170ccc14dcf3263">STATE_3D_SCREEN</a> = 5,      <span class="comment">/*!&lt; Modo 3D Screen (5 clics): Gemelo digital wireframe en OLED (Cubo-&gt;Teseracto-&gt;Pirámide) con balance activo */</span></div>
+<div class="line"><span class="lineno">  100</span>    <a class="code hl_enumvalue" href="#gga5ef913d615749b343e42f0424064e937abc08c548b43efb25afd93a4143f71f1b">STATE_FIRST_SCREEN</a> = 6,   <span class="comment">/*!&lt; Modo Diagnóstico RAW (Pulsación 1s): Muestra lecturas crudas de ADC y MPU6050, motores apagados */</span></div>
+<div class="line"><span class="lineno">  101</span>    <a class="code hl_enumvalue" href="#gga5ef913d615749b343e42f0424064e937aa52b63031d0b61679533a443a366aaba">STATE_SECOND_SCREEN</a> = 7   <span class="comment">/*!&lt; Modo Diagnóstico Dinámico (Pulsación 2s): Muestra velocidad, ángulo y salida PID, motores apagados */</span></div>
+<div class="line"><span class="lineno">  102</span>} <a class="code hl_enumeration" href="#ga5ef913d615749b343e42f0424064e937">_eRobotMode</a>;</div>
+<div class="ttc" id="agroup__group__main_html_ga5ef913d615749b343e42f0424064e937"><div class="ttname"><a href="#ga5ef913d615749b343e42f0424064e937">_eRobotMode</a></div><div class="ttdeci">_eRobotMode</div><div class="ttdoc">Modos operativos principales del robot péndulo invertido gobernados por robotMode.</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00093">main.c:93</a></div></div>
+<div class="ttc" id="agroup__group__main_html_gga5ef913d615749b343e42f0424064e937a2ac9f0b5fbb6cfc38170ccc14dcf3263"><div class="ttname"><a href="#gga5ef913d615749b343e42f0424064e937a2ac9f0b5fbb6cfc38170ccc14dcf3263">STATE_3D_SCREEN</a></div><div class="ttdeci">@ STATE_3D_SCREEN</div><div class="ttdoc">Modo 3D Screen (5 clics): Gemelo digital wireframe en OLED (Cubo-&gt;Teseracto-&gt;Pirámide) con balance ac...</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00099">main.c:99</a></div></div>
+<div class="ttc" id="agroup__group__main_html_gga5ef913d615749b343e42f0424064e937a46854d200d334ed65c5b8542eee92421"><div class="ttname"><a href="#gga5ef913d615749b343e42f0424064e937a46854d200d334ed65c5b8542eee92421">STATE_STANDBY</a></div><div class="ttdeci">@ STATE_STANDBY</div><div class="ttdoc">Modo Reposo: Motores desenergizados (PWM 0%), sistema en espera segura.</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00094">main.c:94</a></div></div>
+<div class="ttc" id="agroup__group__main_html_gga5ef913d615749b343e42f0424064e937a81a27a62c9d29883324be07483fdd10a"><div class="ttname"><a href="#gga5ef913d615749b343e42f0424064e937a81a27a62c9d29883324be07483fdd10a">STATE_JOYSTICK</a></div><div class="ttdeci">@ STATE_JOYSTICK</div><div class="ttdoc">Modo Joystick (4 clics): Control interactivo remoto desde PC/App vía UDP con watchdog.</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00098">main.c:98</a></div></div>
+<div class="ttc" id="agroup__group__main_html_gga5ef913d615749b343e42f0424064e937aa52b63031d0b61679533a443a366aaba"><div class="ttname"><a href="#gga5ef913d615749b343e42f0424064e937aa52b63031d0b61679533a443a366aaba">STATE_SECOND_SCREEN</a></div><div class="ttdeci">@ STATE_SECOND_SCREEN</div><div class="ttdoc">Modo Diagnóstico Dinámico (Pulsación 2s): Muestra velocidad, ángulo y salida PID, motores apagados.</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00101">main.c:101</a></div></div>
+<div class="ttc" id="agroup__group__main_html_gga5ef913d615749b343e42f0424064e937ab641b484c5de42c96f5a382ef25d557f"><div class="ttname"><a href="#gga5ef913d615749b343e42f0424064e937ab641b484c5de42c96f5a382ef25d557f">STATE_LINE_FOLLOWING</a></div><div class="ttdeci">@ STATE_LINE_FOLLOWING</div><div class="ttdoc">Modo Seguidor de Línea (2 clics): Navegación autónoma por pista con sensores IR.</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00096">main.c:96</a></div></div>
+<div class="ttc" id="agroup__group__main_html_gga5ef913d615749b343e42f0424064e937abc08c548b43efb25afd93a4143f71f1b"><div class="ttname"><a href="#gga5ef913d615749b343e42f0424064e937abc08c548b43efb25afd93a4143f71f1b">STATE_FIRST_SCREEN</a></div><div class="ttdeci">@ STATE_FIRST_SCREEN</div><div class="ttdoc">Modo Diagnóstico RAW (Pulsación 1s): Muestra lecturas crudas de ADC y MPU6050, motores apagados.</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00100">main.c:100</a></div></div>
+<div class="ttc" id="agroup__group__main_html_gga5ef913d615749b343e42f0424064e937acbd2746ad5303084bb979bc275aa15ef"><div class="ttname"><a href="#gga5ef913d615749b343e42f0424064e937acbd2746ad5303084bb979bc275aa15ef">STATE_DODGE</a></div><div class="ttdeci">@ STATE_DODGE</div><div class="ttdoc">Modo Evasión de Obstáculos (3 clics): Detección frontal, giro 90° y seguimiento de pared.</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00097">main.c:97</a></div></div>
+<div class="ttc" id="agroup__group__main_html_gga5ef913d615749b343e42f0424064e937afb76bc9af4d33cb1941ce2198a22b5f1"><div class="ttname"><a href="#gga5ef913d615749b343e42f0424064e937afb76bc9af4d33cb1941ce2198a22b5f1">STATE_SWING</a></div><div class="ttdeci">@ STATE_SWING</div><div class="ttdoc">Modo Swing (1 clic): Balanceo estático en el lugar, display OLED apagado.</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00095">main.c:95</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Documentación de funciones</h2>
+<a id="ga25c8340008640e2668417e765f918b01" name="ga25c8340008640e2668417e765f918b01"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga25c8340008640e2668417e765f918b01">&#9670;&#160;</a></span>do10ms()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void do10ms </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="main_8c.html">main.c</a>&quot;</code></p>
+
+<p>Tarea periódica de 10 ms ejecutada en el bucle principal. </p>
+<p>Gestiona los timeouts del ESP-01, antirrebote del botón y genera los ticks derivados de 20 ms, 100 ms y 1 segundo. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="main_8c_source.html#l01441">1441</a> del archivo <a class="el" href="main_8c_source.html">main.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1441</span>              {</div>
+<div class="line"><span class="lineno"> 1442</span>    <span class="keywordflow">if</span> (!<a class="code hl_define" href="main_8c.html#a91513b2e59c1f7b62e323ee773efe983">IS10MS</a>) <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno"> 1443</span>    <a class="code hl_define" href="main_8c.html#a91513b2e59c1f7b62e323ee773efe983">IS10MS</a> = <a class="code hl_enumvalue" href="util_8h.html#a48dec3f0bf02a2f3b11fb90ae0fc4d4caa1e095cc966dbecf6a0d8aad75348d1a">FALSE</a>;</div>
+<div class="line"><span class="lineno"> 1444</span> </div>
+<div class="line"><span class="lineno"> 1445</span>    <span class="comment">// --- 1. Tareas Periódicas de 10ms ---</span></div>
+<div class="line"><span class="lineno"> 1446</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="main_8c.html#a7937637e0ec141695e3397a4eb429199">robotMode</a> != <a class="code hl_enumvalue" href="#gga5ef913d615749b343e42f0424064e937a2ac9f0b5fbb6cfc38170ccc14dcf3263">STATE_3D_SCREEN</a>) {</div>
+<div class="line"><span class="lineno"> 1447</span>        <a class="code hl_function" href="esp01_8h.html#a56d89861ed59233e20a6a4eadbe1c17a">ESP01_Timeout10ms</a>();</div>
+<div class="line"><span class="lineno"> 1448</span>        <a class="code hl_function" href="group__group__control.html#gac58a69ee3f3d94afb1e4f227b4d0bee7">UART_EnforceReceiverActive</a>();</div>
+<div class="line"><span class="lineno"> 1449</span>        <a class="code hl_function" href="group__group__control.html#gaa261c69c134b08393a0fc78985ab9c3b">WiFi_ScanTick</a>();</div>
+<div class="line"><span class="lineno"> 1450</span>    }</div>
+<div class="line"><span class="lineno"> 1451</span>    <a class="code hl_function" href="group__group__ui__graphics.html#ga65dbf97ebe6b95c5571e8110d940f642">buttonTimeout10ms</a>(&amp;<a class="code hl_variable" href="main_8c.html#ac58c8560d8364a4b698f9e940a9f6090">myButton</a>);</div>
+<div class="line"><span class="lineno"> 1452</span> </div>
+<div class="line"><span class="lineno"> 1453</span>    <span class="comment">// --- 2. Divisor de Tiempo: 20ms ---</span></div>
+<div class="line"><span class="lineno"> 1454</span>    <a class="code hl_variable" href="main_8c.html#af03c824df85c878112f74dad5303729e">tmo20ms</a>--;</div>
+<div class="line"><span class="lineno"> 1455</span>    <span class="keywordflow">if</span> (!<a class="code hl_variable" href="main_8c.html#af03c824df85c878112f74dad5303729e">tmo20ms</a>) {</div>
+<div class="line"><span class="lineno"> 1456</span>        <a class="code hl_variable" href="main_8c.html#af03c824df85c878112f74dad5303729e">tmo20ms</a> = 2;</div>
+<div class="line"><span class="lineno"> 1457</span>        <a class="code hl_define" href="main_8c.html#a3816105526b0d04da45b5276eb5cafde">IS20MS</a> = <a class="code hl_enumvalue" href="util_8h.html#a48dec3f0bf02a2f3b11fb90ae0fc4d4caa82764c3079aea4e60c80e45befbb839">TRUE</a>;</div>
+<div class="line"><span class="lineno"> 1458</span>    }</div>
+<div class="line"><span class="lineno"> 1459</span> </div>
+<div class="line"><span class="lineno"> 1460</span>    <span class="comment">// --- 3. Divisor de Tiempo: 100ms ---</span></div>
+<div class="line"><span class="lineno"> 1461</span>    <a class="code hl_variable" href="main_8c.html#a9ad5f16f8da9e0d9de2b22c8a5ca1fea">tmo100ms</a>--;</div>
+<div class="line"><span class="lineno"> 1462</span>    <span class="keywordflow">if</span> (!<a class="code hl_variable" href="main_8c.html#a9ad5f16f8da9e0d9de2b22c8a5ca1fea">tmo100ms</a>) {</div>
+<div class="line"><span class="lineno"> 1463</span>        <a class="code hl_variable" href="main_8c.html#a9ad5f16f8da9e0d9de2b22c8a5ca1fea">tmo100ms</a> = 10;</div>
+<div class="line"><span class="lineno"> 1464</span>        <a class="code hl_define" href="main_8c.html#a755b39e3aaa964b5429e527cbc150281">IS100MS</a> = <a class="code hl_enumvalue" href="util_8h.html#a48dec3f0bf02a2f3b11fb90ae0fc4d4caa82764c3079aea4e60c80e45befbb839">TRUE</a>;</div>
+<div class="line"><span class="lineno"> 1465</span> </div>
+<div class="line"><span class="lineno"> 1466</span>        <span class="comment">// Tarea Periódica de 100ms</span></div>
+<div class="line"><span class="lineno"> 1467</span>        <a class="code hl_function" href="#gad529a04bd298cf0801e0052c5da907c7">heartBeatTask</a>();</div>
+<div class="line"><span class="lineno"> 1468</span> </div>
+<div class="line"><span class="lineno"> 1469</span>        <span class="comment">// Tareas Periódicas de 1s (Encapsuladas en tick de 100ms)</span></div>
+<div class="line"><span class="lineno"> 1470</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="main_8c.html#a7937637e0ec141695e3397a4eb429199">robotMode</a> != <a class="code hl_enumvalue" href="#gga5ef913d615749b343e42f0424064e937a2ac9f0b5fbb6cfc38170ccc14dcf3263">STATE_3D_SCREEN</a>) {</div>
+<div class="line"><span class="lineno"> 1471</span>            <a class="code hl_function" href="group__group__control.html#gae591c096085f78e8377b868ca1f42a69">WiFi_HeartbeatTick</a>();</div>
+<div class="line"><span class="lineno"> 1472</span>        }</div>
+<div class="line"><span class="lineno"> 1473</span>    }</div>
+<div class="line"><span class="lineno"> 1474</span>}</div>
+<div class="ttc" id="aesp01_8h_html_a56d89861ed59233e20a6a4eadbe1c17a"><div class="ttname"><a href="esp01_8h.html#a56d89861ed59233e20a6a4eadbe1c17a">ESP01_Timeout10ms</a></div><div class="ttdeci">void ESP01_Timeout10ms(void)</div><div class="ttdoc">Base de tiempo periódica de 10 ms para la gestión de timeouts del módulo.</div><div class="ttdef"><b>Definición</b> <a href="esp01_8c_source.html#l00389">esp01.c:389</a></div></div>
+<div class="ttc" id="agroup__group__control_html_gaa261c69c134b08393a0fc78985ab9c3b"><div class="ttname"><a href="group__group__control.html#gaa261c69c134b08393a0fc78985ab9c3b">WiFi_ScanTick</a></div><div class="ttdeci">static void WiFi_ScanTick(void)</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l03847">main.c:3847</a></div></div>
+<div class="ttc" id="agroup__group__control_html_gac58a69ee3f3d94afb1e4f227b4d0bee7"><div class="ttname"><a href="group__group__control.html#gac58a69ee3f3d94afb1e4f227b4d0bee7">UART_EnforceReceiverActive</a></div><div class="ttdeci">static void UART_EnforceReceiverActive(void)</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l03867">main.c:3867</a></div></div>
+<div class="ttc" id="agroup__group__control_html_gae591c096085f78e8377b868ca1f42a69"><div class="ttname"><a href="group__group__control.html#gae591c096085f78e8377b868ca1f42a69">WiFi_HeartbeatTick</a></div><div class="ttdeci">static void WiFi_HeartbeatTick(void)</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l03878">main.c:3878</a></div></div>
+<div class="ttc" id="agroup__group__main_html_gad529a04bd298cf0801e0052c5da907c7"><div class="ttname"><a href="#gad529a04bd298cf0801e0052c5da907c7">heartBeatTask</a></div><div class="ttdeci">void heartBeatTask(void)</div><div class="ttdoc">Genera el patrón visual de parpadeo sincrónico en el LED PC13 (Heartbeat).</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l01476">main.c:1476</a></div></div>
+<div class="ttc" id="agroup__group__ui__graphics_html_ga65dbf97ebe6b95c5571e8110d940f642"><div class="ttname"><a href="group__group__ui__graphics.html#ga65dbf97ebe6b95c5571e8110d940f642">buttonTimeout10ms</a></div><div class="ttdeci">void buttonTimeout10ms(_sButton *button)</div><div class="ttdoc">Decrementa el temporizador de ventana multiclic del botón cada 10 ms.</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l02110">main.c:2110</a></div></div>
+<div class="ttc" id="amain_8c_html_a3816105526b0d04da45b5276eb5cafde"><div class="ttname"><a href="main_8c.html#a3816105526b0d04da45b5276eb5cafde">IS20MS</a></div><div class="ttdeci">#define IS20MS</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00217">main.c:217</a></div></div>
+<div class="ttc" id="amain_8c_html_a755b39e3aaa964b5429e527cbc150281"><div class="ttname"><a href="main_8c.html#a755b39e3aaa964b5429e527cbc150281">IS100MS</a></div><div class="ttdeci">#define IS100MS</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00218">main.c:218</a></div></div>
+<div class="ttc" id="amain_8c_html_a7937637e0ec141695e3397a4eb429199"><div class="ttname"><a href="main_8c.html#a7937637e0ec141695e3397a4eb429199">robotMode</a></div><div class="ttdeci">volatile _eRobotMode robotMode</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00243">main.c:243</a></div></div>
+<div class="ttc" id="amain_8c_html_a91513b2e59c1f7b62e323ee773efe983"><div class="ttname"><a href="main_8c.html#a91513b2e59c1f7b62e323ee773efe983">IS10MS</a></div><div class="ttdeci">#define IS10MS</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00216">main.c:216</a></div></div>
+<div class="ttc" id="amain_8c_html_a9ad5f16f8da9e0d9de2b22c8a5ca1fea"><div class="ttname"><a href="main_8c.html#a9ad5f16f8da9e0d9de2b22c8a5ca1fea">tmo100ms</a></div><div class="ttdeci">uint8_t tmo100ms</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00269">main.c:269</a></div></div>
+<div class="ttc" id="amain_8c_html_ac58c8560d8364a4b698f9e940a9f6090"><div class="ttname"><a href="main_8c.html#ac58c8560d8364a4b698f9e940a9f6090">myButton</a></div><div class="ttdeci">_sButton myButton</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00339">main.c:339</a></div></div>
+<div class="ttc" id="amain_8c_html_af03c824df85c878112f74dad5303729e"><div class="ttname"><a href="main_8c.html#af03c824df85c878112f74dad5303729e">tmo20ms</a></div><div class="ttdeci">uint8_t tmo20ms</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00270">main.c:270</a></div></div>
+<div class="ttc" id="autil_8h_html_a48dec3f0bf02a2f3b11fb90ae0fc4d4caa1e095cc966dbecf6a0d8aad75348d1a"><div class="ttname"><a href="util_8h.html#a48dec3f0bf02a2f3b11fb90ae0fc4d4caa1e095cc966dbecf6a0d8aad75348d1a">FALSE</a></div><div class="ttdeci">@ FALSE</div><div class="ttdoc">Estado lógico Falso (0).</div><div class="ttdef"><b>Definición</b> <a href="util_8h_source.html#l00022">util.h:22</a></div></div>
+<div class="ttc" id="autil_8h_html_a48dec3f0bf02a2f3b11fb90ae0fc4d4caa82764c3079aea4e60c80e45befbb839"><div class="ttname"><a href="util_8h.html#a48dec3f0bf02a2f3b11fb90ae0fc4d4caa82764c3079aea4e60c80e45befbb839">TRUE</a></div><div class="ttdeci">@ TRUE</div><div class="ttdoc">Estado lógico Verdadero (1).</div><div class="ttdef"><b>Definición</b> <a href="util_8h_source.html#l00023">util.h:23</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="main_8c_source.html#l02110">buttonTimeout10ms()</a>, <a class="el" href="main_8c_source.html#l01441">do10ms()</a>, <a class="el" href="esp01_8c_source.html#l00389">ESP01_Timeout10ms()</a>, <a class="el" href="util_8h_source.html#l00022">FALSE</a>, <a class="el" href="main_8c_source.html#l01476">heartBeatTask()</a>, <a class="el" href="main_8c_source.html#l00218">IS100MS</a>, <a class="el" href="main_8c_source.html#l00216">IS10MS</a>, <a class="el" href="main_8c_source.html#l00217">IS20MS</a>, <a class="el" href="main_8c_source.html#l00339">myButton</a>, <a class="el" href="main_8c_source.html#l00243">robotMode</a>, <a class="el" href="main_8c_source.html#l00099">STATE_3D_SCREEN</a>, <a class="el" href="main_8c_source.html#l00269">tmo100ms</a>, <a class="el" href="main_8c_source.html#l00270">tmo20ms</a>, <a class="el" href="util_8h_source.html#l00023">TRUE</a>, <a class="el" href="main_8c_source.html#l03867">UART_EnforceReceiverActive()</a>, <a class="el" href="main_8c_source.html#l03878">WiFi_HeartbeatTick()</a> y <a class="el" href="main_8c_source.html#l03847">WiFi_ScanTick()</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="main_8c_source.html#l01441">do10ms()</a>, <a class="el" href="main_8c_source.html#l03056">main()</a> y <a class="el" href="group__group__comm.html#gaef53b41afe84bf3a4c3f95ab5a56a3c4">USBTask()</a>.</p>
+<div id="dynsection-1" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-1-summary" class="dynsummary">
+</div>
+<div id="dynsection-1-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="group__group__main_ga25c8340008640e2668417e765f918b01_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div id="dynsection-2" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-2-summary" class="dynsummary">
+</div>
+<div id="dynsection-2-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group__group__main_ga25c8340008640e2668417e765f918b01_icgraph.svg" width="204" height="136"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="gad529a04bd298cf0801e0052c5da907c7" name="gad529a04bd298cf0801e0052c5da907c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad529a04bd298cf0801e0052c5da907c7">&#9670;&#160;</a></span>heartBeatTask()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void heartBeatTask </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &quot;<a class="el" href="main_8c.html">main.c</a>&quot;</code></p>
+
+<p>Genera el patrón visual de parpadeo sincrónico en el LED PC13 (Heartbeat). </p>
+<p>Modula el LED según la máscara de 20 ranuras de 100 ms (<span class="tt"><a class="el" href="main_8c.html#aa8714e52b7faf9cd0bec6e009005e7c1">heartBeatMask</a>[]</span>) para identificar a simple vista el modo activo de la MEF. </p>
+<p>&lt; Peripheral base address in the alias region</p>
+<p>&lt; Puerto GPIO del LED indicador (Puerto C)</p>
+<p>&lt; Pin del LED indicador integrado (Heartbeat activo a nivel bajo)</p>
+<p>&lt; Peripheral base address in the alias region</p>
+<p>&lt; Puerto GPIO del LED indicador (Puerto C)</p>
+<p>&lt; Pin del LED indicador integrado (Heartbeat activo a nivel bajo)</p>
+
+<p class="definition">Definición en la línea <a class="el" href="main_8c_source.html#l01476">1476</a> del archivo <a class="el" href="main_8c_source.html">main.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1476</span>                     {</div>
+<div class="line"><span class="lineno"> 1477</span>    <span class="keyword">static</span> uint8_t times = 0;</div>
+<div class="line"><span class="lineno"> 1478</span> </div>
+<div class="line"><span class="lineno"> 1479</span>    <span class="keywordflow">if</span> (~<a class="code hl_variable" href="main_8c.html#aa8714e52b7faf9cd0bec6e009005e7c1">heartBeatMask</a>[<a class="code hl_variable" href="main_8c.html#ae67c613f33a34cb36dab446183c8c075">hbIndex</a>] &amp; (1 &lt;&lt; times)) {</div>
+<div class="line"><span class="lineno"> 1480</span>        <a class="code hl_function" href="group___g_p_i_o___exported___functions___group2.html#gaf4b97bdf533a02f51ef696d43b6da5c4">HAL_GPIO_WritePin</a>(<a class="code hl_define" href="group___hardware___pinout.html#ga3cf393d21586a4097159246e8aca13a2">LED_GPIO_Port</a>, <a class="code hl_define" href="group___hardware___pinout.html#gac969c4fccd009dd70b69992d92cbe81a">LED_Pin</a>, <a class="code hl_enumvalue" href="group___g_p_i_o___exported___types.html#gga5b3ef0486b179415581eb342e0ea6b43a746c062509db3ad1e47beed7527f9f8a">GPIO_PIN_SET</a>);</div>
+<div class="line"><span class="lineno"> 1481</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno"> 1482</span>        <a class="code hl_function" href="group___g_p_i_o___exported___functions___group2.html#gaf4b97bdf533a02f51ef696d43b6da5c4">HAL_GPIO_WritePin</a>(<a class="code hl_define" href="group___hardware___pinout.html#ga3cf393d21586a4097159246e8aca13a2">LED_GPIO_Port</a>, <a class="code hl_define" href="group___hardware___pinout.html#gac969c4fccd009dd70b69992d92cbe81a">LED_Pin</a>, <a class="code hl_enumvalue" href="group___g_p_i_o___exported___types.html#gga5b3ef0486b179415581eb342e0ea6b43a90af2af95004ea61d76950ff3f2f6ec2">GPIO_PIN_RESET</a>);</div>
+<div class="line"><span class="lineno"> 1483</span>    }</div>
+<div class="line"><span class="lineno"> 1484</span> </div>
+<div class="line"><span class="lineno"> 1485</span>    times++;</div>
+<div class="line"><span class="lineno"> 1486</span>    <span class="keywordflow">if</span> (times &gt;= 20) {</div>
+<div class="line"><span class="lineno"> 1487</span>        times = 0; <span class="comment">// Acotado a ciclo síncrono de exactly 2.0 segundos (20 ranuras x 100ms)</span></div>
+<div class="line"><span class="lineno"> 1488</span>    }</div>
+<div class="line"><span class="lineno"> 1489</span>}</div>
+<div class="ttc" id="agroup___g_p_i_o___exported___functions___group2_html_gaf4b97bdf533a02f51ef696d43b6da5c4"><div class="ttname"><a href="group___g_p_i_o___exported___functions___group2.html#gaf4b97bdf533a02f51ef696d43b6da5c4">HAL_GPIO_WritePin</a></div><div class="ttdeci">void HAL_GPIO_WritePin(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin, GPIO_PinState PinState)</div><div class="ttdoc">Sets or clears the selected data port bit.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__gpio_8c_source.html#l00465">stm32f1xx_hal_gpio.c:465</a></div></div>
+<div class="ttc" id="agroup___g_p_i_o___exported___types_html_gga5b3ef0486b179415581eb342e0ea6b43a746c062509db3ad1e47beed7527f9f8a"><div class="ttname"><a href="group___g_p_i_o___exported___types.html#gga5b3ef0486b179415581eb342e0ea6b43a746c062509db3ad1e47beed7527f9f8a">GPIO_PIN_SET</a></div><div class="ttdeci">@ GPIO_PIN_SET</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__gpio_8h_source.html#l00067">stm32f1xx_hal_gpio.h:67</a></div></div>
+<div class="ttc" id="agroup___g_p_i_o___exported___types_html_gga5b3ef0486b179415581eb342e0ea6b43a90af2af95004ea61d76950ff3f2f6ec2"><div class="ttname"><a href="group___g_p_i_o___exported___types.html#gga5b3ef0486b179415581eb342e0ea6b43a90af2af95004ea61d76950ff3f2f6ec2">GPIO_PIN_RESET</a></div><div class="ttdeci">@ GPIO_PIN_RESET</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal__gpio_8h_source.html#l00066">stm32f1xx_hal_gpio.h:66</a></div></div>
+<div class="ttc" id="agroup___hardware___pinout_html_ga3cf393d21586a4097159246e8aca13a2"><div class="ttname"><a href="group___hardware___pinout.html#ga3cf393d21586a4097159246e8aca13a2">LED_GPIO_Port</a></div><div class="ttdeci">#define LED_GPIO_Port</div><div class="ttdoc">Puerto GPIO del LED indicador (Puerto C).</div><div class="ttdef"><b>Definición</b> <a href="main_8h_source.html#l00038">main.h:38</a></div></div>
+<div class="ttc" id="agroup___hardware___pinout_html_gac969c4fccd009dd70b69992d92cbe81a"><div class="ttname"><a href="group___hardware___pinout.html#gac969c4fccd009dd70b69992d92cbe81a">LED_Pin</a></div><div class="ttdeci">#define LED_Pin</div><div class="ttdoc">Pin del LED indicador integrado (Heartbeat activo a nivel bajo).</div><div class="ttdef"><b>Definición</b> <a href="main_8h_source.html#l00037">main.h:37</a></div></div>
+<div class="ttc" id="amain_8c_html_aa8714e52b7faf9cd0bec6e009005e7c1"><div class="ttname"><a href="main_8c.html#aa8714e52b7faf9cd0bec6e009005e7c1">heartBeatMask</a></div><div class="ttdeci">uint32_t heartBeatMask[]</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00252">main.c:252</a></div></div>
+<div class="ttc" id="amain_8c_html_ae67c613f33a34cb36dab446183c8c075"><div class="ttname"><a href="main_8c.html#ae67c613f33a34cb36dab446183c8c075">hbIndex</a></div><div class="ttdeci">uint8_t hbIndex</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00263">main.c:263</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__hal__gpio_8h_source.html#l00066">GPIO_PIN_RESET</a>, <a class="el" href="stm32f1xx__hal__gpio_8h_source.html#l00067">GPIO_PIN_SET</a>, <a class="el" href="stm32f1xx__hal__gpio_8c_source.html#l00465">HAL_GPIO_WritePin()</a>, <a class="el" href="main_8c_source.html#l00263">hbIndex</a>, <a class="el" href="main_8c_source.html#l00252">heartBeatMask</a>, <a class="el" href="main_8c_source.html#l01476">heartBeatTask()</a>, <a class="el" href="main_8h_source.html#l00038">LED_GPIO_Port</a> y <a class="el" href="main_8h_source.html#l00037">LED_Pin</a>.</p>
+
+<p class="reference">Referenciado por <a class="el" href="main_8c_source.html#l01441">do10ms()</a>, <a class="el" href="main_8c_source.html#l01476">heartBeatTask()</a> y <a class="el" href="group__group__comm.html#gaef53b41afe84bf3a4c3f95ab5a56a3c4">USBTask()</a>.</p>
+<div id="dynsection-3" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
+<div id="dynsection-3-summary" class="dynsummary">
+</div>
+<div id="dynsection-3-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group__group__main_gad529a04bd298cf0801e0052c5da907c7_cgraph.svg" width="308" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-4" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas a esta función:</div>
+<div id="dynsection-4-summary" class="dynsummary">
+</div>
+<div id="dynsection-4-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="group__group__main_gad529a04bd298cf0801e0052c5da907c7_icgraph.svg" width="358" height="136"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generado el <span class="timestamp"></span> para MICRO-Firmware por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.18.0 </li>
+  </ul>
+</div>
+</body>
+</html>
