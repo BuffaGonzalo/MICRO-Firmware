@@ -289,6 +289,8 @@ static char softAP_TargetSSID[WIFI_CRED_BUF_SIZE];    // Almacenamiento persiste
 static char softAP_TargetPASS[WIFI_CRED_BUF_SIZE];    // Almacenamiento persistente de la contraseña recibida (8 chars max + '\0')
 static uint16_t softAPSwitchDelay = 0;                // Demora en ticks de 10ms antes del reset para que salga el mensaje OK
 static uint8_t softAPSwitchPending = 0;               // Bandera de cambio a Station pendiente
+static uint16_t softAPEnterDelay = 0;                 // Demora en ticks de 10ms antes de pasar a SoftAP para que salga el ACK
+static uint8_t softAPEnterPending = 0;                // Bandera de cambio a modo SoftAP pendiente por comando remoto
 
 // =========================================================
 // // MOTORES Y TRACCIÓN PWM
@@ -1417,6 +1419,14 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 		}
 		break;
 	}
+	case SETSOFTAP: {
+		unerPrtcl_PutHeaderOnTx(dataTx, SETSOFTAP, 2);
+		unerPrtcl_PutByteOnTx(dataTx, ACK);
+		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
+		softAPEnterDelay = 30; // 300 ms de margen para que el ACK salga por WiFi/Serie hacia la PC
+		softAPEnterPending = 1;
+		break;
+	}
 	default:
 		unerPrtcl_PutHeaderOnTx(dataTx, (_eCmd) dataRx->buff[dataRx->indexData],
 				2);
@@ -1450,6 +1460,11 @@ void do10ms() {
 	// Cuenta regresiva para dar tiempo al envío del mensaje "OK" antes de reiniciar el ESP01
 	if (softAPSwitchDelay > 0) {
 		softAPSwitchDelay--;
+	}
+
+	// Cuenta regresiva para dar tiempo al envío del mensaje ACK antes de reiniciar a SoftAP
+	if (softAPEnterDelay > 0) {
+		softAPEnterDelay--;
 	}
 
 	// --- 2. Divisor de Tiempo: 20ms ---
@@ -1851,6 +1866,24 @@ void softAPTask(void)
             ESP01_StartTCP(udpTargetIP, udpTargetPort, 30001);
         } else {
             ESP01_StartUDP(udpTargetIP, udpTargetPort, 30001);
+        }
+        return;
+    }
+
+    /* Transición forzada a modo SoftAP solicitada por comando remoto SETSOFTAP */
+    if(softAPEnterPending){
+        if(softAPEnterDelay == 0){
+            softAPEnterPending = 0;
+            isSoftAPMode = 1;
+            networkScanActive = 0;
+            udpReadyToStart = 0;
+            softAPBufIdx = 0;
+            softAPBuf[0] = '\0';
+            softAPBufReady = 0;
+            softAPRxTimer = 0;
+            softAPSwitchPending = 0;
+            softAPSwitchDelay = 0;
+            ESP01_SetSoftAP("MICRO", "12345678", 5, 3, SOFTAP_TCP_PORT);
         }
         return;
     }
