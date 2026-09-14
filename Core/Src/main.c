@@ -357,9 +357,9 @@ volatile int32_t joystick_start_yaw_hr = 0;           // Ángulo Yaw de referenc
 // // MODO SEGUIDOR DE LÍNEA
 // =========================================================
 _eLineState lineState = LINE_SEARCHING;               // Estado actual de la máquina del seguidor de línea
-int16_t Kp_line = 250;                                // Ganancia proporcional de guiñada para corrección rápida sobre la línea
+int16_t Kp_line = 275;                                // Ganancia proporcional de guiñada para corrección rápida sobre la línea
 int16_t Kq_line = 25;                                 // Ganancia derivativa/cuadrática de guiñada para atenuar oscilaciones
-int16_t Kp_line_backup = 250;                         // Respaldo de Kp_line al entrar a Swing
+int16_t Kp_line_backup = 275;                         // Respaldo de Kp_line al entrar a Swing
 int32_t sum_sensors = 0;                              // Suma de lecturas normalizadas de los sensores de línea activos
 int32_t error_linea = 0;                              // Desviación calculada de la línea (eje horizontal de error)
 int32_t abs_error = 0;                                // Valor absoluto del error de línea
@@ -370,9 +370,12 @@ int32_t last_line_error = 0;                          // Error de línea del cic
 int16_t custom_turn = 350;                            // Intensidad de giro prefijada para fases ciegas de búsqueda
 int16_t vel_damp_div = 500;                           // Divisor del término amortiguador de velocidad
 int16_t vel_damp_limit = 100;                         // Límite del amortiguador de velocidad
-int16_t turn_limit = 1000;                            // Límite superior absoluto del esfuerzo de giro motor (Yaw)
+int16_t turn_limit = 3500;                           // Límite superior absoluto del esfuerzo de giro motor (Yaw)
 uint16_t line_lost_timer = 0;                         // Temporizador en ciclos transcurridos desde que se perdió la pista
 uint8_t line_lost_phase = 0;                          // Fase de búsqueda secuencial actual (fase 0, 1 o 2)
+int32_t line_lost_yaw = 0;                            // Ángulo yaw acumulado durante búsqueda de línea
+int8_t search_direction = 1;                          // Dirección de búsqueda (-1: izq, +1: der)
+uint8_t dodge_line_rotation_done = 0;                 // Flag: rotación de reenganche ejecutada 1 sola vez por esquive
 
 // =========================================================
 // // MODO ESQUIVAR OBSTÁCULOS (DODGE)
@@ -381,6 +384,10 @@ volatile _eDodgeSubState dodgeState = DODGE_LINE_FOLLOWING; // Inicia en seguimi
 volatile int32_t dodge_yaw = 0;                       // Referencia o delta de Yaw durante maniobra de esquive
 volatile uint32_t dodge_timer = 0;                    // Temporizador en milisegundos para fases de maniobra
 int8_t dodge_direction = -1;                          // -1: Rotación a la DERECHA, 1: IZQUIERDA
+int16_t dodge_bias_time = 1000;                        // Duración del sesgo tras encontrar la línea (1000 ms = 1.0s)
+int16_t dodge_bias_mult = 500;                         // Multiplicador / esfuerzo del sesgo de rotación
+uint8_t dodge_bias_active = 0;                         // Flag indicador de sesgo activo al recuperar la línea
+uint32_t dodge_bias_timer = 0;                         // Temporizador acumulado del sesgo (ms)
 
 // Distancias de referencia y umbrales de proximidad
 uint16_t obs_detect_dist = 1000;                      // Distancia frontal de detección en mm
@@ -391,7 +398,7 @@ uint16_t obs_stop_cycles = 10;                        // Ciclos de inmovilizaci�
 uint16_t obs_align_dist = 2500;                       // Distancia objetivo del sensor lateral tras rotación de 90°
 
 // Ganancias de control de evasión y seguimiento de pared
-int32_t Kp_pared = 11;                                // Fuerza principal para mantener distancia lateral (90°)
+int32_t Kp_pared = 10;                                // Fuerza principal para mantener distancia lateral (90°)
 int32_t Kd_anticipo = 7;                              // Fuerza menor de ayuda/anticipación anticipada (45°)
 int32_t Kd_frontal = 30;                              // Fuerza de protección frontal anticipada (IR6)
 
@@ -799,7 +806,7 @@ void SetRobotMode(_eRobotMode newMode) {
 			hbIndex = 1; // LED Line Following (2 parpadeos)
 			CHPD_Control(1);
 			if (Kp_line == 0) {
-				Kp_line = (Kp_line_backup > 0) ? Kp_line_backup : 250;
+				Kp_line = (Kp_line_backup > 0) ? Kp_line_backup : 275;
 			}
 			turn_offset = 0;
 			break;
@@ -807,10 +814,13 @@ void SetRobotMode(_eRobotMode newMode) {
 		case STATE_DODGE:
 			dodgeState = DODGE_LINE_FOLLOWING; // Inicia en seguimiento de línea
 			dodge_timer = 2000;
+			dodge_bias_active = 0;
+			dodge_bias_timer = 0;
+			dodge_line_rotation_done = 0;
 			hbIndex = 2; // LED Dodge (3 parpadeos)
 			CHPD_Control(1);
 			if (Kp_line == 0) {
-				Kp_line = (Kp_line_backup > 0) ? Kp_line_backup : 250;
+				Kp_line = (Kp_line_backup > 0) ? Kp_line_backup : 275;
 			}
 			turn_offset = 0;
 			break;
@@ -1049,8 +1059,8 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 		movingOff = myWord.ui16[0];
 		break;
 	case GETINTERNALDATA:
-		// Estructura para sincronización de parámetros (87 bytes de datos + 1 chk = 88)
-		unerPrtcl_PutHeaderOnTx(dataTx, GETINTERNALDATA, 88);
+		// Estructura para sincronización de parámetros (91 bytes de datos + 1 chk = 92)
+		unerPrtcl_PutHeaderOnTx(dataTx, GETINTERNALDATA, 92);
 
 		// 1. Bloque PID Balancín (10 bytes: Kp, Ki, Kd, Max, Min)
 		int16_t pid_bal[5] = { Kp_stable, Ki_stable, Kd_stable, (int16_t)minPWM_Right, (int16_t)minPWM_Left};
@@ -1151,6 +1161,12 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 		// 17. Modo del robot y estado de esquivado (2 bytes: indices 87 y 88 en Qt)
 		unerPrtcl_PutByteOnTx(dataTx, (uint8_t) robotMode);
 		unerPrtcl_PutByteOnTx(dataTx, (uint8_t) dodgeState);
+
+		// 18. Sesgo de Esquivado (4 bytes: indices 89..90 y 91..92 en Qt)
+		unerPrtcl_PutByteOnTx(dataTx, (uint8_t) (dodge_bias_time & 0xFF));
+		unerPrtcl_PutByteOnTx(dataTx, (uint8_t) ((dodge_bias_time >> 8) & 0xFF));
+		unerPrtcl_PutByteOnTx(dataTx, (uint8_t) (dodge_bias_mult & 0xFF));
+		unerPrtcl_PutByteOnTx(dataTx, (uint8_t) ((dodge_bias_mult >> 8) & 0xFF));
 
 		// Checksum final
 		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
@@ -1329,6 +1345,22 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 		myWord.ui8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
 		if (myWord.ui16[0] == 0) dodge_direction = -1;
 		else if (myWord.ui16[0] == 1) dodge_direction = 1;
+		break;
+	case SETDODGEBIASTIME:
+		unerPrtcl_PutHeaderOnTx(dataTx, SETDODGEBIASTIME, 2);
+		unerPrtcl_PutByteOnTx(dataTx, ACK);
+		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
+		myWord.ui8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		myWord.ui8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		dodge_bias_time = myWord.i16[0];
+		break;
+	case SETDODGEBIASMULT:
+		unerPrtcl_PutHeaderOnTx(dataTx, SETDODGEBIASMULT, 2);
+		unerPrtcl_PutByteOnTx(dataTx, ACK);
+		unerPrtcl_PutByteOnTx(dataTx, dataTx->chk);
+		myWord.ui8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		myWord.ui8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
+		dodge_bias_mult = myWord.i16[0];
 		break;
 	case SETLIMITANG:
 		unerPrtcl_PutHeaderOnTx(dataTx, SETLIMITANG, 2);
@@ -2170,8 +2202,6 @@ void buttonTask(_sButton *button) {
 void ControlSeguimiento(int32_t left_ir, int32_t center_ir, int32_t right_ir, int32_t *target_setpoint) {
 	static uint16_t line_lost_debounce_count = 0;
 	static int32_t last_turn_offset = 0;
-	static int32_t line_lost_yaw = 0;
-	static int8_t search_direction = 1;
 	static int8_t cross_direction = 1;
 
 	uint8_t ir1_active = (left_ir < IR_WHITE);
@@ -2289,8 +2319,8 @@ void ControlSeguimiento(int32_t left_ir, int32_t center_ir, int32_t right_ir, in
 
 		case LINE_LOST_STOPPED:
 		default:
-			// Frenado estático estricto con setpoint +350
-			*target_setpoint = 350;
+			// Frenado estático estricto con setpoint -250 para sostenerse en mesa inclinada
+			*target_setpoint = -250;
 			turn_offset = 0;
 			break;
 		}
@@ -2372,13 +2402,14 @@ void Control_Esquivar(int32_t left_ir, int32_t center_ir, int32_t right_ir, int3
 
 	switch (dodgeState) {
 	case DODGE_LINE_FOLLOWING:
-		// 1. Seguimiento de línea normal continuo a velocidad máxima
+		// 1. Seguimiento de línea normal continuo gobernado por ControlSeguimiento
 		ControlSeguimiento(left_ir, center_ir, right_ir, target_setpoint);
 
 		dodge_timer += DT_MS;
 
 		// Cuando se detecta el obstáculo a la distancia adecuada
 		if (cal_ir6 >= 500 && dodge_timer >= 1000) {
+			dodge_line_rotation_done = 0; // Habilitar la rotación para el nuevo ciclo de esquive
 			standby_next_state = DODGE_ROTATING;
 			turn_offset = 0;
 			dodge_timer = 0;
@@ -2422,6 +2453,7 @@ void Control_Esquivar(int32_t left_ir, int32_t center_ir, int32_t right_ir, int3
 			dodge_yaw = 0;
 			dodge_timer = 0;
 			line_cleared = 0; // Resetear validación de liberación de línea
+			dodge_line_rotation_done = 0;
 			dodgeState = DODGE_WALL_FOLLOWING;
 		} else {
 			// Prioridad de balanceo dinámica con par de rotación firme
@@ -2475,93 +2507,90 @@ void Control_Esquivar(int32_t left_ir, int32_t center_ir, int32_t right_ir, int3
 
 		dodge_timer += DT_MS;
 		// Re-enganche a la línea tras un tiempo mínimo de 4.0 segundos de avance siguiendo la pared
-		if (dodge_timer >= 4000 && line_cleared) {
+		if (dodge_timer >= 4000 && line_cleared && !dodge_line_rotation_done) {
 			uint8_t d_ir1 = (left_ir < IR_DODGE_LINE_THRESHOLD);
 			uint8_t d_ir3 = (center_ir < IR_DODGE_LINE_THRESHOLD);
 			uint8_t d_ir5 = (right_ir < IR_DODGE_LINE_THRESHOLD);
 			uint8_t d_active_count = d_ir1 + d_ir3 + d_ir5;
 
 			if (d_active_count > 0) {
-				// Condición directa: Si la pared está a la izquierda y el IR izq ya está afuera (d_ir1 == 0),
-				// o si la pared está a la derecha y el IR der ya está afuera (d_ir5 == 0): sigue la línea directo.
-				// Si todos los sensores están sobre la línea (d_active_count == 3) o el IR del lado de la pared está sobre la línea, rota.
-				uint8_t can_follow_directly = (dodge_direction == -1) ? (d_ir1 == 0) : (d_ir5 == 0);
-
-				if (can_follow_directly) {
-					turn_offset = 0;
-					dodge_yaw = 0;
-					dodge_timer = 0;
-					lineState = LINE_FOLLOWING;
-					dodgeState = DODGE_LINE_FOLLOWING;
+				// Guardar el estado inicial del IR que detectó la línea
+				int32_t sum_sensors = left_ir + center_ir + right_ir;
+				if (sum_sensors > 0) {
+					last_line_error = ((-(1000 * left_ir) + (1000 * right_ir)) / sum_sensors) / 10;
 				} else {
-					turn_offset = 0;
-					dodge_yaw = 0;
-					dodge_timer = 0;
-					*target_setpoint = -1400;
-					integral = (integral * 7) / 10;
-					dodgeState = DODGE_RETURN_ROTATING;
+					if (d_ir1)      last_line_error = 100;
+					else if (d_ir5) last_line_error = -100;
+					else            last_line_error = 0;
 				}
+				dodge_line_rotation_done = 1; // La rotación solo se ejecuta 1 vez por esquive
+				*target_setpoint = 1250;
+				turn_offset = 0;
+				dodge_yaw = 0;
+				dodge_timer = 0;
+				dodgeState = DODGE_RETURN_ROTATING;
 			}
 		}
 		break;
 	}
 
 	case DODGE_RETURN_ROTATING: {
+		// Rotación en 3 etapas manteniendo balance con el mezclador:
+		// 1. 0 a 250ms: espera/frenado con setpoint +1250 (turn_offset = 0)
+		// 2. 250 a 350ms: preparación recta con setpoint -250 (turn_offset = 0)
+		// 3. 350 a (350 + dodge_bias_time): rotación con setpoint -250
+		dodge_timer += DT_MS;
+
 		uint8_t d_ir1 = (left_ir < IR_DODGE_LINE_THRESHOLD);
 		uint8_t d_ir3 = (center_ir < IR_DODGE_LINE_THRESHOLD);
 		uint8_t d_ir5 = (right_ir < IR_DODGE_LINE_THRESHOLD);
 		uint8_t d_active_count = d_ir1 + d_ir3 + d_ir5;
 
-		dodge_timer += DT_MS;
-
-		// Condición de fin de rotación:
-		// - Pared a la izquierda: rota a la DERECHA hasta que el IR izquierdo quede afuera (d_ir1 == 0) y haya línea activa.
-		// - Pared a la derecha: rota a la IZQUIERDA hasta que el IR derecho quede afuera (d_ir5 == 0) y haya línea activa.
-		// - Si los 3 sensores están sobre la línea, d_ir1 == 1 y d_ir5 == 1, por lo que continúa rotando sí o sí.
-		uint8_t rotation_completed = 0;
-		if (dodge_direction == -1) {
-			if (d_ir1 == 0 && d_active_count > 0) {
-				rotation_completed = 1;
-			}
-		} else {
-			if (d_ir5 == 0 && d_active_count > 0) {
-				rotation_completed = 1;
+		// Guardar continuamente el estado del último IR que vio la línea en la rotación:
+		if (d_active_count > 0) {
+			int32_t sum_sensors = left_ir + center_ir + right_ir;
+			if (sum_sensors > 0) {
+				last_line_error = ((-(1000 * left_ir) + (1000 * right_ir)) / sum_sensors) / 10;
+			} else {
+				if (d_ir1)      last_line_error = 100;
+				else if (d_ir5) last_line_error = -100;
+				else            last_line_error = 0;
 			}
 		}
 
-		if (rotation_completed) {
+		if (dodge_timer < 250) {
+			// Etapa 1 (250ms): espera / frenado (+12.50°) sin giro
+			*target_setpoint = 1250;
+			turn_offset = 0;
+		} else if (dodge_timer < 350) {
+			// Etapa 2 (100ms): avance recto con setpoint suave (-2.50°)
+			*target_setpoint = -250;
+			turn_offset = 0;
+		} else if (dodge_timer < (350 + (uint32_t)dodge_bias_time)) {
+			// Etapa 3: rotación fija configurada con setpoint -250 (no se corta por la línea)
+			*target_setpoint = -250;
+			int32_t rot_turn = dodge_direction * dodge_bias_mult;
+			int32_t max_turn = (turn_limit > 3500) ? turn_limit : 3500;
+			if (rot_turn > max_turn)        rot_turn = max_turn;
+			else if (rot_turn < -max_turn)  rot_turn = -max_turn;
+			turn_offset = rot_turn;
+		} else {
+			// Fin del tiempo configurado de rotación: pasar a seguimiento o activar el sistema de búsqueda
 			turn_offset = 0;
 			dodge_yaw = 0;
 			dodge_timer = 0;
-			lineState = LINE_FOLLOWING;
 			dodgeState = DODGE_LINE_FOLLOWING;
-		} else {
-			*target_setpoint = -1400; // Mantiene setpoint de -14.00° para seguir la línea durante la rotación
-			integral = (integral * 7) / 10; // Atenuación de memoria inercial
 
-			int32_t gz_calibrated = gz - gz_offset;
-			dodge_yaw += ((int64_t)gz_calibrated * DT_US) / 131000LL;
-			int32_t abs_yaw = (dodge_yaw < 0) ? -dodge_yaw : dodge_yaw;
-
-			// Salvaguarda de rotación máxima (180°) o timeout (3s)
-			if (abs_yaw >= 180000 || dodge_timer >= 3000) {
-				turn_offset = 0;
-				dodge_yaw = 0;
-				dodge_timer = 0;
+			if (d_active_count > 0) {
+				// Si al finalizar la rotación algún sensor está sobre la línea, seguirla directo
 				lineState = LINE_FOLLOWING;
-				dodgeState = DODGE_LINE_FOLLOWING;
 			} else {
-				int32_t base_turn = 500;
-				int32_t abs_error = (error < 0) ? -error : error;
-
-				if (abs_error > 450) {
-					turn_offset = 0;
-					integral = 0;
-				} else {
-					// Si la pared está a la izquierda (dodge_direction == -1): rota a la DERECHA (-base_turn)
-					// Si la pared está a la derecha   (dodge_direction == 1):  rota a la IZQUIERDA (+base_turn)
-					turn_offset = (dodge_direction == -1) ? -base_turn : base_turn;
-				}
+				// Si no está sobre la línea, activar el sistema de búsqueda hacia el último IR que la vio
+				search_direction = (last_line_error >= 0) ? -1 : 1;
+				line_lost_phase = LINE_LOST_ROT_90;
+				line_lost_timer = 0;
+				line_lost_yaw = 0;
+				lineState = LINE_LOST;
 			}
 		}
 		break;

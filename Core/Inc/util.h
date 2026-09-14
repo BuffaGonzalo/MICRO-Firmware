@@ -118,6 +118,8 @@ typedef enum {
 	SETROBOTMODE = 0xD2,     /*!< Comando de cambio del modo operativo principal del robot */
 	SETJOYSTICKTURN = 0xD3,  /*!< Comando de control interactivo para modo Joystick (giro y watchdog) */
 #define SETGOTOTURN SETJOYSTICKTURN /*!< Macro de compatibilidad hacia atrás para SETJOYSTICKTURN */
+	SETDODGEBIASTIME = 0xD4, /*!< Ajuste de la duración del sesgo tras esquivar (ms) */
+	SETDODGEBIASMULT = 0xD5, /*!< Ajuste del multiplicador de esfuerzo del sesgo tras esquivar */
 
 	ACK = 0x0D,              /*!< Respuesta de confirmación positiva (Acknowledge) */
 	EXPORTIRCSV = 0xCA,      /*!< Disparo de exportación de calibraciones IR a formato CSV */
