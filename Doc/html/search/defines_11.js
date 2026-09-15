@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['vdd_5fvalue_0',['VDD_VALUE',['../stm32f1xx__hal__conf_8h.html#aae550dad9f96d52cfce5e539adadbbb4',1,'stm32f1xx_hal_conf.h']]]
+  ['wifi_5fcred_5fbuf_5fsize_0',['WIFI_CRED_BUF_SIZE',['../main_8c.html#a7a31f19a54e6c06d1b2927fed29eee59',1,'main.c']]]
 ];

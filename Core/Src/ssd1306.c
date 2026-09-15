@@ -237,7 +237,48 @@ void ssd1306_UpdateScreen(void) {
 }
 
 
-/* Write the screenbuffer with changed to the screen */
+/**
+ * @brief Ejecuta el volcado asíncrono no bloqueante del framebuffer vía transferencias DMA.
+ * @details Máquina de 4 estados para actualizar las 8 páginas (1024 bytes) mediante I2C DMA:
+ *          - Estado 1: Envía comando de direccionamiento de página (`0xB0 + page`).
+ *          - Estado 2: Envía comando de columna baja (`0x00 + offset`).
+ *          - Estado 3: Envía comando de columna alta (`0x10 + offset`).
+ *          - Estado 4: Transfiere los 128 bytes de la página actual vía DMA.
+ *
+ * \startuml
+ * title Pipeline Asíncrono de Refresco OLED (ssd1306_UpdateScreenDMA)
+ * start
+ * if (¿TxCplt activo O estado == 1?) then (Listo para siguiente paso)
+ *   :Limpiar *SSD1306_TxCplt = 0;
+ *   if (estado == 1) then
+ *     :WriteCommandDMA(0xB0 + page);
+ *     :estado = 2;
+ *   elseif (estado == 2) then
+ *     :WriteCommandDMA(0x00 + offset_low);
+ *     :estado = 3;
+ *   elseif (estado == 3) then
+ *     :WriteCommandDMA(0x10 + offset_up);
+ *     :estado = 4;
+ *   elseif (estado == 4) then
+ *     :WriteDataDMA(&SSD1306_Buffer[128 * page], 128);
+ *     :page++;
+ *     :estado = 1;
+ *     if (¿page > 7?) then (Barrido completo)
+ *       :page = 0;
+ *       #palegreen:Retornar 1 (Frame completado);
+ *       stop
+ *     endif
+ *   endif
+ * endif
+ * #salmon:Retornar 0 (Página o comando en curso);
+ * stop
+ * \enduml
+ *
+ * @return 1 al completar la transmisión de las 8 páginas (frame completo desplegado); 0 si la transferencia sigue en curso.
+ * @pre Función `ssd1306_Attach_MemWriteDMA` vinculada y bandera `SSD1306_TxCplt` registrada.
+ * @post Actualiza los estados internos `ssd1306_dma_state` y `ssd1306_dma_current_page`.
+ * @see ssd1306_ResetDMAState
+ */
 char ssd1306_UpdateScreenDMA(void) {
     // Write data to each page of RAM. Number of pages
     // depends on the screen height:
@@ -279,7 +320,11 @@ char ssd1306_UpdateScreenDMA(void) {
 	return 0;
 }
 
-/* Reiniciar el estado del DMA e I2C de la pantalla OLED */
+/**
+ * @brief Reinicia el secuenciador DMA e I2C de la pantalla OLED.
+ * @post Establece `ssd1306_dma_current_page = 0` y `ssd1306_dma_state = 1`.
+ * @see ssd1306_UpdateScreenDMA
+ */
 void ssd1306_ResetDMAState(void) {
 	ssd1306_dma_current_page = 0;
 	ssd1306_dma_state = 1;

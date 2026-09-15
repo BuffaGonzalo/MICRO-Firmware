@@ -23,6 +23,15 @@ if %ERRORLEVEL% NEQ 0 (
     echo.
 )
 
+where java >nul 2>nul
+if %ERRORLEVEL% NEQ 0 (
+    if exist "C:\ST\STM32CubeIDE_2.1.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.jre.win64_3.4.200.202601091518\jre\bin\java.exe" (
+        set "PATH=C:\ST\STM32CubeIDE_2.1.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.jre.win64_3.4.200.202601091518\jre\bin;%PATH%"
+    ) else (
+        echo [ADVERTENCIA] No se encontro 'java' para PlantUML en el PATH.
+    )
+)
+
 echo [INFO] Ejecutando Doxygen con configuracion 'Doxyfile'...
 echo.
 doxygen Doxyfile

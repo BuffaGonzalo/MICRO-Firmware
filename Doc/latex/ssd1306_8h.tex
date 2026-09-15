@@ -10,16 +10,14 @@ Driver de control y primitivas gráficas para display OLED monocromático SSD130
 {\ttfamily \+\#include $<$\+\_\+ansi.\+h$>$}\newline
 {\ttfamily \+\#include "{}ssd1306\+\_\+conf.\+h"{}}\newline
 {\ttfamily \+\#include "{}stm32f1xx\+\_\+hal.\+h"{}}\newline
-Gráfico de dependencias incluidas en ssd1306.\+h:
-\nopagebreak
+Gráfico de dependencias incluidas en ssd1306.\+h:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{ssd1306_8h__incl}
 \end{center}
 \end{figure}
-Gráfico de los archivos que directa o indirectamente incluyen a este archivo:
-\nopagebreak
+Gráfico de los archivos que directa o indirectamente incluyen a este archivo:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -30,11 +28,11 @@ Gráfico de los archivos que directa o indirectamente incluyen a este archivo:
 \begin{DoxyCompactItemize}
 \item 
 struct \doxymbox{\hyperlink{struct_s_s_d1306___font__t}{SSD1306\+\_\+\+Font\+\_\+t}}
-\begin{DoxyCompactList}\small\item\em Estructura descriptora de fuentes tipográficas matriciales. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Estructura descriptora de fuentes tipográficas matriciales almacenadas en FLASH. \end{DoxyCompactList}\item 
 struct \doxymbox{\hyperlink{struct_s_s_d1306__t}{SSD1306\+\_\+t}}
-\begin{DoxyCompactList}\small\item\em Estructura de estado interno del controlador de display. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Estructura de estado interno del controlador de display OLED SSD1306. \end{DoxyCompactList}\item 
 struct \doxymbox{\hyperlink{struct_s_s_d1306___v_e_r_t_e_x}{SSD1306\+\_\+\+VERTEX}}
-\begin{DoxyCompactList}\small\item\em Vértice de coordenadas bidimensionales para dibujo de polilíneas. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Vértice de coordenadas bidimensionales para dibujo de polilíneas vectoriales. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsubsection*{defines}
 \begin{DoxyCompactItemize}
 \item 
@@ -64,31 +62,31 @@ enum \doxymbox{\hyperlink{ssd1306_8h_a3cd087bf4d4acf17315ed0ee9905af26}{SSD1306\
 \begin{DoxyCompactItemize}
 \item 
 void \doxymbox{\hyperlink{ssd1306_8h_a95a49d07c86bacc5776dde80f700156b}{ssd1306\+\_\+\+ADC\+\_\+\+Conf\+Cplt\+Callback}} (volatile uint8\+\_\+t \texorpdfstring{$\ast$}{*}Ptr\+Rx)
-\item 
+\begin{DoxyCompactList}\small\item\em Registra la bandera volátil que notifica la finalización de transferencias DMA Tx. \end{DoxyCompactList}\item 
 void \doxymbox{\hyperlink{ssd1306_8h_a05ce6c2aa343a909fc30a1ad1da01b0e}{ssd1306\+\_\+\+Attach\+\_\+\+Mem\+Write}} (void(\texorpdfstring{$\ast$}{*}Ptr\+Rx)(uint8\+\_\+t address, uint8\+\_\+t \texorpdfstring{$\ast$}{*}data, uint8\+\_\+t size, uint8\+\_\+t type))
-\item 
+\begin{DoxyCompactList}\small\item\em Asocia el manejador bloqueante de escritura en memoria I2C. \end{DoxyCompactList}\item 
 void \doxymbox{\hyperlink{ssd1306_8h_a0e5a3b00cea05402262d40360c6c0497}{ssd1306\+\_\+\+Attach\+\_\+\+Mem\+Write\+DMA}} (void(\texorpdfstring{$\ast$}{*}Ptr\+Rx)(uint8\+\_\+t address, uint8\+\_\+t \texorpdfstring{$\ast$}{*}data, uint8\+\_\+t size, uint8\+\_\+t type))
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Asocia el manejador no bloqueante de escritura DMA en bus I2C. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \end{Indent}
 \begin{Indent}\textbf{ Primitivas de Inicialización y Control}\par
 \begin{DoxyCompactItemize}
 \item 
 void \doxymbox{\hyperlink{ssd1306_8h_a77620914b6d1247e7515a36c38672391}{ssd1306\+\_\+\+Fill}} (\doxymbox{\hyperlink{ssd1306_8h_a6f68a90e6eefe5396bcbec2cd699d500}{SSD1306\+\_\+\+COLOR}} color)
-\item 
+\begin{DoxyCompactList}\small\item\em Rellena el framebuffer completo de 1024 bytes con un color uniforme (Black o White). \end{DoxyCompactList}\item 
 uint8\+\_\+t \doxymbox{\hyperlink{ssd1306_8h_a347cccbf4dd745d26538280b3b1d15df}{ssd1306\+\_\+\+Get\+Display\+On}} (void)
-\item 
+\begin{DoxyCompactList}\small\item\em Consulta el estado actual de encendido del panel OLED. \end{DoxyCompactList}\item 
 void \doxymbox{\hyperlink{ssd1306_8h_ade2c3a936ceecc5b8a1d965cc302d2ed}{ssd1306\+\_\+\+Init}} (void)
-\item 
+\begin{DoxyCompactList}\small\item\em Inicializa el controlador SSD1306 con la secuencia de encendido y parámetros de display. \end{DoxyCompactList}\item 
 void \doxymbox{\hyperlink{ssd1306_8h_a1052f348684f4611334bab03e2f21dda}{ssd1306\+\_\+\+Reset\+DMAState}} (void)
-\item 
+\begin{DoxyCompactList}\small\item\em Reinicia la máquina de estados del secuenciador de volcado DMA. \end{DoxyCompactList}\item 
 void \doxymbox{\hyperlink{ssd1306_8h_a64253e858fadc2e9909db0baa31009c6}{ssd1306\+\_\+\+Set\+Contrast}} (const uint8\+\_\+t value)
-\item 
+\begin{DoxyCompactList}\small\item\em Ajusta el nivel de contraste electrónico de los emisores OLED. \end{DoxyCompactList}\item 
 void \doxymbox{\hyperlink{ssd1306_8h_a63e99c8591f89a39d542c519eac7294f}{ssd1306\+\_\+\+Set\+Display\+On}} (const uint8\+\_\+t on)
-\item 
+\begin{DoxyCompactList}\small\item\em Enciende o apaga la matriz del panel OLED. \end{DoxyCompactList}\item 
 void \doxymbox{\hyperlink{ssd1306_8h_aeca33ad55a12e5a6c23250a01c9e5032}{ssd1306\+\_\+\+Update\+Screen}} (void)
-\item 
+\begin{DoxyCompactList}\small\item\em Vuelca síncronamente el framebuffer completo de video hacia la pantalla OLED. \end{DoxyCompactList}\item 
 char \doxymbox{\hyperlink{ssd1306_8h_ab4427df8c1eeed4ac139a8499109eff9}{ssd1306\+\_\+\+Update\+Screen\+DMA}} (void)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Ejecuta el volcado asíncrono no bloqueante del framebuffer vía transferencias DMA. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \end{Indent}
 \begin{Indent}\textbf{ Primitivas Gráficas y Renderizado 2D}\par
 \begin{DoxyCompactItemize}
@@ -189,7 +187,7 @@ Definición en la línea \doxymbox{\hyperlink{ssd1306_8h_source_l00042}{42}} del
 
 
 
-Referenciado por \doxymbox{\hyperlink{ssd1306_8c_source_l00651}{ssd1306\+\_\+\+Draw\+Bitmap()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00525}{ssd1306\+\_\+\+Draw\+Circle()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00297}{ssd1306\+\_\+\+Draw\+Pixel()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00560}{ssd1306\+\_\+\+Fill\+Circle()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00606}{ssd1306\+\_\+\+Fill\+Rectangle()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00620}{ssd1306\+\_\+\+Invert\+Rectangle()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00224}{ssd1306\+\_\+\+Update\+Screen()}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00317}{ssd1306\+\_\+\+Write\+Char()}}.
+Referenciado por \doxymbox{\hyperlink{ssd1306_8c_source_l00696}{ssd1306\+\_\+\+Draw\+Bitmap()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00570}{ssd1306\+\_\+\+Draw\+Circle()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00342}{ssd1306\+\_\+\+Draw\+Pixel()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00605}{ssd1306\+\_\+\+Fill\+Circle()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00651}{ssd1306\+\_\+\+Fill\+Rectangle()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00665}{ssd1306\+\_\+\+Invert\+Rectangle()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00224}{ssd1306\+\_\+\+Update\+Screen()}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00362}{ssd1306\+\_\+\+Write\+Char()}}.
 
 \Hypertarget{ssd1306_8h_ae5a2aa8865dd03537b97fd1c9037371b}\index{ssd1306.h@{ssd1306.h}!SSD1306\_WIDTH@{SSD1306\_WIDTH}}
 \index{SSD1306\_WIDTH@{SSD1306\_WIDTH}!ssd1306.h@{ssd1306.h}}
@@ -207,7 +205,7 @@ Definición en la línea \doxymbox{\hyperlink{ssd1306_8h_source_l00046}{46}} del
 
 
 
-Referenciado por \doxymbox{\hyperlink{ssd1306_8c_source_l00651}{ssd1306\+\_\+\+Draw\+Bitmap()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00525}{ssd1306\+\_\+\+Draw\+Circle()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00297}{ssd1306\+\_\+\+Draw\+Pixel()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00560}{ssd1306\+\_\+\+Fill\+Circle()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00606}{ssd1306\+\_\+\+Fill\+Rectangle()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00620}{ssd1306\+\_\+\+Invert\+Rectangle()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00224}{ssd1306\+\_\+\+Update\+Screen()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00241}{ssd1306\+\_\+\+Update\+Screen\+DMA()}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00317}{ssd1306\+\_\+\+Write\+Char()}}.
+Referenciado por \doxymbox{\hyperlink{ssd1306_8c_source_l00696}{ssd1306\+\_\+\+Draw\+Bitmap()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00570}{ssd1306\+\_\+\+Draw\+Circle()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00342}{ssd1306\+\_\+\+Draw\+Pixel()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00605}{ssd1306\+\_\+\+Fill\+Circle()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00651}{ssd1306\+\_\+\+Fill\+Rectangle()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00665}{ssd1306\+\_\+\+Invert\+Rectangle()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00224}{ssd1306\+\_\+\+Update\+Screen()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00282}{ssd1306\+\_\+\+Update\+Screen\+DMA()}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00362}{ssd1306\+\_\+\+Write\+Char()}}.
 
 \Hypertarget{ssd1306_8h_aae17756c37924c52f02b7a8c7fc06791}\index{ssd1306.h@{ssd1306.h}!SSD1306\_X\_OFFSET\_LOWER@{SSD1306\_X\_OFFSET\_LOWER}}
 \index{SSD1306\_X\_OFFSET\_LOWER@{SSD1306\_X\_OFFSET\_LOWER}!ssd1306.h@{ssd1306.h}}
@@ -221,7 +219,7 @@ Definición en la línea \doxymbox{\hyperlink{ssd1306_8h_source_l00032}{32}} del
 
 
 
-Referenciado por \doxymbox{\hyperlink{ssd1306_8c_source_l00224}{ssd1306\+\_\+\+Update\+Screen()}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00241}{ssd1306\+\_\+\+Update\+Screen\+DMA()}}.
+Referenciado por \doxymbox{\hyperlink{ssd1306_8c_source_l00224}{ssd1306\+\_\+\+Update\+Screen()}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00282}{ssd1306\+\_\+\+Update\+Screen\+DMA()}}.
 
 \Hypertarget{ssd1306_8h_a883305bc0adf9bdc4c0b4c7d5c7befda}\index{ssd1306.h@{ssd1306.h}!SSD1306\_X\_OFFSET\_UPPER@{SSD1306\_X\_OFFSET\_UPPER}}
 \index{SSD1306\_X\_OFFSET\_UPPER@{SSD1306\_X\_OFFSET\_UPPER}!ssd1306.h@{ssd1306.h}}
@@ -235,7 +233,7 @@ Definición en la línea \doxymbox{\hyperlink{ssd1306_8h_source_l00033}{33}} del
 
 
 
-Referenciado por \doxymbox{\hyperlink{ssd1306_8c_source_l00224}{ssd1306\+\_\+\+Update\+Screen()}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00241}{ssd1306\+\_\+\+Update\+Screen\+DMA()}}.
+Referenciado por \doxymbox{\hyperlink{ssd1306_8c_source_l00224}{ssd1306\+\_\+\+Update\+Screen()}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00282}{ssd1306\+\_\+\+Update\+Screen\+DMA()}}.
 
 
 
@@ -327,6 +325,18 @@ void ssd1306\+\_\+\+ADC\+\_\+\+Conf\+Cplt\+Callback (\begin{DoxyParamCaption}\it
 
 
 
+Registra la bandera volátil que notifica la finalización de transferencias DMA Tx. 
+
+
+\begin{DoxyParams}[1]{Parámetros}
+\doxymbox{\texttt{in}}  & {\em Ptr\+Rx} & Puntero a la bandera modificada en la ISR del canal DMA. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyPostcond}{Postcondición}
+Enlaza {\ttfamily SSD1306\+\_\+\+Tx\+Cplt} con la bandera del sistema. 
+\end{DoxyPostcond}
+
+
 Definición en la línea \doxymbox{\hyperlink{ssd1306_8c_source_l00111}{111}} del archivo \doxymbox{\hyperlink{ssd1306_8c_source}{ssd1306.\+c}}.
 
 
@@ -342,7 +352,7 @@ Hace referencia a \doxymbox{\hyperlink{ssd1306_8c_source_l00111}{ssd1306\+\_\+\+
 
 
 
-Referenciado por \doxymbox{\hyperlink{main_8c_source_l03056}{main()}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00111}{ssd1306\+\_\+\+ADC\+\_\+\+Conf\+Cplt\+Callback()}}.
+Referenciado por \doxymbox{\hyperlink{main_8c_source_l03696}{main()}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00111}{ssd1306\+\_\+\+ADC\+\_\+\+Conf\+Cplt\+Callback()}}.
 
 Gráfico de llamadas de esta función:\nopagebreak
 \begin{figure}[H]
@@ -366,6 +376,18 @@ void ssd1306\+\_\+\+Attach\+\_\+\+Mem\+Write (\begin{DoxyParamCaption}\item[{voi
 
 
 
+Asocia el manejador bloqueante de escritura en memoria I2C. 
+
+
+\begin{DoxyParams}[1]{Parámetros}
+\doxymbox{\texttt{in}}  & {\em Ptr\+Rx} & Puntero a la función de transmisión I2C del microcontrolador. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyPostcond}{Postcondición}
+Configura el puntero de función interno de escritura. 
+\end{DoxyPostcond}
+
+
 Definición en la línea \doxymbox{\hyperlink{ssd1306_8c_source_l00107}{107}} del archivo \doxymbox{\hyperlink{ssd1306_8c_source}{ssd1306.\+c}}.
 
 
@@ -381,7 +403,7 @@ Hace referencia a \doxymbox{\hyperlink{mpu6050_8c_source_l00021}{mem\+Write}} y 
 
 
 
-Referenciado por \doxymbox{\hyperlink{main_8c_source_l03056}{main()}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00107}{ssd1306\+\_\+\+Attach\+\_\+\+Mem\+Write()}}.
+Referenciado por \doxymbox{\hyperlink{main_8c_source_l03696}{main()}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00107}{ssd1306\+\_\+\+Attach\+\_\+\+Mem\+Write()}}.
 
 Gráfico de llamadas de esta función:\nopagebreak
 \begin{figure}[H]
@@ -405,6 +427,18 @@ void ssd1306\+\_\+\+Attach\+\_\+\+Mem\+Write\+DMA (\begin{DoxyParamCaption}\item
 
 
 
+Asocia el manejador no bloqueante de escritura DMA en bus I2C. 
+
+
+\begin{DoxyParams}[1]{Parámetros}
+\doxymbox{\texttt{in}}  & {\em Ptr\+Rx} & Puntero a la función de transmisión I2C DMA ({\ttfamily \doxylink{group___i2_c___exported___functions___group2_ga12a2a86be393359534f630cdd090d8bb}{HAL\+\_\+\+I2\+C\+\_\+\+Mem\+\_\+\+Write\+\_\+\+DMA}}). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyPostcond}{Postcondición}
+Configura el puntero de función interno de DMA. 
+\end{DoxyPostcond}
+
+
 Definición en la línea \doxymbox{\hyperlink{ssd1306_8c_source_l00103}{103}} del archivo \doxymbox{\hyperlink{ssd1306_8c_source}{ssd1306.\+c}}.
 
 
@@ -420,7 +454,7 @@ Hace referencia a \doxymbox{\hyperlink{ssd1306_8c_source_l00019}{mem\+Write\+DMA
 
 
 
-Referenciado por \doxymbox{\hyperlink{main_8c_source_l03056}{main()}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00103}{ssd1306\+\_\+\+Attach\+\_\+\+Mem\+Write\+DMA()}}.
+Referenciado por \doxymbox{\hyperlink{main_8c_source_l03696}{main()}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00103}{ssd1306\+\_\+\+Attach\+\_\+\+Mem\+Write\+DMA()}}.
 
 Gráfico de llamadas de esta función:\nopagebreak
 \begin{figure}[H]
@@ -472,14 +506,13 @@ void ssd1306\+\_\+\+Draw\+Arc\+With\+Radius\+Line (\begin{DoxyParamCaption}\item
 
 
 
-Hace referencia a \doxymbox{\hyperlink{ssd1306_8h_a868a05ae2ca0b4f968e8dce6c9b181e1}{ssd1306\+\_\+\+Draw\+Arc\+With\+Radius\+Line()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00651}{ssd1306\+\_\+\+Draw\+Bitmap()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00525}{ssd1306\+\_\+\+Draw\+Circle()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00596}{ssd1306\+\_\+\+Draw\+Rectangle()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00094}{ssd1306\+\_\+\+Fill\+Buffer()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00560}{ssd1306\+\_\+\+Fill\+Circle()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00606}{ssd1306\+\_\+\+Fill\+Rectangle()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00620}{ssd1306\+\_\+\+Invert\+Rectangle()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00401}{ssd1306\+\_\+\+Polyline()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00027}{ssd1306\+\_\+\+Reset()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00032}{ssd1306\+\_\+\+Write\+Command()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00037}{ssd1306\+\_\+\+Write\+Command\+DMA()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00043}{ssd1306\+\_\+\+Write\+Data()}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00048}{ssd1306\+\_\+\+Write\+Data\+DMA()}}.
+Hace referencia a \doxymbox{\hyperlink{ssd1306_8h_a868a05ae2ca0b4f968e8dce6c9b181e1}{ssd1306\+\_\+\+Draw\+Arc\+With\+Radius\+Line()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00696}{ssd1306\+\_\+\+Draw\+Bitmap()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00570}{ssd1306\+\_\+\+Draw\+Circle()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00641}{ssd1306\+\_\+\+Draw\+Rectangle()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00094}{ssd1306\+\_\+\+Fill\+Buffer()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00605}{ssd1306\+\_\+\+Fill\+Circle()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00651}{ssd1306\+\_\+\+Fill\+Rectangle()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00665}{ssd1306\+\_\+\+Invert\+Rectangle()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00446}{ssd1306\+\_\+\+Polyline()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00027}{ssd1306\+\_\+\+Reset()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00032}{ssd1306\+\_\+\+Write\+Command()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00037}{ssd1306\+\_\+\+Write\+Command\+DMA()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00043}{ssd1306\+\_\+\+Write\+Data()}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00048}{ssd1306\+\_\+\+Write\+Data\+DMA()}}.
 
 
 
 Referenciado por \doxymbox{\hyperlink{ssd1306_8h_a868a05ae2ca0b4f968e8dce6c9b181e1}{ssd1306\+\_\+\+Draw\+Arc\+With\+Radius\+Line()}}.
 
-Gráfico de llamadas de esta función:
-\nopagebreak
+Gráfico de llamadas de esta función:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -503,42 +536,42 @@ void ssd1306\+\_\+\+Draw\+Bitmap (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{
 
 \texorpdfstring{$<$}{<} Alto de la pantalla OLED en píxeles
 
-Definición en la línea \doxymbox{\hyperlink{ssd1306_8c_source_l00651}{651}} del archivo \doxymbox{\hyperlink{ssd1306_8c_source}{ssd1306.\+c}}.
+Definición en la línea \doxymbox{\hyperlink{ssd1306_8c_source_l00696}{696}} del archivo \doxymbox{\hyperlink{ssd1306_8c_source}{ssd1306.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00651\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00652\ \ \ \ \ int16\_t\ byteWidth\ =\ (w\ +\ 7)\ /\ 8;\ \textcolor{comment}{//\ Bitmap\ scanline\ pad\ =\ whole\ byte}}
-\DoxyCodeLine{00653\ \ \ \ \ uint8\_t\ \textcolor{keywordtype}{byte}\ =\ 0;}
-\DoxyCodeLine{00654\ }
-\DoxyCodeLine{00655\ \ \ \ \ \textcolor{keywordflow}{if}\ (x\ >=\ \doxymbox{\hyperlink{ssd1306_8h_ae5a2aa8865dd03537b97fd1c9037371b}{SSD1306\_WIDTH}}\ ||\ y\ >=\ \doxymbox{\hyperlink{ssd1306_8h_a4e9409448a0df95c1686670e09b457b7}{SSD1306\_HEIGHT}})\ \{}
-\DoxyCodeLine{00656\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
-\DoxyCodeLine{00657\ \ \ \ \ \}}
-\DoxyCodeLine{00658\ }
-\DoxyCodeLine{00659\ \ \ \ \ \textcolor{keywordflow}{for}\ (uint8\_t\ j\ =\ 0;\ j\ <\ h;\ j++,\ y++)\ \{}
-\DoxyCodeLine{00660\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (uint8\_t\ i\ =\ 0;\ i\ <\ w;\ i++)\ \{}
-\DoxyCodeLine{00661\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (i\ \&\ 7)\ \{}
-\DoxyCodeLine{00662\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{byte}\ <<=\ 1;}
-\DoxyCodeLine{00663\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
-\DoxyCodeLine{00664\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{byte}\ =\ (*(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *)(\&bitmap[j\ *\ byteWidth\ +\ i\ /\ 8]));}
-\DoxyCodeLine{00665\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00666\ }
-\DoxyCodeLine{00667\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keywordtype}{byte}\ \&\ 0x80)\ \{}
-\DoxyCodeLine{00668\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_ad43cbb77ed1f735535e7251ca47ecf87}{ssd1306\_DrawPixel}}(x\ +\ i,\ y,\ color);}
-\DoxyCodeLine{00669\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00670\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00671\ \ \ \ \ \}}
-\DoxyCodeLine{00672\ \ \ \ \ \textcolor{keywordflow}{return};}
-\DoxyCodeLine{00673\ \}}
+\DoxyCodeLine{00696\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00697\ \ \ \ \ int16\_t\ byteWidth\ =\ (w\ +\ 7)\ /\ 8;\ \textcolor{comment}{//\ Bitmap\ scanline\ pad\ =\ whole\ byte}}
+\DoxyCodeLine{00698\ \ \ \ \ uint8\_t\ \textcolor{keywordtype}{byte}\ =\ 0;}
+\DoxyCodeLine{00699\ }
+\DoxyCodeLine{00700\ \ \ \ \ \textcolor{keywordflow}{if}\ (x\ >=\ \doxymbox{\hyperlink{ssd1306_8h_ae5a2aa8865dd03537b97fd1c9037371b}{SSD1306\_WIDTH}}\ ||\ y\ >=\ \doxymbox{\hyperlink{ssd1306_8h_a4e9409448a0df95c1686670e09b457b7}{SSD1306\_HEIGHT}})\ \{}
+\DoxyCodeLine{00701\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00702\ \ \ \ \ \}}
+\DoxyCodeLine{00703\ }
+\DoxyCodeLine{00704\ \ \ \ \ \textcolor{keywordflow}{for}\ (uint8\_t\ j\ =\ 0;\ j\ <\ h;\ j++,\ y++)\ \{}
+\DoxyCodeLine{00705\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (uint8\_t\ i\ =\ 0;\ i\ <\ w;\ i++)\ \{}
+\DoxyCodeLine{00706\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (i\ \&\ 7)\ \{}
+\DoxyCodeLine{00707\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{byte}\ <<=\ 1;}
+\DoxyCodeLine{00708\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00709\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{byte}\ =\ (*(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *)(\&bitmap[j\ *\ byteWidth\ +\ i\ /\ 8]));}
+\DoxyCodeLine{00710\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00711\ }
+\DoxyCodeLine{00712\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keywordtype}{byte}\ \&\ 0x80)\ \{}
+\DoxyCodeLine{00713\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_ad43cbb77ed1f735535e7251ca47ecf87}{ssd1306\_DrawPixel}}(x\ +\ i,\ y,\ color);}
+\DoxyCodeLine{00714\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00715\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00716\ \ \ \ \ \}}
+\DoxyCodeLine{00717\ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00718\ \}}
 
 \end{DoxyCode}
 
 
-Hace referencia a \doxymbox{\hyperlink{ssd1306_8c_source_l00651}{ssd1306\+\_\+\+Draw\+Bitmap()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00297}{ssd1306\+\_\+\+Draw\+Pixel()}}, \doxymbox{\hyperlink{ssd1306_8h_source_l00042}{SSD1306\+\_\+\+HEIGHT}} y \doxymbox{\hyperlink{ssd1306_8h_source_l00046}{SSD1306\+\_\+\+WIDTH}}.
+Hace referencia a \doxymbox{\hyperlink{ssd1306_8c_source_l00696}{ssd1306\+\_\+\+Draw\+Bitmap()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00342}{ssd1306\+\_\+\+Draw\+Pixel()}}, \doxymbox{\hyperlink{ssd1306_8h_source_l00042}{SSD1306\+\_\+\+HEIGHT}} y \doxymbox{\hyperlink{ssd1306_8h_source_l00046}{SSD1306\+\_\+\+WIDTH}}.
 
 
 
-Referenciado por \doxymbox{\hyperlink{ssd1306_8h_a868a05ae2ca0b4f968e8dce6c9b181e1}{ssd1306\+\_\+\+Draw\+Arc\+With\+Radius\+Line()}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00651}{ssd1306\+\_\+\+Draw\+Bitmap()}}.
+Referenciado por \doxymbox{\hyperlink{ssd1306_8h_a868a05ae2ca0b4f968e8dce6c9b181e1}{ssd1306\+\_\+\+Draw\+Arc\+With\+Radius\+Line()}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00696}{ssd1306\+\_\+\+Draw\+Bitmap()}}.
 
 Gráfico de llamadas de esta función:\nopagebreak
 \begin{figure}[H]
@@ -564,52 +597,52 @@ void ssd1306\+\_\+\+Draw\+Circle (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{
 
 \texorpdfstring{$<$}{<} Alto de la pantalla OLED en píxeles
 
-Definición en la línea \doxymbox{\hyperlink{ssd1306_8c_source_l00525}{525}} del archivo \doxymbox{\hyperlink{ssd1306_8c_source}{ssd1306.\+c}}.
+Definición en la línea \doxymbox{\hyperlink{ssd1306_8c_source_l00570}{570}} del archivo \doxymbox{\hyperlink{ssd1306_8c_source}{ssd1306.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00525\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00526\ \ \ \ \ int32\_t\ x\ =\ -\/par\_r;}
-\DoxyCodeLine{00527\ \ \ \ \ int32\_t\ y\ =\ 0;}
-\DoxyCodeLine{00528\ \ \ \ \ int32\_t\ err\ =\ 2\ -\/\ 2\ *\ par\_r;}
-\DoxyCodeLine{00529\ \ \ \ \ int32\_t\ e2;}
-\DoxyCodeLine{00530\ }
-\DoxyCodeLine{00531\ \ \ \ \ \textcolor{keywordflow}{if}\ (par\_x\ >=\ \doxymbox{\hyperlink{ssd1306_8h_ae5a2aa8865dd03537b97fd1c9037371b}{SSD1306\_WIDTH}}\ ||\ par\_y\ >=\ \doxymbox{\hyperlink{ssd1306_8h_a4e9409448a0df95c1686670e09b457b7}{SSD1306\_HEIGHT}})\ \{}
-\DoxyCodeLine{00532\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
-\DoxyCodeLine{00533\ \ \ \ \ \}}
-\DoxyCodeLine{00534\ }
-\DoxyCodeLine{00535\ \ \ \ \ \textcolor{keywordflow}{do}\ \{}
-\DoxyCodeLine{00536\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_ad43cbb77ed1f735535e7251ca47ecf87}{ssd1306\_DrawPixel}}(par\_x\ -\/\ x,\ par\_y\ +\ y,\ par\_color);}
-\DoxyCodeLine{00537\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_ad43cbb77ed1f735535e7251ca47ecf87}{ssd1306\_DrawPixel}}(par\_x\ +\ x,\ par\_y\ +\ y,\ par\_color);}
-\DoxyCodeLine{00538\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_ad43cbb77ed1f735535e7251ca47ecf87}{ssd1306\_DrawPixel}}(par\_x\ +\ x,\ par\_y\ -\/\ y,\ par\_color);}
-\DoxyCodeLine{00539\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_ad43cbb77ed1f735535e7251ca47ecf87}{ssd1306\_DrawPixel}}(par\_x\ -\/\ x,\ par\_y\ -\/\ y,\ par\_color);}
-\DoxyCodeLine{00540\ \ \ \ \ \ \ \ \ e2\ =\ err;}
-\DoxyCodeLine{00541\ }
-\DoxyCodeLine{00542\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (e2\ <=\ y)\ \{}
-\DoxyCodeLine{00543\ \ \ \ \ \ \ \ \ \ \ \ \ y++;}
-\DoxyCodeLine{00544\ \ \ \ \ \ \ \ \ \ \ \ \ err\ =\ err\ +\ (y\ *\ 2\ +\ 1);}
-\DoxyCodeLine{00545\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(-\/x\ ==\ y\ \&\&\ e2\ <=\ x)\ \{}
-\DoxyCodeLine{00546\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ e2\ =\ 0;}
-\DoxyCodeLine{00547\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00548\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00549\ }
-\DoxyCodeLine{00550\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (e2\ >\ x)\ \{}
-\DoxyCodeLine{00551\ \ \ \ \ \ \ \ \ \ \ \ \ x++;}
-\DoxyCodeLine{00552\ \ \ \ \ \ \ \ \ \ \ \ \ err\ =\ err\ +\ (x\ *\ 2\ +\ 1);}
-\DoxyCodeLine{00553\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00554\ \ \ \ \ \}\ \textcolor{keywordflow}{while}\ (x\ <=\ 0);}
-\DoxyCodeLine{00555\ }
-\DoxyCodeLine{00556\ \ \ \ \ \textcolor{keywordflow}{return};}
-\DoxyCodeLine{00557\ \}}
+\DoxyCodeLine{00570\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00571\ \ \ \ \ int32\_t\ x\ =\ -\/par\_r;}
+\DoxyCodeLine{00572\ \ \ \ \ int32\_t\ y\ =\ 0;}
+\DoxyCodeLine{00573\ \ \ \ \ int32\_t\ err\ =\ 2\ -\/\ 2\ *\ par\_r;}
+\DoxyCodeLine{00574\ \ \ \ \ int32\_t\ e2;}
+\DoxyCodeLine{00575\ }
+\DoxyCodeLine{00576\ \ \ \ \ \textcolor{keywordflow}{if}\ (par\_x\ >=\ \doxymbox{\hyperlink{ssd1306_8h_ae5a2aa8865dd03537b97fd1c9037371b}{SSD1306\_WIDTH}}\ ||\ par\_y\ >=\ \doxymbox{\hyperlink{ssd1306_8h_a4e9409448a0df95c1686670e09b457b7}{SSD1306\_HEIGHT}})\ \{}
+\DoxyCodeLine{00577\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00578\ \ \ \ \ \}}
+\DoxyCodeLine{00579\ }
+\DoxyCodeLine{00580\ \ \ \ \ \textcolor{keywordflow}{do}\ \{}
+\DoxyCodeLine{00581\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_ad43cbb77ed1f735535e7251ca47ecf87}{ssd1306\_DrawPixel}}(par\_x\ -\/\ x,\ par\_y\ +\ y,\ par\_color);}
+\DoxyCodeLine{00582\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_ad43cbb77ed1f735535e7251ca47ecf87}{ssd1306\_DrawPixel}}(par\_x\ +\ x,\ par\_y\ +\ y,\ par\_color);}
+\DoxyCodeLine{00583\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_ad43cbb77ed1f735535e7251ca47ecf87}{ssd1306\_DrawPixel}}(par\_x\ +\ x,\ par\_y\ -\/\ y,\ par\_color);}
+\DoxyCodeLine{00584\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_ad43cbb77ed1f735535e7251ca47ecf87}{ssd1306\_DrawPixel}}(par\_x\ -\/\ x,\ par\_y\ -\/\ y,\ par\_color);}
+\DoxyCodeLine{00585\ \ \ \ \ \ \ \ \ e2\ =\ err;}
+\DoxyCodeLine{00586\ }
+\DoxyCodeLine{00587\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (e2\ <=\ y)\ \{}
+\DoxyCodeLine{00588\ \ \ \ \ \ \ \ \ \ \ \ \ y++;}
+\DoxyCodeLine{00589\ \ \ \ \ \ \ \ \ \ \ \ \ err\ =\ err\ +\ (y\ *\ 2\ +\ 1);}
+\DoxyCodeLine{00590\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(-\/x\ ==\ y\ \&\&\ e2\ <=\ x)\ \{}
+\DoxyCodeLine{00591\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ e2\ =\ 0;}
+\DoxyCodeLine{00592\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00593\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00594\ }
+\DoxyCodeLine{00595\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (e2\ >\ x)\ \{}
+\DoxyCodeLine{00596\ \ \ \ \ \ \ \ \ \ \ \ \ x++;}
+\DoxyCodeLine{00597\ \ \ \ \ \ \ \ \ \ \ \ \ err\ =\ err\ +\ (x\ *\ 2\ +\ 1);}
+\DoxyCodeLine{00598\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00599\ \ \ \ \ \}\ \textcolor{keywordflow}{while}\ (x\ <=\ 0);}
+\DoxyCodeLine{00600\ }
+\DoxyCodeLine{00601\ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00602\ \}}
 
 \end{DoxyCode}
 
 
-Hace referencia a \doxymbox{\hyperlink{ssd1306_8c_source_l00525}{ssd1306\+\_\+\+Draw\+Circle()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00297}{ssd1306\+\_\+\+Draw\+Pixel()}}, \doxymbox{\hyperlink{ssd1306_8h_source_l00042}{SSD1306\+\_\+\+HEIGHT}} y \doxymbox{\hyperlink{ssd1306_8h_source_l00046}{SSD1306\+\_\+\+WIDTH}}.
+Hace referencia a \doxymbox{\hyperlink{ssd1306_8c_source_l00570}{ssd1306\+\_\+\+Draw\+Circle()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00342}{ssd1306\+\_\+\+Draw\+Pixel()}}, \doxymbox{\hyperlink{ssd1306_8h_source_l00042}{SSD1306\+\_\+\+HEIGHT}} y \doxymbox{\hyperlink{ssd1306_8h_source_l00046}{SSD1306\+\_\+\+WIDTH}}.
 
 
 
-Referenciado por \doxymbox{\hyperlink{ssd1306_8h_a868a05ae2ca0b4f968e8dce6c9b181e1}{ssd1306\+\_\+\+Draw\+Arc\+With\+Radius\+Line()}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00525}{ssd1306\+\_\+\+Draw\+Circle()}}.
+Referenciado por \doxymbox{\hyperlink{ssd1306_8h_a868a05ae2ca0b4f968e8dce6c9b181e1}{ssd1306\+\_\+\+Draw\+Arc\+With\+Radius\+Line()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00570}{ssd1306\+\_\+\+Draw\+Circle()}} y \doxymbox{\hyperlink{main_8c_source_l01641}{ssd1306\+Data()}}.
 
 Gráfico de llamadas de esta función:\nopagebreak
 \begin{figure}[H]
@@ -639,32 +672,32 @@ void ssd1306\+\_\+\+Draw\+Pixel (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{x
 
 \texorpdfstring{$<$}{<} Ancho de la pantalla OLED en píxeles
 
-Definición en la línea \doxymbox{\hyperlink{ssd1306_8c_source_l00297}{297}} del archivo \doxymbox{\hyperlink{ssd1306_8c_source}{ssd1306.\+c}}.
+Definición en la línea \doxymbox{\hyperlink{ssd1306_8c_source_l00342}{342}} del archivo \doxymbox{\hyperlink{ssd1306_8c_source}{ssd1306.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00298\ \ \ \ \ \textcolor{keywordflow}{if}(x\ >=\ \doxymbox{\hyperlink{ssd1306_8h_ae5a2aa8865dd03537b97fd1c9037371b}{SSD1306\_WIDTH}}\ ||\ y\ >=\ \doxymbox{\hyperlink{ssd1306_8h_a4e9409448a0df95c1686670e09b457b7}{SSD1306\_HEIGHT}})\ \{}
-\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Don't\ write\ outside\ the\ buffer}}
-\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
-\DoxyCodeLine{00301\ \ \ \ \ \}}
-\DoxyCodeLine{00302\ }
-\DoxyCodeLine{00303\ \ \ \ \ \textcolor{comment}{//\ Draw\ in\ the\ right\ color}}
-\DoxyCodeLine{00304\ \ \ \ \ \textcolor{keywordflow}{if}(color\ ==\ \doxymbox{\hyperlink{ssd1306_8h_a6f68a90e6eefe5396bcbec2cd699d500ab548046646b36c12aa6ba841de500094}{White}})\ \{}
-\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8c_ad9e745ffe57814bcd1306909ab8fe59e}{SSD1306\_Buffer}}[x\ +\ (y\ /\ 8)\ *\ \doxymbox{\hyperlink{ssd1306_8h_ae5a2aa8865dd03537b97fd1c9037371b}{SSD1306\_WIDTH}}]\ |=\ 1\ <<\ (y\ \%\ 8);}
-\DoxyCodeLine{00306\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
-\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8c_ad9e745ffe57814bcd1306909ab8fe59e}{SSD1306\_Buffer}}[x\ +\ (y\ /\ 8)\ *\ \doxymbox{\hyperlink{ssd1306_8h_ae5a2aa8865dd03537b97fd1c9037371b}{SSD1306\_WIDTH}}]\ \&=\ \string~(1\ <<\ (y\ \%\ 8));}
-\DoxyCodeLine{00308\ \ \ \ \ \}}
-\DoxyCodeLine{00309\ \}}
+\DoxyCodeLine{00342\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00343\ \ \ \ \ \textcolor{keywordflow}{if}(x\ >=\ \doxymbox{\hyperlink{ssd1306_8h_ae5a2aa8865dd03537b97fd1c9037371b}{SSD1306\_WIDTH}}\ ||\ y\ >=\ \doxymbox{\hyperlink{ssd1306_8h_a4e9409448a0df95c1686670e09b457b7}{SSD1306\_HEIGHT}})\ \{}
+\DoxyCodeLine{00344\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Don't\ write\ outside\ the\ buffer}}
+\DoxyCodeLine{00345\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00346\ \ \ \ \ \}}
+\DoxyCodeLine{00347\ }
+\DoxyCodeLine{00348\ \ \ \ \ \textcolor{comment}{//\ Draw\ in\ the\ right\ color}}
+\DoxyCodeLine{00349\ \ \ \ \ \textcolor{keywordflow}{if}(color\ ==\ \doxymbox{\hyperlink{ssd1306_8h_a6f68a90e6eefe5396bcbec2cd699d500ab548046646b36c12aa6ba841de500094}{White}})\ \{}
+\DoxyCodeLine{00350\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8c_ad9e745ffe57814bcd1306909ab8fe59e}{SSD1306\_Buffer}}[x\ +\ (y\ /\ 8)\ *\ \doxymbox{\hyperlink{ssd1306_8h_ae5a2aa8865dd03537b97fd1c9037371b}{SSD1306\_WIDTH}}]\ |=\ 1\ <<\ (y\ \%\ 8);}
+\DoxyCodeLine{00351\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00352\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8c_ad9e745ffe57814bcd1306909ab8fe59e}{SSD1306\_Buffer}}[x\ +\ (y\ /\ 8)\ *\ \doxymbox{\hyperlink{ssd1306_8h_ae5a2aa8865dd03537b97fd1c9037371b}{SSD1306\_WIDTH}}]\ \&=\ \string~(1\ <<\ (y\ \%\ 8));}
+\DoxyCodeLine{00353\ \ \ \ \ \}}
+\DoxyCodeLine{00354\ \}}
 
 \end{DoxyCode}
 
 
-Hace referencia a \doxymbox{\hyperlink{ssd1306_8c_source_l00088}{SSD1306\+\_\+\+Buffer}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00297}{ssd1306\+\_\+\+Draw\+Pixel()}}, \doxymbox{\hyperlink{ssd1306_8h_source_l00042}{SSD1306\+\_\+\+HEIGHT}}, \doxymbox{\hyperlink{ssd1306_8h_source_l00046}{SSD1306\+\_\+\+WIDTH}} y \doxymbox{\hyperlink{ssd1306_8h_source_l00058}{White}}.
+Hace referencia a \doxymbox{\hyperlink{ssd1306_8c_source_l00088}{SSD1306\+\_\+\+Buffer}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00342}{ssd1306\+\_\+\+Draw\+Pixel()}}, \doxymbox{\hyperlink{ssd1306_8h_source_l00042}{SSD1306\+\_\+\+HEIGHT}}, \doxymbox{\hyperlink{ssd1306_8h_source_l00046}{SSD1306\+\_\+\+WIDTH}} y \doxymbox{\hyperlink{ssd1306_8h_source_l00058}{White}}.
 
 
 
-Referenciado por \doxymbox{\hyperlink{ssd1306_8c_source_l00651}{ssd1306\+\_\+\+Draw\+Bitmap()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00525}{ssd1306\+\_\+\+Draw\+Circle()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00297}{ssd1306\+\_\+\+Draw\+Pixel()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00560}{ssd1306\+\_\+\+Fill\+Circle()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00606}{ssd1306\+\_\+\+Fill\+Rectangle()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00374}{ssd1306\+\_\+\+Line()}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00317}{ssd1306\+\_\+\+Write\+Char()}}.
+Referenciado por \doxymbox{\hyperlink{ssd1306_8c_source_l00696}{ssd1306\+\_\+\+Draw\+Bitmap()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00570}{ssd1306\+\_\+\+Draw\+Circle()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00342}{ssd1306\+\_\+\+Draw\+Pixel()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00605}{ssd1306\+\_\+\+Fill\+Circle()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00651}{ssd1306\+\_\+\+Fill\+Rectangle()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00419}{ssd1306\+\_\+\+Line()}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00362}{ssd1306\+\_\+\+Write\+Char()}}.
 
 Gráfico de llamadas de esta función:\nopagebreak
 \begin{figure}[H]
@@ -673,8 +706,7 @@ Gráfico de llamadas de esta función:\nopagebreak
 \includegraphics[width=183pt]{ssd1306_8h_ad43cbb77ed1f735535e7251ca47ecf87_cgraph}
 \end{center}
 \end{figure}
-Gráfico de llamadas a esta función:
-\nopagebreak
+Gráfico de llamadas a esta función:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -689,27 +721,27 @@ void ssd1306\+\_\+\+Draw\+Rectangle (\begin{DoxyParamCaption}\item[{uint8\+\_\+t
 
 
 
-Definición en la línea \doxymbox{\hyperlink{ssd1306_8c_source_l00596}{596}} del archivo \doxymbox{\hyperlink{ssd1306_8c_source}{ssd1306.\+c}}.
+Definición en la línea \doxymbox{\hyperlink{ssd1306_8c_source_l00641}{641}} del archivo \doxymbox{\hyperlink{ssd1306_8c_source}{ssd1306.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00596\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00597\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a99529b2a48960312342d3c323aadcec8}{ssd1306\_Line}}(x1,y1,x2,y1,color);}
-\DoxyCodeLine{00598\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a99529b2a48960312342d3c323aadcec8}{ssd1306\_Line}}(x2,y1,x2,y2,color);}
-\DoxyCodeLine{00599\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a99529b2a48960312342d3c323aadcec8}{ssd1306\_Line}}(x2,y2,x1,y2,color);}
-\DoxyCodeLine{00600\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a99529b2a48960312342d3c323aadcec8}{ssd1306\_Line}}(x1,y2,x1,y1,color);}
-\DoxyCodeLine{00601\ }
-\DoxyCodeLine{00602\ \ \ \ \ \textcolor{keywordflow}{return};}
-\DoxyCodeLine{00603\ \}}
+\DoxyCodeLine{00641\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00642\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a99529b2a48960312342d3c323aadcec8}{ssd1306\_Line}}(x1,y1,x2,y1,color);}
+\DoxyCodeLine{00643\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a99529b2a48960312342d3c323aadcec8}{ssd1306\_Line}}(x2,y1,x2,y2,color);}
+\DoxyCodeLine{00644\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a99529b2a48960312342d3c323aadcec8}{ssd1306\_Line}}(x2,y2,x1,y2,color);}
+\DoxyCodeLine{00645\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a99529b2a48960312342d3c323aadcec8}{ssd1306\_Line}}(x1,y2,x1,y1,color);}
+\DoxyCodeLine{00646\ }
+\DoxyCodeLine{00647\ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00648\ \}}
 
 \end{DoxyCode}
 
 
-Hace referencia a \doxymbox{\hyperlink{ssd1306_8c_source_l00596}{ssd1306\+\_\+\+Draw\+Rectangle()}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00374}{ssd1306\+\_\+\+Line()}}.
+Hace referencia a \doxymbox{\hyperlink{ssd1306_8c_source_l00641}{ssd1306\+\_\+\+Draw\+Rectangle()}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00419}{ssd1306\+\_\+\+Line()}}.
 
 
 
-Referenciado por \doxymbox{\hyperlink{ssd1306_8h_a868a05ae2ca0b4f968e8dce6c9b181e1}{ssd1306\+\_\+\+Draw\+Arc\+With\+Radius\+Line()}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00596}{ssd1306\+\_\+\+Draw\+Rectangle()}}.
+Referenciado por \doxymbox{\hyperlink{ssd1306_8h_a868a05ae2ca0b4f968e8dce6c9b181e1}{ssd1306\+\_\+\+Draw\+Arc\+With\+Radius\+Line()}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00641}{ssd1306\+\_\+\+Draw\+Rectangle()}}.
 
 Gráfico de llamadas de esta función:\nopagebreak
 \begin{figure}[H]
@@ -733,6 +765,18 @@ void ssd1306\+\_\+\+Fill (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{ss
 
 
 
+Rellena el framebuffer completo de 1024 bytes con un color uniforme (Black o White). 
+
+
+\begin{DoxyParams}[1]{Parámetros}
+\doxymbox{\texttt{in}}  & {\em color} & Color de relleno ({\ttfamily \doxylink{ssd1306_8h_a6f68a90e6eefe5396bcbec2cd699d500ac1e9bce8242f443c54c7405223d616cd}{Black}}: 0x00, {\ttfamily \doxylink{ssd1306_8h_a6f68a90e6eefe5396bcbec2cd699d500ab548046646b36c12aa6ba841de500094}{White}}: 0x\+FF). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyPostcond}{Postcondición}
+Modifica los 1024 bytes del array {\ttfamily SSD1306\+\_\+\+Buffer}. 
+\end{DoxyPostcond}
+
+
 Definición en la línea \doxymbox{\hyperlink{ssd1306_8c_source_l00219}{219}} del archivo \doxymbox{\hyperlink{ssd1306_8c_source}{ssd1306.\+c}}.
 
 
@@ -748,7 +792,7 @@ Hace referencia a \doxymbox{\hyperlink{ssd1306_8h_source_l00057}{Black}}, \doxym
 
 
 
-Referenciado por \doxymbox{\hyperlink{main_8c_source_l02975}{Handle\+Mode\+Screen\+Transition()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00219}{ssd1306\+\_\+\+Fill()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00116}{ssd1306\+\_\+\+Init()}}, \doxymbox{\hyperlink{main_8c_source_l01507}{ssd1306\+Data()}}, \doxymbox{\hyperlink{wiregfx_8c_source_l00114}{WIREGFX\+\_\+\+Graphics\+\_\+\+Draw\+Cube()}}, \doxymbox{\hyperlink{wiregfx_8c_source_l00200}{WIREGFX\+\_\+\+Graphics\+\_\+\+Draw\+Pyramid()}}, \doxymbox{\hyperlink{wiregfx_8c_source_l00243}{WIREGFX\+\_\+\+Graphics\+\_\+\+Draw\+Sphere()}} y \doxymbox{\hyperlink{wiregfx_8c_source_l00155}{WIREGFX\+\_\+\+Graphics\+\_\+\+Draw\+Tesseract()}}.
+Referenciado por \doxymbox{\hyperlink{main_8c_source_l03615}{Handle\+Mode\+Screen\+Transition()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00219}{ssd1306\+\_\+\+Fill()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00116}{ssd1306\+\_\+\+Init()}}, \doxymbox{\hyperlink{main_8c_source_l01641}{ssd1306\+Data()}}, \doxymbox{\hyperlink{wiregfx_8c_source_l00126}{WIREGFX\+\_\+\+Graphics\+\_\+\+Draw\+Cube()}}, \doxymbox{\hyperlink{wiregfx_8c_source_l00231}{WIREGFX\+\_\+\+Graphics\+\_\+\+Draw\+Pyramid()}}, \doxymbox{\hyperlink{wiregfx_8c_source_l00283}{WIREGFX\+\_\+\+Graphics\+\_\+\+Draw\+Sphere()}} y \doxymbox{\hyperlink{wiregfx_8c_source_l00177}{WIREGFX\+\_\+\+Graphics\+\_\+\+Draw\+Tesseract()}}.
 
 Gráfico de llamadas de esta función:\nopagebreak
 \begin{figure}[H]
@@ -757,8 +801,7 @@ Gráfico de llamadas de esta función:\nopagebreak
 \includegraphics[width=151pt]{ssd1306_8h_a77620914b6d1247e7515a36c38672391_cgraph}
 \end{center}
 \end{figure}
-Gráfico de llamadas a esta función:
-\nopagebreak
+Gráfico de llamadas a esta función:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -823,53 +866,53 @@ void ssd1306\+\_\+\+Fill\+Circle (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{
 
 \texorpdfstring{$<$}{<} Alto de la pantalla OLED en píxeles
 
-Definición en la línea \doxymbox{\hyperlink{ssd1306_8c_source_l00560}{560}} del archivo \doxymbox{\hyperlink{ssd1306_8c_source}{ssd1306.\+c}}.
+Definición en la línea \doxymbox{\hyperlink{ssd1306_8c_source_l00605}{605}} del archivo \doxymbox{\hyperlink{ssd1306_8c_source}{ssd1306.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00560\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00561\ \ \ \ \ int32\_t\ x\ =\ -\/par\_r;}
-\DoxyCodeLine{00562\ \ \ \ \ int32\_t\ y\ =\ 0;}
-\DoxyCodeLine{00563\ \ \ \ \ int32\_t\ err\ =\ 2\ -\/\ 2\ *\ par\_r;}
-\DoxyCodeLine{00564\ \ \ \ \ int32\_t\ e2;}
-\DoxyCodeLine{00565\ }
-\DoxyCodeLine{00566\ \ \ \ \ \textcolor{keywordflow}{if}\ (par\_x\ >=\ \doxymbox{\hyperlink{ssd1306_8h_ae5a2aa8865dd03537b97fd1c9037371b}{SSD1306\_WIDTH}}\ ||\ par\_y\ >=\ \doxymbox{\hyperlink{ssd1306_8h_a4e9409448a0df95c1686670e09b457b7}{SSD1306\_HEIGHT}})\ \{}
-\DoxyCodeLine{00567\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
-\DoxyCodeLine{00568\ \ \ \ \ \}}
-\DoxyCodeLine{00569\ }
-\DoxyCodeLine{00570\ \ \ \ \ \textcolor{keywordflow}{do}\ \{}
-\DoxyCodeLine{00571\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (uint8\_t\ \_y\ =\ (par\_y\ +\ y);\ \_y\ >=\ (par\_y\ -\/\ y);\ \_y-\/-\/)\ \{}
-\DoxyCodeLine{00572\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (uint8\_t\ \_x\ =\ (par\_x\ -\/\ x);\ \_x\ >=\ (par\_x\ +\ x);\ \_x-\/-\/)\ \{}
-\DoxyCodeLine{00573\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_ad43cbb77ed1f735535e7251ca47ecf87}{ssd1306\_DrawPixel}}(\_x,\ \_y,\ par\_color);}
-\DoxyCodeLine{00574\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00575\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00576\ }
-\DoxyCodeLine{00577\ \ \ \ \ \ \ \ \ e2\ =\ err;}
-\DoxyCodeLine{00578\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (e2\ <=\ y)\ \{}
-\DoxyCodeLine{00579\ \ \ \ \ \ \ \ \ \ \ \ \ y++;}
-\DoxyCodeLine{00580\ \ \ \ \ \ \ \ \ \ \ \ \ err\ =\ err\ +\ (y\ *\ 2\ +\ 1);}
-\DoxyCodeLine{00581\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (-\/x\ ==\ y\ \&\&\ e2\ <=\ x)\ \{}
-\DoxyCodeLine{00582\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ e2\ =\ 0;}
-\DoxyCodeLine{00583\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00584\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00585\ }
-\DoxyCodeLine{00586\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (e2\ >\ x)\ \{}
-\DoxyCodeLine{00587\ \ \ \ \ \ \ \ \ \ \ \ \ x++;}
-\DoxyCodeLine{00588\ \ \ \ \ \ \ \ \ \ \ \ \ err\ =\ err\ +\ (x\ *\ 2\ +\ 1);}
-\DoxyCodeLine{00589\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00590\ \ \ \ \ \}\ \textcolor{keywordflow}{while}\ (x\ <=\ 0);}
-\DoxyCodeLine{00591\ }
-\DoxyCodeLine{00592\ \ \ \ \ \textcolor{keywordflow}{return};}
-\DoxyCodeLine{00593\ \}}
+\DoxyCodeLine{00605\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00606\ \ \ \ \ int32\_t\ x\ =\ -\/par\_r;}
+\DoxyCodeLine{00607\ \ \ \ \ int32\_t\ y\ =\ 0;}
+\DoxyCodeLine{00608\ \ \ \ \ int32\_t\ err\ =\ 2\ -\/\ 2\ *\ par\_r;}
+\DoxyCodeLine{00609\ \ \ \ \ int32\_t\ e2;}
+\DoxyCodeLine{00610\ }
+\DoxyCodeLine{00611\ \ \ \ \ \textcolor{keywordflow}{if}\ (par\_x\ >=\ \doxymbox{\hyperlink{ssd1306_8h_ae5a2aa8865dd03537b97fd1c9037371b}{SSD1306\_WIDTH}}\ ||\ par\_y\ >=\ \doxymbox{\hyperlink{ssd1306_8h_a4e9409448a0df95c1686670e09b457b7}{SSD1306\_HEIGHT}})\ \{}
+\DoxyCodeLine{00612\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00613\ \ \ \ \ \}}
+\DoxyCodeLine{00614\ }
+\DoxyCodeLine{00615\ \ \ \ \ \textcolor{keywordflow}{do}\ \{}
+\DoxyCodeLine{00616\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (uint8\_t\ \_y\ =\ (par\_y\ +\ y);\ \_y\ >=\ (par\_y\ -\/\ y);\ \_y-\/-\/)\ \{}
+\DoxyCodeLine{00617\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (uint8\_t\ \_x\ =\ (par\_x\ -\/\ x);\ \_x\ >=\ (par\_x\ +\ x);\ \_x-\/-\/)\ \{}
+\DoxyCodeLine{00618\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_ad43cbb77ed1f735535e7251ca47ecf87}{ssd1306\_DrawPixel}}(\_x,\ \_y,\ par\_color);}
+\DoxyCodeLine{00619\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00620\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00621\ }
+\DoxyCodeLine{00622\ \ \ \ \ \ \ \ \ e2\ =\ err;}
+\DoxyCodeLine{00623\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (e2\ <=\ y)\ \{}
+\DoxyCodeLine{00624\ \ \ \ \ \ \ \ \ \ \ \ \ y++;}
+\DoxyCodeLine{00625\ \ \ \ \ \ \ \ \ \ \ \ \ err\ =\ err\ +\ (y\ *\ 2\ +\ 1);}
+\DoxyCodeLine{00626\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (-\/x\ ==\ y\ \&\&\ e2\ <=\ x)\ \{}
+\DoxyCodeLine{00627\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ e2\ =\ 0;}
+\DoxyCodeLine{00628\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00629\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00630\ }
+\DoxyCodeLine{00631\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (e2\ >\ x)\ \{}
+\DoxyCodeLine{00632\ \ \ \ \ \ \ \ \ \ \ \ \ x++;}
+\DoxyCodeLine{00633\ \ \ \ \ \ \ \ \ \ \ \ \ err\ =\ err\ +\ (x\ *\ 2\ +\ 1);}
+\DoxyCodeLine{00634\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00635\ \ \ \ \ \}\ \textcolor{keywordflow}{while}\ (x\ <=\ 0);}
+\DoxyCodeLine{00636\ }
+\DoxyCodeLine{00637\ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00638\ \}}
 
 \end{DoxyCode}
 
 
-Hace referencia a \doxymbox{\hyperlink{ssd1306_8c_source_l00297}{ssd1306\+\_\+\+Draw\+Pixel()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00560}{ssd1306\+\_\+\+Fill\+Circle()}}, \doxymbox{\hyperlink{ssd1306_8h_source_l00042}{SSD1306\+\_\+\+HEIGHT}} y \doxymbox{\hyperlink{ssd1306_8h_source_l00046}{SSD1306\+\_\+\+WIDTH}}.
+Hace referencia a \doxymbox{\hyperlink{ssd1306_8c_source_l00342}{ssd1306\+\_\+\+Draw\+Pixel()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00605}{ssd1306\+\_\+\+Fill\+Circle()}}, \doxymbox{\hyperlink{ssd1306_8h_source_l00042}{SSD1306\+\_\+\+HEIGHT}} y \doxymbox{\hyperlink{ssd1306_8h_source_l00046}{SSD1306\+\_\+\+WIDTH}}.
 
 
 
-Referenciado por \doxymbox{\hyperlink{ssd1306_8h_a868a05ae2ca0b4f968e8dce6c9b181e1}{ssd1306\+\_\+\+Draw\+Arc\+With\+Radius\+Line()}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00560}{ssd1306\+\_\+\+Fill\+Circle()}}.
+Referenciado por \doxymbox{\hyperlink{ssd1306_8h_a868a05ae2ca0b4f968e8dce6c9b181e1}{ssd1306\+\_\+\+Draw\+Arc\+With\+Radius\+Line()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00605}{ssd1306\+\_\+\+Fill\+Circle()}} y \doxymbox{\hyperlink{main_8c_source_l01641}{ssd1306\+Data()}}.
 
 Gráfico de llamadas de esta función:\nopagebreak
 \begin{figure}[H]
@@ -895,32 +938,32 @@ void ssd1306\+\_\+\+Fill\+Rectangle (\begin{DoxyParamCaption}\item[{uint8\+\_\+t
 
 \texorpdfstring{$<$}{<} Ancho de la pantalla OLED en píxeles
 
-Definición en la línea \doxymbox{\hyperlink{ssd1306_8c_source_l00606}{606}} del archivo \doxymbox{\hyperlink{ssd1306_8c_source}{ssd1306.\+c}}.
+Definición en la línea \doxymbox{\hyperlink{ssd1306_8c_source_l00651}{651}} del archivo \doxymbox{\hyperlink{ssd1306_8c_source}{ssd1306.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00606\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00607\ \ \ \ \ uint8\_t\ x\_start\ =\ ((x1<=x2)\ ?\ x1\ :\ x2);}
-\DoxyCodeLine{00608\ \ \ \ \ uint8\_t\ x\_end\ \ \ =\ ((x1<=x2)\ ?\ x2\ :\ x1);}
-\DoxyCodeLine{00609\ \ \ \ \ uint8\_t\ y\_start\ =\ ((y1<=y2)\ ?\ y1\ :\ y2);}
-\DoxyCodeLine{00610\ \ \ \ \ uint8\_t\ y\_end\ \ \ =\ ((y1<=y2)\ ?\ y2\ :\ y1);}
-\DoxyCodeLine{00611\ }
-\DoxyCodeLine{00612\ \ \ \ \ \textcolor{keywordflow}{for}\ (uint8\_t\ y=\ y\_start;\ (y<=\ y\_end)\&\&(y<\doxymbox{\hyperlink{ssd1306_8h_a4e9409448a0df95c1686670e09b457b7}{SSD1306\_HEIGHT}});\ y++)\ \{}
-\DoxyCodeLine{00613\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (uint8\_t\ x=\ x\_start;\ (x<=\ x\_end)\&\&(x<\doxymbox{\hyperlink{ssd1306_8h_ae5a2aa8865dd03537b97fd1c9037371b}{SSD1306\_WIDTH}});\ x++)\ \{}
-\DoxyCodeLine{00614\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_ad43cbb77ed1f735535e7251ca47ecf87}{ssd1306\_DrawPixel}}(x,\ y,\ color);}
-\DoxyCodeLine{00615\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00616\ \ \ \ \ \}}
-\DoxyCodeLine{00617\ \ \ \ \ \textcolor{keywordflow}{return};}
-\DoxyCodeLine{00618\ \}}
+\DoxyCodeLine{00651\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00652\ \ \ \ \ uint8\_t\ x\_start\ =\ ((x1<=x2)\ ?\ x1\ :\ x2);}
+\DoxyCodeLine{00653\ \ \ \ \ uint8\_t\ x\_end\ \ \ =\ ((x1<=x2)\ ?\ x2\ :\ x1);}
+\DoxyCodeLine{00654\ \ \ \ \ uint8\_t\ y\_start\ =\ ((y1<=y2)\ ?\ y1\ :\ y2);}
+\DoxyCodeLine{00655\ \ \ \ \ uint8\_t\ y\_end\ \ \ =\ ((y1<=y2)\ ?\ y2\ :\ y1);}
+\DoxyCodeLine{00656\ }
+\DoxyCodeLine{00657\ \ \ \ \ \textcolor{keywordflow}{for}\ (uint8\_t\ y=\ y\_start;\ (y<=\ y\_end)\&\&(y<\doxymbox{\hyperlink{ssd1306_8h_a4e9409448a0df95c1686670e09b457b7}{SSD1306\_HEIGHT}});\ y++)\ \{}
+\DoxyCodeLine{00658\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (uint8\_t\ x=\ x\_start;\ (x<=\ x\_end)\&\&(x<\doxymbox{\hyperlink{ssd1306_8h_ae5a2aa8865dd03537b97fd1c9037371b}{SSD1306\_WIDTH}});\ x++)\ \{}
+\DoxyCodeLine{00659\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_ad43cbb77ed1f735535e7251ca47ecf87}{ssd1306\_DrawPixel}}(x,\ y,\ color);}
+\DoxyCodeLine{00660\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00661\ \ \ \ \ \}}
+\DoxyCodeLine{00662\ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00663\ \}}
 
 \end{DoxyCode}
 
 
-Hace referencia a \doxymbox{\hyperlink{ssd1306_8c_source_l00297}{ssd1306\+\_\+\+Draw\+Pixel()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00606}{ssd1306\+\_\+\+Fill\+Rectangle()}}, \doxymbox{\hyperlink{ssd1306_8h_source_l00042}{SSD1306\+\_\+\+HEIGHT}} y \doxymbox{\hyperlink{ssd1306_8h_source_l00046}{SSD1306\+\_\+\+WIDTH}}.
+Hace referencia a \doxymbox{\hyperlink{ssd1306_8c_source_l00342}{ssd1306\+\_\+\+Draw\+Pixel()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00651}{ssd1306\+\_\+\+Fill\+Rectangle()}}, \doxymbox{\hyperlink{ssd1306_8h_source_l00042}{SSD1306\+\_\+\+HEIGHT}} y \doxymbox{\hyperlink{ssd1306_8h_source_l00046}{SSD1306\+\_\+\+WIDTH}}.
 
 
 
-Referenciado por \doxymbox{\hyperlink{ssd1306_8h_a868a05ae2ca0b4f968e8dce6c9b181e1}{ssd1306\+\_\+\+Draw\+Arc\+With\+Radius\+Line()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00606}{ssd1306\+\_\+\+Fill\+Rectangle()}} y \doxymbox{\hyperlink{main_8c_source_l01507}{ssd1306\+Data()}}.
+Referenciado por \doxymbox{\hyperlink{ssd1306_8h_a868a05ae2ca0b4f968e8dce6c9b181e1}{ssd1306\+\_\+\+Draw\+Arc\+With\+Radius\+Line()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00651}{ssd1306\+\_\+\+Fill\+Rectangle()}} y \doxymbox{\hyperlink{main_8c_source_l01641}{ssd1306\+Data()}}.
 
 Gráfico de llamadas de esta función:\nopagebreak
 \begin{figure}[H]
@@ -929,8 +972,7 @@ Gráfico de llamadas de esta función:\nopagebreak
 \includegraphics[width=334pt]{ssd1306_8h_aabb10c31ffb533c3b96765581653e6c8_cgraph}
 \end{center}
 \end{figure}
-Gráfico de llamadas a esta función:
-\nopagebreak
+Gráfico de llamadas a esta función:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -945,33 +987,38 @@ uint8\+\_\+t ssd1306\+\_\+\+Get\+Display\+On (\begin{DoxyParamCaption}\item[{voi
 
 
 
-Definición en la línea \doxymbox{\hyperlink{ssd1306_8c_source_l00693}{693}} del archivo \doxymbox{\hyperlink{ssd1306_8c_source}{ssd1306.\+c}}.
+Consulta el estado actual de encendido del panel OLED. 
+
+\begin{DoxyReturn}{Devuelve}
+1 si el display está emitiendo luz, 0 si está en reposo. 
+\end{DoxyReturn}
+
+
+Definición en la línea \doxymbox{\hyperlink{ssd1306_8c_source_l00738}{738}} del archivo \doxymbox{\hyperlink{ssd1306_8c_source}{ssd1306.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00693\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00694\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{main_8c_ac634d6ee59a5746651149844d4736c7a}{SSD1306}}.DisplayOn;}
-\DoxyCodeLine{00695\ \}}
+\DoxyCodeLine{00738\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00739\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{main_8c_ac634d6ee59a5746651149844d4736c7a}{SSD1306}}.DisplayOn;}
+\DoxyCodeLine{00740\ \}}
 
 \end{DoxyCode}
 
 
-Hace referencia a \doxymbox{\hyperlink{main_8c_source_l00128}{SSD1306}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00693}{ssd1306\+\_\+\+Get\+Display\+On()}}.
+Hace referencia a \doxymbox{\hyperlink{main_8c_source_l00180}{SSD1306}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00738}{ssd1306\+\_\+\+Get\+Display\+On()}}.
 
 
 
-Referenciado por \doxymbox{\hyperlink{ssd1306_8c_source_l00693}{ssd1306\+\_\+\+Get\+Display\+On()}}.
+Referenciado por \doxymbox{\hyperlink{ssd1306_8c_source_l00738}{ssd1306\+\_\+\+Get\+Display\+On()}}.
 
-Gráfico de llamadas de esta función:
-\nopagebreak
+Gráfico de llamadas de esta función:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=200pt]{ssd1306_8h_a347cccbf4dd745d26538280b3b1d15df_cgraph}
 \end{center}
 \end{figure}
-Gráfico de llamadas a esta función:
-\nopagebreak
+Gráfico de llamadas a esta función:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -984,6 +1031,19 @@ Gráfico de llamadas a esta función:
 {\footnotesize\ttfamily \label{ssd1306_8h_ade2c3a936ceecc5b8a1d965cc302d2ed} 
 void ssd1306\+\_\+\+Init (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
 
+
+
+Inicializa el controlador SSD1306 con la secuencia de encendido y parámetros de display. 
+
+Configura la bomba de carga DC-\/\+DC (0x8D), el oscilador interno (0x\+D5), el multiplexado a 64 filas (0x\+A8) y limpia el buffer interno de memoria en RAM. \begin{DoxyPrecond}{Precondición}
+I2\+C2 inicializado y funciones de enlace configuradas. 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondición}
+Enciende la pantalla y borra el framebuffer; {\ttfamily SSD1306.\+Initialized} pasa a 1. 
+\end{DoxyPostcond}
+\begin{DoxySeeAlso}{Ver también}
+\doxylink{ssd1306_8h_a05ce6c2aa343a909fc30a1ad1da01b0e}{ssd1306\+\_\+\+Attach\+\_\+\+Mem\+Write} 
+\end{DoxySeeAlso}
 
 
 Definición en la línea \doxymbox{\hyperlink{ssd1306_8c_source_l00116}{116}} del archivo \doxymbox{\hyperlink{ssd1306_8c_source}{ssd1306.\+c}}.
@@ -1095,14 +1155,13 @@ Definición en la línea \doxymbox{\hyperlink{ssd1306_8c_source_l00116}{116}} de
 \end{DoxyCode}
 
 
-Hace referencia a \doxymbox{\hyperlink{ssd1306_8h_source_l00057}{Black}}, \doxymbox{\hyperlink{stm32f1xx__hal_8c_source_l00371}{HAL\+\_\+\+Delay()}}, \doxymbox{\hyperlink{main_8c_source_l00128}{SSD1306}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00219}{ssd1306\+\_\+\+Fill()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00116}{ssd1306\+\_\+\+Init()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00027}{ssd1306\+\_\+\+Reset()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00675}{ssd1306\+\_\+\+Set\+Contrast()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00681}{ssd1306\+\_\+\+Set\+Display\+On()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00224}{ssd1306\+\_\+\+Update\+Screen()}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00032}{ssd1306\+\_\+\+Write\+Command()}}.
+Hace referencia a \doxymbox{\hyperlink{ssd1306_8h_source_l00057}{Black}}, \doxymbox{\hyperlink{stm32f1xx__hal_8c_source_l00371}{HAL\+\_\+\+Delay()}}, \doxymbox{\hyperlink{main_8c_source_l00180}{SSD1306}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00219}{ssd1306\+\_\+\+Fill()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00116}{ssd1306\+\_\+\+Init()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00027}{ssd1306\+\_\+\+Reset()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00720}{ssd1306\+\_\+\+Set\+Contrast()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00726}{ssd1306\+\_\+\+Set\+Display\+On()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00224}{ssd1306\+\_\+\+Update\+Screen()}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00032}{ssd1306\+\_\+\+Write\+Command()}}.
 
 
 
-Referenciado por \doxymbox{\hyperlink{main_8c_source_l03056}{main()}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00116}{ssd1306\+\_\+\+Init()}}.
+Referenciado por \doxymbox{\hyperlink{main_8c_source_l03696}{main()}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00116}{ssd1306\+\_\+\+Init()}}.
 
-Gráfico de llamadas de esta función:
-\nopagebreak
+Gráfico de llamadas de esta función:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -1138,59 +1197,57 @@ Gráfico de llamadas a esta función:\nopagebreak
 
 \texorpdfstring{$<$}{<} Ancho de la pantalla OLED en píxeles
 
-Definición en la línea \doxymbox{\hyperlink{ssd1306_8c_source_l00620}{620}} del archivo \doxymbox{\hyperlink{ssd1306_8c_source}{ssd1306.\+c}}.
+Definición en la línea \doxymbox{\hyperlink{ssd1306_8c_source_l00665}{665}} del archivo \doxymbox{\hyperlink{ssd1306_8c_source}{ssd1306.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00620\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00621\ \ \ \textcolor{keywordflow}{if}\ ((x2\ >=\ \doxymbox{\hyperlink{ssd1306_8h_ae5a2aa8865dd03537b97fd1c9037371b}{SSD1306\_WIDTH}})\ ||\ (y2\ >=\ \doxymbox{\hyperlink{ssd1306_8h_a4e9409448a0df95c1686670e09b457b7}{SSD1306\_HEIGHT}}))\ \{}
-\DoxyCodeLine{00622\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{ssd1306_8h_a3cd087bf4d4acf17315ed0ee9905af26a2039f63beb20aacaf905a6702b837b25}{SSD1306\_ERR}};}
-\DoxyCodeLine{00623\ \ \ \}}
-\DoxyCodeLine{00624\ \ \ \textcolor{keywordflow}{if}\ ((x1\ >\ x2)\ ||\ (y1\ >\ y2))\ \{}
-\DoxyCodeLine{00625\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{ssd1306_8h_a3cd087bf4d4acf17315ed0ee9905af26a2039f63beb20aacaf905a6702b837b25}{SSD1306\_ERR}};}
-\DoxyCodeLine{00626\ \ \ \}}
-\DoxyCodeLine{00627\ \ \ uint32\_t\ i;}
-\DoxyCodeLine{00628\ \ \ \textcolor{keywordflow}{if}\ ((y1\ /\ 8)\ !=\ (y2\ /\ 8))\ \{}
-\DoxyCodeLine{00629\ \ \ \ \ \textcolor{comment}{/*\ if\ rectangle\ doesn't\ lie\ on\ one\ 8px\ row\ */}}
-\DoxyCodeLine{00630\ \ \ \ \ \textcolor{keywordflow}{for}\ (uint32\_t\ x\ =\ x1;\ x\ <=\ x2;\ x++)\ \{}
-\DoxyCodeLine{00631\ \ \ \ \ \ \ i\ =\ x\ +\ (y1\ /\ 8)\ *\ \doxymbox{\hyperlink{ssd1306_8h_ae5a2aa8865dd03537b97fd1c9037371b}{SSD1306\_WIDTH}};}
-\DoxyCodeLine{00632\ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8c_ad9e745ffe57814bcd1306909ab8fe59e}{SSD1306\_Buffer}}[i]\ \string^=\ 0xFF\ <<\ (y1\ \%\ 8);}
-\DoxyCodeLine{00633\ \ \ \ \ \ \ i\ +=\ \doxymbox{\hyperlink{ssd1306_8h_ae5a2aa8865dd03537b97fd1c9037371b}{SSD1306\_WIDTH}};}
-\DoxyCodeLine{00634\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (;\ i\ <\ x\ +\ (y2\ /\ 8)\ *\ \doxymbox{\hyperlink{ssd1306_8h_ae5a2aa8865dd03537b97fd1c9037371b}{SSD1306\_WIDTH}};\ i\ +=\ \doxymbox{\hyperlink{ssd1306_8h_ae5a2aa8865dd03537b97fd1c9037371b}{SSD1306\_WIDTH}})\ \{}
-\DoxyCodeLine{00635\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8c_ad9e745ffe57814bcd1306909ab8fe59e}{SSD1306\_Buffer}}[i]\ \string^=\ 0xFF;}
-\DoxyCodeLine{00636\ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00637\ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8c_ad9e745ffe57814bcd1306909ab8fe59e}{SSD1306\_Buffer}}[i]\ \string^=\ 0xFF\ >>\ (7\ -\/\ (y2\ \%\ 8));}
-\DoxyCodeLine{00638\ \ \ \ \ \}}
-\DoxyCodeLine{00639\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
-\DoxyCodeLine{00640\ \ \ \ \ \textcolor{comment}{/*\ if\ rectangle\ lies\ on\ one\ 8px\ row\ */}}
-\DoxyCodeLine{00641\ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ mask\ =\ (0xFF\ <<\ (y1\ \%\ 8))\ \&\ (0xFF\ >>\ (7\ -\/\ (y2\ \%\ 8)));}
-\DoxyCodeLine{00642\ \ \ \ \ \textcolor{keywordflow}{for}\ (i\ =\ x1\ +\ (y1\ /\ 8)\ *\ \doxymbox{\hyperlink{ssd1306_8h_ae5a2aa8865dd03537b97fd1c9037371b}{SSD1306\_WIDTH}};}
-\DoxyCodeLine{00643\ \ \ \ \ \ \ \ \ \ i\ <=\ (uint32\_t)x2\ +\ (y2\ /\ 8)\ *\ \doxymbox{\hyperlink{ssd1306_8h_ae5a2aa8865dd03537b97fd1c9037371b}{SSD1306\_WIDTH}};\ i++)\ \{}
-\DoxyCodeLine{00644\ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8c_ad9e745ffe57814bcd1306909ab8fe59e}{SSD1306\_Buffer}}[i]\ \string^=\ mask;}
-\DoxyCodeLine{00645\ \ \ \ \ \}}
-\DoxyCodeLine{00646\ \ \ \}}
-\DoxyCodeLine{00647\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{ssd1306_8h_a3cd087bf4d4acf17315ed0ee9905af26ab26e32b0f76830ed30b1607ee99cce34}{SSD1306\_OK}};}
-\DoxyCodeLine{00648\ \}}
+\DoxyCodeLine{00665\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00666\ \ \ \textcolor{keywordflow}{if}\ ((x2\ >=\ \doxymbox{\hyperlink{ssd1306_8h_ae5a2aa8865dd03537b97fd1c9037371b}{SSD1306\_WIDTH}})\ ||\ (y2\ >=\ \doxymbox{\hyperlink{ssd1306_8h_a4e9409448a0df95c1686670e09b457b7}{SSD1306\_HEIGHT}}))\ \{}
+\DoxyCodeLine{00667\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{ssd1306_8h_a3cd087bf4d4acf17315ed0ee9905af26a2039f63beb20aacaf905a6702b837b25}{SSD1306\_ERR}};}
+\DoxyCodeLine{00668\ \ \ \}}
+\DoxyCodeLine{00669\ \ \ \textcolor{keywordflow}{if}\ ((x1\ >\ x2)\ ||\ (y1\ >\ y2))\ \{}
+\DoxyCodeLine{00670\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{ssd1306_8h_a3cd087bf4d4acf17315ed0ee9905af26a2039f63beb20aacaf905a6702b837b25}{SSD1306\_ERR}};}
+\DoxyCodeLine{00671\ \ \ \}}
+\DoxyCodeLine{00672\ \ \ uint32\_t\ i;}
+\DoxyCodeLine{00673\ \ \ \textcolor{keywordflow}{if}\ ((y1\ /\ 8)\ !=\ (y2\ /\ 8))\ \{}
+\DoxyCodeLine{00674\ \ \ \ \ \textcolor{comment}{/*\ if\ rectangle\ doesn't\ lie\ on\ one\ 8px\ row\ */}}
+\DoxyCodeLine{00675\ \ \ \ \ \textcolor{keywordflow}{for}\ (uint32\_t\ x\ =\ x1;\ x\ <=\ x2;\ x++)\ \{}
+\DoxyCodeLine{00676\ \ \ \ \ \ \ i\ =\ x\ +\ (y1\ /\ 8)\ *\ \doxymbox{\hyperlink{ssd1306_8h_ae5a2aa8865dd03537b97fd1c9037371b}{SSD1306\_WIDTH}};}
+\DoxyCodeLine{00677\ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8c_ad9e745ffe57814bcd1306909ab8fe59e}{SSD1306\_Buffer}}[i]\ \string^=\ 0xFF\ <<\ (y1\ \%\ 8);}
+\DoxyCodeLine{00678\ \ \ \ \ \ \ i\ +=\ \doxymbox{\hyperlink{ssd1306_8h_ae5a2aa8865dd03537b97fd1c9037371b}{SSD1306\_WIDTH}};}
+\DoxyCodeLine{00679\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (;\ i\ <\ x\ +\ (y2\ /\ 8)\ *\ \doxymbox{\hyperlink{ssd1306_8h_ae5a2aa8865dd03537b97fd1c9037371b}{SSD1306\_WIDTH}};\ i\ +=\ \doxymbox{\hyperlink{ssd1306_8h_ae5a2aa8865dd03537b97fd1c9037371b}{SSD1306\_WIDTH}})\ \{}
+\DoxyCodeLine{00680\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8c_ad9e745ffe57814bcd1306909ab8fe59e}{SSD1306\_Buffer}}[i]\ \string^=\ 0xFF;}
+\DoxyCodeLine{00681\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00682\ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8c_ad9e745ffe57814bcd1306909ab8fe59e}{SSD1306\_Buffer}}[i]\ \string^=\ 0xFF\ >>\ (7\ -\/\ (y2\ \%\ 8));}
+\DoxyCodeLine{00683\ \ \ \ \ \}}
+\DoxyCodeLine{00684\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00685\ \ \ \ \ \textcolor{comment}{/*\ if\ rectangle\ lies\ on\ one\ 8px\ row\ */}}
+\DoxyCodeLine{00686\ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ mask\ =\ (0xFF\ <<\ (y1\ \%\ 8))\ \&\ (0xFF\ >>\ (7\ -\/\ (y2\ \%\ 8)));}
+\DoxyCodeLine{00687\ \ \ \ \ \textcolor{keywordflow}{for}\ (i\ =\ x1\ +\ (y1\ /\ 8)\ *\ \doxymbox{\hyperlink{ssd1306_8h_ae5a2aa8865dd03537b97fd1c9037371b}{SSD1306\_WIDTH}};}
+\DoxyCodeLine{00688\ \ \ \ \ \ \ \ \ \ i\ <=\ (uint32\_t)x2\ +\ (y2\ /\ 8)\ *\ \doxymbox{\hyperlink{ssd1306_8h_ae5a2aa8865dd03537b97fd1c9037371b}{SSD1306\_WIDTH}};\ i++)\ \{}
+\DoxyCodeLine{00689\ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8c_ad9e745ffe57814bcd1306909ab8fe59e}{SSD1306\_Buffer}}[i]\ \string^=\ mask;}
+\DoxyCodeLine{00690\ \ \ \ \ \}}
+\DoxyCodeLine{00691\ \ \ \}}
+\DoxyCodeLine{00692\ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{ssd1306_8h_a3cd087bf4d4acf17315ed0ee9905af26ab26e32b0f76830ed30b1607ee99cce34}{SSD1306\_OK}};}
+\DoxyCodeLine{00693\ \}}
 
 \end{DoxyCode}
 
 
-Hace referencia a \doxymbox{\hyperlink{ssd1306_8c_source_l00088}{SSD1306\+\_\+\+Buffer}}, \doxymbox{\hyperlink{ssd1306_8h_source_l00066}{SSD1306\+\_\+\+ERR}}, \doxymbox{\hyperlink{ssd1306_8h_source_l00042}{SSD1306\+\_\+\+HEIGHT}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00620}{ssd1306\+\_\+\+Invert\+Rectangle()}}, \doxymbox{\hyperlink{ssd1306_8h_source_l00065}{SSD1306\+\_\+\+OK}} y \doxymbox{\hyperlink{ssd1306_8h_source_l00046}{SSD1306\+\_\+\+WIDTH}}.
+Hace referencia a \doxymbox{\hyperlink{ssd1306_8c_source_l00088}{SSD1306\+\_\+\+Buffer}}, \doxymbox{\hyperlink{ssd1306_8h_source_l00066}{SSD1306\+\_\+\+ERR}}, \doxymbox{\hyperlink{ssd1306_8h_source_l00042}{SSD1306\+\_\+\+HEIGHT}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00665}{ssd1306\+\_\+\+Invert\+Rectangle()}}, \doxymbox{\hyperlink{ssd1306_8h_source_l00065}{SSD1306\+\_\+\+OK}} y \doxymbox{\hyperlink{ssd1306_8h_source_l00046}{SSD1306\+\_\+\+WIDTH}}.
 
 
 
-Referenciado por \doxymbox{\hyperlink{ssd1306_8h_a868a05ae2ca0b4f968e8dce6c9b181e1}{ssd1306\+\_\+\+Draw\+Arc\+With\+Radius\+Line()}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00620}{ssd1306\+\_\+\+Invert\+Rectangle()}}.
+Referenciado por \doxymbox{\hyperlink{ssd1306_8h_a868a05ae2ca0b4f968e8dce6c9b181e1}{ssd1306\+\_\+\+Draw\+Arc\+With\+Radius\+Line()}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00665}{ssd1306\+\_\+\+Invert\+Rectangle()}}.
 
-Gráfico de llamadas de esta función:
-\nopagebreak
+Gráfico de llamadas de esta función:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=207pt]{ssd1306_8h_a2b960c6628fe479b7ba5fb642c7a4eca_cgraph}
 \end{center}
 \end{figure}
-Gráfico de llamadas a esta función:
-\nopagebreak
+Gráfico de llamadas a esta función:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -1205,44 +1262,44 @@ void ssd1306\+\_\+\+Line (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{x1}{, }\
 
 
 
-Definición en la línea \doxymbox{\hyperlink{ssd1306_8c_source_l00374}{374}} del archivo \doxymbox{\hyperlink{ssd1306_8c_source}{ssd1306.\+c}}.
+Definición en la línea \doxymbox{\hyperlink{ssd1306_8c_source_l00419}{419}} del archivo \doxymbox{\hyperlink{ssd1306_8c_source}{ssd1306.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00374\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00375\ \ \ \ \ int32\_t\ deltaX\ =\ abs(x2\ -\/\ x1);}
-\DoxyCodeLine{00376\ \ \ \ \ int32\_t\ deltaY\ =\ abs(y2\ -\/\ y1);}
-\DoxyCodeLine{00377\ \ \ \ \ int32\_t\ signX\ =\ ((x1\ <\ x2)\ ?\ 1\ :\ -\/1);}
-\DoxyCodeLine{00378\ \ \ \ \ int32\_t\ signY\ =\ ((y1\ <\ y2)\ ?\ 1\ :\ -\/1);}
-\DoxyCodeLine{00379\ \ \ \ \ int32\_t\ \doxymbox{\hyperlink{main_8c_a435d80d6e18cdc373bc78289eefca9ec}{error}}\ =\ deltaX\ -\/\ deltaY;}
-\DoxyCodeLine{00380\ \ \ \ \ int32\_t\ error2;}
-\DoxyCodeLine{00381\ }
-\DoxyCodeLine{00382\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_ad43cbb77ed1f735535e7251ca47ecf87}{ssd1306\_DrawPixel}}(x2,\ y2,\ color);}
-\DoxyCodeLine{00383\ }
-\DoxyCodeLine{00384\ \ \ \ \ \textcolor{keywordflow}{while}((x1\ !=\ x2)\ ||\ (y1\ !=\ y2))\ \{}
-\DoxyCodeLine{00385\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_ad43cbb77ed1f735535e7251ca47ecf87}{ssd1306\_DrawPixel}}(x1,\ y1,\ color);}
-\DoxyCodeLine{00386\ \ \ \ \ \ \ \ \ error2\ =\ \doxymbox{\hyperlink{main_8c_a435d80d6e18cdc373bc78289eefca9ec}{error}}\ *\ 2;}
-\DoxyCodeLine{00387\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(error2\ >\ -\/deltaY)\ \{}
-\DoxyCodeLine{00388\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{main_8c_a435d80d6e18cdc373bc78289eefca9ec}{error}}\ -\/=\ deltaY;}
-\DoxyCodeLine{00389\ \ \ \ \ \ \ \ \ \ \ \ \ x1\ +=\ signX;}
-\DoxyCodeLine{00390\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00391\ }
-\DoxyCodeLine{00392\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(error2\ <\ deltaX)\ \{}
-\DoxyCodeLine{00393\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{main_8c_a435d80d6e18cdc373bc78289eefca9ec}{error}}\ +=\ deltaX;}
-\DoxyCodeLine{00394\ \ \ \ \ \ \ \ \ \ \ \ \ y1\ +=\ signY;}
-\DoxyCodeLine{00395\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00396\ \ \ \ \ \}}
-\DoxyCodeLine{00397\ \ \ \ \ \textcolor{keywordflow}{return};}
-\DoxyCodeLine{00398\ \}}
+\DoxyCodeLine{00419\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00420\ \ \ \ \ int32\_t\ deltaX\ =\ abs(x2\ -\/\ x1);}
+\DoxyCodeLine{00421\ \ \ \ \ int32\_t\ deltaY\ =\ abs(y2\ -\/\ y1);}
+\DoxyCodeLine{00422\ \ \ \ \ int32\_t\ signX\ =\ ((x1\ <\ x2)\ ?\ 1\ :\ -\/1);}
+\DoxyCodeLine{00423\ \ \ \ \ int32\_t\ signY\ =\ ((y1\ <\ y2)\ ?\ 1\ :\ -\/1);}
+\DoxyCodeLine{00424\ \ \ \ \ int32\_t\ \doxymbox{\hyperlink{main_8c_a435d80d6e18cdc373bc78289eefca9ec}{error}}\ =\ deltaX\ -\/\ deltaY;}
+\DoxyCodeLine{00425\ \ \ \ \ int32\_t\ error2;}
+\DoxyCodeLine{00426\ }
+\DoxyCodeLine{00427\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_ad43cbb77ed1f735535e7251ca47ecf87}{ssd1306\_DrawPixel}}(x2,\ y2,\ color);}
+\DoxyCodeLine{00428\ }
+\DoxyCodeLine{00429\ \ \ \ \ \textcolor{keywordflow}{while}((x1\ !=\ x2)\ ||\ (y1\ !=\ y2))\ \{}
+\DoxyCodeLine{00430\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_ad43cbb77ed1f735535e7251ca47ecf87}{ssd1306\_DrawPixel}}(x1,\ y1,\ color);}
+\DoxyCodeLine{00431\ \ \ \ \ \ \ \ \ error2\ =\ \doxymbox{\hyperlink{main_8c_a435d80d6e18cdc373bc78289eefca9ec}{error}}\ *\ 2;}
+\DoxyCodeLine{00432\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(error2\ >\ -\/deltaY)\ \{}
+\DoxyCodeLine{00433\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{main_8c_a435d80d6e18cdc373bc78289eefca9ec}{error}}\ -\/=\ deltaY;}
+\DoxyCodeLine{00434\ \ \ \ \ \ \ \ \ \ \ \ \ x1\ +=\ signX;}
+\DoxyCodeLine{00435\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00436\ }
+\DoxyCodeLine{00437\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(error2\ <\ deltaX)\ \{}
+\DoxyCodeLine{00438\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{main_8c_a435d80d6e18cdc373bc78289eefca9ec}{error}}\ +=\ deltaX;}
+\DoxyCodeLine{00439\ \ \ \ \ \ \ \ \ \ \ \ \ y1\ +=\ signY;}
+\DoxyCodeLine{00440\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00441\ \ \ \ \ \}}
+\DoxyCodeLine{00442\ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00443\ \}}
 
 \end{DoxyCode}
 
 
-Hace referencia a \doxymbox{\hyperlink{main_8c_source_l00405}{error}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00297}{ssd1306\+\_\+\+Draw\+Pixel()}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00374}{ssd1306\+\_\+\+Line()}}.
+Hace referencia a \doxymbox{\hyperlink{main_8c_source_l00324}{error}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00342}{ssd1306\+\_\+\+Draw\+Pixel()}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00419}{ssd1306\+\_\+\+Line()}}.
 
 
 
-Referenciado por \doxymbox{\hyperlink{ssd1306_8c_source_l00596}{ssd1306\+\_\+\+Draw\+Rectangle()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00374}{ssd1306\+\_\+\+Line()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00401}{ssd1306\+\_\+\+Polyline()}}, \doxymbox{\hyperlink{main_8c_source_l01507}{ssd1306\+Data()}}, \doxymbox{\hyperlink{wiregfx_8c_source_l00114}{WIREGFX\+\_\+\+Graphics\+\_\+\+Draw\+Cube()}}, \doxymbox{\hyperlink{wiregfx_8c_source_l00200}{WIREGFX\+\_\+\+Graphics\+\_\+\+Draw\+Pyramid()}}, \doxymbox{\hyperlink{wiregfx_8c_source_l00243}{WIREGFX\+\_\+\+Graphics\+\_\+\+Draw\+Sphere()}} y \doxymbox{\hyperlink{wiregfx_8c_source_l00155}{WIREGFX\+\_\+\+Graphics\+\_\+\+Draw\+Tesseract()}}.
+Referenciado por \doxymbox{\hyperlink{ssd1306_8c_source_l00641}{ssd1306\+\_\+\+Draw\+Rectangle()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00419}{ssd1306\+\_\+\+Line()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00446}{ssd1306\+\_\+\+Polyline()}}, \doxymbox{\hyperlink{main_8c_source_l01641}{ssd1306\+Data()}}, \doxymbox{\hyperlink{wiregfx_8c_source_l00126}{WIREGFX\+\_\+\+Graphics\+\_\+\+Draw\+Cube()}}, \doxymbox{\hyperlink{wiregfx_8c_source_l00231}{WIREGFX\+\_\+\+Graphics\+\_\+\+Draw\+Pyramid()}}, \doxymbox{\hyperlink{wiregfx_8c_source_l00283}{WIREGFX\+\_\+\+Graphics\+\_\+\+Draw\+Sphere()}} y \doxymbox{\hyperlink{wiregfx_8c_source_l00177}{WIREGFX\+\_\+\+Graphics\+\_\+\+Draw\+Tesseract()}}.
 
 Gráfico de llamadas de esta función:\nopagebreak
 \begin{figure}[H]
@@ -1251,8 +1308,7 @@ Gráfico de llamadas de esta función:\nopagebreak
 \includegraphics[width=295pt]{ssd1306_8h_a99529b2a48960312342d3c323aadcec8_cgraph}
 \end{center}
 \end{figure}
-Gráfico de llamadas a esta función:
-\nopagebreak
+Gráfico de llamadas a esta función:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -1267,31 +1323,31 @@ void ssd1306\+\_\+\+Polyline (\begin{DoxyParamCaption}\item[{const \doxymbox{\hy
 
 
 
-Definición en la línea \doxymbox{\hyperlink{ssd1306_8c_source_l00401}{401}} del archivo \doxymbox{\hyperlink{ssd1306_8c_source}{ssd1306.\+c}}.
+Definición en la línea \doxymbox{\hyperlink{ssd1306_8c_source_l00446}{446}} del archivo \doxymbox{\hyperlink{ssd1306_8c_source}{ssd1306.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00401\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00402\ \ \ \ \ uint16\_t\ i;}
-\DoxyCodeLine{00403\ \ \ \ \ \textcolor{keywordflow}{if}(par\_vertex\ ==\ \doxymbox{\hyperlink{group___u_s_b___d_e_f___exported___defines_ga070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}})\ \{}
-\DoxyCodeLine{00404\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
-\DoxyCodeLine{00405\ \ \ \ \ \}}
-\DoxyCodeLine{00406\ }
-\DoxyCodeLine{00407\ \ \ \ \ \textcolor{keywordflow}{for}(i\ =\ 1;\ i\ <\ par\_size;\ i++)\ \{}
-\DoxyCodeLine{00408\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a99529b2a48960312342d3c323aadcec8}{ssd1306\_Line}}(par\_vertex[i\ -\/\ 1].x,\ par\_vertex[i\ -\/\ 1].y,\ par\_vertex[i].x,\ par\_vertex[i].y,\ color);}
-\DoxyCodeLine{00409\ \ \ \ \ \}}
-\DoxyCodeLine{00410\ }
-\DoxyCodeLine{00411\ \ \ \ \ \textcolor{keywordflow}{return};}
-\DoxyCodeLine{00412\ \}}
+\DoxyCodeLine{00446\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00447\ \ \ \ \ uint16\_t\ i;}
+\DoxyCodeLine{00448\ \ \ \ \ \textcolor{keywordflow}{if}(par\_vertex\ ==\ \doxymbox{\hyperlink{group___u_s_b___d_e_f___exported___defines_ga070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}})\ \{}
+\DoxyCodeLine{00449\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00450\ \ \ \ \ \}}
+\DoxyCodeLine{00451\ }
+\DoxyCodeLine{00452\ \ \ \ \ \textcolor{keywordflow}{for}(i\ =\ 1;\ i\ <\ par\_size;\ i++)\ \{}
+\DoxyCodeLine{00453\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a99529b2a48960312342d3c323aadcec8}{ssd1306\_Line}}(par\_vertex[i\ -\/\ 1].x,\ par\_vertex[i\ -\/\ 1].y,\ par\_vertex[i].x,\ par\_vertex[i].y,\ color);}
+\DoxyCodeLine{00454\ \ \ \ \ \}}
+\DoxyCodeLine{00455\ }
+\DoxyCodeLine{00456\ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00457\ \}}
 
 \end{DoxyCode}
 
 
-Hace referencia a \doxymbox{\hyperlink{usbd__def_8h_source_l00045}{NULL}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00374}{ssd1306\+\_\+\+Line()}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00401}{ssd1306\+\_\+\+Polyline()}}.
+Hace referencia a \doxymbox{\hyperlink{usbd__def_8h_source_l00045}{NULL}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00419}{ssd1306\+\_\+\+Line()}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00446}{ssd1306\+\_\+\+Polyline()}}.
 
 
 
-Referenciado por \doxymbox{\hyperlink{ssd1306_8h_a868a05ae2ca0b4f968e8dce6c9b181e1}{ssd1306\+\_\+\+Draw\+Arc\+With\+Radius\+Line()}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00401}{ssd1306\+\_\+\+Polyline()}}.
+Referenciado por \doxymbox{\hyperlink{ssd1306_8h_a868a05ae2ca0b4f968e8dce6c9b181e1}{ssd1306\+\_\+\+Draw\+Arc\+With\+Radius\+Line()}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00446}{ssd1306\+\_\+\+Polyline()}}.
 
 Gráfico de llamadas de esta función:\nopagebreak
 \begin{figure}[H]
@@ -1354,26 +1410,46 @@ void ssd1306\+\_\+\+Reset\+DMAState (\begin{DoxyParamCaption}\item[{void}]{}{}\e
 
 
 
-Definición en la línea \doxymbox{\hyperlink{ssd1306_8c_source_l00283}{283}} del archivo \doxymbox{\hyperlink{ssd1306_8c_source}{ssd1306.\+c}}.
+Reinicia la máquina de estados del secuenciador de volcado DMA. 
+
+Reinicia el secuenciador DMA e I2C de la pantalla OLED.
+
+\begin{DoxyPostcond}{Postcondición}
+Restablece el secuenciador DMA al estado 1 y página 0. 
+\end{DoxyPostcond}
+\begin{DoxySeeAlso}{Ver también}
+\doxylink{ssd1306_8h_ab4427df8c1eeed4ac139a8499109eff9}{ssd1306\+\_\+\+Update\+Screen\+DMA}
+\end{DoxySeeAlso}
+Reinicia la máquina de estados del secuenciador de volcado DMA.
+
+\begin{DoxyPostcond}{Postcondición}
+Establece {\ttfamily ssd1306\+\_\+dma\+\_\+current\+\_\+page = 0} y {\ttfamily ssd1306\+\_\+dma\+\_\+state = 1}. 
+\end{DoxyPostcond}
+\begin{DoxySeeAlso}{Ver también}
+\doxylink{ssd1306_8h_ab4427df8c1eeed4ac139a8499109eff9}{ssd1306\+\_\+\+Update\+Screen\+DMA} 
+\end{DoxySeeAlso}
+
+
+Definición en la línea \doxymbox{\hyperlink{ssd1306_8c_source_l00328}{328}} del archivo \doxymbox{\hyperlink{ssd1306_8c_source}{ssd1306.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00284\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8c_ab681895f02fc3440f7336bf4905e0fbc}{ssd1306\_dma\_current\_page}}\ =\ 0;}
-\DoxyCodeLine{00285\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8c_adb16d108fa0be0d0c794b87ec04331ad}{ssd1306\_dma\_state}}\ =\ 1;}
-\DoxyCodeLine{00286\ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{ssd1306_8c_a8fe192f07adfd9775d3d37ddbb0d0b48}{SSD1306\_TxCplt}}\ !=\ \doxymbox{\hyperlink{group___u_s_b___d_e_f___exported___defines_ga070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}})\ \{}
-\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ *\doxymbox{\hyperlink{ssd1306_8c_a8fe192f07adfd9775d3d37ddbb0d0b48}{SSD1306\_TxCplt}}\ =\ 1;\ \textcolor{comment}{//\ Forzar\ bandera\ de\ transmisión\ a\ "{}completado/listo"{}}}
-\DoxyCodeLine{00288\ \ \ \ \ \}}
-\DoxyCodeLine{00289\ \}}
+\DoxyCodeLine{00328\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00329\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8c_ab681895f02fc3440f7336bf4905e0fbc}{ssd1306\_dma\_current\_page}}\ =\ 0;}
+\DoxyCodeLine{00330\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8c_adb16d108fa0be0d0c794b87ec04331ad}{ssd1306\_dma\_state}}\ =\ 1;}
+\DoxyCodeLine{00331\ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{ssd1306_8c_a8fe192f07adfd9775d3d37ddbb0d0b48}{SSD1306\_TxCplt}}\ !=\ \doxymbox{\hyperlink{group___u_s_b___d_e_f___exported___defines_ga070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}})\ \{}
+\DoxyCodeLine{00332\ \ \ \ \ \ \ \ \ *\doxymbox{\hyperlink{ssd1306_8c_a8fe192f07adfd9775d3d37ddbb0d0b48}{SSD1306\_TxCplt}}\ =\ 1;\ \textcolor{comment}{//\ Forzar\ bandera\ de\ transmisión\ a\ "{}completado/listo"{}}}
+\DoxyCodeLine{00333\ \ \ \ \ \}}
+\DoxyCodeLine{00334\ \}}
 
 \end{DoxyCode}
 
 
-Hace referencia a \doxymbox{\hyperlink{usbd__def_8h_source_l00045}{NULL}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00022}{ssd1306\+\_\+dma\+\_\+current\+\_\+page}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00023}{ssd1306\+\_\+dma\+\_\+state}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00283}{ssd1306\+\_\+\+Reset\+DMAState()}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00017}{SSD1306\+\_\+\+Tx\+Cplt}}.
+Hace referencia a \doxymbox{\hyperlink{usbd__def_8h_source_l00045}{NULL}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00022}{ssd1306\+\_\+dma\+\_\+current\+\_\+page}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00023}{ssd1306\+\_\+dma\+\_\+state}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00328}{ssd1306\+\_\+\+Reset\+DMAState()}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00017}{SSD1306\+\_\+\+Tx\+Cplt}}.
 
 
 
-Referenciado por \doxymbox{\hyperlink{main_8c_source_l02975}{Handle\+Mode\+Screen\+Transition()}}, \doxymbox{\hyperlink{main_8c_source_l00767}{Set\+Robot\+Mode()}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00283}{ssd1306\+\_\+\+Reset\+DMAState()}}.
+Referenciado por \doxymbox{\hyperlink{main_8c_source_l03615}{Handle\+Mode\+Screen\+Transition()}}, \doxymbox{\hyperlink{main_8c_source_l00810}{Set\+Robot\+Mode()}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00328}{ssd1306\+\_\+\+Reset\+DMAState()}}.
 
 Gráfico de llamadas de esta función:\nopagebreak
 \begin{figure}[H]
@@ -1382,8 +1458,7 @@ Gráfico de llamadas de esta función:\nopagebreak
 \includegraphics[width=210pt]{ssd1306_8h_a1052f348684f4611334bab03e2f21dda_cgraph}
 \end{center}
 \end{figure}
-Gráfico de llamadas a esta función:
-\nopagebreak
+Gráfico de llamadas a esta función:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -1398,35 +1473,45 @@ void ssd1306\+\_\+\+Set\+Contrast (\begin{DoxyParamCaption}\item[{const uint8\+\
 
 
 
-Definición en la línea \doxymbox{\hyperlink{ssd1306_8c_source_l00675}{675}} del archivo \doxymbox{\hyperlink{ssd1306_8c_source}{ssd1306.\+c}}.
+Ajusta el nivel de contraste electrónico de los emisores OLED. 
+
+
+\begin{DoxyParams}[1]{Parámetros}
+\doxymbox{\texttt{in}}  & {\em value} & Valor numérico de contraste (0 a 255). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyPostcond}{Postcondición}
+Envía el comando 0x81 seguido de {\ttfamily value}. 
+\end{DoxyPostcond}
+
+
+Definición en la línea \doxymbox{\hyperlink{ssd1306_8c_source_l00720}{720}} del archivo \doxymbox{\hyperlink{ssd1306_8c_source}{ssd1306.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00675\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00676\ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ kSetContrastControlRegister\ =\ 0x81;}
-\DoxyCodeLine{00677\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a15046f764dd1127bce472d5924356ba0}{ssd1306\_WriteCommand}}(kSetContrastControlRegister);}
-\DoxyCodeLine{00678\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a15046f764dd1127bce472d5924356ba0}{ssd1306\_WriteCommand}}(value);}
-\DoxyCodeLine{00679\ \}}
+\DoxyCodeLine{00720\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00721\ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ kSetContrastControlRegister\ =\ 0x81;}
+\DoxyCodeLine{00722\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a15046f764dd1127bce472d5924356ba0}{ssd1306\_WriteCommand}}(kSetContrastControlRegister);}
+\DoxyCodeLine{00723\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a15046f764dd1127bce472d5924356ba0}{ssd1306\_WriteCommand}}(value);}
+\DoxyCodeLine{00724\ \}}
 
 \end{DoxyCode}
 
 
-Hace referencia a \doxymbox{\hyperlink{ssd1306_8c_source_l00675}{ssd1306\+\_\+\+Set\+Contrast()}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00032}{ssd1306\+\_\+\+Write\+Command()}}.
+Hace referencia a \doxymbox{\hyperlink{ssd1306_8c_source_l00720}{ssd1306\+\_\+\+Set\+Contrast()}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00032}{ssd1306\+\_\+\+Write\+Command()}}.
 
 
 
-Referenciado por \doxymbox{\hyperlink{ssd1306_8c_source_l00116}{ssd1306\+\_\+\+Init()}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00675}{ssd1306\+\_\+\+Set\+Contrast()}}.
+Referenciado por \doxymbox{\hyperlink{ssd1306_8c_source_l00116}{ssd1306\+\_\+\+Init()}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00720}{ssd1306\+\_\+\+Set\+Contrast()}}.
 
-Gráfico de llamadas de esta función:
-\nopagebreak
+Gráfico de llamadas de esta función:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{ssd1306_8h_a64253e858fadc2e9909db0baa31009c6_cgraph}
 \end{center}
 \end{figure}
-Gráfico de llamadas a esta función:
-\nopagebreak
+Gráfico de llamadas a esta función:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -1441,23 +1526,23 @@ void ssd1306\+\_\+\+Set\+Cursor (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{x
 
 
 
-Definición en la línea \doxymbox{\hyperlink{ssd1306_8c_source_l00368}{368}} del archivo \doxymbox{\hyperlink{ssd1306_8c_source}{ssd1306.\+c}}.
+Definición en la línea \doxymbox{\hyperlink{ssd1306_8c_source_l00413}{413}} del archivo \doxymbox{\hyperlink{ssd1306_8c_source}{ssd1306.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00368\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00369\ \ \ \ \ \doxymbox{\hyperlink{main_8c_ac634d6ee59a5746651149844d4736c7a}{SSD1306}}.CurrentX\ =\ x;}
-\DoxyCodeLine{00370\ \ \ \ \ \doxymbox{\hyperlink{main_8c_ac634d6ee59a5746651149844d4736c7a}{SSD1306}}.CurrentY\ =\ y;}
-\DoxyCodeLine{00371\ \}}
+\DoxyCodeLine{00413\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00414\ \ \ \ \ \doxymbox{\hyperlink{main_8c_ac634d6ee59a5746651149844d4736c7a}{SSD1306}}.CurrentX\ =\ x;}
+\DoxyCodeLine{00415\ \ \ \ \ \doxymbox{\hyperlink{main_8c_ac634d6ee59a5746651149844d4736c7a}{SSD1306}}.CurrentY\ =\ y;}
+\DoxyCodeLine{00416\ \}}
 
 \end{DoxyCode}
 
 
-Hace referencia a \doxymbox{\hyperlink{main_8c_source_l00128}{SSD1306}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00368}{ssd1306\+\_\+\+Set\+Cursor()}}.
+Hace referencia a \doxymbox{\hyperlink{main_8c_source_l00180}{SSD1306}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00413}{ssd1306\+\_\+\+Set\+Cursor()}}.
 
 
 
-Referenciado por \doxymbox{\hyperlink{main_8c_source_l02975}{Handle\+Mode\+Screen\+Transition()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00368}{ssd1306\+\_\+\+Set\+Cursor()}} y \doxymbox{\hyperlink{main_8c_source_l01507}{ssd1306\+Data()}}.
+Referenciado por \doxymbox{\hyperlink{main_8c_source_l03615}{Handle\+Mode\+Screen\+Transition()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00413}{ssd1306\+\_\+\+Set\+Cursor()}} y \doxymbox{\hyperlink{main_8c_source_l01641}{ssd1306\+Data()}}.
 
 Gráfico de llamadas de esta función:\nopagebreak
 \begin{figure}[H]
@@ -1466,8 +1551,7 @@ Gráfico de llamadas de esta función:\nopagebreak
 \includegraphics[width=182pt]{ssd1306_8h_a43b18d938dee01ee07fb8c364ea57996_cgraph}
 \end{center}
 \end{figure}
-Gráfico de llamadas a esta función:
-\nopagebreak
+Gráfico de llamadas a esta función:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -1482,41 +1566,51 @@ void ssd1306\+\_\+\+Set\+Display\+On (\begin{DoxyParamCaption}\item[{const uint8
 
 
 
-Definición en la línea \doxymbox{\hyperlink{ssd1306_8c_source_l00681}{681}} del archivo \doxymbox{\hyperlink{ssd1306_8c_source}{ssd1306.\+c}}.
+Enciende o apaga la matriz del panel OLED. 
+
+
+\begin{DoxyParams}[1]{Parámetros}
+\doxymbox{\texttt{in}}  & {\em on} & 1 para activar el panel (0x\+AF), 0 para suspenderlo en bajo consumo (0x\+AE). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyPostcond}{Postcondición}
+Actualiza {\ttfamily SSD1306.\+Display\+On}. 
+\end{DoxyPostcond}
+
+
+Definición en la línea \doxymbox{\hyperlink{ssd1306_8c_source_l00726}{726}} del archivo \doxymbox{\hyperlink{ssd1306_8c_source}{ssd1306.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00681\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00682\ \ \ \ \ uint8\_t\ value;}
-\DoxyCodeLine{00683\ \ \ \ \ \textcolor{keywordflow}{if}\ (on)\ \{}
-\DoxyCodeLine{00684\ \ \ \ \ \ \ \ \ value\ =\ 0xAF;\ \ \ \textcolor{comment}{//\ Display\ on}}
-\DoxyCodeLine{00685\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{main_8c_ac634d6ee59a5746651149844d4736c7a}{SSD1306}}.DisplayOn\ =\ 1;}
-\DoxyCodeLine{00686\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
-\DoxyCodeLine{00687\ \ \ \ \ \ \ \ \ value\ =\ 0xAE;\ \ \ \textcolor{comment}{//\ Display\ off}}
-\DoxyCodeLine{00688\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{main_8c_ac634d6ee59a5746651149844d4736c7a}{SSD1306}}.DisplayOn\ =\ 0;}
-\DoxyCodeLine{00689\ \ \ \ \ \}}
-\DoxyCodeLine{00690\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a15046f764dd1127bce472d5924356ba0}{ssd1306\_WriteCommand}}(value);}
-\DoxyCodeLine{00691\ \}}
+\DoxyCodeLine{00726\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00727\ \ \ \ \ uint8\_t\ value;}
+\DoxyCodeLine{00728\ \ \ \ \ \textcolor{keywordflow}{if}\ (on)\ \{}
+\DoxyCodeLine{00729\ \ \ \ \ \ \ \ \ value\ =\ 0xAF;\ \ \ \textcolor{comment}{//\ Display\ on}}
+\DoxyCodeLine{00730\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{main_8c_ac634d6ee59a5746651149844d4736c7a}{SSD1306}}.DisplayOn\ =\ 1;}
+\DoxyCodeLine{00731\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00732\ \ \ \ \ \ \ \ \ value\ =\ 0xAE;\ \ \ \textcolor{comment}{//\ Display\ off}}
+\DoxyCodeLine{00733\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{main_8c_ac634d6ee59a5746651149844d4736c7a}{SSD1306}}.DisplayOn\ =\ 0;}
+\DoxyCodeLine{00734\ \ \ \ \ \}}
+\DoxyCodeLine{00735\ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a15046f764dd1127bce472d5924356ba0}{ssd1306\_WriteCommand}}(value);}
+\DoxyCodeLine{00736\ \}}
 
 \end{DoxyCode}
 
 
-Hace referencia a \doxymbox{\hyperlink{main_8c_source_l00128}{SSD1306}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00681}{ssd1306\+\_\+\+Set\+Display\+On()}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00032}{ssd1306\+\_\+\+Write\+Command()}}.
+Hace referencia a \doxymbox{\hyperlink{main_8c_source_l00180}{SSD1306}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00726}{ssd1306\+\_\+\+Set\+Display\+On()}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00032}{ssd1306\+\_\+\+Write\+Command()}}.
 
 
 
-Referenciado por \doxymbox{\hyperlink{main_8c_source_l02975}{Handle\+Mode\+Screen\+Transition()}}, \doxymbox{\hyperlink{main_8c_source_l03056}{main()}}, \doxymbox{\hyperlink{main_8c_source_l00767}{Set\+Robot\+Mode()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00116}{ssd1306\+\_\+\+Init()}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00681}{ssd1306\+\_\+\+Set\+Display\+On()}}.
+Referenciado por \doxymbox{\hyperlink{main_8c_source_l03615}{Handle\+Mode\+Screen\+Transition()}}, \doxymbox{\hyperlink{main_8c_source_l03696}{main()}}, \doxymbox{\hyperlink{main_8c_source_l00810}{Set\+Robot\+Mode()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00116}{ssd1306\+\_\+\+Init()}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00726}{ssd1306\+\_\+\+Set\+Display\+On()}}.
 
-Gráfico de llamadas de esta función:
-\nopagebreak
+Gráfico de llamadas de esta función:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{ssd1306_8h_a63e99c8591f89a39d542c519eac7294f_cgraph}
 \end{center}
 \end{figure}
-Gráfico de llamadas a esta función:
-\nopagebreak
+Gráfico de llamadas a esta función:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -1529,6 +1623,16 @@ Gráfico de llamadas a esta función:
 {\footnotesize\ttfamily \label{ssd1306_8h_aeca33ad55a12e5a6c23250a01c9e5032} 
 void ssd1306\+\_\+\+Update\+Screen (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
 
+
+
+Vuelca síncronamente el framebuffer completo de video hacia la pantalla OLED. 
+
+Envía las 8 páginas secuencialmente de manera bloqueante por I2C. \begin{DoxyPrecond}{Precondición}
+Display inicializado. 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondición}
+La imagen del display refleja fielmente el contenido de {\ttfamily SSD1306\+\_\+\+Buffer}. 
+\end{DoxyPostcond}
 \texorpdfstring{$<$}{<} Alto de la pantalla OLED en píxeles
 
 \texorpdfstring{$<$}{<} Ancho de la pantalla OLED en píxeles
@@ -1561,7 +1665,7 @@ Hace referencia a \doxymbox{\hyperlink{ssd1306_8c_source_l00088}{SSD1306\+\_\+\+
 
 
 
-Referenciado por \doxymbox{\hyperlink{main_8c_source_l02975}{Handle\+Mode\+Screen\+Transition()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00116}{ssd1306\+\_\+\+Init()}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00224}{ssd1306\+\_\+\+Update\+Screen()}}.
+Referenciado por \doxymbox{\hyperlink{main_8c_source_l03615}{Handle\+Mode\+Screen\+Transition()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00116}{ssd1306\+\_\+\+Init()}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00224}{ssd1306\+\_\+\+Update\+Screen()}}.
 
 Gráfico de llamadas de esta función:\nopagebreak
 \begin{figure}[H]
@@ -1570,8 +1674,7 @@ Gráfico de llamadas de esta función:\nopagebreak
 \includegraphics[width=350pt]{ssd1306_8h_aeca33ad55a12e5a6c23250a01c9e5032_cgraph}
 \end{center}
 \end{figure}
-Gráfico de llamadas a esta función:
-\nopagebreak
+Gráfico de llamadas a esta función:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -1584,63 +1687,113 @@ Gráfico de llamadas a esta función:
 {\footnotesize\ttfamily \label{ssd1306_8h_ab4427df8c1eeed4ac139a8499109eff9} 
 char ssd1306\+\_\+\+Update\+Screen\+DMA (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
 
+
+
+Ejecuta el volcado asíncrono no bloqueante del framebuffer vía transferencias DMA. 
+
+Implementa una máquina de 4 estados para enviar las 8 páginas (1024 bytes) de forma segmentada intercalando comandos de direccionamiento y transferencias DMA de 128 bytes.
+
+
+\begin{DoxyImageNoCaption}%
+  \doxymbox{\includegraphics[width=\textwidth,height=\textheight/2,keepaspectratio=true]{inline_umlgraph_11}}%
+\end{DoxyImageNoCaption}
+
+
+\begin{DoxyReturn}{Devuelve}
+1 cuando se transmitieron las 8 páginas completas (nuevo cuadro en OLED); 0 mientras continúe transfiriendo. 
+\end{DoxyReturn}
+\begin{DoxyPrecond}{Precondición}
+Callback de DMA Tx configurado mediante {\ttfamily \doxylink{ssd1306_8c_a95a49d07c86bacc5776dde80f700156b}{ssd1306\+\_\+\+ADC\+\_\+\+Conf\+Cplt\+Callback}}. 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondición}
+Actualiza {\ttfamily \doxylink{ssd1306_8c_adb16d108fa0be0d0c794b87ec04331ad}{ssd1306\+\_\+dma\+\_\+state}} y {\ttfamily \doxylink{ssd1306_8c_ab681895f02fc3440f7336bf4905e0fbc}{ssd1306\+\_\+dma\+\_\+current\+\_\+page}}. 
+\end{DoxyPostcond}
+\begin{DoxySeeAlso}{Ver también}
+\doxylink{ssd1306_8c_a1052f348684f4611334bab03e2f21dda}{ssd1306\+\_\+\+Reset\+DMAState}
+\end{DoxySeeAlso}
+Máquina de 4 estados para actualizar las 8 páginas (1024 bytes) mediante I2C DMA:
+\begin{DoxyItemize}
+\item Estado 1: Envía comando de direccionamiento de página ({\ttfamily 0x\+B0 + page}).
+\item Estado 2: Envía comando de columna baja ({\ttfamily 0x00 + offset}).
+\item Estado 3: Envía comando de columna alta ({\ttfamily 0x10 + offset}).
+\item Estado 4: Transfiere los 128 bytes de la página actual vía DMA.
+\end{DoxyItemize}
+
+
+\begin{DoxyImageNoCaption}%
+  \doxymbox{\includegraphics[width=\textwidth,height=\textheight/2,keepaspectratio=true]{inline_umlgraph_12}}%
+\end{DoxyImageNoCaption}
+
+
+\begin{DoxyReturn}{Devuelve}
+1 al completar la transmisión de las 8 páginas (frame completo desplegado); 0 si la transferencia sigue en curso. 
+\end{DoxyReturn}
+\begin{DoxyPrecond}{Precondición}
+Función {\ttfamily \doxylink{ssd1306_8c_a0e5a3b00cea05402262d40360c6c0497}{ssd1306\+\_\+\+Attach\+\_\+\+Mem\+Write\+DMA}} vinculada y bandera {\ttfamily \doxylink{ssd1306_8c_a8fe192f07adfd9775d3d37ddbb0d0b48}{SSD1306\+\_\+\+Tx\+Cplt}} registrada. 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondición}
+Actualiza los estados internos {\ttfamily \doxylink{ssd1306_8c_adb16d108fa0be0d0c794b87ec04331ad}{ssd1306\+\_\+dma\+\_\+state}} y {\ttfamily \doxylink{ssd1306_8c_ab681895f02fc3440f7336bf4905e0fbc}{ssd1306\+\_\+dma\+\_\+current\+\_\+page}}. 
+\end{DoxyPostcond}
+\begin{DoxySeeAlso}{Ver también}
+\doxylink{ssd1306_8c_a1052f348684f4611334bab03e2f21dda}{ssd1306\+\_\+\+Reset\+DMAState} 
+\end{DoxySeeAlso}
 \texorpdfstring{$<$}{<} Ancho de la pantalla OLED en píxeles
 
 \texorpdfstring{$<$}{<} Ancho de la pantalla OLED en píxeles
 
-Definición en la línea \doxymbox{\hyperlink{ssd1306_8c_source_l00241}{241}} del archivo \doxymbox{\hyperlink{ssd1306_8c_source}{ssd1306.\+c}}.
+Definición en la línea \doxymbox{\hyperlink{ssd1306_8c_source_l00282}{282}} del archivo \doxymbox{\hyperlink{ssd1306_8c_source}{ssd1306.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00242\ \ \ \ \ \textcolor{comment}{//\ Write\ data\ to\ each\ page\ of\ RAM.\ Number\ of\ pages}}
-\DoxyCodeLine{00243\ \ \ \ \ \textcolor{comment}{//\ depends\ on\ the\ screen\ height:}}
-\DoxyCodeLine{00244\ \ \ \ \ \textcolor{comment}{//}}
-\DoxyCodeLine{00245\ \ \ \ \ \textcolor{comment}{//\ \ *\ 32px\ \ \ ==\ \ 4\ pages}}
-\DoxyCodeLine{00246\ \ \ \ \ \textcolor{comment}{//\ \ *\ 64px\ \ \ ==\ \ 8\ pages}}
-\DoxyCodeLine{00247\ \ \ \ \ \textcolor{comment}{//\ \ *\ 128px\ \ ==\ \ 16\ pages}}
-\DoxyCodeLine{00248\ }
-\DoxyCodeLine{00249\ \ \ \ \ \textcolor{comment}{//\ Only\ proceed\ if\ I2C\ is\ ready\ or\ we're\ starting\ a\ new\ transaction}}
-\DoxyCodeLine{00250\ }
-\DoxyCodeLine{00251\ \ \ \ \ \textcolor{keywordflow}{if}\ (*\doxymbox{\hyperlink{ssd1306_8c_a8fe192f07adfd9775d3d37ddbb0d0b48}{SSD1306\_TxCplt}}\ ||\ \doxymbox{\hyperlink{ssd1306_8c_adb16d108fa0be0d0c794b87ec04331ad}{ssd1306\_dma\_state}}\ ==\ 1)\ \{}
-\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ *\doxymbox{\hyperlink{ssd1306_8c_a8fe192f07adfd9775d3d37ddbb0d0b48}{SSD1306\_TxCplt}}\ =\ 0;\ \ \textcolor{comment}{//\ Reset\ completion\ flag}}
-\DoxyCodeLine{00253\ }
-\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (\doxymbox{\hyperlink{ssd1306_8c_adb16d108fa0be0d0c794b87ec04331ad}{ssd1306\_dma\_state}})\ \{}
-\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 1:\ \ \textcolor{comment}{//\ Set\ page\ address}}
-\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a2a3a3f65f10ea3f9c9ea20f14eb1e8ba}{ssd1306\_WriteCommandDMA}}(0xB0\ +\ \doxymbox{\hyperlink{ssd1306_8c_ab681895f02fc3440f7336bf4905e0fbc}{ssd1306\_dma\_current\_page}});}
-\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8c_adb16d108fa0be0d0c794b87ec04331ad}{ssd1306\_dma\_state}}\ =\ 2;}
-\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 2:\ \ \textcolor{comment}{//\ Set\ column\ address\ low\ nibble}}
-\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a2a3a3f65f10ea3f9c9ea20f14eb1e8ba}{ssd1306\_WriteCommandDMA}}(0x00\ +\ \doxymbox{\hyperlink{ssd1306_8h_aae17756c37924c52f02b7a8c7fc06791}{SSD1306\_X\_OFFSET\_LOWER}});}
-\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8c_adb16d108fa0be0d0c794b87ec04331ad}{ssd1306\_dma\_state}}\ =\ 3;}
-\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 3:\ \ \textcolor{comment}{//\ Set\ column\ address\ high\ nibble}}
-\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a2a3a3f65f10ea3f9c9ea20f14eb1e8ba}{ssd1306\_WriteCommandDMA}}(0x10\ +\ \doxymbox{\hyperlink{ssd1306_8h_a883305bc0adf9bdc4c0b4c7d5c7befda}{SSD1306\_X\_OFFSET\_UPPER}});}
-\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8c_adb16d108fa0be0d0c794b87ec04331ad}{ssd1306\_dma\_state}}\ =\ 4;}
-\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 4:\ \ \textcolor{comment}{//\ Write\ page\ data}}
-\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_ab51332a2a02f02a28e23362189646cc4}{ssd1306\_WriteDataDMA}}(\&\doxymbox{\hyperlink{ssd1306_8c_ad9e745ffe57814bcd1306909ab8fe59e}{SSD1306\_Buffer}}[\doxymbox{\hyperlink{ssd1306_8h_ae5a2aa8865dd03537b97fd1c9037371b}{SSD1306\_WIDTH}}*\doxymbox{\hyperlink{ssd1306_8c_ab681895f02fc3440f7336bf4905e0fbc}{ssd1306\_dma\_current\_page}}],\doxymbox{\hyperlink{ssd1306_8h_ae5a2aa8865dd03537b97fd1c9037371b}{SSD1306\_WIDTH}});}
-\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8c_ab681895f02fc3440f7336bf4905e0fbc}{ssd1306\_dma\_current\_page}}++;}
-\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8c_adb16d108fa0be0d0c794b87ec04331ad}{ssd1306\_dma\_state}}\ =\ 1;\ \ \textcolor{comment}{//\ Start\ over\ with\ next\ page}}
-\DoxyCodeLine{00271\ }
-\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{ssd1306_8c_ab681895f02fc3440f7336bf4905e0fbc}{ssd1306\_dma\_current\_page}}\ >\ 7)\{\textcolor{comment}{//SSD1306\_HEIGHT/8)\ \{}}
-\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8c_ab681895f02fc3440f7336bf4905e0fbc}{ssd1306\_dma\_current\_page}}\ =\ 0;}
-\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
-\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00278\ \ \ \ \ \}}
-\DoxyCodeLine{00279\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
-\DoxyCodeLine{00280\ \}}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00283\ \ \ \ \ \textcolor{comment}{//\ Write\ data\ to\ each\ page\ of\ RAM.\ Number\ of\ pages}}
+\DoxyCodeLine{00284\ \ \ \ \ \textcolor{comment}{//\ depends\ on\ the\ screen\ height:}}
+\DoxyCodeLine{00285\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00286\ \ \ \ \ \textcolor{comment}{//\ \ *\ 32px\ \ \ ==\ \ 4\ pages}}
+\DoxyCodeLine{00287\ \ \ \ \ \textcolor{comment}{//\ \ *\ 64px\ \ \ ==\ \ 8\ pages}}
+\DoxyCodeLine{00288\ \ \ \ \ \textcolor{comment}{//\ \ *\ 128px\ \ ==\ \ 16\ pages}}
+\DoxyCodeLine{00289\ }
+\DoxyCodeLine{00290\ \ \ \ \ \textcolor{comment}{//\ Only\ proceed\ if\ I2C\ is\ ready\ or\ we're\ starting\ a\ new\ transaction}}
+\DoxyCodeLine{00291\ }
+\DoxyCodeLine{00292\ \ \ \ \ \textcolor{keywordflow}{if}\ (*\doxymbox{\hyperlink{ssd1306_8c_a8fe192f07adfd9775d3d37ddbb0d0b48}{SSD1306\_TxCplt}}\ ||\ \doxymbox{\hyperlink{ssd1306_8c_adb16d108fa0be0d0c794b87ec04331ad}{ssd1306\_dma\_state}}\ ==\ 1)\ \{}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ *\doxymbox{\hyperlink{ssd1306_8c_a8fe192f07adfd9775d3d37ddbb0d0b48}{SSD1306\_TxCplt}}\ =\ 0;\ \ \textcolor{comment}{//\ Reset\ completion\ flag}}
+\DoxyCodeLine{00294\ }
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (\doxymbox{\hyperlink{ssd1306_8c_adb16d108fa0be0d0c794b87ec04331ad}{ssd1306\_dma\_state}})\ \{}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 1:\ \ \textcolor{comment}{//\ Set\ page\ address}}
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a2a3a3f65f10ea3f9c9ea20f14eb1e8ba}{ssd1306\_WriteCommandDMA}}(0xB0\ +\ \doxymbox{\hyperlink{ssd1306_8c_ab681895f02fc3440f7336bf4905e0fbc}{ssd1306\_dma\_current\_page}});}
+\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8c_adb16d108fa0be0d0c794b87ec04331ad}{ssd1306\_dma\_state}}\ =\ 2;}
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 2:\ \ \textcolor{comment}{//\ Set\ column\ address\ low\ nibble}}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a2a3a3f65f10ea3f9c9ea20f14eb1e8ba}{ssd1306\_WriteCommandDMA}}(0x00\ +\ \doxymbox{\hyperlink{ssd1306_8h_aae17756c37924c52f02b7a8c7fc06791}{SSD1306\_X\_OFFSET\_LOWER}});}
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8c_adb16d108fa0be0d0c794b87ec04331ad}{ssd1306\_dma\_state}}\ =\ 3;}
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 3:\ \ \textcolor{comment}{//\ Set\ column\ address\ high\ nibble}}
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a2a3a3f65f10ea3f9c9ea20f14eb1e8ba}{ssd1306\_WriteCommandDMA}}(0x10\ +\ \doxymbox{\hyperlink{ssd1306_8h_a883305bc0adf9bdc4c0b4c7d5c7befda}{SSD1306\_X\_OFFSET\_UPPER}});}
+\DoxyCodeLine{00306\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8c_adb16d108fa0be0d0c794b87ec04331ad}{ssd1306\_dma\_state}}\ =\ 4;}
+\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 4:\ \ \textcolor{comment}{//\ Write\ page\ data}}
+\DoxyCodeLine{00309\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_ab51332a2a02f02a28e23362189646cc4}{ssd1306\_WriteDataDMA}}(\&\doxymbox{\hyperlink{ssd1306_8c_ad9e745ffe57814bcd1306909ab8fe59e}{SSD1306\_Buffer}}[\doxymbox{\hyperlink{ssd1306_8h_ae5a2aa8865dd03537b97fd1c9037371b}{SSD1306\_WIDTH}}*\doxymbox{\hyperlink{ssd1306_8c_ab681895f02fc3440f7336bf4905e0fbc}{ssd1306\_dma\_current\_page}}],\doxymbox{\hyperlink{ssd1306_8h_ae5a2aa8865dd03537b97fd1c9037371b}{SSD1306\_WIDTH}});}
+\DoxyCodeLine{00310\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8c_ab681895f02fc3440f7336bf4905e0fbc}{ssd1306\_dma\_current\_page}}++;}
+\DoxyCodeLine{00311\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8c_adb16d108fa0be0d0c794b87ec04331ad}{ssd1306\_dma\_state}}\ =\ 1;\ \ \textcolor{comment}{//\ Start\ over\ with\ next\ page}}
+\DoxyCodeLine{00312\ }
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{ssd1306_8c_ab681895f02fc3440f7336bf4905e0fbc}{ssd1306\_dma\_current\_page}}\ >\ 7)\{\textcolor{comment}{//SSD1306\_HEIGHT/8)\ \{}}
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8c_ab681895f02fc3440f7336bf4905e0fbc}{ssd1306\_dma\_current\_page}}\ =\ 0;}
+\DoxyCodeLine{00315\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{00316\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00317\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00318\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00319\ \ \ \ \ \}}
+\DoxyCodeLine{00320\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00321\ \}}
 
 \end{DoxyCode}
 
 
-Hace referencia a \doxymbox{\hyperlink{ssd1306_8c_source_l00088}{SSD1306\+\_\+\+Buffer}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00022}{ssd1306\+\_\+dma\+\_\+current\+\_\+page}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00023}{ssd1306\+\_\+dma\+\_\+state}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00017}{SSD1306\+\_\+\+Tx\+Cplt}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00241}{ssd1306\+\_\+\+Update\+Screen\+DMA()}}, \doxymbox{\hyperlink{ssd1306_8h_source_l00046}{SSD1306\+\_\+\+WIDTH}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00037}{ssd1306\+\_\+\+Write\+Command\+DMA()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00048}{ssd1306\+\_\+\+Write\+Data\+DMA()}}, \doxymbox{\hyperlink{ssd1306_8h_source_l00032}{SSD1306\+\_\+\+X\+\_\+\+OFFSET\+\_\+\+LOWER}} y \doxymbox{\hyperlink{ssd1306_8h_source_l00033}{SSD1306\+\_\+\+X\+\_\+\+OFFSET\+\_\+\+UPPER}}.
+Hace referencia a \doxymbox{\hyperlink{ssd1306_8c_source_l00088}{SSD1306\+\_\+\+Buffer}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00022}{ssd1306\+\_\+dma\+\_\+current\+\_\+page}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00023}{ssd1306\+\_\+dma\+\_\+state}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00017}{SSD1306\+\_\+\+Tx\+Cplt}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00282}{ssd1306\+\_\+\+Update\+Screen\+DMA()}}, \doxymbox{\hyperlink{ssd1306_8h_source_l00046}{SSD1306\+\_\+\+WIDTH}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00037}{ssd1306\+\_\+\+Write\+Command\+DMA()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00048}{ssd1306\+\_\+\+Write\+Data\+DMA()}}, \doxymbox{\hyperlink{ssd1306_8h_source_l00032}{SSD1306\+\_\+\+X\+\_\+\+OFFSET\+\_\+\+LOWER}} y \doxymbox{\hyperlink{ssd1306_8h_source_l00033}{SSD1306\+\_\+\+X\+\_\+\+OFFSET\+\_\+\+UPPER}}.
 
 
 
-Referenciado por \doxymbox{\hyperlink{main_8c_source_l01623}{i2c\+Task()}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00241}{ssd1306\+\_\+\+Update\+Screen\+DMA()}}.
+Referenciado por \doxymbox{\hyperlink{main_8c_source_l01797}{i2c\+Task()}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00282}{ssd1306\+\_\+\+Update\+Screen\+DMA()}}.
 
 Gráfico de llamadas de esta función:\nopagebreak
 \begin{figure}[H]
@@ -1649,8 +1802,7 @@ Gráfico de llamadas de esta función:\nopagebreak
 \includegraphics[width=350pt]{ssd1306_8h_ab4427df8c1eeed4ac139a8499109eff9_cgraph}
 \end{center}
 \end{figure}
-Gráfico de llamadas a esta función:
-\nopagebreak
+Gráfico de llamadas a esta función:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -1667,54 +1819,54 @@ char ssd1306\+\_\+\+Write\+Char (\begin{DoxyParamCaption}\item[{char}]{ch}{, }\i
 
 \texorpdfstring{$<$}{<} Alto de la pantalla OLED en píxeles
 
-Definición en la línea \doxymbox{\hyperlink{ssd1306_8c_source_l00317}{317}} del archivo \doxymbox{\hyperlink{ssd1306_8c_source}{ssd1306.\+c}}.
+Definición en la línea \doxymbox{\hyperlink{ssd1306_8c_source_l00362}{362}} del archivo \doxymbox{\hyperlink{ssd1306_8c_source}{ssd1306.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00317\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00318\ \ \ \ \ uint32\_t\ i,\ b,\ j;}
-\DoxyCodeLine{00319\ }
-\DoxyCodeLine{00320\ \ \ \ \ \textcolor{comment}{//\ Check\ if\ character\ is\ valid}}
-\DoxyCodeLine{00321\ \ \ \ \ \textcolor{keywordflow}{if}\ (ch\ <\ 32\ ||\ ch\ >\ 126)}
-\DoxyCodeLine{00322\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
-\DoxyCodeLine{00323\ }
-\DoxyCodeLine{00324\ \ \ \ \ \textcolor{comment}{//\ Char\ width\ is\ not\ equal\ to\ font\ width\ for\ proportional\ font}}
-\DoxyCodeLine{00325\ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ char\_width\ =\ Font.\doxymbox{\hyperlink{struct_s_s_d1306___font__t_a2027e1bd9dc2a24c361689d59debc04a}{char\_width}}\ ?\ Font.\doxymbox{\hyperlink{struct_s_s_d1306___font__t_a2027e1bd9dc2a24c361689d59debc04a}{char\_width}}[ch-\/32]\ :\ Font.\doxymbox{\hyperlink{struct_s_s_d1306___font__t_a7f3656d2b7d2bfdf0061adfb8a3e0012}{width}};}
-\DoxyCodeLine{00326\ \ \ \ \ \textcolor{comment}{//\ Check\ remaining\ space\ on\ current\ line}}
-\DoxyCodeLine{00327\ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{ssd1306_8h_ae5a2aa8865dd03537b97fd1c9037371b}{SSD1306\_WIDTH}}\ <\ (\doxymbox{\hyperlink{main_8c_ac634d6ee59a5746651149844d4736c7a}{SSD1306}}.CurrentX\ +\ char\_width)\ ||}
-\DoxyCodeLine{00328\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a4e9409448a0df95c1686670e09b457b7}{SSD1306\_HEIGHT}}\ <\ (\doxymbox{\hyperlink{main_8c_ac634d6ee59a5746651149844d4736c7a}{SSD1306}}.CurrentY\ +\ Font.\doxymbox{\hyperlink{struct_s_s_d1306___font__t_afcb703d025256bae9276de008e5d6523}{height}}))}
-\DoxyCodeLine{00329\ \ \ \ \ \{}
-\DoxyCodeLine{00330\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Not\ enough\ space\ on\ current\ line}}
-\DoxyCodeLine{00331\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
-\DoxyCodeLine{00332\ \ \ \ \ \}}
-\DoxyCodeLine{00333\ }
-\DoxyCodeLine{00334\ \ \ \ \ \textcolor{comment}{//\ Use\ the\ font\ to\ write}}
-\DoxyCodeLine{00335\ \ \ \ \ \textcolor{keywordflow}{for}(i\ =\ 0;\ i\ <\ Font.\doxymbox{\hyperlink{struct_s_s_d1306___font__t_afcb703d025256bae9276de008e5d6523}{height}};\ i++)\ \{}
-\DoxyCodeLine{00336\ \ \ \ \ \ \ \ \ b\ =\ Font.\doxymbox{\hyperlink{struct_s_s_d1306___font__t_a4ba70314c56c84d5ffee83df0ddabc43}{data}}[(ch\ -\/\ 32)\ *\ Font.\doxymbox{\hyperlink{struct_s_s_d1306___font__t_afcb703d025256bae9276de008e5d6523}{height}}\ +\ i];}
-\DoxyCodeLine{00337\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(j\ =\ 0;\ j\ <\ char\_width;\ j++)\ \{}
-\DoxyCodeLine{00338\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}((b\ <<\ j)\ \&\ 0x8000)\ \ \{}
-\DoxyCodeLine{00339\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_ad43cbb77ed1f735535e7251ca47ecf87}{ssd1306\_DrawPixel}}(\doxymbox{\hyperlink{main_8c_ac634d6ee59a5746651149844d4736c7a}{SSD1306}}.CurrentX\ +\ j,\ (\doxymbox{\hyperlink{main_8c_ac634d6ee59a5746651149844d4736c7a}{SSD1306}}.CurrentY\ +\ i),\ (\doxymbox{\hyperlink{ssd1306_8h_a6f68a90e6eefe5396bcbec2cd699d500}{SSD1306\_COLOR}})\ color);}
-\DoxyCodeLine{00340\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
-\DoxyCodeLine{00341\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_ad43cbb77ed1f735535e7251ca47ecf87}{ssd1306\_DrawPixel}}(\doxymbox{\hyperlink{main_8c_ac634d6ee59a5746651149844d4736c7a}{SSD1306}}.CurrentX\ +\ j,\ (\doxymbox{\hyperlink{main_8c_ac634d6ee59a5746651149844d4736c7a}{SSD1306}}.CurrentY\ +\ i),\ (\doxymbox{\hyperlink{ssd1306_8h_a6f68a90e6eefe5396bcbec2cd699d500}{SSD1306\_COLOR}})!color);}
-\DoxyCodeLine{00342\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00343\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00344\ \ \ \ \ \}}
-\DoxyCodeLine{00345\ }
-\DoxyCodeLine{00346\ \ \ \ \ \textcolor{comment}{//\ The\ current\ space\ is\ now\ taken}}
-\DoxyCodeLine{00347\ \ \ \ \ \doxymbox{\hyperlink{main_8c_ac634d6ee59a5746651149844d4736c7a}{SSD1306}}.CurrentX\ +=\ char\_width;}
-\DoxyCodeLine{00348\ }
-\DoxyCodeLine{00349\ \ \ \ \ \textcolor{comment}{//\ Return\ written\ char\ for\ validation}}
-\DoxyCodeLine{00350\ \ \ \ \ \textcolor{keywordflow}{return}\ ch;}
-\DoxyCodeLine{00351\ \}}
+\DoxyCodeLine{00362\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00363\ \ \ \ \ uint32\_t\ i,\ b,\ j;}
+\DoxyCodeLine{00364\ }
+\DoxyCodeLine{00365\ \ \ \ \ \textcolor{comment}{//\ Check\ if\ character\ is\ valid}}
+\DoxyCodeLine{00366\ \ \ \ \ \textcolor{keywordflow}{if}\ (ch\ <\ 32\ ||\ ch\ >\ 126)}
+\DoxyCodeLine{00367\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00368\ }
+\DoxyCodeLine{00369\ \ \ \ \ \textcolor{comment}{//\ Char\ width\ is\ not\ equal\ to\ font\ width\ for\ proportional\ font}}
+\DoxyCodeLine{00370\ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ char\_width\ =\ Font.\doxymbox{\hyperlink{struct_s_s_d1306___font__t_a2027e1bd9dc2a24c361689d59debc04a}{char\_width}}\ ?\ Font.\doxymbox{\hyperlink{struct_s_s_d1306___font__t_a2027e1bd9dc2a24c361689d59debc04a}{char\_width}}[ch-\/32]\ :\ Font.\doxymbox{\hyperlink{struct_s_s_d1306___font__t_a7f3656d2b7d2bfdf0061adfb8a3e0012}{width}};}
+\DoxyCodeLine{00371\ \ \ \ \ \textcolor{comment}{//\ Check\ remaining\ space\ on\ current\ line}}
+\DoxyCodeLine{00372\ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{ssd1306_8h_ae5a2aa8865dd03537b97fd1c9037371b}{SSD1306\_WIDTH}}\ <\ (\doxymbox{\hyperlink{main_8c_ac634d6ee59a5746651149844d4736c7a}{SSD1306}}.CurrentX\ +\ char\_width)\ ||}
+\DoxyCodeLine{00373\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_a4e9409448a0df95c1686670e09b457b7}{SSD1306\_HEIGHT}}\ <\ (\doxymbox{\hyperlink{main_8c_ac634d6ee59a5746651149844d4736c7a}{SSD1306}}.CurrentY\ +\ Font.\doxymbox{\hyperlink{struct_s_s_d1306___font__t_afcb703d025256bae9276de008e5d6523}{height}}))}
+\DoxyCodeLine{00374\ \ \ \ \ \{}
+\DoxyCodeLine{00375\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Not\ enough\ space\ on\ current\ line}}
+\DoxyCodeLine{00376\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00377\ \ \ \ \ \}}
+\DoxyCodeLine{00378\ }
+\DoxyCodeLine{00379\ \ \ \ \ \textcolor{comment}{//\ Use\ the\ font\ to\ write}}
+\DoxyCodeLine{00380\ \ \ \ \ \textcolor{keywordflow}{for}(i\ =\ 0;\ i\ <\ Font.\doxymbox{\hyperlink{struct_s_s_d1306___font__t_afcb703d025256bae9276de008e5d6523}{height}};\ i++)\ \{}
+\DoxyCodeLine{00381\ \ \ \ \ \ \ \ \ b\ =\ Font.\doxymbox{\hyperlink{struct_s_s_d1306___font__t_a4ba70314c56c84d5ffee83df0ddabc43}{data}}[(ch\ -\/\ 32)\ *\ Font.\doxymbox{\hyperlink{struct_s_s_d1306___font__t_afcb703d025256bae9276de008e5d6523}{height}}\ +\ i];}
+\DoxyCodeLine{00382\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(j\ =\ 0;\ j\ <\ char\_width;\ j++)\ \{}
+\DoxyCodeLine{00383\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}((b\ <<\ j)\ \&\ 0x8000)\ \ \{}
+\DoxyCodeLine{00384\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_ad43cbb77ed1f735535e7251ca47ecf87}{ssd1306\_DrawPixel}}(\doxymbox{\hyperlink{main_8c_ac634d6ee59a5746651149844d4736c7a}{SSD1306}}.CurrentX\ +\ j,\ (\doxymbox{\hyperlink{main_8c_ac634d6ee59a5746651149844d4736c7a}{SSD1306}}.CurrentY\ +\ i),\ (\doxymbox{\hyperlink{ssd1306_8h_a6f68a90e6eefe5396bcbec2cd699d500}{SSD1306\_COLOR}})\ color);}
+\DoxyCodeLine{00385\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00386\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{ssd1306_8h_ad43cbb77ed1f735535e7251ca47ecf87}{ssd1306\_DrawPixel}}(\doxymbox{\hyperlink{main_8c_ac634d6ee59a5746651149844d4736c7a}{SSD1306}}.CurrentX\ +\ j,\ (\doxymbox{\hyperlink{main_8c_ac634d6ee59a5746651149844d4736c7a}{SSD1306}}.CurrentY\ +\ i),\ (\doxymbox{\hyperlink{ssd1306_8h_a6f68a90e6eefe5396bcbec2cd699d500}{SSD1306\_COLOR}})!color);}
+\DoxyCodeLine{00387\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00388\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00389\ \ \ \ \ \}}
+\DoxyCodeLine{00390\ }
+\DoxyCodeLine{00391\ \ \ \ \ \textcolor{comment}{//\ The\ current\ space\ is\ now\ taken}}
+\DoxyCodeLine{00392\ \ \ \ \ \doxymbox{\hyperlink{main_8c_ac634d6ee59a5746651149844d4736c7a}{SSD1306}}.CurrentX\ +=\ char\_width;}
+\DoxyCodeLine{00393\ }
+\DoxyCodeLine{00394\ \ \ \ \ \textcolor{comment}{//\ Return\ written\ char\ for\ validation}}
+\DoxyCodeLine{00395\ \ \ \ \ \textcolor{keywordflow}{return}\ ch;}
+\DoxyCodeLine{00396\ \}}
 
 \end{DoxyCode}
 
 
-Hace referencia a \doxymbox{\hyperlink{ssd1306_8h_source_l00094}{SSD1306\+\_\+\+Font\+\_\+t::\+char\+\_\+width}}, \doxymbox{\hyperlink{ssd1306_8h_source_l00093}{SSD1306\+\_\+\+Font\+\_\+t::\+data}}, \doxymbox{\hyperlink{ssd1306_8h_source_l00092}{SSD1306\+\_\+\+Font\+\_\+t::\+height}}, \doxymbox{\hyperlink{main_8c_source_l00128}{SSD1306}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00297}{ssd1306\+\_\+\+Draw\+Pixel()}}, \doxymbox{\hyperlink{ssd1306_8h_source_l00042}{SSD1306\+\_\+\+HEIGHT}}, \doxymbox{\hyperlink{ssd1306_8h_source_l00046}{SSD1306\+\_\+\+WIDTH}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00317}{ssd1306\+\_\+\+Write\+Char()}} y \doxymbox{\hyperlink{ssd1306_8h_source_l00091}{SSD1306\+\_\+\+Font\+\_\+t::\+width}}.
+Hace referencia a \doxymbox{\hyperlink{ssd1306_8h_source_l00102}{SSD1306\+\_\+\+Font\+\_\+t::\+char\+\_\+width}}, \doxymbox{\hyperlink{ssd1306_8h_source_l00101}{SSD1306\+\_\+\+Font\+\_\+t::\+data}}, \doxymbox{\hyperlink{ssd1306_8h_source_l00100}{SSD1306\+\_\+\+Font\+\_\+t::\+height}}, \doxymbox{\hyperlink{main_8c_source_l00180}{SSD1306}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00342}{ssd1306\+\_\+\+Draw\+Pixel()}}, \doxymbox{\hyperlink{ssd1306_8h_source_l00042}{SSD1306\+\_\+\+HEIGHT}}, \doxymbox{\hyperlink{ssd1306_8h_source_l00046}{SSD1306\+\_\+\+WIDTH}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00362}{ssd1306\+\_\+\+Write\+Char()}} y \doxymbox{\hyperlink{ssd1306_8h_source_l00099}{SSD1306\+\_\+\+Font\+\_\+t::\+width}}.
 
 
 
-Referenciado por \doxymbox{\hyperlink{ssd1306_8c_source_l00317}{ssd1306\+\_\+\+Write\+Char()}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00354}{ssd1306\+\_\+\+Write\+String()}}.
+Referenciado por \doxymbox{\hyperlink{ssd1306_8c_source_l00362}{ssd1306\+\_\+\+Write\+Char()}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00399}{ssd1306\+\_\+\+Write\+String()}}.
 
 Gráfico de llamadas de esta función:\nopagebreak
 \begin{figure}[H]
@@ -1723,8 +1875,7 @@ Gráfico de llamadas de esta función:\nopagebreak
 \includegraphics[width=321pt]{ssd1306_8h_ad719a0894e48463c66314931fd422e2d_cgraph}
 \end{center}
 \end{figure}
-Gráfico de llamadas a esta función:
-\nopagebreak
+Gráfico de llamadas a esta función:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -1755,7 +1906,7 @@ Hace referencia a \doxymbox{\hyperlink{mpu6050_8c_source_l00021}{mem\+Write}}, \
 
 
 
-Referenciado por \doxymbox{\hyperlink{ssd1306_8h_a868a05ae2ca0b4f968e8dce6c9b181e1}{ssd1306\+\_\+\+Draw\+Arc\+With\+Radius\+Line()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00116}{ssd1306\+\_\+\+Init()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00675}{ssd1306\+\_\+\+Set\+Contrast()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00681}{ssd1306\+\_\+\+Set\+Display\+On()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00224}{ssd1306\+\_\+\+Update\+Screen()}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00032}{ssd1306\+\_\+\+Write\+Command()}}.
+Referenciado por \doxymbox{\hyperlink{ssd1306_8h_a868a05ae2ca0b4f968e8dce6c9b181e1}{ssd1306\+\_\+\+Draw\+Arc\+With\+Radius\+Line()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00116}{ssd1306\+\_\+\+Init()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00720}{ssd1306\+\_\+\+Set\+Contrast()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00726}{ssd1306\+\_\+\+Set\+Display\+On()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00224}{ssd1306\+\_\+\+Update\+Screen()}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00032}{ssd1306\+\_\+\+Write\+Command()}}.
 
 Gráfico de llamadas de esta función:\nopagebreak
 \begin{figure}[H]
@@ -1764,8 +1915,7 @@ Gráfico de llamadas de esta función:\nopagebreak
 \includegraphics[width=206pt]{ssd1306_8h_a15046f764dd1127bce472d5924356ba0_cgraph}
 \end{center}
 \end{figure}
-Gráfico de llamadas a esta función:
-\nopagebreak
+Gráfico de llamadas a esta función:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -1796,7 +1946,7 @@ Hace referencia a \doxymbox{\hyperlink{ssd1306_8c_source_l00019}{mem\+Write\+DMA
 
 
 
-Referenciado por \doxymbox{\hyperlink{ssd1306_8h_a868a05ae2ca0b4f968e8dce6c9b181e1}{ssd1306\+\_\+\+Draw\+Arc\+With\+Radius\+Line()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00241}{ssd1306\+\_\+\+Update\+Screen\+DMA()}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00037}{ssd1306\+\_\+\+Write\+Command\+DMA()}}.
+Referenciado por \doxymbox{\hyperlink{ssd1306_8h_a868a05ae2ca0b4f968e8dce6c9b181e1}{ssd1306\+\_\+\+Draw\+Arc\+With\+Radius\+Line()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00282}{ssd1306\+\_\+\+Update\+Screen\+DMA()}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00037}{ssd1306\+\_\+\+Write\+Command\+DMA()}}.
 
 Gráfico de llamadas de esta función:\nopagebreak
 \begin{figure}[H]
@@ -1805,8 +1955,7 @@ Gráfico de llamadas de esta función:\nopagebreak
 \includegraphics[width=228pt]{ssd1306_8h_a2a3a3f65f10ea3f9c9ea20f14eb1e8ba_cgraph}
 \end{center}
 \end{figure}
-Gráfico de llamadas a esta función:
-\nopagebreak
+Gráfico de llamadas a esta función:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -1846,8 +1995,7 @@ Gráfico de llamadas de esta función:\nopagebreak
 \includegraphics[width=182pt]{ssd1306_8h_a0b365c4271ce6d5551e637de49bdc8a3_cgraph}
 \end{center}
 \end{figure}
-Gráfico de llamadas a esta función:
-\nopagebreak
+Gráfico de llamadas a esta función:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -1878,7 +2026,7 @@ Hace referencia a \doxymbox{\hyperlink{ssd1306_8c_source_l00019}{mem\+Write\+DMA
 
 
 
-Referenciado por \doxymbox{\hyperlink{ssd1306_8h_a868a05ae2ca0b4f968e8dce6c9b181e1}{ssd1306\+\_\+\+Draw\+Arc\+With\+Radius\+Line()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00241}{ssd1306\+\_\+\+Update\+Screen\+DMA()}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00048}{ssd1306\+\_\+\+Write\+Data\+DMA()}}.
+Referenciado por \doxymbox{\hyperlink{ssd1306_8h_a868a05ae2ca0b4f968e8dce6c9b181e1}{ssd1306\+\_\+\+Draw\+Arc\+With\+Radius\+Line()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00282}{ssd1306\+\_\+\+Update\+Screen\+DMA()}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00048}{ssd1306\+\_\+\+Write\+Data\+DMA()}}.
 
 Gráfico de llamadas de esta función:\nopagebreak
 \begin{figure}[H]
@@ -1887,8 +2035,7 @@ Gráfico de llamadas de esta función:\nopagebreak
 \includegraphics[width=204pt]{ssd1306_8h_ab51332a2a02f02a28e23362189646cc4_cgraph}
 \end{center}
 \end{figure}
-Gráfico de llamadas a esta función:
-\nopagebreak
+Gráfico de llamadas a esta función:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -1903,31 +2050,31 @@ char ssd1306\+\_\+\+Write\+String (\begin{DoxyParamCaption}\item[{char \texorpdf
 
 
 
-Definición en la línea \doxymbox{\hyperlink{ssd1306_8c_source_l00354}{354}} del archivo \doxymbox{\hyperlink{ssd1306_8c_source}{ssd1306.\+c}}.
+Definición en la línea \doxymbox{\hyperlink{ssd1306_8c_source_l00399}{399}} del archivo \doxymbox{\hyperlink{ssd1306_8c_source}{ssd1306.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00354\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00355\ \ \ \ \ \textcolor{keywordflow}{while}\ (*str)\ \{}
-\DoxyCodeLine{00356\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{ssd1306_8h_ad719a0894e48463c66314931fd422e2d}{ssd1306\_WriteChar}}(*str,\ Font,\ color)\ !=\ *str)\ \{}
-\DoxyCodeLine{00357\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Char\ could\ not\ be\ written}}
-\DoxyCodeLine{00358\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *str;}
-\DoxyCodeLine{00359\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00360\ \ \ \ \ \ \ \ \ str++;}
-\DoxyCodeLine{00361\ \ \ \ \ \}}
-\DoxyCodeLine{00362\ }
-\DoxyCodeLine{00363\ \ \ \ \ \textcolor{comment}{//\ Everything\ ok}}
-\DoxyCodeLine{00364\ \ \ \ \ \textcolor{keywordflow}{return}\ *str;}
-\DoxyCodeLine{00365\ \}}
+\DoxyCodeLine{00399\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00400\ \ \ \ \ \textcolor{keywordflow}{while}\ (*str)\ \{}
+\DoxyCodeLine{00401\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{ssd1306_8h_ad719a0894e48463c66314931fd422e2d}{ssd1306\_WriteChar}}(*str,\ Font,\ color)\ !=\ *str)\ \{}
+\DoxyCodeLine{00402\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Char\ could\ not\ be\ written}}
+\DoxyCodeLine{00403\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *str;}
+\DoxyCodeLine{00404\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00405\ \ \ \ \ \ \ \ \ str++;}
+\DoxyCodeLine{00406\ \ \ \ \ \}}
+\DoxyCodeLine{00407\ }
+\DoxyCodeLine{00408\ \ \ \ \ \textcolor{comment}{//\ Everything\ ok}}
+\DoxyCodeLine{00409\ \ \ \ \ \textcolor{keywordflow}{return}\ *str;}
+\DoxyCodeLine{00410\ \}}
 
 \end{DoxyCode}
 
 
-Hace referencia a \doxymbox{\hyperlink{ssd1306_8c_source_l00317}{ssd1306\+\_\+\+Write\+Char()}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00354}{ssd1306\+\_\+\+Write\+String()}}.
+Hace referencia a \doxymbox{\hyperlink{ssd1306_8c_source_l00362}{ssd1306\+\_\+\+Write\+Char()}} y \doxymbox{\hyperlink{ssd1306_8c_source_l00399}{ssd1306\+\_\+\+Write\+String()}}.
 
 
 
-Referenciado por \doxymbox{\hyperlink{main_8c_source_l02975}{Handle\+Mode\+Screen\+Transition()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00354}{ssd1306\+\_\+\+Write\+String()}} y \doxymbox{\hyperlink{main_8c_source_l01507}{ssd1306\+Data()}}.
+Referenciado por \doxymbox{\hyperlink{main_8c_source_l03615}{Handle\+Mode\+Screen\+Transition()}}, \doxymbox{\hyperlink{ssd1306_8c_source_l00399}{ssd1306\+\_\+\+Write\+String()}} y \doxymbox{\hyperlink{main_8c_source_l01641}{ssd1306\+Data()}}.
 
 Gráfico de llamadas de esta función:\nopagebreak
 \begin{figure}[H]
@@ -1936,8 +2083,7 @@ Gráfico de llamadas de esta función:\nopagebreak
 \includegraphics[width=350pt]{ssd1306_8h_ac4cbd10dc54485513439a84d9b18c729_cgraph}
 \end{center}
 \end{figure}
-Gráfico de llamadas a esta función:
-\nopagebreak
+Gráfico de llamadas a esta función:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode

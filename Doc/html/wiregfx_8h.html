@@ -34,7 +34,7 @@ MathJax.Hub.Config({
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">MICRO-Firmware<span id="projectnumber">&#160;EX100923v01</span>
+   <div id="projectname">MICRO-Firmware
    </div>
    <div id="projectbrief">Firmware de Péndulo Invertido Autónomo de Dos Ruedas (STM32F103C8T6 - ARM Cortex-M3)</div>
   </td>
@@ -143,9 +143,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('wiregfx_8h.htm
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Estructuras de datos</h2></td></tr>
 <tr class="memitem:Point2D" id="r_Point2D"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="struct_point2_d.html">Point2D</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Coordenada proyectada sobre el plano bidimensional de la pantalla.  <a href="struct_point2_d.html#details">Más...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Coordenada proyectada sobre el plano bidimensional del display OLED (128x64).  <a href="struct_point2_d.html#details">Más...</a><br /></td></tr>
 <tr class="memitem:Point3D" id="r_Point3D"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="struct_point3_d.html">Point3D</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Coordenada espacial tridimensional en punto fijo.  <a href="struct_point3_d.html#details">Más...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Coordenada espacial tridimensional en punto fijo con enteros de 16 bits.  <a href="struct_point3_d.html#details">Más...</a><br /></td></tr>
 <tr class="memitem:Point4D" id="r_Point4D"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="struct_point4_d.html">Point4D</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Coordenada espacial tetradimensional (4D) para geometrías hiperespaciales.  <a href="struct_point4_d.html#details">Más...</a><br /></td></tr>
 </table><table class="memberdecls">
@@ -165,7 +165,7 @@ Funciones</h2></td></tr>
 <tr class="memitem:af013fb800cc4848c93ea2dda220eaf6e" id="r_af013fb800cc4848c93ea2dda220eaf6e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#af013fb800cc4848c93ea2dda220eaf6e">WIREGFX_Graphics_DrawPyramid</a> (void)</td></tr>
 <tr class="memdesc:af013fb800cc4848c93ea2dda220eaf6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renderiza una pirámide de base cuadrada rotando en el espacio tridimensional.  <br /></td></tr>
 <tr class="memitem:ab0f2ac846917b11ac3fa0a4325687066" id="r_ab0f2ac846917b11ac3fa0a4325687066"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ab0f2ac846917b11ac3fa0a4325687066">WIREGFX_Graphics_DrawSphere</a> (void)</td></tr>
-<tr class="memdesc:ab0f2ac846917b11ac3fa0a4325687066"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renderiza una esfera alámbrica tridimensional.  <br /></td></tr>
+<tr class="memdesc:ab0f2ac846917b11ac3fa0a4325687066"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renderiza una esfera alámbrica tridimensional de baja poligonización (Low-Poly).  <br /></td></tr>
 <tr class="memitem:ad2de8c930d3b77da950022208a3c581c" id="r_ad2de8c930d3b77da950022208a3c581c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ad2de8c930d3b77da950022208a3c581c">WIREGFX_Graphics_DrawTesseract</a> (void)</td></tr>
 <tr class="memdesc:ad2de8c930d3b77da950022208a3c581c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renderiza un teseracto (hipercubo 4D) con proyección en perspectiva estereográfica.  <br /></td></tr>
 <tr class="memitem:a6713ee890930c608f8ce3238a1ce9443" id="r_a6713ee890930c608f8ce3238a1ce9443"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6713ee890930c608f8ce3238a1ce9443">WIREGFX_ResetCycle</a> (void)</td></tr>
@@ -195,48 +195,69 @@ Funciones</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Gestiona el ciclo secuencial de animación de figuras tridimensionales. </p>
-<p>Conmuta automáticamente la figura visualizada cada 10 segundos: <b>Cubo 3D</b> &rarr; <b>Teseracto 4D</b> &rarr; <b>Pirámide 3D</b>. </p>
+<p>Conmuta automáticamente la figura visualizada cada 10 segundos: <b>Cubo 3D</b> &rarr; <b>Teseracto 4D</b> &rarr; <b>Pirámide 3D</b>.</p>
+<div class="plantumlgraph">
+<object type="image/svg+xml" data="inline_umlgraph_17.svg"></object>
+</div>
+<dl class="section pre"><dt>Precondición</dt><dd>Debe ser invocado periódicamente dentro del bucle cooperativo del sistema (ej: 20 ms). </dd></dl>
+<dl class="section post"><dt>Postcondición</dt><dd>Actualiza el framebuffer llamando a la rutina de renderizado correspondiente. </dd></dl>
+<dl class="section see"><dt>Ver también</dt><dd><a class="el" href="wiregfx_8c.html#a6713ee890930c608f8ce3238a1ce9443" title="Reinicia el temporizador y fija el índice para renderizar inmediatamente el Cubo 3D.">WIREGFX_ResetCycle</a> </dd>
+<dd>
+<a class="el" href="wiregfx_8c.html#aa040a177091d5ca94b339fc40ffe7006" title="Renderiza un cubo 3D rotando sobre los ejes X, Y y Z en la pantalla OLED.">WIREGFX_Graphics_DrawCube</a> </dd>
+<dd>
+<a class="el" href="wiregfx_8c.html#ad2de8c930d3b77da950022208a3c581c" title="Renderiza un teseracto (hipercubo 4D) con proyección en perspectiva estereográfica.">WIREGFX_Graphics_DrawTesseract</a> </dd>
+<dd>
+<a class="el" href="wiregfx_8c.html#af013fb800cc4848c93ea2dda220eaf6e" title="Renderiza una pirámide de base cuadrada rotando en el espacio tridimensional.">WIREGFX_Graphics_DrawPyramid</a></dd></dl>
+<p>Evalúa el delta de tiempo con <span class="tt"><a class="el" href="group___h_a_l___exported___functions___group2.html#gac9b3a85a73735ac840d0dcb59bc0fdd6" title="Provides a tick value in millisecond.">HAL_GetTick()</a></span>. Cada 10 segundos conmuta cíclicamente la figura geométrica: Cubo (0) &rarr; Teseracto (1) &rarr; Pirámide (2). </p><dl class="section pre"><dt>Precondición</dt><dd>Debe invocarse periódicamente desde la tarea de interfaz de usuario (ej. ciclo de 20 ms). </dd></dl>
+<dl class="section post"><dt>Postcondición</dt><dd>Ejecuta la función de renderizado de la figura correspondiente sobre el framebuffer del SSD1306. </dd></dl>
+<dl class="section see"><dt>Ver también</dt><dd><a class="el" href="wiregfx_8c.html#aa040a177091d5ca94b339fc40ffe7006" title="Renderiza un cubo 3D rotando sobre los ejes X, Y y Z en la pantalla OLED.">WIREGFX_Graphics_DrawCube</a> </dd>
+<dd>
+<a class="el" href="wiregfx_8c.html#ad2de8c930d3b77da950022208a3c581c" title="Renderiza un teseracto (hipercubo 4D) con proyección en perspectiva estereográfica.">WIREGFX_Graphics_DrawTesseract</a> </dd>
+<dd>
+<a class="el" href="wiregfx_8c.html#af013fb800cc4848c93ea2dda220eaf6e" title="Renderiza una pirámide de base cuadrada rotando en el espacio tridimensional.">WIREGFX_Graphics_DrawPyramid</a> </dd>
+<dd>
+<a class="el" href="wiregfx_8c.html#a6713ee890930c608f8ce3238a1ce9443" title="Reinicia el temporizador y fija el índice para renderizar inmediatamente el Cubo 3D.">WIREGFX_ResetCycle</a> </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="wiregfx_8c_source.html#l00293">293</a> del archivo <a class="el" href="wiregfx_8c_source.html">wiregfx.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  293</span>                               {</div>
-<div class="line"><span class="lineno">  294</span>    uint32_t now = <a class="code hl_function" href="group___h_a_l___exported___functions___group2.html#gac9b3a85a73735ac840d0dcb59bc0fdd6">HAL_GetTick</a>();</div>
-<div class="line"><span class="lineno">  295</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="wiregfx_8c.html#aa36114bb09d841e9432302e300d3b781">wiregfx_last_switch_tick</a> == 0) {</div>
-<div class="line"><span class="lineno">  296</span>        <a class="code hl_variable" href="wiregfx_8c.html#aa36114bb09d841e9432302e300d3b781">wiregfx_last_switch_tick</a> = now;</div>
-<div class="line"><span class="lineno">  297</span>    }</div>
-<div class="line"><span class="lineno">  298</span> </div>
-<div class="line"><span class="lineno">  299</span>    <span class="comment">// Cada 10 segundos (10,000 ms) se cambia de figura</span></div>
-<div class="line"><span class="lineno">  300</span>    <span class="keywordflow">if</span> ((now - <a class="code hl_variable" href="wiregfx_8c.html#aa36114bb09d841e9432302e300d3b781">wiregfx_last_switch_tick</a>) &gt;= 10000) {</div>
-<div class="line"><span class="lineno">  301</span>        <a class="code hl_variable" href="wiregfx_8c.html#aa36114bb09d841e9432302e300d3b781">wiregfx_last_switch_tick</a> = now;</div>
-<div class="line"><span class="lineno">  302</span>        <a class="code hl_variable" href="wiregfx_8c.html#ad227f5a9c4231508fefba8fbe1f994e6">wiregfx_figure_index</a> = (<a class="code hl_variable" href="wiregfx_8c.html#ad227f5a9c4231508fefba8fbe1f994e6">wiregfx_figure_index</a> + 1) % 3;</div>
-<div class="line"><span class="lineno">  303</span>    }</div>
-<div class="line"><span class="lineno">  304</span> </div>
-<div class="line"><span class="lineno">  305</span>    <span class="comment">// Orden de renderizado: Cubo -&gt; Teseracto -&gt; Pirámide</span></div>
-<div class="line"><span class="lineno">  306</span>    <span class="keywordflow">switch</span> (<a class="code hl_variable" href="wiregfx_8c.html#ad227f5a9c4231508fefba8fbe1f994e6">wiregfx_figure_index</a>) {</div>
-<div class="line"><span class="lineno">  307</span>        <span class="keywordflow">case</span> 0:</div>
-<div class="line"><span class="lineno">  308</span>            <a class="code hl_function" href="#aa040a177091d5ca94b339fc40ffe7006">WIREGFX_Graphics_DrawCube</a>();</div>
-<div class="line"><span class="lineno">  309</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">  310</span>        <span class="keywordflow">case</span> 1:</div>
-<div class="line"><span class="lineno">  311</span>            <a class="code hl_function" href="#ad2de8c930d3b77da950022208a3c581c">WIREGFX_Graphics_DrawTesseract</a>();</div>
-<div class="line"><span class="lineno">  312</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">  313</span>        <span class="keywordflow">case</span> 2:</div>
-<div class="line"><span class="lineno">  314</span>            <a class="code hl_function" href="#af013fb800cc4848c93ea2dda220eaf6e">WIREGFX_Graphics_DrawPyramid</a>();</div>
-<div class="line"><span class="lineno">  315</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">  316</span>        <span class="keywordflow">default</span>:</div>
-<div class="line"><span class="lineno">  317</span>            <a class="code hl_variable" href="wiregfx_8c.html#ad227f5a9c4231508fefba8fbe1f994e6">wiregfx_figure_index</a> = 0;</div>
-<div class="line"><span class="lineno">  318</span>            <a class="code hl_function" href="#aa040a177091d5ca94b339fc40ffe7006">WIREGFX_Graphics_DrawCube</a>();</div>
-<div class="line"><span class="lineno">  319</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">  320</span>    }</div>
-<div class="line"><span class="lineno">  321</span>}</div>
+<p class="definition">Definición en la línea <a class="el" href="wiregfx_8c_source.html#l00349">349</a> del archivo <a class="el" href="wiregfx_8c_source.html">wiregfx.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  349</span>                               {</div>
+<div class="line"><span class="lineno">  350</span>    uint32_t now = <a class="code hl_function" href="group___h_a_l___exported___functions___group2.html#gac9b3a85a73735ac840d0dcb59bc0fdd6">HAL_GetTick</a>();</div>
+<div class="line"><span class="lineno">  351</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="wiregfx_8c.html#aa36114bb09d841e9432302e300d3b781">wiregfx_last_switch_tick</a> == 0) {</div>
+<div class="line"><span class="lineno">  352</span>        <a class="code hl_variable" href="wiregfx_8c.html#aa36114bb09d841e9432302e300d3b781">wiregfx_last_switch_tick</a> = now;</div>
+<div class="line"><span class="lineno">  353</span>    }</div>
+<div class="line"><span class="lineno">  354</span> </div>
+<div class="line"><span class="lineno">  355</span>    <span class="comment">// Cada 10 segundos (10,000 ms) se cambia de figura</span></div>
+<div class="line"><span class="lineno">  356</span>    <span class="keywordflow">if</span> ((now - <a class="code hl_variable" href="wiregfx_8c.html#aa36114bb09d841e9432302e300d3b781">wiregfx_last_switch_tick</a>) &gt;= 10000) {</div>
+<div class="line"><span class="lineno">  357</span>        <a class="code hl_variable" href="wiregfx_8c.html#aa36114bb09d841e9432302e300d3b781">wiregfx_last_switch_tick</a> = now;</div>
+<div class="line"><span class="lineno">  358</span>        <a class="code hl_variable" href="wiregfx_8c.html#ad227f5a9c4231508fefba8fbe1f994e6">wiregfx_figure_index</a> = (<a class="code hl_variable" href="wiregfx_8c.html#ad227f5a9c4231508fefba8fbe1f994e6">wiregfx_figure_index</a> + 1) % 3;</div>
+<div class="line"><span class="lineno">  359</span>    }</div>
+<div class="line"><span class="lineno">  360</span> </div>
+<div class="line"><span class="lineno">  361</span>    <span class="comment">// Orden de renderizado: Cubo -&gt; Teseracto -&gt; Pirámide</span></div>
+<div class="line"><span class="lineno">  362</span>    <span class="keywordflow">switch</span> (<a class="code hl_variable" href="wiregfx_8c.html#ad227f5a9c4231508fefba8fbe1f994e6">wiregfx_figure_index</a>) {</div>
+<div class="line"><span class="lineno">  363</span>        <span class="keywordflow">case</span> 0:</div>
+<div class="line"><span class="lineno">  364</span>            <a class="code hl_function" href="#aa040a177091d5ca94b339fc40ffe7006">WIREGFX_Graphics_DrawCube</a>();</div>
+<div class="line"><span class="lineno">  365</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  366</span>        <span class="keywordflow">case</span> 1:</div>
+<div class="line"><span class="lineno">  367</span>            <a class="code hl_function" href="#ad2de8c930d3b77da950022208a3c581c">WIREGFX_Graphics_DrawTesseract</a>();</div>
+<div class="line"><span class="lineno">  368</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  369</span>        <span class="keywordflow">case</span> 2:</div>
+<div class="line"><span class="lineno">  370</span>            <a class="code hl_function" href="#af013fb800cc4848c93ea2dda220eaf6e">WIREGFX_Graphics_DrawPyramid</a>();</div>
+<div class="line"><span class="lineno">  371</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  372</span>        <span class="keywordflow">default</span>:</div>
+<div class="line"><span class="lineno">  373</span>            <a class="code hl_variable" href="wiregfx_8c.html#ad227f5a9c4231508fefba8fbe1f994e6">wiregfx_figure_index</a> = 0;</div>
+<div class="line"><span class="lineno">  374</span>            <a class="code hl_function" href="#aa040a177091d5ca94b339fc40ffe7006">WIREGFX_Graphics_DrawCube</a>();</div>
+<div class="line"><span class="lineno">  375</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  376</span>    }</div>
+<div class="line"><span class="lineno">  377</span>}</div>
 <div class="ttc" id="agroup___h_a_l___exported___functions___group2_html_gac9b3a85a73735ac840d0dcb59bc0fdd6"><div class="ttname"><a href="group___h_a_l___exported___functions___group2.html#gac9b3a85a73735ac840d0dcb59bc0fdd6">HAL_GetTick</a></div><div class="ttdeci">uint32_t HAL_GetTick(void)</div><div class="ttdoc">Provides a tick value in millisecond.</div><div class="ttdef"><b>Definición</b> <a href="stm32f1xx__hal_8c_source.html#l00304">stm32f1xx_hal.c:304</a></div></div>
-<div class="ttc" id="awiregfx_8c_html_aa36114bb09d841e9432302e300d3b781"><div class="ttname"><a href="wiregfx_8c.html#aa36114bb09d841e9432302e300d3b781">wiregfx_last_switch_tick</a></div><div class="ttdeci">static uint32_t wiregfx_last_switch_tick</div><div class="ttdef"><b>Definición</b> <a href="wiregfx_8c_source.html#l00285">wiregfx.c:285</a></div></div>
-<div class="ttc" id="awiregfx_8c_html_ad227f5a9c4231508fefba8fbe1f994e6"><div class="ttname"><a href="wiregfx_8c.html#ad227f5a9c4231508fefba8fbe1f994e6">wiregfx_figure_index</a></div><div class="ttdeci">static uint8_t wiregfx_figure_index</div><div class="ttdef"><b>Definición</b> <a href="wiregfx_8c_source.html#l00286">wiregfx.c:286</a></div></div>
-<div class="ttc" id="awiregfx_8h_html_aa040a177091d5ca94b339fc40ffe7006"><div class="ttname"><a href="#aa040a177091d5ca94b339fc40ffe7006">WIREGFX_Graphics_DrawCube</a></div><div class="ttdeci">void WIREGFX_Graphics_DrawCube(void)</div><div class="ttdoc">Renderiza un cubo 3D rotando sobre los ejes X, Y y Z en la pantalla OLED.</div><div class="ttdef"><b>Definición</b> <a href="wiregfx_8c_source.html#l00114">wiregfx.c:114</a></div></div>
-<div class="ttc" id="awiregfx_8h_html_ad2de8c930d3b77da950022208a3c581c"><div class="ttname"><a href="#ad2de8c930d3b77da950022208a3c581c">WIREGFX_Graphics_DrawTesseract</a></div><div class="ttdeci">void WIREGFX_Graphics_DrawTesseract(void)</div><div class="ttdoc">Renderiza un teseracto (hipercubo 4D) con proyección en perspectiva estereográfica.</div><div class="ttdef"><b>Definición</b> <a href="wiregfx_8c_source.html#l00155">wiregfx.c:155</a></div></div>
-<div class="ttc" id="awiregfx_8h_html_af013fb800cc4848c93ea2dda220eaf6e"><div class="ttname"><a href="#af013fb800cc4848c93ea2dda220eaf6e">WIREGFX_Graphics_DrawPyramid</a></div><div class="ttdeci">void WIREGFX_Graphics_DrawPyramid(void)</div><div class="ttdoc">Renderiza una pirámide de base cuadrada rotando en el espacio tridimensional.</div><div class="ttdef"><b>Definición</b> <a href="wiregfx_8c_source.html#l00200">wiregfx.c:200</a></div></div>
+<div class="ttc" id="awiregfx_8c_html_aa36114bb09d841e9432302e300d3b781"><div class="ttname"><a href="wiregfx_8c.html#aa36114bb09d841e9432302e300d3b781">wiregfx_last_switch_tick</a></div><div class="ttdeci">static uint32_t wiregfx_last_switch_tick</div><div class="ttdef"><b>Definición</b> <a href="wiregfx_8c_source.html#l00325">wiregfx.c:325</a></div></div>
+<div class="ttc" id="awiregfx_8c_html_ad227f5a9c4231508fefba8fbe1f994e6"><div class="ttname"><a href="wiregfx_8c.html#ad227f5a9c4231508fefba8fbe1f994e6">wiregfx_figure_index</a></div><div class="ttdeci">static uint8_t wiregfx_figure_index</div><div class="ttdef"><b>Definición</b> <a href="wiregfx_8c_source.html#l00326">wiregfx.c:326</a></div></div>
+<div class="ttc" id="awiregfx_8h_html_aa040a177091d5ca94b339fc40ffe7006"><div class="ttname"><a href="#aa040a177091d5ca94b339fc40ffe7006">WIREGFX_Graphics_DrawCube</a></div><div class="ttdeci">void WIREGFX_Graphics_DrawCube(void)</div><div class="ttdoc">Renderiza un cubo 3D rotando sobre los ejes X, Y y Z en la pantalla OLED.</div><div class="ttdef"><b>Definición</b> <a href="wiregfx_8c_source.html#l00126">wiregfx.c:126</a></div></div>
+<div class="ttc" id="awiregfx_8h_html_ad2de8c930d3b77da950022208a3c581c"><div class="ttname"><a href="#ad2de8c930d3b77da950022208a3c581c">WIREGFX_Graphics_DrawTesseract</a></div><div class="ttdeci">void WIREGFX_Graphics_DrawTesseract(void)</div><div class="ttdoc">Renderiza un teseracto (hipercubo 4D) con proyección en perspectiva estereográfica.</div><div class="ttdef"><b>Definición</b> <a href="wiregfx_8c_source.html#l00177">wiregfx.c:177</a></div></div>
+<div class="ttc" id="awiregfx_8h_html_af013fb800cc4848c93ea2dda220eaf6e"><div class="ttname"><a href="#af013fb800cc4848c93ea2dda220eaf6e">WIREGFX_Graphics_DrawPyramid</a></div><div class="ttdeci">void WIREGFX_Graphics_DrawPyramid(void)</div><div class="ttdoc">Renderiza una pirámide de base cuadrada rotando en el espacio tridimensional.</div><div class="ttdef"><b>Definición</b> <a href="wiregfx_8c_source.html#l00231">wiregfx.c:231</a></div></div>
 </div><!-- fragment -->
-<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__hal_8c_source.html#l00304">HAL_GetTick()</a>, <a class="el" href="wiregfx_8c_source.html#l00293">WIREGFX_DisplayTask()</a>, <a class="el" href="wiregfx_8c_source.html#l00286">wiregfx_figure_index</a>, <a class="el" href="wiregfx_8c_source.html#l00114">WIREGFX_Graphics_DrawCube()</a>, <a class="el" href="wiregfx_8c_source.html#l00200">WIREGFX_Graphics_DrawPyramid()</a>, <a class="el" href="wiregfx_8c_source.html#l00155">WIREGFX_Graphics_DrawTesseract()</a> y <a class="el" href="wiregfx_8c_source.html#l00285">wiregfx_last_switch_tick</a>.</p>
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__hal_8c_source.html#l00304">HAL_GetTick()</a>, <a class="el" href="wiregfx_8c_source.html#l00349">WIREGFX_DisplayTask()</a>, <a class="el" href="wiregfx_8c_source.html#l00326">wiregfx_figure_index</a>, <a class="el" href="wiregfx_8c_source.html#l00126">WIREGFX_Graphics_DrawCube()</a>, <a class="el" href="wiregfx_8c_source.html#l00231">WIREGFX_Graphics_DrawPyramid()</a>, <a class="el" href="wiregfx_8c_source.html#l00177">WIREGFX_Graphics_DrawTesseract()</a> y <a class="el" href="wiregfx_8c_source.html#l00325">wiregfx_last_switch_tick</a>.</p>
 
-<p class="reference">Referenciado por <a class="el" href="main_8c_source.html#l01623">i2cTask()</a> y <a class="el" href="wiregfx_8c_source.html#l00293">WIREGFX_DisplayTask()</a>.</p>
+<p class="reference">Referenciado por <a class="el" href="main_8c_source.html#l01797">i2cTask()</a> y <a class="el" href="wiregfx_8c_source.html#l00349">WIREGFX_DisplayTask()</a>.</p>
 <div id="dynsection-2" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
 <div id="dynsection-2-summary" class="dynsummary">
 </div>
@@ -268,62 +289,82 @@ Funciones</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Renderiza un cubo 3D rotando sobre los ejes X, Y y Z en la pantalla OLED. </p>
+<p>Aplica matrices de rotación trigonométrica computadas mediante la tabla <span class="tt"><a class="el" href="wiregfx_8c.html#a31dcfeb0361aa1f281db225a98b22e5f">sin_LUT</a></span> y proyecta los 8 vértices y 12 aristas en el framebuffer del SSD1306.</p>
+<div class="plantumlgraph">
+<object type="image/svg+xml" data="inline_umlgraph_19.svg"></object>
+</div>
+<dl class="section pre"><dt>Precondición</dt><dd>El display SSD1306 debe estar inicializado mediante <span class="tt"><a class="el" href="ssd1306_8h.html#ade2c3a936ceecc5b8a1d965cc302d2ed" title="Inicializa el controlador SSD1306 con la secuencia de encendido y parámetros de display.">ssd1306_Init()</a></span>. </dd></dl>
+<dl class="section post"><dt>Postcondición</dt><dd>Limpia y dibuja el nuevo cuadro sobre el framebuffer en RAM; incrementa ángulos de rotación. </dd></dl>
+<dl class="section see"><dt>Ver también</dt><dd><a class="el" href="ssd1306_8h.html#a99529b2a48960312342d3c323aadcec8">ssd1306_Line</a> </dd>
+<dd>
+<a class="el" href="struct_point3_d.html" title="Coordenada espacial tridimensional en punto fijo con enteros de 16 bits.">Point3D</a> </dd>
+<dd>
+<a class="el" href="struct_point2_d.html" title="Coordenada proyectada sobre el plano bidimensional del display OLED (128x64).">Point2D</a></dd></dl>
+<p>Aplica rotaciones tridimensionales mediante la tabla trigonométrica <span class="tt"><a class="el" href="wiregfx_8c.html#a31dcfeb0361aa1f281db225a98b22e5f">sin_LUT</a></span> y proyecta los vértices calculados sobre el framebuffer de memoria del SSD1306. </p><dl class="section pre"><dt>Precondición</dt><dd>El controlador SSD1306 debe haber sido inicializado y configurado. </dd></dl>
+<dl class="section post"><dt>Postcondición</dt><dd>Limpia el buffer con <span class="tt">ssd1306_Fill(Black)</span> y traza las 12 aristas con <span class="tt"><a class="el" href="ssd1306_8h.html#a99529b2a48960312342d3c323aadcec8">ssd1306_Line</a></span>. Incrementa los ángulos de rotación <span class="tt"><a class="el" href="wiregfx_8c.html#ab524463dacbe156ad8377887abd07839" title="Ángulo de rotación sobre el eje X (0 a 255 = 0° a 360°).">angle_x</a></span>, <span class="tt"><a class="el" href="wiregfx_8c.html#a80b26bdd0e7515bcb7dab5e799e73d90" title="Ángulo de rotación sobre el eje Y.">angle_y</a></span> y <span class="tt"><a class="el" href="wiregfx_8c.html#a06ef935d6fae1bed8d4fdde3ed2d8500" title="Ángulo de rotación sobre el eje Z.">angle_z</a></span>. </dd></dl>
+<dl class="section see"><dt>Ver también</dt><dd><a class="el" href="wiregfx_8c.html#a31dcfeb0361aa1f281db225a98b22e5f">sin_LUT</a> </dd>
+<dd>
+<a class="el" href="wiregfx_8c.html#a3bb3396490d4e7b1654cb9e7bedc1e67">cube_vertices</a> </dd>
+<dd>
+<a class="el" href="wiregfx_8c.html#aecc1a37d8a3eff4db9fdeb3a6d836215">cube_edges</a> </dd>
+<dd>
+<a class="el" href="ssd1306_8h.html#a99529b2a48960312342d3c323aadcec8">ssd1306_Line</a> </dd></dl>
 <p>&lt; Coordenada X del centro geométrico en pantalla (128 / 2)</p>
 <p>&lt; Coordenada Y del centro geométrico en pantalla (64 / 2)</p>
 
-<p class="definition">Definición en la línea <a class="el" href="wiregfx_8c_source.html#l00114">114</a> del archivo <a class="el" href="wiregfx_8c_source.html">wiregfx.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  114</span>                                     {</div>
-<div class="line"><span class="lineno">  115</span>    <a class="code hl_struct" href="struct_point2_d.html">Point2D</a> projected[8];</div>
-<div class="line"><span class="lineno">  116</span>    int32_t sin_x = <a class="code hl_variable" href="wiregfx_8c.html#a31dcfeb0361aa1f281db225a98b22e5f">sin_LUT</a>[<a class="code hl_variable" href="wiregfx_8c.html#ab524463dacbe156ad8377887abd07839">angle_x</a>];</div>
-<div class="line"><span class="lineno">  117</span>    int32_t cos_x = <a class="code hl_variable" href="wiregfx_8c.html#a31dcfeb0361aa1f281db225a98b22e5f">sin_LUT</a>[(uint8_t)(<a class="code hl_variable" href="wiregfx_8c.html#ab524463dacbe156ad8377887abd07839">angle_x</a> + 64)];</div>
-<div class="line"><span class="lineno">  118</span>    int32_t sin_y = <a class="code hl_variable" href="wiregfx_8c.html#a31dcfeb0361aa1f281db225a98b22e5f">sin_LUT</a>[<a class="code hl_variable" href="wiregfx_8c.html#a80b26bdd0e7515bcb7dab5e799e73d90">angle_y</a>];</div>
-<div class="line"><span class="lineno">  119</span>    int32_t cos_y = <a class="code hl_variable" href="wiregfx_8c.html#a31dcfeb0361aa1f281db225a98b22e5f">sin_LUT</a>[(uint8_t)(<a class="code hl_variable" href="wiregfx_8c.html#a80b26bdd0e7515bcb7dab5e799e73d90">angle_y</a> + 64)];</div>
-<div class="line"><span class="lineno">  120</span>    int32_t sin_z = <a class="code hl_variable" href="wiregfx_8c.html#a31dcfeb0361aa1f281db225a98b22e5f">sin_LUT</a>[<a class="code hl_variable" href="wiregfx_8c.html#a06ef935d6fae1bed8d4fdde3ed2d8500">angle_z</a>];</div>
-<div class="line"><span class="lineno">  121</span>    int32_t cos_z = <a class="code hl_variable" href="wiregfx_8c.html#a31dcfeb0361aa1f281db225a98b22e5f">sin_LUT</a>[(uint8_t)(<a class="code hl_variable" href="wiregfx_8c.html#a06ef935d6fae1bed8d4fdde3ed2d8500">angle_z</a> + 64)];</div>
-<div class="line"><span class="lineno">  122</span> </div>
-<div class="line"><span class="lineno">  123</span>    <a class="code hl_function" href="ssd1306_8h.html#a77620914b6d1247e7515a36c38672391">ssd1306_Fill</a>(<a class="code hl_enumvalue" href="ssd1306_8h.html#a6f68a90e6eefe5396bcbec2cd699d500ac1e9bce8242f443c54c7405223d616cd">Black</a>);</div>
-<div class="line"><span class="lineno">  124</span> </div>
-<div class="line"><span class="lineno">  125</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 8; i++) {</div>
-<div class="line"><span class="lineno">  126</span>        int32_t x = <a class="code hl_variable" href="wiregfx_8c.html#a3bb3396490d4e7b1654cb9e7bedc1e67">cube_vertices</a>[i].<a class="code hl_variable" href="struct_point3_d.html#aac47db42875eea60c141fa2711bc05da">x</a>;</div>
-<div class="line"><span class="lineno">  127</span>        int32_t y = <a class="code hl_variable" href="wiregfx_8c.html#a3bb3396490d4e7b1654cb9e7bedc1e67">cube_vertices</a>[i].<a class="code hl_variable" href="struct_point3_d.html#a95edfd4f1e1876312867eac04e74b657">y</a>;</div>
-<div class="line"><span class="lineno">  128</span>        int32_t z = <a class="code hl_variable" href="wiregfx_8c.html#a3bb3396490d4e7b1654cb9e7bedc1e67">cube_vertices</a>[i].<a class="code hl_variable" href="struct_point3_d.html#a6ebcea10c74b8b9055838fc0d5aeddff">z</a>;</div>
-<div class="line"><span class="lineno">  129</span> </div>
-<div class="line"><span class="lineno">  130</span>        <span class="comment">// Rotaciones (X, Y, Z) aplicando corrimiento &gt;&gt; 7 para punto fijo</span></div>
-<div class="line"><span class="lineno">  131</span>        int32_t xy = (y * cos_x - z * sin_x) &gt;&gt; 7;</div>
-<div class="line"><span class="lineno">  132</span>        int32_t xz = (y * sin_x + z * cos_x) &gt;&gt; 7;</div>
-<div class="line"><span class="lineno">  133</span>        y = xy; z = xz;</div>
+<p class="definition">Definición en la línea <a class="el" href="wiregfx_8c_source.html#l00126">126</a> del archivo <a class="el" href="wiregfx_8c_source.html">wiregfx.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  126</span>                                     {</div>
+<div class="line"><span class="lineno">  127</span>    <a class="code hl_struct" href="struct_point2_d.html">Point2D</a> projected[8];</div>
+<div class="line"><span class="lineno">  128</span>    int32_t sin_x = <a class="code hl_variable" href="wiregfx_8c.html#a31dcfeb0361aa1f281db225a98b22e5f">sin_LUT</a>[<a class="code hl_variable" href="wiregfx_8c.html#ab524463dacbe156ad8377887abd07839">angle_x</a>];</div>
+<div class="line"><span class="lineno">  129</span>    int32_t cos_x = <a class="code hl_variable" href="wiregfx_8c.html#a31dcfeb0361aa1f281db225a98b22e5f">sin_LUT</a>[(uint8_t)(<a class="code hl_variable" href="wiregfx_8c.html#ab524463dacbe156ad8377887abd07839">angle_x</a> + 64)];</div>
+<div class="line"><span class="lineno">  130</span>    int32_t sin_y = <a class="code hl_variable" href="wiregfx_8c.html#a31dcfeb0361aa1f281db225a98b22e5f">sin_LUT</a>[<a class="code hl_variable" href="wiregfx_8c.html#a80b26bdd0e7515bcb7dab5e799e73d90">angle_y</a>];</div>
+<div class="line"><span class="lineno">  131</span>    int32_t cos_y = <a class="code hl_variable" href="wiregfx_8c.html#a31dcfeb0361aa1f281db225a98b22e5f">sin_LUT</a>[(uint8_t)(<a class="code hl_variable" href="wiregfx_8c.html#a80b26bdd0e7515bcb7dab5e799e73d90">angle_y</a> + 64)];</div>
+<div class="line"><span class="lineno">  132</span>    int32_t sin_z = <a class="code hl_variable" href="wiregfx_8c.html#a31dcfeb0361aa1f281db225a98b22e5f">sin_LUT</a>[<a class="code hl_variable" href="wiregfx_8c.html#a06ef935d6fae1bed8d4fdde3ed2d8500">angle_z</a>];</div>
+<div class="line"><span class="lineno">  133</span>    int32_t cos_z = <a class="code hl_variable" href="wiregfx_8c.html#a31dcfeb0361aa1f281db225a98b22e5f">sin_LUT</a>[(uint8_t)(<a class="code hl_variable" href="wiregfx_8c.html#a06ef935d6fae1bed8d4fdde3ed2d8500">angle_z</a> + 64)];</div>
 <div class="line"><span class="lineno">  134</span> </div>
-<div class="line"><span class="lineno">  135</span>        int32_t yx = (x * cos_y + z * sin_y) &gt;&gt; 7;</div>
-<div class="line"><span class="lineno">  136</span>        int32_t yz = (-x * sin_y + z * cos_y) &gt;&gt; 7;</div>
-<div class="line"><span class="lineno">  137</span>        x = yx; z = yz;</div>
-<div class="line"><span class="lineno">  138</span> </div>
-<div class="line"><span class="lineno">  139</span>        int32_t zx = (x * cos_z - y * sin_z) &gt;&gt; 7;</div>
-<div class="line"><span class="lineno">  140</span>        int32_t zy = (x * sin_z + y * cos_z) &gt;&gt; 7;</div>
-<div class="line"><span class="lineno">  141</span>        x = zx; y = zy;</div>
-<div class="line"><span class="lineno">  142</span> </div>
-<div class="line"><span class="lineno">  143</span>        projected[i].<a class="code hl_variable" href="struct_point2_d.html#a20dfae07a7e7084de11e3c0a90fd5ba0">x</a> = x + <a class="code hl_define" href="group___wire_g_f_x___config.html#gaffb36ca3a6519ca609cfa9a0d70a682a">CENTER_X</a>;</div>
-<div class="line"><span class="lineno">  144</span>        projected[i].<a class="code hl_variable" href="struct_point2_d.html#a194b209717366ee3c45102701a49e922">y</a> = y + <a class="code hl_define" href="group___wire_g_f_x___config.html#ga65dba9379097de8ea0bb4afd9d504b2b">CENTER_Y</a>;</div>
-<div class="line"><span class="lineno">  145</span>    }</div>
+<div class="line"><span class="lineno">  135</span>    <a class="code hl_function" href="ssd1306_8h.html#a77620914b6d1247e7515a36c38672391">ssd1306_Fill</a>(<a class="code hl_enumvalue" href="ssd1306_8h.html#a6f68a90e6eefe5396bcbec2cd699d500ac1e9bce8242f443c54c7405223d616cd">Black</a>);</div>
+<div class="line"><span class="lineno">  136</span> </div>
+<div class="line"><span class="lineno">  137</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 8; i++) {</div>
+<div class="line"><span class="lineno">  138</span>        int32_t x = <a class="code hl_variable" href="wiregfx_8c.html#a3bb3396490d4e7b1654cb9e7bedc1e67">cube_vertices</a>[i].<a class="code hl_variable" href="struct_point3_d.html#aac47db42875eea60c141fa2711bc05da">x</a>;</div>
+<div class="line"><span class="lineno">  139</span>        int32_t y = <a class="code hl_variable" href="wiregfx_8c.html#a3bb3396490d4e7b1654cb9e7bedc1e67">cube_vertices</a>[i].<a class="code hl_variable" href="struct_point3_d.html#a95edfd4f1e1876312867eac04e74b657">y</a>;</div>
+<div class="line"><span class="lineno">  140</span>        int32_t z = <a class="code hl_variable" href="wiregfx_8c.html#a3bb3396490d4e7b1654cb9e7bedc1e67">cube_vertices</a>[i].<a class="code hl_variable" href="struct_point3_d.html#a6ebcea10c74b8b9055838fc0d5aeddff">z</a>;</div>
+<div class="line"><span class="lineno">  141</span> </div>
+<div class="line"><span class="lineno">  142</span>        <span class="comment">// Rotaciones (X, Y, Z) aplicando corrimiento &gt;&gt; 7 para punto fijo</span></div>
+<div class="line"><span class="lineno">  143</span>        int32_t xy = (y * cos_x - z * sin_x) &gt;&gt; 7;</div>
+<div class="line"><span class="lineno">  144</span>        int32_t xz = (y * sin_x + z * cos_x) &gt;&gt; 7;</div>
+<div class="line"><span class="lineno">  145</span>        y = xy; z = xz;</div>
 <div class="line"><span class="lineno">  146</span> </div>
-<div class="line"><span class="lineno">  147</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 12; i++) {</div>
-<div class="line"><span class="lineno">  148</span>        <a class="code hl_function" href="ssd1306_8h.html#a99529b2a48960312342d3c323aadcec8">ssd1306_Line</a>(projected[<a class="code hl_variable" href="wiregfx_8c.html#aecc1a37d8a3eff4db9fdeb3a6d836215">cube_edges</a>[i][0]].x, projected[<a class="code hl_variable" href="wiregfx_8c.html#aecc1a37d8a3eff4db9fdeb3a6d836215">cube_edges</a>[i][0]].y,</div>
-<div class="line"><span class="lineno">  149</span>                     projected[<a class="code hl_variable" href="wiregfx_8c.html#aecc1a37d8a3eff4db9fdeb3a6d836215">cube_edges</a>[i][1]].x, projected[<a class="code hl_variable" href="wiregfx_8c.html#aecc1a37d8a3eff4db9fdeb3a6d836215">cube_edges</a>[i][1]].y, <a class="code hl_enumvalue" href="ssd1306_8h.html#a6f68a90e6eefe5396bcbec2cd699d500ab548046646b36c12aa6ba841de500094">White</a>);</div>
-<div class="line"><span class="lineno">  150</span>    }</div>
-<div class="line"><span class="lineno">  151</span> </div>
-<div class="line"><span class="lineno">  152</span>    <a class="code hl_variable" href="wiregfx_8c.html#ab524463dacbe156ad8377887abd07839">angle_x</a> += 2; <a class="code hl_variable" href="wiregfx_8c.html#a80b26bdd0e7515bcb7dab5e799e73d90">angle_y</a> += 1; <a class="code hl_variable" href="wiregfx_8c.html#a06ef935d6fae1bed8d4fdde3ed2d8500">angle_z</a> += 3;</div>
-<div class="line"><span class="lineno">  153</span>}</div>
+<div class="line"><span class="lineno">  147</span>        int32_t yx = (x * cos_y + z * sin_y) &gt;&gt; 7;</div>
+<div class="line"><span class="lineno">  148</span>        int32_t yz = (-x * sin_y + z * cos_y) &gt;&gt; 7;</div>
+<div class="line"><span class="lineno">  149</span>        x = yx; z = yz;</div>
+<div class="line"><span class="lineno">  150</span> </div>
+<div class="line"><span class="lineno">  151</span>        int32_t zx = (x * cos_z - y * sin_z) &gt;&gt; 7;</div>
+<div class="line"><span class="lineno">  152</span>        int32_t zy = (x * sin_z + y * cos_z) &gt;&gt; 7;</div>
+<div class="line"><span class="lineno">  153</span>        x = zx; y = zy;</div>
+<div class="line"><span class="lineno">  154</span> </div>
+<div class="line"><span class="lineno">  155</span>        projected[i].<a class="code hl_variable" href="struct_point2_d.html#a20dfae07a7e7084de11e3c0a90fd5ba0">x</a> = x + <a class="code hl_define" href="group___wire_g_f_x___config.html#gaffb36ca3a6519ca609cfa9a0d70a682a">CENTER_X</a>;</div>
+<div class="line"><span class="lineno">  156</span>        projected[i].<a class="code hl_variable" href="struct_point2_d.html#a194b209717366ee3c45102701a49e922">y</a> = y + <a class="code hl_define" href="group___wire_g_f_x___config.html#ga65dba9379097de8ea0bb4afd9d504b2b">CENTER_Y</a>;</div>
+<div class="line"><span class="lineno">  157</span>    }</div>
+<div class="line"><span class="lineno">  158</span> </div>
+<div class="line"><span class="lineno">  159</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 12; i++) {</div>
+<div class="line"><span class="lineno">  160</span>        <a class="code hl_function" href="ssd1306_8h.html#a99529b2a48960312342d3c323aadcec8">ssd1306_Line</a>(projected[<a class="code hl_variable" href="wiregfx_8c.html#aecc1a37d8a3eff4db9fdeb3a6d836215">cube_edges</a>[i][0]].x, projected[<a class="code hl_variable" href="wiregfx_8c.html#aecc1a37d8a3eff4db9fdeb3a6d836215">cube_edges</a>[i][0]].y,</div>
+<div class="line"><span class="lineno">  161</span>                     projected[<a class="code hl_variable" href="wiregfx_8c.html#aecc1a37d8a3eff4db9fdeb3a6d836215">cube_edges</a>[i][1]].x, projected[<a class="code hl_variable" href="wiregfx_8c.html#aecc1a37d8a3eff4db9fdeb3a6d836215">cube_edges</a>[i][1]].y, <a class="code hl_enumvalue" href="ssd1306_8h.html#a6f68a90e6eefe5396bcbec2cd699d500ab548046646b36c12aa6ba841de500094">White</a>);</div>
+<div class="line"><span class="lineno">  162</span>    }</div>
+<div class="line"><span class="lineno">  163</span> </div>
+<div class="line"><span class="lineno">  164</span>    <a class="code hl_variable" href="wiregfx_8c.html#ab524463dacbe156ad8377887abd07839">angle_x</a> += 2; <a class="code hl_variable" href="wiregfx_8c.html#a80b26bdd0e7515bcb7dab5e799e73d90">angle_y</a> += 1; <a class="code hl_variable" href="wiregfx_8c.html#a06ef935d6fae1bed8d4fdde3ed2d8500">angle_z</a> += 3;</div>
+<div class="line"><span class="lineno">  165</span>}</div>
 <div class="ttc" id="agroup___wire_g_f_x___config_html_ga65dba9379097de8ea0bb4afd9d504b2b"><div class="ttname"><a href="group___wire_g_f_x___config.html#ga65dba9379097de8ea0bb4afd9d504b2b">CENTER_Y</a></div><div class="ttdeci">#define CENTER_Y</div><div class="ttdoc">Coordenada Y del centro geométrico en pantalla (64 / 2).</div><div class="ttdef"><b>Definición</b> <a href="wiregfx_8h_source.html#l00025">wiregfx.h:25</a></div></div>
 <div class="ttc" id="agroup___wire_g_f_x___config_html_gaffb36ca3a6519ca609cfa9a0d70a682a"><div class="ttname"><a href="group___wire_g_f_x___config.html#gaffb36ca3a6519ca609cfa9a0d70a682a">CENTER_X</a></div><div class="ttdeci">#define CENTER_X</div><div class="ttdoc">Coordenada X del centro geométrico en pantalla (128 / 2).</div><div class="ttdef"><b>Definición</b> <a href="wiregfx_8h_source.html#l00024">wiregfx.h:24</a></div></div>
 <div class="ttc" id="assd1306_8h_html_a6f68a90e6eefe5396bcbec2cd699d500ab548046646b36c12aa6ba841de500094"><div class="ttname"><a href="ssd1306_8h.html#a6f68a90e6eefe5396bcbec2cd699d500ab548046646b36c12aa6ba841de500094">White</a></div><div class="ttdeci">@ White</div><div class="ttdoc">Píxel encendido (Color emisor blanco/azul según el display).</div><div class="ttdef"><b>Definición</b> <a href="ssd1306_8h_source.html#l00058">ssd1306.h:58</a></div></div>
 <div class="ttc" id="assd1306_8h_html_a6f68a90e6eefe5396bcbec2cd699d500ac1e9bce8242f443c54c7405223d616cd"><div class="ttname"><a href="ssd1306_8h.html#a6f68a90e6eefe5396bcbec2cd699d500ac1e9bce8242f443c54c7405223d616cd">Black</a></div><div class="ttdeci">@ Black</div><div class="ttdoc">Píxel apagado (Fondo negro).</div><div class="ttdef"><b>Definición</b> <a href="ssd1306_8h_source.html#l00057">ssd1306.h:57</a></div></div>
-<div class="ttc" id="assd1306_8h_html_a77620914b6d1247e7515a36c38672391"><div class="ttname"><a href="ssd1306_8h.html#a77620914b6d1247e7515a36c38672391">ssd1306_Fill</a></div><div class="ttdeci">void ssd1306_Fill(SSD1306_COLOR color)</div><div class="ttdef"><b>Definición</b> <a href="ssd1306_8c_source.html#l00219">ssd1306.c:219</a></div></div>
-<div class="ttc" id="assd1306_8h_html_a99529b2a48960312342d3c323aadcec8"><div class="ttname"><a href="ssd1306_8h.html#a99529b2a48960312342d3c323aadcec8">ssd1306_Line</a></div><div class="ttdeci">void ssd1306_Line(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2, SSD1306_COLOR color)</div><div class="ttdef"><b>Definición</b> <a href="ssd1306_8c_source.html#l00374">ssd1306.c:374</a></div></div>
-<div class="ttc" id="astruct_point2_d_html"><div class="ttname"><a href="struct_point2_d.html">Point2D</a></div><div class="ttdoc">Coordenada proyectada sobre el plano bidimensional de la pantalla.</div><div class="ttdef"><b>Definición</b> <a href="wiregfx_8h_source.html#l00040">wiregfx.h:40</a></div></div>
-<div class="ttc" id="astruct_point2_d_html_a194b209717366ee3c45102701a49e922"><div class="ttname"><a href="struct_point2_d.html#a194b209717366ee3c45102701a49e922">Point2D::y</a></div><div class="ttdeci">int16_t y</div><div class="ttdoc">Coordenada vertical proyectada en píxeles.</div><div class="ttdef"><b>Definición</b> <a href="wiregfx_8h_source.html#l00042">wiregfx.h:42</a></div></div>
-<div class="ttc" id="astruct_point2_d_html_a20dfae07a7e7084de11e3c0a90fd5ba0"><div class="ttname"><a href="struct_point2_d.html#a20dfae07a7e7084de11e3c0a90fd5ba0">Point2D::x</a></div><div class="ttdeci">int16_t x</div><div class="ttdoc">Coordenada horizontal proyectada en píxeles.</div><div class="ttdef"><b>Definición</b> <a href="wiregfx_8h_source.html#l00041">wiregfx.h:41</a></div></div>
-<div class="ttc" id="astruct_point3_d_html_a6ebcea10c74b8b9055838fc0d5aeddff"><div class="ttname"><a href="struct_point3_d.html#a6ebcea10c74b8b9055838fc0d5aeddff">Point3D::z</a></div><div class="ttdeci">int16_t z</div><div class="ttdoc">Coordenada en eje Z (profundidad).</div><div class="ttdef"><b>Definición</b> <a href="wiregfx_8h_source.html#l00034">wiregfx.h:34</a></div></div>
-<div class="ttc" id="astruct_point3_d_html_a95edfd4f1e1876312867eac04e74b657"><div class="ttname"><a href="struct_point3_d.html#a95edfd4f1e1876312867eac04e74b657">Point3D::y</a></div><div class="ttdeci">int16_t y</div><div class="ttdoc">Coordenada en eje Y.</div><div class="ttdef"><b>Definición</b> <a href="wiregfx_8h_source.html#l00033">wiregfx.h:33</a></div></div>
-<div class="ttc" id="astruct_point3_d_html_aac47db42875eea60c141fa2711bc05da"><div class="ttname"><a href="struct_point3_d.html#aac47db42875eea60c141fa2711bc05da">Point3D::x</a></div><div class="ttdeci">int16_t x</div><div class="ttdoc">Coordenada en eje X.</div><div class="ttdef"><b>Definición</b> <a href="wiregfx_8h_source.html#l00032">wiregfx.h:32</a></div></div>
+<div class="ttc" id="assd1306_8h_html_a77620914b6d1247e7515a36c38672391"><div class="ttname"><a href="ssd1306_8h.html#a77620914b6d1247e7515a36c38672391">ssd1306_Fill</a></div><div class="ttdeci">void ssd1306_Fill(SSD1306_COLOR color)</div><div class="ttdoc">Rellena el framebuffer completo de 1024 bytes con un color uniforme (Black o White).</div><div class="ttdef"><b>Definición</b> <a href="ssd1306_8c_source.html#l00219">ssd1306.c:219</a></div></div>
+<div class="ttc" id="assd1306_8h_html_a99529b2a48960312342d3c323aadcec8"><div class="ttname"><a href="ssd1306_8h.html#a99529b2a48960312342d3c323aadcec8">ssd1306_Line</a></div><div class="ttdeci">void ssd1306_Line(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2, SSD1306_COLOR color)</div><div class="ttdef"><b>Definición</b> <a href="ssd1306_8c_source.html#l00419">ssd1306.c:419</a></div></div>
+<div class="ttc" id="astruct_point2_d_html"><div class="ttname"><a href="struct_point2_d.html">Point2D</a></div><div class="ttdoc">Coordenada proyectada sobre el plano bidimensional del display OLED (128x64).</div><div class="ttdef"><b>Definición</b> <a href="wiregfx_8h_source.html#l00049">wiregfx.h:49</a></div></div>
+<div class="ttc" id="astruct_point2_d_html_a194b209717366ee3c45102701a49e922"><div class="ttname"><a href="struct_point2_d.html#a194b209717366ee3c45102701a49e922">Point2D::y</a></div><div class="ttdeci">int16_t y</div><div class="ttdoc">Coordenada vertical proyectada en píxeles (0 a 63).</div><div class="ttdef"><b>Definición</b> <a href="wiregfx_8h_source.html#l00051">wiregfx.h:51</a></div></div>
+<div class="ttc" id="astruct_point2_d_html_a20dfae07a7e7084de11e3c0a90fd5ba0"><div class="ttname"><a href="struct_point2_d.html#a20dfae07a7e7084de11e3c0a90fd5ba0">Point2D::x</a></div><div class="ttdeci">int16_t x</div><div class="ttdoc">Coordenada horizontal proyectada en píxeles (0 a 127).</div><div class="ttdef"><b>Definición</b> <a href="wiregfx_8h_source.html#l00050">wiregfx.h:50</a></div></div>
+<div class="ttc" id="astruct_point3_d_html_a6ebcea10c74b8b9055838fc0d5aeddff"><div class="ttname"><a href="struct_point3_d.html#a6ebcea10c74b8b9055838fc0d5aeddff">Point3D::z</a></div><div class="ttdeci">int16_t z</div><div class="ttdoc">Coordenada espacial en eje de profundidad Z.</div><div class="ttdef"><b>Definición</b> <a href="wiregfx_8h_source.html#l00039">wiregfx.h:39</a></div></div>
+<div class="ttc" id="astruct_point3_d_html_a95edfd4f1e1876312867eac04e74b657"><div class="ttname"><a href="struct_point3_d.html#a95edfd4f1e1876312867eac04e74b657">Point3D::y</a></div><div class="ttdeci">int16_t y</div><div class="ttdoc">Coordenada espacial en eje vertical Y.</div><div class="ttdef"><b>Definición</b> <a href="wiregfx_8h_source.html#l00038">wiregfx.h:38</a></div></div>
+<div class="ttc" id="astruct_point3_d_html_aac47db42875eea60c141fa2711bc05da"><div class="ttname"><a href="struct_point3_d.html#aac47db42875eea60c141fa2711bc05da">Point3D::x</a></div><div class="ttdeci">int16_t x</div><div class="ttdoc">Coordenada espacial en eje horizontal X.</div><div class="ttdef"><b>Definición</b> <a href="wiregfx_8h_source.html#l00037">wiregfx.h:37</a></div></div>
 <div class="ttc" id="awiregfx_8c_html_a06ef935d6fae1bed8d4fdde3ed2d8500"><div class="ttname"><a href="wiregfx_8c.html#a06ef935d6fae1bed8d4fdde3ed2d8500">angle_z</a></div><div class="ttdeci">static uint8_t angle_z</div><div class="ttdoc">Ángulo de rotación sobre el eje Z.</div><div class="ttdef"><b>Definición</b> <a href="wiregfx_8c_source.html#l00021">wiregfx.c:21</a></div></div>
 <div class="ttc" id="awiregfx_8c_html_a31dcfeb0361aa1f281db225a98b22e5f"><div class="ttname"><a href="wiregfx_8c.html#a31dcfeb0361aa1f281db225a98b22e5f">sin_LUT</a></div><div class="ttdeci">const int8_t sin_LUT[256]</div><div class="ttdef"><b>Definición</b> <a href="wiregfx_8c_source.html#l00029">wiregfx.c:29</a></div></div>
 <div class="ttc" id="awiregfx_8c_html_a3bb3396490d4e7b1654cb9e7bedc1e67"><div class="ttname"><a href="wiregfx_8c.html#a3bb3396490d4e7b1654cb9e7bedc1e67">cube_vertices</a></div><div class="ttdeci">static const Point3D cube_vertices[8]</div><div class="ttdef"><b>Definición</b> <a href="wiregfx_8c_source.html#l00048">wiregfx.c:48</a></div></div>
@@ -331,9 +372,9 @@ Funciones</h2></td></tr>
 <div class="ttc" id="awiregfx_8c_html_ab524463dacbe156ad8377887abd07839"><div class="ttname"><a href="wiregfx_8c.html#ab524463dacbe156ad8377887abd07839">angle_x</a></div><div class="ttdeci">static uint8_t angle_x</div><div class="ttdoc">Ángulo de rotación sobre el eje X (0 a 255 = 0° a 360°).</div><div class="ttdef"><b>Definición</b> <a href="wiregfx_8c_source.html#l00019">wiregfx.c:19</a></div></div>
 <div class="ttc" id="awiregfx_8c_html_aecc1a37d8a3eff4db9fdeb3a6d836215"><div class="ttname"><a href="wiregfx_8c.html#aecc1a37d8a3eff4db9fdeb3a6d836215">cube_edges</a></div><div class="ttdeci">static const int cube_edges[12][2]</div><div class="ttdef"><b>Definición</b> <a href="wiregfx_8c_source.html#l00053">wiregfx.c:53</a></div></div>
 </div><!-- fragment -->
-<p class="reference">Hace referencia a <a class="el" href="wiregfx_8c_source.html#l00019">angle_x</a>, <a class="el" href="wiregfx_8c_source.html#l00020">angle_y</a>, <a class="el" href="wiregfx_8c_source.html#l00021">angle_z</a>, <a class="el" href="ssd1306_8h_source.html#l00057">Black</a>, <a class="el" href="wiregfx_8h_source.html#l00024">CENTER_X</a>, <a class="el" href="wiregfx_8h_source.html#l00025">CENTER_Y</a>, <a class="el" href="wiregfx_8c_source.html#l00053">cube_edges</a>, <a class="el" href="wiregfx_8c_source.html#l00048">cube_vertices</a>, <a class="el" href="wiregfx_8c_source.html#l00029">sin_LUT</a>, <a class="el" href="ssd1306_8c_source.html#l00219">ssd1306_Fill()</a>, <a class="el" href="ssd1306_8c_source.html#l00374">ssd1306_Line()</a>, <a class="el" href="ssd1306_8h_source.html#l00058">White</a>, <a class="el" href="wiregfx_8c_source.html#l00114">WIREGFX_Graphics_DrawCube()</a>, <a class="el" href="wiregfx_8h_source.html#l00041">Point2D::x</a>, <a class="el" href="wiregfx_8h_source.html#l00032">Point3D::x</a>, <a class="el" href="wiregfx_8h_source.html#l00042">Point2D::y</a>, <a class="el" href="wiregfx_8h_source.html#l00033">Point3D::y</a> y <a class="el" href="wiregfx_8h_source.html#l00034">Point3D::z</a>.</p>
+<p class="reference">Hace referencia a <a class="el" href="wiregfx_8c_source.html#l00019">angle_x</a>, <a class="el" href="wiregfx_8c_source.html#l00020">angle_y</a>, <a class="el" href="wiregfx_8c_source.html#l00021">angle_z</a>, <a class="el" href="ssd1306_8h_source.html#l00057">Black</a>, <a class="el" href="wiregfx_8h_source.html#l00024">CENTER_X</a>, <a class="el" href="wiregfx_8h_source.html#l00025">CENTER_Y</a>, <a class="el" href="wiregfx_8c_source.html#l00053">cube_edges</a>, <a class="el" href="wiregfx_8c_source.html#l00048">cube_vertices</a>, <a class="el" href="wiregfx_8c_source.html#l00029">sin_LUT</a>, <a class="el" href="ssd1306_8c_source.html#l00219">ssd1306_Fill()</a>, <a class="el" href="ssd1306_8c_source.html#l00419">ssd1306_Line()</a>, <a class="el" href="ssd1306_8h_source.html#l00058">White</a>, <a class="el" href="wiregfx_8c_source.html#l00126">WIREGFX_Graphics_DrawCube()</a>, <a class="el" href="wiregfx_8h_source.html#l00050">Point2D::x</a>, <a class="el" href="wiregfx_8h_source.html#l00037">Point3D::x</a>, <a class="el" href="wiregfx_8h_source.html#l00051">Point2D::y</a>, <a class="el" href="wiregfx_8h_source.html#l00038">Point3D::y</a> y <a class="el" href="wiregfx_8h_source.html#l00039">Point3D::z</a>.</p>
 
-<p class="reference">Referenciado por <a class="el" href="wiregfx_8c_source.html#l00293">WIREGFX_DisplayTask()</a> y <a class="el" href="wiregfx_8c_source.html#l00114">WIREGFX_Graphics_DrawCube()</a>.</p>
+<p class="reference">Referenciado por <a class="el" href="wiregfx_8c_source.html#l00349">WIREGFX_DisplayTask()</a> y <a class="el" href="wiregfx_8c_source.html#l00126">WIREGFX_Graphics_DrawCube()</a>.</p>
 <div id="dynsection-4" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
 <div id="dynsection-4-summary" class="dynsummary">
 </div>
@@ -365,58 +406,68 @@ Funciones</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Renderiza una pirámide de base cuadrada rotando en el espacio tridimensional. </p>
+<p>Transforma 5 vértices y conecta 8 aristas en rotación continua sobre los tres ejes. </p><dl class="section pre"><dt>Precondición</dt><dd>Display SSD1306 inicializado. </dd></dl>
+<dl class="section post"><dt>Postcondición</dt><dd>Dibuja la pirámide en el framebuffer de RAM. </dd></dl>
+<dl class="section see"><dt>Ver también</dt><dd><a class="el" href="struct_point3_d.html" title="Coordenada espacial tridimensional en punto fijo con enteros de 16 bits.">Point3D</a></dd></dl>
+<p>Transforma 5 vértices y conecta 8 aristas en rotación continua sobre los tres ejes espaciales. </p><dl class="section pre"><dt>Precondición</dt><dd>Display SSD1306 inicializado. </dd></dl>
+<dl class="section post"><dt>Postcondición</dt><dd>Actualiza el framebuffer en memoria RAM con las aristas de la pirámide. </dd></dl>
+<dl class="section see"><dt>Ver también</dt><dd><a class="el" href="wiregfx_8c.html#a4b15c5c7bddb3ff3ef6ebfdeb9261161">pyramid_vertices</a> </dd>
+<dd>
+<a class="el" href="wiregfx_8c.html#a4d1acf92c5a782faa68ac209e4cfe788">pyramid_edges</a> </dd>
+<dd>
+<a class="el" href="ssd1306_8h.html#a99529b2a48960312342d3c323aadcec8">ssd1306_Line</a> </dd></dl>
 <p>&lt; Coordenada X del centro geométrico en pantalla (128 / 2)</p>
 <p>&lt; Coordenada Y del centro geométrico en pantalla (64 / 2)</p>
 
-<p class="definition">Definición en la línea <a class="el" href="wiregfx_8c_source.html#l00200">200</a> del archivo <a class="el" href="wiregfx_8c_source.html">wiregfx.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  200</span>                                        {</div>
-<div class="line"><span class="lineno">  201</span>    <a class="code hl_struct" href="struct_point2_d.html">Point2D</a> projected[5];</div>
-<div class="line"><span class="lineno">  202</span>    int32_t sin_x = <a class="code hl_variable" href="wiregfx_8c.html#a31dcfeb0361aa1f281db225a98b22e5f">sin_LUT</a>[<a class="code hl_variable" href="wiregfx_8c.html#ab524463dacbe156ad8377887abd07839">angle_x</a>];</div>
-<div class="line"><span class="lineno">  203</span>    int32_t cos_x = <a class="code hl_variable" href="wiregfx_8c.html#a31dcfeb0361aa1f281db225a98b22e5f">sin_LUT</a>[(uint8_t)(<a class="code hl_variable" href="wiregfx_8c.html#ab524463dacbe156ad8377887abd07839">angle_x</a> + 64)];</div>
-<div class="line"><span class="lineno">  204</span>    int32_t sin_y = <a class="code hl_variable" href="wiregfx_8c.html#a31dcfeb0361aa1f281db225a98b22e5f">sin_LUT</a>[<a class="code hl_variable" href="wiregfx_8c.html#a80b26bdd0e7515bcb7dab5e799e73d90">angle_y</a>];</div>
-<div class="line"><span class="lineno">  205</span>    int32_t cos_y = <a class="code hl_variable" href="wiregfx_8c.html#a31dcfeb0361aa1f281db225a98b22e5f">sin_LUT</a>[(uint8_t)(<a class="code hl_variable" href="wiregfx_8c.html#a80b26bdd0e7515bcb7dab5e799e73d90">angle_y</a> + 64)];</div>
-<div class="line"><span class="lineno">  206</span>    int32_t sin_z = <a class="code hl_variable" href="wiregfx_8c.html#a31dcfeb0361aa1f281db225a98b22e5f">sin_LUT</a>[<a class="code hl_variable" href="wiregfx_8c.html#a06ef935d6fae1bed8d4fdde3ed2d8500">angle_z</a>];</div>
-<div class="line"><span class="lineno">  207</span>    int32_t cos_z = <a class="code hl_variable" href="wiregfx_8c.html#a31dcfeb0361aa1f281db225a98b22e5f">sin_LUT</a>[(uint8_t)(<a class="code hl_variable" href="wiregfx_8c.html#a06ef935d6fae1bed8d4fdde3ed2d8500">angle_z</a> + 64)];</div>
-<div class="line"><span class="lineno">  208</span> </div>
-<div class="line"><span class="lineno">  209</span>    <a class="code hl_function" href="ssd1306_8h.html#a77620914b6d1247e7515a36c38672391">ssd1306_Fill</a>(<a class="code hl_enumvalue" href="ssd1306_8h.html#a6f68a90e6eefe5396bcbec2cd699d500ac1e9bce8242f443c54c7405223d616cd">Black</a>);</div>
-<div class="line"><span class="lineno">  210</span> </div>
-<div class="line"><span class="lineno">  211</span>    <span class="comment">// 1. Rotar y proyectar los 5 vértices</span></div>
-<div class="line"><span class="lineno">  212</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 5; i++) {</div>
-<div class="line"><span class="lineno">  213</span>        int32_t x = <a class="code hl_variable" href="wiregfx_8c.html#a4b15c5c7bddb3ff3ef6ebfdeb9261161">pyramid_vertices</a>[i].<a class="code hl_variable" href="struct_point3_d.html#aac47db42875eea60c141fa2711bc05da">x</a>;</div>
-<div class="line"><span class="lineno">  214</span>        int32_t y = <a class="code hl_variable" href="wiregfx_8c.html#a4b15c5c7bddb3ff3ef6ebfdeb9261161">pyramid_vertices</a>[i].<a class="code hl_variable" href="struct_point3_d.html#a95edfd4f1e1876312867eac04e74b657">y</a>;</div>
-<div class="line"><span class="lineno">  215</span>        int32_t z = <a class="code hl_variable" href="wiregfx_8c.html#a4b15c5c7bddb3ff3ef6ebfdeb9261161">pyramid_vertices</a>[i].<a class="code hl_variable" href="struct_point3_d.html#a6ebcea10c74b8b9055838fc0d5aeddff">z</a>;</div>
-<div class="line"><span class="lineno">  216</span> </div>
-<div class="line"><span class="lineno">  217</span>        int32_t xy = (y * cos_x - z * sin_x) &gt;&gt; 7;</div>
-<div class="line"><span class="lineno">  218</span>        int32_t xz = (y * sin_x + z * cos_x) &gt;&gt; 7;</div>
-<div class="line"><span class="lineno">  219</span>        y = xy; z = xz;</div>
-<div class="line"><span class="lineno">  220</span> </div>
-<div class="line"><span class="lineno">  221</span>        int32_t yx = (x * cos_y + z * sin_y) &gt;&gt; 7;</div>
-<div class="line"><span class="lineno">  222</span>        int32_t yz = (-x * sin_y + z * cos_y) &gt;&gt; 7;</div>
-<div class="line"><span class="lineno">  223</span>        x = yx; z = yz;</div>
-<div class="line"><span class="lineno">  224</span> </div>
-<div class="line"><span class="lineno">  225</span>        int32_t zx = (x * cos_z - y * sin_z) &gt;&gt; 7;</div>
-<div class="line"><span class="lineno">  226</span>        int32_t zy = (x * sin_z + y * cos_z) &gt;&gt; 7;</div>
-<div class="line"><span class="lineno">  227</span>        x = zx; y = zy;</div>
-<div class="line"><span class="lineno">  228</span> </div>
-<div class="line"><span class="lineno">  229</span>        projected[i].<a class="code hl_variable" href="struct_point2_d.html#a20dfae07a7e7084de11e3c0a90fd5ba0">x</a> = x + <a class="code hl_define" href="group___wire_g_f_x___config.html#gaffb36ca3a6519ca609cfa9a0d70a682a">CENTER_X</a>;</div>
-<div class="line"><span class="lineno">  230</span>        projected[i].<a class="code hl_variable" href="struct_point2_d.html#a194b209717366ee3c45102701a49e922">y</a> = y + <a class="code hl_define" href="group___wire_g_f_x___config.html#ga65dba9379097de8ea0bb4afd9d504b2b">CENTER_Y</a>;</div>
-<div class="line"><span class="lineno">  231</span>    }</div>
-<div class="line"><span class="lineno">  232</span> </div>
-<div class="line"><span class="lineno">  233</span>    <span class="comment">// 2. Dibujar las 8 aristas</span></div>
-<div class="line"><span class="lineno">  234</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 8; i++) {</div>
-<div class="line"><span class="lineno">  235</span>        <a class="code hl_function" href="ssd1306_8h.html#a99529b2a48960312342d3c323aadcec8">ssd1306_Line</a>(projected[<a class="code hl_variable" href="wiregfx_8c.html#a4d1acf92c5a782faa68ac209e4cfe788">pyramid_edges</a>[i][0]].x, projected[<a class="code hl_variable" href="wiregfx_8c.html#a4d1acf92c5a782faa68ac209e4cfe788">pyramid_edges</a>[i][0]].y,</div>
-<div class="line"><span class="lineno">  236</span>                     projected[<a class="code hl_variable" href="wiregfx_8c.html#a4d1acf92c5a782faa68ac209e4cfe788">pyramid_edges</a>[i][1]].x, projected[<a class="code hl_variable" href="wiregfx_8c.html#a4d1acf92c5a782faa68ac209e4cfe788">pyramid_edges</a>[i][1]].y, <a class="code hl_enumvalue" href="ssd1306_8h.html#a6f68a90e6eefe5396bcbec2cd699d500ab548046646b36c12aa6ba841de500094">White</a>);</div>
-<div class="line"><span class="lineno">  237</span>    }</div>
-<div class="line"><span class="lineno">  238</span> </div>
-<div class="line"><span class="lineno">  239</span>    <span class="comment">// Incremento de ángulos (puedes jugar con estos valores)</span></div>
-<div class="line"><span class="lineno">  240</span>    <a class="code hl_variable" href="wiregfx_8c.html#ab524463dacbe156ad8377887abd07839">angle_x</a> += 2; <a class="code hl_variable" href="wiregfx_8c.html#a80b26bdd0e7515bcb7dab5e799e73d90">angle_y</a> += 3; <a class="code hl_variable" href="wiregfx_8c.html#a06ef935d6fae1bed8d4fdde3ed2d8500">angle_z</a> += 1;</div>
-<div class="line"><span class="lineno">  241</span>}</div>
+<p class="definition">Definición en la línea <a class="el" href="wiregfx_8c_source.html#l00231">231</a> del archivo <a class="el" href="wiregfx_8c_source.html">wiregfx.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  231</span>                                        {</div>
+<div class="line"><span class="lineno">  232</span>    <a class="code hl_struct" href="struct_point2_d.html">Point2D</a> projected[5];</div>
+<div class="line"><span class="lineno">  233</span>    int32_t sin_x = <a class="code hl_variable" href="wiregfx_8c.html#a31dcfeb0361aa1f281db225a98b22e5f">sin_LUT</a>[<a class="code hl_variable" href="wiregfx_8c.html#ab524463dacbe156ad8377887abd07839">angle_x</a>];</div>
+<div class="line"><span class="lineno">  234</span>    int32_t cos_x = <a class="code hl_variable" href="wiregfx_8c.html#a31dcfeb0361aa1f281db225a98b22e5f">sin_LUT</a>[(uint8_t)(<a class="code hl_variable" href="wiregfx_8c.html#ab524463dacbe156ad8377887abd07839">angle_x</a> + 64)];</div>
+<div class="line"><span class="lineno">  235</span>    int32_t sin_y = <a class="code hl_variable" href="wiregfx_8c.html#a31dcfeb0361aa1f281db225a98b22e5f">sin_LUT</a>[<a class="code hl_variable" href="wiregfx_8c.html#a80b26bdd0e7515bcb7dab5e799e73d90">angle_y</a>];</div>
+<div class="line"><span class="lineno">  236</span>    int32_t cos_y = <a class="code hl_variable" href="wiregfx_8c.html#a31dcfeb0361aa1f281db225a98b22e5f">sin_LUT</a>[(uint8_t)(<a class="code hl_variable" href="wiregfx_8c.html#a80b26bdd0e7515bcb7dab5e799e73d90">angle_y</a> + 64)];</div>
+<div class="line"><span class="lineno">  237</span>    int32_t sin_z = <a class="code hl_variable" href="wiregfx_8c.html#a31dcfeb0361aa1f281db225a98b22e5f">sin_LUT</a>[<a class="code hl_variable" href="wiregfx_8c.html#a06ef935d6fae1bed8d4fdde3ed2d8500">angle_z</a>];</div>
+<div class="line"><span class="lineno">  238</span>    int32_t cos_z = <a class="code hl_variable" href="wiregfx_8c.html#a31dcfeb0361aa1f281db225a98b22e5f">sin_LUT</a>[(uint8_t)(<a class="code hl_variable" href="wiregfx_8c.html#a06ef935d6fae1bed8d4fdde3ed2d8500">angle_z</a> + 64)];</div>
+<div class="line"><span class="lineno">  239</span> </div>
+<div class="line"><span class="lineno">  240</span>    <a class="code hl_function" href="ssd1306_8h.html#a77620914b6d1247e7515a36c38672391">ssd1306_Fill</a>(<a class="code hl_enumvalue" href="ssd1306_8h.html#a6f68a90e6eefe5396bcbec2cd699d500ac1e9bce8242f443c54c7405223d616cd">Black</a>);</div>
+<div class="line"><span class="lineno">  241</span> </div>
+<div class="line"><span class="lineno">  242</span>    <span class="comment">// 1. Rotar y proyectar los 5 vértices</span></div>
+<div class="line"><span class="lineno">  243</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 5; i++) {</div>
+<div class="line"><span class="lineno">  244</span>        int32_t x = <a class="code hl_variable" href="wiregfx_8c.html#a4b15c5c7bddb3ff3ef6ebfdeb9261161">pyramid_vertices</a>[i].<a class="code hl_variable" href="struct_point3_d.html#aac47db42875eea60c141fa2711bc05da">x</a>;</div>
+<div class="line"><span class="lineno">  245</span>        int32_t y = <a class="code hl_variable" href="wiregfx_8c.html#a4b15c5c7bddb3ff3ef6ebfdeb9261161">pyramid_vertices</a>[i].<a class="code hl_variable" href="struct_point3_d.html#a95edfd4f1e1876312867eac04e74b657">y</a>;</div>
+<div class="line"><span class="lineno">  246</span>        int32_t z = <a class="code hl_variable" href="wiregfx_8c.html#a4b15c5c7bddb3ff3ef6ebfdeb9261161">pyramid_vertices</a>[i].<a class="code hl_variable" href="struct_point3_d.html#a6ebcea10c74b8b9055838fc0d5aeddff">z</a>;</div>
+<div class="line"><span class="lineno">  247</span> </div>
+<div class="line"><span class="lineno">  248</span>        int32_t xy = (y * cos_x - z * sin_x) &gt;&gt; 7;</div>
+<div class="line"><span class="lineno">  249</span>        int32_t xz = (y * sin_x + z * cos_x) &gt;&gt; 7;</div>
+<div class="line"><span class="lineno">  250</span>        y = xy; z = xz;</div>
+<div class="line"><span class="lineno">  251</span> </div>
+<div class="line"><span class="lineno">  252</span>        int32_t yx = (x * cos_y + z * sin_y) &gt;&gt; 7;</div>
+<div class="line"><span class="lineno">  253</span>        int32_t yz = (-x * sin_y + z * cos_y) &gt;&gt; 7;</div>
+<div class="line"><span class="lineno">  254</span>        x = yx; z = yz;</div>
+<div class="line"><span class="lineno">  255</span> </div>
+<div class="line"><span class="lineno">  256</span>        int32_t zx = (x * cos_z - y * sin_z) &gt;&gt; 7;</div>
+<div class="line"><span class="lineno">  257</span>        int32_t zy = (x * sin_z + y * cos_z) &gt;&gt; 7;</div>
+<div class="line"><span class="lineno">  258</span>        x = zx; y = zy;</div>
+<div class="line"><span class="lineno">  259</span> </div>
+<div class="line"><span class="lineno">  260</span>        projected[i].<a class="code hl_variable" href="struct_point2_d.html#a20dfae07a7e7084de11e3c0a90fd5ba0">x</a> = x + <a class="code hl_define" href="group___wire_g_f_x___config.html#gaffb36ca3a6519ca609cfa9a0d70a682a">CENTER_X</a>;</div>
+<div class="line"><span class="lineno">  261</span>        projected[i].<a class="code hl_variable" href="struct_point2_d.html#a194b209717366ee3c45102701a49e922">y</a> = y + <a class="code hl_define" href="group___wire_g_f_x___config.html#ga65dba9379097de8ea0bb4afd9d504b2b">CENTER_Y</a>;</div>
+<div class="line"><span class="lineno">  262</span>    }</div>
+<div class="line"><span class="lineno">  263</span> </div>
+<div class="line"><span class="lineno">  264</span>    <span class="comment">// 2. Dibujar las 8 aristas</span></div>
+<div class="line"><span class="lineno">  265</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 8; i++) {</div>
+<div class="line"><span class="lineno">  266</span>        <a class="code hl_function" href="ssd1306_8h.html#a99529b2a48960312342d3c323aadcec8">ssd1306_Line</a>(projected[<a class="code hl_variable" href="wiregfx_8c.html#a4d1acf92c5a782faa68ac209e4cfe788">pyramid_edges</a>[i][0]].x, projected[<a class="code hl_variable" href="wiregfx_8c.html#a4d1acf92c5a782faa68ac209e4cfe788">pyramid_edges</a>[i][0]].y,</div>
+<div class="line"><span class="lineno">  267</span>                     projected[<a class="code hl_variable" href="wiregfx_8c.html#a4d1acf92c5a782faa68ac209e4cfe788">pyramid_edges</a>[i][1]].x, projected[<a class="code hl_variable" href="wiregfx_8c.html#a4d1acf92c5a782faa68ac209e4cfe788">pyramid_edges</a>[i][1]].y, <a class="code hl_enumvalue" href="ssd1306_8h.html#a6f68a90e6eefe5396bcbec2cd699d500ab548046646b36c12aa6ba841de500094">White</a>);</div>
+<div class="line"><span class="lineno">  268</span>    }</div>
+<div class="line"><span class="lineno">  269</span> </div>
+<div class="line"><span class="lineno">  270</span>    <span class="comment">// Incremento de ángulos</span></div>
+<div class="line"><span class="lineno">  271</span>    <a class="code hl_variable" href="wiregfx_8c.html#ab524463dacbe156ad8377887abd07839">angle_x</a> += 2; <a class="code hl_variable" href="wiregfx_8c.html#a80b26bdd0e7515bcb7dab5e799e73d90">angle_y</a> += 3; <a class="code hl_variable" href="wiregfx_8c.html#a06ef935d6fae1bed8d4fdde3ed2d8500">angle_z</a> += 1;</div>
+<div class="line"><span class="lineno">  272</span>}</div>
 <div class="ttc" id="awiregfx_8c_html_a4b15c5c7bddb3ff3ef6ebfdeb9261161"><div class="ttname"><a href="wiregfx_8c.html#a4b15c5c7bddb3ff3ef6ebfdeb9261161">pyramid_vertices</a></div><div class="ttdeci">static const Point3D pyramid_vertices[5]</div><div class="ttdef"><b>Definición</b> <a href="wiregfx_8c_source.html#l00071">wiregfx.c:71</a></div></div>
 <div class="ttc" id="awiregfx_8c_html_a4d1acf92c5a782faa68ac209e4cfe788"><div class="ttname"><a href="wiregfx_8c.html#a4d1acf92c5a782faa68ac209e4cfe788">pyramid_edges</a></div><div class="ttdeci">static const int pyramid_edges[8][2]</div><div class="ttdef"><b>Definición</b> <a href="wiregfx_8c_source.html#l00079">wiregfx.c:79</a></div></div>
 </div><!-- fragment -->
-<p class="reference">Hace referencia a <a class="el" href="wiregfx_8c_source.html#l00019">angle_x</a>, <a class="el" href="wiregfx_8c_source.html#l00020">angle_y</a>, <a class="el" href="wiregfx_8c_source.html#l00021">angle_z</a>, <a class="el" href="ssd1306_8h_source.html#l00057">Black</a>, <a class="el" href="wiregfx_8h_source.html#l00024">CENTER_X</a>, <a class="el" href="wiregfx_8h_source.html#l00025">CENTER_Y</a>, <a class="el" href="wiregfx_8c_source.html#l00079">pyramid_edges</a>, <a class="el" href="wiregfx_8c_source.html#l00071">pyramid_vertices</a>, <a class="el" href="wiregfx_8c_source.html#l00029">sin_LUT</a>, <a class="el" href="ssd1306_8c_source.html#l00219">ssd1306_Fill()</a>, <a class="el" href="ssd1306_8c_source.html#l00374">ssd1306_Line()</a>, <a class="el" href="ssd1306_8h_source.html#l00058">White</a>, <a class="el" href="wiregfx_8c_source.html#l00200">WIREGFX_Graphics_DrawPyramid()</a>, <a class="el" href="wiregfx_8h_source.html#l00041">Point2D::x</a>, <a class="el" href="wiregfx_8h_source.html#l00032">Point3D::x</a>, <a class="el" href="wiregfx_8h_source.html#l00042">Point2D::y</a>, <a class="el" href="wiregfx_8h_source.html#l00033">Point3D::y</a> y <a class="el" href="wiregfx_8h_source.html#l00034">Point3D::z</a>.</p>
+<p class="reference">Hace referencia a <a class="el" href="wiregfx_8c_source.html#l00019">angle_x</a>, <a class="el" href="wiregfx_8c_source.html#l00020">angle_y</a>, <a class="el" href="wiregfx_8c_source.html#l00021">angle_z</a>, <a class="el" href="ssd1306_8h_source.html#l00057">Black</a>, <a class="el" href="wiregfx_8h_source.html#l00024">CENTER_X</a>, <a class="el" href="wiregfx_8h_source.html#l00025">CENTER_Y</a>, <a class="el" href="wiregfx_8c_source.html#l00079">pyramid_edges</a>, <a class="el" href="wiregfx_8c_source.html#l00071">pyramid_vertices</a>, <a class="el" href="wiregfx_8c_source.html#l00029">sin_LUT</a>, <a class="el" href="ssd1306_8c_source.html#l00219">ssd1306_Fill()</a>, <a class="el" href="ssd1306_8c_source.html#l00419">ssd1306_Line()</a>, <a class="el" href="ssd1306_8h_source.html#l00058">White</a>, <a class="el" href="wiregfx_8c_source.html#l00231">WIREGFX_Graphics_DrawPyramid()</a>, <a class="el" href="wiregfx_8h_source.html#l00050">Point2D::x</a>, <a class="el" href="wiregfx_8h_source.html#l00037">Point3D::x</a>, <a class="el" href="wiregfx_8h_source.html#l00051">Point2D::y</a>, <a class="el" href="wiregfx_8h_source.html#l00038">Point3D::y</a> y <a class="el" href="wiregfx_8h_source.html#l00039">Point3D::z</a>.</p>
 
-<p class="reference">Referenciado por <a class="el" href="wiregfx_8c_source.html#l00293">WIREGFX_DisplayTask()</a> y <a class="el" href="wiregfx_8c_source.html#l00200">WIREGFX_Graphics_DrawPyramid()</a>.</p>
+<p class="reference">Referenciado por <a class="el" href="wiregfx_8c_source.html#l00349">WIREGFX_DisplayTask()</a> y <a class="el" href="wiregfx_8c_source.html#l00231">WIREGFX_Graphics_DrawPyramid()</a>.</p>
 <div id="dynsection-6" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
 <div id="dynsection-6-summary" class="dynsummary">
 </div>
@@ -447,58 +498,67 @@ Funciones</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Renderiza una esfera alámbrica tridimensional. </p>
+<p>Renderiza una esfera alámbrica tridimensional de baja poligonización (Low-Poly). </p>
+<p>Contiene 14 vértices distribuidos en dos polos y tres anillos latitudinales con 24 aristas. </p><dl class="section pre"><dt>Precondición</dt><dd>Display SSD1306 inicializado. </dd></dl>
+<dl class="section post"><dt>Postcondición</dt><dd>Actualiza el framebuffer del SSD1306.</dd></dl>
+<p>Proyecta 14 vértices distribuidos en anillos latitudinales y dibuja 24 aristas. </p><dl class="section pre"><dt>Precondición</dt><dd>Display SSD1306 inicializado. </dd></dl>
+<dl class="section post"><dt>Postcondición</dt><dd>Actualiza el framebuffer del SSD1306 con la geometría esférica. </dd></dl>
+<dl class="section see"><dt>Ver también</dt><dd><a class="el" href="wiregfx_8c.html#a28fb0af1317ff851a80e435b55bf02d6">sphere_vertices</a> </dd>
+<dd>
+<a class="el" href="wiregfx_8c.html#a77606d6068502259c5de0b0bdd4ddd14">sphere_edges</a> </dd>
+<dd>
+<a class="el" href="ssd1306_8h.html#a99529b2a48960312342d3c323aadcec8">ssd1306_Line</a> </dd></dl>
 <p>&lt; Coordenada X del centro geométrico en pantalla (128 / 2)</p>
 <p>&lt; Coordenada Y del centro geométrico en pantalla (64 / 2)</p>
 
-<p class="definition">Definición en la línea <a class="el" href="wiregfx_8c_source.html#l00243">243</a> del archivo <a class="el" href="wiregfx_8c_source.html">wiregfx.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  243</span>                                       {</div>
-<div class="line"><span class="lineno">  244</span>    <a class="code hl_struct" href="struct_point2_d.html">Point2D</a> projected[14]; <span class="comment">// 14 vértices</span></div>
-<div class="line"><span class="lineno">  245</span> </div>
-<div class="line"><span class="lineno">  246</span>    int32_t sin_x = <a class="code hl_variable" href="wiregfx_8c.html#a31dcfeb0361aa1f281db225a98b22e5f">sin_LUT</a>[<a class="code hl_variable" href="wiregfx_8c.html#ab524463dacbe156ad8377887abd07839">angle_x</a>];</div>
-<div class="line"><span class="lineno">  247</span>    int32_t cos_x = <a class="code hl_variable" href="wiregfx_8c.html#a31dcfeb0361aa1f281db225a98b22e5f">sin_LUT</a>[(uint8_t)(<a class="code hl_variable" href="wiregfx_8c.html#ab524463dacbe156ad8377887abd07839">angle_x</a> + 64)];</div>
-<div class="line"><span class="lineno">  248</span>    int32_t sin_y = <a class="code hl_variable" href="wiregfx_8c.html#a31dcfeb0361aa1f281db225a98b22e5f">sin_LUT</a>[<a class="code hl_variable" href="wiregfx_8c.html#a80b26bdd0e7515bcb7dab5e799e73d90">angle_y</a>];</div>
-<div class="line"><span class="lineno">  249</span>    int32_t cos_y = <a class="code hl_variable" href="wiregfx_8c.html#a31dcfeb0361aa1f281db225a98b22e5f">sin_LUT</a>[(uint8_t)(<a class="code hl_variable" href="wiregfx_8c.html#a80b26bdd0e7515bcb7dab5e799e73d90">angle_y</a> + 64)];</div>
-<div class="line"><span class="lineno">  250</span>    int32_t sin_z = <a class="code hl_variable" href="wiregfx_8c.html#a31dcfeb0361aa1f281db225a98b22e5f">sin_LUT</a>[<a class="code hl_variable" href="wiregfx_8c.html#a06ef935d6fae1bed8d4fdde3ed2d8500">angle_z</a>];</div>
-<div class="line"><span class="lineno">  251</span>    int32_t cos_z = <a class="code hl_variable" href="wiregfx_8c.html#a31dcfeb0361aa1f281db225a98b22e5f">sin_LUT</a>[(uint8_t)(<a class="code hl_variable" href="wiregfx_8c.html#a06ef935d6fae1bed8d4fdde3ed2d8500">angle_z</a> + 64)];</div>
-<div class="line"><span class="lineno">  252</span> </div>
-<div class="line"><span class="lineno">  253</span>    <a class="code hl_function" href="ssd1306_8h.html#a77620914b6d1247e7515a36c38672391">ssd1306_Fill</a>(<a class="code hl_enumvalue" href="ssd1306_8h.html#a6f68a90e6eefe5396bcbec2cd699d500ac1e9bce8242f443c54c7405223d616cd">Black</a>);</div>
-<div class="line"><span class="lineno">  254</span> </div>
-<div class="line"><span class="lineno">  255</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 14; i++) {</div>
-<div class="line"><span class="lineno">  256</span>        int32_t x = <a class="code hl_variable" href="wiregfx_8c.html#a28fb0af1317ff851a80e435b55bf02d6">sphere_vertices</a>[i].<a class="code hl_variable" href="struct_point3_d.html#aac47db42875eea60c141fa2711bc05da">x</a>;</div>
-<div class="line"><span class="lineno">  257</span>        int32_t y = <a class="code hl_variable" href="wiregfx_8c.html#a28fb0af1317ff851a80e435b55bf02d6">sphere_vertices</a>[i].<a class="code hl_variable" href="struct_point3_d.html#a95edfd4f1e1876312867eac04e74b657">y</a>;</div>
-<div class="line"><span class="lineno">  258</span>        int32_t z = <a class="code hl_variable" href="wiregfx_8c.html#a28fb0af1317ff851a80e435b55bf02d6">sphere_vertices</a>[i].<a class="code hl_variable" href="struct_point3_d.html#a6ebcea10c74b8b9055838fc0d5aeddff">z</a>;</div>
-<div class="line"><span class="lineno">  259</span> </div>
-<div class="line"><span class="lineno">  260</span>        <span class="comment">// Rotaciones matriciales</span></div>
-<div class="line"><span class="lineno">  261</span>        int32_t xy = (y * cos_x - z * sin_x) &gt;&gt; 7;</div>
-<div class="line"><span class="lineno">  262</span>        int32_t xz = (y * sin_x + z * cos_x) &gt;&gt; 7;</div>
-<div class="line"><span class="lineno">  263</span>        y = xy; z = xz;</div>
-<div class="line"><span class="lineno">  264</span> </div>
-<div class="line"><span class="lineno">  265</span>        int32_t yx = (x * cos_y + z * sin_y) &gt;&gt; 7;</div>
-<div class="line"><span class="lineno">  266</span>        int32_t yz = (-x * sin_y + z * cos_y) &gt;&gt; 7;</div>
-<div class="line"><span class="lineno">  267</span>        x = yx; z = yz;</div>
-<div class="line"><span class="lineno">  268</span> </div>
-<div class="line"><span class="lineno">  269</span>        int32_t zx = (x * cos_z - y * sin_z) &gt;&gt; 7;</div>
-<div class="line"><span class="lineno">  270</span>        int32_t zy = (x * sin_z + y * cos_z) &gt;&gt; 7;</div>
-<div class="line"><span class="lineno">  271</span>        x = zx; y = zy;</div>
-<div class="line"><span class="lineno">  272</span> </div>
-<div class="line"><span class="lineno">  273</span>        projected[i].<a class="code hl_variable" href="struct_point2_d.html#a20dfae07a7e7084de11e3c0a90fd5ba0">x</a> = x + <a class="code hl_define" href="group___wire_g_f_x___config.html#gaffb36ca3a6519ca609cfa9a0d70a682a">CENTER_X</a>;</div>
-<div class="line"><span class="lineno">  274</span>        projected[i].<a class="code hl_variable" href="struct_point2_d.html#a194b209717366ee3c45102701a49e922">y</a> = y + <a class="code hl_define" href="group___wire_g_f_x___config.html#ga65dba9379097de8ea0bb4afd9d504b2b">CENTER_Y</a>;</div>
-<div class="line"><span class="lineno">  275</span>    }</div>
-<div class="line"><span class="lineno">  276</span> </div>
-<div class="line"><span class="lineno">  277</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 24; i++) { <span class="comment">// 24 aristas</span></div>
-<div class="line"><span class="lineno">  278</span>        <a class="code hl_function" href="ssd1306_8h.html#a99529b2a48960312342d3c323aadcec8">ssd1306_Line</a>(projected[<a class="code hl_variable" href="wiregfx_8c.html#a77606d6068502259c5de0b0bdd4ddd14">sphere_edges</a>[i][0]].x, projected[<a class="code hl_variable" href="wiregfx_8c.html#a77606d6068502259c5de0b0bdd4ddd14">sphere_edges</a>[i][0]].y,</div>
-<div class="line"><span class="lineno">  279</span>                     projected[<a class="code hl_variable" href="wiregfx_8c.html#a77606d6068502259c5de0b0bdd4ddd14">sphere_edges</a>[i][1]].x, projected[<a class="code hl_variable" href="wiregfx_8c.html#a77606d6068502259c5de0b0bdd4ddd14">sphere_edges</a>[i][1]].y, <a class="code hl_enumvalue" href="ssd1306_8h.html#a6f68a90e6eefe5396bcbec2cd699d500ab548046646b36c12aa6ba841de500094">White</a>);</div>
-<div class="line"><span class="lineno">  280</span>    }</div>
-<div class="line"><span class="lineno">  281</span> </div>
-<div class="line"><span class="lineno">  282</span>    <a class="code hl_variable" href="wiregfx_8c.html#ab524463dacbe156ad8377887abd07839">angle_x</a> += 1; <a class="code hl_variable" href="wiregfx_8c.html#a80b26bdd0e7515bcb7dab5e799e73d90">angle_y</a> += 2; <a class="code hl_variable" href="wiregfx_8c.html#a06ef935d6fae1bed8d4fdde3ed2d8500">angle_z</a> += 1; <span class="comment">// Giro suave</span></div>
-<div class="line"><span class="lineno">  283</span>}</div>
+<p class="definition">Definición en la línea <a class="el" href="wiregfx_8c_source.html#l00283">283</a> del archivo <a class="el" href="wiregfx_8c_source.html">wiregfx.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  283</span>                                       {</div>
+<div class="line"><span class="lineno">  284</span>    <a class="code hl_struct" href="struct_point2_d.html">Point2D</a> projected[14]; <span class="comment">// 14 vértices</span></div>
+<div class="line"><span class="lineno">  285</span> </div>
+<div class="line"><span class="lineno">  286</span>    int32_t sin_x = <a class="code hl_variable" href="wiregfx_8c.html#a31dcfeb0361aa1f281db225a98b22e5f">sin_LUT</a>[<a class="code hl_variable" href="wiregfx_8c.html#ab524463dacbe156ad8377887abd07839">angle_x</a>];</div>
+<div class="line"><span class="lineno">  287</span>    int32_t cos_x = <a class="code hl_variable" href="wiregfx_8c.html#a31dcfeb0361aa1f281db225a98b22e5f">sin_LUT</a>[(uint8_t)(<a class="code hl_variable" href="wiregfx_8c.html#ab524463dacbe156ad8377887abd07839">angle_x</a> + 64)];</div>
+<div class="line"><span class="lineno">  288</span>    int32_t sin_y = <a class="code hl_variable" href="wiregfx_8c.html#a31dcfeb0361aa1f281db225a98b22e5f">sin_LUT</a>[<a class="code hl_variable" href="wiregfx_8c.html#a80b26bdd0e7515bcb7dab5e799e73d90">angle_y</a>];</div>
+<div class="line"><span class="lineno">  289</span>    int32_t cos_y = <a class="code hl_variable" href="wiregfx_8c.html#a31dcfeb0361aa1f281db225a98b22e5f">sin_LUT</a>[(uint8_t)(<a class="code hl_variable" href="wiregfx_8c.html#a80b26bdd0e7515bcb7dab5e799e73d90">angle_y</a> + 64)];</div>
+<div class="line"><span class="lineno">  290</span>    int32_t sin_z = <a class="code hl_variable" href="wiregfx_8c.html#a31dcfeb0361aa1f281db225a98b22e5f">sin_LUT</a>[<a class="code hl_variable" href="wiregfx_8c.html#a06ef935d6fae1bed8d4fdde3ed2d8500">angle_z</a>];</div>
+<div class="line"><span class="lineno">  291</span>    int32_t cos_z = <a class="code hl_variable" href="wiregfx_8c.html#a31dcfeb0361aa1f281db225a98b22e5f">sin_LUT</a>[(uint8_t)(<a class="code hl_variable" href="wiregfx_8c.html#a06ef935d6fae1bed8d4fdde3ed2d8500">angle_z</a> + 64)];</div>
+<div class="line"><span class="lineno">  292</span> </div>
+<div class="line"><span class="lineno">  293</span>    <a class="code hl_function" href="ssd1306_8h.html#a77620914b6d1247e7515a36c38672391">ssd1306_Fill</a>(<a class="code hl_enumvalue" href="ssd1306_8h.html#a6f68a90e6eefe5396bcbec2cd699d500ac1e9bce8242f443c54c7405223d616cd">Black</a>);</div>
+<div class="line"><span class="lineno">  294</span> </div>
+<div class="line"><span class="lineno">  295</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 14; i++) {</div>
+<div class="line"><span class="lineno">  296</span>        int32_t x = <a class="code hl_variable" href="wiregfx_8c.html#a28fb0af1317ff851a80e435b55bf02d6">sphere_vertices</a>[i].<a class="code hl_variable" href="struct_point3_d.html#aac47db42875eea60c141fa2711bc05da">x</a>;</div>
+<div class="line"><span class="lineno">  297</span>        int32_t y = <a class="code hl_variable" href="wiregfx_8c.html#a28fb0af1317ff851a80e435b55bf02d6">sphere_vertices</a>[i].<a class="code hl_variable" href="struct_point3_d.html#a95edfd4f1e1876312867eac04e74b657">y</a>;</div>
+<div class="line"><span class="lineno">  298</span>        int32_t z = <a class="code hl_variable" href="wiregfx_8c.html#a28fb0af1317ff851a80e435b55bf02d6">sphere_vertices</a>[i].<a class="code hl_variable" href="struct_point3_d.html#a6ebcea10c74b8b9055838fc0d5aeddff">z</a>;</div>
+<div class="line"><span class="lineno">  299</span> </div>
+<div class="line"><span class="lineno">  300</span>        <span class="comment">// Rotaciones matriciales</span></div>
+<div class="line"><span class="lineno">  301</span>        int32_t xy = (y * cos_x - z * sin_x) &gt;&gt; 7;</div>
+<div class="line"><span class="lineno">  302</span>        int32_t xz = (y * sin_x + z * cos_x) &gt;&gt; 7;</div>
+<div class="line"><span class="lineno">  303</span>        y = xy; z = xz;</div>
+<div class="line"><span class="lineno">  304</span> </div>
+<div class="line"><span class="lineno">  305</span>        int32_t yx = (x * cos_y + z * sin_y) &gt;&gt; 7;</div>
+<div class="line"><span class="lineno">  306</span>        int32_t yz = (-x * sin_y + z * cos_y) &gt;&gt; 7;</div>
+<div class="line"><span class="lineno">  307</span>        x = yx; z = yz;</div>
+<div class="line"><span class="lineno">  308</span> </div>
+<div class="line"><span class="lineno">  309</span>        int32_t zx = (x * cos_z - y * sin_z) &gt;&gt; 7;</div>
+<div class="line"><span class="lineno">  310</span>        int32_t zy = (x * sin_z + y * cos_z) &gt;&gt; 7;</div>
+<div class="line"><span class="lineno">  311</span>        x = zx; y = zy;</div>
+<div class="line"><span class="lineno">  312</span> </div>
+<div class="line"><span class="lineno">  313</span>        projected[i].<a class="code hl_variable" href="struct_point2_d.html#a20dfae07a7e7084de11e3c0a90fd5ba0">x</a> = x + <a class="code hl_define" href="group___wire_g_f_x___config.html#gaffb36ca3a6519ca609cfa9a0d70a682a">CENTER_X</a>;</div>
+<div class="line"><span class="lineno">  314</span>        projected[i].<a class="code hl_variable" href="struct_point2_d.html#a194b209717366ee3c45102701a49e922">y</a> = y + <a class="code hl_define" href="group___wire_g_f_x___config.html#ga65dba9379097de8ea0bb4afd9d504b2b">CENTER_Y</a>;</div>
+<div class="line"><span class="lineno">  315</span>    }</div>
+<div class="line"><span class="lineno">  316</span> </div>
+<div class="line"><span class="lineno">  317</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 24; i++) { <span class="comment">// 24 aristas</span></div>
+<div class="line"><span class="lineno">  318</span>        <a class="code hl_function" href="ssd1306_8h.html#a99529b2a48960312342d3c323aadcec8">ssd1306_Line</a>(projected[<a class="code hl_variable" href="wiregfx_8c.html#a77606d6068502259c5de0b0bdd4ddd14">sphere_edges</a>[i][0]].x, projected[<a class="code hl_variable" href="wiregfx_8c.html#a77606d6068502259c5de0b0bdd4ddd14">sphere_edges</a>[i][0]].y,</div>
+<div class="line"><span class="lineno">  319</span>                     projected[<a class="code hl_variable" href="wiregfx_8c.html#a77606d6068502259c5de0b0bdd4ddd14">sphere_edges</a>[i][1]].x, projected[<a class="code hl_variable" href="wiregfx_8c.html#a77606d6068502259c5de0b0bdd4ddd14">sphere_edges</a>[i][1]].y, <a class="code hl_enumvalue" href="ssd1306_8h.html#a6f68a90e6eefe5396bcbec2cd699d500ab548046646b36c12aa6ba841de500094">White</a>);</div>
+<div class="line"><span class="lineno">  320</span>    }</div>
+<div class="line"><span class="lineno">  321</span> </div>
+<div class="line"><span class="lineno">  322</span>    <a class="code hl_variable" href="wiregfx_8c.html#ab524463dacbe156ad8377887abd07839">angle_x</a> += 1; <a class="code hl_variable" href="wiregfx_8c.html#a80b26bdd0e7515bcb7dab5e799e73d90">angle_y</a> += 2; <a class="code hl_variable" href="wiregfx_8c.html#a06ef935d6fae1bed8d4fdde3ed2d8500">angle_z</a> += 1; <span class="comment">// Giro suave</span></div>
+<div class="line"><span class="lineno">  323</span>}</div>
 <div class="ttc" id="awiregfx_8c_html_a28fb0af1317ff851a80e435b55bf02d6"><div class="ttname"><a href="wiregfx_8c.html#a28fb0af1317ff851a80e435b55bf02d6">sphere_vertices</a></div><div class="ttdeci">static const Point3D sphere_vertices[14]</div><div class="ttdef"><b>Definición</b> <a href="wiregfx_8c_source.html#l00086">wiregfx.c:86</a></div></div>
 <div class="ttc" id="awiregfx_8c_html_a77606d6068502259c5de0b0bdd4ddd14"><div class="ttname"><a href="wiregfx_8c.html#a77606d6068502259c5de0b0bdd4ddd14">sphere_edges</a></div><div class="ttdeci">static const int sphere_edges[24][2]</div><div class="ttdef"><b>Definición</b> <a href="wiregfx_8c_source.html#l00100">wiregfx.c:100</a></div></div>
 </div><!-- fragment -->
-<p class="reference">Hace referencia a <a class="el" href="wiregfx_8c_source.html#l00019">angle_x</a>, <a class="el" href="wiregfx_8c_source.html#l00020">angle_y</a>, <a class="el" href="wiregfx_8c_source.html#l00021">angle_z</a>, <a class="el" href="ssd1306_8h_source.html#l00057">Black</a>, <a class="el" href="wiregfx_8h_source.html#l00024">CENTER_X</a>, <a class="el" href="wiregfx_8h_source.html#l00025">CENTER_Y</a>, <a class="el" href="wiregfx_8c_source.html#l00029">sin_LUT</a>, <a class="el" href="wiregfx_8c_source.html#l00100">sphere_edges</a>, <a class="el" href="wiregfx_8c_source.html#l00086">sphere_vertices</a>, <a class="el" href="ssd1306_8c_source.html#l00219">ssd1306_Fill()</a>, <a class="el" href="ssd1306_8c_source.html#l00374">ssd1306_Line()</a>, <a class="el" href="ssd1306_8h_source.html#l00058">White</a>, <a class="el" href="wiregfx_8c_source.html#l00243">WIREGFX_Graphics_DrawSphere()</a>, <a class="el" href="wiregfx_8h_source.html#l00041">Point2D::x</a>, <a class="el" href="wiregfx_8h_source.html#l00032">Point3D::x</a>, <a class="el" href="wiregfx_8h_source.html#l00042">Point2D::y</a>, <a class="el" href="wiregfx_8h_source.html#l00033">Point3D::y</a> y <a class="el" href="wiregfx_8h_source.html#l00034">Point3D::z</a>.</p>
+<p class="reference">Hace referencia a <a class="el" href="wiregfx_8c_source.html#l00019">angle_x</a>, <a class="el" href="wiregfx_8c_source.html#l00020">angle_y</a>, <a class="el" href="wiregfx_8c_source.html#l00021">angle_z</a>, <a class="el" href="ssd1306_8h_source.html#l00057">Black</a>, <a class="el" href="wiregfx_8h_source.html#l00024">CENTER_X</a>, <a class="el" href="wiregfx_8h_source.html#l00025">CENTER_Y</a>, <a class="el" href="wiregfx_8c_source.html#l00029">sin_LUT</a>, <a class="el" href="wiregfx_8c_source.html#l00100">sphere_edges</a>, <a class="el" href="wiregfx_8c_source.html#l00086">sphere_vertices</a>, <a class="el" href="ssd1306_8c_source.html#l00219">ssd1306_Fill()</a>, <a class="el" href="ssd1306_8c_source.html#l00419">ssd1306_Line()</a>, <a class="el" href="ssd1306_8h_source.html#l00058">White</a>, <a class="el" href="wiregfx_8c_source.html#l00283">WIREGFX_Graphics_DrawSphere()</a>, <a class="el" href="wiregfx_8h_source.html#l00050">Point2D::x</a>, <a class="el" href="wiregfx_8h_source.html#l00037">Point3D::x</a>, <a class="el" href="wiregfx_8h_source.html#l00051">Point2D::y</a>, <a class="el" href="wiregfx_8h_source.html#l00038">Point3D::y</a> y <a class="el" href="wiregfx_8h_source.html#l00039">Point3D::z</a>.</p>
 
-<p class="reference">Referenciado por <a class="el" href="wiregfx_8c_source.html#l00243">WIREGFX_Graphics_DrawSphere()</a>.</p>
+<p class="reference">Referenciado por <a class="el" href="wiregfx_8c_source.html#l00283">WIREGFX_Graphics_DrawSphere()</a>.</p>
 <div id="dynsection-8" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
 <div id="dynsection-8-summary" class="dynsummary">
 </div>
@@ -530,67 +590,79 @@ Funciones</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Renderiza un teseracto (hipercubo 4D) con proyección en perspectiva estereográfica. </p>
+<p>Realiza rotaciones en los planos hiperespaciales X-Z, Y-Z y X-W sobre 16 vértices y 32 aristas conectadas. </p><dl class="section pre"><dt>Precondición</dt><dd>El display SSD1306 debe estar inicializado. </dd></dl>
+<dl class="section post"><dt>Postcondición</dt><dd>Modifica el framebuffer de video del SSD1306 e incrementa <span class="tt"><a class="el" href="wiregfx_8c.html#a1dd6556da34d6df771b77a181c129791" title="Ángulo de rotación en el plano X-Z (para 4D).">angle_xz</a></span>, <span class="tt"><a class="el" href="wiregfx_8c.html#ac19649c26af01b34b719bda7a4e0c5ff" title="Ángulo de rotación en el plano Y-Z (para 4D).">angle_yz</a></span>, <span class="tt"><a class="el" href="wiregfx_8c.html#a05ecc5ecfd4f71d82e8b72bee2846b1d" title="Ángulo de rotación en el plano X-W de la 4ta dimensión.">angle_xw</a></span>. </dd></dl>
+<dl class="section see"><dt>Ver también</dt><dd><a class="el" href="struct_point4_d.html" title="Coordenada espacial tetradimensional (4D) para geometrías hiperespaciales.">Point4D</a> </dd>
+<dd>
+<a class="el" href="struct_point2_d.html" title="Coordenada proyectada sobre el plano bidimensional del display OLED (128x64).">Point2D</a></dd></dl>
+<p>Realiza rotaciones en los planos hiperespaciales X-Z, Y-Z y X-W sobre 16 vértices y 32 aristas conectadas, escalando por el factor de perspectiva del eje $W$. </p><dl class="section pre"><dt>Precondición</dt><dd>Display SSD1306 inicializado. </dd></dl>
+<dl class="section post"><dt>Postcondición</dt><dd>Modifica el framebuffer de video del SSD1306; avanza los ángulos <span class="tt"><a class="el" href="wiregfx_8c.html#a1dd6556da34d6df771b77a181c129791" title="Ángulo de rotación en el plano X-Z (para 4D).">angle_xz</a></span>, <span class="tt"><a class="el" href="wiregfx_8c.html#ac19649c26af01b34b719bda7a4e0c5ff" title="Ángulo de rotación en el plano Y-Z (para 4D).">angle_yz</a></span>, <span class="tt"><a class="el" href="wiregfx_8c.html#a05ecc5ecfd4f71d82e8b72bee2846b1d" title="Ángulo de rotación en el plano X-W de la 4ta dimensión.">angle_xw</a></span>. </dd></dl>
+<dl class="section see"><dt>Ver también</dt><dd><a class="el" href="wiregfx_8c.html#afd9f889e92a18dad325e83cb67b6a526">tesseract_vertices</a> </dd>
+<dd>
+<a class="el" href="wiregfx_8c.html#a2c25d0a928c29d1d3aa35427b5bc6b6d">tesseract_edges</a> </dd>
+<dd>
+<a class="el" href="ssd1306_8h.html#a99529b2a48960312342d3c323aadcec8">ssd1306_Line</a> </dd></dl>
 <p>&lt; Coordenada X del centro geométrico en pantalla (128 / 2)</p>
 <p>&lt; Coordenada Y del centro geométrico en pantalla (64 / 2)</p>
 
-<p class="definition">Definición en la línea <a class="el" href="wiregfx_8c_source.html#l00155">155</a> del archivo <a class="el" href="wiregfx_8c_source.html">wiregfx.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  155</span>                                          {</div>
-<div class="line"><span class="lineno">  156</span>    <a class="code hl_struct" href="struct_point2_d.html">Point2D</a> projected[16];</div>
-<div class="line"><span class="lineno">  157</span>    int32_t sin_xz = <a class="code hl_variable" href="wiregfx_8c.html#a31dcfeb0361aa1f281db225a98b22e5f">sin_LUT</a>[<a class="code hl_variable" href="wiregfx_8c.html#a1dd6556da34d6df771b77a181c129791">angle_xz</a>];</div>
-<div class="line"><span class="lineno">  158</span>    int32_t cos_xz = <a class="code hl_variable" href="wiregfx_8c.html#a31dcfeb0361aa1f281db225a98b22e5f">sin_LUT</a>[(uint8_t)(<a class="code hl_variable" href="wiregfx_8c.html#a1dd6556da34d6df771b77a181c129791">angle_xz</a> + 64)];</div>
-<div class="line"><span class="lineno">  159</span>    int32_t sin_yz = <a class="code hl_variable" href="wiregfx_8c.html#a31dcfeb0361aa1f281db225a98b22e5f">sin_LUT</a>[<a class="code hl_variable" href="wiregfx_8c.html#ac19649c26af01b34b719bda7a4e0c5ff">angle_yz</a>];</div>
-<div class="line"><span class="lineno">  160</span>    int32_t cos_yz = <a class="code hl_variable" href="wiregfx_8c.html#a31dcfeb0361aa1f281db225a98b22e5f">sin_LUT</a>[(uint8_t)(<a class="code hl_variable" href="wiregfx_8c.html#ac19649c26af01b34b719bda7a4e0c5ff">angle_yz</a> + 64)];</div>
-<div class="line"><span class="lineno">  161</span>    int32_t sin_xw = <a class="code hl_variable" href="wiregfx_8c.html#a31dcfeb0361aa1f281db225a98b22e5f">sin_LUT</a>[<a class="code hl_variable" href="wiregfx_8c.html#a05ecc5ecfd4f71d82e8b72bee2846b1d">angle_xw</a>];</div>
-<div class="line"><span class="lineno">  162</span>    int32_t cos_xw = <a class="code hl_variable" href="wiregfx_8c.html#a31dcfeb0361aa1f281db225a98b22e5f">sin_LUT</a>[(uint8_t)(<a class="code hl_variable" href="wiregfx_8c.html#a05ecc5ecfd4f71d82e8b72bee2846b1d">angle_xw</a> + 64)];</div>
-<div class="line"><span class="lineno">  163</span> </div>
-<div class="line"><span class="lineno">  164</span>    <a class="code hl_function" href="ssd1306_8h.html#a77620914b6d1247e7515a36c38672391">ssd1306_Fill</a>(<a class="code hl_enumvalue" href="ssd1306_8h.html#a6f68a90e6eefe5396bcbec2cd699d500ac1e9bce8242f443c54c7405223d616cd">Black</a>);</div>
-<div class="line"><span class="lineno">  165</span> </div>
-<div class="line"><span class="lineno">  166</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 16; i++) {</div>
-<div class="line"><span class="lineno">  167</span>        int32_t x = <a class="code hl_variable" href="wiregfx_8c.html#afd9f889e92a18dad325e83cb67b6a526">tesseract_vertices</a>[i].<a class="code hl_variable" href="struct_point4_d.html#afa208b7de233e9c26e8647481f4cdb3c">x</a>;</div>
-<div class="line"><span class="lineno">  168</span>        int32_t y = <a class="code hl_variable" href="wiregfx_8c.html#afd9f889e92a18dad325e83cb67b6a526">tesseract_vertices</a>[i].<a class="code hl_variable" href="struct_point4_d.html#ae0503121411b6aa6d384b86601dab3ba">y</a>;</div>
-<div class="line"><span class="lineno">  169</span>        int32_t z = <a class="code hl_variable" href="wiregfx_8c.html#afd9f889e92a18dad325e83cb67b6a526">tesseract_vertices</a>[i].<a class="code hl_variable" href="struct_point4_d.html#a20d9e81a16908b478280514a28ff1b3e">z</a>;</div>
-<div class="line"><span class="lineno">  170</span>        int32_t w = <a class="code hl_variable" href="wiregfx_8c.html#afd9f889e92a18dad325e83cb67b6a526">tesseract_vertices</a>[i].<a class="code hl_variable" href="struct_point4_d.html#aaf6ac6494d64b38cd1744f1d654a5a28">w</a>;</div>
-<div class="line"><span class="lineno">  171</span> </div>
-<div class="line"><span class="lineno">  172</span>        int32_t xw_x = (x * cos_xw - w * sin_xw) &gt;&gt; 7;</div>
-<div class="line"><span class="lineno">  173</span>        int32_t xw_w = (x * sin_xw + w * cos_xw) &gt;&gt; 7;</div>
-<div class="line"><span class="lineno">  174</span>        x = xw_x; w = xw_w;</div>
-<div class="line"><span class="lineno">  175</span> </div>
-<div class="line"><span class="lineno">  176</span>        int32_t xz_x = (x * cos_xz - z * sin_xz) &gt;&gt; 7;</div>
-<div class="line"><span class="lineno">  177</span>        int32_t xz_z = (x * sin_xz + z * cos_xz) &gt;&gt; 7;</div>
-<div class="line"><span class="lineno">  178</span>        x = xz_x; z = xz_z;</div>
-<div class="line"><span class="lineno">  179</span> </div>
-<div class="line"><span class="lineno">  180</span>        int32_t yz_y = (y * cos_yz - z * sin_yz) &gt;&gt; 7;</div>
-<div class="line"><span class="lineno">  181</span>        int32_t yz_z = (y * sin_yz + z * cos_yz) &gt;&gt; 7;</div>
-<div class="line"><span class="lineno">  182</span>        y = yz_y; z = yz_z;</div>
-<div class="line"><span class="lineno">  183</span> </div>
-<div class="line"><span class="lineno">  184</span>        int32_t w_factor = 48 - w;</div>
-<div class="line"><span class="lineno">  185</span>        x = (x * w_factor) &gt;&gt; 6;</div>
-<div class="line"><span class="lineno">  186</span>        y = (y * w_factor) &gt;&gt; 6;</div>
+<p class="definition">Definición en la línea <a class="el" href="wiregfx_8c_source.html#l00177">177</a> del archivo <a class="el" href="wiregfx_8c_source.html">wiregfx.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  177</span>                                          {</div>
+<div class="line"><span class="lineno">  178</span>    <a class="code hl_struct" href="struct_point2_d.html">Point2D</a> projected[16];</div>
+<div class="line"><span class="lineno">  179</span>    int32_t sin_xz = <a class="code hl_variable" href="wiregfx_8c.html#a31dcfeb0361aa1f281db225a98b22e5f">sin_LUT</a>[<a class="code hl_variable" href="wiregfx_8c.html#a1dd6556da34d6df771b77a181c129791">angle_xz</a>];</div>
+<div class="line"><span class="lineno">  180</span>    int32_t cos_xz = <a class="code hl_variable" href="wiregfx_8c.html#a31dcfeb0361aa1f281db225a98b22e5f">sin_LUT</a>[(uint8_t)(<a class="code hl_variable" href="wiregfx_8c.html#a1dd6556da34d6df771b77a181c129791">angle_xz</a> + 64)];</div>
+<div class="line"><span class="lineno">  181</span>    int32_t sin_yz = <a class="code hl_variable" href="wiregfx_8c.html#a31dcfeb0361aa1f281db225a98b22e5f">sin_LUT</a>[<a class="code hl_variable" href="wiregfx_8c.html#ac19649c26af01b34b719bda7a4e0c5ff">angle_yz</a>];</div>
+<div class="line"><span class="lineno">  182</span>    int32_t cos_yz = <a class="code hl_variable" href="wiregfx_8c.html#a31dcfeb0361aa1f281db225a98b22e5f">sin_LUT</a>[(uint8_t)(<a class="code hl_variable" href="wiregfx_8c.html#ac19649c26af01b34b719bda7a4e0c5ff">angle_yz</a> + 64)];</div>
+<div class="line"><span class="lineno">  183</span>    int32_t sin_xw = <a class="code hl_variable" href="wiregfx_8c.html#a31dcfeb0361aa1f281db225a98b22e5f">sin_LUT</a>[<a class="code hl_variable" href="wiregfx_8c.html#a05ecc5ecfd4f71d82e8b72bee2846b1d">angle_xw</a>];</div>
+<div class="line"><span class="lineno">  184</span>    int32_t cos_xw = <a class="code hl_variable" href="wiregfx_8c.html#a31dcfeb0361aa1f281db225a98b22e5f">sin_LUT</a>[(uint8_t)(<a class="code hl_variable" href="wiregfx_8c.html#a05ecc5ecfd4f71d82e8b72bee2846b1d">angle_xw</a> + 64)];</div>
+<div class="line"><span class="lineno">  185</span> </div>
+<div class="line"><span class="lineno">  186</span>    <a class="code hl_function" href="ssd1306_8h.html#a77620914b6d1247e7515a36c38672391">ssd1306_Fill</a>(<a class="code hl_enumvalue" href="ssd1306_8h.html#a6f68a90e6eefe5396bcbec2cd699d500ac1e9bce8242f443c54c7405223d616cd">Black</a>);</div>
 <div class="line"><span class="lineno">  187</span> </div>
-<div class="line"><span class="lineno">  188</span>        projected[i].<a class="code hl_variable" href="struct_point2_d.html#a20dfae07a7e7084de11e3c0a90fd5ba0">x</a> = x + <a class="code hl_define" href="group___wire_g_f_x___config.html#gaffb36ca3a6519ca609cfa9a0d70a682a">CENTER_X</a>;</div>
-<div class="line"><span class="lineno">  189</span>        projected[i].<a class="code hl_variable" href="struct_point2_d.html#a194b209717366ee3c45102701a49e922">y</a> = y + <a class="code hl_define" href="group___wire_g_f_x___config.html#ga65dba9379097de8ea0bb4afd9d504b2b">CENTER_Y</a>;</div>
-<div class="line"><span class="lineno">  190</span>    }</div>
-<div class="line"><span class="lineno">  191</span> </div>
-<div class="line"><span class="lineno">  192</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 32; i++) {</div>
-<div class="line"><span class="lineno">  193</span>        <a class="code hl_function" href="ssd1306_8h.html#a99529b2a48960312342d3c323aadcec8">ssd1306_Line</a>(projected[<a class="code hl_variable" href="wiregfx_8c.html#a2c25d0a928c29d1d3aa35427b5bc6b6d">tesseract_edges</a>[i][0]].x, projected[<a class="code hl_variable" href="wiregfx_8c.html#a2c25d0a928c29d1d3aa35427b5bc6b6d">tesseract_edges</a>[i][0]].y,</div>
-<div class="line"><span class="lineno">  194</span>                     projected[<a class="code hl_variable" href="wiregfx_8c.html#a2c25d0a928c29d1d3aa35427b5bc6b6d">tesseract_edges</a>[i][1]].x, projected[<a class="code hl_variable" href="wiregfx_8c.html#a2c25d0a928c29d1d3aa35427b5bc6b6d">tesseract_edges</a>[i][1]].y, <a class="code hl_enumvalue" href="ssd1306_8h.html#a6f68a90e6eefe5396bcbec2cd699d500ab548046646b36c12aa6ba841de500094">White</a>);</div>
-<div class="line"><span class="lineno">  195</span>    }</div>
-<div class="line"><span class="lineno">  196</span> </div>
-<div class="line"><span class="lineno">  197</span>    <a class="code hl_variable" href="wiregfx_8c.html#a1dd6556da34d6df771b77a181c129791">angle_xz</a> += 1; <a class="code hl_variable" href="wiregfx_8c.html#ac19649c26af01b34b719bda7a4e0c5ff">angle_yz</a> += 1; <a class="code hl_variable" href="wiregfx_8c.html#a05ecc5ecfd4f71d82e8b72bee2846b1d">angle_xw</a> += 2;</div>
-<div class="line"><span class="lineno">  198</span>}</div>
-<div class="ttc" id="astruct_point4_d_html_a20d9e81a16908b478280514a28ff1b3e"><div class="ttname"><a href="struct_point4_d.html#a20d9e81a16908b478280514a28ff1b3e">Point4D::z</a></div><div class="ttdeci">int16_t z</div><div class="ttdoc">Coordenada espacial Z.</div><div class="ttdef"><b>Definición</b> <a href="wiregfx_8h_source.html#l00051">wiregfx.h:51</a></div></div>
-<div class="ttc" id="astruct_point4_d_html_aaf6ac6494d64b38cd1744f1d654a5a28"><div class="ttname"><a href="struct_point4_d.html#aaf6ac6494d64b38cd1744f1d654a5a28">Point4D::w</a></div><div class="ttdeci">int16_t w</div><div class="ttdoc">Coordenada de la cuarta dimensión espacial W.</div><div class="ttdef"><b>Definición</b> <a href="wiregfx_8h_source.html#l00052">wiregfx.h:52</a></div></div>
-<div class="ttc" id="astruct_point4_d_html_ae0503121411b6aa6d384b86601dab3ba"><div class="ttname"><a href="struct_point4_d.html#ae0503121411b6aa6d384b86601dab3ba">Point4D::y</a></div><div class="ttdeci">int16_t y</div><div class="ttdoc">Coordenada espacial Y.</div><div class="ttdef"><b>Definición</b> <a href="wiregfx_8h_source.html#l00050">wiregfx.h:50</a></div></div>
-<div class="ttc" id="astruct_point4_d_html_afa208b7de233e9c26e8647481f4cdb3c"><div class="ttname"><a href="struct_point4_d.html#afa208b7de233e9c26e8647481f4cdb3c">Point4D::x</a></div><div class="ttdeci">int16_t x</div><div class="ttdoc">Coordenada espacial X.</div><div class="ttdef"><b>Definición</b> <a href="wiregfx_8h_source.html#l00049">wiregfx.h:49</a></div></div>
+<div class="line"><span class="lineno">  188</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 16; i++) {</div>
+<div class="line"><span class="lineno">  189</span>        int32_t x = <a class="code hl_variable" href="wiregfx_8c.html#afd9f889e92a18dad325e83cb67b6a526">tesseract_vertices</a>[i].<a class="code hl_variable" href="struct_point4_d.html#afa208b7de233e9c26e8647481f4cdb3c">x</a>;</div>
+<div class="line"><span class="lineno">  190</span>        int32_t y = <a class="code hl_variable" href="wiregfx_8c.html#afd9f889e92a18dad325e83cb67b6a526">tesseract_vertices</a>[i].<a class="code hl_variable" href="struct_point4_d.html#ae0503121411b6aa6d384b86601dab3ba">y</a>;</div>
+<div class="line"><span class="lineno">  191</span>        int32_t z = <a class="code hl_variable" href="wiregfx_8c.html#afd9f889e92a18dad325e83cb67b6a526">tesseract_vertices</a>[i].<a class="code hl_variable" href="struct_point4_d.html#a20d9e81a16908b478280514a28ff1b3e">z</a>;</div>
+<div class="line"><span class="lineno">  192</span>        int32_t w = <a class="code hl_variable" href="wiregfx_8c.html#afd9f889e92a18dad325e83cb67b6a526">tesseract_vertices</a>[i].<a class="code hl_variable" href="struct_point4_d.html#aaf6ac6494d64b38cd1744f1d654a5a28">w</a>;</div>
+<div class="line"><span class="lineno">  193</span> </div>
+<div class="line"><span class="lineno">  194</span>        int32_t xw_x = (x * cos_xw - w * sin_xw) &gt;&gt; 7;</div>
+<div class="line"><span class="lineno">  195</span>        int32_t xw_w = (x * sin_xw + w * cos_xw) &gt;&gt; 7;</div>
+<div class="line"><span class="lineno">  196</span>        x = xw_x; w = xw_w;</div>
+<div class="line"><span class="lineno">  197</span> </div>
+<div class="line"><span class="lineno">  198</span>        int32_t xz_x = (x * cos_xz - z * sin_xz) &gt;&gt; 7;</div>
+<div class="line"><span class="lineno">  199</span>        int32_t xz_z = (x * sin_xz + z * cos_xz) &gt;&gt; 7;</div>
+<div class="line"><span class="lineno">  200</span>        x = xz_x; z = xz_z;</div>
+<div class="line"><span class="lineno">  201</span> </div>
+<div class="line"><span class="lineno">  202</span>        int32_t yz_y = (y * cos_yz - z * sin_yz) &gt;&gt; 7;</div>
+<div class="line"><span class="lineno">  203</span>        int32_t yz_z = (y * sin_yz + z * cos_yz) &gt;&gt; 7;</div>
+<div class="line"><span class="lineno">  204</span>        y = yz_y; z = yz_z;</div>
+<div class="line"><span class="lineno">  205</span> </div>
+<div class="line"><span class="lineno">  206</span>        int32_t w_factor = 48 - w;</div>
+<div class="line"><span class="lineno">  207</span>        x = (x * w_factor) &gt;&gt; 6;</div>
+<div class="line"><span class="lineno">  208</span>        y = (y * w_factor) &gt;&gt; 6;</div>
+<div class="line"><span class="lineno">  209</span> </div>
+<div class="line"><span class="lineno">  210</span>        projected[i].<a class="code hl_variable" href="struct_point2_d.html#a20dfae07a7e7084de11e3c0a90fd5ba0">x</a> = x + <a class="code hl_define" href="group___wire_g_f_x___config.html#gaffb36ca3a6519ca609cfa9a0d70a682a">CENTER_X</a>;</div>
+<div class="line"><span class="lineno">  211</span>        projected[i].<a class="code hl_variable" href="struct_point2_d.html#a194b209717366ee3c45102701a49e922">y</a> = y + <a class="code hl_define" href="group___wire_g_f_x___config.html#ga65dba9379097de8ea0bb4afd9d504b2b">CENTER_Y</a>;</div>
+<div class="line"><span class="lineno">  212</span>    }</div>
+<div class="line"><span class="lineno">  213</span> </div>
+<div class="line"><span class="lineno">  214</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 32; i++) {</div>
+<div class="line"><span class="lineno">  215</span>        <a class="code hl_function" href="ssd1306_8h.html#a99529b2a48960312342d3c323aadcec8">ssd1306_Line</a>(projected[<a class="code hl_variable" href="wiregfx_8c.html#a2c25d0a928c29d1d3aa35427b5bc6b6d">tesseract_edges</a>[i][0]].x, projected[<a class="code hl_variable" href="wiregfx_8c.html#a2c25d0a928c29d1d3aa35427b5bc6b6d">tesseract_edges</a>[i][0]].y,</div>
+<div class="line"><span class="lineno">  216</span>                     projected[<a class="code hl_variable" href="wiregfx_8c.html#a2c25d0a928c29d1d3aa35427b5bc6b6d">tesseract_edges</a>[i][1]].x, projected[<a class="code hl_variable" href="wiregfx_8c.html#a2c25d0a928c29d1d3aa35427b5bc6b6d">tesseract_edges</a>[i][1]].y, <a class="code hl_enumvalue" href="ssd1306_8h.html#a6f68a90e6eefe5396bcbec2cd699d500ab548046646b36c12aa6ba841de500094">White</a>);</div>
+<div class="line"><span class="lineno">  217</span>    }</div>
+<div class="line"><span class="lineno">  218</span> </div>
+<div class="line"><span class="lineno">  219</span>    <a class="code hl_variable" href="wiregfx_8c.html#a1dd6556da34d6df771b77a181c129791">angle_xz</a> += 1; <a class="code hl_variable" href="wiregfx_8c.html#ac19649c26af01b34b719bda7a4e0c5ff">angle_yz</a> += 1; <a class="code hl_variable" href="wiregfx_8c.html#a05ecc5ecfd4f71d82e8b72bee2846b1d">angle_xw</a> += 2;</div>
+<div class="line"><span class="lineno">  220</span>}</div>
+<div class="ttc" id="astruct_point4_d_html_a20d9e81a16908b478280514a28ff1b3e"><div class="ttname"><a href="struct_point4_d.html#a20d9e81a16908b478280514a28ff1b3e">Point4D::z</a></div><div class="ttdeci">int16_t z</div><div class="ttdoc">Coordenada espacial en eje Z.</div><div class="ttdef"><b>Definición</b> <a href="wiregfx_8h_source.html#l00064">wiregfx.h:64</a></div></div>
+<div class="ttc" id="astruct_point4_d_html_aaf6ac6494d64b38cd1744f1d654a5a28"><div class="ttname"><a href="struct_point4_d.html#aaf6ac6494d64b38cd1744f1d654a5a28">Point4D::w</a></div><div class="ttdeci">int16_t w</div><div class="ttdoc">Coordenada hiperespacial en la cuarta dimensión W.</div><div class="ttdef"><b>Definición</b> <a href="wiregfx_8h_source.html#l00065">wiregfx.h:65</a></div></div>
+<div class="ttc" id="astruct_point4_d_html_ae0503121411b6aa6d384b86601dab3ba"><div class="ttname"><a href="struct_point4_d.html#ae0503121411b6aa6d384b86601dab3ba">Point4D::y</a></div><div class="ttdeci">int16_t y</div><div class="ttdoc">Coordenada espacial en eje Y.</div><div class="ttdef"><b>Definición</b> <a href="wiregfx_8h_source.html#l00063">wiregfx.h:63</a></div></div>
+<div class="ttc" id="astruct_point4_d_html_afa208b7de233e9c26e8647481f4cdb3c"><div class="ttname"><a href="struct_point4_d.html#afa208b7de233e9c26e8647481f4cdb3c">Point4D::x</a></div><div class="ttdeci">int16_t x</div><div class="ttdoc">Coordenada espacial en eje X.</div><div class="ttdef"><b>Definición</b> <a href="wiregfx_8h_source.html#l00062">wiregfx.h:62</a></div></div>
 <div class="ttc" id="awiregfx_8c_html_a05ecc5ecfd4f71d82e8b72bee2846b1d"><div class="ttname"><a href="wiregfx_8c.html#a05ecc5ecfd4f71d82e8b72bee2846b1d">angle_xw</a></div><div class="ttdeci">static uint8_t angle_xw</div><div class="ttdoc">Ángulo de rotación en el plano X-W de la 4ta dimensión.</div><div class="ttdef"><b>Definición</b> <a href="wiregfx_8c_source.html#l00024">wiregfx.c:24</a></div></div>
 <div class="ttc" id="awiregfx_8c_html_a1dd6556da34d6df771b77a181c129791"><div class="ttname"><a href="wiregfx_8c.html#a1dd6556da34d6df771b77a181c129791">angle_xz</a></div><div class="ttdeci">static uint8_t angle_xz</div><div class="ttdoc">Ángulo de rotación en el plano X-Z (para 4D).</div><div class="ttdef"><b>Definición</b> <a href="wiregfx_8c_source.html#l00022">wiregfx.c:22</a></div></div>
 <div class="ttc" id="awiregfx_8c_html_a2c25d0a928c29d1d3aa35427b5bc6b6d"><div class="ttname"><a href="wiregfx_8c.html#a2c25d0a928c29d1d3aa35427b5bc6b6d">tesseract_edges</a></div><div class="ttdeci">static const int tesseract_edges[32][2]</div><div class="ttdef"><b>Definición</b> <a href="wiregfx_8c_source.html#l00064">wiregfx.c:64</a></div></div>
 <div class="ttc" id="awiregfx_8c_html_ac19649c26af01b34b719bda7a4e0c5ff"><div class="ttname"><a href="wiregfx_8c.html#ac19649c26af01b34b719bda7a4e0c5ff">angle_yz</a></div><div class="ttdeci">static uint8_t angle_yz</div><div class="ttdoc">Ángulo de rotación en el plano Y-Z (para 4D).</div><div class="ttdef"><b>Definición</b> <a href="wiregfx_8c_source.html#l00023">wiregfx.c:23</a></div></div>
 <div class="ttc" id="awiregfx_8c_html_afd9f889e92a18dad325e83cb67b6a526"><div class="ttname"><a href="wiregfx_8c.html#afd9f889e92a18dad325e83cb67b6a526">tesseract_vertices</a></div><div class="ttdeci">static const Point4D tesseract_vertices[16]</div><div class="ttdef"><b>Definición</b> <a href="wiregfx_8c_source.html#l00057">wiregfx.c:57</a></div></div>
 </div><!-- fragment -->
-<p class="reference">Hace referencia a <a class="el" href="wiregfx_8c_source.html#l00024">angle_xw</a>, <a class="el" href="wiregfx_8c_source.html#l00022">angle_xz</a>, <a class="el" href="wiregfx_8c_source.html#l00023">angle_yz</a>, <a class="el" href="ssd1306_8h_source.html#l00057">Black</a>, <a class="el" href="wiregfx_8h_source.html#l00024">CENTER_X</a>, <a class="el" href="wiregfx_8h_source.html#l00025">CENTER_Y</a>, <a class="el" href="wiregfx_8c_source.html#l00029">sin_LUT</a>, <a class="el" href="ssd1306_8c_source.html#l00219">ssd1306_Fill()</a>, <a class="el" href="ssd1306_8c_source.html#l00374">ssd1306_Line()</a>, <a class="el" href="wiregfx_8c_source.html#l00064">tesseract_edges</a>, <a class="el" href="wiregfx_8c_source.html#l00057">tesseract_vertices</a>, <a class="el" href="wiregfx_8h_source.html#l00052">Point4D::w</a>, <a class="el" href="ssd1306_8h_source.html#l00058">White</a>, <a class="el" href="wiregfx_8c_source.html#l00155">WIREGFX_Graphics_DrawTesseract()</a>, <a class="el" href="wiregfx_8h_source.html#l00041">Point2D::x</a>, <a class="el" href="wiregfx_8h_source.html#l00049">Point4D::x</a>, <a class="el" href="wiregfx_8h_source.html#l00042">Point2D::y</a>, <a class="el" href="wiregfx_8h_source.html#l00050">Point4D::y</a> y <a class="el" href="wiregfx_8h_source.html#l00051">Point4D::z</a>.</p>
+<p class="reference">Hace referencia a <a class="el" href="wiregfx_8c_source.html#l00024">angle_xw</a>, <a class="el" href="wiregfx_8c_source.html#l00022">angle_xz</a>, <a class="el" href="wiregfx_8c_source.html#l00023">angle_yz</a>, <a class="el" href="ssd1306_8h_source.html#l00057">Black</a>, <a class="el" href="wiregfx_8h_source.html#l00024">CENTER_X</a>, <a class="el" href="wiregfx_8h_source.html#l00025">CENTER_Y</a>, <a class="el" href="wiregfx_8c_source.html#l00029">sin_LUT</a>, <a class="el" href="ssd1306_8c_source.html#l00219">ssd1306_Fill()</a>, <a class="el" href="ssd1306_8c_source.html#l00419">ssd1306_Line()</a>, <a class="el" href="wiregfx_8c_source.html#l00064">tesseract_edges</a>, <a class="el" href="wiregfx_8c_source.html#l00057">tesseract_vertices</a>, <a class="el" href="wiregfx_8h_source.html#l00065">Point4D::w</a>, <a class="el" href="ssd1306_8h_source.html#l00058">White</a>, <a class="el" href="wiregfx_8c_source.html#l00177">WIREGFX_Graphics_DrawTesseract()</a>, <a class="el" href="wiregfx_8h_source.html#l00050">Point2D::x</a>, <a class="el" href="wiregfx_8h_source.html#l00062">Point4D::x</a>, <a class="el" href="wiregfx_8h_source.html#l00051">Point2D::y</a>, <a class="el" href="wiregfx_8h_source.html#l00063">Point4D::y</a> y <a class="el" href="wiregfx_8h_source.html#l00064">Point4D::z</a>.</p>
 
-<p class="reference">Referenciado por <a class="el" href="wiregfx_8c_source.html#l00293">WIREGFX_DisplayTask()</a> y <a class="el" href="wiregfx_8c_source.html#l00155">WIREGFX_Graphics_DrawTesseract()</a>.</p>
+<p class="reference">Referenciado por <a class="el" href="wiregfx_8c_source.html#l00349">WIREGFX_DisplayTask()</a> y <a class="el" href="wiregfx_8c_source.html#l00177">WIREGFX_Graphics_DrawTesseract()</a>.</p>
 <div id="dynsection-10" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
 <div id="dynsection-10-summary" class="dynsummary">
 </div>
@@ -622,16 +694,22 @@ Funciones</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Reinicia el ciclo de animación para comenzar inmediatamente desde el Cubo 3D. </p>
+<p>Reinicia el temporizador y fija el índice para renderizar inmediatamente el Cubo 3D.</p>
+<dl class="section post"><dt>Postcondición</dt><dd>Reinicia el timestamp <span class="tt">wiregfx_last_switch_tick</span> al tick actual y fija el índice en 0. </dd></dl>
+<dl class="section see"><dt>Ver también</dt><dd><a class="el" href="#a369fa94b542724966d415a205d719cd6" title="Gestiona el ciclo secuencial de animación de figuras tridimensionales.">WIREGFX_DisplayTask</a></dd></dl>
+<p>Reinicia el ciclo de animación para comenzar inmediatamente desde el Cubo 3D.</p>
+<dl class="section post"><dt>Postcondición</dt><dd><span class="tt">wiregfx_last_switch_tick</span> toma el valor de <span class="tt"><a class="el" href="group___h_a_l___exported___functions___group2.html#gac9b3a85a73735ac840d0dcb59bc0fdd6" title="Provides a tick value in millisecond.">HAL_GetTick()</a></span> y <span class="tt">wiregfx_figure_index</span> pasa a 0. </dd></dl>
+<dl class="section see"><dt>Ver también</dt><dd><a class="el" href="#a369fa94b542724966d415a205d719cd6" title="Gestiona el ciclo secuencial de animación de figuras tridimensionales.">WIREGFX_DisplayTask</a> </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="wiregfx_8c_source.html#l00288">288</a> del archivo <a class="el" href="wiregfx_8c_source.html">wiregfx.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  288</span>                              {</div>
-<div class="line"><span class="lineno">  289</span>    <a class="code hl_variable" href="wiregfx_8c.html#aa36114bb09d841e9432302e300d3b781">wiregfx_last_switch_tick</a> = <a class="code hl_function" href="group___h_a_l___exported___functions___group2.html#gac9b3a85a73735ac840d0dcb59bc0fdd6">HAL_GetTick</a>();</div>
-<div class="line"><span class="lineno">  290</span>    <a class="code hl_variable" href="wiregfx_8c.html#ad227f5a9c4231508fefba8fbe1f994e6">wiregfx_figure_index</a> = 0;</div>
-<div class="line"><span class="lineno">  291</span>}</div>
+<p class="definition">Definición en la línea <a class="el" href="wiregfx_8c_source.html#l00333">333</a> del archivo <a class="el" href="wiregfx_8c_source.html">wiregfx.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  333</span>                              {</div>
+<div class="line"><span class="lineno">  334</span>    <a class="code hl_variable" href="wiregfx_8c.html#aa36114bb09d841e9432302e300d3b781">wiregfx_last_switch_tick</a> = <a class="code hl_function" href="group___h_a_l___exported___functions___group2.html#gac9b3a85a73735ac840d0dcb59bc0fdd6">HAL_GetTick</a>();</div>
+<div class="line"><span class="lineno">  335</span>    <a class="code hl_variable" href="wiregfx_8c.html#ad227f5a9c4231508fefba8fbe1f994e6">wiregfx_figure_index</a> = 0;</div>
+<div class="line"><span class="lineno">  336</span>}</div>
 </div><!-- fragment -->
-<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__hal_8c_source.html#l00304">HAL_GetTick()</a>, <a class="el" href="wiregfx_8c_source.html#l00286">wiregfx_figure_index</a>, <a class="el" href="wiregfx_8c_source.html#l00285">wiregfx_last_switch_tick</a> y <a class="el" href="wiregfx_8c_source.html#l00288">WIREGFX_ResetCycle()</a>.</p>
+<p class="reference">Hace referencia a <a class="el" href="stm32f1xx__hal_8c_source.html#l00304">HAL_GetTick()</a>, <a class="el" href="wiregfx_8c_source.html#l00326">wiregfx_figure_index</a>, <a class="el" href="wiregfx_8c_source.html#l00325">wiregfx_last_switch_tick</a> y <a class="el" href="wiregfx_8c_source.html#l00333">WIREGFX_ResetCycle()</a>.</p>
 
-<p class="reference">Referenciado por <a class="el" href="main_8c_source.html#l00767">SetRobotMode()</a> y <a class="el" href="wiregfx_8c_source.html#l00288">WIREGFX_ResetCycle()</a>.</p>
+<p class="reference">Referenciado por <a class="el" href="main_8c_source.html#l00810">SetRobotMode()</a> y <a class="el" href="wiregfx_8c_source.html#l00333">WIREGFX_ResetCycle()</a>.</p>
 <div id="dynsection-12" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
 <div id="dynsection-12-summary" class="dynsummary">
 </div>

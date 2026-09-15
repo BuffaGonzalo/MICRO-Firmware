@@ -11,8 +11,7 @@ Estructura de control de buffer circular para canales de comunicación (Rx/\+\+T
 
 
 
-Diagrama de colaboración de \+\_\+s\+Comm:
-\nopagebreak
+Diagrama de colaboración de \+\_\+s\+Comm:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -27,7 +26,7 @@ uint8\+\_\+t \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{struct__s_comm_af98
 uint8\+\_\+t \doxymbox{\hyperlink{struct__s_comm_a57b30fb527a77eb5fd483e7ed8afd31f}{chk}}
 \begin{DoxyCompactList}\small\item\em Acumulador de Checksum por operación XOR para la trama activa. \end{DoxyCompactList}\item 
 uint8\+\_\+t \doxymbox{\hyperlink{struct__s_comm_a0b3790f0861ce221123059be7fd3e213}{header}}
-\begin{DoxyCompactList}\small\item\em Estado actual en la máquina de estados de sincronización de cabecera. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Estado actual en la máquina de estados de sincronización de cabecera (\doxylink{uner_prtcl_8h_ad21e16d74a232edf49d5d058f38cd1dd}{\+\_\+e\+Decode}). \end{DoxyCompactList}\item 
 uint8\+\_\+t \doxymbox{\hyperlink{struct__s_comm_a993748510567de672c1fdb4ac6a7aa62}{index\+Data}}
 \begin{DoxyCompactList}\small\item\em Puntero al byte inicial de datos útiles (Payload) dentro del buffer. \end{DoxyCompactList}\item 
 uint8\+\_\+t \doxymbox{\hyperlink{struct__s_comm_a8287f373ec66cbbd22abcb9ae2afbcc3}{indexR}}
@@ -43,9 +42,18 @@ uint8\+\_\+t \doxymbox{\hyperlink{struct__s_comm_a355bb36a4ee2e19b8328e3be50f5ca
 \doxysubsubsection{Descripción detallada}
 Estructura de control de buffer circular para canales de comunicación (Rx/\+\+Tx). 
 
-Encapsula la memoria física del buffer, los índices de lectura/\+escritura, la máscara de desbordamiento circular y las variables de estado de la MEF de recepción. 
+Encapsula la memoria física del buffer, los índices de lectura/\+escritura, la máscara de desbordamiento circular y las variables de estado de la MEF de recepción. \begin{DoxySeeAlso}{Ver también}
+\doxylink{uner_prtcl_8h_ad21e16d74a232edf49d5d058f38cd1dd}{\+\_\+e\+Decode} 
 
-Definición en la línea \doxymbox{\hyperlink{uner_prtcl_8h_source_l00046}{46}} del archivo \doxymbox{\hyperlink{uner_prtcl_8h_source}{uner\+Prtcl.\+h}}.
+\doxylink{union__u_word}{\+\_\+u\+Word} 
+
+\doxylink{uner_prtcl_8h_aa8fac5dc4971170d30eea4293610ff6a}{uner\+Prtcl\+\_\+\+Init} 
+
+\doxylink{uner_prtcl_8h_a5dc19a0d6be5a36353d8a8570c58345c}{uner\+Prtcl\+\_\+\+Decode\+Header} 
+\end{DoxySeeAlso}
+
+
+Definición en la línea \doxymbox{\hyperlink{uner_prtcl_8h_source_l00052}{52}} del archivo \doxymbox{\hyperlink{uner_prtcl_8h_source}{uner\+Prtcl.\+h}}.
 
 
 
@@ -64,11 +72,11 @@ Puntero al array de memoria física asignado al buffer.
 
 
 
-Definición en la línea \doxymbox{\hyperlink{uner_prtcl_8h_source_l00047}{47}} del archivo \doxymbox{\hyperlink{uner_prtcl_8h_source}{uner\+Prtcl.\+h}}.
+Definición en la línea \doxymbox{\hyperlink{uner_prtcl_8h_source_l00053}{53}} del archivo \doxymbox{\hyperlink{uner_prtcl_8h_source}{uner\+Prtcl.\+h}}.
 
 
 
-Referenciado por \doxymbox{\hyperlink{main_8c_source_l00737}{COMMTask()}}, \doxymbox{\hyperlink{main_8c_source_l00890}{decode\+Command()}}, \doxymbox{\hyperlink{uner_prtcl_8c_source_l00124}{uner\+Prtcl\+\_\+\+Decode\+Header()}}, \doxymbox{\hyperlink{uner_prtcl_8c_source_l00108}{uner\+Prtcl\+\_\+\+Get\+Byte\+From\+Rx()}}, \doxymbox{\hyperlink{uner_prtcl_8c_source_l00022}{uner\+Prtcl\+\_\+\+Init()}}, \doxymbox{\hyperlink{uner_prtcl_8c_source_l00081}{uner\+Prtcl\+\_\+\+Put\+Byte\+On\+Tx()}}, \doxymbox{\hyperlink{uner_prtcl_8c_source_l00051}{uner\+Prtcl\+\_\+\+Put\+Header\+On\+Tx()}}, \doxymbox{\hyperlink{uner_prtcl_8c_source_l00093}{uner\+Prtcl\+\_\+\+Put\+Str\+Ontx()}}, \doxymbox{\hyperlink{main_8c_source_l00728}{USBRx\+Data()}} y \doxymbox{\hyperlink{main_8c_source_l01779}{Wi\+Fi\+\_\+\+Data\+\_\+\+Callback()}}.
+Referenciado por \doxymbox{\hyperlink{main_8c_source_l00736}{COMMTask()}}, \doxymbox{\hyperlink{main_8c_source_l00954}{decode\+Command()}}, \doxymbox{\hyperlink{uner_prtcl_8c_source_l00186}{uner\+Prtcl\+\_\+\+Decode\+Header()}}, \doxymbox{\hyperlink{uner_prtcl_8c_source_l00143}{uner\+Prtcl\+\_\+\+Get\+Byte\+From\+Rx()}}, \doxymbox{\hyperlink{uner_prtcl_8c_source_l00030}{uner\+Prtcl\+\_\+\+Init()}}, \doxymbox{\hyperlink{uner_prtcl_8c_source_l00103}{uner\+Prtcl\+\_\+\+Put\+Byte\+On\+Tx()}}, \doxymbox{\hyperlink{uner_prtcl_8c_source_l00067}{uner\+Prtcl\+\_\+\+Put\+Header\+On\+Tx()}}, \doxymbox{\hyperlink{uner_prtcl_8c_source_l00121}{uner\+Prtcl\+\_\+\+Put\+Str\+Ontx()}}, \doxymbox{\hyperlink{main_8c_source_l00727}{USBRx\+Data()}} y \doxymbox{\hyperlink{main_8c_source_l01953}{Wi\+Fi\+\_\+\+Data\+\_\+\+Callback()}}.
 
 \Hypertarget{struct__s_comm_a57b30fb527a77eb5fd483e7ed8afd31f}\index{\_sComm@{\_sComm}!chk@{chk}}
 \index{chk@{chk}!\_sComm@{\_sComm}}
@@ -82,11 +90,11 @@ Acumulador de Checksum por operación XOR para la trama activa.
 
 
 
-Definición en la línea \doxymbox{\hyperlink{uner_prtcl_8h_source_l00052}{52}} del archivo \doxymbox{\hyperlink{uner_prtcl_8h_source}{uner\+Prtcl.\+h}}.
+Definición en la línea \doxymbox{\hyperlink{uner_prtcl_8h_source_l00058}{58}} del archivo \doxymbox{\hyperlink{uner_prtcl_8h_source}{uner\+Prtcl.\+h}}.
 
 
 
-Referenciado por \doxymbox{\hyperlink{main_8c_source_l00890}{decode\+Command()}}, \doxymbox{\hyperlink{uner_prtcl_8c_source_l00124}{uner\+Prtcl\+\_\+\+Decode\+Header()}}, \doxymbox{\hyperlink{uner_prtcl_8c_source_l00022}{uner\+Prtcl\+\_\+\+Init()}}, \doxymbox{\hyperlink{uner_prtcl_8c_source_l00081}{uner\+Prtcl\+\_\+\+Put\+Byte\+On\+Tx()}}, \doxymbox{\hyperlink{uner_prtcl_8c_source_l00051}{uner\+Prtcl\+\_\+\+Put\+Header\+On\+Tx()}} y \doxymbox{\hyperlink{uner_prtcl_8c_source_l00093}{uner\+Prtcl\+\_\+\+Put\+Str\+Ontx()}}.
+Referenciado por \doxymbox{\hyperlink{main_8c_source_l00954}{decode\+Command()}}, \doxymbox{\hyperlink{uner_prtcl_8c_source_l00186}{uner\+Prtcl\+\_\+\+Decode\+Header()}}, \doxymbox{\hyperlink{uner_prtcl_8c_source_l00030}{uner\+Prtcl\+\_\+\+Init()}}, \doxymbox{\hyperlink{uner_prtcl_8c_source_l00103}{uner\+Prtcl\+\_\+\+Put\+Byte\+On\+Tx()}}, \doxymbox{\hyperlink{uner_prtcl_8c_source_l00067}{uner\+Prtcl\+\_\+\+Put\+Header\+On\+Tx()}} y \doxymbox{\hyperlink{uner_prtcl_8c_source_l00121}{uner\+Prtcl\+\_\+\+Put\+Str\+Ontx()}}.
 
 \Hypertarget{struct__s_comm_a0b3790f0861ce221123059be7fd3e213}\index{\_sComm@{\_sComm}!header@{header}}
 \index{header@{header}!\_sComm@{\_sComm}}
@@ -96,15 +104,15 @@ uint8\+\_\+t \+\_\+s\+Comm::\+header}
 
 
 
-Estado actual en la máquina de estados de sincronización de cabecera. 
+Estado actual en la máquina de estados de sincronización de cabecera (\doxylink{uner_prtcl_8h_ad21e16d74a232edf49d5d058f38cd1dd}{\+\_\+e\+Decode}). 
 
 
 
-Definición en la línea \doxymbox{\hyperlink{uner_prtcl_8h_source_l00054}{54}} del archivo \doxymbox{\hyperlink{uner_prtcl_8h_source}{uner\+Prtcl.\+h}}.
+Definición en la línea \doxymbox{\hyperlink{uner_prtcl_8h_source_l00060}{60}} del archivo \doxymbox{\hyperlink{uner_prtcl_8h_source}{uner\+Prtcl.\+h}}.
 
 
 
-Referenciado por \doxymbox{\hyperlink{uner_prtcl_8c_source_l00124}{uner\+Prtcl\+\_\+\+Decode\+Header()}} y \doxymbox{\hyperlink{uner_prtcl_8c_source_l00022}{uner\+Prtcl\+\_\+\+Init()}}.
+Referenciado por \doxymbox{\hyperlink{uner_prtcl_8c_source_l00186}{uner\+Prtcl\+\_\+\+Decode\+Header()}} y \doxymbox{\hyperlink{uner_prtcl_8c_source_l00030}{uner\+Prtcl\+\_\+\+Init()}}.
 
 \Hypertarget{struct__s_comm_a993748510567de672c1fdb4ac6a7aa62}\index{\_sComm@{\_sComm}!indexData@{indexData}}
 \index{indexData@{indexData}!\_sComm@{\_sComm}}
@@ -118,11 +126,11 @@ Puntero al byte inicial de datos útiles (Payload) dentro del buffer.
 
 
 
-Definición en la línea \doxymbox{\hyperlink{uner_prtcl_8h_source_l00050}{50}} del archivo \doxymbox{\hyperlink{uner_prtcl_8h_source}{uner\+Prtcl.\+h}}.
+Definición en la línea \doxymbox{\hyperlink{uner_prtcl_8h_source_l00056}{56}} del archivo \doxymbox{\hyperlink{uner_prtcl_8h_source}{uner\+Prtcl.\+h}}.
 
 
 
-Referenciado por \doxymbox{\hyperlink{main_8c_source_l00737}{COMMTask()}}, \doxymbox{\hyperlink{main_8c_source_l00890}{decode\+Command()}}, \doxymbox{\hyperlink{uner_prtcl_8c_source_l00124}{uner\+Prtcl\+\_\+\+Decode\+Header()}}, \doxymbox{\hyperlink{uner_prtcl_8c_source_l00108}{uner\+Prtcl\+\_\+\+Get\+Byte\+From\+Rx()}}, \doxymbox{\hyperlink{uner_prtcl_8c_source_l00022}{uner\+Prtcl\+\_\+\+Init()}} y \doxymbox{\hyperlink{uner_prtcl_8c_source_l00051}{uner\+Prtcl\+\_\+\+Put\+Header\+On\+Tx()}}.
+Referenciado por \doxymbox{\hyperlink{main_8c_source_l00736}{COMMTask()}}, \doxymbox{\hyperlink{main_8c_source_l00954}{decode\+Command()}}, \doxymbox{\hyperlink{uner_prtcl_8c_source_l00186}{uner\+Prtcl\+\_\+\+Decode\+Header()}}, \doxymbox{\hyperlink{uner_prtcl_8c_source_l00143}{uner\+Prtcl\+\_\+\+Get\+Byte\+From\+Rx()}}, \doxymbox{\hyperlink{uner_prtcl_8c_source_l00030}{uner\+Prtcl\+\_\+\+Init()}} y \doxymbox{\hyperlink{uner_prtcl_8c_source_l00067}{uner\+Prtcl\+\_\+\+Put\+Header\+On\+Tx()}}.
 
 \Hypertarget{struct__s_comm_a8287f373ec66cbbd22abcb9ae2afbcc3}\index{\_sComm@{\_sComm}!indexR@{indexR}}
 \index{indexR@{indexR}!\_sComm@{\_sComm}}
@@ -136,11 +144,11 @@ uint8\+\_\+t \+\_\+s\+Comm::\+indexR}
 
 
 
-Definición en la línea \doxymbox{\hyperlink{uner_prtcl_8h_source_l00048}{48}} del archivo \doxymbox{\hyperlink{uner_prtcl_8h_source}{uner\+Prtcl.\+h}}.
+Definición en la línea \doxymbox{\hyperlink{uner_prtcl_8h_source_l00054}{54}} del archivo \doxymbox{\hyperlink{uner_prtcl_8h_source}{uner\+Prtcl.\+h}}.
 
 
 
-Referenciado por \doxymbox{\hyperlink{main_8c_source_l00737}{COMMTask()}}, \doxymbox{\hyperlink{uner_prtcl_8c_source_l00124}{uner\+Prtcl\+\_\+\+Decode\+Header()}} y \doxymbox{\hyperlink{uner_prtcl_8c_source_l00022}{uner\+Prtcl\+\_\+\+Init()}}.
+Referenciado por \doxymbox{\hyperlink{main_8c_source_l00736}{COMMTask()}}, \doxymbox{\hyperlink{uner_prtcl_8c_source_l00186}{uner\+Prtcl\+\_\+\+Decode\+Header()}} y \doxymbox{\hyperlink{uner_prtcl_8c_source_l00030}{uner\+Prtcl\+\_\+\+Init()}}.
 
 \Hypertarget{struct__s_comm_a303b5083a43fafda1988383c867def58}\index{\_sComm@{\_sComm}!indexW@{indexW}}
 \index{indexW@{indexW}!\_sComm@{\_sComm}}
@@ -154,11 +162,11 @@ uint8\+\_\+t \+\_\+s\+Comm::\+indexW}
 
 
 
-Definición en la línea \doxymbox{\hyperlink{uner_prtcl_8h_source_l00049}{49}} del archivo \doxymbox{\hyperlink{uner_prtcl_8h_source}{uner\+Prtcl.\+h}}.
+Definición en la línea \doxymbox{\hyperlink{uner_prtcl_8h_source_l00055}{55}} del archivo \doxymbox{\hyperlink{uner_prtcl_8h_source}{uner\+Prtcl.\+h}}.
 
 
 
-Referenciado por \doxymbox{\hyperlink{main_8c_source_l00737}{COMMTask()}}, \doxymbox{\hyperlink{uner_prtcl_8c_source_l00124}{uner\+Prtcl\+\_\+\+Decode\+Header()}}, \doxymbox{\hyperlink{uner_prtcl_8c_source_l00022}{uner\+Prtcl\+\_\+\+Init()}}, \doxymbox{\hyperlink{uner_prtcl_8c_source_l00081}{uner\+Prtcl\+\_\+\+Put\+Byte\+On\+Tx()}}, \doxymbox{\hyperlink{uner_prtcl_8c_source_l00051}{uner\+Prtcl\+\_\+\+Put\+Header\+On\+Tx()}}, \doxymbox{\hyperlink{uner_prtcl_8c_source_l00093}{uner\+Prtcl\+\_\+\+Put\+Str\+Ontx()}}, \doxymbox{\hyperlink{main_8c_source_l00728}{USBRx\+Data()}} y \doxymbox{\hyperlink{main_8c_source_l01779}{Wi\+Fi\+\_\+\+Data\+\_\+\+Callback()}}.
+Referenciado por \doxymbox{\hyperlink{main_8c_source_l00736}{COMMTask()}}, \doxymbox{\hyperlink{uner_prtcl_8c_source_l00186}{uner\+Prtcl\+\_\+\+Decode\+Header()}}, \doxymbox{\hyperlink{uner_prtcl_8c_source_l00030}{uner\+Prtcl\+\_\+\+Init()}}, \doxymbox{\hyperlink{uner_prtcl_8c_source_l00103}{uner\+Prtcl\+\_\+\+Put\+Byte\+On\+Tx()}}, \doxymbox{\hyperlink{uner_prtcl_8c_source_l00067}{uner\+Prtcl\+\_\+\+Put\+Header\+On\+Tx()}}, \doxymbox{\hyperlink{uner_prtcl_8c_source_l00121}{uner\+Prtcl\+\_\+\+Put\+Str\+Ontx()}}, \doxymbox{\hyperlink{main_8c_source_l00727}{USBRx\+Data()}} y \doxymbox{\hyperlink{main_8c_source_l01953}{Wi\+Fi\+\_\+\+Data\+\_\+\+Callback()}}.
 
 \Hypertarget{struct__s_comm_a00384445982ef80bdf9d72b66967315c}\index{\_sComm@{\_sComm}!mask@{mask}}
 \index{mask@{mask}!\_sComm@{\_sComm}}
@@ -172,11 +180,11 @@ Máscara binaria para avance circular sin operación módulo (\$2\texorpdfstring
 
 
 
-Definición en la línea \doxymbox{\hyperlink{uner_prtcl_8h_source_l00051}{51}} del archivo \doxymbox{\hyperlink{uner_prtcl_8h_source}{uner\+Prtcl.\+h}}.
+Definición en la línea \doxymbox{\hyperlink{uner_prtcl_8h_source_l00057}{57}} del archivo \doxymbox{\hyperlink{uner_prtcl_8h_source}{uner\+Prtcl.\+h}}.
 
 
 
-Referenciado por \doxymbox{\hyperlink{main_8c_source_l00737}{COMMTask()}}, \doxymbox{\hyperlink{uner_prtcl_8c_source_l00124}{uner\+Prtcl\+\_\+\+Decode\+Header()}}, \doxymbox{\hyperlink{uner_prtcl_8c_source_l00108}{uner\+Prtcl\+\_\+\+Get\+Byte\+From\+Rx()}}, \doxymbox{\hyperlink{uner_prtcl_8c_source_l00022}{uner\+Prtcl\+\_\+\+Init()}}, \doxymbox{\hyperlink{uner_prtcl_8c_source_l00081}{uner\+Prtcl\+\_\+\+Put\+Byte\+On\+Tx()}}, \doxymbox{\hyperlink{uner_prtcl_8c_source_l00051}{uner\+Prtcl\+\_\+\+Put\+Header\+On\+Tx()}}, \doxymbox{\hyperlink{uner_prtcl_8c_source_l00093}{uner\+Prtcl\+\_\+\+Put\+Str\+Ontx()}}, \doxymbox{\hyperlink{main_8c_source_l00728}{USBRx\+Data()}} y \doxymbox{\hyperlink{main_8c_source_l01779}{Wi\+Fi\+\_\+\+Data\+\_\+\+Callback()}}.
+Referenciado por \doxymbox{\hyperlink{main_8c_source_l00736}{COMMTask()}}, \doxymbox{\hyperlink{uner_prtcl_8c_source_l00186}{uner\+Prtcl\+\_\+\+Decode\+Header()}}, \doxymbox{\hyperlink{uner_prtcl_8c_source_l00143}{uner\+Prtcl\+\_\+\+Get\+Byte\+From\+Rx()}}, \doxymbox{\hyperlink{uner_prtcl_8c_source_l00030}{uner\+Prtcl\+\_\+\+Init()}}, \doxymbox{\hyperlink{uner_prtcl_8c_source_l00103}{uner\+Prtcl\+\_\+\+Put\+Byte\+On\+Tx()}}, \doxymbox{\hyperlink{uner_prtcl_8c_source_l00067}{uner\+Prtcl\+\_\+\+Put\+Header\+On\+Tx()}}, \doxymbox{\hyperlink{uner_prtcl_8c_source_l00121}{uner\+Prtcl\+\_\+\+Put\+Str\+Ontx()}}, \doxymbox{\hyperlink{main_8c_source_l00727}{USBRx\+Data()}} y \doxymbox{\hyperlink{main_8c_source_l01953}{Wi\+Fi\+\_\+\+Data\+\_\+\+Callback()}}.
 
 \Hypertarget{struct__s_comm_a355bb36a4ee2e19b8328e3be50f5ca13}\index{\_sComm@{\_sComm}!nBytes@{nBytes}}
 \index{nBytes@{nBytes}!\_sComm@{\_sComm}}
@@ -190,11 +198,11 @@ Contador de longitud de bytes recibidos o pendientes de despacho.
 
 
 
-Definición en la línea \doxymbox{\hyperlink{uner_prtcl_8h_source_l00053}{53}} del archivo \doxymbox{\hyperlink{uner_prtcl_8h_source}{uner\+Prtcl.\+h}}.
+Definición en la línea \doxymbox{\hyperlink{uner_prtcl_8h_source_l00059}{59}} del archivo \doxymbox{\hyperlink{uner_prtcl_8h_source}{uner\+Prtcl.\+h}}.
 
 
 
-Referenciado por \doxymbox{\hyperlink{main_8c_source_l00737}{COMMTask()}}, \doxymbox{\hyperlink{uner_prtcl_8c_source_l00124}{uner\+Prtcl\+\_\+\+Decode\+Header()}}, \doxymbox{\hyperlink{uner_prtcl_8c_source_l00022}{uner\+Prtcl\+\_\+\+Init()}}, \doxymbox{\hyperlink{uner_prtcl_8c_source_l00081}{uner\+Prtcl\+\_\+\+Put\+Byte\+On\+Tx()}}, \doxymbox{\hyperlink{uner_prtcl_8c_source_l00051}{uner\+Prtcl\+\_\+\+Put\+Header\+On\+Tx()}} y \doxymbox{\hyperlink{uner_prtcl_8c_source_l00093}{uner\+Prtcl\+\_\+\+Put\+Str\+Ontx()}}.
+Referenciado por \doxymbox{\hyperlink{main_8c_source_l00736}{COMMTask()}}, \doxymbox{\hyperlink{uner_prtcl_8c_source_l00186}{uner\+Prtcl\+\_\+\+Decode\+Header()}}, \doxymbox{\hyperlink{uner_prtcl_8c_source_l00030}{uner\+Prtcl\+\_\+\+Init()}}, \doxymbox{\hyperlink{uner_prtcl_8c_source_l00103}{uner\+Prtcl\+\_\+\+Put\+Byte\+On\+Tx()}}, \doxymbox{\hyperlink{uner_prtcl_8c_source_l00067}{uner\+Prtcl\+\_\+\+Put\+Header\+On\+Tx()}} y \doxymbox{\hyperlink{uner_prtcl_8c_source_l00121}{uner\+Prtcl\+\_\+\+Put\+Str\+Ontx()}}.
 
 
 

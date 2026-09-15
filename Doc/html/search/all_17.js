@@ -689,7 +689,7 @@ var searchData=
   ['respwifidisconnect_686',['respWIFIDISCONNECT',['../esp01_8c.html#ad0feefe505a7a3f5667bb950a04973c9',1,'esp01.c']]],
   ['respwifidisconnected_687',['respWIFIDISCONNECTED',['../esp01_8c.html#a7c31cd66ee538dab331a34f294a1ec24',1,'esp01.c']]],
   ['respwifigotip_688',['respWIFIGOTIP',['../esp01_8c.html#ab4ba1f4a4c073ce84e9764a7b9f6008f',1,'esp01.c']]],
-  ['resumen_20del_20funcionamiento_689',['Resumen del funcionamiento',['../md__r_e_a_d_m_e.html#autotoc_md1',1,'']]],
+  ['resumen_20del_20funcionamiento_689',['Resumen del funcionamiento',['../index.html#autotoc_md1',1,'']]],
   ['rf0r_690',['RF0R',['../struct_c_a_n___type_def.html#a34eda67aa51d84902cbe3bc5cc439146',1,'CAN_TypeDef']]],
   ['rf1r_691',['RF1R',['../struct_c_a_n___type_def.html#a95e8aa548bc4a5cd7dfdbb383c4c5a2a',1,'CAN_TypeDef']]],
   ['rir_692',['RIR',['../struct_c_a_n___f_i_f_o_mail_box___type_def.html#adf4ecd69f0a3df99777bcf1680c008b9',1,'CAN_FIFOMailBox_TypeDef']]],

@@ -18,7 +18,5 @@ var searchData=
   ['hal_5fuart_5fmodule_5fenabled_15',['HAL_UART_MODULE_ENABLED',['../stm32f1xx__hal__conf_8h.html#a167269406e73327b95c3bb7b9cfe6d89',1,'stm32f1xx_hal_conf.h']]],
   ['hse_5fstartup_5ftimeout_16',['HSE_STARTUP_TIMEOUT',['../stm32f1xx__hal__conf_8h.html#a68ecbc9b0a1a40a1ec9d18d5e9747c4f',1,'stm32f1xx_hal_conf.h']]],
   ['hse_5fvalue_17',['HSE_VALUE',['../stm32f1xx__hal__conf_8h.html#aeafcff4f57440c60e64812dddd13e7cb',1,'stm32f1xx_hal_conf.h']]],
-  ['hsi_5fvalue_18',['HSI_VALUE',['../stm32f1xx__hal__conf_8h.html#aaa8c76e274d0f6dd2cefb5d0b17fbc37',1,'stm32f1xx_hal_conf.h']]],
-  ['http_5fbuf_5freset_19',['HTTP_BUF_RESET',['../main_8c.html#ab337ba94b6937e6bcc3da4825e55d2a3',1,'main.c']]],
-  ['http_5fbuf_5fsize_20',['HTTP_BUF_SIZE',['../main_8c.html#a75b1a1ef17d00affddc93c4621fe5a9f',1,'main.c']]]
+  ['hsi_5fvalue_18',['HSI_VALUE',['../stm32f1xx__hal__conf_8h.html#aaa8c76e274d0f6dd2cefb5d0b17fbc37',1,'stm32f1xx_hal_conf.h']]]
 ];

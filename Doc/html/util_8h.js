@@ -3,6 +3,7 @@ var util_8h =
     [ "_sButton", "struct__s_button.html", "struct__s_button" ],
     [ "_uFlag", "union__u_flag.html", "union__u_flag" ],
     [ "SETGOTOTURN", "util_8h.html#a9e4e9987ec919b8b70af020bae2e8b1d", null ],
+    [ "STATE_GOTO", "util_8h.html#a262110a94c418f57aaf188438ba22ba0", null ],
     [ "_eButtonState", "util_8h.html#a6de6f3d8e74aa6ec71bf5cb6bae49e98", [
       [ "BUTTON_DOWN", "util_8h.html#a6de6f3d8e74aa6ec71bf5cb6bae49e98a0c7746cfbcac16484b2266e6f51e5e0b", null ],
       [ "BUTTON_UP", "util_8h.html#a6de6f3d8e74aa6ec71bf5cb6bae49e98a37666936297216dce293b0aa31c474b8", null ],
@@ -56,6 +57,8 @@ var util_8h =
       [ "SETSOFTAP", "util_8h.html#a914da92242d04381391fee2bb1c936dfa7dfe0c1b8c746c0c87489d80b2d47a90", null ],
       [ "SETROBOTMODE", "util_8h.html#a914da92242d04381391fee2bb1c936dfa35515767054579d0235d59947057d0e2", null ],
       [ "SETJOYSTICKTURN", "util_8h.html#a914da92242d04381391fee2bb1c936dfa9d151b97e55f894220fc1c4c9e8d40b2", null ],
+      [ "SETDODGEBIASTIME", "util_8h.html#a914da92242d04381391fee2bb1c936dfaf632a5785d314e25f06b6fe8394d07dc", null ],
+      [ "SETDODGEBIASMULT", "util_8h.html#a914da92242d04381391fee2bb1c936dfa6263117cb0ae227b7723bd5986a493f9", null ],
       [ "ACK", "util_8h.html#a914da92242d04381391fee2bb1c936dfa41246e9c8691b7e33bc79b345e06b48e", null ],
       [ "EXPORTIRCSV", "util_8h.html#a914da92242d04381391fee2bb1c936dfad8bdefedde732a001656ad3876374ed3", null ],
       [ "UNKNOWN", "util_8h.html#a914da92242d04381391fee2bb1c936dfa6ce26a62afab55d7606ad4e92428b30c", null ]
@@ -66,9 +69,38 @@ var util_8h =
       [ "UPD_DISPLAY", "util_8h.html#ae259c13d481d618bde1a5eae91da4daba8bef634db72ac1e00571d6d1d1bbab3a", null ],
       [ "ONMPU", "util_8h.html#ae259c13d481d618bde1a5eae91da4daba893665a7dd183fa9a9400fc2a080fb5e", null ]
     ] ],
+    [ "_eDodgeSubState", "group__group__control.html#ga3c9f0f3644c95372a772a4d41fe9d274", [
+      [ "DODGE_LINE_FOLLOWING", "group__group__control.html#gga3c9f0f3644c95372a772a4d41fe9d274a6cc6785e4c562eddd14a8c613ab76f9a", null ],
+      [ "DODGE_ROTATING", "group__group__control.html#gga3c9f0f3644c95372a772a4d41fe9d274accbedb184c76977cbe098ac44faaf316", null ],
+      [ "DODGE_WALL_FOLLOWING", "group__group__control.html#gga3c9f0f3644c95372a772a4d41fe9d274ac58b7c72e4b3e495de2e2430e5bfeada", null ],
+      [ "DODGE_RETURN_ROTATING", "group__group__control.html#gga3c9f0f3644c95372a772a4d41fe9d274a07b78e23ee697f18d8f47dbdc53ab187", null ],
+      [ "DODGE_STANDBY", "group__group__control.html#gga3c9f0f3644c95372a772a4d41fe9d274afd34db91febc178a05db4065aaac7acb", null ]
+    ] ],
     [ "_eEvent", "util_8h.html#ae01c58988e4d37977423a5aab26ab5fa", [
       [ "PRESSED", "util_8h.html#ae01c58988e4d37977423a5aab26ab5faa5ef9a100ac8b4b8d6dec477c377b7901", null ],
       [ "NOT_PRESSED", "util_8h.html#ae01c58988e4d37977423a5aab26ab5faacdb8b9a398ffbd729218a27d00d8fa45", null ],
       [ "NO_EVENT", "util_8h.html#ae01c58988e4d37977423a5aab26ab5faa5856f037cd70ecf6fca11999c11a4a0d", null ]
+    ] ],
+    [ "_eLineState", "group__group__control.html#gaba9e5dfd3c6391a9bb414860c22f3d7f", [
+      [ "LINE_SEARCHING", "group__group__control.html#ggaba9e5dfd3c6391a9bb414860c22f3d7fa7e4e7b6a27dfa094d957e50142aa3d7a", null ],
+      [ "LINE_FOLLOWING", "group__group__control.html#ggaba9e5dfd3c6391a9bb414860c22f3d7fa11b61e5329ae52a9f93404019c81ba03", null ],
+      [ "LINE_LOST", "group__group__control.html#ggaba9e5dfd3c6391a9bb414860c22f3d7fac701eeee800a9b44abe225825430cc52", null ],
+      [ "LINE_CROSS", "group__group__control.html#ggaba9e5dfd3c6391a9bb414860c22f3d7fa3d7c8f361dca201fcafa6944c1ef9c10", null ]
+    ] ],
+    [ "_eObsState", "group__group__control.html#gadff08c30c10e31fe74ce9f3457c74b63", [
+      [ "OBS_IDLE", "group__group__control.html#ggadff08c30c10e31fe74ce9f3457c74b63aaf3ce8dbefbb2806569235c5ca390608", null ],
+      [ "OBS_APPROACH", "group__group__control.html#ggadff08c30c10e31fe74ce9f3457c74b63a68091f67528a125bd3523e8befb6f50e", null ],
+      [ "OBS_CORNER", "group__group__control.html#ggadff08c30c10e31fe74ce9f3457c74b63ab1a2c0754c62a4e5ca543b628268e78e", null ],
+      [ "OBS_WALL", "group__group__control.html#ggadff08c30c10e31fe74ce9f3457c74b63a27d3b401f19233093b384cdcd6689f0f", null ]
+    ] ],
+    [ "_eRobotMode", "group__group__main.html#ga5ef913d615749b343e42f0424064e937", [
+      [ "STATE_STANDBY", "group__group__main.html#gga5ef913d615749b343e42f0424064e937a46854d200d334ed65c5b8542eee92421", null ],
+      [ "STATE_SWING", "group__group__main.html#gga5ef913d615749b343e42f0424064e937afb76bc9af4d33cb1941ce2198a22b5f1", null ],
+      [ "STATE_LINE_FOLLOWING", "group__group__main.html#gga5ef913d615749b343e42f0424064e937ab641b484c5de42c96f5a382ef25d557f", null ],
+      [ "STATE_DODGE", "group__group__main.html#gga5ef913d615749b343e42f0424064e937acbd2746ad5303084bb979bc275aa15ef", null ],
+      [ "STATE_JOYSTICK", "group__group__main.html#gga5ef913d615749b343e42f0424064e937a81a27a62c9d29883324be07483fdd10a", null ],
+      [ "STATE_3D_SCREEN", "group__group__main.html#gga5ef913d615749b343e42f0424064e937a2ac9f0b5fbb6cfc38170ccc14dcf3263", null ],
+      [ "STATE_FIRST_SCREEN", "group__group__main.html#gga5ef913d615749b343e42f0424064e937abc08c548b43efb25afd93a4143f71f1b", null ],
+      [ "STATE_SECOND_SCREEN", "group__group__main.html#gga5ef913d615749b343e42f0424064e937aa52b63031d0b61679533a443a366aaba", null ]
     ] ]
 ];

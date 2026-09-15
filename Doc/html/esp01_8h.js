@@ -1,6 +1,7 @@
 var esp01_8h =
 [
     [ "_sESP01Handle", "struct__s_e_s_p01_handle.html", "struct__s_e_s_p01_handle" ],
+    [ "ESP01_SetWebServer", "esp01_8h.html#abb7cd6146b8dc28b267c1205c2ed7be7", null ],
     [ "ESP01RXBUFAT", "group___e_s_p01___constants.html#ga44ee3af49d0f758f6c1560b175189ba7", null ],
     [ "ESP01TXBUFAT", "group___e_s_p01___constants.html#ga8b93227603bcb458033daf9d1e3c7465", null ],
     [ "_eESP01STATUS", "esp01_8h.html#a3ef46651a9b54c4eba13c758b17ecec2", [
@@ -23,10 +24,11 @@ var esp01_8h =
     [ "ESP01_CloseUDPTCP", "esp01_8h.html#a8c18994c09715199de6359ea62f14769", null ],
     [ "ESP01_GetLastConnID", "esp01_8h.html#af47ed4c5c630699f78e99af31e34ab72", null ],
     [ "ESP01_GetLocalIP", "esp01_8h.html#a266759c19a904fb0e9f360b902185fb2", null ],
+    [ "ESP01_GetProtocol", "esp01_8h.html#a5225d57f4ae652b1c058f961802fa01d", null ],
     [ "ESP01_Init", "esp01_8h.html#a96572d45c42130b3ede565dd9eb63ac4", null ],
     [ "ESP01_IsHDRRST", "esp01_8h.html#a952adaf4cf76b1e4b3c8d5e196200d3f", null ],
     [ "ESP01_Send", "esp01_8h.html#a941cbda6de4f9cfdbaa27ca6e62392c0", null ],
-    [ "ESP01_SetWebServer", "esp01_8h.html#a97d544f7df6ee98063ce7952fbe565a4", null ],
+    [ "ESP01_SetSoftAP", "esp01_8h.html#a0870fd82d1e257dee52e742882cf8b84", null ],
     [ "ESP01_SetWIFI", "esp01_8h.html#accb8ca062ab92f813a32d8f0b88e7a43", null ],
     [ "ESP01_StartTCP", "esp01_8h.html#aec68f854c567875dddc5e5e89c0b3bcb", null ],
     [ "ESP01_StartUDP", "esp01_8h.html#a0791bfac7d8d5783dde678ecb5c24e1e", null ],

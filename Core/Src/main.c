@@ -763,6 +763,50 @@ void COMMTask(_sComm *dataRx, _sComm *dataTx, uint8_t source) {
 
 void CHPD_Control(uint8_t state);
 
+/**
+ * @brief Conmuta el modo operativo global del robot péndulo invertido.
+ * @details Gestiona las transiciones seguras entre modos operativos: silencia pulsos PWM para evitar
+ *          sacudidas mecánicas, reinicia acumuladores integrales y memorias derivativas,
+ *          configura el patrón del LED Heartbeat (`hbIndex`) y ajusta periféricos (Wi-Fi, OLED).
+ *
+ * \startuml
+ * title Máquina de Estados Finita: Modos del Robot (SetRobotMode)
+ * [*] --> STATE_STANDBY : Inicio en frío
+ *
+ * state STATE_STANDBY : PWM apagado (0%)\nSistema en espera segura
+ * state STATE_SWING : Balanceo estático en el lugar\nDisplay OLED apagado
+ * state STATE_LINE_FOLLOWING : Seguidor de línea por IR\nControl proporcional Kp_line
+ * state STATE_DODGE : Evasión de obstáculos\nGiro 90° con gyro y seguimiento pared PD
+ * state STATE_JOYSTICK : Control remoto interactivo UDP\nWatchdog de seguridad activo
+ * state STATE_3D_SCREEN : Gemelo digital wireframe OLED\nBalanceo activo
+ * state STATE_FIRST_SCREEN : Diagnóstico RAW de sensores\nMotores desenergizados
+ * state STATE_SECOND_SCREEN : Brújula de orientación y estado dinámico\nMotores desenergizados
+ *
+ * STATE_STANDBY --> STATE_SWING : 1 Clic SW0 / Comando
+ * STATE_STANDBY --> STATE_LINE_FOLLOWING : 2 Clics SW0 / Comando
+ * STATE_STANDBY --> STATE_DODGE : 3 Clics SW0 / Comando
+ * STATE_STANDBY --> STATE_JOYSTICK : 4 Clics SW0 / Comando
+ * STATE_STANDBY --> STATE_3D_SCREEN : 5 Clics SW0 / Comando
+ * STATE_STANDBY --> STATE_FIRST_SCREEN : Pulsación 1s / Comando
+ * STATE_STANDBY --> STATE_SECOND_SCREEN : Pulsación 2s / Comando
+ *
+ * STATE_SWING --> STATE_STANDBY : Caída / Clic SW0
+ * STATE_LINE_FOLLOWING --> STATE_STANDBY : Caída / Clic SW0
+ * STATE_DODGE --> STATE_STANDBY : Caída / Clic SW0
+ * STATE_JOYSTICK --> STATE_STANDBY : Watchdog timeout / Clic SW0
+ * STATE_3D_SCREEN --> STATE_STANDBY : Caída / Clic SW0
+ * STATE_FIRST_SCREEN --> STATE_STANDBY : Clic SW0
+ * STATE_SECOND_SCREEN --> STATE_STANDBY : Clic SW0
+ * \enduml
+ *
+ * @param[in] newMode Modo de destino al que transiciona el sistema (`_eRobotMode`).
+ * @pre El planificador cooperativo debe estar en ejecución.
+ * @post `robotMode` adopta `newMode`, PWM silenciado, integral reseteada a 0, `hbIndex` actualizado.
+ * @see _eRobotMode
+ * @see SetRobotModeRemote
+ * @see PIDTask
+ * @see buttonTask
+ */
 void SetRobotMode(_eRobotMode newMode) {
 	if (robotMode == newMode) {
 		return;
@@ -892,6 +936,21 @@ void SetRobotModeRemote(uint8_t modeId) {
 	}
 }
 
+/**
+ * @brief Despacha y procesa los comandos recibidos a través del protocolo binario UNER.
+ * @details Examina el identificador de comando situado en `dataRx->buff[dataRx->indexData]`,
+ *          ejecuta la acción solicitada (calibración, modificación de ganancias PID, cambio de modo,
+ *          consulta de telemetría de sensores) y construye la trama binaria de respuesta en `dataTx`.
+ * @param[in,out] dataRx Descriptor del canal de recepción con la trama validada.
+ * @param[in,out] dataTx Descriptor del canal de transmisión donde se serializa la respuesta.
+ * @pre La trama debe haber sido previamente validada con checksum exitoso por `unerPrtcl_DecodeHeader`.
+ * @post Puede alterar variables de calibración, ganancias de control, o encolar paquetes en `dataTx`.
+ * @see _eCmd
+ * @see _sComm
+ * @see unerPrtcl_DecodeHeader
+ * @see unerPrtcl_PutHeaderOnTx
+ * @ingroup group_comm
+ */
 void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 
 	switch (dataRx->buff[dataRx->indexData]) {
@@ -2122,6 +2181,31 @@ void initButton(_sButton *button){
     button->justReleased = FALSE;
 }
 
+/**
+ * @brief Máquina de estados finita de antirrebote (Debouncing) para el pulsador de usuario.
+ * @details Filtra transitorios electromecánicos validando transiciones en dos ciclos consecutivos:
+ *          `BUTTON_UP` &rarr; `BUTTON_FALLING` &rarr; `BUTTON_DOWN` &rarr; `BUTTON_RISING` &rarr; `BUTTON_UP`.
+ *
+ * \startuml
+ * title MEF Antirrebote de Botón (updateMefTask)
+ * [*] --> BUTTON_UP
+ * BUTTON_UP --> BUTTON_FALLING : stateInput == PRESSED
+ * BUTTON_FALLING --> BUTTON_DOWN : stateInput == PRESSED\n(isPressed = TRUE)
+ * BUTTON_FALLING --> BUTTON_UP : stateInput != PRESSED (Rebote)
+ * BUTTON_DOWN --> BUTTON_RISING : stateInput == NOT_PRESSED
+ * BUTTON_RISING --> BUTTON_UP : stateInput == NOT_PRESSED\n(justReleased = TRUE, retorna TRUE)
+ * BUTTON_RISING --> BUTTON_DOWN : stateInput != NOT_PRESSED (Rebote)
+ * \enduml
+ *
+ * @param[in,out] button Puntero a la estructura `_sButton`.
+ * @return TRUE (1) si ocurrió una transición completa de pulsación y liberación; FALSE (0) en caso contrario.
+ * @pre Estructura inicializada con `initButton()`.
+ * @post Modifica `currentState`, `isPressed`, `justReleased`.
+ * @see _sButton
+ * @see _eButtonState
+ * @see buttonTask
+ * @ingroup group_ui_graphics
+ */
 uint8_t updateMefTask(_sButton *button){
     uint8_t action=FALSE;
 
@@ -2265,6 +2349,119 @@ void buttonTask(_sButton *button) {
 	}
 }
 
+/**
+ * @brief Algoritmo de seguimiento de línea con guiñada no lineal, cruce y navegación a ciegas (Dead Reckoning).
+ * @details Implementa la cinemática de guiñada del robot sobre pista:
+ *          1. **Filtro y Discriminación Óptica**: Binariza las lecturas analógicas normalizadas de los 3 fotosensores frontales (`IR_WHITE`).
+ *          2. **Estimación de Centroide**: Calcula el error de desviación lateral $e_{line} \in [-100, +100]$ mediante el centro de masa óptico normalizado por la suma de reflectancia.
+ *          3. **Control No Lineal P + Cuadrático**: Sintetiza el par de guiñada combinando una acción proporcional suave para rectas y un término cuadrático ($K_{q\_line} \cdot e_{line} \cdot |e_{line}|$) con alta autoridad correctiva en curvas cerradas.
+ *          4. **Filtro de Desenganche**: Temporizador de rebote de 6 ciclos (30 ms) para ignorar huecos o discontinuidades menores en la línea.
+ *          5. **Maniobra de Dead Reckoning en Pérdida**: En desenganche total, utiliza el giróscopo Z integrado para ejecutar un patrón de búsqueda angular (+90° $\rightarrow$ espera 2s $\rightarrow$ -180° $\rightarrow$ frenado estático a -2.5° en rampa).
+ *          6. **Resolución de Cruces en Cruz**: En bifurcaciones/cruces de 3 sensores, aplica jitter estocástico con el registro SysTick para desempatar y pivotar sobre el propio eje.
+ *
+ * \startuml
+ * skinparam backgroundColor white
+ * skinparam arrowColor #2C3E50
+ * skinparam activity {
+ *   BackgroundColor #F4F6F7
+ *   BorderColor #34495E
+ *   FontColor #2C3E50
+ * }
+ * skinparam partition {
+ *   BackgroundColor #EAEDED
+ *   BorderColor #7F8C8D
+ *   FontColor #1A5276
+ * }
+ *
+ * start
+ * partition "Filtro / Sensores (Adquisición y Normalización Óptica)" {
+ *   :Lectura de reflectancia analógica:\n**left_ir**, **center_ir**, **right_ir**;
+ *   :Binarización por umbral óptico (IR_WHITE):\n**ir1_active = (left_ir < IR_WHITE)**\n**ir3_active = (center_ir < IR_WHITE)**\n**ir5_active = (right_ir < IR_WHITE)**;
+ *   :Conteo de sensores sobre línea reflectiva:\n**active_count = ir1_active + ir3_active + ir5_active**;
+ * }
+ *
+ * partition "Controlador de Seguimiento y Guiñada No Lineal" {
+ *   switch (lineState)
+ *   case (LINE_SEARCHING)
+ *     :Consigna longitudinal de exploración: ***target_setpoint = attack_setpoint**;
+ *     if (¿Sensor central detecta línea? (ir3_active)) then (Sí)
+ *       :Línea enganchada: transición a **LINE_FOLLOWING**;
+ *     else (No)
+ *       :Aplicar giro de barrido:\n**turn_offset = -active_turn**;
+ *     endif
+ *
+ *   case (LINE_FOLLOWING)
+ *     if (¿Cruce ortogonal o línea transversal?\n(active_count == 3)) then (Sí: Cruce Detectado)
+ *       :Resolución de giro pseudoaleatorio con jitter SysTick:\n**cross_direction = ((SysTick->VAL & 1) != 0) ? 1 : -1**\n**lineState = LINE_CROSS**;
+ *     else (Pista Continua)
+ *       if (¿Pérdida temporal de línea?\n(active_count == 0)) then (Sí: Pérdida)
+ *         :Incrementar contador de debounce:\n**line_lost_debounce_count++**;
+ *         if (¿line_lost_debounce_count >= 6? [30 ms]) then (Pérdida Confirmada)
+ *           :Iniciar rutina de navegación a ciegas (Dead Reckoning):\n**lineState = LINE_LOST**\n**line_lost_phase = LINE_LOST_ROT_90**\n**search_direction = (last_line_error >= 0) ? -1 : 1**;
+ *         else (Filtro Transitorio)
+ *           :Mantener último error y guiñada:\n**error_linea = last_line_error**\n**turn_offset = last_turn_offset**;
+ *         endif
+ *       else (No: Línea Detectada)
+ *         :Resetear contador: **line_lost_debounce_count = 0**;
+ *         
+ *         :Cálculo del Error de Posición Lateral (Centroide):\n**error_linea = (((-1000 * left_ir) + (1000 * right_ir)) / sum_sensors) / 10**\n**abs_error = |error_linea|**;
+ *         
+ *         :Cálculo del Término Proporcional Lineal:\n**linear_term = (Kp_line * error_linea) / 100**;
+ *         
+ *         :Cálculo del Término Cuadrático No Lineal (Mayor autoridad en curvas):\n**quad_term = (Kq_line * error_linea * abs_error) / SCALE_LINE**;
+ *         
+ *         :Suma de Esfuerzo de Guiñada Total:\n**turn_offset = linear_term + quad_term**;
+ *         
+ *         :Saturación de Guiñada (Clamping):\n**turn_offset = clamp(turn_offset, -turn_limit, +turn_limit)**;
+ *         
+ *         :Actualizar memoria de estado:\n**last_turn_offset = turn_offset**\n**last_line_error = error_linea**;
+ *       endif
+ *     endif
+ *     :Consigna longitudinal de avance:\n***target_setpoint = attack_setpoint**;
+ *
+ *   case (LINE_LOST)
+ *     if (¿Cualquier sensor recupera línea?\n(active_count > 0)) then (Re-enganche Inmediato)
+ *       :Retorno instantáneo a **LINE_FOLLOWING**;
+ *     else (Dead Reckoning con Giroscopio)
+ *       :Integración giroscópica de guiñada:\n**gz_cal = gz - gz_offset**\n**line_lost_yaw += (gz_cal * DT_US) / 131000**;
+ *       if (line_lost_phase == LINE_LOST_ROT_90) then
+ *         :Rotar 90° hacia el último lado conocido con **LINE_LOST_TURN_SPEED**;
+ *       elseif (line_lost_phase == LINE_LOST_WAIT_2S) then
+ *         :Pausa estática de observación (2 segundos), **turn_offset = 0**;
+ *       elseif (line_lost_phase == LINE_LOST_ROT_180) then
+ *         :Rotar 180° en sentido opuesto con **LINE_LOST_TURN_SPEED**;
+ *       else (LINE_LOST_STOPPED)
+ *         :Frenado estático en rampa:\n***target_setpoint = -250**, **turn_offset = 0**;
+ *       endif
+ *     endif
+ *
+ *   case (LINE_CROSS)
+ *     :Consigna de giro erguido: ***target_setpoint = +350**;
+ *     if (¿Queda exactamente un sensor sobre la línea? (active_count == 1)) then (Línea Tomada)
+ *       :Finalizar cruce: **turn_offset = 0**, **lineState = LINE_FOLLOWING**;
+ *     else (En Rotación)
+ *       :Rotar sobre su propio eje:\n**turn_offset = cross_direction * 350**;
+ *     endif
+ *   endswitch
+ * }
+ *
+ * partition "Actuación (PWM) y Despacho a PID" {
+ *   :Exportar consignas calculadas: ***target_setpoint** y **turn_offset**;
+ *   :Despacho al mezclador de motores en **PID_Calcular(target_setpoint)**\npara modulación y accionamiento PWM en puente H;
+ * }
+ * stop
+ * \enduml
+ *
+ * @param[in] left_ir Lectura analógica normalizada del fotosensor infrarrojo izquierdo.
+ * @param[in] center_ir Lectura analógica normalizada del fotosensor infrarrojo central.
+ * @param[in] right_ir Lectura analógica normalizada del fotosensor infrarrojo derecho.
+ * @param[out] target_setpoint Puntero a la consigna de inclinación longitudinal para el lazo PID.
+ * @pre ADC1 DMA completado, sensores calibrados, `robotMode == STATE_LINE_FOLLOWING`.
+ * @post Actualiza `turn_offset`, `lineState`, `last_line_error` y `*target_setpoint`.
+ * @see PID_Calcular
+ * @see PIDTask
+ * @ingroup group_control
+ */
 void ControlSeguimiento(int32_t left_ir, int32_t center_ir, int32_t right_ir, int32_t *target_setpoint) {
 	static uint16_t line_lost_debounce_count = 0;
 	static int32_t last_turn_offset = 0;
@@ -2413,8 +2610,71 @@ void ControlSeguimiento(int32_t left_ir, int32_t center_ir, int32_t right_ir, in
 }
 
 /**
- * @brief Gestiona el modo operativo de balanceo estático en el lugar (Swing y 3D Screen).
- * @param[out] target_setpoint Puntero a la consigna de inclinación longitudinal del robot.
+ * @brief Control supervisor de equilibrio estático longitudinal con detección por histéresis de caída inminente.
+ * @details Gestiona el modo estacionario de balanceo puro (`STATE_SWING` y `STATE_3D_SCREEN`):
+ *          1. **Neutralización de Guiñada**: Cancela cualquier par de rotación (`turn_offset = 0`) para aislar el lazo de balance longitudinal.
+ *          2. **Consigna Nominal**: Carga la consigna estática calibrada `setpoint` como referencia de equilibrio erguido.
+ *          3. **Detector Schmitt Trigger de Caída Frontal**: Monitorea el ángulo pitch estimado `current_angle`:
+ *             - Si la inclinación frontal supera los $-15.00^\circ$ (`current_angle < -ANG15`), activa `forwards_recovery_active = 1`.
+ *             - Aplica una histéresis de $5.00^\circ$, desactivando la recuperación únicamente cuando el robot retorna a $\ge -10.00^\circ$ (`current_angle >= -ANG10`).
+ *          4. **Clamping de Consigna en Caída**: Cuando la bandera de recuperación está activa, fuerza `*target_setpoint = 0` para suprimir la consigna de avance y permitir que el par reactivo levante el chasis.
+ *          5. **Accionamiento en Cascada**: El lazo rápido `PID_Calcular()` detecta esta bandera e inyecta un pulso directo de tracción delantera al 30% de ciclo de trabajo (`pwm = +3000`) reiniciando el integrador a cero.
+ *
+ * \startuml
+ * skinparam backgroundColor white
+ * skinparam arrowColor #2C3E50
+ * skinparam activity {
+ *   BackgroundColor #F4F6F7
+ *   BorderColor #34495E
+ *   FontColor #2C3E50
+ * }
+ * skinparam partition {
+ *   BackgroundColor #EAEDED
+ *   BorderColor #7F8C8D
+ *   FontColor #1A5276
+ * }
+ *
+ * start
+ * partition "Filtro / Sensores (Estimación de Estado)" {
+ *   :Lectura de ángulo de inclinación: **current_angle**\n(Estimación por Filtro Complementario IMU MPU-6050);\nLectura de consigna base de equilibrio: **setpoint**;
+ * }
+ *
+ * partition "Controlador de Balanceo Estático y Supervisor de Caída" {
+ *   :Anular esfuerzo de guiñada:\n**turn_offset = 0**;
+ *   :Asignación de consigna nominal:\n***target_setpoint = setpoint**;
+ *
+ *   if (¿Inclinación frontal crítica?\ncurrent_angle < -ANG15 [-15.00°]) then (Sí: Caída Delantera Inminente)
+ *     :Activar bandera de recuperación de emergencia:\n**forwards_recovery_active = 1**;
+ *   elseif (¿Retorno seguro a zona de estabilidad?\ncurrent_angle >= -ANG10 [-10.00°]) then (Sí: Histéresis de Seguridad)
+ *     :Desactivar bandera de recuperación:\n**forwards_recovery_active = 0**;
+ *   else (Banda de Histéresis [-15° a -10°])
+ *     :Mantener estado previo de **forwards_recovery_active**;
+ *   endif
+ *
+ *   if (¿forwards_recovery_active == 1?) then (Sí)
+ *     :Clamping de Consigna Anti-Picada:\n***target_setpoint = 0**;
+ *     note right: Anula la consigna inclinada hacia adelante\npara permitir que el par motor levante el chasis.
+ *   endif
+ * }
+ *
+ * partition "Actuación (PWM) y Despacho a PID" {
+ *   :Transferencia de consigna ***target_setpoint** y bandera de recuperación;
+ *   :Despacho al lazo rápido **PID_Calcular(target_setpoint)**:;
+ *   if (¿forwards_recovery_active == 1?) then (Bypass de Emergencia)
+ *     :Inyección de pulso directo hacia adelante:\n**pwm_left = +3000**, **pwm_right = +3000**\nReset acumulador: **integral = 0**, **last_error = 0**;
+ *   else (Lazo Normal)
+ *     :Cálculo PID longitudinal y modulación de PWM;
+ *   endif
+ *   :Mapeo final a registros de comparación de TIM1;
+ * }
+ * stop
+ * \enduml
+ *
+ * @param[out] target_setpoint Puntero a la consigna de inclinación longitudinal modulada por el supervisor.
+ * @pre IMU calibrada, filtro complementario activo en `PIDTask()`.
+ * @post Modifica `*target_setpoint`, `turn_offset` y `forwards_recovery_active`.
+ * @see PID_Calcular
+ * @see PIDTask
  * @ingroup group_control
  */
 void Control_Balanceo(int32_t *target_setpoint) {
@@ -2454,11 +2714,125 @@ void Control_Joystick(int32_t *target_setpoint) {
 }
 
 /**
- * @brief Gestiona la máquina de estados finita (MEF) de evasión de obstáculos y seguimiento de pared.
- * @param[in] left_ir Lectura normalizada del sensor infrarrojo izquierdo.
- * @param[in] center_ir Lectura normalizada del sensor infrarrojo central.
- * @param[in] right_ir Lectura normalizada del sensor infrarrojo derecho.
+ * @brief Algoritmo supervisor de evasión de obstáculos con frenado longitudinal en 3 etapas y control PD multivariable de pared.
+ * @details Implementa la máquina de estados jerárquica y el control continuo para esquivado autónomo:
+ *          1. **Filtro y Fusión Sensorial**:
+ *             - Detección de proximidad frontal con sensor de rango infrarrojo `cal_ir6`.
+ *             - Enrutamiento cinemático de sensores laterales según sentido de giro (`dodge_direction`):
+ *               - Lateral 90° (`cal_ir0` / `cal_ir2`): distancia perpendicular al obstáculo.
+ *               - Diagonal 45° (`cal_ir7` / `cal_ir4`): anticipación predictiva de curvatura.
+ *               - Frontal (`cal_ir6`): protección activa anticolisión.
+ *             - Odometría inercial de guiñada: integración numérica del giróscopo Z calibrado $\Delta \psi = \frac{(g_z - g_{z\_offset}) \cdot \Delta t}{131000}$.
+ *          2. **Perfil Longitudinal de Frenado (`DODGE_STANDBY`)**:
+ *             - Etapa 1 ($0 \le t < 250$ ms): Frenado reactivo brusco con pitch hacia atrás a $+10.00^\circ$.
+ *             - Etapa 2 ($250 \le t < 750$ ms): Estabilización de inercia a $+3.50^\circ$.
+ *             - Etapa 3 ($750 \le t < 1500$ ms): Inclinación preparatoria hacia adelante a $-2.50^\circ$.
+ *          3. **Rotación Guiada por Giroscopio Z (`DODGE_ROTATING`)**:
+ *             - Giro pivot de 90° con supervisión de estabilidad de balance: si el error pitch excede $4.50^\circ$ ($|error| > 450$), anula el par de giro (`turn_offset = 0`, `integral = 0`) para priorizar la estabilidad dinámica vertical sobre el giro.
+ *          4. **Lazo de Control PD Multivariable de Pared (`DODGE_WALL_FOLLOWING`)**:
+ *             - Consigna de avance de $-14.00^\circ$ para mantener velocidad constante de crucero.
+ *             - Ley de control PD acoplada:
+ *               $$u_{PD} = \frac{(s_{90} - 800) \cdot K_{p\_pared} + (s_{45} - 800) \cdot K_{d\_anticipo} + \max(s_{front} - 500, 0) \cdot K_{d\_frontal}}{100}$$
+ *             - Saturación de salida (clamping) en $\pm 500$ para impedir pérdida de adherencia.
+ *          5. **Re-enganche a la Pista (`DODGE_RETURN_ROTATING`)**:
+ *             - Filtro de despeje previo de línea y re-alineación temporizada sobre la trayectoria óptica.
+ *
+ * \startuml
+ * skinparam backgroundColor white
+ * skinparam arrowColor #2C3E50
+ * skinparam activity {
+ *   BackgroundColor #F4F6F7
+ *   BorderColor #34495E
+ *   FontColor #2C3E50
+ * }
+ * skinparam partition {
+ *   BackgroundColor #EAEDED
+ *   BorderColor #7F8C8D
+ *   FontColor #1A5276
+ * }
+ *
+ * start
+ * partition "Filtro / Sensores (Adquisición y Fusión)" {
+ *   :Lectura de reflectancia de línea: **left_ir**, **center_ir**, **right_ir**;
+ *   :Lectura de proximidad frontal: **cal_ir6**;
+ *   :Selección de sensores de pared según **dodge_direction**:\n**sensor_90** (cal_ir0 / cal_ir2: Lateral 90°)\n**sensor_45** (cal_ir7 / cal_ir4: Diagonal 45° Anticipación)\n**sensor_front** = cal_ir6 (Protección Frontal);
+ *   :Filtro e integración giroscópica de guiñada:\n**gz_cal = gz - gz_offset**\n**dodge_yaw += (gz_cal * DT_US) / 131000**;
+ * }
+ *
+ * partition "Controlador de Evasión (MEF y Control PD Multivariable)" {
+ *   switch (dodgeState)
+ *   case (DODGE_LINE_FOLLOWING)
+ *     :Ejecuta **ControlSeguimiento()**;
+ *     :Acumula temporizador: **dodge_timer += DT_MS**;
+ *     if (¿cal_ir6 >= 500 && dodge_timer >= 1000?) then (Obstáculo frontal detectado)
+ *       :Inicializar variables de maniobra:\n**turn_offset = 0**, **dodge_timer = 0**\n**standby_next_state = DODGE_ROTATING**\n**dodgeState = DODGE_STANDBY**;
+ *     endif
+ *
+ *   case (DODGE_STANDBY)
+ *     :Frenado longitudinal en 3 etapas sin guiñada (**turn_offset = 0**):;
+ *     if (dodge_timer < 250 ms) then (Frenado brusco)
+ *       :Consigna de frenado:\n***target_setpoint = +1000** (+10.0° pitch);
+ *     elseif (dodge_timer < 750 ms) then (Estabilización)
+ *       :Consigna intermedia:\n***target_setpoint = +350** (+3.5° pitch);
+ *     elseif (dodge_timer < 1500 ms) then (Inclinación frontal previa)
+ *       :Consigna preparatoria:\n***target_setpoint = -250** (-2.5° pitch);
+ *     else (Fin 1.5s)
+ *       :Transición a **standby_next_state** (DODGE_ROTATING)\n**dodge_timer = 0**, **dodge_yaw = 0**;
+ *     endif
+ *
+ *   case (DODGE_ROTATING)
+ *     :Consigna de adherencia en giro: ***target_setpoint = +350**;
+ *     :Atenuación de memoria inercial: **integral = (integral * 7) / 10**;
+ *     if (¿abs_yaw >= 90000 milígrados [90°]?) then (Giro completado)
+ *       :Detener giro y pasar a seguimiento de pared:\n**turn_offset = 0**, **dodge_yaw = 0**\n**dodgeState = DODGE_WALL_FOLLOWING**;
+ *     else (En rotación)
+ *       if (¿|error_pitch| > 450 milígrados [4.5°]?) then (Prioridad de Balance)
+ *         :Cancelar par de giro para prevenir caída:\n**turn_offset = 0**, **integral = 0**;
+ *       else (Estable)
+ *         :Aplicar par de rotación firme:\n**turn_offset = 350 * dodge_direction**;
+ *       endif
+ *     endif
+ *
+ *   case (DODGE_WALL_FOLLOWING)
+ *     :Consigna de avance continuo crucero: ***target_setpoint = -1400** (-14.0°);
+ *     :1. Error de distancia lateral 90°:\n**error_distancia = sensor_90 - 800**;
+ *     :2. Error de anticipación diagonal 45°:\n**error_anticipo = sensor_45 - 800**;
+ *     :3. Error de protección frontal:\n**error_frontal = max(sensor_front - 500, 0)**;
+ *     
+ *     :Lazo de Control PD Multivariable:\n**u_PD = ((error_distancia * Kp_pared) + (error_anticipo * Kd_anticipo) + (error_frontal * Kd_frontal)) / 100**;
+ *     :Cálculo de esfuerzo de guiñada:\n**turn_offset = u_PD * dodge_direction**;
+ *     
+ *     :Limitación de esfuerzo (Clamping):\n**turn_offset = clamp(turn_offset, -500, +500)**;
+ *
+ *     if (¿t >= 4000 ms && línea despejada && línea detectada?) then (Sí)
+ *       :Transición de reenganche:\n***target_setpoint = +1250**, **turn_offset = 0**\n**dodgeState = DODGE_RETURN_ROTATING**;
+ *     endif
+ *
+ *   case (DODGE_RETURN_ROTATING)
+ *     :Perfil de reingreso en 3 etapas:\n1. 0..250ms: Freno ***target_setpoint = +1250**, turn_offset = 0\n2. 250..350ms: Avance ***target_setpoint = -250**, turn_offset = 0\n3. 350ms+: Rotación angular a la línea con **turn_offset** saturado;
+ *     if (¿Fin de tiempo de reingreso?) then (Sí)
+ *       :Retorno a **DODGE_LINE_FOLLOWING** (o búsqueda **LINE_LOST**);
+ *     endif
+ *   endswitch
+ * }
+ *
+ * partition "Actuación (PWM) y Despacho a PID" {
+ *   :Exportación de consignas dinámicas:\n***target_setpoint** y **turn_offset**;
+ *   :Despacho al lazo interno **PID_Calcular(target_setpoint)**\npara modulación y accionamiento PWM en puente H;
+ * }
+ * stop
+ * \enduml
+ *
+ * @param[in] left_ir Lectura analógica normalizada del sensor de línea izquierdo.
+ * @param[in] center_ir Lectura analógica normalizada del sensor de línea central.
+ * @param[in] right_ir Lectura analógica normalizada del sensor de línea derecho.
  * @param[out] target_setpoint Puntero a la consigna de inclinación longitudinal del robot.
+ * @pre Modo `STATE_DODGE` activo, IMU y sensores analógicos calibrados.
+ * @post Actualiza `target_setpoint`, `turn_offset`, `dodgeState`, `dodge_timer` y `dodge_yaw`.
+ * @see _eDodgeSubState
+ * @see ControlSeguimiento
+ * @see PID_Calcular
+ * @see PIDTask
  * @ingroup group_control
  */
 void Control_Esquivar(int32_t left_ir, int32_t center_ir, int32_t right_ir, int32_t *target_setpoint) {
@@ -2669,8 +3043,117 @@ void Control_Esquivar(int32_t left_ir, int32_t center_ir, int32_t right_ir, int3
 }
 
 /**
- * @brief Ejecuta el lazo PID central de balance longitudinal, la mezcla de tracción y el accionamiento PWM.
- * @param[in] target_setpoint Consigna de ángulo deseada calculada por la tarea del modo activo.
+ * @brief Lazo PID central de balance longitudinal a 200 Hz con Derivative-on-Measurement, Anti-Windup con Fuga, Mezclador Diferencial y PWM.
+ * @details Ejecuta el cómputo crítico en tiempo real del péndulo invertido cada 5 ms ($DT\_US = 5000\ \mu\text{s}$):
+ *          1. **Filtro y Estado Angular**: Adquiere el ángulo pitch `current_angle` estimado por el filtro complementario inercial (giroscopio MPU-6050 + acelerómetro).
+ *          2. **Cálculo del Error**: $e = target\_setpoint - current\_angle$.
+ *          3. **Acción Proporcional (P)**: $P = K_{p\_stable} \cdot e$.
+ *          4. **Acción Derivativa sobre Medición (D)**:
+ *             - Implica derivar la medición angular en lugar del error: $\frac{d}{dt}(last\_angle - current\_angle)$ para erradicar por completo el choque o "Derivative Kick" ante cambios escalón de consigna:
+ *               $$D = K_{d\_stable} \cdot \left(\frac{(last\_angle - current\_angle) \cdot 10^6}{DT\_US}\right)$$
+ *          5. **Acción Integral con Clamping y Decaimiento Exponencial (Anti-Windup Leaky)**:
+ *             - En zona lineal ($|e| < 1.50^\circ$ [150 milígrados]), acumula: $integral \mathrel{+}= \frac{e \cdot DT\_US}{1000}$ con saturación estricta a $\pm(20 \cdot ANG20)$ ($\pm 40.0^\circ$ equiv).
+ *             - Fuera de la zona lineal ($|e| \ge 1.50^\circ$), aplica una fuga exponencial del 20% por ciclo ($integral = \frac{integral \cdot 8}{10}$) para atenuar instantáneamente la memoria inercial y prevenir sobrepasos descontrolados al estabilizarse.
+ *             - Término integral: $I = \frac{K_{i\_stable} \cdot integral}{1000}$.
+ *          6. **Suma Total del Esfuerzo Longitudinal**:
+ *             $$output = \frac{P + I + D}{10000}$$
+ *          7. **Mezclador de Tracción y Guiñada**:
+ *             - En giros pivot (búsqueda de línea 90°/180° o joystick), ejecuta cancelación algebraica de la rueda interior ($turn\_offset = \pm \max(output, 150)$) frenándola a 0 PWM mientras la rueda exterior entrega el doble de tracción.
+ *             - En translación normal, suma diferencialmente el par de guiñada: $pwm_L = base_L - turn\_offset$ y $pwm_R = base_R + turn\_offset$.
+ *          8. **Compensación de Zona Muerta (Deadband)**: Inyecta el par mínimo de arranque estático ($\pm minPWM \pm offset$) acorde al sentido de tracción.
+ *          9. **Protección Absoluta y Clamping**:
+ *             - Kill Switch de caída: si $|current\_angle| > 45.0^\circ$, desenergiza inmediatamente los motores ($PWM = 0$, $integral = 0$, $speed = 0$).
+ *             - Saturación final en $[ -maxPWM, +maxPWM ]$ ($\pm 4095$).
+ *          10. **Mapeo al Hardware**: Transfiere las magnitudes a los registros del temporizador TIM1 para modulación H-Bridge (`rPulse4`/`lPulse3` izquierda, `rPulse2`/`lPulse1` derecha).
+ *
+ * \startuml
+ * skinparam backgroundColor white
+ * skinparam arrowColor #2C3E50
+ * skinparam activity {
+ *   BackgroundColor #F4F6F7
+ *   BorderColor #34495E
+ *   FontColor #2C3E50
+ * }
+ * skinparam partition {
+ *   BackgroundColor #EAEDED
+ *   BorderColor #7F8C8D
+ *   FontColor #1A5276
+ * }
+ *
+ * start
+ * partition "Filtro / Sensores (Estimación de Estado)" {
+ *   :Entrada de consigna: **target_setpoint**;
+ *   :Lectura de ángulo de inclinación: **current_angle**\n(Estimado por Filtro Complementario IMU MPU-6050);
+ *   :Recuperación de estados previos:\n**last_angle**, **last_error**, **integral**;
+ * }
+ *
+ * partition "Controlador PID (Balance Longitudinal)" {
+ *   :Cálculo del Error angular:\n**error = target_setpoint - current_angle**;
+ *   
+ *   :Cálculo del Término Proporcional (P):\n**P_term = Kp_stable * error**;
+ *   
+ *   :Cálculo de derivada sobre la medición (DoM):\n**d_angle = last_angle - current_angle**\n**derivative = (d_angle * 1000000) / DT_US**;
+ *   :Cálculo del Término Derivativo (D):\n**D_term = Kd_stable * derivative**;
+ *   note right: Derivada sobre la medición (current_angle)\nen lugar del error para evitar 'Derivative Kick'\nante cambios abruptos de consigna.
+ *
+ *   if (¿Error dentro de la banda lineal de balance?\n(|error| < 150 milígrados [±1.5°])) then (Sí: Integración Activa)
+ *     :Integración discreta (Euler):\n**integral += (error * DT_US) / 1000**;
+ *     if (¿integral > 20 * ANG20?) then (Sí)
+ *       :Clamping Anti-Windup Superior:\n**integral = 20 * ANG20 (+40.0° equiv)**;
+ *     elseif (¿integral < -20 * ANG20?) then (Sí)
+ *       :Clamping Anti-Windup Inferior:\n**integral = -20 * ANG20 (-40.0° equiv)**;
+ *     else (En rango)
+ *       :Conservar acumulador integral;
+ *     endif
+ *   else (No: Transitorio / Perturbación Grande)
+ *     :Fuga / Decaimiento Exponencial (Anti-Windup Leaky):\n**integral = (integral * 8) / 10**;
+ *     note right: Reduce la memoria inercial un 20% por ciclo\npara impedir sobreoscilación al recuperar estabilidad.
+ *   endif
+ *   
+ *   :Cálculo del Término Integral (I):\n**I_term = (Ki_stable * integral) / 1000**;
+ *   
+ *   :Suma Total de Esfuerzo de Control Longitudinal:\n**output = (P_term + I_term + D_term) / 10000**;
+ *   
+ *   :Actualización de variables de memoria de estado:\n**last_error = error**\n**last_angle = current_angle**;
+ * }
+ *
+ * partition "Actuación (PWM) y Mezcla de Motores" {
+ *   if (¿Rotación pivot sobre eje propio activa?\n(is_rotating_pivot)) then (Sí)
+ *     if (¿Giro de 90° o 180° por pérdida de línea?) then (Sí)
+ *       :Cancelación algebraica de rueda interna:\n**balance_effort = max(output, 150)**\n**turn_offset = ±balance_effort**;
+ *       note right: La rueda interna se frena a PWM=0\nmientras la externa entrega el doble de par.
+ *     endif
+ *     :Cálculo de esfuerzos brutos rotacionales:\n**raw_L = output ± turn_offset**\n**raw_R = output ∓ turn_offset**;
+ *     :Compensación de zona muerta rotacional:\n**pwm_left = raw_L ± rot_min_L ± offset_left**\n**pwm_right = raw_R ± rot_min_R ± offset_right**;
+ *   else (No: Translación y Guiñada Diferencial)
+ *     :Compensación de zona muerta longitudinal:\n**base_L = output ± minPWM_Left ± offset_left**\n**base_R = output ± minPWM_Right ± offset_right**;
+ *     if (¿turn_offset != 0?) then (Sí: Mezcla Diferencial)
+ *       :Inyección diferencial de giro:\n**pwm_left = base_L - turn_offset**\n**pwm_right = base_R + turn_offset**;
+ *     else (No)
+ *       :Tracción longitudinal simétrica:\n**pwm_left = base_L**\n**pwm_right = base_R**;
+ *     endif
+ *   endif
+ *
+ *   if (¿Recuperación directa activa?\n(forwards/backwards_recovery_active)) then (Sí)
+ *     :Bypass de balanceo:\n**pwm_left = ±3000**, **pwm_right = ±3000**\n**integral = 0**, **last_error = 0**;
+ *   endif
+ *
+ *   if (¿Caída inminente o modo inactivo?\n(|current_angle| > 45.0° o calib < 150)) then (Sí)
+ *     :Desconexión de seguridad (Kill Switch):\n**pwm_left = 0**, **pwm_right = 0**\n**integral = 0**, **speed = 0**;
+ *   endif
+ *
+ *   :Saturación final de salidas (Clamping):\n**pwm_left = clamp(pwm_left, -maxPWM, +maxPWM)**\n**pwm_right = clamp(pwm_right, -maxPWM, +maxPWM)**;
+ *
+ *   :Mapeo a registros del Temporizador TIM1 (Puente H):\n**rPulse4 / lPulse3 <= pwm_left**\n**rPulse2 / lPulse1 <= pwm_right**;
+ * }
+ * stop
+ * \enduml
+ *
+ * @param[in] target_setpoint Consigna de ángulo deseada calculada por la tarea del modo activo (en milígrados).
+ * @pre MPU-6050 y filtro complementario calibrados, período nominal de interrupción 5 ms.
+ * @post Actualiza variables globales de telemetría (`error`, `integral`, `derivative`, `output`), y modula registros PWM de TIM1 (`rPulse4`, `lPulse3`, `rPulse2`, `lPulse1`).
+ * @see PIDTask
+ * @see Speed_IntegrationTask
  * @ingroup group_control
  */
 void PID_Calcular(int32_t target_setpoint) {
@@ -2831,10 +3314,65 @@ void PID_Calcular(int32_t target_setpoint) {
 }
 
 /**
- * @brief Tarea orquestadora central de control PID y MEF de modos operativos (200 Hz).
- * @details Realiza el filtrado inercial MPU-6050, lectura de sensores ópticos,
- *          despacho de tareas especializadas según la MEF (Balanceo, Seguimiento,
- *          Esquivar, Joystick) y ejecución del cálculo PID de balanceo.
+ * @brief Tarea orquestadora central de control PID y MEF de modos operativos a 200 Hz (5 ms).
+ * @details Implementa el lazo crítico de control en cascada del robot péndulo invertido:
+ *          1. **Filtro Inercial**: Fusión sensorial complementaria de acelerómetro y giróscopo del MPU-6050.
+ *          2. **Lectura Óptica**: Adquisición y normalización de reflectancia de línea IR y distancias por ADC1 DMA.
+ *          3. **Despacho de MEF**: Ejecuta la lógica del modo activo (`Control_Balanceo`, `ControlSeguimiento`, `Control_Esquivar`, `Control_Joystick`).
+ *          4. **Lazo PID Interno**: Controla el ángulo de inclinación longitudinal con Derivative-on-Measurement y Anti-Windup.
+ *          5. **Lazo PI Externo**: Compensador de velocidad y esfuerzo motor para anular derivas de traslación.
+ *          6. **Mezcla y Accionamiento**: Suma diferencial de guiñada (`turn_offset`), compensa zonas muertas y satura PWM a TIM1.
+ *
+ * \startuml
+ * title Lazo de Control Crítico en Cascada 200 Hz (PIDTask)
+ * start
+ * if (¿Bandera RUN_PID activa (TIM2 5ms)?) then (Sí)
+ *   :RUN_PID = FALSE;
+ * else (No)
+ *   stop
+ * endif
+ * :Normalizar sensores de línea y distancia ADC;
+ * :Filtrar aceleraciones Ax, Az y velocidad Gy, Gz;
+ * :Calcular ángulo estimado (Filtro Complementario);
+ * :Acumular ángulo continuo de guiñada Yaw;
+ *
+ * partition "Control de Modo Operativo" {
+ *   if (robotMode == STATE_LINE_FOLLOWING) then
+ *     :ControlSeguimiento();
+ *   elseif (robotMode == STATE_DODGE) then
+ *     :Control_Esquivar();
+ *   elseif (robotMode == STATE_JOYSTICK) then
+ *     :Control_Joystick();
+ *   else
+ *     :Control_Balanceo();
+ *   endif
+ * }
+ *
+ * partition "Lazo PID Interno de Balance" {
+ *   :error = target_setpoint - current_angle;
+ *   :P = (error * Kp) / 100;
+ *   :D = ((current_angle - last_angle) * Kd) / 100;
+ *   :I = integral += (error * Ki);
+ *   :pid_balance = P + I - D;
+ * }
+ *
+ * partition "Lazo PI Externo y Generación PWM" {
+ *   :Compensar esfuerzo motor (outer speed loop);
+ *   :Mezclar giro: pwm_l = pid + turn_offset, pwm_r = pid - turn_offset;
+ *   :Compensar umbrales mínimos de fricción (deadband);
+ *   :Saturar a maxPWM (4095);
+ *   :Actualizar registros de hardware TIM1->CCR1..CCR4;
+ * }
+ * stop
+ * \enduml
+ *
+ * @pre Temporizador TIM2 habilitado generando interrupciones a 200 Hz que setean `RUN_PID = TRUE`.
+ * @post Modifica registros PWM de TIM1, variables de estado `current_angle`, `error`, `integral`, `speed`.
+ * @see mpu6050_Read
+ * @see SetRobotMode
+ * @see ControlSeguimiento
+ * @see Control_Esquivar
+ * @see Control_Joystick
  * @ingroup group_control
  */
 void PIDTask(void) {

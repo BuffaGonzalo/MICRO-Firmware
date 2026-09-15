@@ -667,17 +667,9 @@ var searchData=
   ['htim3_664',['htim3',['../main_8c.html#aac3d2c59ee0e3bbae1b99529a154eb62',1,'htim3:&#160;main.c'],['../stm32f1xx__it_8c.html#aac3d2c59ee0e3bbae1b99529a154eb62',1,'htim3:&#160;main.c']]],
   ['htim4_665',['htim4',['../main_8c.html#a85788cec5a97ee377e4ee2e74f026484',1,'htim4:&#160;main.c'],['../stm32f1xx__it_8c.html#a85788cec5a97ee377e4ee2e74f026484',1,'htim4:&#160;main.c']]],
   ['htr_666',['HTR',['../struct_a_d_c___type_def.html#a2aafe30a367f715d836c240619803470',1,'ADC_TypeDef']]],
-  ['http_5fbuf_5freset_667',['HTTP_BUF_RESET',['../main_8c.html#ab337ba94b6937e6bcc3da4825e55d2a3',1,'main.c']]],
-  ['http_5fbuf_5fsize_668',['HTTP_BUF_SIZE',['../main_8c.html#a75b1a1ef17d00affddc93c4621fe5a9f',1,'main.c']]],
-  ['httpbuf_669',['httpBuf',['../main_8c.html#a8368414d87a899481aeac08849f21007',1,'main.c']]],
-  ['httpbufidx_670',['httpBufIdx',['../main_8c.html#a8ffb28d649d28135e3f15bb59db6dcaf',1,'main.c']]],
-  ['httpformresp_671',['httpFormResp',['../main_8c.html#a6abf31ab3a2a90c16f882b58272a8d06',1,'main.c']]],
-  ['httpokresp_672',['httpOkResp',['../main_8c.html#a5ed7dd0f9975fe182aa7d552ef5ba2b8',1,'main.c']]],
-  ['httptask_673',['httpTask',['../main_8c.html#a51c09d8b054b8124185bda3fe89d4dc9',1,'main.c']]],
-  ['httptxbuf_674',['httpTxBuf',['../main_8c.html#a61da457d9d16e92630f830b7c6ab4ede',1,'main.c']]],
-  ['huart1_675',['huart1',['../main_8c.html#a2cf715bef37f7e8ef385a30974a5f0d5',1,'huart1:&#160;main.c'],['../stm32f1xx__it_8c.html#a2cf715bef37f7e8ef385a30974a5f0d5',1,'huart1:&#160;main.c']]],
-  ['hub_5faddr_676',['hub_addr',['../struct_u_s_b___h_c_type_def.html#a7457e48f92a89b1876e479b16f324437',1,'USB_HCTypeDef']]],
-  ['hub_5fport_5fnbr_677',['hub_port_nbr',['../struct_u_s_b___h_c_type_def.html#a143268ab71673cedb5d79dfa3a73f16d',1,'USB_HCTypeDef']]],
-  ['husbdevicefs_678',['hUsbDeviceFS',['../group___u_s_b_d___c_d_c___i_f___exported___variables.html#gafe8a2d9e10b33d5e7906f9f04f95358e',1,'hUsbDeviceFS:&#160;usb_device.c'],['../group___u_s_b_d___c_d_c___i_f___exported___variables.html#gafe8a2d9e10b33d5e7906f9f04f95358e',1,'hUsbDeviceFS:&#160;usb_device.c']]],
-  ['hwflowctl_679',['HwFlowCtl',['../struct_u_a_r_t___init_type_def.html#adbf4734130666b94201c6658464c1622',1,'UART_InitTypeDef']]]
+  ['huart1_667',['huart1',['../main_8c.html#a2cf715bef37f7e8ef385a30974a5f0d5',1,'huart1:&#160;main.c'],['../stm32f1xx__it_8c.html#a2cf715bef37f7e8ef385a30974a5f0d5',1,'huart1:&#160;main.c']]],
+  ['hub_5faddr_668',['hub_addr',['../struct_u_s_b___h_c_type_def.html#a7457e48f92a89b1876e479b16f324437',1,'USB_HCTypeDef']]],
+  ['hub_5fport_5fnbr_669',['hub_port_nbr',['../struct_u_s_b___h_c_type_def.html#a143268ab71673cedb5d79dfa3a73f16d',1,'USB_HCTypeDef']]],
+  ['husbdevicefs_670',['hUsbDeviceFS',['../group___u_s_b_d___c_d_c___i_f___exported___variables.html#gafe8a2d9e10b33d5e7906f9f04f95358e',1,'hUsbDeviceFS:&#160;usb_device.c'],['../group___u_s_b_d___c_d_c___i_f___exported___variables.html#gafe8a2d9e10b33d5e7906f9f04f95358e',1,'hUsbDeviceFS:&#160;usb_device.c']]],
+  ['hwflowctl_671',['HwFlowCtl',['../struct_u_a_r_t___init_type_def.html#adbf4734130666b94201c6658464c1622',1,'UART_InitTypeDef']]]
 ];

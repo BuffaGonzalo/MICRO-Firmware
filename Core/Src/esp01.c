@@ -329,14 +329,32 @@ _eESP01STATUS ESP01_StateUDPTCP(){
 }
 
 
+/**
+ * @brief Inyecta un byte recibido por interrupción USART en el buffer circular del driver.
+ * @param[in] value Byte recibido por hardware USART.
+ * @pre Interrupción de recepción USART habilitada.
+ * @post Escribe `value` en `esp01RXATBuf` y avanza `esp01iwRXAT` con control de wrap-around.
+ * @see USART1_IRQHandler
+ */
 void ESP01_WriteRX(uint8_t value){
-//	if(esp01Handle.bufRX == NULL)
-//		return;
 	esp01RXATBuf[esp01iwRXAT++] = value;
 	if(esp01iwRXAT == ESP01RXBUFAT)
 		esp01iwRXAT = 0;
 }
 
+/**
+ * @brief Transmite un bloque de datos del buffer circular a través del socket activo.
+ * @param[in] connID Identificador del canal/conexión (0 en modo Station único).
+ * @param[in] buf Puntero al buffer de memoria que almacena los datos a enviar.
+ * @param[in] irRingBuf Índice de lectura actual en el buffer circular de origen.
+ * @param[in] length Cantidad de bytes a transmitir.
+ * @param[in] sizeRingBuf Tamaño total del buffer circular para gestión de wrap-around.
+ * @return Estado de la solicitud de envío (`_eESP01STATUS`).
+ * @pre Conexión establecida (`UDPTCPCONNECTED == 1` o `esp01SoftAPMode == 1`) y canal listo.
+ * @post Carga el comando `AT+CIPSEND` en el buffer de transmisión TX y activa la bandera `SENDINGDATA`.
+ * @see ESP01_Task
+ * @see ESP01SENDData
+ */
 _eESP01STATUS ESP01_Send(uint8_t connID, uint8_t *buf, uint16_t irRingBuf, uint16_t length, uint16_t sizeRingBuf){
 	if(esp01Handle.WriteUSARTByte == NULL)
 		return ESP01_NOT_INIT;
@@ -393,7 +411,13 @@ _eESP01STATUS ESP01_Send(uint8_t connID, uint8_t *buf, uint16_t irRingBuf, uint1
 	return ESP01_SEND_BUSY;
 }
 
-
+/**
+ * @brief Inicializa las variables internas y estructuras del driver ESP-01.
+ * @param[in] hESP01 Puntero a la estructura de manejadores de hardware `_sESP01Handle`.
+ * @pre Estructura de hardware inicializada con los punteros válidos a GPIO y USART.
+ * @post Configura buffers circulares, resetea banderas de conexión y programa el primer timeout.
+ * @see _sESP01Handle
+ */
 void ESP01_Init(_sESP01Handle *hESP01){
 
 	memcpy(&esp01Handle, hESP01, sizeof(_sESP01Handle));
@@ -411,7 +435,13 @@ void ESP01_Init(_sESP01Handle *hESP01){
 	ESP01DbgStr = NULL;
 }
 
-
+/**
+ * @brief Base de tiempo periódica de 10 ms para la gestión de temporizadores del driver ESP-01.
+ * @details Decrementa los contadores `esp01TimeoutTask`, `esp01TimeoutDataRx`, `esp01TimeoutTxSymbol` y `esp01TimeoutSendOk`.
+ *          Destraba automáticamente envíos atascados ante la pérdida de confirmación `SEND OK`.
+ * @pre Debe ser invocada en una rutina cíclica cada 10 ms (ej: planificador cooperativo).
+ * @post Actualiza los temporizadores internos del driver.
+ */
 void ESP01_Timeout10ms(){
 	if(esp01TimeoutTask)
 		esp01TimeoutTask--;
@@ -437,6 +467,32 @@ void ESP01_Timeout10ms(){
 	}
 }
 
+/**
+ * @brief Tarea principal periódica de la máquina de estados AT del driver ESP-01.
+ * @details Coordina tres subprocesos fundamentales de manera no bloqueante:
+ *          1. `ESP01ATDecode()`: Decodifica cadenas entrantes por USART (`OK`, `ERROR`, `+IPD`, etc.).
+ *          2. `ESP01DOConnection()`: Avanza la MEF de inicialización, asociación Wi-Fi y apertura de sockets.
+ *          3. `ESP01SENDData()`: Gestiona el protocolo de despacho de paquetes (`AT+CIPSEND`).
+ *
+ * \startuml
+ * title Despachador de Tareas ESP-01 (ESP01_Task)
+ * start
+ * if (¿Bytes pendientes en buffer RX AT?) then (Sí)
+ *   :ESP01ATDecode();
+ * endif
+ * if (¿Temporizador de paso expirado (!esp01TimeoutTask)?) then (Sí)
+ *   :ESP01DOConnection();
+ * endif
+ * :ESP01SENDData();
+ * stop
+ * \enduml
+ *
+ * @pre El driver debe estar inicializado mediante `ESP01_Init()` y ejecutarse en el super-loop.
+ * @post Puede alterar el estado de conexión del robot (`ESP01ChangeState`), los buffers y flags AT.
+ * @see ESP01ATDecode
+ * @see ESP01DOConnection
+ * @see ESP01SENDData
+ */
 void ESP01_Task(){
 
 	if(esp01irRXAT != esp01iwRXAT)

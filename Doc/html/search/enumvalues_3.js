@@ -10,9 +10,9 @@ var searchData=
   ['dma1_5fchannel5_5firqn_7',['DMA1_Channel5_IRQn',['../group___peripheral__interrupt__number__definition.html#gga7e1129cd8a196f4284d41db3e82ad5c8abf98e4379328f74686524faa05bf6177',1,'stm32f103xb.h']]],
   ['dma1_5fchannel6_5firqn_8',['DMA1_Channel6_IRQn',['../group___peripheral__interrupt__number__definition.html#gga7e1129cd8a196f4284d41db3e82ad5c8aab3710849c919f2327eaa001d9e2a7a0',1,'stm32f103xb.h']]],
   ['dma1_5fchannel7_5firqn_9',['DMA1_Channel7_IRQn',['../group___peripheral__interrupt__number__definition.html#gga7e1129cd8a196f4284d41db3e82ad5c8a6617c3c1d75470b8bfcc48f82ff38fd1',1,'stm32f103xb.h']]],
-  ['dodge_5fline_5ffollowing_10',['DODGE_LINE_FOLLOWING',['../main_8c.html#a3c9f0f3644c95372a772a4d41fe9d274a6cc6785e4c562eddd14a8c613ab76f9a',1,'main.c']]],
-  ['dodge_5freturn_5frotating_11',['DODGE_RETURN_ROTATING',['../main_8c.html#a3c9f0f3644c95372a772a4d41fe9d274a07b78e23ee697f18d8f47dbdc53ab187',1,'main.c']]],
-  ['dodge_5frotating_12',['DODGE_ROTATING',['../main_8c.html#a3c9f0f3644c95372a772a4d41fe9d274accbedb184c76977cbe098ac44faaf316',1,'main.c']]],
-  ['dodge_5fstandby_13',['DODGE_STANDBY',['../main_8c.html#a3c9f0f3644c95372a772a4d41fe9d274afd34db91febc178a05db4065aaac7acb',1,'main.c']]],
-  ['dodge_5fwall_5ffollowing_14',['DODGE_WALL_FOLLOWING',['../main_8c.html#a3c9f0f3644c95372a772a4d41fe9d274ac58b7c72e4b3e495de2e2430e5bfeada',1,'main.c']]]
+  ['dodge_5fline_5ffollowing_10',['DODGE_LINE_FOLLOWING',['../group__group__control.html#gga3c9f0f3644c95372a772a4d41fe9d274a6cc6785e4c562eddd14a8c613ab76f9a',1,'util.h']]],
+  ['dodge_5freturn_5frotating_11',['DODGE_RETURN_ROTATING',['../group__group__control.html#gga3c9f0f3644c95372a772a4d41fe9d274a07b78e23ee697f18d8f47dbdc53ab187',1,'util.h']]],
+  ['dodge_5frotating_12',['DODGE_ROTATING',['../group__group__control.html#gga3c9f0f3644c95372a772a4d41fe9d274accbedb184c76977cbe098ac44faaf316',1,'util.h']]],
+  ['dodge_5fstandby_13',['DODGE_STANDBY',['../group__group__control.html#gga3c9f0f3644c95372a772a4d41fe9d274afd34db91febc178a05db4065aaac7acb',1,'util.h']]],
+  ['dodge_5fwall_5ffollowing_14',['DODGE_WALL_FOLLOWING',['../group__group__control.html#gga3c9f0f3644c95372a772a4d41fe9d274ac58b7c72e4b3e495de2e2430e5bfeada',1,'util.h']]]
 ];

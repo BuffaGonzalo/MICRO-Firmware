@@ -34,7 +34,7 @@ MathJax.Hub.Config({
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">MICRO-Firmware<span id="projectnumber">&#160;EX100923v01</span>
+   <div id="projectname">MICRO-Firmware
    </div>
    <div id="projectbrief">Firmware de Péndulo Invertido Autónomo de Dos Ruedas (STM32F103C8T6 - ARM Cortex-M3)</div>
   </td>
@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('struct_s_s_d13
 </div><!--header-->
 <div class="contents">
 
-<p>Estructura de estado interno del controlador de display.  
+<p>Estructura de estado interno del controlador de display OLED SSD1306.  
  <a href="#details">Más...</a></p>
 
 <p><code>#include &quot;<a class="el" href="ssd1306_8h_source.html">ssd1306.h</a>&quot;</code></p>
@@ -136,18 +136,25 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('struct_s_s_d13
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Campos de datos</h2></td></tr>
 <tr class="memitem:a2c40063b7f8a6faf0cb91f191070e87a" id="r_a2c40063b7f8a6faf0cb91f191070e87a"><td class="memItemLeft">uint16_t&#160;</td><td class="memItemRight"><a class="el" href="#a2c40063b7f8a6faf0cb91f191070e87a">CurrentX</a></td></tr>
-<tr class="memdesc:a2c40063b7f8a6faf0cb91f191070e87a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Coordenada horizontal actual del cursor de texto.  <br /></td></tr>
+<tr class="memdesc:a2c40063b7f8a6faf0cb91f191070e87a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Coordenada horizontal actual del cursor de texto en píxeles (0 a 127).  <br /></td></tr>
 <tr class="memitem:a231012af7d06a1e4395368f8b688e7d3" id="r_a231012af7d06a1e4395368f8b688e7d3"><td class="memItemLeft">uint16_t&#160;</td><td class="memItemRight"><a class="el" href="#a231012af7d06a1e4395368f8b688e7d3">CurrentY</a></td></tr>
-<tr class="memdesc:a231012af7d06a1e4395368f8b688e7d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Coordenada vertical actual del cursor de texto.  <br /></td></tr>
+<tr class="memdesc:a231012af7d06a1e4395368f8b688e7d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Coordenada vertical actual del cursor de texto en píxeles (0 a 63).  <br /></td></tr>
 <tr class="memitem:a3c9d99e0bc06e4e9bde75463f17ac858" id="r_a3c9d99e0bc06e4e9bde75463f17ac858"><td class="memItemLeft">uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#a3c9d99e0bc06e4e9bde75463f17ac858">DisplayOn</a></td></tr>
-<tr class="memdesc:a3c9d99e0bc06e4e9bde75463f17ac858"><td class="mdescLeft">&#160;</td><td class="mdescRight">Estado de encendido de la matriz OLED (1: ON, 0: OFF).  <br /></td></tr>
+<tr class="memdesc:a3c9d99e0bc06e4e9bde75463f17ac858"><td class="mdescLeft">&#160;</td><td class="mdescRight">Estado de encendido de la matriz emisora OLED (1: ON, 0: OFF).  <br /></td></tr>
 <tr class="memitem:a5ced8054f4e1bd14884d253d81449cf2" id="r_a5ced8054f4e1bd14884d253d81449cf2"><td class="memItemLeft">uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#a5ced8054f4e1bd14884d253d81449cf2">Initialized</a></td></tr>
-<tr class="memdesc:a5ced8054f4e1bd14884d253d81449cf2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bandera booleana de inicialización completada.  <br /></td></tr>
+<tr class="memdesc:a5ced8054f4e1bd14884d253d81449cf2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bandera booleana de inicialización exitosa (1: Listo, 0: No inicializado).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Descripción detallada</h2>
-<div class="textblock"><p>Estructura de estado interno del controlador de display. </p>
+<div class="textblock"><p>Estructura de estado interno del controlador de display OLED SSD1306. </p>
+<p>Mantiene las coordenadas del cursor gráfico/texto y las banderas de inicialización y encendido. </p><dl class="section see"><dt>Ver también</dt><dd><a class="el" href="ssd1306_8h.html#a6f68a90e6eefe5396bcbec2cd699d500" title="Paleta de color binaria para pantalla OLED monocromática.">SSD1306_COLOR</a> </dd>
+<dd>
+<a class="el" href="struct_s_s_d1306___font__t.html" title="Estructura descriptora de fuentes tipográficas matriciales almacenadas en FLASH.">SSD1306_Font_t</a> </dd>
+<dd>
+<a class="el" href="ssd1306_8h.html#ade2c3a936ceecc5b8a1d965cc302d2ed" title="Inicializa el controlador SSD1306 con la secuencia de encendido y parámetros de display.">ssd1306_Init</a> </dd>
+<dd>
+<a class="el" href="ssd1306_8h.html#a43b18d938dee01ee07fb8c364ea57996">ssd1306_SetCursor</a> </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="ssd1306_8h_source.html#l00072">72</a> del archivo <a class="el" href="ssd1306_8h_source.html">ssd1306.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="ssd1306_8h_source.html#l00077">77</a> del archivo <a class="el" href="ssd1306_8h_source.html">ssd1306.h</a>.</p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Documentación de campos</h2>
 <a id="a2c40063b7f8a6faf0cb91f191070e87a" name="a2c40063b7f8a6faf0cb91f191070e87a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2c40063b7f8a6faf0cb91f191070e87a">&#9670;&#160;</a></span>CurrentX</h2>
@@ -161,9 +168,9 @@ Campos de datos</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Coordenada horizontal actual del cursor de texto. </p>
+<p>Coordenada horizontal actual del cursor de texto en píxeles (0 a 127). </p>
 
-<p class="definition">Definición en la línea <a class="el" href="ssd1306_8h_source.html#l00073">73</a> del archivo <a class="el" href="ssd1306_8h_source.html">ssd1306.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="ssd1306_8h_source.html#l00078">78</a> del archivo <a class="el" href="ssd1306_8h_source.html">ssd1306.h</a>.</p>
 
 </div>
 </div>
@@ -179,9 +186,9 @@ Campos de datos</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Coordenada vertical actual del cursor de texto. </p>
+<p>Coordenada vertical actual del cursor de texto en píxeles (0 a 63). </p>
 
-<p class="definition">Definición en la línea <a class="el" href="ssd1306_8h_source.html#l00074">74</a> del archivo <a class="el" href="ssd1306_8h_source.html">ssd1306.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="ssd1306_8h_source.html#l00079">79</a> del archivo <a class="el" href="ssd1306_8h_source.html">ssd1306.h</a>.</p>
 
 </div>
 </div>
@@ -197,9 +204,9 @@ Campos de datos</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Estado de encendido de la matriz OLED (1: ON, 0: OFF). </p>
+<p>Estado de encendido de la matriz emisora OLED (1: ON, 0: OFF). </p>
 
-<p class="definition">Definición en la línea <a class="el" href="ssd1306_8h_source.html#l00076">76</a> del archivo <a class="el" href="ssd1306_8h_source.html">ssd1306.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="ssd1306_8h_source.html#l00081">81</a> del archivo <a class="el" href="ssd1306_8h_source.html">ssd1306.h</a>.</p>
 
 </div>
 </div>
@@ -215,9 +222,9 @@ Campos de datos</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Bandera booleana de inicialización completada. </p>
+<p>Bandera booleana de inicialización exitosa (1: Listo, 0: No inicializado). </p>
 
-<p class="definition">Definición en la línea <a class="el" href="ssd1306_8h_source.html#l00075">75</a> del archivo <a class="el" href="ssd1306_8h_source.html">ssd1306.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="ssd1306_8h_source.html#l00080">80</a> del archivo <a class="el" href="ssd1306_8h_source.html">ssd1306.h</a>.</p>
 
 </div>
 </div>

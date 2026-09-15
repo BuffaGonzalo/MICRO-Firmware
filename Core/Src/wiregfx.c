@@ -111,6 +111,18 @@ static const int sphere_edges[24][2] = {
 };
 // --- Implementación de Funciones ---
 
+/**
+ * @brief Renderiza un cubo 3D rotando sobre los ejes X, Y y Z en la pantalla OLED.
+ * @details Aplica rotaciones tridimensionales mediante la tabla trigonométrica `sin_LUT`
+ *          y proyecta los vértices calculados sobre el framebuffer de memoria del SSD1306.
+ * @pre El controlador SSD1306 debe haber sido inicializado y configurado.
+ * @post Limpia el buffer con `ssd1306_Fill(Black)` y traza las 12 aristas con `ssd1306_Line`.
+ *       Incrementa los ángulos de rotación `angle_x`, `angle_y` y `angle_z`.
+ * @see sin_LUT
+ * @see cube_vertices
+ * @see cube_edges
+ * @see ssd1306_Line
+ */
 void WIREGFX_Graphics_DrawCube(void) {
     Point2D projected[8];
     int32_t sin_x = sin_LUT[angle_x];
@@ -152,6 +164,16 @@ void WIREGFX_Graphics_DrawCube(void) {
     angle_x += 2; angle_y += 1; angle_z += 3;
 }
 
+/**
+ * @brief Renderiza un teseracto (hipercubo 4D) con proyección en perspectiva estereográfica.
+ * @details Realiza rotaciones en los planos hiperespaciales X-Z, Y-Z y X-W sobre 16 vértices
+ *          y 32 aristas conectadas, escalando por el factor de perspectiva del eje $W$.
+ * @pre Display SSD1306 inicializado.
+ * @post Modifica el framebuffer de video del SSD1306; avanza los ángulos `angle_xz`, `angle_yz`, `angle_xw`.
+ * @see tesseract_vertices
+ * @see tesseract_edges
+ * @see ssd1306_Line
+ */
 void WIREGFX_Graphics_DrawTesseract(void) {
     Point2D projected[16];
     int32_t sin_xz = sin_LUT[angle_xz];
@@ -197,6 +219,15 @@ void WIREGFX_Graphics_DrawTesseract(void) {
     angle_xz += 1; angle_yz += 1; angle_xw += 2;
 }
 
+/**
+ * @brief Renderiza una pirámide de base cuadrada rotando en el espacio tridimensional.
+ * @details Transforma 5 vértices y conecta 8 aristas en rotación continua sobre los tres ejes espaciales.
+ * @pre Display SSD1306 inicializado.
+ * @post Actualiza el framebuffer en memoria RAM con las aristas de la pirámide.
+ * @see pyramid_vertices
+ * @see pyramid_edges
+ * @see ssd1306_Line
+ */
 void WIREGFX_Graphics_DrawPyramid(void) {
     Point2D projected[5];
     int32_t sin_x = sin_LUT[angle_x];
@@ -236,10 +267,19 @@ void WIREGFX_Graphics_DrawPyramid(void) {
                      projected[pyramid_edges[i][1]].x, projected[pyramid_edges[i][1]].y, White);
     }
 
-    // Incremento de ángulos (puedes jugar con estos valores)
+    // Incremento de ángulos
     angle_x += 2; angle_y += 3; angle_z += 1;
 }
 
+/**
+ * @brief Renderiza una esfera alámbrica tridimensional de baja poligonización (Low-Poly).
+ * @details Proyecta 14 vértices distribuidos en anillos latitudinales y dibuja 24 aristas.
+ * @pre Display SSD1306 inicializado.
+ * @post Actualiza el framebuffer del SSD1306 con la geometría esférica.
+ * @see sphere_vertices
+ * @see sphere_edges
+ * @see ssd1306_Line
+ */
 void WIREGFX_Graphics_DrawSphere(void) {
     Point2D projected[14]; // 14 vértices
 
@@ -285,11 +325,27 @@ void WIREGFX_Graphics_DrawSphere(void) {
 static uint32_t wiregfx_last_switch_tick = 0;
 static uint8_t wiregfx_figure_index = 0; // 0: Cubo, 1: Teseracto, 2: Pirámide
 
+/**
+ * @brief Reinicia el temporizador y fija el índice para renderizar inmediatamente el Cubo 3D.
+ * @post `wiregfx_last_switch_tick` toma el valor de `HAL_GetTick()` y `wiregfx_figure_index` pasa a 0.
+ * @see WIREGFX_DisplayTask
+ */
 void WIREGFX_ResetCycle(void) {
     wiregfx_last_switch_tick = HAL_GetTick();
     wiregfx_figure_index = 0;
 }
 
+/**
+ * @brief Gestiona el ciclo secuencial de animación de figuras tridimensionales.
+ * @details Evalúa el delta de tiempo con `HAL_GetTick()`. Cada 10 segundos conmuta cíclicamente
+ *          la figura geométrica: Cubo (0) &rarr; Teseracto (1) &rarr; Pirámide (2).
+ * @pre Debe invocarse periódicamente desde la tarea de interfaz de usuario (ej. ciclo de 20 ms).
+ * @post Ejecuta la función de renderizado de la figura correspondiente sobre el framebuffer del SSD1306.
+ * @see WIREGFX_Graphics_DrawCube
+ * @see WIREGFX_Graphics_DrawTesseract
+ * @see WIREGFX_Graphics_DrawPyramid
+ * @see WIREGFX_ResetCycle
+ */
 void WIREGFX_DisplayTask(void) {
     uint32_t now = HAL_GetTick();
     if (wiregfx_last_switch_tick == 0) {

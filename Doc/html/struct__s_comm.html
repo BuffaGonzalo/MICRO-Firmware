@@ -34,7 +34,7 @@ MathJax.Hub.Config({
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">MICRO-Firmware<span id="projectnumber">&#160;EX100923v01</span>
+   <div id="projectname">MICRO-Firmware
    </div>
    <div id="projectbrief">Firmware de Péndulo Invertido Autónomo de Dos Ruedas (STM32F103C8T6 - ARM Cortex-M3)</div>
   </td>
@@ -140,7 +140,7 @@ Campos de datos</h2></td></tr>
 <tr class="memitem:a57b30fb527a77eb5fd483e7ed8afd31f" id="r_a57b30fb527a77eb5fd483e7ed8afd31f"><td class="memItemLeft">uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#a57b30fb527a77eb5fd483e7ed8afd31f">chk</a></td></tr>
 <tr class="memdesc:a57b30fb527a77eb5fd483e7ed8afd31f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Acumulador de Checksum por operación XOR para la trama activa.  <br /></td></tr>
 <tr class="memitem:a0b3790f0861ce221123059be7fd3e213" id="r_a0b3790f0861ce221123059be7fd3e213"><td class="memItemLeft">uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#a0b3790f0861ce221123059be7fd3e213">header</a></td></tr>
-<tr class="memdesc:a0b3790f0861ce221123059be7fd3e213"><td class="mdescLeft">&#160;</td><td class="mdescRight">Estado actual en la máquina de estados de sincronización de cabecera.  <br /></td></tr>
+<tr class="memdesc:a0b3790f0861ce221123059be7fd3e213"><td class="mdescLeft">&#160;</td><td class="mdescRight">Estado actual en la máquina de estados de sincronización de cabecera (<a class="el" href="uner_prtcl_8h.html#ad21e16d74a232edf49d5d058f38cd1dd" title="Estados de la máquina de decodificación de tramas binarias entrantes.">_eDecode</a>).  <br /></td></tr>
 <tr class="memitem:a993748510567de672c1fdb4ac6a7aa62" id="r_a993748510567de672c1fdb4ac6a7aa62"><td class="memItemLeft">uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#a993748510567de672c1fdb4ac6a7aa62">indexData</a></td></tr>
 <tr class="memdesc:a993748510567de672c1fdb4ac6a7aa62"><td class="mdescLeft">&#160;</td><td class="mdescRight">Puntero al byte inicial de datos útiles (Payload) dentro del buffer.  <br /></td></tr>
 <tr class="memitem:a8287f373ec66cbbd22abcb9ae2afbcc3" id="r_a8287f373ec66cbbd22abcb9ae2afbcc3"><td class="memItemLeft">uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#a8287f373ec66cbbd22abcb9ae2afbcc3">indexR</a></td></tr>
@@ -154,9 +154,15 @@ Campos de datos</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Descripción detallada</h2>
 <div class="textblock"><p>Estructura de control de buffer circular para canales de comunicación (Rx/Tx). </p>
-<p>Encapsula la memoria física del buffer, los índices de lectura/escritura, la máscara de desbordamiento circular y las variables de estado de la MEF de recepción. </p>
+<p>Encapsula la memoria física del buffer, los índices de lectura/escritura, la máscara de desbordamiento circular y las variables de estado de la MEF de recepción. </p><dl class="section see"><dt>Ver también</dt><dd><a class="el" href="uner_prtcl_8h.html#ad21e16d74a232edf49d5d058f38cd1dd" title="Estados de la máquina de decodificación de tramas binarias entrantes.">_eDecode</a> </dd>
+<dd>
+<a class="el" href="union__u_word.html" title="Unión multipropósito para conversión y serialización de tipos escalares (1, 2 y 4 bytes).">_uWord</a> </dd>
+<dd>
+<a class="el" href="uner_prtcl_8h.html#aa8fac5dc4971170d30eea4293610ff6a" title="Inicializa las estructuras de comunicación circular para transmisión y recepción.">unerPrtcl_Init</a> </dd>
+<dd>
+<a class="el" href="uner_prtcl_8h.html#a5dc19a0d6be5a36353d8a8570c58345c" title="Ejecuta la máquina de estados de decodificación de cabeceras sobre los datos recibidos.">unerPrtcl_DecodeHeader</a> </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="uner_prtcl_8h_source.html#l00046">46</a> del archivo <a class="el" href="uner_prtcl_8h_source.html">unerPrtcl.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="uner_prtcl_8h_source.html#l00052">52</a> del archivo <a class="el" href="uner_prtcl_8h_source.html">unerPrtcl.h</a>.</p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Documentación de campos</h2>
 <a id="af98abf2aa4782e55090f0e45d1de6179" name="af98abf2aa4782e55090f0e45d1de6179"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af98abf2aa4782e55090f0e45d1de6179">&#9670;&#160;</a></span>buff</h2>
@@ -172,9 +178,9 @@ Campos de datos</h2></td></tr>
 
 <p>Puntero al array de memoria física asignado al buffer. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="uner_prtcl_8h_source.html#l00047">47</a> del archivo <a class="el" href="uner_prtcl_8h_source.html">unerPrtcl.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="uner_prtcl_8h_source.html#l00053">53</a> del archivo <a class="el" href="uner_prtcl_8h_source.html">unerPrtcl.h</a>.</p>
 
-<p class="reference">Referenciado por <a class="el" href="main_8c_source.html#l00737">COMMTask()</a>, <a class="el" href="main_8c_source.html#l00890">decodeCommand()</a>, <a class="el" href="uner_prtcl_8c_source.html#l00124">unerPrtcl_DecodeHeader()</a>, <a class="el" href="uner_prtcl_8c_source.html#l00108">unerPrtcl_GetByteFromRx()</a>, <a class="el" href="uner_prtcl_8c_source.html#l00022">unerPrtcl_Init()</a>, <a class="el" href="uner_prtcl_8c_source.html#l00081">unerPrtcl_PutByteOnTx()</a>, <a class="el" href="uner_prtcl_8c_source.html#l00051">unerPrtcl_PutHeaderOnTx()</a>, <a class="el" href="uner_prtcl_8c_source.html#l00093">unerPrtcl_PutStrOntx()</a>, <a class="el" href="main_8c_source.html#l00728">USBRxData()</a> y <a class="el" href="main_8c_source.html#l01779">WiFi_Data_Callback()</a>.</p>
+<p class="reference">Referenciado por <a class="el" href="main_8c_source.html#l00736">COMMTask()</a>, <a class="el" href="main_8c_source.html#l00954">decodeCommand()</a>, <a class="el" href="uner_prtcl_8c_source.html#l00186">unerPrtcl_DecodeHeader()</a>, <a class="el" href="uner_prtcl_8c_source.html#l00143">unerPrtcl_GetByteFromRx()</a>, <a class="el" href="uner_prtcl_8c_source.html#l00030">unerPrtcl_Init()</a>, <a class="el" href="uner_prtcl_8c_source.html#l00103">unerPrtcl_PutByteOnTx()</a>, <a class="el" href="uner_prtcl_8c_source.html#l00067">unerPrtcl_PutHeaderOnTx()</a>, <a class="el" href="uner_prtcl_8c_source.html#l00121">unerPrtcl_PutStrOntx()</a>, <a class="el" href="main_8c_source.html#l00727">USBRxData()</a> y <a class="el" href="main_8c_source.html#l01953">WiFi_Data_Callback()</a>.</p>
 
 </div>
 </div>
@@ -192,9 +198,9 @@ Campos de datos</h2></td></tr>
 
 <p>Acumulador de Checksum por operación XOR para la trama activa. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="uner_prtcl_8h_source.html#l00052">52</a> del archivo <a class="el" href="uner_prtcl_8h_source.html">unerPrtcl.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="uner_prtcl_8h_source.html#l00058">58</a> del archivo <a class="el" href="uner_prtcl_8h_source.html">unerPrtcl.h</a>.</p>
 
-<p class="reference">Referenciado por <a class="el" href="main_8c_source.html#l00890">decodeCommand()</a>, <a class="el" href="uner_prtcl_8c_source.html#l00124">unerPrtcl_DecodeHeader()</a>, <a class="el" href="uner_prtcl_8c_source.html#l00022">unerPrtcl_Init()</a>, <a class="el" href="uner_prtcl_8c_source.html#l00081">unerPrtcl_PutByteOnTx()</a>, <a class="el" href="uner_prtcl_8c_source.html#l00051">unerPrtcl_PutHeaderOnTx()</a> y <a class="el" href="uner_prtcl_8c_source.html#l00093">unerPrtcl_PutStrOntx()</a>.</p>
+<p class="reference">Referenciado por <a class="el" href="main_8c_source.html#l00954">decodeCommand()</a>, <a class="el" href="uner_prtcl_8c_source.html#l00186">unerPrtcl_DecodeHeader()</a>, <a class="el" href="uner_prtcl_8c_source.html#l00030">unerPrtcl_Init()</a>, <a class="el" href="uner_prtcl_8c_source.html#l00103">unerPrtcl_PutByteOnTx()</a>, <a class="el" href="uner_prtcl_8c_source.html#l00067">unerPrtcl_PutHeaderOnTx()</a> y <a class="el" href="uner_prtcl_8c_source.html#l00121">unerPrtcl_PutStrOntx()</a>.</p>
 
 </div>
 </div>
@@ -210,11 +216,11 @@ Campos de datos</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Estado actual en la máquina de estados de sincronización de cabecera. </p>
+<p>Estado actual en la máquina de estados de sincronización de cabecera (<a class="el" href="uner_prtcl_8h.html#ad21e16d74a232edf49d5d058f38cd1dd" title="Estados de la máquina de decodificación de tramas binarias entrantes.">_eDecode</a>). </p>
 
-<p class="definition">Definición en la línea <a class="el" href="uner_prtcl_8h_source.html#l00054">54</a> del archivo <a class="el" href="uner_prtcl_8h_source.html">unerPrtcl.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="uner_prtcl_8h_source.html#l00060">60</a> del archivo <a class="el" href="uner_prtcl_8h_source.html">unerPrtcl.h</a>.</p>
 
-<p class="reference">Referenciado por <a class="el" href="uner_prtcl_8c_source.html#l00124">unerPrtcl_DecodeHeader()</a> y <a class="el" href="uner_prtcl_8c_source.html#l00022">unerPrtcl_Init()</a>.</p>
+<p class="reference">Referenciado por <a class="el" href="uner_prtcl_8c_source.html#l00186">unerPrtcl_DecodeHeader()</a> y <a class="el" href="uner_prtcl_8c_source.html#l00030">unerPrtcl_Init()</a>.</p>
 
 </div>
 </div>
@@ -232,9 +238,9 @@ Campos de datos</h2></td></tr>
 
 <p>Puntero al byte inicial de datos útiles (Payload) dentro del buffer. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="uner_prtcl_8h_source.html#l00050">50</a> del archivo <a class="el" href="uner_prtcl_8h_source.html">unerPrtcl.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="uner_prtcl_8h_source.html#l00056">56</a> del archivo <a class="el" href="uner_prtcl_8h_source.html">unerPrtcl.h</a>.</p>
 
-<p class="reference">Referenciado por <a class="el" href="main_8c_source.html#l00737">COMMTask()</a>, <a class="el" href="main_8c_source.html#l00890">decodeCommand()</a>, <a class="el" href="uner_prtcl_8c_source.html#l00124">unerPrtcl_DecodeHeader()</a>, <a class="el" href="uner_prtcl_8c_source.html#l00108">unerPrtcl_GetByteFromRx()</a>, <a class="el" href="uner_prtcl_8c_source.html#l00022">unerPrtcl_Init()</a> y <a class="el" href="uner_prtcl_8c_source.html#l00051">unerPrtcl_PutHeaderOnTx()</a>.</p>
+<p class="reference">Referenciado por <a class="el" href="main_8c_source.html#l00736">COMMTask()</a>, <a class="el" href="main_8c_source.html#l00954">decodeCommand()</a>, <a class="el" href="uner_prtcl_8c_source.html#l00186">unerPrtcl_DecodeHeader()</a>, <a class="el" href="uner_prtcl_8c_source.html#l00143">unerPrtcl_GetByteFromRx()</a>, <a class="el" href="uner_prtcl_8c_source.html#l00030">unerPrtcl_Init()</a> y <a class="el" href="uner_prtcl_8c_source.html#l00067">unerPrtcl_PutHeaderOnTx()</a>.</p>
 
 </div>
 </div>
@@ -252,9 +258,9 @@ Campos de datos</h2></td></tr>
 
 <p>Índice de lectura (Read Index) en el buffer circular. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="uner_prtcl_8h_source.html#l00048">48</a> del archivo <a class="el" href="uner_prtcl_8h_source.html">unerPrtcl.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="uner_prtcl_8h_source.html#l00054">54</a> del archivo <a class="el" href="uner_prtcl_8h_source.html">unerPrtcl.h</a>.</p>
 
-<p class="reference">Referenciado por <a class="el" href="main_8c_source.html#l00737">COMMTask()</a>, <a class="el" href="uner_prtcl_8c_source.html#l00124">unerPrtcl_DecodeHeader()</a> y <a class="el" href="uner_prtcl_8c_source.html#l00022">unerPrtcl_Init()</a>.</p>
+<p class="reference">Referenciado por <a class="el" href="main_8c_source.html#l00736">COMMTask()</a>, <a class="el" href="uner_prtcl_8c_source.html#l00186">unerPrtcl_DecodeHeader()</a> y <a class="el" href="uner_prtcl_8c_source.html#l00030">unerPrtcl_Init()</a>.</p>
 
 </div>
 </div>
@@ -272,9 +278,9 @@ Campos de datos</h2></td></tr>
 
 <p>Índice de escritura (Write Index) en el buffer circular. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="uner_prtcl_8h_source.html#l00049">49</a> del archivo <a class="el" href="uner_prtcl_8h_source.html">unerPrtcl.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="uner_prtcl_8h_source.html#l00055">55</a> del archivo <a class="el" href="uner_prtcl_8h_source.html">unerPrtcl.h</a>.</p>
 
-<p class="reference">Referenciado por <a class="el" href="main_8c_source.html#l00737">COMMTask()</a>, <a class="el" href="uner_prtcl_8c_source.html#l00124">unerPrtcl_DecodeHeader()</a>, <a class="el" href="uner_prtcl_8c_source.html#l00022">unerPrtcl_Init()</a>, <a class="el" href="uner_prtcl_8c_source.html#l00081">unerPrtcl_PutByteOnTx()</a>, <a class="el" href="uner_prtcl_8c_source.html#l00051">unerPrtcl_PutHeaderOnTx()</a>, <a class="el" href="uner_prtcl_8c_source.html#l00093">unerPrtcl_PutStrOntx()</a>, <a class="el" href="main_8c_source.html#l00728">USBRxData()</a> y <a class="el" href="main_8c_source.html#l01779">WiFi_Data_Callback()</a>.</p>
+<p class="reference">Referenciado por <a class="el" href="main_8c_source.html#l00736">COMMTask()</a>, <a class="el" href="uner_prtcl_8c_source.html#l00186">unerPrtcl_DecodeHeader()</a>, <a class="el" href="uner_prtcl_8c_source.html#l00030">unerPrtcl_Init()</a>, <a class="el" href="uner_prtcl_8c_source.html#l00103">unerPrtcl_PutByteOnTx()</a>, <a class="el" href="uner_prtcl_8c_source.html#l00067">unerPrtcl_PutHeaderOnTx()</a>, <a class="el" href="uner_prtcl_8c_source.html#l00121">unerPrtcl_PutStrOntx()</a>, <a class="el" href="main_8c_source.html#l00727">USBRxData()</a> y <a class="el" href="main_8c_source.html#l01953">WiFi_Data_Callback()</a>.</p>
 
 </div>
 </div>
@@ -292,9 +298,9 @@ Campos de datos</h2></td></tr>
 
 <p>Máscara binaria para avance circular sin operación módulo ($2^N - 1$). </p>
 
-<p class="definition">Definición en la línea <a class="el" href="uner_prtcl_8h_source.html#l00051">51</a> del archivo <a class="el" href="uner_prtcl_8h_source.html">unerPrtcl.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="uner_prtcl_8h_source.html#l00057">57</a> del archivo <a class="el" href="uner_prtcl_8h_source.html">unerPrtcl.h</a>.</p>
 
-<p class="reference">Referenciado por <a class="el" href="main_8c_source.html#l00737">COMMTask()</a>, <a class="el" href="uner_prtcl_8c_source.html#l00124">unerPrtcl_DecodeHeader()</a>, <a class="el" href="uner_prtcl_8c_source.html#l00108">unerPrtcl_GetByteFromRx()</a>, <a class="el" href="uner_prtcl_8c_source.html#l00022">unerPrtcl_Init()</a>, <a class="el" href="uner_prtcl_8c_source.html#l00081">unerPrtcl_PutByteOnTx()</a>, <a class="el" href="uner_prtcl_8c_source.html#l00051">unerPrtcl_PutHeaderOnTx()</a>, <a class="el" href="uner_prtcl_8c_source.html#l00093">unerPrtcl_PutStrOntx()</a>, <a class="el" href="main_8c_source.html#l00728">USBRxData()</a> y <a class="el" href="main_8c_source.html#l01779">WiFi_Data_Callback()</a>.</p>
+<p class="reference">Referenciado por <a class="el" href="main_8c_source.html#l00736">COMMTask()</a>, <a class="el" href="uner_prtcl_8c_source.html#l00186">unerPrtcl_DecodeHeader()</a>, <a class="el" href="uner_prtcl_8c_source.html#l00143">unerPrtcl_GetByteFromRx()</a>, <a class="el" href="uner_prtcl_8c_source.html#l00030">unerPrtcl_Init()</a>, <a class="el" href="uner_prtcl_8c_source.html#l00103">unerPrtcl_PutByteOnTx()</a>, <a class="el" href="uner_prtcl_8c_source.html#l00067">unerPrtcl_PutHeaderOnTx()</a>, <a class="el" href="uner_prtcl_8c_source.html#l00121">unerPrtcl_PutStrOntx()</a>, <a class="el" href="main_8c_source.html#l00727">USBRxData()</a> y <a class="el" href="main_8c_source.html#l01953">WiFi_Data_Callback()</a>.</p>
 
 </div>
 </div>
@@ -312,9 +318,9 @@ Campos de datos</h2></td></tr>
 
 <p>Contador de longitud de bytes recibidos o pendientes de despacho. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="uner_prtcl_8h_source.html#l00053">53</a> del archivo <a class="el" href="uner_prtcl_8h_source.html">unerPrtcl.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="uner_prtcl_8h_source.html#l00059">59</a> del archivo <a class="el" href="uner_prtcl_8h_source.html">unerPrtcl.h</a>.</p>
 
-<p class="reference">Referenciado por <a class="el" href="main_8c_source.html#l00737">COMMTask()</a>, <a class="el" href="uner_prtcl_8c_source.html#l00124">unerPrtcl_DecodeHeader()</a>, <a class="el" href="uner_prtcl_8c_source.html#l00022">unerPrtcl_Init()</a>, <a class="el" href="uner_prtcl_8c_source.html#l00081">unerPrtcl_PutByteOnTx()</a>, <a class="el" href="uner_prtcl_8c_source.html#l00051">unerPrtcl_PutHeaderOnTx()</a> y <a class="el" href="uner_prtcl_8c_source.html#l00093">unerPrtcl_PutStrOntx()</a>.</p>
+<p class="reference">Referenciado por <a class="el" href="main_8c_source.html#l00736">COMMTask()</a>, <a class="el" href="uner_prtcl_8c_source.html#l00186">unerPrtcl_DecodeHeader()</a>, <a class="el" href="uner_prtcl_8c_source.html#l00030">unerPrtcl_Init()</a>, <a class="el" href="uner_prtcl_8c_source.html#l00103">unerPrtcl_PutByteOnTx()</a>, <a class="el" href="uner_prtcl_8c_source.html#l00067">unerPrtcl_PutHeaderOnTx()</a> y <a class="el" href="uner_prtcl_8c_source.html#l00121">unerPrtcl_PutStrOntx()</a>.</p>
 
 </div>
 </div>

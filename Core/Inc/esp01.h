@@ -17,18 +17,24 @@
 
 /**
  * @brief Estados operativos de la máquina de estados finita del driver ESP01.
+ * @details Modela secuencialmente la vida de conexión desde el reset por hardware
+ *          hasta el transporte bidireccional por socket UDP o TCP.
+ * @see _sESP01Handle
+ * @see ESP01_Task
+ * @see ESP01_StateWIFI
+ * @see ESP01_StateUDPTCP
  */
 typedef enum{
-	ESP01_NOT_INIT = -1,           /*!< Driver no inicializado o en proceso de reinicio hardware */
-	ESP01_WIFI_DISCONNECTED,       /*!< Desconectado de la red Wi-Fi */
-	ESP01_WIFI_NOT_SETED,          /*!< Sin credenciales de red Wi-Fi configuradas */
-	ESP01_WIFI_CONNECTING_WIFI,    /*!< Intentando asociarse al punto de acceso (SSID/Password) */
-	ESP01_WIFI_CONNECTED,          /*!< Conectado exitosamente al punto de acceso Wi-Fi */
-	ESP01_WIFI_NEW_IP,             /*!< Dirección IP asignada por DHCP obtenida */
-	ESP01_UDPTCP_DISCONNECTED,     /*!< Socket UDP/TCP cerrado o desconectado */
-	ESP01_UDPTCP_CONNECTING,       /*!< Estableciendo socket de comunicación UDP/TCP con el host remoto */
+	ESP01_NOT_INIT = -1,           /*!< Driver no inicializado o en proceso de reinicio hardware (CH_PD = 0) */
+	ESP01_WIFI_DISCONNECTED,       /*!< Desconectado de la red Wi-Fi; en espera de credenciales válidas */
+	ESP01_WIFI_NOT_SETED,          /*!< Sin credenciales de red Wi-Fi configuradas en memoria */
+	ESP01_WIFI_CONNECTING_WIFI,    /*!< Intentando asociarse al punto de acceso (`AT+CWJAP`) */
+	ESP01_WIFI_CONNECTED,          /*!< Conectado exitosamente al punto de acceso Wi-Fi (`WIFI CONNECTED`) */
+	ESP01_WIFI_NEW_IP,             /*!< Dirección IP asignada por DHCP obtenida (`WIFI GOT IP`) */
+	ESP01_UDPTCP_DISCONNECTED,     /*!< Socket UDP/TCP cerrado o desconectado (`CLOSED`) */
+	ESP01_UDPTCP_CONNECTING,       /*!< Estableciendo socket de comunicación UDP/TCP con el host remoto (`AT+CIPSTART`) */
 	ESP01_UDPTCP_CONNECTED,        /*!< Socket UDP/TCP conectado y listo para transferir datos */
-	ESP01_SEND_BUSY,               /*!< Transmisión de datos en progreso por la USART */
+	ESP01_SEND_BUSY,               /*!< Transmisión de datos en progreso por la USART (esperando prompt `>` o `SEND OK`) */
 	ESP01_SEND_READY,              /*!< Buffer disponible y módulo listo para recibir nuevo comando de envío */
 	ESP01_SEND_OK,                 /*!< Confirmación de paquete enviado exitosamente (`SEND OK`) */
 	ESP01_SEND_ERROR               /*!< Fallo o error reportado en la transmisión de datos */
@@ -44,20 +50,44 @@ typedef enum{
 /** @} */
 
 /**
- * @brief Estructura de funciones de bajo nivel requeridas por el driver ESP01.
- * @details Permite la abstracción del hardware para que el driver controle el pin de habilitación
- *          del módulo y realice la lectura/escritura en la USART asignada.
+ * @brief Estructura de funciones de bajo nivel requeridas por el driver ESP01 para abstracción de hardware.
+ * @details Permite la desacoplación completa de la capa HAL del microcontrolador.
+ * @see USART1_IRQHandler
+ * @see ESP01_Init
+ * @see ESP01_WriteRX
  */
 typedef struct{
-	void (*DoCHPD)(uint8_t value);          /*!< Puntero a función que comanda el pin CH_PD (Chip Enable) */
+	void (*DoCHPD)(uint8_t value);          /*!< Puntero a función que comanda el pin CH_PD (1: Habilitar, 0: Reset/Apagar) */
 	int (*WriteUSARTByte)(uint8_t value);    /*!< Puntero a función que escribe un byte en la USART (retorna 1 si tuvo éxito) */
 	void (*WriteByteToBufRX)(uint8_t value);/*!< Puntero a función que almacena un byte entrante en el buffer de la aplicación */
 } _sESP01Handle;
 
 /**
  * @brief Inicializa las estructuras internas y timers del driver ESP01.
+ * @details Configura los buffers circulares AT, asocia los punteros de bajo nivel y ejecuta un hard-reset en CH_PD.
+ *
+ * \startuml
+ * title Máquina de Estados: Driver Wi-Fi ESP-01 (ESP01_Task)
+ * [*] --> ESP01_NOT_INIT : Reset Hardware CH_PD
+ * ESP01_NOT_INIT --> ESP01_WIFI_DISCONNECTED : Responde AT (OK)
+ * ESP01_WIFI_DISCONNECTED --> ESP01_WIFI_CONNECTING_WIFI : ESP01_SetWIFI(ssid, pass)
+ * ESP01_WIFI_CONNECTING_WIFI --> ESP01_WIFI_CONNECTED : Recibe WIFI CONNECTED
+ * ESP01_WIFI_CONNECTING_WIFI --> ESP01_WIFI_DISCONNECTED : Timeout / Error de clave
+ * ESP01_WIFI_CONNECTED --> ESP01_WIFI_NEW_IP : Recibe WIFI GOT IP
+ * state Sockets {
+ *   [*] --> ESP01_UDPTCP_DISCONNECTED
+ *   ESP01_UDPTCP_DISCONNECTED --> ESP01_UDPTCP_CONNECTING : ESP01_StartUDP() / TCP
+ *   ESP01_UDPTCP_CONNECTING --> ESP01_UDPTCP_CONNECTED : Socket Establecido (OK)
+ *   ESP01_UDPTCP_CONNECTED --> ESP01_UDPTCP_DISCONNECTED : AT+CIPCLOSE / Desconexión
+ * }
+ * ESP01_WIFI_NEW_IP --> Sockets
+ * \enduml
+ *
  * @param[in] hESP01 Puntero a la estructura de manejadores de hardware `_sESP01Handle`.
- * @note Esta función debe ejecutarse antes de cualquier otra interacción con el driver.
+ * @pre El puerto USART correspondiente (ej. USART1) y el pin GPIO de CH_PD deben estar configurados.
+ * @post Reinicia el chip ESP-01 por hardware y prepara los buffers circulares de comandos AT.
+ * @see _sESP01Handle
+ * @see ESP01_Task
  */
 void ESP01_Init(_sESP01Handle *hESP01);
 
@@ -67,6 +97,10 @@ void ESP01_Init(_sESP01Handle *hESP01);
  *          al nuevo SSID. El estado puede verificarse con `ESP01_StateWIFI()`.
  * @param[in] ssid Cadena con el identificador de red (SSID).
  * @param[in] password Cadena con la clave WPA/WPA2 de la red.
+ * @pre Driver inicializado mediante `ESP01_Init()`.
+ * @post Carga las credenciales e inicia el envío del comando `AT+CWJAP`. El estado pasa a `ESP01_WIFI_CONNECTING_WIFI`.
+ * @see ESP01_StateWIFI
+ * @see ESP01_Task
  */
 void ESP01_SetWIFI(const char *ssid, const char *password);
 
@@ -75,7 +109,11 @@ void ESP01_SetWIFI(const char *ssid, const char *password);
  * @param[in] RemoteIP Dirección IP de destino en formato texto (ej: `"192.168.0.10"`).
  * @param[in] RemotePORT Puerto UDP de destino en el equipo remoto.
  * @param[in] LocalPORT Puerto UDP de escucha local en el ESP-01.
+ * @pre El módulo debe poseer una IP válida (`ESP01_WIFI_NEW_IP`).
+ * @post Despacha el comando `AT+CIPSTART="UDP",...` y pasa el estado de socket a `ESP01_UDPTCP_CONNECTING`.
  * @return Estado resultante de la solicitud de apertura (`_eESP01STATUS`).
+ * @see ESP01_StartTCP
+ * @see ESP01_CloseUDPTCP
  */
 _eESP01STATUS ESP01_StartUDP(const char *RemoteIP, uint16_t RemotePORT, uint16_t LocalPORT);
 
@@ -84,24 +122,32 @@ _eESP01STATUS ESP01_StartUDP(const char *RemoteIP, uint16_t RemotePORT, uint16_t
  * @param[in] RemoteIP Dirección IP del servidor TCP remoto.
  * @param[in] RemotePORT Puerto del servidor TCP remoto.
  * @param[in] LocalPORT Puerto local de enlace.
+ * @pre El módulo debe poseer IP asignada (`ESP01_WIFI_NEW_IP`).
+ * @post Despacha `AT+CIPSTART="TCP",...` y espera la confirmación `CONNECT`.
  * @return Estado resultante de la solicitud de conexión (`_eESP01STATUS`).
+ * @see ESP01_StartUDP
+ * @see ESP01_CloseUDPTCP
  */
 _eESP01STATUS ESP01_StartTCP(const char *RemoteIP, uint16_t RemotePORT, uint16_t LocalPORT);
 
 /**
  * @brief Devuelve el protocolo actualmente activo en el driver ("UDP" o "TCP").
- * @return Puntero a cadena con el nombre del protocolo.
+ * @return Puntero a cadena estática con el nombre del protocolo.
  */
 const char *ESP01_GetProtocol(void);
 
 /**
  * @brief Cierra la conexión activa de socket UDP o TCP (`AT+CIPCLOSE`).
+ * @post Envía comando `AT+CIPCLOSE` y pasa el socket a `ESP01_UDPTCP_DISCONNECTED`.
+ * @see ESP01_StartUDP
+ * @see ESP01_StartTCP
  */
 void ESP01_CloseUDPTCP(void);
 
 /**
  * @brief Consulta el estado actual de la conexión a la infraestructura Wi-Fi.
  * @return Estado actual según `_eESP01STATUS`.
+ * @see _eESP01STATUS
  */
 _eESP01STATUS ESP01_StateWIFI(void);
 
@@ -114,19 +160,23 @@ char *ESP01_GetLocalIP(void);
 /**
  * @brief Consulta el estado de enlace del socket UDP o TCP.
  * @return Estado del socket (`_eESP01STATUS`).
+ * @see _eESP01STATUS
  */
 _eESP01STATUS ESP01_StateUDPTCP(void);
 
 /**
  * @brief Transmite un bloque de datos del buffer circular a través del socket activo.
- * @param[in] connID Identificador del canal/conexión (0 para modo Station único; ID de cliente en WebServer).
+ * @param[in] connID Identificador del canal/conexión (0 para modo Station único; ID de cliente en SoftAP/WebServer).
  * @param[in] buf Puntero al buffer de memoria que almacena los datos.
  * @param[in] irRingBuf Índice de lectura actual en el buffer circular.
  * @param[in] length Cantidad de bytes a transmitir.
  * @param[in] sizeRingBuf Tamaño total del buffer circular para gestión de wrap-around.
+ * @pre Socket conectado (`ESP01_UDPTCP_CONNECTED`) y transmisor no ocupado (`ESP01_SEND_READY`).
+ * @post Encola el comando `AT+CIPSEND` y conmuta a `ESP01_SEND_BUSY`.
  * @retval ESP01_SEND_READY Transmisión encolada correctamente hacia el módulo.
  * @retval ESP01_SEND_BUSY Transmisor ocupado con un envío previo.
  * @retval ESP01_SEND_ERROR Fallo al procesar el comando AT de envío.
+ * @see ESP01_Task
  */
 _eESP01STATUS ESP01_Send(uint8_t connID, uint8_t *buf, uint16_t irRingBuf, uint16_t length, uint16_t sizeRingBuf);
 
@@ -140,6 +190,9 @@ _eESP01STATUS ESP01_Send(uint8_t connID, uint8_t *buf, uint16_t irRingBuf, uint1
  * @param[in] ch Canal de radiofrecuencia Wi-Fi (1 a 13).
  * @param[in] enc Tipo de autenticación: 0=Abierta, 2=WPA, 3=WPA2, 4=WPA/WPA2.
  * @param[in] port Puerto de escucha del servidor TCP (ej: 80 o 8080). Si es 0, usa 80.
+ * @pre Módulo inicializado con comandos AT operativos.
+ * @post Configura `CWMODE=3`, `CWSAP`, `CIPMUX=1` y `CIPSERVER=1,port`.
+ * @see ESP01_Task
  */
 void ESP01_SetSoftAP(const char *apSSID, const char *apPass, uint8_t ch, uint8_t enc, uint16_t port);
 

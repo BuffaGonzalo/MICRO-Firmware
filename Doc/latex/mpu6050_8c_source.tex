@@ -31,136 +31,172 @@
 \DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00027}00027\ \textcolor{comment}{}}
 \DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00028}00028\ \textcolor{comment}{/**}}
 \DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00029}00029\ \textcolor{comment}{\ *\ @brief\ Asigna\ la\ bandera\ de\ interrupción\ DMA\ de\ recepción.}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00030}00030\ \textcolor{comment}{\ */}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00031}\doxymbox{\hyperlink{mpu6050_8h_a2864ec8a15ced6016fe62257bea31262}{00031}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{mpu6050_8h_a2864ec8a15ced6016fe62257bea31262}{mpu6050\_ADC\_ConfCpltCallback}}(\textcolor{keyword}{volatile}\ uint8\_t\ *PtrRx)\{}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00032}00032\ \ \ \ \ \doxymbox{\hyperlink{main_8c_acd75fef0ac155418d387840dcba14b92}{mpu6050\_RxCplt}}\ =\ (uint8\_t\ *)PtrRx;}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00033}00033\ \}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00034}00034\ \textcolor{comment}{}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00035}00035\ \textcolor{comment}{/**}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00036}00036\ \textcolor{comment}{\ *\ @brief\ Asocia\ el\ manejador\ de\ escritura\ para\ registros\ I2C.}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00037}00037\ \textcolor{comment}{\ */}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00038}\doxymbox{\hyperlink{mpu6050_8h_a0e9583f99e3050282c81ef580a5fa90b}{00038}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{mpu6050_8h_a0e9583f99e3050282c81ef580a5fa90b}{mpu6050\_Attach\_MemWrite}}(\textcolor{keywordtype}{void}(*PtrRx)(uint8\_t\ address,\ uint8\_t\ *data,\ uint8\_t\ size,\ uint8\_t\ type))\{}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00039}00039\ \ \ \ \ \doxymbox{\hyperlink{mpu6050_8c_ab6ce8029f86ab67c7277c618c6620ba7}{memWrite}}\ =\ PtrRx;}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00040}00040\ \}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00041}00041\ \textcolor{comment}{}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00042}00042\ \textcolor{comment}{/**}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00043}00043\ \textcolor{comment}{\ *\ @brief\ Asocia\ el\ manejador\ de\ lectura\ DMA\ sobre\ el\ bus\ I2C.}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00030}00030\ \textcolor{comment}{\ *\ @param[in]\ PtrRx\ Puntero\ a\ la\ variable\ booleana\ que\ se\ activa\ en\ \`{}HAL\_I2C\_MemRxCpltCallback`.}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00031}00031\ \textcolor{comment}{\ *\ @pre\ El\ puntero\ debe\ apuntar\ a\ una\ variable\ con\ cualificador\ \`{}volatile`.}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00032}00032\ \textcolor{comment}{\ *\ @post\ Almacena\ internamente\ el\ puntero\ \`{}mpu6050\_RxCplt`.}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00033}00033\ \textcolor{comment}{\ *\ @see\ HAL\_I2C\_MemRxCpltCallback}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00034}00034\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00035}\doxymbox{\hyperlink{mpu6050_8h_a2864ec8a15ced6016fe62257bea31262}{00035}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{mpu6050_8h_a2864ec8a15ced6016fe62257bea31262}{mpu6050\_ADC\_ConfCpltCallback}}(\textcolor{keyword}{volatile}\ uint8\_t\ *PtrRx)\{}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00036}00036\ \ \ \ \ \doxymbox{\hyperlink{main_8c_acd75fef0ac155418d387840dcba14b92}{mpu6050\_RxCplt}}\ =\ (uint8\_t\ *)PtrRx;}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00037}00037\ \}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00038}00038\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00039}00039\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00040}00040\ \textcolor{comment}{\ *\ @brief\ Asocia\ el\ manejador\ de\ escritura\ para\ registros\ I2C.}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00041}00041\ \textcolor{comment}{\ *\ @param[in]\ PtrRx\ Puntero\ a\ la\ función\ de\ transmisión\ I2C\ bloqueante\ o\ encolada.}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00042}00042\ \textcolor{comment}{\ *\ @post\ Configura\ \`{}memWrite`.}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00043}00043\ \textcolor{comment}{\ *\ @see\ mpu6050\_WriteData}}
 \DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00044}00044\ \textcolor{comment}{\ */}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00045}\doxymbox{\hyperlink{mpu6050_8h_adf4f13f79245b1e0e41a105890ab2d9f}{00045}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{mpu6050_8h_adf4f13f79245b1e0e41a105890ab2d9f}{mpu6050\_Attach\_MemReadDMA}}(\textcolor{keywordtype}{void}(*PtrRx)(uint8\_t\ address,\ uint8\_t\ *data,\ uint8\_t\ size,\ uint8\_t\ type))\{}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00046}00046\ \ \ \ \ \doxymbox{\hyperlink{mpu6050_8c_a0484d807d476932baf857d63d7e8cf60}{memReadDMA}}\ =\ PtrRx;}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00045}\doxymbox{\hyperlink{mpu6050_8h_a0e9583f99e3050282c81ef580a5fa90b}{00045}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{mpu6050_8h_a0e9583f99e3050282c81ef580a5fa90b}{mpu6050\_Attach\_MemWrite}}(\textcolor{keywordtype}{void}(*PtrRx)(uint8\_t\ address,\ uint8\_t\ *data,\ uint8\_t\ size,\ uint8\_t\ type))\{}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00046}00046\ \ \ \ \ \doxymbox{\hyperlink{mpu6050_8c_ab6ce8029f86ab67c7277c618c6620ba7}{memWrite}}\ =\ PtrRx;}
 \DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00047}00047\ \}}
 \DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00048}00048\ \textcolor{comment}{}}
 \DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00049}00049\ \textcolor{comment}{/**}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00050}00050\ \textcolor{comment}{\ *\ @brief\ Envía\ un\ comando\ de\ escritura\ simple\ a\ un\ registro\ del\ sensor.}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00051}00051\ \textcolor{comment}{\ *\ @param[in]\ byte\ Puntero\ al\ byte\ de\ configuración.}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00052}00052\ \textcolor{comment}{\ *\ @param[in]\ type\ Registro\ de\ destino\ en\ el\ sensor\ MPU-\/6050.}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00053}00053\ \textcolor{comment}{\ */}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00054}\doxymbox{\hyperlink{mpu6050_8c_aa7a11ab4c49e973ad04a608112dcbf35}{00054}}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{mpu6050_8c_aa7a11ab4c49e973ad04a608112dcbf35}{mpu6050\_WriteData}}(uint8\_t\ *\textcolor{keywordtype}{byte},\ uint8\_t\ type)\ \{}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00055}00055\ \ \ \ \ \doxymbox{\hyperlink{mpu6050_8c_ab6ce8029f86ab67c7277c618c6620ba7}{memWrite}}(\doxymbox{\hyperlink{group___m_p_u6050___registers_gad4d6255d8f7e5dc770e773b787977508}{MPU6050\_ADDR}},\ \textcolor{keywordtype}{byte},\ 1,\ type);}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00056}00056\ \}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00057}00057\ \textcolor{comment}{}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00058}00058\ \textcolor{comment}{/**}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00059}00059\ \textcolor{comment}{\ *\ @brief\ Inicia\ una\ lectura\ por\ DMA\ de\ longitud\ parametrizable.}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00060}00060\ \textcolor{comment}{\ *\ @param[out]\ buffer\ Puntero\ de\ destino\ donde\ DMA\ volcará\ los\ datos\ recibidos.}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00061}00061\ \textcolor{comment}{\ *\ @param[in]\ size\ Cantidad\ de\ bytes\ a\ transferir.}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00062}00062\ \textcolor{comment}{\ *\ @param[in]\ type\ Dirección\ del\ registro\ de\ inicio\ en\ el\ sensor.}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00063}00063\ \textcolor{comment}{\ */}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00064}\doxymbox{\hyperlink{mpu6050_8c_af3d8d09af00746dbc3ad0f1a05377282}{00064}}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{mpu6050_8c_af3d8d09af00746dbc3ad0f1a05377282}{mpu6050\_ReadDataDMA}}(uint8\_t*\ buffer,\ \textcolor{keywordtype}{size\_t}\ size,\ uint8\_t\ type)\ \{}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00065}00065\ \ \ \ \ \doxymbox{\hyperlink{mpu6050_8c_a0484d807d476932baf857d63d7e8cf60}{memReadDMA}}(\doxymbox{\hyperlink{group___m_p_u6050___registers_gad4d6255d8f7e5dc770e773b787977508}{MPU6050\_ADDR}},\ buffer,\ size,\ type);}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00066}00066\ \}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00067}00067\ \textcolor{comment}{}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00068}00068\ \textcolor{comment}{/**}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00069}00069\ \textcolor{comment}{\ *\ @brief\ Inicializa\ los\ registros\ fundamentales\ del\ MPU-\/6050.}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00070}00070\ \textcolor{comment}{\ *\ @details\ Configuración\ aplicada:}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00071}00071\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ -\/\ \`{}PWR\_MGMT\_1`\ (0x6B)\ =\ 0x00:\ Despierta\ el\ oscilador\ interno.}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00072}00072\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ -\/\ \`{}SMPLRT\_DIV`\ (0x19)\ =\ 0x04:\ Tasa\ de\ muestreo\ =\ 1000Hz\ /\ (1\ +\ 4)\ =\ 200\ Hz\ (período\ de\ 5\ ms).}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00073}00073\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ -\/\ \`{}CONFIG`\ (0x1A)\ =\ 0x02:\ Filtro\ pasa-\/bajos\ DLPF\ \string~98\ Hz\ (retardo\ mínimo\ 2.8\ ms).}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00074}00074\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ -\/\ \`{}ACCEL\_CONFIG`\ (0x1C)\ =\ 0x00:\ Rango\ de\ aceleración\ \$\(\backslash\)pm\ 2g\$\ (16384\ LSB/g).}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00075}00075\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ -\/\ \`{}GYRO\_CONFIG`\ (0x1B)\ =\ 0x00:\ Rango\ de\ giróscopo\ \$\(\backslash\)pm\ 250\string^\(\backslash\)circ/\(\backslash\)text\{s\}\$\ (131\ LSB/(°/s)).}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00076}00076\ \textcolor{comment}{\ */}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00077}\doxymbox{\hyperlink{mpu6050_8h_a8c5131d4f6387709825f77368430fdf4}{00077}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{mpu6050_8h_a8c5131d4f6387709825f77368430fdf4}{mpu6050\_Init}}(\textcolor{keywordtype}{void})}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00078}00078\ \{}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00079}00079\ \ \ \ \ uint8\_t\ data;}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00080}00080\ }
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00081}00081\ \ \ \ \ \textcolor{comment}{//\ 1.\ Salir\ del\ modo\ de\ bajo\ consumo\ (modo\ sleep)}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00082}00082\ \ \ \ \ data\ =\ 0x00;}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00083}00083\ \ \ \ \ \doxymbox{\hyperlink{mpu6050_8c_aa7a11ab4c49e973ad04a608112dcbf35}{mpu6050\_WriteData}}(\&data,\ \doxymbox{\hyperlink{group___m_p_u6050___registers_gaf9bd016ab99b299a4816433252e31c3d}{PWR\_MGMT\_1\_REG}});}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00084}00084\ }
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00085}00085\ \ \ \ \ \textcolor{comment}{//\ 2.\ Configurar\ Sample\ Rate\ Divider\ a\ 4\ (Muestreo\ a\ 200\ Hz\ /\ 5\ ms\ sincronizado\ con\ STM32)}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00086}00086\ \ \ \ \ data\ =\ 0x04;}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00087}00087\ \ \ \ \ \doxymbox{\hyperlink{mpu6050_8c_aa7a11ab4c49e973ad04a608112dcbf35}{mpu6050\_WriteData}}(\&data,\ \doxymbox{\hyperlink{group___m_p_u6050___registers_gaa2208da6faf439107b23dee629bb8398}{SMPLRT\_DIV\_REG}});}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00088}00088\ }
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00089}00089\ \ \ \ \ \textcolor{comment}{//\ 3.\ Activar\ filtro\ pasa-\/bajos\ DLPF\ a\ \string~98Hz\ para\ filtrar\ vibraciones\ mecánicas\ de\ los\ motores}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00090}00090\ \ \ \ \ data\ =\ 0x02;}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00091}00091\ \ \ \ \ \doxymbox{\hyperlink{mpu6050_8c_aa7a11ab4c49e973ad04a608112dcbf35}{mpu6050\_WriteData}}(\&data,\ \doxymbox{\hyperlink{group___m_p_u6050___registers_gaf81594fa2c83e52e601f2e4a1d81d8bc}{CONFIG\_REG}});}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00092}00092\ }
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00093}00093\ \ \ \ \ \textcolor{comment}{//\ 4.\ Configurar\ acelerómetro\ con\ rango\ +-\/2g}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00094}00094\ \ \ \ \ data\ =\ 0x00;}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00095}00095\ \ \ \ \ \doxymbox{\hyperlink{mpu6050_8c_aa7a11ab4c49e973ad04a608112dcbf35}{mpu6050\_WriteData}}(\&data,\ \doxymbox{\hyperlink{group___m_p_u6050___registers_gad1d05dc09d0025498687ab7e30ffd4e4}{ACCEL\_CONFIG\_REG}});}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00096}00096\ }
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00097}00097\ \ \ \ \ \textcolor{comment}{//\ 5.\ Configurar\ giróscopo\ con\ rango\ +-\/250\ deg/s}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00098}00098\ \ \ \ \ data\ =\ 0x00;}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00099}00099\ \ \ \ \ \doxymbox{\hyperlink{mpu6050_8c_aa7a11ab4c49e973ad04a608112dcbf35}{mpu6050\_WriteData}}(\&data,\ \doxymbox{\hyperlink{group___m_p_u6050___registers_ga5b1b1a1ea1298b67cdab17a7213c6356}{GYRO\_CONFIG\_REG}});}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00100}00100\ \}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00101}00101\ \textcolor{comment}{}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00102}00102\ \textcolor{comment}{/**}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00103}00103\ \textcolor{comment}{\ *\ @brief\ Resetea\ la\ secuencia\ de\ lectura\ DMA\ en\ caso\ de\ error\ o\ reinicio\ de\ estado.}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00104}00104\ \textcolor{comment}{\ */}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00105}\doxymbox{\hyperlink{mpu6050_8h_a9211023060608ef2cae3642ca8406845}{00105}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{mpu6050_8h_a9211023060608ef2cae3642ca8406845}{mpu6050\_Reset\_State}}(\textcolor{keywordtype}{void})\ \{}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00106}00106\ \ \ \ \ \doxymbox{\hyperlink{mpu6050_8c_a0df1dcd7d6aa6a4b7436dc6c87a73d95}{mpu\_state}}\ =\ 1;}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00107}00107\ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{main_8c_acd75fef0ac155418d387840dcba14b92}{mpu6050\_RxCplt}}\ !=\ \doxymbox{\hyperlink{group___u_s_b___d_e_f___exported___defines_ga070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}})\ \{}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00108}00108\ \ \ \ \ \ \ \ \ *\doxymbox{\hyperlink{main_8c_acd75fef0ac155418d387840dcba14b92}{mpu6050\_RxCplt}}\ =\ 0;}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00109}00109\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00110}00110\ \}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00111}00111\ \textcolor{comment}{}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00112}00112\ \textcolor{comment}{/**}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00113}00113\ \textcolor{comment}{\ *\ @brief\ Máquina\ de\ estados\ no\ bloqueante\ para\ la\ captura\ de\ 14\ bytes\ inerciales\ continuos.}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00114}00114\ \textcolor{comment}{\ *\ @details\ El\ proceso\ se\ divide\ en\ dos\ fases\ para\ sincronizarse\ con\ la\ interrupción\ DMA:}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00115}00115\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ -\/\ En\ Fase\ 1:\ Dispara\ la\ lectura\ de\ 14\ bytes\ por\ DMA\ desde\ \`{}ACCEL\_XOUT\_H\_REG`\ (0x3B).}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00116}00116\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ -\/\ En\ Fase\ 2:\ Tras\ recibir\ la\ señal\ de\ \`{}mpu6050\_RxCplt`,\ recompone\ los\ registros:}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00117}00117\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ \`{}Ax`,\ \`{}Ay`,\ \`{}Az`,\ \`{}Temperatura`,\ \`{}Gx`,\ \`{}Gy`,\ \`{}Gz`\ desplazando\ el\ byte\ alto\ 8\ bits.}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00118}00118\ \textcolor{comment}{\ */}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00119}\doxymbox{\hyperlink{mpu6050_8h_aace5fea3888e51a75e8bfb77bae17b80}{00119}}\ \textcolor{keywordtype}{char}\ \doxymbox{\hyperlink{mpu6050_8h_aace5fea3888e51a75e8bfb77bae17b80}{mpu6050\_Read}}(\textcolor{keywordtype}{void})}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00120}00120\ \{}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00121}00121\ \ \ \ \ \textcolor{keyword}{static}\ uint8\_t\ Rec\_Data[14];}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00122}00122\ }
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00123}00123\ \ \ \ \ \textcolor{keywordflow}{if}\ (*\doxymbox{\hyperlink{main_8c_acd75fef0ac155418d387840dcba14b92}{mpu6050\_RxCplt}}\ ||\ \doxymbox{\hyperlink{mpu6050_8c_a0df1dcd7d6aa6a4b7436dc6c87a73d95}{mpu\_state}}\ ==\ 1)\ \{}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00124}00124\ \ \ \ \ \ \ \ \ *\doxymbox{\hyperlink{main_8c_acd75fef0ac155418d387840dcba14b92}{mpu6050\_RxCplt}}\ =\ 0;\ \ \textcolor{comment}{//\ Reset\ de\ la\ bandera\ de\ recepción\ DMA}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00125}00125\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (\doxymbox{\hyperlink{mpu6050_8c_a0df1dcd7d6aa6a4b7436dc6c87a73d95}{mpu\_state}})\ \{}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00126}00126\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 1:}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00127}00127\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{mpu6050_8c_a0df1dcd7d6aa6a4b7436dc6c87a73d95}{mpu\_state}}\ =\ 2;}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00128}00128\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Lanzar\ solicitud\ DMA\ para\ leer\ los\ 14\ registros\ de\ golpe\ (Ax,\ Ay,\ Az,\ Temp,\ Gx,\ Gy,\ Gz)}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00129}00129\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{mpu6050_8c_af3d8d09af00746dbc3ad0f1a05377282}{mpu6050\_ReadDataDMA}}(Rec\_Data,\ 14,\ \doxymbox{\hyperlink{group___m_p_u6050___registers_ga12d3f98f5ae302f7aab5895be9388d69}{ACCEL\_XOUT\_H\_REG}});}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00130}00130\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00131}00131\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 2:}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00132}00132\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{mpu6050_8c_a0df1dcd7d6aa6a4b7436dc6c87a73d95}{mpu\_state}}\ =\ 1;}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00133}00133\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Combinar\ bytes\ MSB\ y\ LSB\ en\ enteros\ de\ 16\ bits\ con\ signo\ (formato\ Big-\/Endian\ del\ sensor)}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00134}00134\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{main_8c_aebedd0a48fe876cce3d3f14326e4ca66}{ax}}\ =\ (int16\_t)\ (Rec\_Data[0]\ <<\ 8\ |\ Rec\_Data[1]);}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00135}00135\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{main_8c_a46d26903f1874d06875a974dfa1a9d3c}{ay}}\ =\ (int16\_t)\ (Rec\_Data[2]\ <<\ 8\ |\ Rec\_Data[3]);}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00136}00136\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{main_8c_a41e60f9324f9d4fd9e916e964370fb2f}{az}}\ =\ (int16\_t)\ (Rec\_Data[4]\ <<\ 8\ |\ Rec\_Data[5]);}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00137}00137\ }
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00138}00138\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{main_8c_a4524555b50a829ee7628cf5e5806f227}{gx}}\ =\ (int16\_t)\ (Rec\_Data[8]\ <<\ 8\ |\ Rec\_Data[9]);}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00139}00139\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{main_8c_a8bd44b73dc5745833a8dd8d2a6240613}{gy}}\ =\ (int16\_t)\ (Rec\_Data[10]\ <<\ 8\ |\ Rec\_Data[11]);}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00140}00140\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{main_8c_aa61e9778c784ec4695029ed2cc769a61}{gz}}\ =\ (int16\_t)\ (Rec\_Data[12]\ <<\ 8\ |\ Rec\_Data[13]);}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00141}00141\ }
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00142}00142\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;\ \textcolor{comment}{//\ Nuevos\ datos\ disponibles}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00143}00143\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00144}00144\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00145}00145\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00146}00146\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;\ \textcolor{comment}{//\ Lectura\ en\ proceso}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00147}00147\ \}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00148}00148\ \textcolor{comment}{}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00149}00149\ \textcolor{comment}{/**}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00150}00150\ \textcolor{comment}{\ *\ @brief\ Entrega\ las\ variables\ crudas\ leídas\ al\ lazo\ principal\ de\ control.}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00151}00151\ \textcolor{comment}{\ */}}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00152}\doxymbox{\hyperlink{mpu6050_8h_a0d2422b0bd5bcfba247b703c9f82057e}{00152}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{mpu6050_8h_a0d2422b0bd5bcfba247b703c9f82057e}{mpu6050\_GetData}}(int16\_t\ *ax\_out,\ int16\_t\ *ay\_out,\ int16\_t\ *az\_out,\ int16\_t\ *gx\_out,\ int16\_t\ *gy\_out,\ int16\_t\ *gz\_out)\ \{}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00153}00153\ \ \ \ \ \textcolor{keywordflow}{if}\ (ax\_out)\ *ax\_out\ =\ \doxymbox{\hyperlink{main_8c_aebedd0a48fe876cce3d3f14326e4ca66}{ax}};}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00154}00154\ \ \ \ \ \textcolor{keywordflow}{if}\ (ay\_out)\ *ay\_out\ =\ \doxymbox{\hyperlink{main_8c_a46d26903f1874d06875a974dfa1a9d3c}{ay}};}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00155}00155\ \ \ \ \ \textcolor{keywordflow}{if}\ (az\_out)\ *az\_out\ =\ \doxymbox{\hyperlink{main_8c_a41e60f9324f9d4fd9e916e964370fb2f}{az}};}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00156}00156\ }
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00157}00157\ \ \ \ \ \textcolor{keywordflow}{if}\ (gx\_out)\ *gx\_out\ =\ \doxymbox{\hyperlink{main_8c_a4524555b50a829ee7628cf5e5806f227}{gx}};}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00158}00158\ \ \ \ \ \textcolor{keywordflow}{if}\ (gy\_out)\ *gy\_out\ =\ \doxymbox{\hyperlink{main_8c_a8bd44b73dc5745833a8dd8d2a6240613}{gy}};}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00159}00159\ \ \ \ \ \textcolor{keywordflow}{if}\ (gz\_out)\ *gz\_out\ =\ \doxymbox{\hyperlink{main_8c_aa61e9778c784ec4695029ed2cc769a61}{gz}};}
-\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00160}00160\ \}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00050}00050\ \textcolor{comment}{\ *\ @brief\ Asocia\ el\ manejador\ de\ lectura\ DMA\ sobre\ el\ bus\ I2C.}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00051}00051\ \textcolor{comment}{\ *\ @param[in]\ PtrRx\ Puntero\ a\ la\ función\ de\ lectura\ por\ DMA\ (`HAL\_I2C\_Mem\_Read\_DMA`).}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00052}00052\ \textcolor{comment}{\ *\ @post\ Configura\ \`{}memReadDMA`.}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00053}00053\ \textcolor{comment}{\ *\ @see\ mpu6050\_ReadDataDMA}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00054}00054\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00055}\doxymbox{\hyperlink{mpu6050_8h_adf4f13f79245b1e0e41a105890ab2d9f}{00055}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{mpu6050_8h_adf4f13f79245b1e0e41a105890ab2d9f}{mpu6050\_Attach\_MemReadDMA}}(\textcolor{keywordtype}{void}(*PtrRx)(uint8\_t\ address,\ uint8\_t\ *data,\ uint8\_t\ size,\ uint8\_t\ type))\{}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00056}00056\ \ \ \ \ \doxymbox{\hyperlink{mpu6050_8c_a0484d807d476932baf857d63d7e8cf60}{memReadDMA}}\ =\ PtrRx;}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00057}00057\ \}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00058}00058\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00059}00059\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00060}00060\ \textcolor{comment}{\ *\ @brief\ Envía\ un\ comando\ de\ escritura\ simple\ a\ un\ registro\ del\ sensor\ MPU-\/6050.}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00061}00061\ \textcolor{comment}{\ *\ @param[in]\ byte\ Puntero\ al\ byte\ de\ datos\ a\ escribir.}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00062}00062\ \textcolor{comment}{\ *\ @param[in]\ type\ Registro\ de\ destino\ en\ el\ mapa\ de\ memoria\ del\ sensor.}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00063}00063\ \textcolor{comment}{\ *\ @pre\ \`{}memWrite`\ debe\ estar\ configurado.}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00064}00064\ \textcolor{comment}{\ *\ @see\ mpu6050\_Attach\_MemWrite}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00065}00065\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00066}\doxymbox{\hyperlink{mpu6050_8c_aa7a11ab4c49e973ad04a608112dcbf35}{00066}}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{mpu6050_8c_aa7a11ab4c49e973ad04a608112dcbf35}{mpu6050\_WriteData}}(uint8\_t\ *\textcolor{keywordtype}{byte},\ uint8\_t\ type)\ \{}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00067}00067\ \ \ \ \ \doxymbox{\hyperlink{mpu6050_8c_ab6ce8029f86ab67c7277c618c6620ba7}{memWrite}}(\doxymbox{\hyperlink{group___m_p_u6050___registers_gad4d6255d8f7e5dc770e773b787977508}{MPU6050\_ADDR}},\ \textcolor{keywordtype}{byte},\ 1,\ type);}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00068}00068\ \}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00069}00069\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00070}00070\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00071}00071\ \textcolor{comment}{\ *\ @brief\ Inicia\ una\ lectura\ por\ DMA\ de\ longitud\ parametrizable.}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00072}00072\ \textcolor{comment}{\ *\ @param[out]\ buffer\ Puntero\ de\ destino\ donde\ el\ controlador\ DMA\ volcará\ los\ bytes\ recibidos.}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00073}00073\ \textcolor{comment}{\ *\ @param[in]\ size\ Cantidad\ de\ bytes\ a\ transferir.}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00074}00074\ \textcolor{comment}{\ *\ @param[in]\ type\ Dirección\ del\ registro\ de\ inicio\ en\ el\ sensor.}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00075}00075\ \textcolor{comment}{\ *\ @pre\ \`{}memReadDMA`\ debe\ estar\ asignado\ y\ el\ canal\ DMA\ libre.}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00076}00076\ \textcolor{comment}{\ *\ @see\ mpu6050\_Attach\_MemReadDMA}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00077}00077\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00078}\doxymbox{\hyperlink{mpu6050_8c_af3d8d09af00746dbc3ad0f1a05377282}{00078}}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{mpu6050_8c_af3d8d09af00746dbc3ad0f1a05377282}{mpu6050\_ReadDataDMA}}(uint8\_t*\ buffer,\ \textcolor{keywordtype}{size\_t}\ size,\ uint8\_t\ type)\ \{}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00079}00079\ \ \ \ \ \doxymbox{\hyperlink{mpu6050_8c_a0484d807d476932baf857d63d7e8cf60}{memReadDMA}}(\doxymbox{\hyperlink{group___m_p_u6050___registers_gad4d6255d8f7e5dc770e773b787977508}{MPU6050\_ADDR}},\ buffer,\ size,\ type);}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00080}00080\ \}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00081}00081\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00082}00082\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00083}00083\ \textcolor{comment}{\ *\ @brief\ Inicializa\ los\ registros\ fundamentales\ del\ MPU-\/6050\ para\ el\ lazo\ de\ 200\ Hz.}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00084}00084\ \textcolor{comment}{\ *\ @details\ Configuración\ aplicada\ sobre\ el\ sensor:}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00085}00085\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ -\/\ \`{}PWR\_MGMT\_1`\ (0x6B)\ =\ 0x00:\ Despierta\ el\ oscilador\ interno.}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00086}00086\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ -\/\ \`{}SMPLRT\_DIV`\ (0x19)\ =\ 0x04:\ Tasa\ de\ muestreo\ =\ 1000Hz\ /\ (1\ +\ 4)\ =\ 200\ Hz\ (período\ de\ 5\ ms).}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00087}00087\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ -\/\ \`{}CONFIG`\ (0x1A)\ =\ 0x02:\ Filtro\ pasa-\/bajos\ DLPF\ \string~98\ Hz\ (retardo\ mínimo\ 2.8\ ms).}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00088}00088\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ -\/\ \`{}ACCEL\_CONFIG`\ (0x1C)\ =\ 0x00:\ Rango\ de\ aceleración\ \$\(\backslash\)pm\ 2g\$\ (16384\ LSB/g).}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00089}00089\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ -\/\ \`{}GYRO\_CONFIG`\ (0x1B)\ =\ 0x00:\ Rango\ de\ giróscopo\ \$\(\backslash\)pm\ 250\string^\(\backslash\)circ/\(\backslash\)text\{s\}\$\ (131\ LSB/(°/s)).}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00090}00090\ \textcolor{comment}{\ *\ @pre\ El\ bus\ I2C2\ debe\ estar\ inicializado\ y\ \`{}memWrite`\ enlazado.}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00091}00091\ \textcolor{comment}{\ *\ @post\ El\ sensor\ queda\ activo\ y\ configurado\ a\ 200\ Hz\ con\ DLPF\ anti-\/vibración\ a\ 98\ Hz.}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00092}00092\ \textcolor{comment}{\ *\ @see\ mpu6050\_WriteData}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00093}00093\ \textcolor{comment}{\ *\ @see\ mpu6050\_Read}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00094}00094\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00095}\doxymbox{\hyperlink{mpu6050_8h_a8c5131d4f6387709825f77368430fdf4}{00095}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{mpu6050_8h_a8c5131d4f6387709825f77368430fdf4}{mpu6050\_Init}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00096}00096\ \{}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00097}00097\ \ \ \ \ uint8\_t\ data;}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00098}00098\ }
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00099}00099\ \ \ \ \ \textcolor{comment}{//\ 1.\ Salir\ del\ modo\ de\ bajo\ consumo\ (modo\ sleep)}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00100}00100\ \ \ \ \ data\ =\ 0x00;}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00101}00101\ \ \ \ \ \doxymbox{\hyperlink{mpu6050_8c_aa7a11ab4c49e973ad04a608112dcbf35}{mpu6050\_WriteData}}(\&data,\ \doxymbox{\hyperlink{group___m_p_u6050___registers_gaf9bd016ab99b299a4816433252e31c3d}{PWR\_MGMT\_1\_REG}});}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00102}00102\ }
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00103}00103\ \ \ \ \ \textcolor{comment}{//\ 2.\ Configurar\ Sample\ Rate\ Divider\ a\ 4\ (Muestreo\ a\ 200\ Hz\ /\ 5\ ms\ sincronizado\ con\ STM32)}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00104}00104\ \ \ \ \ data\ =\ 0x04;}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00105}00105\ \ \ \ \ \doxymbox{\hyperlink{mpu6050_8c_aa7a11ab4c49e973ad04a608112dcbf35}{mpu6050\_WriteData}}(\&data,\ \doxymbox{\hyperlink{group___m_p_u6050___registers_gaa2208da6faf439107b23dee629bb8398}{SMPLRT\_DIV\_REG}});}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00106}00106\ }
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00107}00107\ \ \ \ \ \textcolor{comment}{//\ 3.\ Activar\ filtro\ pasa-\/bajos\ DLPF\ a\ \string~98Hz\ para\ filtrar\ vibraciones\ mecánicas\ de\ los\ motores}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00108}00108\ \ \ \ \ data\ =\ 0x02;}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00109}00109\ \ \ \ \ \doxymbox{\hyperlink{mpu6050_8c_aa7a11ab4c49e973ad04a608112dcbf35}{mpu6050\_WriteData}}(\&data,\ \doxymbox{\hyperlink{group___m_p_u6050___registers_gaf81594fa2c83e52e601f2e4a1d81d8bc}{CONFIG\_REG}});}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00110}00110\ }
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00111}00111\ \ \ \ \ \textcolor{comment}{//\ 4.\ Configurar\ acelerómetro\ con\ rango\ +-\/2g}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00112}00112\ \ \ \ \ data\ =\ 0x00;}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00113}00113\ \ \ \ \ \doxymbox{\hyperlink{mpu6050_8c_aa7a11ab4c49e973ad04a608112dcbf35}{mpu6050\_WriteData}}(\&data,\ \doxymbox{\hyperlink{group___m_p_u6050___registers_gad1d05dc09d0025498687ab7e30ffd4e4}{ACCEL\_CONFIG\_REG}});}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00114}00114\ }
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00115}00115\ \ \ \ \ \textcolor{comment}{//\ 5.\ Configurar\ giróscopo\ con\ rango\ +-\/250\ deg/s}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00116}00116\ \ \ \ \ data\ =\ 0x00;}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00117}00117\ \ \ \ \ \doxymbox{\hyperlink{mpu6050_8c_aa7a11ab4c49e973ad04a608112dcbf35}{mpu6050\_WriteData}}(\&data,\ \doxymbox{\hyperlink{group___m_p_u6050___registers_ga5b1b1a1ea1298b67cdab17a7213c6356}{GYRO\_CONFIG\_REG}});}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00118}00118\ \}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00119}00119\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00120}00120\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00121}00121\ \textcolor{comment}{\ *\ @brief\ Resetea\ la\ secuencia\ de\ lectura\ DMA\ en\ caso\ de\ error\ o\ reinicio\ de\ estado.}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00122}00122\ \textcolor{comment}{\ *\ @post\ \`{}mpu\_state`\ vuelve\ a\ 1\ y\ si\ la\ bandera\ DMA\ Rx\ no\ es\ NULL,\ se\ limpia\ a\ 0.}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00123}00123\ \textcolor{comment}{\ *\ @see\ mpu6050\_Read}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00124}00124\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00125}\doxymbox{\hyperlink{mpu6050_8h_a9211023060608ef2cae3642ca8406845}{00125}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{mpu6050_8h_a9211023060608ef2cae3642ca8406845}{mpu6050\_Reset\_State}}(\textcolor{keywordtype}{void})\ \{}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00126}00126\ \ \ \ \ \doxymbox{\hyperlink{mpu6050_8c_a0df1dcd7d6aa6a4b7436dc6c87a73d95}{mpu\_state}}\ =\ 1;}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00127}00127\ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{main_8c_acd75fef0ac155418d387840dcba14b92}{mpu6050\_RxCplt}}\ !=\ \doxymbox{\hyperlink{group___u_s_b___d_e_f___exported___defines_ga070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}})\ \{}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00128}00128\ \ \ \ \ \ \ \ \ *\doxymbox{\hyperlink{main_8c_acd75fef0ac155418d387840dcba14b92}{mpu6050\_RxCplt}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00129}00129\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00130}00130\ \}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00131}00131\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00132}00132\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00133}00133\ \textcolor{comment}{\ *\ @brief\ Máquina\ de\ estados\ no\ bloqueante\ para\ la\ captura\ de\ 14\ bytes\ inerciales\ continuos.}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00134}00134\ \textcolor{comment}{\ *\ @details\ El\ proceso\ se\ divide\ en\ dos\ fases\ para\ sincronizarse\ con\ la\ interrupción\ DMA:}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00135}00135\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ -\/\ En\ Fase\ 1:\ Dispara\ la\ lectura\ de\ 14\ bytes\ por\ DMA\ desde\ \`{}ACCEL\_XOUT\_H\_REG`\ (0x3B).}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00136}00136\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ -\/\ En\ Fase\ 2:\ Tras\ recibir\ la\ señal\ de\ \`{}mpu6050\_RxCplt`,\ recompone\ los\ registros:}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00137}00137\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ \`{}Ax`,\ \`{}Ay`,\ \`{}Az`,\ \`{}Temperatura`,\ \`{}Gx`,\ \`{}Gy`,\ \`{}Gz`\ desplazando\ el\ byte\ alto\ 8\ bits.}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00138}00138\ \textcolor{comment}{\ *\ @return\ 1\ si\ los\ datos\ fueron\ recibidos\ y\ ensamblados\ exitosamente;\ 0\ si\ la\ transferencia\ sigue\ en\ curso.}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00139}00139\ \textcolor{comment}{\ *\ @pre\ Función\ \`{}memReadDMA`\ asociada\ y\ bus\ libre.}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00140}00140\ \textcolor{comment}{\ *\ @post\ Al\ completarse\ (retorno\ 1),\ actualiza\ variables\ estáticas\ \`{}ax,\ ay,\ az,\ gx,\ gy,\ gz`.}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00141}00141\ \textcolor{comment}{\ *\ @see\ mpu6050\_GetData}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00142}00142\ \textcolor{comment}{\ *\ @see\ mpu6050\_Reset\_State}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00143}00143\ \textcolor{comment}{\ *\ @see\ PIDTask}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00144}00144\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00145}\doxymbox{\hyperlink{mpu6050_8h_aace5fea3888e51a75e8bfb77bae17b80}{00145}}\ \textcolor{keywordtype}{char}\ \doxymbox{\hyperlink{mpu6050_8h_aace5fea3888e51a75e8bfb77bae17b80}{mpu6050\_Read}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00146}00146\ \{}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00147}00147\ \ \ \ \ \textcolor{keyword}{static}\ uint8\_t\ Rec\_Data[14];}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00148}00148\ }
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00149}00149\ \ \ \ \ \textcolor{keywordflow}{if}\ (*\doxymbox{\hyperlink{main_8c_acd75fef0ac155418d387840dcba14b92}{mpu6050\_RxCplt}}\ ||\ \doxymbox{\hyperlink{mpu6050_8c_a0df1dcd7d6aa6a4b7436dc6c87a73d95}{mpu\_state}}\ ==\ 1)\ \{}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00150}00150\ \ \ \ \ \ \ \ \ *\doxymbox{\hyperlink{main_8c_acd75fef0ac155418d387840dcba14b92}{mpu6050\_RxCplt}}\ =\ 0;\ \ \textcolor{comment}{//\ Reset\ de\ la\ bandera\ de\ recepción\ DMA}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00151}00151\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (\doxymbox{\hyperlink{mpu6050_8c_a0df1dcd7d6aa6a4b7436dc6c87a73d95}{mpu\_state}})\ \{}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00152}00152\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 1:}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00153}00153\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{mpu6050_8c_a0df1dcd7d6aa6a4b7436dc6c87a73d95}{mpu\_state}}\ =\ 2;}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00154}00154\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Lanzar\ solicitud\ DMA\ para\ leer\ los\ 14\ registros\ de\ golpe\ (Ax,\ Ay,\ Az,\ Temp,\ Gx,\ Gy,\ Gz)}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00155}00155\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{mpu6050_8c_af3d8d09af00746dbc3ad0f1a05377282}{mpu6050\_ReadDataDMA}}(Rec\_Data,\ 14,\ \doxymbox{\hyperlink{group___m_p_u6050___registers_ga12d3f98f5ae302f7aab5895be9388d69}{ACCEL\_XOUT\_H\_REG}});}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00156}00156\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00157}00157\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 2:}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00158}00158\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{mpu6050_8c_a0df1dcd7d6aa6a4b7436dc6c87a73d95}{mpu\_state}}\ =\ 1;}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00159}00159\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Combinar\ bytes\ MSB\ y\ LSB\ en\ enteros\ de\ 16\ bits\ con\ signo\ (formato\ Big-\/Endian\ del\ sensor)}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00160}00160\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{main_8c_aebedd0a48fe876cce3d3f14326e4ca66}{ax}}\ =\ (int16\_t)\ (Rec\_Data[0]\ <<\ 8\ |\ Rec\_Data[1]);}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00161}00161\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{main_8c_a46d26903f1874d06875a974dfa1a9d3c}{ay}}\ =\ (int16\_t)\ (Rec\_Data[2]\ <<\ 8\ |\ Rec\_Data[3]);}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00162}00162\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{main_8c_a41e60f9324f9d4fd9e916e964370fb2f}{az}}\ =\ (int16\_t)\ (Rec\_Data[4]\ <<\ 8\ |\ Rec\_Data[5]);}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00163}00163\ }
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00164}00164\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{main_8c_a4524555b50a829ee7628cf5e5806f227}{gx}}\ =\ (int16\_t)\ (Rec\_Data[8]\ <<\ 8\ |\ Rec\_Data[9]);}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00165}00165\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{main_8c_a8bd44b73dc5745833a8dd8d2a6240613}{gy}}\ =\ (int16\_t)\ (Rec\_Data[10]\ <<\ 8\ |\ Rec\_Data[11]);}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00166}00166\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{main_8c_aa61e9778c784ec4695029ed2cc769a61}{gz}}\ =\ (int16\_t)\ (Rec\_Data[12]\ <<\ 8\ |\ Rec\_Data[13]);}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00167}00167\ }
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00168}00168\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;\ \textcolor{comment}{//\ Nuevos\ datos\ disponibles}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00169}00169\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00170}00170\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00171}00171\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00172}00172\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;\ \textcolor{comment}{//\ Lectura\ en\ proceso}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00173}00173\ \}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00174}00174\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00175}00175\ \textcolor{comment}{/**}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00176}00176\ \textcolor{comment}{\ *\ @brief\ Entrega\ las\ variables\ crudas\ leídas\ al\ lazo\ principal\ de\ control.}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00177}00177\ \textcolor{comment}{\ *\ @param[out]\ ax\_out\ Puntero\ a\ variable\ receptora\ de\ aceleración\ en\ X.}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00178}00178\ \textcolor{comment}{\ *\ @param[out]\ ay\_out\ Puntero\ a\ variable\ receptora\ de\ aceleración\ en\ Y.}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00179}00179\ \textcolor{comment}{\ *\ @param[out]\ az\_out\ Puntero\ a\ variable\ receptora\ de\ aceleración\ en\ Z.}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00180}00180\ \textcolor{comment}{\ *\ @param[out]\ gx\_out\ Puntero\ a\ variable\ receptora\ de\ giróscopo\ en\ X.}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00181}00181\ \textcolor{comment}{\ *\ @param[out]\ gy\_out\ Puntero\ a\ variable\ receptora\ de\ giróscopo\ en\ Y.}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00182}00182\ \textcolor{comment}{\ *\ @param[out]\ gz\_out\ Puntero\ a\ variable\ receptora\ de\ giróscopo\ en\ Z.}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00183}00183\ \textcolor{comment}{\ *\ @pre\ \`{}mpu6050\_Read()`\ debe\ haber\ retornado\ 1.}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00184}00184\ \textcolor{comment}{\ *\ @post\ Vuelca\ los\ valores\ almacenados\ en\ memoria\ estática\ a\ los\ punteros\ proporcionados.}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00185}00185\ \textcolor{comment}{\ *\ @see\ mpu6050\_Read}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00186}00186\ \textcolor{comment}{\ *\ @see\ PIDTask}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00187}00187\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00188}\doxymbox{\hyperlink{mpu6050_8h_a0d2422b0bd5bcfba247b703c9f82057e}{00188}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{mpu6050_8h_a0d2422b0bd5bcfba247b703c9f82057e}{mpu6050\_GetData}}(int16\_t\ *ax\_out,\ int16\_t\ *ay\_out,\ int16\_t\ *az\_out,\ int16\_t\ *gx\_out,\ int16\_t\ *gy\_out,\ int16\_t\ *gz\_out)\ \{}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00189}00189\ \ \ \ \ \textcolor{keywordflow}{if}\ (ax\_out)\ *ax\_out\ =\ \doxymbox{\hyperlink{main_8c_aebedd0a48fe876cce3d3f14326e4ca66}{ax}};}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00190}00190\ \ \ \ \ \textcolor{keywordflow}{if}\ (ay\_out)\ *ay\_out\ =\ \doxymbox{\hyperlink{main_8c_a46d26903f1874d06875a974dfa1a9d3c}{ay}};}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00191}00191\ \ \ \ \ \textcolor{keywordflow}{if}\ (az\_out)\ *az\_out\ =\ \doxymbox{\hyperlink{main_8c_a41e60f9324f9d4fd9e916e964370fb2f}{az}};}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00192}00192\ }
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00193}00193\ \ \ \ \ \textcolor{keywordflow}{if}\ (gx\_out)\ *gx\_out\ =\ \doxymbox{\hyperlink{main_8c_a4524555b50a829ee7628cf5e5806f227}{gx}};}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00194}00194\ \ \ \ \ \textcolor{keywordflow}{if}\ (gy\_out)\ *gy\_out\ =\ \doxymbox{\hyperlink{main_8c_a8bd44b73dc5745833a8dd8d2a6240613}{gy}};}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00195}00195\ \ \ \ \ \textcolor{keywordflow}{if}\ (gz\_out)\ *gz\_out\ =\ \doxymbox{\hyperlink{main_8c_aa61e9778c784ec4695029ed2cc769a61}{gz}};}
+\DoxyCodeLine{\Hypertarget{mpu6050_8c_source_l00196}00196\ \}}
 
 \end{DoxyCode}

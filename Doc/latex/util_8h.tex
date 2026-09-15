@@ -6,16 +6,14 @@ Declaración de tipos fundamentales, enumeraciones, estructuras y uniones del pr
 
 
 {\ttfamily \+\#include $<$stdint.\+h$>$}\newline
-Gráfico de dependencias incluidas en util.\+h:
-\nopagebreak
+Gráfico de dependencias incluidas en util.\+h:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=128pt]{util_8h__incl}
 \end{center}
 \end{figure}
-Gráfico de los archivos que directa o indirectamente incluyen a este archivo:
-\nopagebreak
+Gráfico de los archivos que directa o indirectamente incluyen a este archivo:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -27,13 +25,17 @@ Gráfico de los archivos que directa o indirectamente incluyen a este archivo:
 \item 
 struct \doxymbox{\hyperlink{struct__s_button}{\+\_\+s\+Button}}
 \begin{DoxyCompactList}\small\item\em Estructura de control y temporización del pulsador multifunción. \end{DoxyCompactList}\item 
+struct \doxymbox{\hyperlink{struct__s_wi_fi_network}{\+\_\+s\+Wi\+Fi\+Network}}
+\begin{DoxyCompactList}\small\item\em Estructura de credenciales para redes Wi-\/\+Fi preconfiguradas. \end{DoxyCompactList}\item 
 union \doxymbox{\hyperlink{union__u_flag}{\+\_\+u\+Flag}}
 \begin{DoxyCompactList}\small\item\em Unión de mapa de bits para banderas de tiempo real y eventos del sistema. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsubsection*{defines}
 \begin{DoxyCompactItemize}
 \item 
 \+\#define \doxymbox{\hyperlink{util_8h_a9e4e9987ec919b8b70af020bae2e8b1d}{SETGOTOTURN}}~\doxymbox{\hyperlink{util_8h_a914da92242d04381391fee2bb1c936dfa9d151b97e55f894220fc1c4c9e8d40b2}{SETJOYSTICKTURN}}
-\begin{DoxyCompactList}\small\item\em Macro de compatibilidad hacia atrás para SETJOYSTICKTURN. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Macro de compatibilidad hacia atrás para SETJOYSTICKTURN. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{util_8h_a262110a94c418f57aaf188438ba22ba0}{STATE\+\_\+\+GOTO}}~\doxymbox{\hyperlink{group__group__main_gga5ef913d615749b343e42f0424064e937a81a27a62c9d29883324be07483fdd10a}{STATE\+\_\+\+JOYSTICK}}
+\begin{DoxyCompactList}\small\item\em Alias de compatibilidad hacia atrás. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsubsection*{Enumeraciones}
 \begin{DoxyCompactItemize}
 \item 
@@ -101,10 +103,12 @@ enum \doxymbox{\hyperlink{util_8h_a914da92242d04381391fee2bb1c936df}{\+\_\+e\+Cm
 , \newline
 \doxymbox{\hyperlink{util_8h_a914da92242d04381391fee2bb1c936dfa35515767054579d0235d59947057d0e2}{SETROBOTMODE}} = 0x\+D2
 , \doxymbox{\hyperlink{util_8h_a914da92242d04381391fee2bb1c936dfa9d151b97e55f894220fc1c4c9e8d40b2}{SETJOYSTICKTURN}} = 0x\+D3
-, \doxymbox{\hyperlink{util_8h_a914da92242d04381391fee2bb1c936dfa41246e9c8691b7e33bc79b345e06b48e}{ACK}} = 0x0D
-, \doxymbox{\hyperlink{util_8h_a914da92242d04381391fee2bb1c936dfad8bdefedde732a001656ad3876374ed3}{EXPORTIRCSV}} = 0x\+CA
+, \doxymbox{\hyperlink{util_8h_a914da92242d04381391fee2bb1c936dfaf632a5785d314e25f06b6fe8394d07dc}{SETDODGEBIASTIME}} = 0x\+D4
+, \doxymbox{\hyperlink{util_8h_a914da92242d04381391fee2bb1c936dfa6263117cb0ae227b7723bd5986a493f9}{SETDODGEBIASMULT}} = 0x\+D5
 , \newline
-\doxymbox{\hyperlink{util_8h_a914da92242d04381391fee2bb1c936dfa6ce26a62afab55d7606ad4e92428b30c}{UNKNOWN}} = 0x\+FF
+\doxymbox{\hyperlink{util_8h_a914da92242d04381391fee2bb1c936dfa41246e9c8691b7e33bc79b345e06b48e}{ACK}} = 0x0D
+, \doxymbox{\hyperlink{util_8h_a914da92242d04381391fee2bb1c936dfad8bdefedde732a001656ad3876374ed3}{EXPORTIRCSV}} = 0x\+CA
+, \doxymbox{\hyperlink{util_8h_a914da92242d04381391fee2bb1c936dfa6ce26a62afab55d7606ad4e92428b30c}{UNKNOWN}} = 0x\+FF
  \}
 \begin{DoxyCompactList}\small\item\em Identificadores de comandos binarios del protocolo uner\+Prtcl. \end{DoxyCompactList}\item 
 enum \doxymbox{\hyperlink{util_8h_ae259c13d481d618bde1a5eae91da4dab}{\+\_\+e\+DMA}} \{ \doxymbox{\hyperlink{util_8h_ae259c13d481d618bde1a5eae91da4dabafd6a0e4343048b10646dd2976cc5ad18}{IDLE}} = 0
@@ -113,11 +117,44 @@ enum \doxymbox{\hyperlink{util_8h_ae259c13d481d618bde1a5eae91da4dab}{\+\_\+e\+DM
 , \doxymbox{\hyperlink{util_8h_ae259c13d481d618bde1a5eae91da4daba893665a7dd183fa9a9400fc2a080fb5e}{ONMPU}} = 3
  \}
 \begin{DoxyCompactList}\small\item\em Tareas de multiplexado en la cola del bus I2C (Pila\+[]). \end{DoxyCompactList}\item 
+enum \doxymbox{\hyperlink{group__group__control_ga3c9f0f3644c95372a772a4d41fe9d274}{\+\_\+e\+Dodge\+Sub\+State}} \{ \newline
+\doxymbox{\hyperlink{group__group__control_gga3c9f0f3644c95372a772a4d41fe9d274a6cc6785e4c562eddd14a8c613ab76f9a}{DODGE\+\_\+\+LINE\+\_\+\+FOLLOWING}}
+, \doxymbox{\hyperlink{group__group__control_gga3c9f0f3644c95372a772a4d41fe9d274accbedb184c76977cbe098ac44faaf316}{DODGE\+\_\+\+ROTATING}}
+, \doxymbox{\hyperlink{group__group__control_gga3c9f0f3644c95372a772a4d41fe9d274ac58b7c72e4b3e495de2e2430e5bfeada}{DODGE\+\_\+\+WALL\+\_\+\+FOLLOWING}}
+, \doxymbox{\hyperlink{group__group__control_gga3c9f0f3644c95372a772a4d41fe9d274a07b78e23ee697f18d8f47dbdc53ab187}{DODGE\+\_\+\+RETURN\+\_\+\+ROTATING}}
+, \newline
+\doxymbox{\hyperlink{group__group__control_gga3c9f0f3644c95372a772a4d41fe9d274afd34db91febc178a05db4065aaac7acb}{DODGE\+\_\+\+STANDBY}}
+ \}
+\begin{DoxyCompactList}\small\item\em Sub-\/estados de la máquina de evasión de obstáculos (Dodge Rotation). \end{DoxyCompactList}\item 
 enum \doxymbox{\hyperlink{util_8h_ae01c58988e4d37977423a5aab26ab5fa}{\+\_\+e\+Event}} \{ \doxymbox{\hyperlink{util_8h_ae01c58988e4d37977423a5aab26ab5faa5ef9a100ac8b4b8d6dec477c377b7901}{PRESSED}}
 , \doxymbox{\hyperlink{util_8h_ae01c58988e4d37977423a5aab26ab5faacdb8b9a398ffbd729218a27d00d8fa45}{NOT\+\_\+\+PRESSED}}
 , \doxymbox{\hyperlink{util_8h_ae01c58988e4d37977423a5aab26ab5faa5856f037cd70ecf6fca11999c11a4a0d}{NO\+\_\+\+EVENT}}
  \}
-\begin{DoxyCompactList}\small\item\em Eventos de entrada procesados por la máquina de estados del botón. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Eventos de entrada procesados por la máquina de estados del botón. \end{DoxyCompactList}\item 
+enum \doxymbox{\hyperlink{group__group__control_gaba9e5dfd3c6391a9bb414860c22f3d7f}{\+\_\+e\+Line\+State}} \{ \doxymbox{\hyperlink{group__group__control_ggaba9e5dfd3c6391a9bb414860c22f3d7fa7e4e7b6a27dfa094d957e50142aa3d7a}{LINE\+\_\+\+SEARCHING}}
+, \doxymbox{\hyperlink{group__group__control_ggaba9e5dfd3c6391a9bb414860c22f3d7fa11b61e5329ae52a9f93404019c81ba03}{LINE\+\_\+\+FOLLOWING}}
+, \doxymbox{\hyperlink{group__group__control_ggaba9e5dfd3c6391a9bb414860c22f3d7fac701eeee800a9b44abe225825430cc52}{LINE\+\_\+\+LOST}}
+, \doxymbox{\hyperlink{group__group__control_ggaba9e5dfd3c6391a9bb414860c22f3d7fa3d7c8f361dca201fcafa6944c1ef9c10}{LINE\+\_\+\+CROSS}}
+ \}
+\begin{DoxyCompactList}\small\item\em Sub-\/estados de la máquina de seguimiento de línea (Line Following MEF). \end{DoxyCompactList}\item 
+enum \doxymbox{\hyperlink{group__group__control_gadff08c30c10e31fe74ce9f3457c74b63}{\+\_\+e\+Obs\+State}} \{ \doxymbox{\hyperlink{group__group__control_ggadff08c30c10e31fe74ce9f3457c74b63aaf3ce8dbefbb2806569235c5ca390608}{OBS\+\_\+\+IDLE}}
+, \doxymbox{\hyperlink{group__group__control_ggadff08c30c10e31fe74ce9f3457c74b63a68091f67528a125bd3523e8befb6f50e}{OBS\+\_\+\+APPROACH}}
+, \doxymbox{\hyperlink{group__group__control_ggadff08c30c10e31fe74ce9f3457c74b63ab1a2c0754c62a4e5ca543b628268e78e}{OBS\+\_\+\+CORNER}}
+, \doxymbox{\hyperlink{group__group__control_ggadff08c30c10e31fe74ce9f3457c74b63a27d3b401f19233093b384cdcd6689f0f}{OBS\+\_\+\+WALL}}
+ \}
+\begin{DoxyCompactList}\small\item\em Sub-\/estados de la máquina de esquivado y evasión de obstáculos frontales. \end{DoxyCompactList}\item 
+enum \doxymbox{\hyperlink{group__group__main_ga5ef913d615749b343e42f0424064e937}{\+\_\+e\+Robot\+Mode}} \{ \newline
+\doxymbox{\hyperlink{group__group__main_gga5ef913d615749b343e42f0424064e937a46854d200d334ed65c5b8542eee92421}{STATE\+\_\+\+STANDBY}} = 0
+, \doxymbox{\hyperlink{group__group__main_gga5ef913d615749b343e42f0424064e937afb76bc9af4d33cb1941ce2198a22b5f1}{STATE\+\_\+\+SWING}} = 1
+, \doxymbox{\hyperlink{group__group__main_gga5ef913d615749b343e42f0424064e937ab641b484c5de42c96f5a382ef25d557f}{STATE\+\_\+\+LINE\+\_\+\+FOLLOWING}} = 2
+, \doxymbox{\hyperlink{group__group__main_gga5ef913d615749b343e42f0424064e937acbd2746ad5303084bb979bc275aa15ef}{STATE\+\_\+\+DODGE}} = 3
+, \newline
+\doxymbox{\hyperlink{group__group__main_gga5ef913d615749b343e42f0424064e937a81a27a62c9d29883324be07483fdd10a}{STATE\+\_\+\+JOYSTICK}} = 4
+, \doxymbox{\hyperlink{group__group__main_gga5ef913d615749b343e42f0424064e937a2ac9f0b5fbb6cfc38170ccc14dcf3263}{STATE\+\_\+3\+D\+\_\+\+SCREEN}} = 5
+, \doxymbox{\hyperlink{group__group__main_gga5ef913d615749b343e42f0424064e937abc08c548b43efb25afd93a4143f71f1b}{STATE\+\_\+\+FIRST\+\_\+\+SCREEN}} = 6
+, \doxymbox{\hyperlink{group__group__main_gga5ef913d615749b343e42f0424064e937aa52b63031d0b61679533a443a366aaba}{STATE\+\_\+\+SECOND\+\_\+\+SCREEN}} = 7
+ \}
+\begin{DoxyCompactList}\small\item\em Modos operativos principales del robot péndulo invertido gobernados por robot\+Mode. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \begin{Indent}\textbf{ Constantes Booleanas}\par
 \begin{DoxyCompactItemize}
 \item 
@@ -167,6 +204,20 @@ Macro de compatibilidad hacia atrás para SETJOYSTICKTURN.
 
 
 Definición en la línea \doxymbox{\hyperlink{util_8h_source_l00120}{120}} del archivo \doxymbox{\hyperlink{util_8h_source}{util.\+h}}.
+
+\Hypertarget{util_8h_a262110a94c418f57aaf188438ba22ba0}\index{util.h@{util.h}!STATE\_GOTO@{STATE\_GOTO}}
+\index{STATE\_GOTO@{STATE\_GOTO}!util.h@{util.h}}
+\doxyparagraph{\texorpdfstring{STATE\_GOTO}{STATE\_GOTO}}
+{\footnotesize\ttfamily \label{util_8h_a262110a94c418f57aaf188438ba22ba0} 
+\+\#define STATE\+\_\+\+GOTO~\doxymbox{\hyperlink{group__group__main_gga5ef913d615749b343e42f0424064e937a81a27a62c9d29883324be07483fdd10a}{STATE\+\_\+\+JOYSTICK}}}
+
+
+
+Alias de compatibilidad hacia atrás. 
+
+
+
+Definición en la línea \doxymbox{\hyperlink{util_8h_source_l00220}{220}} del archivo \doxymbox{\hyperlink{util_8h_source}{util.\+h}}.
 
 
 
@@ -271,16 +322,16 @@ BUTTON\+\_\+\+FALLING&Flanco descendente detectado (transición de presionado a 
 \end{DoxyEnumFields}
 
 
-Definición en la línea \doxymbox{\hyperlink{util_8h_source_l00140}{140}} del archivo \doxymbox{\hyperlink{util_8h_source}{util.\+h}}.
+Definición en la línea \doxymbox{\hyperlink{util_8h_source_l00142}{142}} del archivo \doxymbox{\hyperlink{util_8h_source}{util.\+h}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00141\ \ \ \ \ \doxymbox{\hyperlink{util_8h_a6de6f3d8e74aa6ec71bf5cb6bae49e98a0c7746cfbcac16484b2266e6f51e5e0b}{BUTTON\_DOWN}},\ \ \ \ \textcolor{comment}{/*!<\ Botón\ presionado\ de\ manera\ sostenida\ (nivel\ lógico\ activo)\ */}}
-\DoxyCodeLine{00142\ \ \ \ \ \doxymbox{\hyperlink{util_8h_a6de6f3d8e74aa6ec71bf5cb6bae49e98a37666936297216dce293b0aa31c474b8}{BUTTON\_UP}},\ \ \ \ \ \ \textcolor{comment}{/*!<\ Botón\ en\ reposo\ /\ no\ presionado\ */}}
-\DoxyCodeLine{00143\ \ \ \ \ \doxymbox{\hyperlink{util_8h_a6de6f3d8e74aa6ec71bf5cb6bae49e98a5783aad8af274c748e903acf713c430f}{BUTTON\_RISING}},\ \ \textcolor{comment}{/*!<\ Flanco\ ascendente\ detectado\ (transición\ de\ no\ presionado\ a\ presionado)\ */}}
-\DoxyCodeLine{00144\ \ \ \ \ \doxymbox{\hyperlink{util_8h_a6de6f3d8e74aa6ec71bf5cb6bae49e98a4c5560be280ccf3e4ef5a385a6dd62dc}{BUTTON\_FALLING}}\ \ \textcolor{comment}{/*!<\ Flanco\ descendente\ detectado\ (transición\ de\ presionado\ a\ no\ presionado)\ */}}
-\DoxyCodeLine{00145\ \}\ \doxymbox{\hyperlink{util_8h_a6de6f3d8e74aa6ec71bf5cb6bae49e98}{\_eButtonState}};}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00143\ \ \ \ \ \doxymbox{\hyperlink{util_8h_a6de6f3d8e74aa6ec71bf5cb6bae49e98a0c7746cfbcac16484b2266e6f51e5e0b}{BUTTON\_DOWN}},\ \ \ \ \textcolor{comment}{/*!<\ Botón\ presionado\ de\ manera\ sostenida\ (nivel\ lógico\ activo)\ */}}
+\DoxyCodeLine{00144\ \ \ \ \ \doxymbox{\hyperlink{util_8h_a6de6f3d8e74aa6ec71bf5cb6bae49e98a37666936297216dce293b0aa31c474b8}{BUTTON\_UP}},\ \ \ \ \ \ \textcolor{comment}{/*!<\ Botón\ en\ reposo\ /\ no\ presionado\ */}}
+\DoxyCodeLine{00145\ \ \ \ \ \doxymbox{\hyperlink{util_8h_a6de6f3d8e74aa6ec71bf5cb6bae49e98a5783aad8af274c748e903acf713c430f}{BUTTON\_RISING}},\ \ \textcolor{comment}{/*!<\ Flanco\ ascendente\ detectado\ (transición\ de\ no\ presionado\ a\ presionado)\ */}}
+\DoxyCodeLine{00146\ \ \ \ \ \doxymbox{\hyperlink{util_8h_a6de6f3d8e74aa6ec71bf5cb6bae49e98a4c5560be280ccf3e4ef5a385a6dd62dc}{BUTTON\_FALLING}}\ \ \textcolor{comment}{/*!<\ Flanco\ descendente\ detectado\ (transición\ de\ presionado\ a\ no\ presionado)\ */}}
+\DoxyCodeLine{00147\ \}\ \doxymbox{\hyperlink{util_8h_a6de6f3d8e74aa6ec71bf5cb6bae49e98}{\_eButtonState}};}
 
 \end{DoxyCode}
 \Hypertarget{util_8h_a914da92242d04381391fee2bb1c936df}\index{util.h@{util.h}!\_eCmd@{\_eCmd}}
@@ -570,6 +621,18 @@ SETROBOTMODE&Comando de cambio del modo operativo principal del robot. \\
 SETJOYSTICKTURN&Comando de control interactivo para modo Joystick (giro y watchdog). \\
 \hline
 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SETDODGEBIASTIME@{SETDODGEBIASTIME}!util.h@{util.h}}
+\index{util.h@{util.h}!SETDODGEBIASTIME@{SETDODGEBIASTIME}}
+}\Hypertarget{util_8h_a914da92242d04381391fee2bb1c936dfaf632a5785d314e25f06b6fe8394d07dc}\label{util_8h_a914da92242d04381391fee2bb1c936dfaf632a5785d314e25f06b6fe8394d07dc} 
+SETDODGEBIASTIME&Ajuste de la duración del sesgo tras esquivar (ms). \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SETDODGEBIASMULT@{SETDODGEBIASMULT}!util.h@{util.h}}
+\index{util.h@{util.h}!SETDODGEBIASMULT@{SETDODGEBIASMULT}}
+}\Hypertarget{util_8h_a914da92242d04381391fee2bb1c936dfa6263117cb0ae227b7723bd5986a493f9}\label{util_8h_a914da92242d04381391fee2bb1c936dfa6263117cb0ae227b7723bd5986a493f9} 
+SETDODGEBIASMULT&Ajuste del multiplicador de esfuerzo del sesgo tras esquivar. \\
+\hline
+
 \raisebox{\heightof{T}}[0pt][0pt]{\index{ACK@{ACK}!util.h@{util.h}}
 \index{util.h@{util.h}!ACK@{ACK}}
 }\Hypertarget{util_8h_a914da92242d04381391fee2bb1c936dfa41246e9c8691b7e33bc79b345e06b48e}\label{util_8h_a914da92242d04381391fee2bb1c936dfa41246e9c8691b7e33bc79b345e06b48e} 
@@ -655,11 +718,13 @@ Definición en la línea \doxymbox{\hyperlink{util_8h_source_l00061}{61}} del ar
 \DoxyCodeLine{00118\ \ \ \ \ \doxymbox{\hyperlink{util_8h_a914da92242d04381391fee2bb1c936dfa35515767054579d0235d59947057d0e2}{SETROBOTMODE}}\ =\ 0xD2,\ \ \ \ \ \textcolor{comment}{/*!<\ Comando\ de\ cambio\ del\ modo\ operativo\ principal\ del\ robot\ */}}
 \DoxyCodeLine{00119\ \ \ \ \ \doxymbox{\hyperlink{util_8h_a914da92242d04381391fee2bb1c936dfa9d151b97e55f894220fc1c4c9e8d40b2}{SETJOYSTICKTURN}}\ =\ 0xD3,\ \ \textcolor{comment}{/*!<\ Comando\ de\ control\ interactivo\ para\ modo\ Joystick\ (giro\ y\ watchdog)\ */}}
 \DoxyCodeLine{00120\ \textcolor{preprocessor}{\#define\ SETGOTOTURN\ SETJOYSTICKTURN\ }\textcolor{comment}{/*!<\ Macro\ de\ compatibilidad\ hacia\ atrás\ para\ SETJOYSTICKTURN\ */}\textcolor{preprocessor}{}}
-\DoxyCodeLine{00121\ }
-\DoxyCodeLine{00122\ \ \ \ \ \doxymbox{\hyperlink{util_8h_a914da92242d04381391fee2bb1c936dfa41246e9c8691b7e33bc79b345e06b48e}{ACK}}\ =\ 0x0D,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*!<\ Respuesta\ de\ confirmación\ positiva\ (Acknowledge)\ */}}
-\DoxyCodeLine{00123\ \ \ \ \ \doxymbox{\hyperlink{util_8h_a914da92242d04381391fee2bb1c936dfad8bdefedde732a001656ad3876374ed3}{EXPORTIRCSV}}\ =\ 0xCA,\ \ \ \ \ \ \textcolor{comment}{/*!<\ Disparo\ de\ exportación\ de\ calibraciones\ IR\ a\ formato\ CSV\ */}}
-\DoxyCodeLine{00124\ \ \ \ \ \doxymbox{\hyperlink{util_8h_a914da92242d04381391fee2bb1c936dfa6ce26a62afab55d7606ad4e92428b30c}{UNKNOWN}}\ =\ 0xFF\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*!<\ Código\ de\ comando\ no\ reconocido\ /\ error\ de\ sintaxis\ */}}
-\DoxyCodeLine{00125\ \}\ \doxymbox{\hyperlink{util_8h_a914da92242d04381391fee2bb1c936df}{\_eCmd}};}
+\DoxyCodeLine{00121\ \ \ \ \ \doxymbox{\hyperlink{util_8h_a914da92242d04381391fee2bb1c936dfaf632a5785d314e25f06b6fe8394d07dc}{SETDODGEBIASTIME}}\ =\ 0xD4,\ \textcolor{comment}{/*!<\ Ajuste\ de\ la\ duración\ del\ sesgo\ tras\ esquivar\ (ms)\ */}}
+\DoxyCodeLine{00122\ \ \ \ \ \doxymbox{\hyperlink{util_8h_a914da92242d04381391fee2bb1c936dfa6263117cb0ae227b7723bd5986a493f9}{SETDODGEBIASMULT}}\ =\ 0xD5,\ \textcolor{comment}{/*!<\ Ajuste\ del\ multiplicador\ de\ esfuerzo\ del\ sesgo\ tras\ esquivar\ */}}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \ \ \ \ \doxymbox{\hyperlink{util_8h_a914da92242d04381391fee2bb1c936dfa41246e9c8691b7e33bc79b345e06b48e}{ACK}}\ =\ 0x0D,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*!<\ Respuesta\ de\ confirmación\ positiva\ (Acknowledge)\ */}}
+\DoxyCodeLine{00125\ \ \ \ \ \doxymbox{\hyperlink{util_8h_a914da92242d04381391fee2bb1c936dfad8bdefedde732a001656ad3876374ed3}{EXPORTIRCSV}}\ =\ 0xCA,\ \ \ \ \ \ \textcolor{comment}{/*!<\ Disparo\ de\ exportación\ de\ calibraciones\ IR\ a\ formato\ CSV\ */}}
+\DoxyCodeLine{00126\ \ \ \ \ \doxymbox{\hyperlink{util_8h_a914da92242d04381391fee2bb1c936dfa6ce26a62afab55d7606ad4e92428b30c}{UNKNOWN}}\ =\ 0xFF\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*!<\ Código\ de\ comando\ no\ reconocido\ /\ error\ de\ sintaxis\ */}}
+\DoxyCodeLine{00127\ \}\ \doxymbox{\hyperlink{util_8h_a914da92242d04381391fee2bb1c936df}{\_eCmd}};}
 
 \end{DoxyCode}
 \Hypertarget{util_8h_ae259c13d481d618bde1a5eae91da4dab}\index{util.h@{util.h}!\_eDMA@{\_eDMA}}
@@ -700,16 +765,16 @@ ONMPU&Lectura por DMA de los registros del sensor inercial MPU6050. \\
 \end{DoxyEnumFields}
 
 
-Definición en la línea \doxymbox{\hyperlink{util_8h_source_l00130}{130}} del archivo \doxymbox{\hyperlink{util_8h_source}{util.\+h}}.
+Definición en la línea \doxymbox{\hyperlink{util_8h_source_l00132}{132}} del archivo \doxymbox{\hyperlink{util_8h_source}{util.\+h}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00131\ \ \ \ \ \doxymbox{\hyperlink{util_8h_ae259c13d481d618bde1a5eae91da4dabafd6a0e4343048b10646dd2976cc5ad18}{IDLE}}\ =\ 0,\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*!<\ Bus\ I2C\ libre\ /\ sin\ operaciones\ en\ cola\ */}}
-\DoxyCodeLine{00132\ \ \ \ \ \doxymbox{\hyperlink{util_8h_ae259c13d481d618bde1a5eae91da4daba815618316e1ab84e78dcdc253a991f74}{DATA\_DISPLAY}}\ =\ 1,\ \textcolor{comment}{/*!<\ Envío\ de\ comandos\ o\ página\ de\ configuración\ a\ la\ pantalla\ OLED\ */}}
-\DoxyCodeLine{00133\ \ \ \ \ \doxymbox{\hyperlink{util_8h_ae259c13d481d618bde1a5eae91da4daba8bef634db72ac1e00571d6d1d1bbab3a}{UPD\_DISPLAY}}\ =\ 2,\ \ \textcolor{comment}{/*!<\ Envío\ del\ buffer\ completo\ de\ video\ (128x64)\ a\ la\ pantalla\ OLED\ por\ DMA\ */}}
-\DoxyCodeLine{00134\ \ \ \ \ \doxymbox{\hyperlink{util_8h_ae259c13d481d618bde1a5eae91da4daba893665a7dd183fa9a9400fc2a080fb5e}{ONMPU}}\ =\ 3\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*!<\ Lectura\ por\ DMA\ de\ los\ registros\ del\ sensor\ inercial\ MPU6050\ */}}
-\DoxyCodeLine{00135\ \}\ \doxymbox{\hyperlink{util_8h_ae259c13d481d618bde1a5eae91da4dab}{\_eDMA}};}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00133\ \ \ \ \ \doxymbox{\hyperlink{util_8h_ae259c13d481d618bde1a5eae91da4dabafd6a0e4343048b10646dd2976cc5ad18}{IDLE}}\ =\ 0,\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*!<\ Bus\ I2C\ libre\ /\ sin\ operaciones\ en\ cola\ */}}
+\DoxyCodeLine{00134\ \ \ \ \ \doxymbox{\hyperlink{util_8h_ae259c13d481d618bde1a5eae91da4daba815618316e1ab84e78dcdc253a991f74}{DATA\_DISPLAY}}\ =\ 1,\ \textcolor{comment}{/*!<\ Envío\ de\ comandos\ o\ página\ de\ configuración\ a\ la\ pantalla\ OLED\ */}}
+\DoxyCodeLine{00135\ \ \ \ \ \doxymbox{\hyperlink{util_8h_ae259c13d481d618bde1a5eae91da4daba8bef634db72ac1e00571d6d1d1bbab3a}{UPD\_DISPLAY}}\ =\ 2,\ \ \textcolor{comment}{/*!<\ Envío\ del\ buffer\ completo\ de\ video\ (128x64)\ a\ la\ pantalla\ OLED\ por\ DMA\ */}}
+\DoxyCodeLine{00136\ \ \ \ \ \doxymbox{\hyperlink{util_8h_ae259c13d481d618bde1a5eae91da4daba893665a7dd183fa9a9400fc2a080fb5e}{ONMPU}}\ =\ 3\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*!<\ Lectura\ por\ DMA\ de\ los\ registros\ del\ sensor\ inercial\ MPU6050\ */}}
+\DoxyCodeLine{00137\ \}\ \doxymbox{\hyperlink{util_8h_ae259c13d481d618bde1a5eae91da4dab}{\_eDMA}};}
 
 \end{DoxyCode}
 \Hypertarget{util_8h_ae01c58988e4d37977423a5aab26ab5fa}\index{util.h@{util.h}!\_eEvent@{\_eEvent}}
@@ -747,14 +812,14 @@ NO\+\_\+\+EVENT&Sin cambios de estado en el intervalo de muestreo. \\
 \end{DoxyEnumFields}
 
 
-Definición en la línea \doxymbox{\hyperlink{util_8h_source_l00151}{151}} del archivo \doxymbox{\hyperlink{util_8h_source}{util.\+h}}.
+Definición en la línea \doxymbox{\hyperlink{util_8h_source_l00153}{153}} del archivo \doxymbox{\hyperlink{util_8h_source}{util.\+h}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00152\ \ \ \ \ \doxymbox{\hyperlink{util_8h_ae01c58988e4d37977423a5aab26ab5faa5ef9a100ac8b4b8d6dec477c377b7901}{PRESSED}},\ \ \ \ \ \textcolor{comment}{/*!<\ Nivel\ lógico\ activo\ detectado\ en\ el\ pin\ del\ botón\ */}}
-\DoxyCodeLine{00153\ \ \ \ \ \doxymbox{\hyperlink{util_8h_ae01c58988e4d37977423a5aab26ab5faacdb8b9a398ffbd729218a27d00d8fa45}{NOT\_PRESSED}},\ \textcolor{comment}{/*!<\ Nivel\ lógico\ inactivo\ detectado\ en\ el\ pin\ del\ botón\ */}}
-\DoxyCodeLine{00154\ \ \ \ \ \doxymbox{\hyperlink{util_8h_ae01c58988e4d37977423a5aab26ab5faa5856f037cd70ecf6fca11999c11a4a0d}{NO\_EVENT}}\ \ \ \ \ \textcolor{comment}{/*!<\ Sin\ cambios\ de\ estado\ en\ el\ intervalo\ de\ muestreo\ */}}
-\DoxyCodeLine{00155\ \}\ \doxymbox{\hyperlink{util_8h_ae01c58988e4d37977423a5aab26ab5fa}{\_eEvent}};}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00154\ \ \ \ \ \doxymbox{\hyperlink{util_8h_ae01c58988e4d37977423a5aab26ab5faa5ef9a100ac8b4b8d6dec477c377b7901}{PRESSED}},\ \ \ \ \ \textcolor{comment}{/*!<\ Nivel\ lógico\ activo\ detectado\ en\ el\ pin\ del\ botón\ */}}
+\DoxyCodeLine{00155\ \ \ \ \ \doxymbox{\hyperlink{util_8h_ae01c58988e4d37977423a5aab26ab5faacdb8b9a398ffbd729218a27d00d8fa45}{NOT\_PRESSED}},\ \textcolor{comment}{/*!<\ Nivel\ lógico\ inactivo\ detectado\ en\ el\ pin\ del\ botón\ */}}
+\DoxyCodeLine{00156\ \ \ \ \ \doxymbox{\hyperlink{util_8h_ae01c58988e4d37977423a5aab26ab5faa5856f037cd70ecf6fca11999c11a4a0d}{NO\_EVENT}}\ \ \ \ \ \textcolor{comment}{/*!<\ Sin\ cambios\ de\ estado\ en\ el\ intervalo\ de\ muestreo\ */}}
+\DoxyCodeLine{00157\ \}\ \doxymbox{\hyperlink{util_8h_ae01c58988e4d37977423a5aab26ab5fa}{\_eEvent}};}
 
 \end{DoxyCode}

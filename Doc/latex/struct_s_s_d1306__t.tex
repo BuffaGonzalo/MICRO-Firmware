@@ -2,7 +2,7 @@
 \hypertarget{struct_s_s_d1306__t}{}\label{struct_s_s_d1306__t}\index{SSD1306\_t@{SSD1306\_t}}
 
 
-Estructura de estado interno del controlador de display.  
+Estructura de estado interno del controlador de display OLED SSD1306.  
 
 
 
@@ -11,8 +11,7 @@ Estructura de estado interno del controlador de display.
 
 
 
-Diagrama de colaboración de SSD1306\+\_\+t:
-\nopagebreak
+Diagrama de colaboración de SSD1306\+\_\+t:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -23,19 +22,30 @@ Diagrama de colaboración de SSD1306\+\_\+t:
 \begin{DoxyCompactItemize}
 \item 
 uint16\+\_\+t \doxymbox{\hyperlink{struct_s_s_d1306__t_a2c40063b7f8a6faf0cb91f191070e87a}{CurrentX}}
-\begin{DoxyCompactList}\small\item\em Coordenada horizontal actual del cursor de texto. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Coordenada horizontal actual del cursor de texto en píxeles (0 a 127). \end{DoxyCompactList}\item 
 uint16\+\_\+t \doxymbox{\hyperlink{struct_s_s_d1306__t_a231012af7d06a1e4395368f8b688e7d3}{CurrentY}}
-\begin{DoxyCompactList}\small\item\em Coordenada vertical actual del cursor de texto. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Coordenada vertical actual del cursor de texto en píxeles (0 a 63). \end{DoxyCompactList}\item 
 uint8\+\_\+t \doxymbox{\hyperlink{struct_s_s_d1306__t_a3c9d99e0bc06e4e9bde75463f17ac858}{Display\+On}}
-\begin{DoxyCompactList}\small\item\em Estado de encendido de la matriz OLED (1: ON, 0: OFF). \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Estado de encendido de la matriz emisora OLED (1: ON, 0: OFF). \end{DoxyCompactList}\item 
 uint8\+\_\+t \doxymbox{\hyperlink{struct_s_s_d1306__t_a5ced8054f4e1bd14884d253d81449cf2}{Initialized}}
-\begin{DoxyCompactList}\small\item\em Bandera booleana de inicialización completada. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Bandera booleana de inicialización exitosa (1: Listo, 0: No inicializado). \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsubsection{Descripción detallada}
-Estructura de estado interno del controlador de display. 
+Estructura de estado interno del controlador de display OLED SSD1306. 
 
-Definición en la línea \doxymbox{\hyperlink{ssd1306_8h_source_l00072}{72}} del archivo \doxymbox{\hyperlink{ssd1306_8h_source}{ssd1306.\+h}}.
+Mantiene las coordenadas del cursor gráfico/\+texto y las banderas de inicialización y encendido. \begin{DoxySeeAlso}{Ver también}
+\doxylink{ssd1306_8h_a6f68a90e6eefe5396bcbec2cd699d500}{SSD1306\+\_\+\+COLOR} 
+
+\doxylink{struct_s_s_d1306___font__t}{SSD1306\+\_\+\+Font\+\_\+t} 
+
+\doxylink{ssd1306_8h_ade2c3a936ceecc5b8a1d965cc302d2ed}{ssd1306\+\_\+\+Init} 
+
+\doxylink{ssd1306_8h_a43b18d938dee01ee07fb8c364ea57996}{ssd1306\+\_\+\+Set\+Cursor} 
+\end{DoxySeeAlso}
+
+
+Definición en la línea \doxymbox{\hyperlink{ssd1306_8h_source_l00077}{77}} del archivo \doxymbox{\hyperlink{ssd1306_8h_source}{ssd1306.\+h}}.
 
 
 
@@ -50,11 +60,11 @@ uint16\+\_\+t SSD1306\+\_\+t::\+\+CurrentX}
 
 
 
-Coordenada horizontal actual del cursor de texto. 
+Coordenada horizontal actual del cursor de texto en píxeles (0 a 127). 
 
 
 
-Definición en la línea \doxymbox{\hyperlink{ssd1306_8h_source_l00073}{73}} del archivo \doxymbox{\hyperlink{ssd1306_8h_source}{ssd1306.\+h}}.
+Definición en la línea \doxymbox{\hyperlink{ssd1306_8h_source_l00078}{78}} del archivo \doxymbox{\hyperlink{ssd1306_8h_source}{ssd1306.\+h}}.
 
 \Hypertarget{struct_s_s_d1306__t_a231012af7d06a1e4395368f8b688e7d3}\index{SSD1306\_t@{SSD1306\_t}!CurrentY@{CurrentY}}
 \index{CurrentY@{CurrentY}!SSD1306\_t@{SSD1306\_t}}
@@ -64,11 +74,11 @@ uint16\+\_\+t SSD1306\+\_\+t::\+\+CurrentY}
 
 
 
-Coordenada vertical actual del cursor de texto. 
+Coordenada vertical actual del cursor de texto en píxeles (0 a 63). 
 
 
 
-Definición en la línea \doxymbox{\hyperlink{ssd1306_8h_source_l00074}{74}} del archivo \doxymbox{\hyperlink{ssd1306_8h_source}{ssd1306.\+h}}.
+Definición en la línea \doxymbox{\hyperlink{ssd1306_8h_source_l00079}{79}} del archivo \doxymbox{\hyperlink{ssd1306_8h_source}{ssd1306.\+h}}.
 
 \Hypertarget{struct_s_s_d1306__t_a3c9d99e0bc06e4e9bde75463f17ac858}\index{SSD1306\_t@{SSD1306\_t}!DisplayOn@{DisplayOn}}
 \index{DisplayOn@{DisplayOn}!SSD1306\_t@{SSD1306\_t}}
@@ -78,11 +88,11 @@ uint8\+\_\+t SSD1306\+\_\+t::\+\+Display\+On}
 
 
 
-Estado de encendido de la matriz OLED (1: ON, 0: OFF). 
+Estado de encendido de la matriz emisora OLED (1: ON, 0: OFF). 
 
 
 
-Definición en la línea \doxymbox{\hyperlink{ssd1306_8h_source_l00076}{76}} del archivo \doxymbox{\hyperlink{ssd1306_8h_source}{ssd1306.\+h}}.
+Definición en la línea \doxymbox{\hyperlink{ssd1306_8h_source_l00081}{81}} del archivo \doxymbox{\hyperlink{ssd1306_8h_source}{ssd1306.\+h}}.
 
 \Hypertarget{struct_s_s_d1306__t_a5ced8054f4e1bd14884d253d81449cf2}\index{SSD1306\_t@{SSD1306\_t}!Initialized@{Initialized}}
 \index{Initialized@{Initialized}!SSD1306\_t@{SSD1306\_t}}
@@ -92,11 +102,11 @@ uint8\+\_\+t SSD1306\+\_\+t::\+\+Initialized}
 
 
 
-Bandera booleana de inicialización completada. 
+Bandera booleana de inicialización exitosa (1: Listo, 0: No inicializado). 
 
 
 
-Definición en la línea \doxymbox{\hyperlink{ssd1306_8h_source_l00075}{75}} del archivo \doxymbox{\hyperlink{ssd1306_8h_source}{ssd1306.\+h}}.
+Definición en la línea \doxymbox{\hyperlink{ssd1306_8h_source_l00080}{80}} del archivo \doxymbox{\hyperlink{ssd1306_8h_source}{ssd1306.\+h}}.
 
 
 

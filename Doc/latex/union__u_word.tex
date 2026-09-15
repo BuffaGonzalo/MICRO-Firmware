@@ -11,8 +11,7 @@ Unión multipropósito para conversión y serialización de tipos escalares (1, 
 
 
 
-Diagrama de colaboración de \+\_\+u\+Word:
-\nopagebreak
+Diagrama de colaboración de \+\_\+u\+Word:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -25,23 +24,28 @@ Diagrama de colaboración de \+\_\+u\+Word:
 int16\+\_\+t \doxymbox{\hyperlink{union__u_word_a7f6b4000aa5cceff13176b9a344d60de}{i16}} \+[2]
 \begin{DoxyCompactList}\small\item\em Vector de 2 enteros con signo de 16 bits. \end{DoxyCompactList}\item 
 int32\+\_\+t \doxymbox{\hyperlink{union__u_word_a41e27a3dfc8094834c7fbd628e86fb83}{i32}}
-\begin{DoxyCompactList}\small\item\em Entero con signo de 32 bits. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Entero con signo de 32 bits (4 bytes). \end{DoxyCompactList}\item 
 int8\+\_\+t \doxymbox{\hyperlink{union__u_word_a4ac7e0d16e420512bab8c55afc655aa4}{i8}} \+[4]
 \begin{DoxyCompactList}\small\item\em Vector de 4 bytes con signo. \end{DoxyCompactList}\item 
 uint16\+\_\+t \doxymbox{\hyperlink{union__u_word_a40571d41f3bd2d6370d79d506bdaa406}{ui16}} \+[2]
-\begin{DoxyCompactList}\small\item\em Vector de 2 enteros sin signo de 16 bits. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Vector de 2 enteros sin signo de 16 bits (Little-\/\+Endian / orden de bus). \end{DoxyCompactList}\item 
 uint32\+\_\+t \doxymbox{\hyperlink{union__u_word_a5177bfbdc95ef07519ced77ff10f353e}{ui32}}
-\begin{DoxyCompactList}\small\item\em Entero sin signo de 32 bits. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Entero sin signo de 32 bits (4 bytes). \end{DoxyCompactList}\item 
 uint8\+\_\+t \doxymbox{\hyperlink{union__u_word_ac867bc4c2ef656f7689b9e75cf9846a2}{ui8}} \+[4]
-\begin{DoxyCompactList}\small\item\em Vector de 4 bytes sin signo. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Vector de 4 bytes sin signo directos. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsubsection{Descripción detallada}
 Unión multipropósito para conversión y serialización de tipos escalares (1, 2 y 4 bytes). 
 
-Facilita la descomposición de enteros de 16 y 32 bits a secuencias de bytes para su transmisión directa en la carga útil de la trama binaria. 
+Facilita la descomposición de enteros de 16 y 32 bits a secuencias de bytes para su transmisión directa en la carga útil de la trama binaria sin recurrir a casting inseguro. \begin{DoxySeeAlso}{Ver también}
+\doxylink{struct__s_comm}{\+\_\+s\+Comm} 
 
-Definición en la línea \doxymbox{\hyperlink{uner_prtcl_8h_source_l00032}{32}} del archivo \doxymbox{\hyperlink{uner_prtcl_8h_source}{uner\+Prtcl.\+h}}.
+\doxylink{util_8h_a914da92242d04381391fee2bb1c936df}{\+\_\+e\+Cmd} 
+\end{DoxySeeAlso}
+
+
+Definición en la línea \doxymbox{\hyperlink{uner_prtcl_8h_source_l00034}{34}} del archivo \doxymbox{\hyperlink{uner_prtcl_8h_source}{uner\+Prtcl.\+h}}.
 
 
 
@@ -60,11 +64,11 @@ Vector de 2 enteros con signo de 16 bits.
 
 
 
-Definición en la línea \doxymbox{\hyperlink{uner_prtcl_8h_source_l00036}{36}} del archivo \doxymbox{\hyperlink{uner_prtcl_8h_source}{uner\+Prtcl.\+h}}.
+Definición en la línea \doxymbox{\hyperlink{uner_prtcl_8h_source_l00038}{38}} del archivo \doxymbox{\hyperlink{uner_prtcl_8h_source}{uner\+Prtcl.\+h}}.
 
 
 
-Referenciado por \doxymbox{\hyperlink{main_8c_source_l00890}{decode\+Command()}}.
+Referenciado por \doxymbox{\hyperlink{main_8c_source_l00954}{decode\+Command()}}.
 
 \Hypertarget{union__u_word_a41e27a3dfc8094834c7fbd628e86fb83}\index{\_uWord@{\_uWord}!i32@{i32}}
 \index{i32@{i32}!\_uWord@{\_uWord}}
@@ -74,11 +78,11 @@ int32\+\_\+t \+\_\+u\+Word::\+i32}
 
 
 
-Entero con signo de 32 bits. 
+Entero con signo de 32 bits (4 bytes). 
 
 
 
-Definición en la línea \doxymbox{\hyperlink{uner_prtcl_8h_source_l00034}{34}} del archivo \doxymbox{\hyperlink{uner_prtcl_8h_source}{uner\+Prtcl.\+h}}.
+Definición en la línea \doxymbox{\hyperlink{uner_prtcl_8h_source_l00036}{36}} del archivo \doxymbox{\hyperlink{uner_prtcl_8h_source}{uner\+Prtcl.\+h}}.
 
 \Hypertarget{union__u_word_a4ac7e0d16e420512bab8c55afc655aa4}\index{\_uWord@{\_uWord}!i8@{i8}}
 \index{i8@{i8}!\_uWord@{\_uWord}}
@@ -92,11 +96,11 @@ Vector de 4 bytes con signo.
 
 
 
-Definición en la línea \doxymbox{\hyperlink{uner_prtcl_8h_source_l00038}{38}} del archivo \doxymbox{\hyperlink{uner_prtcl_8h_source}{uner\+Prtcl.\+h}}.
+Definición en la línea \doxymbox{\hyperlink{uner_prtcl_8h_source_l00040}{40}} del archivo \doxymbox{\hyperlink{uner_prtcl_8h_source}{uner\+Prtcl.\+h}}.
 
 
 
-Referenciado por \doxymbox{\hyperlink{main_8c_source_l00890}{decode\+Command()}}.
+Referenciado por \doxymbox{\hyperlink{main_8c_source_l00954}{decode\+Command()}}.
 
 \Hypertarget{union__u_word_a40571d41f3bd2d6370d79d506bdaa406}\index{\_uWord@{\_uWord}!ui16@{ui16}}
 \index{ui16@{ui16}!\_uWord@{\_uWord}}
@@ -106,15 +110,15 @@ uint16\+\_\+t \+\_\+u\+Word::\+ui16\+[2]}
 
 
 
-Vector de 2 enteros sin signo de 16 bits. 
+Vector de 2 enteros sin signo de 16 bits (Little-\/\+Endian / orden de bus). 
 
 
 
-Definición en la línea \doxymbox{\hyperlink{uner_prtcl_8h_source_l00035}{35}} del archivo \doxymbox{\hyperlink{uner_prtcl_8h_source}{uner\+Prtcl.\+h}}.
+Definición en la línea \doxymbox{\hyperlink{uner_prtcl_8h_source_l00037}{37}} del archivo \doxymbox{\hyperlink{uner_prtcl_8h_source}{uner\+Prtcl.\+h}}.
 
 
 
-Referenciado por \doxymbox{\hyperlink{main_8c_source_l00890}{decode\+Command()}}.
+Referenciado por \doxymbox{\hyperlink{main_8c_source_l00954}{decode\+Command()}}.
 
 \Hypertarget{union__u_word_a5177bfbdc95ef07519ced77ff10f353e}\index{\_uWord@{\_uWord}!ui32@{ui32}}
 \index{ui32@{ui32}!\_uWord@{\_uWord}}
@@ -124,11 +128,11 @@ uint32\+\_\+t \+\_\+u\+Word::\+ui32}
 
 
 
-Entero sin signo de 32 bits. 
+Entero sin signo de 32 bits (4 bytes). 
 
 
 
-Definición en la línea \doxymbox{\hyperlink{uner_prtcl_8h_source_l00033}{33}} del archivo \doxymbox{\hyperlink{uner_prtcl_8h_source}{uner\+Prtcl.\+h}}.
+Definición en la línea \doxymbox{\hyperlink{uner_prtcl_8h_source_l00035}{35}} del archivo \doxymbox{\hyperlink{uner_prtcl_8h_source}{uner\+Prtcl.\+h}}.
 
 \Hypertarget{union__u_word_ac867bc4c2ef656f7689b9e75cf9846a2}\index{\_uWord@{\_uWord}!ui8@{ui8}}
 \index{ui8@{ui8}!\_uWord@{\_uWord}}
@@ -138,15 +142,15 @@ uint8\+\_\+t \+\_\+u\+Word::\+ui8\+[4]}
 
 
 
-Vector de 4 bytes sin signo. 
+Vector de 4 bytes sin signo directos. 
 
 
 
-Definición en la línea \doxymbox{\hyperlink{uner_prtcl_8h_source_l00037}{37}} del archivo \doxymbox{\hyperlink{uner_prtcl_8h_source}{uner\+Prtcl.\+h}}.
+Definición en la línea \doxymbox{\hyperlink{uner_prtcl_8h_source_l00039}{39}} del archivo \doxymbox{\hyperlink{uner_prtcl_8h_source}{uner\+Prtcl.\+h}}.
 
 
 
-Referenciado por \doxymbox{\hyperlink{main_8c_source_l00890}{decode\+Command()}}.
+Referenciado por \doxymbox{\hyperlink{main_8c_source_l00954}{decode\+Command()}}.
 
 
 

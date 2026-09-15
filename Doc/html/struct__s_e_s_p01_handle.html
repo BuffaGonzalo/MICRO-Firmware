@@ -34,7 +34,7 @@ MathJax.Hub.Config({
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">MICRO-Firmware<span id="projectnumber">&#160;EX100923v01</span>
+   <div id="projectname">MICRO-Firmware
    </div>
    <div id="projectbrief">Firmware de Péndulo Invertido Autónomo de Dos Ruedas (STM32F103C8T6 - ARM Cortex-M3)</div>
   </td>
@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('struct__s_e_s_
 </div><!--header-->
 <div class="contents">
 
-<p>Estructura de funciones de bajo nivel requeridas por el driver ESP01.  
+<p>Estructura de funciones de bajo nivel requeridas por el driver ESP01 para abstracción de hardware.  
  <a href="#details">Más...</a></p>
 
 <p><code>#include &quot;<a class="el" href="esp01_8h_source.html">esp01.h</a>&quot;</code></p>
@@ -136,17 +136,21 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('struct__s_e_s_
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Campos de datos</h2></td></tr>
 <tr class="memitem:a1047c3fc5c7cfebeaef2a3888bb9b856" id="r_a1047c3fc5c7cfebeaef2a3888bb9b856"><td class="memItemLeft">void(*)&#160;</td><td class="memItemRight"><a class="el" href="#a1047c3fc5c7cfebeaef2a3888bb9b856">DoCHPD</a> (uint8_t value)</td></tr>
-<tr class="memdesc:a1047c3fc5c7cfebeaef2a3888bb9b856"><td class="mdescLeft">&#160;</td><td class="mdescRight">Puntero a función que comanda el pin CH_PD (Chip Enable).  <br /></td></tr>
+<tr class="memdesc:a1047c3fc5c7cfebeaef2a3888bb9b856"><td class="mdescLeft">&#160;</td><td class="mdescRight">Puntero a función que comanda el pin CH_PD (1: Habilitar, 0: Reset/Apagar).  <br /></td></tr>
 <tr class="memitem:a5d3ef9ee2008bd883bd16a22e14b4949" id="r_a5d3ef9ee2008bd883bd16a22e14b4949"><td class="memItemLeft">void(*)&#160;</td><td class="memItemRight"><a class="el" href="#a5d3ef9ee2008bd883bd16a22e14b4949">WriteByteToBufRX</a> (uint8_t value)</td></tr>
 <tr class="memdesc:a5d3ef9ee2008bd883bd16a22e14b4949"><td class="mdescLeft">&#160;</td><td class="mdescRight">Puntero a función que almacena un byte entrante en el buffer de la aplicación.  <br /></td></tr>
 <tr class="memitem:a059bcc5945a3e9693f6c6a471d47bc80" id="r_a059bcc5945a3e9693f6c6a471d47bc80"><td class="memItemLeft">int(*)&#160;</td><td class="memItemRight"><a class="el" href="#a059bcc5945a3e9693f6c6a471d47bc80">WriteUSARTByte</a> (uint8_t value)</td></tr>
 <tr class="memdesc:a059bcc5945a3e9693f6c6a471d47bc80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Puntero a función que escribe un byte en la USART (retorna 1 si tuvo éxito).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Descripción detallada</h2>
-<div class="textblock"><p>Estructura de funciones de bajo nivel requeridas por el driver ESP01. </p>
-<p>Permite la abstracción del hardware para que el driver controle el pin de habilitación del módulo y realice la lectura/escritura en la USART asignada. </p>
+<div class="textblock"><p>Estructura de funciones de bajo nivel requeridas por el driver ESP01 para abstracción de hardware. </p>
+<p>Permite la desacoplación completa de la capa HAL del microcontrolador. </p><dl class="section see"><dt>Ver también</dt><dd><a class="el" href="stm32f1xx__it_8h.html#a7139cd4baabbbcbab0c1fe6d7d4ae1cc" title="ISR del puerto USART1: Recepción de bytes serie desde el módulo Wi-Fi ESP-01 (115200 bps).">USART1_IRQHandler</a> </dd>
+<dd>
+<a class="el" href="esp01_8h.html#a96572d45c42130b3ede565dd9eb63ac4" title="Inicializa las estructuras internas y timers del driver ESP01.">ESP01_Init</a> </dd>
+<dd>
+<a class="el" href="esp01_8h.html#aa4745589acec5f8d6a97a414810dc8c1" title="Inyecta un byte recibido por interrupción USART en el buffer del driver.">ESP01_WriteRX</a> </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="esp01_8h_source.html#l00051">51</a> del archivo <a class="el" href="esp01_8h_source.html">esp01.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="esp01_8h_source.html#l00059">59</a> del archivo <a class="el" href="esp01_8h_source.html">esp01.h</a>.</p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Documentación de campos</h2>
 <a id="a1047c3fc5c7cfebeaef2a3888bb9b856" name="a1047c3fc5c7cfebeaef2a3888bb9b856"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1047c3fc5c7cfebeaef2a3888bb9b856">&#9670;&#160;</a></span>DoCHPD</h2>
@@ -160,11 +164,11 @@ Campos de datos</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Puntero a función que comanda el pin CH_PD (Chip Enable). </p>
+<p>Puntero a función que comanda el pin CH_PD (1: Habilitar, 0: Reset/Apagar). </p>
 
-<p class="definition">Definición en la línea <a class="el" href="esp01_8h_source.html#l00052">52</a> del archivo <a class="el" href="esp01_8h_source.html">esp01.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="esp01_8h_source.html#l00060">60</a> del archivo <a class="el" href="esp01_8h_source.html">esp01.h</a>.</p>
 
-<p class="reference">Referenciado por <a class="el" href="esp01_8c_source.html#l00744">ESP01DOConnection()</a> y <a class="el" href="main_8c_source.html#l03056">main()</a>.</p>
+<p class="reference">Referenciado por <a class="el" href="esp01_8c_source.html#l00824">ESP01DOConnection()</a> y <a class="el" href="main_8c_source.html#l03696">main()</a>.</p>
 
 </div>
 </div>
@@ -182,9 +186,9 @@ Campos de datos</h2></td></tr>
 
 <p>Puntero a función que almacena un byte entrante en el buffer de la aplicación. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="esp01_8h_source.html#l00054">54</a> del archivo <a class="el" href="esp01_8h_source.html">esp01.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="esp01_8h_source.html#l00062">62</a> del archivo <a class="el" href="esp01_8h_source.html">esp01.h</a>.</p>
 
-<p class="reference">Referenciado por <a class="el" href="esp01_8c_source.html#l00443">ESP01ATDecode()</a> y <a class="el" href="main_8c_source.html#l03056">main()</a>.</p>
+<p class="reference">Referenciado por <a class="el" href="esp01_8c_source.html#l00525">ESP01ATDecode()</a> y <a class="el" href="main_8c_source.html#l03696">main()</a>.</p>
 
 </div>
 </div>
@@ -202,9 +206,9 @@ Campos de datos</h2></td></tr>
 
 <p>Puntero a función que escribe un byte en la USART (retorna 1 si tuvo éxito). </p>
 
-<p class="definition">Definición en la línea <a class="el" href="esp01_8h_source.html#l00053">53</a> del archivo <a class="el" href="esp01_8h_source.html">esp01.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="esp01_8h_source.html#l00061">61</a> del archivo <a class="el" href="esp01_8h_source.html">esp01.h</a>.</p>
 
-<p class="reference">Referenciado por <a class="el" href="esp01_8c_source.html#l00270">ESP01_CloseUDPTCP()</a>, <a class="el" href="esp01_8c_source.html#l00314">ESP01_Send()</a>, <a class="el" href="esp01_8c_source.html#l00243">ESP01_StartTCP()</a>, <a class="el" href="esp01_8c_source.html#l00217">ESP01_StartUDP()</a>, <a class="el" href="esp01_8c_source.html#l00295">ESP01_StateUDPTCP()</a>, <a class="el" href="esp01_8c_source.html#l00277">ESP01_StateWIFI()</a>, <a class="el" href="esp01_8c_source.html#l01018">ESP01SENDData()</a> y <a class="el" href="main_8c_source.html#l03056">main()</a>.</p>
+<p class="reference">Referenciado por <a class="el" href="esp01_8c_source.html#l00296">ESP01_CloseUDPTCP()</a>, <a class="el" href="esp01_8c_source.html#l00358">ESP01_Send()</a>, <a class="el" href="esp01_8c_source.html#l00257">ESP01_StartTCP()</a>, <a class="el" href="esp01_8c_source.html#l00223">ESP01_StartUDP()</a>, <a class="el" href="esp01_8c_source.html#l00321">ESP01_StateUDPTCP()</a>, <a class="el" href="esp01_8c_source.html#l00303">ESP01_StateWIFI()</a>, <a class="el" href="esp01_8c_source.html#l01119">ESP01SENDData()</a> y <a class="el" href="main_8c_source.html#l03696">main()</a>.</p>
 
 </div>
 </div>

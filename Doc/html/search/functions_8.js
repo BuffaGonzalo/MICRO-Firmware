@@ -425,6 +425,5 @@ var searchData=
   ['hal_5fuartex_5frxeventcallback_422',['HAL_UARTEx_RxEventCallback',['../group___u_a_r_t___exported___functions___group2.html#gac44d95ed4163a10ff44353100c81368d',1,'stm32f1xx_hal_uart.c']]],
   ['handlemodescreentransition_423',['HandleModeScreenTransition',['../group__group__control.html#ga392b7d5c226c5d8393b4df5c5f835fd1',1,'main.c']]],
   ['hardfault_5fhandler_424',['HardFault_Handler',['../stm32f1xx__it_8h.html#a2bffc10d5bd4106753b7c30e86903bea',1,'HardFault_Handler(void):&#160;stm32f1xx_it.c'],['../stm32f1xx__it_8c.html#a2bffc10d5bd4106753b7c30e86903bea',1,'HardFault_Handler(void):&#160;stm32f1xx_it.c']]],
-  ['heartbeattask_425',['heartBeatTask',['../group__group__main.html#gad529a04bd298cf0801e0052c5da907c7',1,'main.c']]],
-  ['httptask_426',['httpTask',['../main_8c.html#a51c09d8b054b8124185bda3fe89d4dc9',1,'main.c']]]
+  ['heartbeattask_425',['heartBeatTask',['../group__group__main.html#gad529a04bd298cf0801e0052c5da907c7',1,'main.c']]]
 ];

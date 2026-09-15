@@ -1,0 +1,761 @@
+@startuml inline_umlgraph_1.svg
+title Máquina de Estados: Driver Wi-Fi ESP-01 (ESP01_Task)
+[*] --> ESP01_NOT_INIT : Reset Hardware CH_PD
+ESP01_NOT_INIT --> ESP01_WIFI_DISCONNECTED : Responde AT (OK)
+ESP01_WIFI_DISCONNECTED --> ESP01_WIFI_CONNECTING_WIFI : ESP01_SetWIFI(ssid, pass)
+ESP01_WIFI_CONNECTING_WIFI --> ESP01_WIFI_CONNECTED : Recibe WIFI CONNECTED
+ESP01_WIFI_CONNECTING_WIFI --> ESP01_WIFI_DISCONNECTED : Timeout / Error de clave
+ESP01_WIFI_CONNECTED --> ESP01_WIFI_NEW_IP : Recibe WIFI GOT IP
+state Sockets {
+  [*] --> ESP01_UDPTCP_DISCONNECTED
+  ESP01_UDPTCP_DISCONNECTED --> ESP01_UDPTCP_CONNECTING : ESP01_StartUDP() / TCP
+  ESP01_UDPTCP_CONNECTING --> ESP01_UDPTCP_CONNECTED : Socket Establecido (OK)
+  ESP01_UDPTCP_CONNECTED --> ESP01_UDPTCP_DISCONNECTED : AT+CIPCLOSE / Desconexión
+}
+ESP01_WIFI_NEW_IP --> Sockets
+@enduml
+@startuml inline_umlgraph_3.svg
+title Despachador de Tareas ESP-01 (ESP01_Task)
+start
+if (¿Bytes pendientes en buffer RX AT?) then (Sí)
+  :ESP01ATDecode();
+endif
+if (¿Temporizador de paso expirado (!esp01TimeoutTask)?) then (Sí)
+  :ESP01DOConnection();
+endif
+:ESP01SENDData();
+stop
+@enduml
+@startuml inline_umlgraph_5.svg
+title Secuencia de Inicialización MPU-6050 (mpu6050_Init)
+participant "STM32 (I2C Master)" as MCU
+participant "MPU-6050 (0xD0)" as IMU
+MCU -> IMU : PWR_MGMT_1 (0x6B) = 0x00 (Wake up)
+MCU -> IMU : SMPLRT_DIV (0x19) = 0x04 (200 Hz sample rate)
+MCU -> IMU : CONFIG (0x1A) = 0x02 (DLPF ~98 Hz)
+MCU -> IMU : ACCEL_CONFIG (0x1C) = 0x00 (+/- 2g)
+MCU -> IMU : GYRO_CONFIG (0x1B) = 0x00 (+/- 250 deg/s)
+@enduml
+@startuml inline_umlgraph_7.svg
+title Pipeline de Adquisición No Bloqueante I2C DMA (mpu6050_Read)
+start
+if (mpu_state == 1?) then (Estado 1: Disparo DMA)
+  :Disparar MemReadDMA(14 bytes, 0x3B);
+  :mpu_state = 2;
+  #salmon:Retornar 0 (Lectura en curso);
+elseif (Flag RxCplt == 1?) then (Datos en RAM)
+  :Limpiar flag RxCplt = 0;
+  :Recomponer Ax, Ay, Az (Big-Endian);
+  :Recomponer Gx, Gy, Gz (Big-Endian);
+  :mpu_state = 1;
+  #palegreen:Retornar 1 (Nuevos datos listos);
+else (En espera de DMA)
+  #salmon:Retornar 0 (Pendiente);
+endif
+stop
+@enduml
+@startuml inline_umlgraph_9.svg
+title Pipeline de Refresco No Bloqueante DMA OLED (ssd1306_UpdateScreenDMA)
+start
+if (¿Flag TxCplt activo O estado == 1?) then (Sí)
+  :Limpiar bandera *SSD1306_TxCplt = 0;
+  if (estado == 1) then
+    :Comando DMA: Página (0xB0 + page);
+    :estado = 2;
+  elseif (estado == 2) then
+    :Comando DMA: Columna baja (0x00 + offset);
+    :estado = 3;
+  elseif (estado == 3) then
+    :Comando DMA: Columna alta (0x10 + offset);
+    :estado = 4;
+  elseif (estado == 4) then
+    :Escribir 128 bytes por DMA de la página actual;
+    :page++;
+    :estado = 1;
+    if (¿page > 7?) then (Fin de frame)
+      :page = 0;
+      #palegreen:Retornar 1 (Frame completado);
+      stop
+    endif
+  endif
+endif
+#salmon:Retornar 0 (Transferencia en progreso);
+stop
+@enduml
+@startuml inline_umlgraph_10.svg
+title Pipeline Asíncrono de Refresco OLED (ssd1306_UpdateScreenDMA)
+start
+if (¿TxCplt activo O estado == 1?) then (Listo para siguiente paso)
+  :Limpiar *SSD1306_TxCplt = 0;
+  if (estado == 1) then
+    :WriteCommandDMA(0xB0 + page);
+    :estado = 2;
+  elseif (estado == 2) then
+    :WriteCommandDMA(0x00 + offset_low);
+    :estado = 3;
+  elseif (estado == 3) then
+    :WriteCommandDMA(0x10 + offset_up);
+    :estado = 4;
+  elseif (estado == 4) then
+    :WriteDataDMA(&SSD1306_Buffer[128 * page], 128);
+    :page++;
+    :estado = 1;
+    if (¿page > 7?) then (Barrido completo)
+      :page = 0;
+      #palegreen:Retornar 1 (Frame completado);
+      stop
+    endif
+  endif
+endif
+#salmon:Retornar 0 (Página o comando en curso);
+stop
+@enduml
+@startuml inline_umlgraph_13.svg
+title Diagrama de Estados: Decodificación unerPrtcl (unerPrtcl_DecodeHeader)
+[*] --> HEADER_U : Inicio / Reset
+HEADER_U --> HEADER_N : Byte == 'U'
+HEADER_N --> HEADER_E : Byte == 'N'
+HEADER_N --> HEADER_U : Byte != 'N'
+HEADER_E --> HEADER_R : Byte == 'E'
+HEADER_E --> HEADER_U : Byte != 'E'
+HEADER_R --> NBYTES : Byte == 'R'
+HEADER_R --> HEADER_U : Byte != 'R'
+NBYTES --> TOKEN : Guarda nBytes
+TOKEN --> PAYLOAD : Byte == ':'\n(Inicializa Chk XOR)
+TOKEN --> HEADER_U : Byte != ':'
+
+state PAYLOAD {
+  [*] --> Recibiendo : nBytes > 0
+  Recibiendo : Chk ^= Byte
+  Recibiendo --> Recibiendo : nBytes > 0
+  Recibiendo --> Validacion : nBytes == 0
+  Validacion : ¿Byte == Chk?
+}
+
+Validacion --> HEADER_U : Checksum OK (retorna TRUE)
+Validacion --> HEADER_U : Checksum Error (retorna FALSE)
+@enduml
+@startuml inline_umlgraph_14.svg
+title Proceso de Decodificación de Trama unerPrtcl (unerPrtcl_DecodeHeader)
+start
+:Obtener índice de escritura actual auxIndex = dataRx->indexW;
+while (¿Hay bytes por procesar? (indexR != auxIndex)) is (Sí)
+  :Leer byte de entrada dataRx->buff[indexR];
+  :Evaluar estado del protocolo (dataRx->header);
+  :Procesar transición de cabecera ('U' -> 'N' -> 'E' -> 'R' -> ':');
+  :Calcular Checksum XOR acumulado sobre payload;
+  :Avanzar indexR;
+endwhile (Buffer vacío)
+if (¿Checksum coincide y payload completo?) then (Sí)
+  #palegreen:Retornar TRUE (1);
+else (No)
+  #salmon:Retornar FALSE (0);
+endif
+stop
+@enduml
+@startuml inline_umlgraph_17.svg
+title Máquina de Estados: Animación WireGFX (WIREGFX_DisplayTask)
+[*] --> Cubo : Reset / Inicio
+state Cubo : Renderiza WIREGFX_Graphics_DrawCube()
+state Teseracto : Renderiza WIREGFX_Graphics_DrawTesseract()
+state Piramide : Renderiza WIREGFX_Graphics_DrawPyramid()
+
+Cubo --> Teseracto : DeltaTick >= 10000 ms
+Teseracto --> Piramide : DeltaTick >= 10000 ms
+Piramide --> Cubo : DeltaTick >= 10000 ms
+@enduml
+@startuml inline_umlgraph_19.svg
+title Pipeline Gráfico 3D (WIREGFX_Graphics_DrawCube)
+start
+:Leer vértices locales cube_vertices[8];
+:Consultar sin_x, cos_x, sin_y, cos_y, sin_z, cos_z de sin_LUT[];
+:Borrar pantalla ssd1306_Fill(Black);
+while (i < 8) is (Vértice pendiente)
+  :Rotar en X: y' = (y*cos - z*sin) >> 7, z' = (y*sin + z*cos) >> 7;
+  :Rotar en Y: x' = (x*cos + z*sin) >> 7, z' = (-x*sin + z*cos) >> 7;
+  :Rotar en Z: x' = (x*cos - y*sin) >> 7, y' = (x*sin + y*cos) >> 7;
+  :Proyectar a pantalla: projected[i].x = x + 64, projected[i].y = y + 32;
+  :i++;
+endwhile
+while (k < 12) is (Arista pendiente)
+  :Dibujar línea ssd1306_Line(projected[a], projected[b], White);
+  :k++;
+endwhile
+:Incrementar ángulos de rotación;
+stop
+@enduml
+@startuml inline_umlgraph_21.svg
+title Máquina de Estados: Driver Wi-Fi ESP-01 (ESP01_Task)
+[*] --> ESP01_NOT_INIT : Reset Hardware CH_PD
+ESP01_NOT_INIT --> ESP01_WIFI_DISCONNECTED : Responde AT (OK)
+ESP01_WIFI_DISCONNECTED --> ESP01_WIFI_CONNECTING_WIFI : ESP01_SetWIFI(ssid, pass)
+ESP01_WIFI_CONNECTING_WIFI --> ESP01_WIFI_CONNECTED : Recibe WIFI CONNECTED
+ESP01_WIFI_CONNECTING_WIFI --> ESP01_WIFI_DISCONNECTED : Timeout / Error de clave
+ESP01_WIFI_CONNECTED --> ESP01_WIFI_NEW_IP : Recibe WIFI GOT IP
+state Sockets {
+  [*] --> ESP01_UDPTCP_DISCONNECTED
+  ESP01_UDPTCP_DISCONNECTED --> ESP01_UDPTCP_CONNECTING : ESP01_StartUDP() / TCP
+  ESP01_UDPTCP_CONNECTING --> ESP01_UDPTCP_CONNECTED : Socket Establecido (OK)
+  ESP01_UDPTCP_CONNECTED --> ESP01_UDPTCP_DISCONNECTED : AT+CIPCLOSE / Desconexión
+}
+ESP01_WIFI_NEW_IP --> Sockets
+@enduml
+@startuml inline_umlgraph_23.svg
+title Despachador de Tareas ESP-01 (ESP01_Task)
+start
+if (¿Bytes pendientes en buffer RX AT?) then (Sí)
+  :ESP01ATDecode();
+endif
+if (¿Temporizador de paso expirado (!esp01TimeoutTask)?) then (Sí)
+  :ESP01DOConnection();
+endif
+:ESP01SENDData();
+stop
+@enduml
+@startuml inline_umlgraph_25.svg
+title Máquina de Estados Finita: Modos del Robot (SetRobotMode)
+[*] --> STATE_STANDBY : Inicio en frío
+
+state STATE_STANDBY : PWM apagado (0%)\nSistema en espera segura
+state STATE_SWING : Balanceo estático en el lugar\nDisplay OLED apagado
+state STATE_LINE_FOLLOWING : Seguidor de línea por IR\nControl proporcional Kp_line
+state STATE_DODGE : Evasión de obstáculos\nGiro 90° con gyro y seguimiento pared PD
+state STATE_JOYSTICK : Control remoto interactivo UDP\nWatchdog de seguridad activo
+state STATE_3D_SCREEN : Gemelo digital wireframe OLED\nBalanceo activo
+state STATE_FIRST_SCREEN : Diagnóstico RAW de sensores\nMotores desenergizados
+state STATE_SECOND_SCREEN : Brújula de orientación y estado dinámico\nMotores desenergizados
+
+STATE_STANDBY --> STATE_SWING : 1 Clic SW0 / Comando
+STATE_STANDBY --> STATE_LINE_FOLLOWING : 2 Clics SW0 / Comando
+STATE_STANDBY --> STATE_DODGE : 3 Clics SW0 / Comando
+STATE_STANDBY --> STATE_JOYSTICK : 4 Clics SW0 / Comando
+STATE_STANDBY --> STATE_3D_SCREEN : 5 Clics SW0 / Comando
+STATE_STANDBY --> STATE_FIRST_SCREEN : Pulsación 1s / Comando
+STATE_STANDBY --> STATE_SECOND_SCREEN : Pulsación 2s / Comando
+
+STATE_SWING --> STATE_STANDBY : Caída / Clic SW0
+STATE_LINE_FOLLOWING --> STATE_STANDBY : Caída / Clic SW0
+STATE_DODGE --> STATE_STANDBY : Caída / Clic SW0
+STATE_JOYSTICK --> STATE_STANDBY : Watchdog timeout / Clic SW0
+STATE_3D_SCREEN --> STATE_STANDBY : Caída / Clic SW0
+STATE_FIRST_SCREEN --> STATE_STANDBY : Clic SW0
+STATE_SECOND_SCREEN --> STATE_STANDBY : Clic SW0
+@enduml
+@startuml inline_umlgraph_27.svg
+title Secuencia de Inicialización MPU-6050 (mpu6050_Init)
+participant "STM32 (I2C Master)" as MCU
+participant "MPU-6050 (0xD0)" as IMU
+MCU -> IMU : PWR_MGMT_1 (0x6B) = 0x00 (Wake up)
+MCU -> IMU : SMPLRT_DIV (0x19) = 0x04 (200 Hz sample rate)
+MCU -> IMU : CONFIG (0x1A) = 0x02 (DLPF ~98 Hz)
+MCU -> IMU : ACCEL_CONFIG (0x1C) = 0x00 (+/- 2g)
+MCU -> IMU : GYRO_CONFIG (0x1B) = 0x00 (+/- 250 deg/s)
+@enduml
+@startuml inline_umlgraph_29.svg
+title Pipeline de Adquisición No Bloqueante I2C DMA (mpu6050_Read)
+start
+if (mpu_state == 1?) then (Estado 1: Disparo DMA)
+  :Disparar MemReadDMA(14 bytes, 0x3B);
+  :mpu_state = 2;
+  #salmon:Retornar 0 (Lectura en curso);
+elseif (Flag RxCplt == 1?) then (Datos en RAM)
+  :Limpiar flag RxCplt = 0;
+  :Recomponer Ax, Ay, Az (Big-Endian);
+  :Recomponer Gx, Gy, Gz (Big-Endian);
+  :mpu_state = 1;
+  #palegreen:Retornar 1 (Nuevos datos listos);
+else (En espera de DMA)
+  #salmon:Retornar 0 (Pendiente);
+endif
+stop
+@enduml
+@startuml inline_umlgraph_31.svg
+title Pipeline Asíncrono de Refresco OLED (ssd1306_UpdateScreenDMA)
+start
+if (¿TxCplt activo O estado == 1?) then (Listo para siguiente paso)
+  :Limpiar *SSD1306_TxCplt = 0;
+  if (estado == 1) then
+    :WriteCommandDMA(0xB0 + page);
+    :estado = 2;
+  elseif (estado == 2) then
+    :WriteCommandDMA(0x00 + offset_low);
+    :estado = 3;
+  elseif (estado == 3) then
+    :WriteCommandDMA(0x10 + offset_up);
+    :estado = 4;
+  elseif (estado == 4) then
+    :WriteDataDMA(&SSD1306_Buffer[128 * page], 128);
+    :page++;
+    :estado = 1;
+    if (¿page > 7?) then (Barrido completo)
+      :page = 0;
+      #palegreen:Retornar 1 (Frame completado);
+      stop
+    endif
+  endif
+endif
+#salmon:Retornar 0 (Página o comando en curso);
+stop
+@enduml
+@startuml inline_umlgraph_32.svg
+title Pipeline de Refresco No Bloqueante DMA OLED (ssd1306_UpdateScreenDMA)
+start
+if (¿Flag TxCplt activo O estado == 1?) then (Sí)
+  :Limpiar bandera *SSD1306_TxCplt = 0;
+  if (estado == 1) then
+    :Comando DMA: Página (0xB0 + page);
+    :estado = 2;
+  elseif (estado == 2) then
+    :Comando DMA: Columna baja (0x00 + offset);
+    :estado = 3;
+  elseif (estado == 3) then
+    :Comando DMA: Columna alta (0x10 + offset);
+    :estado = 4;
+  elseif (estado == 4) then
+    :Escribir 128 bytes por DMA de la página actual;
+    :page++;
+    :estado = 1;
+    if (¿page > 7?) then (Fin de frame)
+      :page = 0;
+      #palegreen:Retornar 1 (Frame completado);
+      stop
+    endif
+  endif
+endif
+#salmon:Retornar 0 (Transferencia en progreso);
+stop
+@enduml
+@startuml inline_umlgraph_35.svg
+title Proceso de Decodificación de Trama unerPrtcl (unerPrtcl_DecodeHeader)
+start
+:Obtener índice de escritura actual auxIndex = dataRx->indexW;
+while (¿Hay bytes por procesar? (indexR != auxIndex)) is (Sí)
+  :Leer byte de entrada dataRx->buff[indexR];
+  :Evaluar estado del protocolo (dataRx->header);
+  :Procesar transición de cabecera ('U' -> 'N' -> 'E' -> 'R' -> ':');
+  :Calcular Checksum XOR acumulado sobre payload;
+  :Avanzar indexR;
+endwhile (Buffer vacío)
+if (¿Checksum coincide y payload completo?) then (Sí)
+  #palegreen:Retornar TRUE (1);
+else (No)
+  #salmon:Retornar FALSE (0);
+endif
+stop
+@enduml
+@startuml inline_umlgraph_36.svg
+title Diagrama de Estados: Decodificación unerPrtcl (unerPrtcl_DecodeHeader)
+[*] --> HEADER_U : Inicio / Reset
+HEADER_U --> HEADER_N : Byte == 'U'
+HEADER_N --> HEADER_E : Byte == 'N'
+HEADER_N --> HEADER_U : Byte != 'N'
+HEADER_E --> HEADER_R : Byte == 'E'
+HEADER_E --> HEADER_U : Byte != 'E'
+HEADER_R --> NBYTES : Byte == 'R'
+HEADER_R --> HEADER_U : Byte != 'R'
+NBYTES --> TOKEN : Guarda nBytes
+TOKEN --> PAYLOAD : Byte == ':'\n(Inicializa Chk XOR)
+TOKEN --> HEADER_U : Byte != ':'
+
+state PAYLOAD {
+  [*] --> Recibiendo : nBytes > 0
+  Recibiendo : Chk ^= Byte
+  Recibiendo --> Recibiendo : nBytes > 0
+  Recibiendo --> Validacion : nBytes == 0
+  Validacion : ¿Byte == Chk?
+}
+
+Validacion --> HEADER_U : Checksum OK (retorna TRUE)
+Validacion --> HEADER_U : Checksum Error (retorna FALSE)
+@enduml
+@startuml inline_umlgraph_39.svg
+title Máquina de Estados: Animación WireGFX (WIREGFX_DisplayTask)
+[*] --> Cubo : Reset / Inicio
+state Cubo : Renderiza WIREGFX_Graphics_DrawCube()
+state Teseracto : Renderiza WIREGFX_Graphics_DrawTesseract()
+state Piramide : Renderiza WIREGFX_Graphics_DrawPyramid()
+
+Cubo --> Teseracto : DeltaTick >= 10000 ms
+Teseracto --> Piramide : DeltaTick >= 10000 ms
+Piramide --> Cubo : DeltaTick >= 10000 ms
+@enduml
+@startuml inline_umlgraph_41.svg
+title Pipeline Gráfico 3D (WIREGFX_Graphics_DrawCube)
+start
+:Leer vértices locales cube_vertices[8];
+:Consultar sin_x, cos_x, sin_y, cos_y, sin_z, cos_z de sin_LUT[];
+:Borrar pantalla ssd1306_Fill(Black);
+while (i < 8) is (Vértice pendiente)
+  :Rotar en X: y' = (y*cos - z*sin) >> 7, z' = (y*sin + z*cos) >> 7;
+  :Rotar en Y: x' = (x*cos + z*sin) >> 7, z' = (-x*sin + z*cos) >> 7;
+  :Rotar en Z: x' = (x*cos - y*sin) >> 7, y' = (x*sin + y*cos) >> 7;
+  :Proyectar a pantalla: projected[i].x = x + 64, projected[i].y = y + 32;
+  :i++;
+endwhile
+while (k < 12) is (Arista pendiente)
+  :Dibujar línea ssd1306_Line(projected[a], projected[b], White);
+  :k++;
+endwhile
+:Incrementar ángulos de rotación;
+stop
+@enduml
+@startuml inline_umlgraph_43.svg
+title MEF Antirrebote de Botón (updateMefTask)
+[*] --> BUTTON_UP
+BUTTON_UP --> BUTTON_FALLING : stateInput == PRESSED
+BUTTON_FALLING --> BUTTON_DOWN : stateInput == PRESSED\n(isPressed = TRUE)
+BUTTON_FALLING --> BUTTON_UP : stateInput != PRESSED (Rebote)
+BUTTON_DOWN --> BUTTON_RISING : stateInput == NOT_PRESSED
+BUTTON_RISING --> BUTTON_UP : stateInput == NOT_PRESSED\n(justReleased = TRUE, retorna TRUE)
+BUTTON_RISING --> BUTTON_DOWN : stateInput != NOT_PRESSED (Rebote)
+@enduml
+@startuml inline_umlgraph_45.svg
+skinparam backgroundColor white
+skinparam arrowColor #2C3E50
+skinparam activity {
+  BackgroundColor #F4F6F7
+  BorderColor #34495E
+  FontColor #2C3E50
+}
+skinparam partition {
+  BackgroundColor #EAEDED
+  BorderColor #7F8C8D
+  FontColor #1A5276
+}
+
+start
+partition "Filtro / Sensores (Estimación de Estado)" {
+  :Lectura de ángulo de inclinación: **current_angle**\n(Estimación por Filtro Complementario IMU MPU-6050);\nLectura de consigna base de equilibrio: **setpoint**;
+}
+
+partition "Controlador de Balanceo Estático y Supervisor de Caída" {
+  :Anular esfuerzo de guiñada:\n**turn_offset = 0**;
+  :Asignación de consigna nominal:\n***target_setpoint = setpoint**;
+
+  if (¿Inclinación frontal crítica?\ncurrent_angle < -ANG15 [-15.00°]) then (Sí: Caída Delantera Inminente)
+    :Activar bandera de recuperación de emergencia:\n**forwards_recovery_active = 1**;
+  elseif (¿Retorno seguro a zona de estabilidad?\ncurrent_angle >= -ANG10 [-10.00°]) then (Sí: Histéresis de Seguridad)
+    :Desactivar bandera de recuperación:\n**forwards_recovery_active = 0**;
+  else (Banda de Histéresis [-15° a -10°])
+    :Mantener estado previo de **forwards_recovery_active**;
+  endif
+
+  if (¿forwards_recovery_active == 1?) then (Sí)
+    :Clamping de Consigna Anti-Picada:\n***target_setpoint = 0**;
+    note right: Anula la consigna inclinada hacia adelante\npara permitir que el par motor levante el chasis.
+  endif
+}
+
+partition "Actuación (PWM) y Despacho a PID" {
+  :Transferencia de consigna ***target_setpoint** y bandera de recuperación;
+  :Despacho al lazo rápido **PID_Calcular(target_setpoint)**:;
+  if (¿forwards_recovery_active == 1?) then (Bypass de Emergencia)
+    :Inyección de pulso directo hacia adelante:\n**pwm_left = +3000**, **pwm_right = +3000**\nReset acumulador: **integral = 0**, **last_error = 0**;
+  else (Lazo Normal)
+    :Cálculo PID longitudinal y modulación de PWM;
+  endif
+  :Mapeo final a registros de comparación de TIM1;
+}
+stop
+@enduml
+@startuml inline_umlgraph_47.svg
+skinparam backgroundColor white
+skinparam arrowColor #2C3E50
+skinparam activity {
+  BackgroundColor #F4F6F7
+  BorderColor #34495E
+  FontColor #2C3E50
+}
+skinparam partition {
+  BackgroundColor #EAEDED
+  BorderColor #7F8C8D
+  FontColor #1A5276
+}
+
+start
+partition "Filtro / Sensores (Adquisición y Fusión)" {
+  :Lectura de reflectancia de línea: **left_ir**, **center_ir**, **right_ir**;
+  :Lectura de proximidad frontal: **cal_ir6**;
+  :Selección de sensores de pared según **dodge_direction**:\n**sensor_90** (cal_ir0 / cal_ir2: Lateral 90°)\n**sensor_45** (cal_ir7 / cal_ir4: Diagonal 45° Anticipación)\n**sensor_front** = cal_ir6 (Protección Frontal);
+  :Filtro e integración giroscópica de guiñada:\n**gz_cal = gz - gz_offset**\n**dodge_yaw += (gz_cal * DT_US) / 131000**;
+}
+
+partition "Controlador de Evasión (MEF y Control PD Multivariable)" {
+  switch (dodgeState)
+  case (DODGE_LINE_FOLLOWING)
+    :Ejecuta **ControlSeguimiento()**;
+    :Acumula temporizador: **dodge_timer += DT_MS**;
+    if (¿cal_ir6 >= 500 && dodge_timer >= 1000?) then (Obstáculo frontal detectado)
+      :Inicializar variables de maniobra:\n**turn_offset = 0**, **dodge_timer = 0**\n**standby_next_state = DODGE_ROTATING**\n**dodgeState = DODGE_STANDBY**;
+    endif
+
+  case (DODGE_STANDBY)
+    :Frenado longitudinal en 3 etapas sin guiñada (**turn_offset = 0**):;
+    if (dodge_timer < 250 ms) then (Frenado brusco)
+      :Consigna de frenado:\n***target_setpoint = +1000** (+10.0° pitch);
+    elseif (dodge_timer < 750 ms) then (Estabilización)
+      :Consigna intermedia:\n***target_setpoint = +350** (+3.5° pitch);
+    elseif (dodge_timer < 1500 ms) then (Inclinación frontal previa)
+      :Consigna preparatoria:\n***target_setpoint = -250** (-2.5° pitch);
+    else (Fin 1.5s)
+      :Transición a **standby_next_state** (DODGE_ROTATING)\n**dodge_timer = 0**, **dodge_yaw = 0**;
+    endif
+
+  case (DODGE_ROTATING)
+    :Consigna de adherencia en giro: ***target_setpoint = +350**;
+    :Atenuación de memoria inercial: **integral = (integral * 7) / 10**;
+    if (¿abs_yaw >= 90000 milígrados [90°]?) then (Giro completado)
+      :Detener giro y pasar a seguimiento de pared:\n**turn_offset = 0**, **dodge_yaw = 0**\n**dodgeState = DODGE_WALL_FOLLOWING**;
+    else (En rotación)
+      if (¿|error_pitch| > 450 milígrados [4.5°]?) then (Prioridad de Balance)
+        :Cancelar par de giro para prevenir caída:\n**turn_offset = 0**, **integral = 0**;
+      else (Estable)
+        :Aplicar par de rotación firme:\n**turn_offset = 350 * dodge_direction**;
+      endif
+    endif
+
+  case (DODGE_WALL_FOLLOWING)
+    :Consigna de avance continuo crucero: ***target_setpoint = -1400** (-14.0°);
+    :1. Error de distancia lateral 90°:\n**error_distancia = sensor_90 - 800**;
+    :2. Error de anticipación diagonal 45°:\n**error_anticipo = sensor_45 - 800**;
+    :3. Error de protección frontal:\n**error_frontal = max(sensor_front - 500, 0)**;
+    
+    :Lazo de Control PD Multivariable:\n**u_PD = ((error_distancia * Kp_pared) + (error_anticipo * Kd_anticipo) + (error_frontal * Kd_frontal)) / 100**;
+    :Cálculo de esfuerzo de guiñada:\n**turn_offset = u_PD * dodge_direction**;
+    
+    :Limitación de esfuerzo (Clamping):\n**turn_offset = clamp(turn_offset, -500, +500)**;
+
+    if (¿t >= 4000 ms && línea despejada && línea detectada?) then (Sí)
+      :Transición de reenganche:\n***target_setpoint = +1250**, **turn_offset = 0**\n**dodgeState = DODGE_RETURN_ROTATING**;
+    endif
+
+  case (DODGE_RETURN_ROTATING)
+    :Perfil de reingreso en 3 etapas:\n1. 0..250ms: Freno ***target_setpoint = +1250**, turn_offset = 0\n2. 250..350ms: Avance ***target_setpoint = -250**, turn_offset = 0\n3. 350ms+: Rotación angular a la línea con **turn_offset** saturado;
+    if (¿Fin de tiempo de reingreso?) then (Sí)
+      :Retorno a **DODGE_LINE_FOLLOWING** (o búsqueda **LINE_LOST**);
+    endif
+  endswitch
+}
+
+partition "Actuación (PWM) y Despacho a PID" {
+  :Exportación de consignas dinámicas:\n***target_setpoint** y **turn_offset**;
+  :Despacho al lazo interno **PID_Calcular(target_setpoint)**\npara modulación y accionamiento PWM en puente H;
+}
+stop
+@enduml
+@startuml inline_umlgraph_49.svg
+skinparam backgroundColor white
+skinparam arrowColor #2C3E50
+skinparam activity {
+  BackgroundColor #F4F6F7
+  BorderColor #34495E
+  FontColor #2C3E50
+}
+skinparam partition {
+  BackgroundColor #EAEDED
+  BorderColor #7F8C8D
+  FontColor #1A5276
+}
+
+start
+partition "Filtro / Sensores (Adquisición y Normalización Óptica)" {
+  :Lectura de reflectancia analógica:\n**left_ir**, **center_ir**, **right_ir**;
+  :Binarización por umbral óptico (IR_WHITE):\n**ir1_active = (left_ir < IR_WHITE)**\n**ir3_active = (center_ir < IR_WHITE)**\n**ir5_active = (right_ir < IR_WHITE)**;
+  :Conteo de sensores sobre línea reflectiva:\n**active_count = ir1_active + ir3_active + ir5_active**;
+}
+
+partition "Controlador de Seguimiento y Guiñada No Lineal" {
+  switch (lineState)
+  case (LINE_SEARCHING)
+    :Consigna longitudinal de exploración: ***target_setpoint = attack_setpoint**;
+    if (¿Sensor central detecta línea? (ir3_active)) then (Sí)
+      :Línea enganchada: transición a **LINE_FOLLOWING**;
+    else (No)
+      :Aplicar giro de barrido:\n**turn_offset = -active_turn**;
+    endif
+
+  case (LINE_FOLLOWING)
+    if (¿Cruce ortogonal o línea transversal?\n(active_count == 3)) then (Sí: Cruce Detectado)
+      :Resolución de giro pseudoaleatorio con jitter SysTick:\n**cross_direction = ((SysTick->VAL & 1) != 0) ? 1 : -1**\n**lineState = LINE_CROSS**;
+    else (Pista Continua)
+      if (¿Pérdida temporal de línea?\n(active_count == 0)) then (Sí: Pérdida)
+        :Incrementar contador de debounce:\n**line_lost_debounce_count++**;
+        if (¿line_lost_debounce_count >= 6? [30 ms]) then (Pérdida Confirmada)
+          :Iniciar rutina de navegación a ciegas (Dead Reckoning):\n**lineState = LINE_LOST**\n**line_lost_phase = LINE_LOST_ROT_90**\n**search_direction = (last_line_error >= 0) ? -1 : 1**;
+        else (Filtro Transitorio)
+          :Mantener último error y guiñada:\n**error_linea = last_line_error**\n**turn_offset = last_turn_offset**;
+        endif
+      else (No: Línea Detectada)
+        :Resetear contador: **line_lost_debounce_count = 0**;
+        
+        :Cálculo del Error de Posición Lateral (Centroide):\n**error_linea = (((-1000 * left_ir) + (1000 * right_ir)) / sum_sensors) / 10**\n**abs_error = |error_linea|**;
+        
+        :Cálculo del Término Proporcional Lineal:\n**linear_term = (Kp_line * error_linea) / 100**;
+        
+        :Cálculo del Término Cuadrático No Lineal (Mayor autoridad en curvas):\n**quad_term = (Kq_line * error_linea * abs_error) / SCALE_LINE**;
+        
+        :Suma de Esfuerzo de Guiñada Total:\n**turn_offset = linear_term + quad_term**;
+        
+        :Saturación de Guiñada (Clamping):\n**turn_offset = clamp(turn_offset, -turn_limit, +turn_limit)**;
+        
+        :Actualizar memoria de estado:\n**last_turn_offset = turn_offset**\n**last_line_error = error_linea**;
+      endif
+    endif
+    :Consigna longitudinal de avance:\n***target_setpoint = attack_setpoint**;
+
+  case (LINE_LOST)
+    if (¿Cualquier sensor recupera línea?\n(active_count > 0)) then (Re-enganche Inmediato)
+      :Retorno instantáneo a **LINE_FOLLOWING**;
+    else (Dead Reckoning con Giroscopio)
+      :Integración giroscópica de guiñada:\n**gz_cal = gz - gz_offset**\n**line_lost_yaw += (gz_cal * DT_US) / 131000**;
+      if (line_lost_phase == LINE_LOST_ROT_90) then
+        :Rotar 90° hacia el último lado conocido con **LINE_LOST_TURN_SPEED**;
+      elseif (line_lost_phase == LINE_LOST_WAIT_2S) then
+        :Pausa estática de observación (2 segundos), **turn_offset = 0**;
+      elseif (line_lost_phase == LINE_LOST_ROT_180) then
+        :Rotar 180° en sentido opuesto con **LINE_LOST_TURN_SPEED**;
+      else (LINE_LOST_STOPPED)
+        :Frenado estático en rampa:\n***target_setpoint = -250**, **turn_offset = 0**;
+      endif
+    endif
+
+  case (LINE_CROSS)
+    :Consigna de giro erguido: ***target_setpoint = +350**;
+    if (¿Queda exactamente un sensor sobre la línea? (active_count == 1)) then (Línea Tomada)
+      :Finalizar cruce: **turn_offset = 0**, **lineState = LINE_FOLLOWING**;
+    else (En Rotación)
+      :Rotar sobre su propio eje:\n**turn_offset = cross_direction * 350**;
+    endif
+  endswitch
+}
+
+partition "Actuación (PWM) y Despacho a PID" {
+  :Exportar consignas calculadas: ***target_setpoint** y **turn_offset**;
+  :Despacho al mezclador de motores en **PID_Calcular(target_setpoint)**\npara modulación y accionamiento PWM en puente H;
+}
+stop
+@enduml
+@startuml inline_umlgraph_51.svg
+skinparam backgroundColor white
+skinparam arrowColor #2C3E50
+skinparam activity {
+  BackgroundColor #F4F6F7
+  BorderColor #34495E
+  FontColor #2C3E50
+}
+skinparam partition {
+  BackgroundColor #EAEDED
+  BorderColor #7F8C8D
+  FontColor #1A5276
+}
+
+start
+partition "Filtro / Sensores (Estimación de Estado)" {
+  :Entrada de consigna: **target_setpoint**;
+  :Lectura de ángulo de inclinación: **current_angle**\n(Estimado por Filtro Complementario IMU MPU-6050);
+  :Recuperación de estados previos:\n**last_angle**, **last_error**, **integral**;
+}
+
+partition "Controlador PID (Balance Longitudinal)" {
+  :Cálculo del Error angular:\n**error = target_setpoint - current_angle**;
+  
+  :Cálculo del Término Proporcional (P):\n**P_term = Kp_stable * error**;
+  
+  :Cálculo de derivada sobre la medición (DoM):\n**d_angle = last_angle - current_angle**\n**derivative = (d_angle * 1000000) / DT_US**;
+  :Cálculo del Término Derivativo (D):\n**D_term = Kd_stable * derivative**;
+  note right: Derivada sobre la medición (current_angle)\nen lugar del error para evitar 'Derivative Kick'\nante cambios abruptos de consigna.
+
+  if (¿Error dentro de la banda lineal de balance?\n(|error| < 150 milígrados [±1.5°])) then (Sí: Integración Activa)
+    :Integración discreta (Euler):\n**integral += (error * DT_US) / 1000**;
+    if (¿integral > 20 * ANG20?) then (Sí)
+      :Clamping Anti-Windup Superior:\n**integral = 20 * ANG20 (+40.0° equiv)**;
+    elseif (¿integral < -20 * ANG20?) then (Sí)
+      :Clamping Anti-Windup Inferior:\n**integral = -20 * ANG20 (-40.0° equiv)**;
+    else (En rango)
+      :Conservar acumulador integral;
+    endif
+  else (No: Transitorio / Perturbación Grande)
+    :Fuga / Decaimiento Exponencial (Anti-Windup Leaky):\n**integral = (integral * 8) / 10**;
+    note right: Reduce la memoria inercial un 20% por ciclo\npara impedir sobreoscilación al recuperar estabilidad.
+  endif
+  
+  :Cálculo del Término Integral (I):\n**I_term = (Ki_stable * integral) / 1000**;
+  
+  :Suma Total de Esfuerzo de Control Longitudinal:\n**output = (P_term + I_term + D_term) / 10000**;
+  
+  :Actualización de variables de memoria de estado:\n**last_error = error**\n**last_angle = current_angle**;
+}
+
+partition "Actuación (PWM) y Mezcla de Motores" {
+  if (¿Rotación pivot sobre eje propio activa?\n(is_rotating_pivot)) then (Sí)
+    if (¿Giro de 90° o 180° por pérdida de línea?) then (Sí)
+      :Cancelación algebraica de rueda interna:\n**balance_effort = max(output, 150)**\n**turn_offset = ±balance_effort**;
+      note right: La rueda interna se frena a PWM=0\nmientras la externa entrega el doble de par.
+    endif
+    :Cálculo de esfuerzos brutos rotacionales:\n**raw_L = output ± turn_offset**\n**raw_R = output ∓ turn_offset**;
+    :Compensación de zona muerta rotacional:\n**pwm_left = raw_L ± rot_min_L ± offset_left**\n**pwm_right = raw_R ± rot_min_R ± offset_right**;
+  else (No: Translación y Guiñada Diferencial)
+    :Compensación de zona muerta longitudinal:\n**base_L = output ± minPWM_Left ± offset_left**\n**base_R = output ± minPWM_Right ± offset_right**;
+    if (¿turn_offset != 0?) then (Sí: Mezcla Diferencial)
+      :Inyección diferencial de giro:\n**pwm_left = base_L - turn_offset**\n**pwm_right = base_R + turn_offset**;
+    else (No)
+      :Tracción longitudinal simétrica:\n**pwm_left = base_L**\n**pwm_right = base_R**;
+    endif
+  endif
+
+  if (¿Recuperación directa activa?\n(forwards/backwards_recovery_active)) then (Sí)
+    :Bypass de balanceo:\n**pwm_left = ±3000**, **pwm_right = ±3000**\n**integral = 0**, **last_error = 0**;
+  endif
+
+  if (¿Caída inminente o modo inactivo?\n(|current_angle| > 45.0° o calib < 150)) then (Sí)
+    :Desconexión de seguridad (Kill Switch):\n**pwm_left = 0**, **pwm_right = 0**\n**integral = 0**, **speed = 0**;
+  endif
+
+  :Saturación final de salidas (Clamping):\n**pwm_left = clamp(pwm_left, -maxPWM, +maxPWM)**\n**pwm_right = clamp(pwm_right, -maxPWM, +maxPWM)**;
+
+  :Mapeo a registros del Temporizador TIM1 (Puente H):\n**rPulse4 / lPulse3 <= pwm_left**\n**rPulse2 / lPulse1 <= pwm_right**;
+}
+stop
+@enduml
+@startuml inline_umlgraph_53.svg
+title Lazo de Control Crítico en Cascada 200 Hz (PIDTask)
+start
+if (¿Bandera RUN_PID activa (TIM2 5ms)?) then (Sí)
+  :RUN_PID = FALSE;
+else (No)
+  stop
+endif
+:Normalizar sensores de línea y distancia ADC;
+:Filtrar aceleraciones Ax, Az y velocidad Gy, Gz;
+:Calcular ángulo estimado (Filtro Complementario);
+:Acumular ángulo continuo de guiñada Yaw;
+
+partition "Control de Modo Operativo" {
+  if (robotMode == STATE_LINE_FOLLOWING) then
+    :ControlSeguimiento();
+  elseif (robotMode == STATE_DODGE) then
+    :Control_Esquivar();
+  elseif (robotMode == STATE_JOYSTICK) then
+    :Control_Joystick();
+  else
+    :Control_Balanceo();
+  endif
+}
+
+partition "Lazo PID Interno de Balance" {
+  :error = target_setpoint - current_angle;
+  :P = (error * Kp) / 100;
+  :D = ((current_angle - last_angle) * Kd) / 100;
+  :I = integral += (error * Ki);
+  :pid_balance = P + I - D;
+}
+
+partition "Lazo PI Externo y Generación PWM" {
+  :Compensar esfuerzo motor (outer speed loop);
+  :Mezclar giro: pwm_l = pid + turn_offset, pwm_r = pid - turn_offset;
+  :Compensar umbrales mínimos de fricción (deadband);
+  :Saturar a maxPWM (4095);
+  :Actualizar registros de hardware TIM1->CCR1..CCR4;
+}
+stop
+@enduml

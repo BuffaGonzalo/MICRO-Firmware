@@ -20,6 +20,17 @@ if (-not $dotCmd) {
     Write-Host "Descárguelo desde: https://graphviz.org/download/" -ForegroundColor Yellow
 }
 
+$javaCmd = Get-Command java -ErrorAction SilentlyContinue
+if (-not $javaCmd) {
+    $stJrePath = "C:\ST\STM32CubeIDE_2.1.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.jre.win64_3.4.200.202601091518\jre\bin"
+    if (Test-Path "$stJrePath\java.exe") {
+        $env:PATH = "$stJrePath;" + $env:PATH
+        Write-Host "[INFO] Entorno Java (JRE) de STM32CubeIDE configurado para PlantUML." -ForegroundColor Cyan
+    } else {
+        Write-Host "[ADVERTENCIA] 'java' no encontrado en el PATH. Diagramas PlantUML no se generarán." -ForegroundColor Yellow
+    }
+}
+
 Write-Host "[INFO] Procesando documentación con Doxyfile..." -ForegroundColor Green
 & doxygen Doxyfile
 

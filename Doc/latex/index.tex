@@ -1,8 +1,27 @@
 \doxysection{MICRO-\/\+Firmware }
 \hypertarget{index}{}\label{index}\index{MICRO-\/Firmware@{MICRO-\/Firmware}}
-\label{index_md__docs_2mainpage}%
-\Hypertarget{index_md__docs_2mainpage}%
- /\+\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}
+\label{index_md__r_e_a_d_m_e}%
+\Hypertarget{index_md__r_e_a_d_m_e}%
+
+
+Firmware para un autito de tipo péndulo invertido basado en el microcontrolador STM32\+F103 (con 64KB de FLASH y 20KB de RAM). El sistema está optimizado para cálculo en punto fijo (FPA) debido a la ausencia de FPU (unidad de punto flotante), y se encarga del control en tiempo real del autito, lectura de sensores y la comunicación con la PC.\hypertarget{index_autotoc_md1}{}\doxysubsection{\texorpdfstring{Resumen del funcionamiento}{Resumen del funcionamiento}}\label{index_autotoc_md1}
+
 \begin{DoxyItemize}
-\item 
-\end{DoxyItemize}
+\item Lee sensores (IMU y codificadores) para estimar la posición y el ángulo del autito.
+\item Realiza control en lazo cerrado mediante algoritmos implementados en punto fijo.
+\item Controla los actuadores (motor, servos, etc.) para mantener el equilibrio y la trayectoria deseada.
+\item Se comunica con una interfaz gráfica de PC para monitoreo y telemetría en tiempo real.
+\end{DoxyItemize}\hypertarget{index_autotoc_md2}{}\doxysubsection{\texorpdfstring{Componentes utilizados}{Componentes utilizados}}\label{index_autotoc_md2}
+
+\begin{DoxyItemize}
+\item {\bfseries{Microcontrolador:}} STM32\+F103\+C8\+T6 (Cortex-\/\+M3, 64KB FLASH, 20KB RAM)
+\item {\bfseries{Sensores:}} IMU (Inertial Measurement Unit -\/ acelerómetro y giroscopio), codificadores ópticos para ruedas
+\item {\bfseries{Actuadores:}} Motor DC, servo o sistema de dirección, controlador de potencia
+\item {\bfseries{Comunicación:}} UART serial para vinculación con PC
+\end{DoxyItemize}\hypertarget{index_autotoc_md3}{}\doxysubsection{\texorpdfstring{Interfaz gráfica complementaria}{Interfaz gráfica complementaria}}\label{index_autotoc_md3}
+Para el monitoreo y control desde PC, este firmware se complementa con el proyecto \href{https://github.com/BuffaGonzalo/MICRO-Software}{\texttt{MICRO-\/\+Software}}, que provee la interfaz gráfica de usuario para visualización y ajuste remoto de parámetros.
+
+\DoxyHorRuler{0}
+
+
+Desarrollado por Buffa\+Gonzalo. 

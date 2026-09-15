@@ -2,7 +2,7 @@
 \hypertarget{struct__s_e_s_p01_handle}{}\label{struct__s_e_s_p01_handle}\index{\_sESP01Handle@{\_sESP01Handle}}
 
 
-Estructura de funciones de bajo nivel requeridas por el driver ESP01.  
+Estructura de funciones de bajo nivel requeridas por el driver ESP01 para abstracción de hardware.  
 
 
 
@@ -11,8 +11,7 @@ Estructura de funciones de bajo nivel requeridas por el driver ESP01.
 
 
 
-Diagrama de colaboración de \+\_\+s\+ESP01\+Handle:
-\nopagebreak
+Diagrama de colaboración de \+\_\+s\+ESP01\+Handle:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -23,7 +22,7 @@ Diagrama de colaboración de \+\_\+s\+ESP01\+Handle:
 \begin{DoxyCompactItemize}
 \item 
 void(\texorpdfstring{$\ast$}{*}) \doxymbox{\hyperlink{struct__s_e_s_p01_handle_a1047c3fc5c7cfebeaef2a3888bb9b856}{Do\+CHPD}} (uint8\+\_\+t value)
-\begin{DoxyCompactList}\small\item\em Puntero a función que comanda el pin CH\+\_\+\+PD (Chip Enable). \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Puntero a función que comanda el pin CH\+\_\+\+PD (1: Habilitar, 0: Reset/\+\+Apagar). \end{DoxyCompactList}\item 
 void(\texorpdfstring{$\ast$}{*}) \doxymbox{\hyperlink{struct__s_e_s_p01_handle_a5d3ef9ee2008bd883bd16a22e14b4949}{Write\+Byte\+To\+Buf\+RX}} (uint8\+\_\+t value)
 \begin{DoxyCompactList}\small\item\em Puntero a función que almacena un byte entrante en el buffer de la aplicación. \end{DoxyCompactList}\item 
 int(\texorpdfstring{$\ast$}{*}) \doxymbox{\hyperlink{struct__s_e_s_p01_handle_a059bcc5945a3e9693f6c6a471d47bc80}{Write\+USARTByte}} (uint8\+\_\+t value)
@@ -31,11 +30,18 @@ int(\texorpdfstring{$\ast$}{*}) \doxymbox{\hyperlink{struct__s_e_s_p01_handle_a0
 
 
 \doxysubsubsection{Descripción detallada}
-Estructura de funciones de bajo nivel requeridas por el driver ESP01. 
+Estructura de funciones de bajo nivel requeridas por el driver ESP01 para abstracción de hardware. 
 
-Permite la abstracción del hardware para que el driver controle el pin de habilitación del módulo y realice la lectura/\+escritura en la USART asignada. 
+Permite la desacoplación completa de la capa HAL del microcontrolador. \begin{DoxySeeAlso}{Ver también}
+\doxylink{stm32f1xx__it_8h_a7139cd4baabbbcbab0c1fe6d7d4ae1cc}{USART1\+\_\+\+IRQHandler} 
 
-Definición en la línea \doxymbox{\hyperlink{esp01_8h_source_l00051}{51}} del archivo \doxymbox{\hyperlink{esp01_8h_source}{esp01.\+h}}.
+\doxylink{esp01_8h_a96572d45c42130b3ede565dd9eb63ac4}{ESP01\+\_\+\+Init} 
+
+\doxylink{esp01_8h_aa4745589acec5f8d6a97a414810dc8c1}{ESP01\+\_\+\+Write\+RX} 
+\end{DoxySeeAlso}
+
+
+Definición en la línea \doxymbox{\hyperlink{esp01_8h_source_l00059}{59}} del archivo \doxymbox{\hyperlink{esp01_8h_source}{esp01.\+h}}.
 
 
 
@@ -50,15 +56,15 @@ void(\texorpdfstring{$\ast$}{*}) \+\_\+s\+ESP01\+Handle::\+\+Do\+CHPD(uint8\+\_\
 
 
 
-Puntero a función que comanda el pin CH\+\_\+\+PD (Chip Enable). 
+Puntero a función que comanda el pin CH\+\_\+\+PD (1: Habilitar, 0: Reset/\+\+Apagar). 
 
 
 
-Definición en la línea \doxymbox{\hyperlink{esp01_8h_source_l00052}{52}} del archivo \doxymbox{\hyperlink{esp01_8h_source}{esp01.\+h}}.
+Definición en la línea \doxymbox{\hyperlink{esp01_8h_source_l00060}{60}} del archivo \doxymbox{\hyperlink{esp01_8h_source}{esp01.\+h}}.
 
 
 
-Referenciado por \doxymbox{\hyperlink{esp01_8c_source_l00744}{ESP01\+DOConnection()}} y \doxymbox{\hyperlink{main_8c_source_l03056}{main()}}.
+Referenciado por \doxymbox{\hyperlink{esp01_8c_source_l00824}{ESP01\+DOConnection()}} y \doxymbox{\hyperlink{main_8c_source_l03696}{main()}}.
 
 \Hypertarget{struct__s_e_s_p01_handle_a5d3ef9ee2008bd883bd16a22e14b4949}\index{\_sESP01Handle@{\_sESP01Handle}!WriteByteToBufRX@{WriteByteToBufRX}}
 \index{WriteByteToBufRX@{WriteByteToBufRX}!\_sESP01Handle@{\_sESP01Handle}}
@@ -72,11 +78,11 @@ Puntero a función que almacena un byte entrante en el buffer de la aplicación.
 
 
 
-Definición en la línea \doxymbox{\hyperlink{esp01_8h_source_l00054}{54}} del archivo \doxymbox{\hyperlink{esp01_8h_source}{esp01.\+h}}.
+Definición en la línea \doxymbox{\hyperlink{esp01_8h_source_l00062}{62}} del archivo \doxymbox{\hyperlink{esp01_8h_source}{esp01.\+h}}.
 
 
 
-Referenciado por \doxymbox{\hyperlink{esp01_8c_source_l00443}{ESP01\+ATDecode()}} y \doxymbox{\hyperlink{main_8c_source_l03056}{main()}}.
+Referenciado por \doxymbox{\hyperlink{esp01_8c_source_l00525}{ESP01\+ATDecode()}} y \doxymbox{\hyperlink{main_8c_source_l03696}{main()}}.
 
 \Hypertarget{struct__s_e_s_p01_handle_a059bcc5945a3e9693f6c6a471d47bc80}\index{\_sESP01Handle@{\_sESP01Handle}!WriteUSARTByte@{WriteUSARTByte}}
 \index{WriteUSARTByte@{WriteUSARTByte}!\_sESP01Handle@{\_sESP01Handle}}
@@ -90,11 +96,11 @@ Puntero a función que escribe un byte en la USART (retorna 1 si tuvo éxito).
 
 
 
-Definición en la línea \doxymbox{\hyperlink{esp01_8h_source_l00053}{53}} del archivo \doxymbox{\hyperlink{esp01_8h_source}{esp01.\+h}}.
+Definición en la línea \doxymbox{\hyperlink{esp01_8h_source_l00061}{61}} del archivo \doxymbox{\hyperlink{esp01_8h_source}{esp01.\+h}}.
 
 
 
-Referenciado por \doxymbox{\hyperlink{esp01_8c_source_l00270}{ESP01\+\_\+\+Close\+UDPTCP()}}, \doxymbox{\hyperlink{esp01_8c_source_l00314}{ESP01\+\_\+\+Send()}}, \doxymbox{\hyperlink{esp01_8c_source_l00243}{ESP01\+\_\+\+Start\+TCP()}}, \doxymbox{\hyperlink{esp01_8c_source_l00217}{ESP01\+\_\+\+Start\+UDP()}}, \doxymbox{\hyperlink{esp01_8c_source_l00295}{ESP01\+\_\+\+State\+UDPTCP()}}, \doxymbox{\hyperlink{esp01_8c_source_l00277}{ESP01\+\_\+\+State\+WIFI()}}, \doxymbox{\hyperlink{esp01_8c_source_l01018}{ESP01\+SENDData()}} y \doxymbox{\hyperlink{main_8c_source_l03056}{main()}}.
+Referenciado por \doxymbox{\hyperlink{esp01_8c_source_l00296}{ESP01\+\_\+\+Close\+UDPTCP()}}, \doxymbox{\hyperlink{esp01_8c_source_l00358}{ESP01\+\_\+\+Send()}}, \doxymbox{\hyperlink{esp01_8c_source_l00257}{ESP01\+\_\+\+Start\+TCP()}}, \doxymbox{\hyperlink{esp01_8c_source_l00223}{ESP01\+\_\+\+Start\+UDP()}}, \doxymbox{\hyperlink{esp01_8c_source_l00321}{ESP01\+\_\+\+State\+UDPTCP()}}, \doxymbox{\hyperlink{esp01_8c_source_l00303}{ESP01\+\_\+\+State\+WIFI()}}, \doxymbox{\hyperlink{esp01_8c_source_l01119}{ESP01\+SENDData()}} y \doxymbox{\hyperlink{main_8c_source_l03696}{main()}}.
 
 
 

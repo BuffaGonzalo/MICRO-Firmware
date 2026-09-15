@@ -34,7 +34,7 @@ MathJax.Hub.Config({
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">MICRO-Firmware<span id="projectnumber">&#160;EX100923v01</span>
+   <div id="projectname">MICRO-Firmware
    </div>
    <div id="projectbrief">Firmware de Péndulo Invertido Autónomo de Dos Ruedas (STM32F103C8T6 - ARM Cortex-M3)</div>
   </td>
@@ -220,21 +220,33 @@ Funciones</h2></td></tr>
 <p>Asigna la bandera de interrupción DMA de recepción.</p>
 <dl class="params"><dt>Parámetros</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">PtrRx</td><td>Puntero a la bandera volátil que se activa en la interrupción DMA Rx.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">PtrRx</td><td>Puntero a la bandera volátil que se activa en la interrupción DMA Rx. </td></tr>
   </table>
   </dd>
 </dl>
-<p>Vincula la función de callback que indica la finalización de recepción DMA. </p>
+<dl class="section pre"><dt>Precondición</dt><dd>Variable global o estática de bandera volátil instanciada en el módulo de control. </dd></dl>
+<dl class="section post"><dt>Postcondición</dt><dd>Almacena el puntero interno <span class="tt"><a class="el" href="main_8c.html#acd75fef0ac155418d387840dcba14b92">mpu6050_RxCplt</a></span>. </dd></dl>
+<dl class="section see"><dt>Ver también</dt><dd><a class="el" href="main_8c.html#gac16a95413b35f05c5ce725fefd8531a5" title="Memory Rx Transfer completed callback.">HAL_I2C_MemRxCpltCallback</a></dd></dl>
+<p>Vincula la función de callback que indica la finalización de recepción DMA.</p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">PtrRx</td><td>Puntero a la variable booleana que se activa en <span class="tt"><a class="el" href="main_8c.html#gac16a95413b35f05c5ce725fefd8531a5" title="Memory Rx Transfer completed callback.">HAL_I2C_MemRxCpltCallback</a></span>. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondición</dt><dd>El puntero debe apuntar a una variable con cualificador <span class="tt">volatile</span>. </dd></dl>
+<dl class="section post"><dt>Postcondición</dt><dd>Almacena internamente el puntero <span class="tt"><a class="el" href="main_8c.html#acd75fef0ac155418d387840dcba14b92">mpu6050_RxCplt</a></span>. </dd></dl>
+<dl class="section see"><dt>Ver también</dt><dd><a class="el" href="main_8c.html#gac16a95413b35f05c5ce725fefd8531a5" title="Memory Rx Transfer completed callback.">HAL_I2C_MemRxCpltCallback</a> </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="mpu6050_8c_source.html#l00031">31</a> del archivo <a class="el" href="mpu6050_8c_source.html">mpu6050.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   31</span>                                                          {</div>
-<div class="line"><span class="lineno">   32</span>    <a class="code hl_variable" href="main_8c.html#acd75fef0ac155418d387840dcba14b92">mpu6050_RxCplt</a> = (uint8_t *)PtrRx;</div>
-<div class="line"><span class="lineno">   33</span>}</div>
-<div class="ttc" id="amain_8c_html_acd75fef0ac155418d387840dcba14b92"><div class="ttname"><a href="main_8c.html#acd75fef0ac155418d387840dcba14b92">mpu6050_RxCplt</a></div><div class="ttdeci">volatile uint8_t mpu6050_RxCplt</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00283">main.c:283</a></div></div>
+<p class="definition">Definición en la línea <a class="el" href="mpu6050_8c_source.html#l00035">35</a> del archivo <a class="el" href="mpu6050_8c_source.html">mpu6050.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   35</span>                                                          {</div>
+<div class="line"><span class="lineno">   36</span>    <a class="code hl_variable" href="main_8c.html#acd75fef0ac155418d387840dcba14b92">mpu6050_RxCplt</a> = (uint8_t *)PtrRx;</div>
+<div class="line"><span class="lineno">   37</span>}</div>
+<div class="ttc" id="amain_8c_html_acd75fef0ac155418d387840dcba14b92"><div class="ttname"><a href="main_8c.html#acd75fef0ac155418d387840dcba14b92">mpu6050_RxCplt</a></div><div class="ttdeci">volatile uint8_t mpu6050_RxCplt</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00411">main.c:411</a></div></div>
 </div><!-- fragment -->
-<p class="reference">Hace referencia a <a class="el" href="mpu6050_8c_source.html#l00031">mpu6050_ADC_ConfCpltCallback()</a> y <a class="el" href="main_8c_source.html#l00283">mpu6050_RxCplt</a>.</p>
+<p class="reference">Hace referencia a <a class="el" href="mpu6050_8c_source.html#l00035">mpu6050_ADC_ConfCpltCallback()</a> y <a class="el" href="main_8c_source.html#l00411">mpu6050_RxCplt</a>.</p>
 
-<p class="reference">Referenciado por <a class="el" href="main_8c_source.html#l03056">main()</a> y <a class="el" href="mpu6050_8c_source.html#l00031">mpu6050_ADC_ConfCpltCallback()</a>.</p>
+<p class="reference">Referenciado por <a class="el" href="main_8c_source.html#l03696">main()</a> y <a class="el" href="mpu6050_8c_source.html#l00035">mpu6050_ADC_ConfCpltCallback()</a>.</p>
 <div id="dynsection-2" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
 <div id="dynsection-2-summary" class="dynsummary">
 </div>
@@ -269,21 +281,31 @@ Funciones</h2></td></tr>
 <p>Asocia el manejador de lectura DMA sobre el bus I2C.</p>
 <dl class="params"><dt>Parámetros</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">PtrRx</td><td>Puntero a la función despachadora de lectura I2C DMA implementada en el main.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">PtrRx</td><td>Puntero a la función despachadora de lectura I2C DMA implementada en el main. </td></tr>
   </table>
   </dd>
 </dl>
-<p>Conecta el puntero a la función de lectura por DMA del bus I2C del microcontrolador. </p>
+<dl class="section post"><dt>Postcondición</dt><dd>Asigna el puntero de función <span class="tt">memReadDMA</span>. </dd></dl>
+<dl class="section see"><dt>Ver también</dt><dd><a class="el" href="#aace5fea3888e51a75e8bfb77bae17b80" title="Ejecuta el ciclo de lectura no bloqueante de 14 bytes por DMA.">mpu6050_Read</a></dd></dl>
+<p>Conecta el puntero a la función de lectura por DMA del bus I2C del microcontrolador.</p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">PtrRx</td><td>Puntero a la función de lectura por DMA (<span class="tt"><a class="el" href="group___i2_c___exported___functions___group2.html#gab25b99552182d2486d8eb441fffdd0a4" title="Reads an amount of data in non-blocking mode with DMA from a specific memory address.">HAL_I2C_Mem_Read_DMA</a></span>). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section post"><dt>Postcondición</dt><dd>Configura <span class="tt">memReadDMA</span>. </dd></dl>
+<dl class="section see"><dt>Ver también</dt><dd>mpu6050_ReadDataDMA </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="mpu6050_8c_source.html#l00045">45</a> del archivo <a class="el" href="mpu6050_8c_source.html">mpu6050.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   45</span>                                                                                                        {</div>
-<div class="line"><span class="lineno">   46</span>    <a class="code hl_variable" href="mpu6050_8c.html#a0484d807d476932baf857d63d7e8cf60">memReadDMA</a> = PtrRx;</div>
-<div class="line"><span class="lineno">   47</span>}</div>
+<p class="definition">Definición en la línea <a class="el" href="mpu6050_8c_source.html#l00055">55</a> del archivo <a class="el" href="mpu6050_8c_source.html">mpu6050.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   55</span>                                                                                                        {</div>
+<div class="line"><span class="lineno">   56</span>    <a class="code hl_variable" href="mpu6050_8c.html#a0484d807d476932baf857d63d7e8cf60">memReadDMA</a> = PtrRx;</div>
+<div class="line"><span class="lineno">   57</span>}</div>
 <div class="ttc" id="ampu6050_8c_html_a0484d807d476932baf857d63d7e8cf60"><div class="ttname"><a href="mpu6050_8c.html#a0484d807d476932baf857d63d7e8cf60">memReadDMA</a></div><div class="ttdeci">static void(*) memReadDMA(uint8_t address, uint8_t *data, uint8_t size, uint8_t type)</div><div class="ttdoc">Puntero a función de lectura DMA.</div><div class="ttdef"><b>Definición</b> <a href="mpu6050_8c_source.html#l00022">mpu6050.c:22</a></div></div>
 </div><!-- fragment -->
-<p class="reference">Hace referencia a <a class="el" href="mpu6050_8c_source.html#l00022">memReadDMA</a> y <a class="el" href="mpu6050_8c_source.html#l00045">mpu6050_Attach_MemReadDMA()</a>.</p>
+<p class="reference">Hace referencia a <a class="el" href="mpu6050_8c_source.html#l00022">memReadDMA</a> y <a class="el" href="mpu6050_8c_source.html#l00055">mpu6050_Attach_MemReadDMA()</a>.</p>
 
-<p class="reference">Referenciado por <a class="el" href="main_8c_source.html#l03056">main()</a> y <a class="el" href="mpu6050_8c_source.html#l00045">mpu6050_Attach_MemReadDMA()</a>.</p>
+<p class="reference">Referenciado por <a class="el" href="main_8c_source.html#l03696">main()</a> y <a class="el" href="mpu6050_8c_source.html#l00055">mpu6050_Attach_MemReadDMA()</a>.</p>
 <div id="dynsection-4" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
 <div id="dynsection-4-summary" class="dynsummary">
 </div>
@@ -318,21 +340,31 @@ Funciones</h2></td></tr>
 <p>Asocia el manejador de escritura para registros I2C.</p>
 <dl class="params"><dt>Parámetros</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">PtrRx</td><td>Puntero a la función de encolado de escrituras I2C.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">PtrRx</td><td>Puntero a la función de encolado de escrituras I2C. </td></tr>
   </table>
   </dd>
 </dl>
-<p>Conecta el puntero a la función de escritura en registros I2C. </p>
+<dl class="section post"><dt>Postcondición</dt><dd>Asigna el puntero de función <span class="tt">memWrite</span>. </dd></dl>
+<dl class="section see"><dt>Ver también</dt><dd><a class="el" href="#a8c5131d4f6387709825f77368430fdf4" title="Inicializa el MPU-6050 con los parámetros de funcionamiento del robot.">mpu6050_Init</a></dd></dl>
+<p>Conecta el puntero a la función de escritura en registros I2C.</p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">PtrRx</td><td>Puntero a la función de transmisión I2C bloqueante o encolada. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section post"><dt>Postcondición</dt><dd>Configura <span class="tt">memWrite</span>. </dd></dl>
+<dl class="section see"><dt>Ver también</dt><dd>mpu6050_WriteData </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="mpu6050_8c_source.html#l00038">38</a> del archivo <a class="el" href="mpu6050_8c_source.html">mpu6050.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   38</span>                                                                                                      {</div>
-<div class="line"><span class="lineno">   39</span>    <a class="code hl_variable" href="mpu6050_8c.html#ab6ce8029f86ab67c7277c618c6620ba7">memWrite</a> = PtrRx;</div>
-<div class="line"><span class="lineno">   40</span>}</div>
+<p class="definition">Definición en la línea <a class="el" href="mpu6050_8c_source.html#l00045">45</a> del archivo <a class="el" href="mpu6050_8c_source.html">mpu6050.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   45</span>                                                                                                      {</div>
+<div class="line"><span class="lineno">   46</span>    <a class="code hl_variable" href="mpu6050_8c.html#ab6ce8029f86ab67c7277c618c6620ba7">memWrite</a> = PtrRx;</div>
+<div class="line"><span class="lineno">   47</span>}</div>
 <div class="ttc" id="ampu6050_8c_html_ab6ce8029f86ab67c7277c618c6620ba7"><div class="ttname"><a href="mpu6050_8c.html#ab6ce8029f86ab67c7277c618c6620ba7">memWrite</a></div><div class="ttdeci">static void(*) memWrite(uint8_t address, uint8_t *data, uint8_t size, uint8_t type)</div><div class="ttdoc">Puntero a función de escritura en cola I2C.</div><div class="ttdef"><b>Definición</b> <a href="mpu6050_8c_source.html#l00021">mpu6050.c:21</a></div></div>
 </div><!-- fragment -->
-<p class="reference">Hace referencia a <a class="el" href="mpu6050_8c_source.html#l00021">memWrite</a> y <a class="el" href="mpu6050_8c_source.html#l00038">mpu6050_Attach_MemWrite()</a>.</p>
+<p class="reference">Hace referencia a <a class="el" href="mpu6050_8c_source.html#l00021">memWrite</a> y <a class="el" href="mpu6050_8c_source.html#l00045">mpu6050_Attach_MemWrite()</a>.</p>
 
-<p class="reference">Referenciado por <a class="el" href="main_8c_source.html#l03056">main()</a> y <a class="el" href="mpu6050_8c_source.html#l00038">mpu6050_Attach_MemWrite()</a>.</p>
+<p class="reference">Referenciado por <a class="el" href="main_8c_source.html#l03696">main()</a> y <a class="el" href="mpu6050_8c_source.html#l00045">mpu6050_Attach_MemWrite()</a>.</p>
 <div id="dynsection-6" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
 <div id="dynsection-6-summary" class="dynsummary">
 </div>
@@ -396,32 +428,53 @@ Funciones</h2></td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">az</td><td>Puntero donde se almacenará la aceleración cruda en eje Z. </td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">gx</td><td>Puntero donde se almacenará la velocidad angular cruda en eje X. </td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">gy</td><td>Puntero donde se almacenará la velocidad angular cruda en eje Y. </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">gz</td><td>Puntero donde se almacenará la velocidad angular cruda en eje Z.</td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">gz</td><td>Puntero donde se almacenará la velocidad angular cruda en eje Z. </td></tr>
   </table>
   </dd>
 </dl>
-<p>Copia los últimos datos crudos de 16 bits leídos del acelerómetro y giróscopo. </p>
+<dl class="section pre"><dt>Precondición</dt><dd>Haber llamado a <span class="tt"><a class="el" href="#aace5fea3888e51a75e8bfb77bae17b80" title="Ejecuta el ciclo de lectura no bloqueante de 14 bytes por DMA.">mpu6050_Read()</a></span> retornando valor 1. </dd></dl>
+<dl class="section post"><dt>Postcondición</dt><dd>Escribe los valores inerciales en los punteros provistos (si no son NULL). </dd></dl>
+<dl class="section see"><dt>Ver también</dt><dd><a class="el" href="#aace5fea3888e51a75e8bfb77bae17b80" title="Ejecuta el ciclo de lectura no bloqueante de 14 bytes por DMA.">mpu6050_Read</a> </dd>
+<dd>
+<a class="el" href="group__group__control.html#ga619f06ca356b275d5b63ecbdff495f5c" title="Tarea orquestadora central de control PID y MEF de modos operativos (200 Hz).">PIDTask</a></dd></dl>
+<p>Copia los últimos datos crudos de 16 bits leídos del acelerómetro y giróscopo.</p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">ax_out</td><td>Puntero a variable receptora de aceleración en X. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">ay_out</td><td>Puntero a variable receptora de aceleración en Y. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">az_out</td><td>Puntero a variable receptora de aceleración en Z. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">gx_out</td><td>Puntero a variable receptora de giróscopo en X. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">gy_out</td><td>Puntero a variable receptora de giróscopo en Y. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">gz_out</td><td>Puntero a variable receptora de giróscopo en Z. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondición</dt><dd><span class="tt"><a class="el" href="#aace5fea3888e51a75e8bfb77bae17b80" title="Ejecuta el ciclo de lectura no bloqueante de 14 bytes por DMA.">mpu6050_Read()</a></span> debe haber retornado 1. </dd></dl>
+<dl class="section post"><dt>Postcondición</dt><dd>Vuelca los valores almacenados en memoria estática a los punteros proporcionados. </dd></dl>
+<dl class="section see"><dt>Ver también</dt><dd><a class="el" href="#aace5fea3888e51a75e8bfb77bae17b80" title="Ejecuta el ciclo de lectura no bloqueante de 14 bytes por DMA.">mpu6050_Read</a> </dd>
+<dd>
+<a class="el" href="group__group__control.html#ga619f06ca356b275d5b63ecbdff495f5c" title="Tarea orquestadora central de control PID y MEF de modos operativos (200 Hz).">PIDTask</a> </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="mpu6050_8c_source.html#l00152">152</a> del archivo <a class="el" href="mpu6050_8c_source.html">mpu6050.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  152</span>                                                                                                                           {</div>
-<div class="line"><span class="lineno">  153</span>    <span class="keywordflow">if</span> (ax_out) *ax_out = <a class="code hl_variable" href="main_8c.html#aebedd0a48fe876cce3d3f14326e4ca66">ax</a>;</div>
-<div class="line"><span class="lineno">  154</span>    <span class="keywordflow">if</span> (ay_out) *ay_out = <a class="code hl_variable" href="main_8c.html#a46d26903f1874d06875a974dfa1a9d3c">ay</a>;</div>
-<div class="line"><span class="lineno">  155</span>    <span class="keywordflow">if</span> (az_out) *az_out = <a class="code hl_variable" href="main_8c.html#a41e60f9324f9d4fd9e916e964370fb2f">az</a>;</div>
-<div class="line"><span class="lineno">  156</span> </div>
-<div class="line"><span class="lineno">  157</span>    <span class="keywordflow">if</span> (gx_out) *gx_out = <a class="code hl_variable" href="main_8c.html#a4524555b50a829ee7628cf5e5806f227">gx</a>;</div>
-<div class="line"><span class="lineno">  158</span>    <span class="keywordflow">if</span> (gy_out) *gy_out = <a class="code hl_variable" href="main_8c.html#a8bd44b73dc5745833a8dd8d2a6240613">gy</a>;</div>
-<div class="line"><span class="lineno">  159</span>    <span class="keywordflow">if</span> (gz_out) *gz_out = <a class="code hl_variable" href="main_8c.html#aa61e9778c784ec4695029ed2cc769a61">gz</a>;</div>
-<div class="line"><span class="lineno">  160</span>}</div>
-<div class="ttc" id="amain_8c_html_a41e60f9324f9d4fd9e916e964370fb2f"><div class="ttname"><a href="main_8c.html#a41e60f9324f9d4fd9e916e964370fb2f">az</a></div><div class="ttdeci">int16_t az</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00286">main.c:286</a></div></div>
-<div class="ttc" id="amain_8c_html_a4524555b50a829ee7628cf5e5806f227"><div class="ttname"><a href="main_8c.html#a4524555b50a829ee7628cf5e5806f227">gx</a></div><div class="ttdeci">int16_t gx</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00287">main.c:287</a></div></div>
-<div class="ttc" id="amain_8c_html_a46d26903f1874d06875a974dfa1a9d3c"><div class="ttname"><a href="main_8c.html#a46d26903f1874d06875a974dfa1a9d3c">ay</a></div><div class="ttdeci">int16_t ay</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00285">main.c:285</a></div></div>
-<div class="ttc" id="amain_8c_html_a8bd44b73dc5745833a8dd8d2a6240613"><div class="ttname"><a href="main_8c.html#a8bd44b73dc5745833a8dd8d2a6240613">gy</a></div><div class="ttdeci">int16_t gy</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00288">main.c:288</a></div></div>
-<div class="ttc" id="amain_8c_html_aa61e9778c784ec4695029ed2cc769a61"><div class="ttname"><a href="main_8c.html#aa61e9778c784ec4695029ed2cc769a61">gz</a></div><div class="ttdeci">int16_t gz</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00289">main.c:289</a></div></div>
-<div class="ttc" id="amain_8c_html_aebedd0a48fe876cce3d3f14326e4ca66"><div class="ttname"><a href="main_8c.html#aebedd0a48fe876cce3d3f14326e4ca66">ax</a></div><div class="ttdeci">int16_t ax</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00284">main.c:284</a></div></div>
+<p class="definition">Definición en la línea <a class="el" href="mpu6050_8c_source.html#l00188">188</a> del archivo <a class="el" href="mpu6050_8c_source.html">mpu6050.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  188</span>                                                                                                                           {</div>
+<div class="line"><span class="lineno">  189</span>    <span class="keywordflow">if</span> (ax_out) *ax_out = <a class="code hl_variable" href="main_8c.html#aebedd0a48fe876cce3d3f14326e4ca66">ax</a>;</div>
+<div class="line"><span class="lineno">  190</span>    <span class="keywordflow">if</span> (ay_out) *ay_out = <a class="code hl_variable" href="main_8c.html#a46d26903f1874d06875a974dfa1a9d3c">ay</a>;</div>
+<div class="line"><span class="lineno">  191</span>    <span class="keywordflow">if</span> (az_out) *az_out = <a class="code hl_variable" href="main_8c.html#a41e60f9324f9d4fd9e916e964370fb2f">az</a>;</div>
+<div class="line"><span class="lineno">  192</span> </div>
+<div class="line"><span class="lineno">  193</span>    <span class="keywordflow">if</span> (gx_out) *gx_out = <a class="code hl_variable" href="main_8c.html#a4524555b50a829ee7628cf5e5806f227">gx</a>;</div>
+<div class="line"><span class="lineno">  194</span>    <span class="keywordflow">if</span> (gy_out) *gy_out = <a class="code hl_variable" href="main_8c.html#a8bd44b73dc5745833a8dd8d2a6240613">gy</a>;</div>
+<div class="line"><span class="lineno">  195</span>    <span class="keywordflow">if</span> (gz_out) *gz_out = <a class="code hl_variable" href="main_8c.html#aa61e9778c784ec4695029ed2cc769a61">gz</a>;</div>
+<div class="line"><span class="lineno">  196</span>}</div>
+<div class="ttc" id="amain_8c_html_a41e60f9324f9d4fd9e916e964370fb2f"><div class="ttname"><a href="main_8c.html#a41e60f9324f9d4fd9e916e964370fb2f">az</a></div><div class="ttdeci">int16_t az</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00416">main.c:416</a></div></div>
+<div class="ttc" id="amain_8c_html_a4524555b50a829ee7628cf5e5806f227"><div class="ttname"><a href="main_8c.html#a4524555b50a829ee7628cf5e5806f227">gx</a></div><div class="ttdeci">int16_t gx</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00417">main.c:417</a></div></div>
+<div class="ttc" id="amain_8c_html_a46d26903f1874d06875a974dfa1a9d3c"><div class="ttname"><a href="main_8c.html#a46d26903f1874d06875a974dfa1a9d3c">ay</a></div><div class="ttdeci">int16_t ay</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00415">main.c:415</a></div></div>
+<div class="ttc" id="amain_8c_html_a8bd44b73dc5745833a8dd8d2a6240613"><div class="ttname"><a href="main_8c.html#a8bd44b73dc5745833a8dd8d2a6240613">gy</a></div><div class="ttdeci">int16_t gy</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00418">main.c:418</a></div></div>
+<div class="ttc" id="amain_8c_html_aa61e9778c784ec4695029ed2cc769a61"><div class="ttname"><a href="main_8c.html#aa61e9778c784ec4695029ed2cc769a61">gz</a></div><div class="ttdeci">int16_t gz</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00419">main.c:419</a></div></div>
+<div class="ttc" id="amain_8c_html_aebedd0a48fe876cce3d3f14326e4ca66"><div class="ttname"><a href="main_8c.html#aebedd0a48fe876cce3d3f14326e4ca66">ax</a></div><div class="ttdeci">int16_t ax</div><div class="ttdef"><b>Definición</b> <a href="main_8c_source.html#l00414">main.c:414</a></div></div>
 </div><!-- fragment -->
-<p class="reference">Hace referencia a <a class="el" href="main_8c_source.html#l00284">ax</a>, <a class="el" href="main_8c_source.html#l00285">ay</a>, <a class="el" href="main_8c_source.html#l00286">az</a>, <a class="el" href="main_8c_source.html#l00287">gx</a>, <a class="el" href="main_8c_source.html#l00288">gy</a>, <a class="el" href="main_8c_source.html#l00289">gz</a> y <a class="el" href="mpu6050_8c_source.html#l00152">mpu6050_GetData()</a>.</p>
+<p class="reference">Hace referencia a <a class="el" href="main_8c_source.html#l00414">ax</a>, <a class="el" href="main_8c_source.html#l00415">ay</a>, <a class="el" href="main_8c_source.html#l00416">az</a>, <a class="el" href="main_8c_source.html#l00417">gx</a>, <a class="el" href="main_8c_source.html#l00418">gy</a>, <a class="el" href="main_8c_source.html#l00419">gz</a> y <a class="el" href="mpu6050_8c_source.html#l00188">mpu6050_GetData()</a>.</p>
 
-<p class="reference">Referenciado por <a class="el" href="main_8c_source.html#l01623">i2cTask()</a> y <a class="el" href="mpu6050_8c_source.html#l00152">mpu6050_GetData()</a>.</p>
+<p class="reference">Referenciado por <a class="el" href="main_8c_source.html#l01797">i2cTask()</a> y <a class="el" href="mpu6050_8c_source.html#l00188">mpu6050_GetData()</a>.</p>
 <div id="dynsection-8" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
 <div id="dynsection-8-summary" class="dynsummary">
 </div>
@@ -453,15 +506,28 @@ Funciones</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Inicializa el MPU-6050 con los parámetros de funcionamiento del robot. </p>
-<p>Inicializa los registros fundamentales del MPU-6050.</p>
+<p>Inicializa los registros fundamentales del MPU-6050 para el lazo de 200 Hz.</p>
 <p>Despierta al sensor sacándolo del modo sleep (PWR_MGMT_1 = 0), configura el DLPF a 98 Hz (CONFIG = 0x02), establece la tasa de muestreo interno a 200 Hz (SMPLRT_DIV = 4), y fija los rangos dinámicos en $\pm 2g$ para aceleración y $\pm 250^\circ/\text{s}$ para rotación.</p>
+<div class="plantumlgraph">
+<object type="image/svg+xml" data="inline_umlgraph_5.svg"></object>
+</div>
+<dl class="section pre"><dt>Precondición</dt><dd>El periférico I2C2 del microcontrolador debe estar inicializado y la función <span class="tt"><a class="el" href="#a0e9583f99e3050282c81ef580a5fa90b" title="Conecta el puntero a la función de escritura en registros I2C.">mpu6050_Attach_MemWrite</a></span> vinculada. </dd></dl>
+<dl class="section post"><dt>Postcondición</dt><dd>Configura registros del sensor; el MPU-6050 queda operativo entregando datos inerciales a 200 Hz. </dd></dl>
+<dl class="section see"><dt>Ver también</dt><dd><a class="el" href="#a0e9583f99e3050282c81ef580a5fa90b" title="Conecta el puntero a la función de escritura en registros I2C.">mpu6050_Attach_MemWrite</a> </dd>
+<dd>
+<a class="el" href="#aace5fea3888e51a75e8bfb77bae17b80" title="Ejecuta el ciclo de lectura no bloqueante de 14 bytes por DMA.">mpu6050_Read</a></dd></dl>
 <p>Inicializa el MPU-6050 con los parámetros de funcionamiento del robot.</p>
-<p>Configuración aplicada:</p><ul>
+<p>Configuración aplicada sobre el sensor:</p><ul>
 <li><span class="tt">PWR_MGMT_1</span> (0x6B) = 0x00: Despierta el oscilador interno.</li>
 <li><span class="tt">SMPLRT_DIV</span> (0x19) = 0x04: Tasa de muestreo = 1000Hz / (1 + 4) = 200 Hz (período de 5 ms).</li>
 <li><span class="tt">CONFIG</span> (0x1A) = 0x02: Filtro pasa-bajos DLPF ~98 Hz (retardo mínimo 2.8 ms).</li>
 <li><span class="tt">ACCEL_CONFIG</span> (0x1C) = 0x00: Rango de aceleración $\pm 2g$ (16384 LSB/g).</li>
-<li><span class="tt">GYRO_CONFIG</span> (0x1B) = 0x00: Rango de giróscopo $\pm 250^\circ/\text{s}$ (131 LSB/(°/s)). </li>
+<li><span class="tt">GYRO_CONFIG</span> (0x1B) = 0x00: Rango de giróscopo $\pm 250^\circ/\text{s}$ (131 LSB/(°/s)). <dl class="section pre"><dt>Precondición</dt><dd>El bus I2C2 debe estar inicializado y <span class="tt">memWrite</span> enlazado. </dd></dl>
+<dl class="section post"><dt>Postcondición</dt><dd>El sensor queda activo y configurado a 200 Hz con DLPF anti-vibración a 98 Hz. </dd></dl>
+<dl class="section see"><dt>Ver también</dt><dd>mpu6050_WriteData </dd>
+<dd>
+<a class="el" href="#aace5fea3888e51a75e8bfb77bae17b80" title="Ejecuta el ciclo de lectura no bloqueante de 14 bytes por DMA.">mpu6050_Read</a> </dd></dl>
+</li>
 </ul>
 <p>&lt; Registro de gestión de energía y modo sleep</p>
 <p>&lt; Divisor de la tasa de muestreo interno (Sample Rate Divider)</p>
@@ -469,40 +535,40 @@ Funciones</h2></td></tr>
 <p>&lt; Configuración de escala y rango del acelerómetro</p>
 <p>&lt; Configuración de escala y rango del giróscopo</p>
 
-<p class="definition">Definición en la línea <a class="el" href="mpu6050_8c_source.html#l00077">77</a> del archivo <a class="el" href="mpu6050_8c_source.html">mpu6050.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   78</span>{</div>
-<div class="line"><span class="lineno">   79</span>    uint8_t data;</div>
-<div class="line"><span class="lineno">   80</span> </div>
-<div class="line"><span class="lineno">   81</span>    <span class="comment">// 1. Salir del modo de bajo consumo (modo sleep)</span></div>
-<div class="line"><span class="lineno">   82</span>    data = 0x00;</div>
-<div class="line"><span class="lineno">   83</span>    <a class="code hl_function" href="mpu6050_8c.html#aa7a11ab4c49e973ad04a608112dcbf35">mpu6050_WriteData</a>(&amp;data, <a class="code hl_define" href="group___m_p_u6050___registers.html#gaf9bd016ab99b299a4816433252e31c3d">PWR_MGMT_1_REG</a>);</div>
-<div class="line"><span class="lineno">   84</span> </div>
-<div class="line"><span class="lineno">   85</span>    <span class="comment">// 2. Configurar Sample Rate Divider a 4 (Muestreo a 200 Hz / 5 ms sincronizado con STM32)</span></div>
-<div class="line"><span class="lineno">   86</span>    data = 0x04;</div>
-<div class="line"><span class="lineno">   87</span>    <a class="code hl_function" href="mpu6050_8c.html#aa7a11ab4c49e973ad04a608112dcbf35">mpu6050_WriteData</a>(&amp;data, <a class="code hl_define" href="group___m_p_u6050___registers.html#gaa2208da6faf439107b23dee629bb8398">SMPLRT_DIV_REG</a>);</div>
-<div class="line"><span class="lineno">   88</span> </div>
-<div class="line"><span class="lineno">   89</span>    <span class="comment">// 3. Activar filtro pasa-bajos DLPF a ~98Hz para filtrar vibraciones mecánicas de los motores</span></div>
-<div class="line"><span class="lineno">   90</span>    data = 0x02;</div>
-<div class="line"><span class="lineno">   91</span>    <a class="code hl_function" href="mpu6050_8c.html#aa7a11ab4c49e973ad04a608112dcbf35">mpu6050_WriteData</a>(&amp;data, <a class="code hl_define" href="group___m_p_u6050___registers.html#gaf81594fa2c83e52e601f2e4a1d81d8bc">CONFIG_REG</a>);</div>
-<div class="line"><span class="lineno">   92</span> </div>
-<div class="line"><span class="lineno">   93</span>    <span class="comment">// 4. Configurar acelerómetro con rango +-2g</span></div>
-<div class="line"><span class="lineno">   94</span>    data = 0x00;</div>
-<div class="line"><span class="lineno">   95</span>    <a class="code hl_function" href="mpu6050_8c.html#aa7a11ab4c49e973ad04a608112dcbf35">mpu6050_WriteData</a>(&amp;data, <a class="code hl_define" href="group___m_p_u6050___registers.html#gad1d05dc09d0025498687ab7e30ffd4e4">ACCEL_CONFIG_REG</a>);</div>
-<div class="line"><span class="lineno">   96</span> </div>
-<div class="line"><span class="lineno">   97</span>    <span class="comment">// 5. Configurar giróscopo con rango +-250 deg/s</span></div>
-<div class="line"><span class="lineno">   98</span>    data = 0x00;</div>
-<div class="line"><span class="lineno">   99</span>    <a class="code hl_function" href="mpu6050_8c.html#aa7a11ab4c49e973ad04a608112dcbf35">mpu6050_WriteData</a>(&amp;data, <a class="code hl_define" href="group___m_p_u6050___registers.html#ga5b1b1a1ea1298b67cdab17a7213c6356">GYRO_CONFIG_REG</a>);</div>
-<div class="line"><span class="lineno">  100</span>}</div>
+<p class="definition">Definición en la línea <a class="el" href="mpu6050_8c_source.html#l00095">95</a> del archivo <a class="el" href="mpu6050_8c_source.html">mpu6050.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   96</span>{</div>
+<div class="line"><span class="lineno">   97</span>    uint8_t data;</div>
+<div class="line"><span class="lineno">   98</span> </div>
+<div class="line"><span class="lineno">   99</span>    <span class="comment">// 1. Salir del modo de bajo consumo (modo sleep)</span></div>
+<div class="line"><span class="lineno">  100</span>    data = 0x00;</div>
+<div class="line"><span class="lineno">  101</span>    <a class="code hl_function" href="mpu6050_8c.html#aa7a11ab4c49e973ad04a608112dcbf35">mpu6050_WriteData</a>(&amp;data, <a class="code hl_define" href="group___m_p_u6050___registers.html#gaf9bd016ab99b299a4816433252e31c3d">PWR_MGMT_1_REG</a>);</div>
+<div class="line"><span class="lineno">  102</span> </div>
+<div class="line"><span class="lineno">  103</span>    <span class="comment">// 2. Configurar Sample Rate Divider a 4 (Muestreo a 200 Hz / 5 ms sincronizado con STM32)</span></div>
+<div class="line"><span class="lineno">  104</span>    data = 0x04;</div>
+<div class="line"><span class="lineno">  105</span>    <a class="code hl_function" href="mpu6050_8c.html#aa7a11ab4c49e973ad04a608112dcbf35">mpu6050_WriteData</a>(&amp;data, <a class="code hl_define" href="group___m_p_u6050___registers.html#gaa2208da6faf439107b23dee629bb8398">SMPLRT_DIV_REG</a>);</div>
+<div class="line"><span class="lineno">  106</span> </div>
+<div class="line"><span class="lineno">  107</span>    <span class="comment">// 3. Activar filtro pasa-bajos DLPF a ~98Hz para filtrar vibraciones mecánicas de los motores</span></div>
+<div class="line"><span class="lineno">  108</span>    data = 0x02;</div>
+<div class="line"><span class="lineno">  109</span>    <a class="code hl_function" href="mpu6050_8c.html#aa7a11ab4c49e973ad04a608112dcbf35">mpu6050_WriteData</a>(&amp;data, <a class="code hl_define" href="group___m_p_u6050___registers.html#gaf81594fa2c83e52e601f2e4a1d81d8bc">CONFIG_REG</a>);</div>
+<div class="line"><span class="lineno">  110</span> </div>
+<div class="line"><span class="lineno">  111</span>    <span class="comment">// 4. Configurar acelerómetro con rango +-2g</span></div>
+<div class="line"><span class="lineno">  112</span>    data = 0x00;</div>
+<div class="line"><span class="lineno">  113</span>    <a class="code hl_function" href="mpu6050_8c.html#aa7a11ab4c49e973ad04a608112dcbf35">mpu6050_WriteData</a>(&amp;data, <a class="code hl_define" href="group___m_p_u6050___registers.html#gad1d05dc09d0025498687ab7e30ffd4e4">ACCEL_CONFIG_REG</a>);</div>
+<div class="line"><span class="lineno">  114</span> </div>
+<div class="line"><span class="lineno">  115</span>    <span class="comment">// 5. Configurar giróscopo con rango +-250 deg/s</span></div>
+<div class="line"><span class="lineno">  116</span>    data = 0x00;</div>
+<div class="line"><span class="lineno">  117</span>    <a class="code hl_function" href="mpu6050_8c.html#aa7a11ab4c49e973ad04a608112dcbf35">mpu6050_WriteData</a>(&amp;data, <a class="code hl_define" href="group___m_p_u6050___registers.html#ga5b1b1a1ea1298b67cdab17a7213c6356">GYRO_CONFIG_REG</a>);</div>
+<div class="line"><span class="lineno">  118</span>}</div>
 <div class="ttc" id="agroup___m_p_u6050___registers_html_ga5b1b1a1ea1298b67cdab17a7213c6356"><div class="ttname"><a href="group___m_p_u6050___registers.html#ga5b1b1a1ea1298b67cdab17a7213c6356">GYRO_CONFIG_REG</a></div><div class="ttdeci">#define GYRO_CONFIG_REG</div><div class="ttdoc">Configuración de escala y rango del giróscopo.</div><div class="ttdef"><b>Definición</b> <a href="mpu6050_8h_source.html#l00029">mpu6050.h:29</a></div></div>
 <div class="ttc" id="agroup___m_p_u6050___registers_html_gaa2208da6faf439107b23dee629bb8398"><div class="ttname"><a href="group___m_p_u6050___registers.html#gaa2208da6faf439107b23dee629bb8398">SMPLRT_DIV_REG</a></div><div class="ttdeci">#define SMPLRT_DIV_REG</div><div class="ttdoc">Divisor de la tasa de muestreo interno (Sample Rate Divider).</div><div class="ttdef"><b>Definición</b> <a href="mpu6050_8h_source.html#l00027">mpu6050.h:27</a></div></div>
 <div class="ttc" id="agroup___m_p_u6050___registers_html_gad1d05dc09d0025498687ab7e30ffd4e4"><div class="ttname"><a href="group___m_p_u6050___registers.html#gad1d05dc09d0025498687ab7e30ffd4e4">ACCEL_CONFIG_REG</a></div><div class="ttdeci">#define ACCEL_CONFIG_REG</div><div class="ttdoc">Configuración de escala y rango del acelerómetro.</div><div class="ttdef"><b>Definición</b> <a href="mpu6050_8h_source.html#l00030">mpu6050.h:30</a></div></div>
 <div class="ttc" id="agroup___m_p_u6050___registers_html_gaf81594fa2c83e52e601f2e4a1d81d8bc"><div class="ttname"><a href="group___m_p_u6050___registers.html#gaf81594fa2c83e52e601f2e4a1d81d8bc">CONFIG_REG</a></div><div class="ttdeci">#define CONFIG_REG</div><div class="ttdoc">Configuración del filtro digital pasa-bajos (DLPF).</div><div class="ttdef"><b>Definición</b> <a href="mpu6050_8h_source.html#l00028">mpu6050.h:28</a></div></div>
 <div class="ttc" id="agroup___m_p_u6050___registers_html_gaf9bd016ab99b299a4816433252e31c3d"><div class="ttname"><a href="group___m_p_u6050___registers.html#gaf9bd016ab99b299a4816433252e31c3d">PWR_MGMT_1_REG</a></div><div class="ttdeci">#define PWR_MGMT_1_REG</div><div class="ttdoc">Registro de gestión de energía y modo sleep.</div><div class="ttdef"><b>Definición</b> <a href="mpu6050_8h_source.html#l00026">mpu6050.h:26</a></div></div>
-<div class="ttc" id="ampu6050_8c_html_aa7a11ab4c49e973ad04a608112dcbf35"><div class="ttname"><a href="mpu6050_8c.html#aa7a11ab4c49e973ad04a608112dcbf35">mpu6050_WriteData</a></div><div class="ttdeci">static void mpu6050_WriteData(uint8_t *byte, uint8_t type)</div><div class="ttdoc">Envía un comando de escritura simple a un registro del sensor.</div><div class="ttdef"><b>Definición</b> <a href="mpu6050_8c_source.html#l00054">mpu6050.c:54</a></div></div>
+<div class="ttc" id="ampu6050_8c_html_aa7a11ab4c49e973ad04a608112dcbf35"><div class="ttname"><a href="mpu6050_8c.html#aa7a11ab4c49e973ad04a608112dcbf35">mpu6050_WriteData</a></div><div class="ttdeci">static void mpu6050_WriteData(uint8_t *byte, uint8_t type)</div><div class="ttdoc">Envía un comando de escritura simple a un registro del sensor MPU-6050.</div><div class="ttdef"><b>Definición</b> <a href="mpu6050_8c_source.html#l00066">mpu6050.c:66</a></div></div>
 </div><!-- fragment -->
-<p class="reference">Hace referencia a <a class="el" href="mpu6050_8h_source.html#l00030">ACCEL_CONFIG_REG</a>, <a class="el" href="mpu6050_8h_source.html#l00028">CONFIG_REG</a>, <a class="el" href="mpu6050_8h_source.html#l00029">GYRO_CONFIG_REG</a>, <a class="el" href="mpu6050_8c_source.html#l00077">mpu6050_Init()</a>, <a class="el" href="mpu6050_8c_source.html#l00054">mpu6050_WriteData()</a>, <a class="el" href="mpu6050_8h_source.html#l00026">PWR_MGMT_1_REG</a> y <a class="el" href="mpu6050_8h_source.html#l00027">SMPLRT_DIV_REG</a>.</p>
+<p class="reference">Hace referencia a <a class="el" href="mpu6050_8h_source.html#l00030">ACCEL_CONFIG_REG</a>, <a class="el" href="mpu6050_8h_source.html#l00028">CONFIG_REG</a>, <a class="el" href="mpu6050_8h_source.html#l00029">GYRO_CONFIG_REG</a>, <a class="el" href="mpu6050_8c_source.html#l00095">mpu6050_Init()</a>, <a class="el" href="mpu6050_8c_source.html#l00066">mpu6050_WriteData()</a>, <a class="el" href="mpu6050_8h_source.html#l00026">PWR_MGMT_1_REG</a> y <a class="el" href="mpu6050_8h_source.html#l00027">SMPLRT_DIV_REG</a>.</p>
 
-<p class="reference">Referenciado por <a class="el" href="main_8c_source.html#l01623">i2cTask()</a>, <a class="el" href="main_8c_source.html#l03056">main()</a> y <a class="el" href="mpu6050_8c_source.html#l00077">mpu6050_Init()</a>.</p>
+<p class="reference">Referenciado por <a class="el" href="main_8c_source.html#l01797">i2cTask()</a>, <a class="el" href="main_8c_source.html#l03696">main()</a> y <a class="el" href="mpu6050_8c_source.html#l00095">mpu6050_Init()</a>.</p>
 <div id="dynsection-10" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
 <div id="dynsection-10-summary" class="dynsummary">
 </div>
@@ -537,57 +603,76 @@ Funciones</h2></td></tr>
 <p>Máquina de estados no bloqueante para la captura de 14 bytes inerciales continuos.</p>
 <p>Implementa una máquina de dos estados:</p><ul>
 <li>Estado 1: Dispara la lectura DMA de 14 bytes contiguos desde <span class="tt"><a class="el" href="group___m_p_u6050___registers.html#ga12d3f98f5ae302f7aab5895be9388d69" title="Dirección base de lectura de aceleración (X_HIGH, 14 bytes continuos).">ACCEL_XOUT_H_REG</a></span>.</li>
-<li>Estado 2: Recompone los pares de bytes recibidos (Big-Endian) en valores con signo de 16 bits. <dl class="retval"><dt>Valores devueltos</dt><dd>
+<li>Estado 2: Recompone los pares de bytes recibidos (Big-Endian) en valores con signo de 16 bits.</li>
+</ul>
+<div class="plantumlgraph">
+<object type="image/svg+xml" data="inline_umlgraph_7.svg"></object>
+</div>
+<dl class="section pre"><dt>Precondición</dt><dd>Debe estar asignado el callback DMA mediante <span class="tt"><a class="el" href="#a2864ec8a15ced6016fe62257bea31262" title="Vincula la función de callback que indica la finalización de recepción DMA.">mpu6050_ADC_ConfCpltCallback</a></span> y el despachador <span class="tt"><a class="el" href="#adf4f13f79245b1e0e41a105890ab2d9f" title="Conecta el puntero a la función de lectura por DMA del bus I2C del microcontrolador.">mpu6050_Attach_MemReadDMA</a></span>. </dd></dl>
+<dl class="section post"><dt>Postcondición</dt><dd>Actualiza las variables estáticas internas <span class="tt"><a class="el" href="main_8c.html#aebedd0a48fe876cce3d3f14326e4ca66">ax</a>, <a class="el" href="main_8c.html#a46d26903f1874d06875a974dfa1a9d3c">ay</a>, <a class="el" href="main_8c.html#a41e60f9324f9d4fd9e916e964370fb2f">az</a>, <a class="el" href="main_8c.html#a4524555b50a829ee7628cf5e5806f227">gx</a>, <a class="el" href="main_8c.html#a8bd44b73dc5745833a8dd8d2a6240613">gy</a>, <a class="el" href="main_8c.html#aa61e9778c784ec4695029ed2cc769a61">gz</a></span>. </dd></dl>
+<dl class="retval"><dt>Valores devueltos</dt><dd>
   <table class="retval">
     <tr><td class="paramname">1</td><td>Lectura completa, datos actualizados y listos. </td></tr>
-    <tr><td class="paramname">0</td><td>Transferencia DMA en curso o bus no disponible.</td></tr>
+    <tr><td class="paramname">0</td><td>Transferencia DMA en curso o bus no disponible. </td></tr>
   </table>
   </dd>
 </dl>
-Ejecuta el ciclo de lectura no bloqueante de 14 bytes por DMA.</li>
-</ul>
+<dl class="section see"><dt>Ver también</dt><dd><a class="el" href="#a0d2422b0bd5bcfba247b703c9f82057e" title="Copia los últimos datos crudos de 16 bits leídos del acelerómetro y giróscopo.">mpu6050_GetData</a> </dd>
+<dd>
+<a class="el" href="#a9211023060608ef2cae3642ca8406845" title="Reinicia el estado interno del secuenciador de lectura DMA del sensor.">mpu6050_Reset_State</a> </dd>
+<dd>
+<a class="el" href="group__group__control.html#ga619f06ca356b275d5b63ecbdff495f5c" title="Tarea orquestadora central de control PID y MEF de modos operativos (200 Hz).">PIDTask</a></dd></dl>
+<p>Ejecuta el ciclo de lectura no bloqueante de 14 bytes por DMA.</p>
 <p>El proceso se divide en dos fases para sincronizarse con la interrupción DMA:</p><ul>
 <li>En Fase 1: Dispara la lectura de 14 bytes por DMA desde <span class="tt"><a class="el" href="group___m_p_u6050___registers.html#ga12d3f98f5ae302f7aab5895be9388d69" title="Dirección base de lectura de aceleración (X_HIGH, 14 bytes continuos).">ACCEL_XOUT_H_REG</a></span> (0x3B).</li>
-<li>En Fase 2: Tras recibir la señal de <span class="tt"><a class="el" href="main_8c.html#acd75fef0ac155418d387840dcba14b92">mpu6050_RxCplt</a></span>, recompone los registros: <span class="tt">Ax</span>, <span class="tt">Ay</span>, <span class="tt">Az</span>, <span class="tt">Temperatura</span>, <span class="tt">Gx</span>, <span class="tt">Gy</span>, <span class="tt">Gz</span> desplazando el byte alto 8 bits. </li>
+<li>En Fase 2: Tras recibir la señal de <span class="tt"><a class="el" href="main_8c.html#acd75fef0ac155418d387840dcba14b92">mpu6050_RxCplt</a></span>, recompone los registros: <span class="tt">Ax</span>, <span class="tt">Ay</span>, <span class="tt">Az</span>, <span class="tt">Temperatura</span>, <span class="tt">Gx</span>, <span class="tt">Gy</span>, <span class="tt">Gz</span> desplazando el byte alto 8 bits. <dl class="section return"><dt>Devuelve</dt><dd>1 si los datos fueron recibidos y ensamblados exitosamente; 0 si la transferencia sigue en curso. </dd></dl>
+<dl class="section pre"><dt>Precondición</dt><dd>Función <span class="tt">memReadDMA</span> asociada y bus libre. </dd></dl>
+<dl class="section post"><dt>Postcondición</dt><dd>Al completarse (retorno 1), actualiza variables estáticas <span class="tt"><a class="el" href="main_8c.html#aebedd0a48fe876cce3d3f14326e4ca66">ax</a>, <a class="el" href="main_8c.html#a46d26903f1874d06875a974dfa1a9d3c">ay</a>, <a class="el" href="main_8c.html#a41e60f9324f9d4fd9e916e964370fb2f">az</a>, <a class="el" href="main_8c.html#a4524555b50a829ee7628cf5e5806f227">gx</a>, <a class="el" href="main_8c.html#a8bd44b73dc5745833a8dd8d2a6240613">gy</a>, <a class="el" href="main_8c.html#aa61e9778c784ec4695029ed2cc769a61">gz</a></span>. </dd></dl>
+<dl class="section see"><dt>Ver también</dt><dd><a class="el" href="#a0d2422b0bd5bcfba247b703c9f82057e" title="Copia los últimos datos crudos de 16 bits leídos del acelerómetro y giróscopo.">mpu6050_GetData</a> </dd>
+<dd>
+<a class="el" href="#a9211023060608ef2cae3642ca8406845" title="Reinicia el estado interno del secuenciador de lectura DMA del sensor.">mpu6050_Reset_State</a> </dd>
+<dd>
+<a class="el" href="group__group__control.html#ga619f06ca356b275d5b63ecbdff495f5c" title="Tarea orquestadora central de control PID y MEF de modos operativos (200 Hz).">PIDTask</a> </dd></dl>
+</li>
 </ul>
 <p>&lt; Dirección base de lectura de aceleración (X_HIGH, 14 bytes continuos)</p>
 
-<p class="definition">Definición en la línea <a class="el" href="mpu6050_8c_source.html#l00119">119</a> del archivo <a class="el" href="mpu6050_8c_source.html">mpu6050.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  120</span>{</div>
-<div class="line"><span class="lineno">  121</span>    <span class="keyword">static</span> uint8_t Rec_Data[14];</div>
-<div class="line"><span class="lineno">  122</span> </div>
-<div class="line"><span class="lineno">  123</span>    <span class="keywordflow">if</span> (*<a class="code hl_variable" href="main_8c.html#acd75fef0ac155418d387840dcba14b92">mpu6050_RxCplt</a> || <a class="code hl_variable" href="mpu6050_8c.html#a0df1dcd7d6aa6a4b7436dc6c87a73d95">mpu_state</a> == 1) {</div>
-<div class="line"><span class="lineno">  124</span>        *<a class="code hl_variable" href="main_8c.html#acd75fef0ac155418d387840dcba14b92">mpu6050_RxCplt</a> = 0;  <span class="comment">// Reset de la bandera de recepción DMA</span></div>
-<div class="line"><span class="lineno">  125</span>        <span class="keywordflow">switch</span> (<a class="code hl_variable" href="mpu6050_8c.html#a0df1dcd7d6aa6a4b7436dc6c87a73d95">mpu_state</a>) {</div>
-<div class="line"><span class="lineno">  126</span>        <span class="keywordflow">case</span> 1:</div>
-<div class="line"><span class="lineno">  127</span>            <a class="code hl_variable" href="mpu6050_8c.html#a0df1dcd7d6aa6a4b7436dc6c87a73d95">mpu_state</a> = 2;</div>
-<div class="line"><span class="lineno">  128</span>            <span class="comment">// Lanzar solicitud DMA para leer los 14 registros de golpe (Ax, Ay, Az, Temp, Gx, Gy, Gz)</span></div>
-<div class="line"><span class="lineno">  129</span>            <a class="code hl_function" href="mpu6050_8c.html#af3d8d09af00746dbc3ad0f1a05377282">mpu6050_ReadDataDMA</a>(Rec_Data, 14, <a class="code hl_define" href="group___m_p_u6050___registers.html#ga12d3f98f5ae302f7aab5895be9388d69">ACCEL_XOUT_H_REG</a>);</div>
-<div class="line"><span class="lineno">  130</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">  131</span>        <span class="keywordflow">case</span> 2:</div>
-<div class="line"><span class="lineno">  132</span>            <a class="code hl_variable" href="mpu6050_8c.html#a0df1dcd7d6aa6a4b7436dc6c87a73d95">mpu_state</a> = 1;</div>
-<div class="line"><span class="lineno">  133</span>            <span class="comment">// Combinar bytes MSB y LSB en enteros de 16 bits con signo (formato Big-Endian del sensor)</span></div>
-<div class="line"><span class="lineno">  134</span>            <a class="code hl_variable" href="main_8c.html#aebedd0a48fe876cce3d3f14326e4ca66">ax</a> = (int16_t) (Rec_Data[0] &lt;&lt; 8 | Rec_Data[1]);</div>
-<div class="line"><span class="lineno">  135</span>            <a class="code hl_variable" href="main_8c.html#a46d26903f1874d06875a974dfa1a9d3c">ay</a> = (int16_t) (Rec_Data[2] &lt;&lt; 8 | Rec_Data[3]);</div>
-<div class="line"><span class="lineno">  136</span>            <a class="code hl_variable" href="main_8c.html#a41e60f9324f9d4fd9e916e964370fb2f">az</a> = (int16_t) (Rec_Data[4] &lt;&lt; 8 | Rec_Data[5]);</div>
-<div class="line"><span class="lineno">  137</span> </div>
-<div class="line"><span class="lineno">  138</span>            <a class="code hl_variable" href="main_8c.html#a4524555b50a829ee7628cf5e5806f227">gx</a> = (int16_t) (Rec_Data[8] &lt;&lt; 8 | Rec_Data[9]);</div>
-<div class="line"><span class="lineno">  139</span>            <a class="code hl_variable" href="main_8c.html#a8bd44b73dc5745833a8dd8d2a6240613">gy</a> = (int16_t) (Rec_Data[10] &lt;&lt; 8 | Rec_Data[11]);</div>
-<div class="line"><span class="lineno">  140</span>            <a class="code hl_variable" href="main_8c.html#aa61e9778c784ec4695029ed2cc769a61">gz</a> = (int16_t) (Rec_Data[12] &lt;&lt; 8 | Rec_Data[13]);</div>
-<div class="line"><span class="lineno">  141</span> </div>
-<div class="line"><span class="lineno">  142</span>            <span class="keywordflow">return</span> 1; <span class="comment">// Nuevos datos disponibles</span></div>
-<div class="line"><span class="lineno">  143</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">  144</span>        }</div>
-<div class="line"><span class="lineno">  145</span>    }</div>
-<div class="line"><span class="lineno">  146</span>    <span class="keywordflow">return</span> 0; <span class="comment">// Lectura en proceso</span></div>
-<div class="line"><span class="lineno">  147</span>}</div>
+<p class="definition">Definición en la línea <a class="el" href="mpu6050_8c_source.html#l00145">145</a> del archivo <a class="el" href="mpu6050_8c_source.html">mpu6050.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  146</span>{</div>
+<div class="line"><span class="lineno">  147</span>    <span class="keyword">static</span> uint8_t Rec_Data[14];</div>
+<div class="line"><span class="lineno">  148</span> </div>
+<div class="line"><span class="lineno">  149</span>    <span class="keywordflow">if</span> (*<a class="code hl_variable" href="main_8c.html#acd75fef0ac155418d387840dcba14b92">mpu6050_RxCplt</a> || <a class="code hl_variable" href="mpu6050_8c.html#a0df1dcd7d6aa6a4b7436dc6c87a73d95">mpu_state</a> == 1) {</div>
+<div class="line"><span class="lineno">  150</span>        *<a class="code hl_variable" href="main_8c.html#acd75fef0ac155418d387840dcba14b92">mpu6050_RxCplt</a> = 0;  <span class="comment">// Reset de la bandera de recepción DMA</span></div>
+<div class="line"><span class="lineno">  151</span>        <span class="keywordflow">switch</span> (<a class="code hl_variable" href="mpu6050_8c.html#a0df1dcd7d6aa6a4b7436dc6c87a73d95">mpu_state</a>) {</div>
+<div class="line"><span class="lineno">  152</span>        <span class="keywordflow">case</span> 1:</div>
+<div class="line"><span class="lineno">  153</span>            <a class="code hl_variable" href="mpu6050_8c.html#a0df1dcd7d6aa6a4b7436dc6c87a73d95">mpu_state</a> = 2;</div>
+<div class="line"><span class="lineno">  154</span>            <span class="comment">// Lanzar solicitud DMA para leer los 14 registros de golpe (Ax, Ay, Az, Temp, Gx, Gy, Gz)</span></div>
+<div class="line"><span class="lineno">  155</span>            <a class="code hl_function" href="mpu6050_8c.html#af3d8d09af00746dbc3ad0f1a05377282">mpu6050_ReadDataDMA</a>(Rec_Data, 14, <a class="code hl_define" href="group___m_p_u6050___registers.html#ga12d3f98f5ae302f7aab5895be9388d69">ACCEL_XOUT_H_REG</a>);</div>
+<div class="line"><span class="lineno">  156</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  157</span>        <span class="keywordflow">case</span> 2:</div>
+<div class="line"><span class="lineno">  158</span>            <a class="code hl_variable" href="mpu6050_8c.html#a0df1dcd7d6aa6a4b7436dc6c87a73d95">mpu_state</a> = 1;</div>
+<div class="line"><span class="lineno">  159</span>            <span class="comment">// Combinar bytes MSB y LSB en enteros de 16 bits con signo (formato Big-Endian del sensor)</span></div>
+<div class="line"><span class="lineno">  160</span>            <a class="code hl_variable" href="main_8c.html#aebedd0a48fe876cce3d3f14326e4ca66">ax</a> = (int16_t) (Rec_Data[0] &lt;&lt; 8 | Rec_Data[1]);</div>
+<div class="line"><span class="lineno">  161</span>            <a class="code hl_variable" href="main_8c.html#a46d26903f1874d06875a974dfa1a9d3c">ay</a> = (int16_t) (Rec_Data[2] &lt;&lt; 8 | Rec_Data[3]);</div>
+<div class="line"><span class="lineno">  162</span>            <a class="code hl_variable" href="main_8c.html#a41e60f9324f9d4fd9e916e964370fb2f">az</a> = (int16_t) (Rec_Data[4] &lt;&lt; 8 | Rec_Data[5]);</div>
+<div class="line"><span class="lineno">  163</span> </div>
+<div class="line"><span class="lineno">  164</span>            <a class="code hl_variable" href="main_8c.html#a4524555b50a829ee7628cf5e5806f227">gx</a> = (int16_t) (Rec_Data[8] &lt;&lt; 8 | Rec_Data[9]);</div>
+<div class="line"><span class="lineno">  165</span>            <a class="code hl_variable" href="main_8c.html#a8bd44b73dc5745833a8dd8d2a6240613">gy</a> = (int16_t) (Rec_Data[10] &lt;&lt; 8 | Rec_Data[11]);</div>
+<div class="line"><span class="lineno">  166</span>            <a class="code hl_variable" href="main_8c.html#aa61e9778c784ec4695029ed2cc769a61">gz</a> = (int16_t) (Rec_Data[12] &lt;&lt; 8 | Rec_Data[13]);</div>
+<div class="line"><span class="lineno">  167</span> </div>
+<div class="line"><span class="lineno">  168</span>            <span class="keywordflow">return</span> 1; <span class="comment">// Nuevos datos disponibles</span></div>
+<div class="line"><span class="lineno">  169</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  170</span>        }</div>
+<div class="line"><span class="lineno">  171</span>    }</div>
+<div class="line"><span class="lineno">  172</span>    <span class="keywordflow">return</span> 0; <span class="comment">// Lectura en proceso</span></div>
+<div class="line"><span class="lineno">  173</span>}</div>
 <div class="ttc" id="agroup___m_p_u6050___registers_html_ga12d3f98f5ae302f7aab5895be9388d69"><div class="ttname"><a href="group___m_p_u6050___registers.html#ga12d3f98f5ae302f7aab5895be9388d69">ACCEL_XOUT_H_REG</a></div><div class="ttdeci">#define ACCEL_XOUT_H_REG</div><div class="ttdoc">Dirección base de lectura de aceleración (X_HIGH, 14 bytes continuos).</div><div class="ttdef"><b>Definición</b> <a href="mpu6050_8h_source.html#l00031">mpu6050.h:31</a></div></div>
 <div class="ttc" id="ampu6050_8c_html_a0df1dcd7d6aa6a4b7436dc6c87a73d95"><div class="ttname"><a href="mpu6050_8c.html#a0df1dcd7d6aa6a4b7436dc6c87a73d95">mpu_state</a></div><div class="ttdeci">static uint8_t mpu_state</div><div class="ttdoc">Estado de la MEF de lectura DMA (1: Lanzar petición DMA, 2: Recomponer bytes).</div><div class="ttdef"><b>Definición</b> <a href="mpu6050_8c_source.html#l00025">mpu6050.c:25</a></div></div>
-<div class="ttc" id="ampu6050_8c_html_af3d8d09af00746dbc3ad0f1a05377282"><div class="ttname"><a href="mpu6050_8c.html#af3d8d09af00746dbc3ad0f1a05377282">mpu6050_ReadDataDMA</a></div><div class="ttdeci">static void mpu6050_ReadDataDMA(uint8_t *buffer, size_t size, uint8_t type)</div><div class="ttdoc">Inicia una lectura por DMA de longitud parametrizable.</div><div class="ttdef"><b>Definición</b> <a href="mpu6050_8c_source.html#l00064">mpu6050.c:64</a></div></div>
+<div class="ttc" id="ampu6050_8c_html_af3d8d09af00746dbc3ad0f1a05377282"><div class="ttname"><a href="mpu6050_8c.html#af3d8d09af00746dbc3ad0f1a05377282">mpu6050_ReadDataDMA</a></div><div class="ttdeci">static void mpu6050_ReadDataDMA(uint8_t *buffer, size_t size, uint8_t type)</div><div class="ttdoc">Inicia una lectura por DMA de longitud parametrizable.</div><div class="ttdef"><b>Definición</b> <a href="mpu6050_8c_source.html#l00078">mpu6050.c:78</a></div></div>
 </div><!-- fragment -->
-<p class="reference">Hace referencia a <a class="el" href="mpu6050_8h_source.html#l00031">ACCEL_XOUT_H_REG</a>, <a class="el" href="main_8c_source.html#l00284">ax</a>, <a class="el" href="main_8c_source.html#l00285">ay</a>, <a class="el" href="main_8c_source.html#l00286">az</a>, <a class="el" href="main_8c_source.html#l00287">gx</a>, <a class="el" href="main_8c_source.html#l00288">gy</a>, <a class="el" href="main_8c_source.html#l00289">gz</a>, <a class="el" href="mpu6050_8c_source.html#l00119">mpu6050_Read()</a>, <a class="el" href="mpu6050_8c_source.html#l00064">mpu6050_ReadDataDMA()</a>, <a class="el" href="main_8c_source.html#l00283">mpu6050_RxCplt</a> y <a class="el" href="mpu6050_8c_source.html#l00025">mpu_state</a>.</p>
+<p class="reference">Hace referencia a <a class="el" href="mpu6050_8h_source.html#l00031">ACCEL_XOUT_H_REG</a>, <a class="el" href="main_8c_source.html#l00414">ax</a>, <a class="el" href="main_8c_source.html#l00415">ay</a>, <a class="el" href="main_8c_source.html#l00416">az</a>, <a class="el" href="main_8c_source.html#l00417">gx</a>, <a class="el" href="main_8c_source.html#l00418">gy</a>, <a class="el" href="main_8c_source.html#l00419">gz</a>, <a class="el" href="mpu6050_8c_source.html#l00145">mpu6050_Read()</a>, <a class="el" href="mpu6050_8c_source.html#l00078">mpu6050_ReadDataDMA()</a>, <a class="el" href="main_8c_source.html#l00411">mpu6050_RxCplt</a> y <a class="el" href="mpu6050_8c_source.html#l00025">mpu_state</a>.</p>
 
-<p class="reference">Referenciado por <a class="el" href="main_8c_source.html#l01623">i2cTask()</a> y <a class="el" href="mpu6050_8c_source.html#l00119">mpu6050_Read()</a>.</p>
+<p class="reference">Referenciado por <a class="el" href="main_8c_source.html#l01797">i2cTask()</a> y <a class="el" href="mpu6050_8c_source.html#l00145">mpu6050_Read()</a>.</p>
 <div id="dynsection-12" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
 <div id="dynsection-12-summary" class="dynsummary">
 </div>
@@ -620,20 +705,24 @@ Ejecuta el ciclo de lectura no bloqueante de 14 bytes por DMA.</li>
 
 <p>Reinicia el estado interno del secuenciador de lectura DMA del sensor. </p>
 <p>Resetea la secuencia de lectura DMA en caso de error o reinicio de estado.</p>
-<p>Reinicia el estado interno del secuenciador de lectura DMA del sensor. </p>
+<dl class="section post"><dt>Postcondición</dt><dd>Restaura <span class="tt">mpu_state = 1</span> y limpia la bandera de finalización de DMA si está vinculada. </dd></dl>
+<dl class="section see"><dt>Ver también</dt><dd><a class="el" href="#aace5fea3888e51a75e8bfb77bae17b80" title="Ejecuta el ciclo de lectura no bloqueante de 14 bytes por DMA.">mpu6050_Read</a></dd></dl>
+<p>Reinicia el estado interno del secuenciador de lectura DMA del sensor.</p>
+<dl class="section post"><dt>Postcondición</dt><dd><span class="tt">mpu_state</span> vuelve a 1 y si la bandera DMA Rx no es NULL, se limpia a 0. </dd></dl>
+<dl class="section see"><dt>Ver también</dt><dd><a class="el" href="#aace5fea3888e51a75e8bfb77bae17b80" title="Ejecuta el ciclo de lectura no bloqueante de 14 bytes por DMA.">mpu6050_Read</a> </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="mpu6050_8c_source.html#l00105">105</a> del archivo <a class="el" href="mpu6050_8c_source.html">mpu6050.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  105</span>                               {</div>
-<div class="line"><span class="lineno">  106</span>    <a class="code hl_variable" href="mpu6050_8c.html#a0df1dcd7d6aa6a4b7436dc6c87a73d95">mpu_state</a> = 1;</div>
-<div class="line"><span class="lineno">  107</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="main_8c.html#acd75fef0ac155418d387840dcba14b92">mpu6050_RxCplt</a> != <a class="code hl_define" href="group___u_s_b___d_e_f___exported___defines.html#ga070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {</div>
-<div class="line"><span class="lineno">  108</span>        *<a class="code hl_variable" href="main_8c.html#acd75fef0ac155418d387840dcba14b92">mpu6050_RxCplt</a> = 0;</div>
-<div class="line"><span class="lineno">  109</span>    }</div>
-<div class="line"><span class="lineno">  110</span>}</div>
+<p class="definition">Definición en la línea <a class="el" href="mpu6050_8c_source.html#l00125">125</a> del archivo <a class="el" href="mpu6050_8c_source.html">mpu6050.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  125</span>                               {</div>
+<div class="line"><span class="lineno">  126</span>    <a class="code hl_variable" href="mpu6050_8c.html#a0df1dcd7d6aa6a4b7436dc6c87a73d95">mpu_state</a> = 1;</div>
+<div class="line"><span class="lineno">  127</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="main_8c.html#acd75fef0ac155418d387840dcba14b92">mpu6050_RxCplt</a> != <a class="code hl_define" href="group___u_s_b___d_e_f___exported___defines.html#ga070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {</div>
+<div class="line"><span class="lineno">  128</span>        *<a class="code hl_variable" href="main_8c.html#acd75fef0ac155418d387840dcba14b92">mpu6050_RxCplt</a> = 0;</div>
+<div class="line"><span class="lineno">  129</span>    }</div>
+<div class="line"><span class="lineno">  130</span>}</div>
 <div class="ttc" id="agroup___u_s_b___d_e_f___exported___defines_html_ga070d2ce7b6bb7e5c05602aa8c308d0c4"><div class="ttname"><a href="group___u_s_b___d_e_f___exported___defines.html#ga070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a></div><div class="ttdeci">#define NULL</div><div class="ttdef"><b>Definición</b> <a href="usbd__def_8h_source.html#l00045">usbd_def.h:45</a></div></div>
 </div><!-- fragment -->
-<p class="reference">Hace referencia a <a class="el" href="mpu6050_8c_source.html#l00105">mpu6050_Reset_State()</a>, <a class="el" href="main_8c_source.html#l00283">mpu6050_RxCplt</a>, <a class="el" href="mpu6050_8c_source.html#l00025">mpu_state</a> y <a class="el" href="usbd__def_8h_source.html#l00045">NULL</a>.</p>
+<p class="reference">Hace referencia a <a class="el" href="mpu6050_8c_source.html#l00125">mpu6050_Reset_State()</a>, <a class="el" href="main_8c_source.html#l00411">mpu6050_RxCplt</a>, <a class="el" href="mpu6050_8c_source.html#l00025">mpu_state</a> y <a class="el" href="usbd__def_8h_source.html#l00045">NULL</a>.</p>
 
-<p class="reference">Referenciado por <a class="el" href="main_8c_source.html#l01623">i2cTask()</a> y <a class="el" href="mpu6050_8c_source.html#l00105">mpu6050_Reset_State()</a>.</p>
+<p class="reference">Referenciado por <a class="el" href="main_8c_source.html#l01797">i2cTask()</a> y <a class="el" href="mpu6050_8c_source.html#l00125">mpu6050_Reset_State()</a>.</p>
 <div id="dynsection-14" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Gráfico de llamadas de esta función:</div>
 <div id="dynsection-14-summary" class="dynsummary">
 </div>

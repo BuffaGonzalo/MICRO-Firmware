@@ -25,11 +25,9 @@
 var NAVTREE =
 [
   [ "MICRO-Firmware", "index.html", [
-    [ "MICRO-Firmware", "md__r_e_a_d_m_e.html", [
-      [ "Resumen del funcionamiento", "md__r_e_a_d_m_e.html#autotoc_md1", null ],
-      [ "Componentes utilizados", "md__r_e_a_d_m_e.html#autotoc_md2", null ],
-      [ "Interfaz gráfica complementaria", "md__r_e_a_d_m_e.html#autotoc_md3", null ]
-    ] ],
+    [ "Resumen del funcionamiento", "index.html#autotoc_md1", null ],
+    [ "Componentes utilizados", "index.html#autotoc_md2", null ],
+    [ "Interfaz gráfica complementaria", "index.html#autotoc_md3", null ],
     [ "Temas", "topics.html", "topics" ],
     [ "Estructuras de datos", "annotated.html", [
       [ "Estructuras de datos", "annotated.html", "annotated_dup" ],
@@ -113,11 +111,11 @@ var NAVTREEINDEX =
 "group___u_s_b___l_l.html",
 "group___u_s_b_d___c_o_r_e___exported___macros.html",
 "group___wire_g_f_x___config.html#gaffb36ca3a6519ca609cfa9a0d70a682a",
-"main_8c.html#a83c2fe2e6f4d2e18a686d29a2d0599ed",
-"stm32f1xx__ll__cortex_8h.html",
-"struct_c_a_n___type_def.html#a95e8aa548bc4a5cd7dfdbb383c4c5a2a",
-"struct_s_s_d1306__t.html#a2c40063b7f8a6faf0cb91f191070e87a",
-"union__u_flag.html"
+"main_8c.html#a79ca2dfd640a296f64b29ea88d4ee61c",
+"stm32f1xx__hal__tim__ex_8c_source.html",
+"struct_c_a_n___tx_mail_box___type_def.html#ac1337a4dc8b1c80baf4ddee43b809485",
+"struct_s_p_i___type_def.html#a9ed4056a1210302b9f0da61f8d65f97a",
+"structusb__setup__req.html#aa114215d5692aa3529d233dbafafb27a"
 ];
 
 const SYNCONMSG = 'pulsar para deshabilitar sincronización';

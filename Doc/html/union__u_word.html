@@ -34,7 +34,7 @@ MathJax.Hub.Config({
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">MICRO-Firmware<span id="projectnumber">&#160;EX100923v01</span>
+   <div id="projectname">MICRO-Firmware
    </div>
    <div id="projectbrief">Firmware de Péndulo Invertido Autónomo de Dos Ruedas (STM32F103C8T6 - ARM Cortex-M3)</div>
   </td>
@@ -138,21 +138,23 @@ Campos de datos</h2></td></tr>
 <tr class="memitem:a7f6b4000aa5cceff13176b9a344d60de" id="r_a7f6b4000aa5cceff13176b9a344d60de"><td class="memItemLeft">int16_t&#160;</td><td class="memItemRight"><a class="el" href="#a7f6b4000aa5cceff13176b9a344d60de">i16</a> [2]</td></tr>
 <tr class="memdesc:a7f6b4000aa5cceff13176b9a344d60de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vector de 2 enteros con signo de 16 bits.  <br /></td></tr>
 <tr class="memitem:a41e27a3dfc8094834c7fbd628e86fb83" id="r_a41e27a3dfc8094834c7fbd628e86fb83"><td class="memItemLeft">int32_t&#160;</td><td class="memItemRight"><a class="el" href="#a41e27a3dfc8094834c7fbd628e86fb83">i32</a></td></tr>
-<tr class="memdesc:a41e27a3dfc8094834c7fbd628e86fb83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Entero con signo de 32 bits.  <br /></td></tr>
+<tr class="memdesc:a41e27a3dfc8094834c7fbd628e86fb83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Entero con signo de 32 bits (4 bytes).  <br /></td></tr>
 <tr class="memitem:a4ac7e0d16e420512bab8c55afc655aa4" id="r_a4ac7e0d16e420512bab8c55afc655aa4"><td class="memItemLeft">int8_t&#160;</td><td class="memItemRight"><a class="el" href="#a4ac7e0d16e420512bab8c55afc655aa4">i8</a> [4]</td></tr>
 <tr class="memdesc:a4ac7e0d16e420512bab8c55afc655aa4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vector de 4 bytes con signo.  <br /></td></tr>
 <tr class="memitem:a40571d41f3bd2d6370d79d506bdaa406" id="r_a40571d41f3bd2d6370d79d506bdaa406"><td class="memItemLeft">uint16_t&#160;</td><td class="memItemRight"><a class="el" href="#a40571d41f3bd2d6370d79d506bdaa406">ui16</a> [2]</td></tr>
-<tr class="memdesc:a40571d41f3bd2d6370d79d506bdaa406"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vector de 2 enteros sin signo de 16 bits.  <br /></td></tr>
+<tr class="memdesc:a40571d41f3bd2d6370d79d506bdaa406"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vector de 2 enteros sin signo de 16 bits (Little-Endian / orden de bus).  <br /></td></tr>
 <tr class="memitem:a5177bfbdc95ef07519ced77ff10f353e" id="r_a5177bfbdc95ef07519ced77ff10f353e"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a5177bfbdc95ef07519ced77ff10f353e">ui32</a></td></tr>
-<tr class="memdesc:a5177bfbdc95ef07519ced77ff10f353e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Entero sin signo de 32 bits.  <br /></td></tr>
+<tr class="memdesc:a5177bfbdc95ef07519ced77ff10f353e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Entero sin signo de 32 bits (4 bytes).  <br /></td></tr>
 <tr class="memitem:ac867bc4c2ef656f7689b9e75cf9846a2" id="r_ac867bc4c2ef656f7689b9e75cf9846a2"><td class="memItemLeft">uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#ac867bc4c2ef656f7689b9e75cf9846a2">ui8</a> [4]</td></tr>
-<tr class="memdesc:ac867bc4c2ef656f7689b9e75cf9846a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vector de 4 bytes sin signo.  <br /></td></tr>
+<tr class="memdesc:ac867bc4c2ef656f7689b9e75cf9846a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vector de 4 bytes sin signo directos.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Descripción detallada</h2>
 <div class="textblock"><p>Unión multipropósito para conversión y serialización de tipos escalares (1, 2 y 4 bytes). </p>
-<p>Facilita la descomposición de enteros de 16 y 32 bits a secuencias de bytes para su transmisión directa en la carga útil de la trama binaria. </p>
+<p>Facilita la descomposición de enteros de 16 y 32 bits a secuencias de bytes para su transmisión directa en la carga útil de la trama binaria sin recurrir a casting inseguro. </p><dl class="section see"><dt>Ver también</dt><dd><a class="el" href="struct__s_comm.html" title="Estructura de control de buffer circular para canales de comunicación (Rx/Tx).">_sComm</a> </dd>
+<dd>
+<a class="el" href="util_8h.html#a914da92242d04381391fee2bb1c936df" title="Identificadores de comandos binarios del protocolo unerPrtcl.">_eCmd</a> </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="uner_prtcl_8h_source.html#l00032">32</a> del archivo <a class="el" href="uner_prtcl_8h_source.html">unerPrtcl.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="uner_prtcl_8h_source.html#l00034">34</a> del archivo <a class="el" href="uner_prtcl_8h_source.html">unerPrtcl.h</a>.</p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Documentación de campos</h2>
 <a id="a7f6b4000aa5cceff13176b9a344d60de" name="a7f6b4000aa5cceff13176b9a344d60de"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7f6b4000aa5cceff13176b9a344d60de">&#9670;&#160;</a></span>i16</h2>
@@ -168,9 +170,9 @@ Campos de datos</h2></td></tr>
 
 <p>Vector de 2 enteros con signo de 16 bits. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="uner_prtcl_8h_source.html#l00036">36</a> del archivo <a class="el" href="uner_prtcl_8h_source.html">unerPrtcl.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="uner_prtcl_8h_source.html#l00038">38</a> del archivo <a class="el" href="uner_prtcl_8h_source.html">unerPrtcl.h</a>.</p>
 
-<p class="reference">Referenciado por <a class="el" href="main_8c_source.html#l00890">decodeCommand()</a>.</p>
+<p class="reference">Referenciado por <a class="el" href="main_8c_source.html#l00954">decodeCommand()</a>.</p>
 
 </div>
 </div>
@@ -186,9 +188,9 @@ Campos de datos</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Entero con signo de 32 bits. </p>
+<p>Entero con signo de 32 bits (4 bytes). </p>
 
-<p class="definition">Definición en la línea <a class="el" href="uner_prtcl_8h_source.html#l00034">34</a> del archivo <a class="el" href="uner_prtcl_8h_source.html">unerPrtcl.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="uner_prtcl_8h_source.html#l00036">36</a> del archivo <a class="el" href="uner_prtcl_8h_source.html">unerPrtcl.h</a>.</p>
 
 </div>
 </div>
@@ -206,9 +208,9 @@ Campos de datos</h2></td></tr>
 
 <p>Vector de 4 bytes con signo. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="uner_prtcl_8h_source.html#l00038">38</a> del archivo <a class="el" href="uner_prtcl_8h_source.html">unerPrtcl.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="uner_prtcl_8h_source.html#l00040">40</a> del archivo <a class="el" href="uner_prtcl_8h_source.html">unerPrtcl.h</a>.</p>
 
-<p class="reference">Referenciado por <a class="el" href="main_8c_source.html#l00890">decodeCommand()</a>.</p>
+<p class="reference">Referenciado por <a class="el" href="main_8c_source.html#l00954">decodeCommand()</a>.</p>
 
 </div>
 </div>
@@ -224,11 +226,11 @@ Campos de datos</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Vector de 2 enteros sin signo de 16 bits. </p>
+<p>Vector de 2 enteros sin signo de 16 bits (Little-Endian / orden de bus). </p>
 
-<p class="definition">Definición en la línea <a class="el" href="uner_prtcl_8h_source.html#l00035">35</a> del archivo <a class="el" href="uner_prtcl_8h_source.html">unerPrtcl.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="uner_prtcl_8h_source.html#l00037">37</a> del archivo <a class="el" href="uner_prtcl_8h_source.html">unerPrtcl.h</a>.</p>
 
-<p class="reference">Referenciado por <a class="el" href="main_8c_source.html#l00890">decodeCommand()</a>.</p>
+<p class="reference">Referenciado por <a class="el" href="main_8c_source.html#l00954">decodeCommand()</a>.</p>
 
 </div>
 </div>
@@ -244,9 +246,9 @@ Campos de datos</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Entero sin signo de 32 bits. </p>
+<p>Entero sin signo de 32 bits (4 bytes). </p>
 
-<p class="definition">Definición en la línea <a class="el" href="uner_prtcl_8h_source.html#l00033">33</a> del archivo <a class="el" href="uner_prtcl_8h_source.html">unerPrtcl.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="uner_prtcl_8h_source.html#l00035">35</a> del archivo <a class="el" href="uner_prtcl_8h_source.html">unerPrtcl.h</a>.</p>
 
 </div>
 </div>
@@ -262,11 +264,11 @@ Campos de datos</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Vector de 4 bytes sin signo. </p>
+<p>Vector de 4 bytes sin signo directos. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="uner_prtcl_8h_source.html#l00037">37</a> del archivo <a class="el" href="uner_prtcl_8h_source.html">unerPrtcl.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="uner_prtcl_8h_source.html#l00039">39</a> del archivo <a class="el" href="uner_prtcl_8h_source.html">unerPrtcl.h</a>.</p>
 
-<p class="reference">Referenciado por <a class="el" href="main_8c_source.html#l00890">decodeCommand()</a>.</p>
+<p class="reference">Referenciado por <a class="el" href="main_8c_source.html#l00954">decodeCommand()</a>.</p>
 
 </div>
 </div>
