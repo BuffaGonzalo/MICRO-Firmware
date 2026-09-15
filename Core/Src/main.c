@@ -50,6 +50,7 @@
 #include <stdio.h>
 #include <unerPrtcl.h>
 #include <string.h>
+#include <math.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -428,6 +429,7 @@ int16_t ax_offset = 0;                                // Offset calibrado de gra
 volatile int16_t gz_offset = 0;                       // Offset calibrado del giróscopo en el eje Z
 volatile uint16_t calib_cycle = 0;                    // Contador de ciclos de calibración inicial del MPU (para telemetría)
 volatile int32_t total_yaw_hr = 0;                    // Ángulo Yaw total acumulado continuo en milígrados
+volatile int32_t compass_ref_yaw = 0;                 // Punto de referencia de Yaw para la Brújula (STATE_SECOND_SCREEN)
 
 // =========================================================
 // // SENSORES ADC E INFRARROJOS (CALIBRACIÓN / LUT)
@@ -864,6 +866,7 @@ void SetRobotMode(_eRobotMode newMode) {
 			ssd1306_ResetDMAState();
 			ssd1306_SetDisplayOn(1);
 			turn_offset = 0;
+			compass_ref_yaw = total_yaw_hr; // Guardar referencia de orientación al pasar a modo Brújula
 			break;
 
 		case STATE_STANDBY:
@@ -883,6 +886,8 @@ void SetRobotModeRemote(uint8_t modeId) {
 		case 3: SetRobotMode(STATE_DODGE); break;
 		case 4: SetRobotMode(STATE_JOYSTICK); break;
 		case 5: SetRobotMode(STATE_3D_SCREEN); break;
+		case 6: SetRobotMode(STATE_FIRST_SCREEN); break;
+		case 7: SetRobotMode(STATE_SECOND_SCREEN); break;
 		default: SetRobotMode(STATE_STANDBY); break;
 	}
 }
@@ -1031,7 +1036,7 @@ void decodeCommand(_sComm *dataRx, _sComm *dataTx) {
 		myWord.i8[0] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
 		myWord.i8[1] = unerPrtcl_GetByteFromRx(dataRx, 1, 0);
 		setpoint = (int32_t) myWord.i16[0];
-		if (robotMode != STATE_JOYSTICK) {
+		if (robotMode != STATE_JOYSTICK && setpoint != 1500) {
 			balance_setpoint_calib = setpoint;
 		}
 		break;
@@ -1545,6 +1550,27 @@ void displayMemWriteDMA(uint8_t address, uint8_t *data, uint8_t size, uint8_t ty
 	HAL_I2C_Mem_Write_DMA(&hi2c2, address , type, 1, data, size);
 }
 
+static int32_t fast_sin_x1000(int32_t deg) {
+	while (deg < 0) deg += 360;
+	while (deg >= 360) deg -= 360;
+	if (deg == 0 || deg == 180) return 0;
+	if (deg == 90) return 1000;
+	if (deg == 270) return -1000;
+
+	int32_t sign = 1;
+	if (deg > 180) {
+		deg -= 180;
+		sign = -1;
+	}
+	int32_t num = 4 * deg * (180 - deg);
+	int32_t den = 40500 - deg * (180 - deg);
+	return sign * ((num * 1000) / den);
+}
+
+static int32_t fast_cos_x1000(int32_t deg) {
+	return fast_sin_x1000(deg + 90);
+}
+
 void mpuMemWrite(uint8_t address, uint8_t *data, uint8_t size, uint8_t type){
 	HAL_I2C_Mem_Write(&hi2c2, address , type, 1, data, size, HAL_MAX_DELAY);
 }
@@ -1622,50 +1648,90 @@ void ssd1306Data() {
 				(SSD1306_MINADC - ((uint32_t)adcDataTx[6] * SSD1306_MAXADC) / 4090), (SSD1306_COLOR)Black);
 		ssd1306_Line(24, 60, 24,
 				(SSD1306_MINADC - ((uint32_t)adcDataTx[7] * SSD1306_MAXADC) / 4090), (SSD1306_COLOR)Black);
-	} else {
-		// New Screen: premium dark mode
+	} else if (robotMode == STATE_SECOND_SCREEN) {
+		// Modo Brújula de Referencia OLED (Reemplazo de pantalla 2 segundos)
 		ssd1306_Fill(Black);
 
-		// Row 1: VEL: <speed> mm/s (speed is integrated in mm/s)
-		ssd1306_SetCursor(2, 2);
-		ssd1306_WriteString("VEL:", Font_7x10, White);
-		ssd1306_SetCursor(36, 2);
-		snprintf(data, sizeof(data), "%ld mm/s", speed);
-		ssd1306_WriteString(data, Font_7x10, White);
+		// 1. Centro y radio de la circunferencia de la brújula
+		const int16_t cx = 36;
+		const int16_t cy = 32;
+		const int16_t r = 27;
 
-		// Row 2: ACL: <dynamic_accel * 3 / 5> mm/s2 (dynamic_accel is in LSB, 1 LSB ≈ 0.6 mm/s2)
-		ssd1306_SetCursor(2, 17);
-		ssd1306_WriteString("ACL:", Font_7x10, White);
-		ssd1306_SetCursor(36, 17);
-		snprintf(data, sizeof(data), "%ld mm/s2", (dynamic_accel * 3) / 5);
-		ssd1306_WriteString(data, Font_7x10, White);
+		// 2. Circunferencia exterior
+		ssd1306_DrawCircle(cx, cy, r, White);
 
-		// Row 3: ANG: <current_angle / 100>.<abs(current_angle % 100)>
-		ssd1306_SetCursor(2, 32);
-		ssd1306_WriteString("ANG:", Font_7x10, White);
-		ssd1306_SetCursor(36, 32);
-		int32_t ang_whole = current_angle / 100;
-		int32_t ang_frac = current_angle % 100;
-		if (ang_frac < 0) {
-			ang_frac = -ang_frac;
-		}
-		snprintf(data, sizeof(data), "%ld.%02ld", ang_whole, ang_frac);
-		ssd1306_WriteString(data, Font_7x10, White);
+		// Marcas cardinales en la circunferencia
+		ssd1306_Line(cx, cy - r, cx, cy - r + 3, White);     // N (0°)
+		ssd1306_Line(cx + r - 3, cy, cx + r, cy, White);     // E (90°)
+		ssd1306_Line(cx, cy + r - 3, cx, cy + r, White);     // S (180°)
+		ssd1306_Line(cx - r, cy, cx - r + 3, cy, White);     // W (270°)
 
-		// Row 4: BAL: <BALANCING / CAIDO> (si se esta balanceando o no)
-		ssd1306_SetCursor(2, 47);
-		ssd1306_WriteString("BAL:", Font_7x10, White);
-		ssd1306_SetCursor(36, 47);
-		if (current_angle < ANG45 && current_angle > -ANG45) {
-			ssd1306_WriteString("BALANCING", Font_7x10, White);
+		// 3. Flechita indicando la referencia fijada al entrar al modo
+		// delta respecto al punto de referencia guardado (en grados enteros)
+		int32_t delta_yaw_mdeg = total_yaw_hr - compass_ref_yaw;
+		int32_t disp_deg = delta_yaw_mdeg / 1000;
+		while (disp_deg > 180)  disp_deg -= 360;
+		while (disp_deg <= -180) disp_deg += 360;
+
+		// La flecha apunta a la referencia fijada (0° = 12 en punto / arriba)
+		int32_t arrow_angle = -disp_deg;
+		int32_t sin_a = fast_sin_x1000(arrow_angle);
+		int32_t cos_a = fast_cos_x1000(arrow_angle);
+
+		// Punta de la flecha
+		int16_t tip_x = cx + (int16_t)(((r - 4) * sin_a) / 1000);
+		int16_t tip_y = cy - (int16_t)(((r - 4) * cos_a) / 1000);
+
+		// Cola posterior de la flecha
+		int16_t tail_x = cx - (int16_t)((6 * sin_a) / 1000);
+		int16_t tail_y = cy + (int16_t)((6 * cos_a) / 1000);
+
+		// Aletas de la flecha (apertura angular ~28°)
+		int16_t left_x = tip_x - (int16_t)((8 * fast_sin_x1000(arrow_angle + 28)) / 1000);
+		int16_t left_y = tip_y + (int16_t)((8 * fast_cos_x1000(arrow_angle + 28)) / 1000);
+		int16_t right_x = tip_x - (int16_t)((8 * fast_sin_x1000(arrow_angle - 28)) / 1000);
+		int16_t right_y = tip_y + (int16_t)((8 * fast_cos_x1000(arrow_angle - 28)) / 1000);
+
+		// Dibujar flechita
+		ssd1306_Line(tail_x, tail_y, tip_x, tip_y, White);
+		ssd1306_Line(tip_x, tip_y, left_x, left_y, White);
+		ssd1306_Line(tip_x, tip_y, right_x, right_y, White);
+		ssd1306_Line(left_x, left_y, right_x, right_y, White);
+
+		// Eje central
+		ssd1306_FillCircle(cx, cy, 2, White);
+
+		// 4. Panel derecho con lecturas y punto de referencia
+		ssd1306_Line(70, 4, 70, 60, White);
+
+		ssd1306_SetCursor(75, 4);
+		ssd1306_WriteString("BRUJULA", Font_7x10, White);
+
+		ssd1306_SetCursor(75, 18);
+		ssd1306_WriteString("REF: 0*", Font_7x10, White);
+
+		char ang_str[16];
+		if (disp_deg > 0) {
+			snprintf(ang_str, sizeof(ang_str), "+%d*", (int)disp_deg);
 		} else {
-			ssd1306_WriteString("CAIDO", Font_7x10, White);
+			snprintf(ang_str, sizeof(ang_str), "%d*", (int)disp_deg);
 		}
+		ssd1306_SetCursor(75, 33);
+		ssd1306_WriteString(ang_str, Font_7x10, White);
 
-		// Horizontal dividing lines in White
-		ssd1306_Line(0, 14, 127, 14, White);
-		ssd1306_Line(0, 29, 127, 29, White);
-		ssd1306_Line(0, 44, 127, 44, White);
+		// Indicador de orientación respecto a referencia
+		const char *cardinal = "NORTE";
+		if (disp_deg >= -22 && disp_deg <= 22)        cardinal = "NORTE";
+		else if (disp_deg > 22 && disp_deg < 67)      cardinal = "NE";
+		else if (disp_deg >= 67 && disp_deg <= 112)   cardinal = "ESTE";
+		else if (disp_deg > 112 && disp_deg < 157)    cardinal = "SE";
+		else if (disp_deg >= 157 || disp_deg <= -157) cardinal = "SUR";
+		else if (disp_deg > -157 && disp_deg < -112)  cardinal = "SO";
+		else if (disp_deg >= -112 && disp_deg <= -67) cardinal = "OESTE";
+		else                                          cardinal = "NO";
+
+		ssd1306_SetCursor(75, 48);
+		ssd1306_WriteString((char*)cardinal, Font_7x10, White);
 	}
 }
 
@@ -2950,6 +3016,11 @@ void PIDTask(void) {
 		pwm_filtrado = 0;
 		integral_esfuerzo = 0;
 		angulo_modificador_pi = 0;
+	}
+
+	// Si se inyecta el pulso de destrabe manual (+1500), forzar la consigna de inclinación
+	if (setpoint == 1500) {
+		target_setpoint = 1500;
 	}
 
 	// =========================================================
