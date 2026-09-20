@@ -2781,7 +2781,7 @@ void Control_Joystick(int32_t *target_setpoint) {
  *     endif
  *
  *   case (DODGE_ROTATING)
- *     :Consigna de adherencia en giro: ***target_setpoint = +350**;
+ *     :Consigna de rotación con leve avance: ***target_setpoint = -250** (-2.5° pitch);
  *     :Atenuación de memoria inercial: **integral = (integral * 7) / 10**;
  *     if (¿abs_yaw >= 90000 milígrados [90°]?) then (Giro completado)
  *       :Detener giro y pasar a seguimiento de pared:\n**turn_offset = 0**, **dodge_yaw = 0**\n**dodgeState = DODGE_WALL_FOLLOWING**;
@@ -2805,11 +2805,12 @@ void Control_Joystick(int32_t *target_setpoint) {
  *     :Limitación de esfuerzo (Clamping):\n**turn_offset = clamp(turn_offset, -500, +500)**;
  *
  *     if (¿t >= 4000 ms && línea despejada && línea detectada?) then (Sí)
- *       :Transición de reenganche:\n***target_setpoint = +1250**, **turn_offset = 0**\n**dodgeState = DODGE_RETURN_ROTATING**;
+ *       :Transición de reenganche inmediato:\n***target_setpoint = -1400**, **turn_offset** activo\n**dodgeState = DODGE_RETURN_ROTATING**;
  *     endif
  *
  *   case (DODGE_RETURN_ROTATING)
- *     :Perfil de reingreso en 3 etapas:\n1. 0..250ms: Freno ***target_setpoint = +1250**, turn_offset = 0\n2. 250..350ms: Avance ***target_setpoint = -250**, turn_offset = 0\n3. 350ms+: Rotación angular a la línea con **turn_offset** saturado;
+ *     :Rotación directa sin espera manteniendo avance: ***target_setpoint = -1400**;
+ *     :Rotación angular hacia la línea con **turn_offset** según **dodge_bias_mult**;
  *     if (¿Fin de tiempo de reingreso?) then (Sí)
  *       :Retorno a **DODGE_LINE_FOLLOWING** (o búsqueda **LINE_LOST**);
  *     endif
@@ -2881,7 +2882,7 @@ void Control_Esquivar(int32_t left_ir, int32_t center_ir, int32_t right_ir, int3
 
 	case DODGE_ROTATING: {
 		// Rotación directa de 90° con giroscopio (la espera y frenado previo se realizaron en DODGE_STANDBY)
-		*target_setpoint = 350; // Inclinación (+3.50°) durante la rotación para buena adherencia
+		*target_setpoint = -250; // Inclinación suave frontal (-2.50°) durante la rotación
 		integral = (integral * 7) / 10; // Atenuación de memoria inercial
 
 		int32_t gz_calibrated = gz - gz_offset;
@@ -2964,8 +2965,12 @@ void Control_Esquivar(int32_t left_ir, int32_t center_ir, int32_t right_ir, int3
 					else            last_line_error = 0;
 				}
 				dodge_line_rotation_done = 1; // La rotación solo se ejecuta 1 vez por esquive
-				*target_setpoint = 1250;
-				turn_offset = 0;
+				*target_setpoint = -1400;     // Mantener setpoint de avance (-14.00°)
+				int32_t rot_turn = dodge_direction * dodge_bias_mult;
+				int32_t max_turn = (turn_limit > 3500) ? turn_limit : 3500;
+				if (rot_turn > max_turn)        rot_turn = max_turn;
+				else if (rot_turn < -max_turn)  rot_turn = -max_turn;
+				turn_offset = rot_turn;       // Rotación directa inmediata sin espera
 				dodge_yaw = 0;
 				dodge_timer = 0;
 				dodgeState = DODGE_RETURN_ROTATING;
@@ -2975,10 +2980,7 @@ void Control_Esquivar(int32_t left_ir, int32_t center_ir, int32_t right_ir, int3
 	}
 
 	case DODGE_RETURN_ROTATING: {
-		// Rotación en 3 etapas manteniendo balance con el mezclador:
-		// 1. 0 a 250ms: espera/frenado con setpoint +1250 (turn_offset = 0)
-		// 2. 250 a 350ms: preparación recta con setpoint -250 (turn_offset = 0)
-		// 3. 350 a (350 + dodge_bias_time): rotación con setpoint -250
+		// Rotación directa buscando la línea manteniendo setpoint de avance (-1400) sin espera ni frenado previo
 		dodge_timer += DT_MS;
 
 		uint8_t d_ir1 = (left_ir < IR_DODGE_LINE_THRESHOLD);
@@ -2998,17 +3000,9 @@ void Control_Esquivar(int32_t left_ir, int32_t center_ir, int32_t right_ir, int3
 			}
 		}
 
-		if (dodge_timer < 250) {
-			// Etapa 1 (250ms): espera / frenado (+12.50°) sin giro
-			*target_setpoint = 1250;
-			turn_offset = 0;
-		} else if (dodge_timer < 350) {
-			// Etapa 2 (100ms): avance recto con setpoint suave (-2.50°)
-			*target_setpoint = -250;
-			turn_offset = 0;
-		} else if (dodge_timer < (350 + (uint32_t)dodge_bias_time)) {
-			// Etapa 3: rotación fija configurada con setpoint -250 (no se corta por la línea)
-			*target_setpoint = -250;
+		if (dodge_timer < (uint32_t)dodge_bias_time) {
+			// Rotación directa continua con setpoint -1400 buscando la línea
+			*target_setpoint = -1400;
 			int32_t rot_turn = dodge_direction * dodge_bias_mult;
 			int32_t max_turn = (turn_limit > 3500) ? turn_limit : 3500;
 			if (rot_turn > max_turn)        rot_turn = max_turn;

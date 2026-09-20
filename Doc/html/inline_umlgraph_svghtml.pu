@@ -14,7 +14,7 @@ state Sockets {
 }
 ESP01_WIFI_NEW_IP --> Sockets
 @enduml
-@startuml inline_umlgraph_3.svg
+@startuml inline_umlgraph_2.svg
 title Despachador de Tareas ESP-01 (ESP01_Task)
 start
 if (¿Bytes pendientes en buffer RX AT?) then (Sí)
@@ -26,7 +26,7 @@ endif
 :ESP01SENDData();
 stop
 @enduml
-@startuml inline_umlgraph_5.svg
+@startuml inline_umlgraph_3.svg
 title Secuencia de Inicialización MPU-6050 (mpu6050_Init)
 participant "STM32 (I2C Master)" as MCU
 participant "MPU-6050 (0xD0)" as IMU
@@ -36,7 +36,7 @@ MCU -> IMU : CONFIG (0x1A) = 0x02 (DLPF ~98 Hz)
 MCU -> IMU : ACCEL_CONFIG (0x1C) = 0x00 (+/- 2g)
 MCU -> IMU : GYRO_CONFIG (0x1B) = 0x00 (+/- 250 deg/s)
 @enduml
-@startuml inline_umlgraph_7.svg
+@startuml inline_umlgraph_4.svg
 title Pipeline de Adquisición No Bloqueante I2C DMA (mpu6050_Read)
 start
 if (mpu_state == 1?) then (Estado 1: Disparo DMA)
@@ -54,7 +54,7 @@ else (En espera de DMA)
 endif
 stop
 @enduml
-@startuml inline_umlgraph_9.svg
+@startuml inline_umlgraph_5.svg
 title Pipeline de Refresco No Bloqueante DMA OLED (ssd1306_UpdateScreenDMA)
 start
 if (¿Flag TxCplt activo O estado == 1?) then (Sí)
@@ -82,7 +82,7 @@ endif
 #salmon:Retornar 0 (Transferencia en progreso);
 stop
 @enduml
-@startuml inline_umlgraph_10.svg
+@startuml inline_umlgraph_6.svg
 title Pipeline Asíncrono de Refresco OLED (ssd1306_UpdateScreenDMA)
 start
 if (¿TxCplt activo O estado == 1?) then (Listo para siguiente paso)
@@ -110,7 +110,7 @@ endif
 #salmon:Retornar 0 (Página o comando en curso);
 stop
 @enduml
-@startuml inline_umlgraph_13.svg
+@startuml inline_umlgraph_7.svg
 title Diagrama de Estados: Decodificación unerPrtcl (unerPrtcl_DecodeHeader)
 [*] --> HEADER_U : Inicio / Reset
 HEADER_U --> HEADER_N : Byte == 'U'
@@ -135,7 +135,7 @@ state PAYLOAD {
 Validacion --> HEADER_U : Checksum OK (retorna TRUE)
 Validacion --> HEADER_U : Checksum Error (retorna FALSE)
 @enduml
-@startuml inline_umlgraph_14.svg
+@startuml inline_umlgraph_8.svg
 title Proceso de Decodificación de Trama unerPrtcl (unerPrtcl_DecodeHeader)
 start
 :Obtener índice de escritura actual auxIndex = dataRx->indexW;
@@ -153,7 +153,7 @@ else (No)
 endif
 stop
 @enduml
-@startuml inline_umlgraph_17.svg
+@startuml inline_umlgraph_9.svg
 title Máquina de Estados: Animación WireGFX (WIREGFX_DisplayTask)
 [*] --> Cubo : Reset / Inicio
 state Cubo : Renderiza WIREGFX_Graphics_DrawCube()
@@ -164,7 +164,7 @@ Cubo --> Teseracto : DeltaTick >= 10000 ms
 Teseracto --> Piramide : DeltaTick >= 10000 ms
 Piramide --> Cubo : DeltaTick >= 10000 ms
 @enduml
-@startuml inline_umlgraph_19.svg
+@startuml inline_umlgraph_10.svg
 title Pipeline Gráfico 3D (WIREGFX_Graphics_DrawCube)
 start
 :Leer vértices locales cube_vertices[8];
@@ -184,7 +184,7 @@ endwhile
 :Incrementar ángulos de rotación;
 stop
 @enduml
-@startuml inline_umlgraph_21.svg
+@startuml inline_umlgraph_11.svg
 title Máquina de Estados: Driver Wi-Fi ESP-01 (ESP01_Task)
 [*] --> ESP01_NOT_INIT : Reset Hardware CH_PD
 ESP01_NOT_INIT --> ESP01_WIFI_DISCONNECTED : Responde AT (OK)
@@ -200,7 +200,7 @@ state Sockets {
 }
 ESP01_WIFI_NEW_IP --> Sockets
 @enduml
-@startuml inline_umlgraph_23.svg
+@startuml inline_umlgraph_12.svg
 title Despachador de Tareas ESP-01 (ESP01_Task)
 start
 if (¿Bytes pendientes en buffer RX AT?) then (Sí)
@@ -212,7 +212,7 @@ endif
 :ESP01SENDData();
 stop
 @enduml
-@startuml inline_umlgraph_25.svg
+@startuml inline_umlgraph_13.svg
 title Máquina de Estados Finita: Modos del Robot (SetRobotMode)
 [*] --> STATE_STANDBY : Inicio en frío
 
@@ -241,7 +241,7 @@ STATE_3D_SCREEN --> STATE_STANDBY : Caída / Clic SW0
 STATE_FIRST_SCREEN --> STATE_STANDBY : Clic SW0
 STATE_SECOND_SCREEN --> STATE_STANDBY : Clic SW0
 @enduml
-@startuml inline_umlgraph_27.svg
+@startuml inline_umlgraph_14.svg
 title Secuencia de Inicialización MPU-6050 (mpu6050_Init)
 participant "STM32 (I2C Master)" as MCU
 participant "MPU-6050 (0xD0)" as IMU
@@ -251,7 +251,7 @@ MCU -> IMU : CONFIG (0x1A) = 0x02 (DLPF ~98 Hz)
 MCU -> IMU : ACCEL_CONFIG (0x1C) = 0x00 (+/- 2g)
 MCU -> IMU : GYRO_CONFIG (0x1B) = 0x00 (+/- 250 deg/s)
 @enduml
-@startuml inline_umlgraph_29.svg
+@startuml inline_umlgraph_15.svg
 title Pipeline de Adquisición No Bloqueante I2C DMA (mpu6050_Read)
 start
 if (mpu_state == 1?) then (Estado 1: Disparo DMA)
@@ -269,7 +269,7 @@ else (En espera de DMA)
 endif
 stop
 @enduml
-@startuml inline_umlgraph_31.svg
+@startuml inline_umlgraph_16.svg
 title Pipeline Asíncrono de Refresco OLED (ssd1306_UpdateScreenDMA)
 start
 if (¿TxCplt activo O estado == 1?) then (Listo para siguiente paso)
@@ -297,7 +297,7 @@ endif
 #salmon:Retornar 0 (Página o comando en curso);
 stop
 @enduml
-@startuml inline_umlgraph_32.svg
+@startuml inline_umlgraph_17.svg
 title Pipeline de Refresco No Bloqueante DMA OLED (ssd1306_UpdateScreenDMA)
 start
 if (¿Flag TxCplt activo O estado == 1?) then (Sí)
@@ -325,7 +325,7 @@ endif
 #salmon:Retornar 0 (Transferencia en progreso);
 stop
 @enduml
-@startuml inline_umlgraph_35.svg
+@startuml inline_umlgraph_18.svg
 title Proceso de Decodificación de Trama unerPrtcl (unerPrtcl_DecodeHeader)
 start
 :Obtener índice de escritura actual auxIndex = dataRx->indexW;
@@ -343,7 +343,7 @@ else (No)
 endif
 stop
 @enduml
-@startuml inline_umlgraph_36.svg
+@startuml inline_umlgraph_19.svg
 title Diagrama de Estados: Decodificación unerPrtcl (unerPrtcl_DecodeHeader)
 [*] --> HEADER_U : Inicio / Reset
 HEADER_U --> HEADER_N : Byte == 'U'
@@ -368,7 +368,7 @@ state PAYLOAD {
 Validacion --> HEADER_U : Checksum OK (retorna TRUE)
 Validacion --> HEADER_U : Checksum Error (retorna FALSE)
 @enduml
-@startuml inline_umlgraph_39.svg
+@startuml inline_umlgraph_20.svg
 title Máquina de Estados: Animación WireGFX (WIREGFX_DisplayTask)
 [*] --> Cubo : Reset / Inicio
 state Cubo : Renderiza WIREGFX_Graphics_DrawCube()
@@ -379,7 +379,7 @@ Cubo --> Teseracto : DeltaTick >= 10000 ms
 Teseracto --> Piramide : DeltaTick >= 10000 ms
 Piramide --> Cubo : DeltaTick >= 10000 ms
 @enduml
-@startuml inline_umlgraph_41.svg
+@startuml inline_umlgraph_21.svg
 title Pipeline Gráfico 3D (WIREGFX_Graphics_DrawCube)
 start
 :Leer vértices locales cube_vertices[8];
@@ -399,7 +399,7 @@ endwhile
 :Incrementar ángulos de rotación;
 stop
 @enduml
-@startuml inline_umlgraph_43.svg
+@startuml inline_umlgraph_22.svg
 title MEF Antirrebote de Botón (updateMefTask)
 [*] --> BUTTON_UP
 BUTTON_UP --> BUTTON_FALLING : stateInput == PRESSED
@@ -409,7 +409,7 @@ BUTTON_DOWN --> BUTTON_RISING : stateInput == NOT_PRESSED
 BUTTON_RISING --> BUTTON_UP : stateInput == NOT_PRESSED\n(justReleased = TRUE, retorna TRUE)
 BUTTON_RISING --> BUTTON_DOWN : stateInput != NOT_PRESSED (Rebote)
 @enduml
-@startuml inline_umlgraph_45.svg
+@startuml inline_umlgraph_23.svg
 skinparam backgroundColor white
 skinparam arrowColor #2C3E50
 skinparam activity {
@@ -458,7 +458,7 @@ partition "Actuación (PWM) y Despacho a PID" {
 }
 stop
 @enduml
-@startuml inline_umlgraph_47.svg
+@startuml inline_umlgraph_24.svg
 skinparam backgroundColor white
 skinparam arrowColor #2C3E50
 skinparam activity {
@@ -502,7 +502,7 @@ partition "Controlador de Evasión (MEF y Control PD Multivariable)" {
     endif
 
   case (DODGE_ROTATING)
-    :Consigna de adherencia en giro: ***target_setpoint = +350**;
+    :Consigna de rotación con leve avance: ***target_setpoint = -250** (-2.5° pitch);
     :Atenuación de memoria inercial: **integral = (integral * 7) / 10**;
     if (¿abs_yaw >= 90000 milígrados [90°]?) then (Giro completado)
       :Detener giro y pasar a seguimiento de pared:\n**turn_offset = 0**, **dodge_yaw = 0**\n**dodgeState = DODGE_WALL_FOLLOWING**;
@@ -526,11 +526,12 @@ partition "Controlador de Evasión (MEF y Control PD Multivariable)" {
     :Limitación de esfuerzo (Clamping):\n**turn_offset = clamp(turn_offset, -500, +500)**;
 
     if (¿t >= 4000 ms && línea despejada && línea detectada?) then (Sí)
-      :Transición de reenganche:\n***target_setpoint = +1250**, **turn_offset = 0**\n**dodgeState = DODGE_RETURN_ROTATING**;
+      :Transición de reenganche inmediato:\n***target_setpoint = -1400**, **turn_offset** activo\n**dodgeState = DODGE_RETURN_ROTATING**;
     endif
 
   case (DODGE_RETURN_ROTATING)
-    :Perfil de reingreso en 3 etapas:\n1. 0..250ms: Freno ***target_setpoint = +1250**, turn_offset = 0\n2. 250..350ms: Avance ***target_setpoint = -250**, turn_offset = 0\n3. 350ms+: Rotación angular a la línea con **turn_offset** saturado;
+    :Rotación directa sin espera manteniendo avance: ***target_setpoint = -1400**;
+    :Rotación angular hacia la línea con **turn_offset** según **dodge_bias_mult**;
     if (¿Fin de tiempo de reingreso?) then (Sí)
       :Retorno a **DODGE_LINE_FOLLOWING** (o búsqueda **LINE_LOST**);
     endif
@@ -543,7 +544,7 @@ partition "Actuación (PWM) y Despacho a PID" {
 }
 stop
 @enduml
-@startuml inline_umlgraph_49.svg
+@startuml inline_umlgraph_25.svg
 skinparam backgroundColor white
 skinparam arrowColor #2C3E50
 skinparam activity {
@@ -635,7 +636,7 @@ partition "Actuación (PWM) y Despacho a PID" {
 }
 stop
 @enduml
-@startuml inline_umlgraph_51.svg
+@startuml inline_umlgraph_26.svg
 skinparam backgroundColor white
 skinparam arrowColor #2C3E50
 skinparam activity {
@@ -717,7 +718,7 @@ partition "Actuación (PWM) y Mezcla de Motores" {
 }
 stop
 @enduml
-@startuml inline_umlgraph_53.svg
+@startuml inline_umlgraph_27.svg
 title Lazo de Control Crítico en Cascada 200 Hz (PIDTask)
 start
 if (¿Bandera RUN_PID activa (TIM2 5ms)?) then (Sí)
